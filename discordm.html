@@ -3,215 +3,169 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join Krash Discord - Ultimate Stoner Vibe</title>
-  <!-- Bootstrap CSS for basic layout -->
+  <title>Join Krash Discord - Chill Vibes</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Reggae+One&display=swap');
     /* Global styles */
     body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #4ca1af);
+      color: white;
+      text-align: center;
       margin: 0;
       padding: 0;
-      background: linear-gradient(45deg, #ff0000, #ff9900, #33cc33, #0099ff, #9900cc);
-      background-size: 400% 400%;
-      animation: backgroundFlow 15s infinite linear;
+    }
+
+    h1 {
+      font-size: 3rem;
       color: #FFD700;
-      font-family: 'Reggae One', cursive;
-      text-align: center;
-      overflow-x: hidden;
-      cursor: url('https://cdn.pixabay.com/photo/2018/03/05/01/29/weed-3191063_960_720.png'), auto;
+      text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+      margin-top: 50px;
+      animation: fadeIn 2s ease-out;
     }
-    @keyframes backgroundFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    /* Preloader styles */
-    #preloader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
+
+    /* Card container styles */
+    .card-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      height: 100vh;
+      padding: 20px;
     }
-    .loader {
-      width: 100px;
-      height: 100px;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/a/a2/Leaf_icon.svg') no-repeat center center;
-      background-size: contain;
-      animation: rotateLoader 2s linear infinite;
-    }
-    @keyframes rotateLoader {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    /* Main container styles */
-    .container {
-      position: relative;
-      z-index: 1;
-    }
+
     .card {
-      background: rgba(0, 0, 0, 0.75);
-      border: 3px solid #FFD700;
-      box-shadow: 0 0 25px #FFD700;
-      transition: transform 0.3s, box-shadow 0.3s;
-      padding: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      padding: 30px;
       max-width: 450px;
-      margin: auto;
-      border-radius: 10px;
-    }
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px #FFD700;
-    }
-    .btn-custom {
-      background: black;
-      border: 2px solid #FFD700;
-      color: #FFD700;
-      font-size: 1.5rem;
-      padding: 10px;
       width: 100%;
-      transition: all 0.3s;
-      border-radius: 5px;
-      position: relative;
-      overflow: hidden;
-      margin-top: 20px;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+      animation: slideUp 1.5s ease-out;
     }
-    .btn-custom:hover {
-      background: #FFD700;
-      color: black;
-      box-shadow: 0 0 20px #FFD700;
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    .btn-custom::after {
-      content: '🔥';
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      animation: float 1.5s infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-      100% { transform: translateY(0); }
-    }
-    .typing {
-      font-size: 1.5rem;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 3px solid #FFD700;
-      display: inline-block;
-      animation: typing 5s steps(40, end) infinite;
-    }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    .mod-link {
-      display: block;
-      margin-top: 15px;
-      font-size: 1.5rem;
+
+    .card h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
       color: #FFD700;
-      text-decoration: underline;
-      animation: pulse 1.5s infinite alternate;
+      text-transform: uppercase;
     }
-    .mod-link:hover {
-      color: #ff0000;
-      text-shadow: 0 0 10px #ff0000;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.8; }
-      50% { transform: scale(1.1); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.8; }
-    }
-    /* Floating animated leaves */
-    .animated-leaf {
-      position: absolute;
-      width: 50px;
-      opacity: 0.6;
-      animation: leafFloat 12s linear infinite;
-    }
-    @keyframes leafFloat {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      50% { transform: translate(100px, 200px) rotate(180deg); }
-      100% { transform: translate(0, 0) rotate(360deg); }
-    }
-    /* Floating animated clouds */
-    .animated-cloud {
-      position: absolute;
-      width: 100px;
-      height: 60px;
-      background: rgba(255,255,255,0.3);
-      border-radius: 50px;
-      animation: cloudMove 20s infinite linear;
-    }
-    @keyframes cloudMove {
-      0% { transform: translateX(-200px); }
-      100% { transform: translateX(120vw); }
-    }
-    /* Fallback message for no JavaScript */
-    noscript {
-      color: red;
+
+    .card p {
       font-size: 1.2rem;
-      padding: 20px;
-      background: #000;
+      color: #FFF;
+      margin-bottom: 20px;
+    }
+
+    /* Button styles */
+    .btn-custom {
+      background-color: #FFD700;
+      color: black;
+      padding: 15px 30px;
+      font-size: 1.3rem;
+      text-decoration: none;
+      border-radius: 8px;
+      width: 100%;
+      display: block;
+      margin: 15px 0;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: #ff8c00;
+      transform: scale(1.05);
+    }
+
+    .btn-custom:active {
+      background-color: #e67e22;
+    }
+
+    /* Link to ModShop */
+    .mod-link {
+      color: #FFD700;
+      font-size: 1.2rem;
+      text-decoration: none;
+      margin-top: 15px;
+    }
+
+    .mod-link:hover {
+      text-decoration: underline;
+      color: #ff8c00;
+    }
+
+    /* Responsive styling */
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .card {
+        padding: 20px;
+      }
+
+      .btn-custom {
+        font-size: 1.1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <noscript>Please enable JavaScript for the full experience.</noscript>
-  <!-- Preloader -->
-  <div id="preloader">
-    <div class="loader"></div>
-  </div>
-  <!-- Floating elements -->
-  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Leaf_icon.svg" alt="Leaf" class="animated-leaf" style="top: 10%; left: 5%;">
-  <div class="animated-cloud" style="top: 20%; left: -100px;"></div>
-  <div class="animated-cloud" style="top: 70%; left: -150px;"></div>
   <!-- Main content -->
-  <div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card-container">
     <div class="card">
-      <h1 class="glitch">🔥 Join Krash Discord 🔥</h1>
-      <p class="typing">Need mods for consoles? No worries, fam.</p>
+      <h1>🔥 Join Krash Discord 🔥</h1>
+      <h2>Welcome to the Krash Server!</h2>
+      <p>For mods, join our community. Get custom content and mods for your consoles, enjoy exclusive benefits!</p>
+
       <a href="https://modshop.xyz/" target="_blank" class="mod-link">💨 Visit Mod Shop</a>
-      <a href="https://discord.com/invite/fdqtjnAh" target="_blank" class="btn btn-custom">🌿 Join Now</a>
+      <a href="https://discord.com/invite/fdqtjnAh" target="_blank" class="btn-custom">🌿 Join Now</a>
     </div>
   </div>
+
   <script>
-    // Hide preloader when page loads
-    window.addEventListener('load', function(){
-      const preloader = document.getElementById('preloader');
-      preloader.style.transition = 'opacity 0.5s ease';
-      preloader.style.opacity = 0;
-      setTimeout(() => {
-        preloader.style.display = 'none';
-      }, 500);
-    });
-    // Optional: Add custom cursor trail effect
+    // Optional: Add custom cursor trail effect for fun
     document.addEventListener('mousemove', function(e) {
       let trail = document.createElement('div');
       trail.style.position = 'absolute';
-      trail.style.width = '8px';
-      trail.style.height = '8px';
-      trail.style.background = '#FFD700';
+      trail.style.width = '10px';
+      trail.style.height = '10px';
+      trail.style.backgroundColor = '#FFD700';
       trail.style.borderRadius = '50%';
-      trail.style.left = e.pageX + 'px';
-      trail.style.top = e.pageY + 'px';
+      trail.style.left = `${e.pageX - 5}px`;
+      trail.style.top = `${e.pageY - 5}px`;
       trail.style.pointerEvents = 'none';
-      trail.style.opacity = 1;
-      trail.style.transition = 'opacity 1s linear, transform 1s linear';
       document.body.appendChild(trail);
+
       setTimeout(() => {
-        trail.style.opacity = 0;
-        trail.style.transform = 'scale(2)';
+        trail.style.transform = 'scale(3)';
+        trail.style.opacity = '0';
       }, 50);
+      
       setTimeout(() => {
         trail.remove();
-      }, 1000);
+      }, 800);
     });
   </script>
 </body>
