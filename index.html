@@ -1,438 +1,237 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ModdingXZ Ultimate 2026 | COD Modding Services</title>
 
-<title>ModdingXZ | COD Modding Services</title>
-
+<!-- Bootstrap & Fonts -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-background:#050505;
-color:white;
-font-family:Rajdhani;
-overflow-x:hidden;
+/* === GENERAL === */
+body{margin:0;padding:0;font-family:Rajdhani;background:#050505;color:white;overflow-x:hidden;}
+a{text-decoration:none;}
+.navbar{background:#000;}
+.logo{font-family:Orbitron;color:#00ffff;font-size:22px;}
+/* === HERO === */
+.hero{position:relative;padding:160px 20px;text-align:center;overflow:hidden;color:#00ffff;}
+.hero h1{font-family:Orbitron;font-size:4rem;margin-bottom:15px;}
+.hero p{color:#aaa;font-size:1.3rem;}
+#particles-js{position:absolute;width:100%;height:100%;top:0;left:0;z-index:0;}
+.hero-content{position:relative;z-index:1;}
+/* === BUTTONS === */
+.btn-order{border:2px solid cyan;color:cyan;transition:.3s;font-weight:600;}
+.btn-order:hover{background:cyan;color:black;}
+.btn-order-lg{border:2px solid cyan;color:cyan;padding:12px 30px;font-size:20px;font-weight:600;}
+.btn-order-lg:hover{background:cyan;color:black;}
+/* === SECTIONS === */
+.section{padding:80px 0;}
+.section-title{font-family:Orbitron;text-align:center;margin-bottom:50px;}
+.service-card{background:#111;padding:25px;border-radius:12px;box-shadow:0 0 10px rgba(0,255,255,.2);height:100%;transition:.3s;}
+.service-card:hover{transform:translateY(-10px);box-shadow:0 0 20px cyan;}
+.price{color:#00ffff;font-size:1.5rem;margin-top:10px;}
+.stats{text-align:center;background:#0a0a0a;}
+.stat{font-size:2.5rem;color:#00ffff;}
+.review-card{background:#111;padding:25px;border-radius:10px;text-align:center;}
+.cta{text-align:center;background:#000;padding:100px 20px;}
+.footer{background:#000;text-align:center;padding:30px;}
+.footer a{color:cyan;}
+.notification{position:fixed;bottom:20px;left:20px;background:#111;padding:15px 20px;border-radius:8px;box-shadow:0 0 10px cyan;font-size:14px;display:none;z-index:999;}
+.filter-btns{text-align:center;margin-bottom:30px;overflow-x:auto;white-space:nowrap;}
+.filter-btns button{margin:5px;border:2px solid cyan;color:cyan;background:none;transition:.3s;font-weight:600;}
+.filter-btns button:hover,.filter-btns button.active{background:cyan;color:black;}
+/* === RESPONSIVE === */
+@media (max-width:768px){
+  .hero h1{font-size:3rem;}
+  .hero p{font-size:1.1rem;}
+  .btn-order-lg{width:90%;font-size:18px;}
+  .service-card{padding:20px;}
 }
-
-.navbar{
-background:#000;
+@media (max-width:576px){
+  .hero h1{font-size:2.5rem;}
+  .hero p{font-size:1rem;}
+  .service-card{padding:15px;}
+  .btn-order-lg{padding:10px 20px;font-size:16px;}
 }
-
-.logo{
-font-family:Orbitron;
-color:#00ffff;
-font-size:22px;
-}
-
-.hero{
-padding:160px 20px;
-text-align:center;
-background:linear-gradient(180deg,#000,#0a0a0a);
-}
-
-.hero h1{
-font-family:Orbitron;
-font-size:4rem;
-color:#00ffff;
-}
-
-.hero p{
-color:#aaa;
-}
-
-.order-btn{
-border:2px solid cyan;
-color:cyan;
-}
-
-.order-btn:hover{
-background:cyan;
-color:black;
-}
-
-.order-btn-lg{
-border:2px solid cyan;
-color:cyan;
-padding:12px 30px;
-font-size:20px;
-}
-
-.order-btn-lg:hover{
-background:cyan;
-color:black;
-}
-
-.section{
-padding:80px 0;
-}
-
-.section-title{
-font-family:Orbitron;
-text-align:center;
-margin-bottom:40px;
-}
-
-.service-card{
-background:#111;
-padding:30px;
-border-radius:12px;
-transition:.3s;
-box-shadow:0 0 10px rgba(0,255,255,.2);
-height:100%;
-}
-
-.service-card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 20px cyan;
-}
-
-.price{
-font-size:1.5rem;
-color:#00ffff;
-}
-
-.stats{
-background:#0a0a0a;
-text-align:center;
-}
-
-.stat{
-font-size:2.5rem;
-color:#00ffff;
-}
-
-.review-card{
-background:#111;
-padding:25px;
-border-radius:10px;
-}
-
-.cta{
-text-align:center;
-background:#000;
-padding:100px 20px;
-}
-
-.footer{
-background:#000;
-text-align:center;
-padding:30px;
-}
-
-.footer a{
-color:cyan;
-text-decoration:none;
-}
-
-.notification{
-position:fixed;
-bottom:20px;
-left:20px;
-background:#111;
-padding:15px 20px;
-border-radius:8px;
-box-shadow:0 0 10px cyan;
-font-size:14px;
-display:none;
-}
-
 </style>
 
 </head>
-
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-
 <div class="container">
-
 <a class="navbar-brand logo">ModdingXZ</a>
-
 <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-
 <span class="navbar-toggler-icon"></span>
-
 </button>
-
 <div class="collapse navbar-collapse" id="nav">
-
 <ul class="navbar-nav ms-auto">
-
 <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-
 <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
-
-<li class="nav-item">
-
-<a class="btn order-btn ms-3" href="https://t.me/ModdingXZ_Support_Bot">Order</a>
-
-</li>
-
+<li class="nav-item"><a class="btn btn-order ms-3" href="https://t.me/ModdingXZ_Support_Bot">Order</a></li>
 </ul>
-
 </div>
-
 </div>
-
 </nav>
 
-
-
+<!-- HERO -->
 <section class="hero">
-
+<div id="particles-js"></div>
+<div class="hero-content">
 <h1>MODDINGXZ</h1>
-
 <p>Professional Call of Duty Modding Services</p>
-
-<a class="btn order-btn-lg mt-3" href="https://t.me/ModdingXZ_Support_Bot">Order via Telegram</a>
-
+<a class="btn btn-order-lg mt-3" href="https://t.me/ModdingXZ_Support_Bot">Order via Telegram</a>
+</div>
 </section>
 
-
-
+<!-- STATS -->
 <section class="section stats">
-
 <div class="container">
-
-<div class="row">
-
-<div class="col-md-4">
-
-<h2 class="stat">15000+</h2>
-
-<p>Accounts Upgraded</p>
-
+<div class="row text-center">
+<div class="col-md-4"><h2 class="stat" data-target="15000">0</h2><p>Accounts Upgraded</p></div>
+<div class="col-md-4"><h2 class="stat" data-target="5000">0</h2><p>Happy Customers</p></div>
+<div class="col-md-4"><h2 class="stat" data-target="48">0</h2><p>Average Delivery (h)</p></div>
 </div>
-
-<div class="col-md-4">
-
-<h2 class="stat">5000+</h2>
-
-<p>Happy Customers</p>
-
 </div>
-
-<div class="col-md-4">
-
-<h2 class="stat">24-48h</h2>
-
-<p>Average Delivery</p>
-
-</div>
-
-</div>
-
-</div>
-
 </section>
 
-
-
+<!-- SERVICES -->
 <section id="services" class="section">
-
 <div class="container">
-
 <h2 class="section-title">Popular Services</h2>
 
-<div class="row g-4">
+<div class="filter-btns">
+<button class="active" data-filter="all">All</button>
+<button data-filter="bo3">BO3</button>
+<button data-filter="cw">Cold War</button>
+<button data-filter="divinium">Divinium</button>
+</div>
 
-<div class="col-md-4">
-
+<div class="row g-4" id="service-grid">
+<div class="col-md-4 service-item" data-category="bo3">
 <div class="service-card">
-
 <h4>BO3 Ultimate Package</h4>
-
 <ul>
-
 <li>Prestige 1000</li>
-
 <li>Unlock All</li>
-
 <li>Modded Classes</li>
-
 <li>Unlimited Death Machine</li>
-
 </ul>
-
 <p class="price">£15</p>
-
-<a class="btn order-btn" href="https://t.me/ModdingXZ_Support_Bot?start=bo3">Order</a>
-
+<a class="btn btn-order" href="https://t.me/ModdingXZ_Support_Bot?start=bo3">Order</a>
+</div>
 </div>
 
-</div>
-
-
-
-<div class="col-md-4">
-
+<div class="col-md-4 service-item" data-category="divinium">
 <div class="service-card">
-
 <h4>Liquid Divinium</h4>
-
 <ul>
-
 <li>100k – £5</li>
-
 <li>500k – £10</li>
-
 <li>1M – £20</li>
-
 </ul>
-
 <p class="price">Fast Delivery</p>
-
-<a class="btn order-btn" href="https://t.me/ModdingXZ_Support_Bot?start=divinium">Order</a>
-
+<a class="btn btn-order" href="https://t.me/ModdingXZ_Support_Bot?start=divinium">Order</a>
+</div>
 </div>
 
-</div>
-
-
-
-<div class="col-md-4">
-
+<div class="col-md-4 service-item" data-category="cw">
 <div class="service-card">
-
 <h4>COD Max Progression</h4>
-
 <ul>
-
 <li>MW2019 Level 1000</li>
-
 <li>Cold War Level 2500</li>
-
 <li>DM Ultra Unlock</li>
-
 </ul>
-
 <p class="price">£15</p>
-
-<a class="btn order-btn" href="https://t.me/ModdingXZ_Support_Bot?start=codmax">Order</a>
-
+<a class="btn btn-order" href="https://t.me/ModdingXZ_Support_Bot?start=codmax">Order</a>
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 </section>
 
-
-
+<!-- REVIEWS -->
 <section id="reviews" class="section">
-
 <div class="container">
-
 <h2 class="section-title">Customer Reviews</h2>
-
 <div class="row g-4">
-
-<div class="col-md-4">
-
-<div class="review-card">
-
-<p>⭐⭐⭐⭐⭐</p>
-
-<p>"Got prestige 1000 instantly. Fast service."</p>
-
+<div class="col-md-4"><div class="review-card"><p>⭐⭐⭐⭐⭐</p><p>"Got prestige 1000 instantly. Fast service."</p></div></div>
+<div class="col-md-4"><div class="review-card"><p>⭐⭐⭐⭐⭐</p><p>"Best BO3 mod service around."</p></div></div>
+<div class="col-md-4"><div class="review-card"><p>⭐⭐⭐⭐⭐</p><p>"Friendly support and quick delivery."</p></div></div>
 </div>
-
 </div>
-
-<div class="col-md-4">
-
-<div class="review-card">
-
-<p>⭐⭐⭐⭐⭐</p>
-
-<p>"Best BO3 mod service around."</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="review-card">
-
-<p>⭐⭐⭐⭐⭐</p>
-
-<p>"Friendly support and quick delivery."</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </section>
 
-
-
+<!-- CTA -->
 <section class="cta">
-
 <h2>Ready to Upgrade Your Account?</h2>
-
-<a class="btn order-btn-lg mt-3" href="https://t.me/ModdingXZ_Support_Bot">Start Order</a>
-
+<a class="btn btn-order-lg mt-3" href="https://t.me/ModdingXZ_Support_Bot">Start Order</a>
 </section>
 
-
-
+<!-- FOOTER -->
 <footer class="footer">
-
 <p>© 2026 ModdingXZ</p>
-
 <a href="https://t.me/ModdingXZ_Support_Bot">Telegram Support</a>
-
 </footer>
 
-
-
+<!-- PURCHASE NOTIFICATION -->
 <div class="notification" id="notify"></div>
 
-
-
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 
 <script>
+// PARTICLES
+particlesJS("particles-js", {
+  "particles": {"number":{"value":60},"color":{"value":"#00ffff"},"shape":{"type":"circle"},"opacity":{"value":0.3},"size":{"value":3},"move":{"speed":1.2}}
+});
 
+// ANIMATED COUNTERS
+const counters=document.querySelectorAll('.stat');
+counters.forEach(counter=>{
+  const updateCount=()=>{
+    const target=+counter.getAttribute('data-target');
+    const count=+counter.innerText;
+    const increment=Math.ceil(target/100);
+    if(count<target){counter.innerText=count+increment;setTimeout(updateCount,30);}else{counter.innerText=target;}
+  }
+  updateCount();
+});
+
+// PURCHASE NOTIFICATIONS
 const purchases=[
 "🔥 Liam from London purchased BO3 Ultimate",
 "🔥 Ryan from Manchester purchased Divinium",
 "🔥 Alex from Glasgow purchased COD Max Progression",
 "🔥 Jake from Birmingham purchased BO3 Package"
-]
-
+];
 function showNotification(){
-
-let box=document.getElementById("notify")
-
-box.innerText=purchases[Math.floor(Math.random()*purchases.length)]
-
-box.style.display="block"
-
-setTimeout(()=>{
-
-box.style.display="none"
-
-},4000)
-
+  const box=document.getElementById("notify");
+  box.innerText=purchases[Math.floor(Math.random()*purchases.length)];
+  box.style.display="block";
+  setTimeout(()=>{box.style.display="none"},4000);
 }
+setInterval(showNotification,15000);
 
-setInterval(showNotification,15000)
-
+// SERVICE FILTER
+const filterBtns=document.querySelectorAll(".filter-btns button");
+const serviceItems=document.querySelectorAll(".service-item");
+filterBtns.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    filterBtns.forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const filter=btn.getAttribute("data-filter");
+    serviceItems.forEach(item=>{
+      if(filter==="all" || item.getAttribute("data-category")===filter){item.style.display="block";}
+      else{item.style.display="none";}
+    });
+  });
+});
 </script>
-
 </body>
 </html>
