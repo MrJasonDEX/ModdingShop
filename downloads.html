@@ -1,194 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Downloads - Modding Ninja's</title>
-    
-    <!-- SEO -->
-    <meta name="description" content="Download cheats for PC, PS3, and PS4 games. Safe and reliable tools for enhancing your gaming experience.">
-    <meta name="keywords" content="game cheats, PC cheats, PS3 cheats, PS4 cheats, gaming tools">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Downloads - Modding Ninja's">
-    <meta property="og:description" content="Download cheats for PC, PS3, and PS4 games.">
-    <meta property="og:type" content="website">
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/colors.css">
-    <link rel="stylesheet" href="assets/css/general.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ModdingXZ</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<style>
+
+body{
+background:#050505;
+color:white;
+font-family:Arial;
+opacity:0;
+transition:opacity 1s;
+overflow-x:hidden;
+}
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+.navbar{
+background:#000;
+border-bottom:1px solid #00ffc8;
+}
+
+.hero{
+padding:140px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:3.5rem;
+background:linear-gradient(90deg,#00ffc8,#00aaff);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.btn-order{
+background:#00ffc8;
+border:none;
+border-radius:30px;
+padding:10px 25px;
+font-weight:bold;
+}
+
+.section-title{
+text-align:center;
+margin:70px 0 40px;
+}
+
+.service-card{
+background:#0f0f0f;
+border-radius:15px;
+padding:25px;
+border:1px solid #222;
+transition:.3s;
+height:100%;
+}
+
+.service-card:hover{
+transform:translateY(-10px);
+border-color:#00ffc8;
+box-shadow:0 0 25px #00ffc8;
+}
+
+.stats{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+margin-bottom:60px;
+}
+
+.stat{text-align:center}
+.stat h2{color:#00ffc8}
+
+.download-rules{
+background:#0f0f0f;
+border:1px solid #00ffc8;
+padding:25px;
+border-radius:12px;
+margin-bottom:40px;
+}
+
+footer{
+margin-top:80px;
+padding:30px;
+background:#000;
+text-align:center;
+}
+
+.live{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#111;
+padding:12px 20px;
+border-radius:20px;
+display:none;
+font-size:14px;
+}
+
+.sticky-order{
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:999;
+}
+
+#notify{
+position:fixed;
+top:20px;
+right:20px;
+background:#111;
+padding:15px;
+border-radius:10px;
+display:none;
+z-index:999;
+}
+
+</style>
 </head>
+
 <body>
-    <div class="app">
-        <!-- Navbar -->
-        <div class="section__navbar">
-            <div class="navbar">
-                <div class="navbar__header">
-                    <a href="index.html" class="navbar__brand" aria-label="Modding Ninja's Home">Modding Ninja's</a>
-                    <div class="navbar__menu" onclick="navbar()" aria-label="Toggle navigation menu">
-                        <!-- SVG for menu -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
-                            <g id="menu" transform="translate(-2 -5)">
-                                <line x2="15" transform="translate(6 12)" stroke="#fff" stroke-width="2"/>
-                                <line x2="18" transform="translate(3 6)" stroke="#fff" stroke-width="2"/>
-                                <line x2="18" transform="translate(3 18)" stroke="#fff" stroke-width="2"/>
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-                <div class="navbar__nav" id="navbarNav">
-                    <ul>
-                        <li><a href="index.html" class="navbar__link" aria-label="Home">Home</a></li>
-                        <li><a href="index.html#about" class="navbar__link" aria-label="About">About</a></li>
-                        <li><a href="index.html#shop" class="navbar__link" aria-label="Shop">Shop</a></li>
-                        <li><a href="index.html#faq" class="navbar__link" aria-label="FAQ">FAQ</a></li>
-                        <li><a href="index.html#reviews" class="navbar__link" aria-label="Reviews">Reviews</a></li>
-                        <li><a href="terms.html" class="navbar__link" aria-label="Terms">Terms</a></li>
-                        <li><a href="downloads.html" class="navbar__link active" aria-label="Downloads">Downloads</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
-        <!-- Downloads Section -->
-        <div class="section__downloads py-5">
-            <div class="container">
-                <div class="downloads__header text-center mb-4">
-                    <h1 class="downloads__title">Game Cheats Downloads</h1>
-                    <p class="downloads__description">Download cheats for your favorite games on PC, PS3, and PS4.</p>
-                    <p> Coming soon! Bookmark my site if you would like</p>
-                </div>
+<div id="particles-js"></div>
 
-                <!-- Tabs for Platforms -->
-                <ul class="nav nav-tabs justify-content-center" id="platformTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pc-tab" data-bs-toggle="tab" data-bs-target="#pc" type="button" role="tab" aria-controls="pc" aria-selected="true">PC</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="ps3-tab" data-bs-toggle="tab" data-bs-target="#ps3" type="button" role="tab" aria-controls="ps3" aria-selected="false">PS3</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="ps4-tab" data-bs-toggle="tab" data-bs-target="#ps4" type="button" role="tab" aria-controls="ps4" aria-selected="false">PS4</button>
-                    </li>
-                </ul>
+<nav class="navbar navbar-dark navbar-expand-lg">
+<div class="container">
 
-                <!-- Tab Content -->
-                <div class="tab-content mt-4" id="platformTabsContent">
-                    <!-- PC Cheats -->
-                    <div class="tab-pane fade show active" id="pc" role="tabpanel" aria-labelledby="pc-tab">
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Scropts.dll</h5>
-                                        
-                                        <a href="http://modshop.xyz/Mods/black-ops-3/Scropts.dll" class="btn btn-primary">Download</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">GSC injector for Black ops 3</h5>
-                                      
-                                        <a href="https://modshop.xyz/Mods/black-ops-3/PC.zip" class="btn btn-primary">Download</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                  
+<a class="navbar-brand">ModdingXZ</a>
 
+<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+<span class="navbar-toggler-icon"></span>
+</button>
 
-                    <!-- PS3 Cheats -->
-                    <div class="tab-pane fade" id="ps3" role="tabpanel" aria-labelledby="ps3-tab">
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Cheat C</h5>
-                                        <p class="card-text">Description for PS3 Cheat C.</p>
-                                        <a href="#" class="btn btn-primary">Download</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Cheat D</h5>
-                                        <p class="card-text">Description for PS3 Cheat D.</p>
-                                        <a href="#" class="btn btn-primary">Download</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="collapse navbar-collapse" id="nav">
+<ul class="navbar-nav ms-auto">
 
-                    <!-- PS4 Cheats -->
-                    <div class="tab-pane fade" id="ps4" role="tabpanel" aria-labelledby="ps4-tab">
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Cheat E</h5>
-                                        <p class="card-text">Description for PS4 Cheat E.</p>
-                                        <a href="#" class="btn btn-primary">Download</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Cheat F</h5>
-                                        <p class="card-text">Description for PS4 Cheat F.</p>
-                                        <a href="#" class="btn btn-primary">Download</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+<li class="nav-item"><a class="nav-link" href="#downloads">Downloads</a></li>
+<li class="nav-item"><a class="nav-link" href="#games">Mini Games</a></li>
 
-        <!-- Footer -->
-        <div class="section__footer">
-            <div class="row">
-                <div class="col-lg-3">
-                    <a href="index.html" class="footer__brand" aria-label="Modding Ninja's Home">Modding Ninja's</a>
-                    <p class="footer__description">
-                        Your trusted source for premium mods and cheats. Enhance your gaming experience with our reliable and affordable products.
-                    </p>
-                </div>
-                <div class="col-lg-3">
-                    <h4 class="link__header">Quick Links</h4>
-                    <ul class="footer__links">
-                        <li><a href="#about" class="footer__link">About Us</a></li>
-                        <li><a href="#shop" class="footer__link">Shop</a></li>
-                        <li><a href="#faq" class="footer__link">FAQ</a></li>
-                        <li><a href="#reviews" class="footer__link">Reviews</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h4 class="link__header">Support</h4>
-                    <ul class="footer__links">
-                        <li><a href="terms.html" class="footer__link">Terms of Service</a></li>
-                        <li><a href="#" class="footer__link">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <button id="back-to-top" onclick="scrollToTop()" aria-label="Back to top">↑</button>
-            <div class="footer__copyright">
-                &copy; 2023 Modding Ninja's. All rights reserved.
-            </div>
-        </div>
-    </div>
+</ul>
+</div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/navbar.js"></script>
+</div>
+</nav>
+
+<section class="hero">
+
+<h1>ModdingXZ</h1>
+<p>Professional Call of Duty Modding Services</p>
+
+<a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-order">
+Order Now
+</a>
+
+<p id="queue" style="margin-top:20px"></p>
+
+</section>
+
+<div class="container">
+
+<div class="stats">
+
+<div class="stat">
+<h2 id="liveOrders">1850</h2>
+<p>Orders Completed</p>
+</div>
+
+<div class="stat">
+<h2 id="visitors">0</h2>
+<p>Live Visitors</p>
+</div>
+
+<div class="stat">
+<h2 id="customers">920</h2>
+<p>Customers</p>
+</div>
+
+</div>
+
+<h2 id="services" class="section-title">Services</h2>
+
+<input id="search" class="form-control mb-4" placeholder="Search services...">
+
+<div class="row g-4">
+
+<div class="col-md-4 service">
+<div class="service-card">
+
+<h4>BO3 Ultimate Package</h4>
+
+<ul>
+<li>Prestige 1000</li>
+<li>Unlock All</li>
+<li>Modded Classes</li>
+<li>Zombies Prestige 12</li>
+</ul>
+
+<strong>£15</strong>
+
+<a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-order mt-2">
+Order
+</a>
+
+</div>
+</div>
+
+<div class="col-md-4 service">
+<div class="service-card">
+
+<h4>Liquid Divinium</h4>
+
+<ul>
+<li>100k – £5</li>
+<li>500k – £10</li>
+<li>1M – £20</li>
+</ul>
+
+<strong>From £5</strong>
+
+<a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-order mt-2">
+Order
+</a>
+
+</div>
+</div>
+
+<div class="col-md-4 service">
+<div class="service-card">
+
+<h4>IPTV Subscription</h4>
+
+<ul>
+<li>Firestick</li>
+<li>Android</li>
+<li>Smart TV</li>
+</ul>
+
+<strong>£50</strong>
+
+<a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-order mt-2">
+Order
+</a>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+<section id="downloads" class="container">
+
+<h2 class="section-title">Downloads</h2>
+
+<div class="download-rules">
+
+<h4>🚨 MOD ANNOUNCEMENT</h4>
+
+<p>This section is strictly for verified public downloads.</p>
+
+<ul>
+<li>Only share public releases</li>
+<li>Attachments or links required</li>
+<li>Executable files should include VirusTotal scans</li>
+<li>Malware uploads result in bans</li>
+</ul>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="service-card">
+
+<h4>PS4 Tools</h4>
+<p>Payloads and downgrade tools.</p>
+
+<a href="https://t.me/ModdingXZ" class="btn btn-order">
+Download
+</a>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="service-card">
+
+<h4>Mod Menus</h4>
+<p>Game mod menus and saves.</p>
+
+<a href="https://t.me/ModdingXZ" class="btn btn-order">
+Download
+</a>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="service-card">
+
+<h4>Modding Tools</h4>
+<p>Utilities and editors.</p>
+
+<a href="https://t.me/ModdingXZ" class="btn btn-order">
+Download
+</a>
+
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section id="games" class="container">
+
+<h2 class="section-title">Mini Games</h2>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="service-card">
+
+<h4>Reaction Test</h4>
+
+<button onclick="startReaction()" class="btn btn-order">Start</button>
+
+<div id="reactionBox" style="height:100px;background:#333;margin-top:10px"></div>
+
+<p id="reactionResult"></p>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="service-card">
+
+<h4>Guess Number</h4>
+
+<input id="guessInput" class="form-control">
+
+<button onclick="guessNumber()" class="btn btn-order mt-2">Guess</button>
+
+<p id="guessResult"></p>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="service-card">
+
+<h4>Supply Drop Simulator</h4>
+
+<button onclick="openDrop()" class="btn btn-order">Open</button>
+
+<p id="dropResult"></p>
+
+</div>
+</div>
+
+</div>
+
+<div class="service-card mt-4">
+
+<h4>Zombies Survival</h4>
+
+<button onclick="startZombie()" class="btn btn-order">Start</button>
+
+<p id="zombieScore">Score: 0</p>
+
+<div id="zombieField" style="height:200px;position:relative"></div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>© 2026 ModdingXZ</p>
+
+<a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-order">
+Order via Telegram
+</a>
+
+</footer>
+
+<div class="sticky-order">
+<a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-order">Order</a>
+</div>
+
+<div class="live" id="live"></div>
+<div id="notify"></div>
+
+<script>
+
+window.onload=function(){document.body.style.opacity=1}
+
+particlesJS("particles-js",{particles:{number:{value:60},size:{value:3},color:{value:"#00ffc8"},line_linked:{enable:true,color:"#00ffc8"},move:{speed:2}}})
+
+setInterval(()=>{document.getElementById("visitors").innerText=Math.floor(Math.random()*30)+15},4000)
+
+setInterval(()=>{
+
+let el=document.getElementById("liveOrders")
+let current=parseInt(el.innerText)
+
+if(Math.random()>0.7) el.innerText=current+1
+
+},8000)
+
+let queueMessages=[
+"Connecting to modding servers...",
+"Checking lobby availability...",
+"Preparing host connection...",
+"Server ready — services available"
+]
+
+let q=0
+
+setInterval(()=>{
+
+document.getElementById("queue").innerText=queueMessages[q]
+
+if(q<queueMessages.length-1) q++
+
+},2500)
+
+const buyers=[
+"Alex bought BO3 Package",
+"Liam bought IPTV",
+"Chris bought Divinium",
+"Jamie bought Dark Aether"
+]
+
+function showLive(){
+
+let live=document.getElementById("live")
+
+live.innerText=buyers[Math.floor(Math.random()*buyers.length)]
+
+live.style.display="block"
+
+setTimeout(()=>{live.style.display="none"},4000)
+
+}
+
+setInterval(showLive,15000)
+
+function openDrop(){
+
+const loot=["Common Calling Card","Rare Camo","Epic Outfit","Legendary Weapon","Dark Matter"]
+
+document.getElementById("dropResult").innerText="You got: "+loot[Math.floor(Math.random()*loot.length)]
+
+}
+
+let reactionStart
+
+function startReaction(){
+
+let box=document.getElementById("reactionBox")
+
+box.style.background="red"
+
+setTimeout(()=>{
+
+box.style.background="green"
+
+reactionStart=Date.now()
+
+box.onclick=()=>{
+
+let time=Date.now()-reactionStart
+
+document.getElementById("reactionResult").innerText="Reaction: "+time+"ms"
+
+}
+
+},Math.random()*3000)
+
+}
+
+let number=Math.floor(Math.random()*10)+1
+
+function guessNumber(){
+
+let guess=document.getElementById("guessInput").value
+
+document.getElementById("guessResult").innerText =
+guess==number ? "Correct!" : "Wrong!"
+
+}
+
+let zombieScore=0
+let zombieInterval
+
+function startZombie(){
+
+zombieScore=0
+document.getElementById("zombieScore").innerText="Score: 0"
+
+let field=document.getElementById("zombieField")
+field.innerHTML=""
+
+zombieInterval=setInterval(()=>{
+
+let z=document.createElement("div")
+
+z.innerText="🧟"
+z.style.position="absolute"
+z.style.left=Math.random()*90+"%"
+z.style.top=Math.random()*150+"px"
+z.style.cursor="pointer"
+
+z.onclick=()=>{
+
+zombieScore++
+document.getElementById("zombieScore").innerText="Score: "+zombieScore
+z.remove()
+
+}
+
+field.appendChild(z)
+
+setTimeout(()=>{if(z.parentNode)z.remove()},2000)
+
+},800)
+
+setTimeout(()=>{
+
+clearInterval(zombieInterval)
+
+alert("Game Over! Score: "+zombieScore)
+
+},15000)
+
+}
+
+</script>
+
 </body>
 </html>
