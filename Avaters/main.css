@@ -1,46 +1,178 @@
-/* main.css - Custom styles for the avatar gallery */
-body {
-  background-color: #f8f9fa;
+/* ===== ROOT / THEME ===== */
+:root {
+  --primary: #0d6efd;
+  --accent: #ffc107;
+  --dark: #0f172a;
+  --light: #f8f9fa;
+  --card-bg: #ffffff;
 }
+
+/* ===== GLOBAL ===== */
+body {
+  background: linear-gradient(180deg, #f8f9fa, #eef1f4);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* {
+  transition: all 0.2s ease;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  backdrop-filter: blur(10px);
+}
+
+/* ===== SEARCH ===== */
+.search-box {
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+/* ===== AVATAR CARD ===== */
+.avatar-card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.avatar-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* ===== IMAGE ===== */
 .gallery-img {
   width: 100%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  will-change: transform;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+
 .gallery-img:hover {
-  transform: scale(1.03);
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
 }
-.search-box {
-  margin-bottom: 20px;
-}
-.favorite-star {
-  font-size: 1.2em;
-  transition: color 0.2s;
-}
+
+/* ===== FAVORITES ===== */
 .favorite-btn {
   border: none;
   background: none;
   padding: 0;
-  line-height: 1;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 2;
 }
-.favorite-btn:focus {
-  outline: 2px solid #ffc107;
+
+.favorite-star {
+  font-size: 1.4em;
+  color: #ccc;
 }
-.avatar-card:focus {
-  box-shadow: 0 0 0 0.2rem #0d6efd40;
+
+.favorite-btn.active .favorite-star {
+  color: var(--accent);
 }
+
+/* ===== LOCKED AVATARS (FOR MONETISATION) ===== */
+.locked .gallery-img {
+  filter: blur(5px) brightness(0.7);
+}
+
+.locked::after {
+  content: "🔒 Locked";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+/* ===== BACK TO TOP ===== */
+#backToTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1050;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+#backToTopBtn.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== MODAL ===== */
+#avatarModal img {
+  max-height: 70vh;
+  border-radius: 12px;
+}
+
+/* ===== LOADING (OPTIONAL SKELETON) ===== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #eee 25%,
+    #ddd 37%,
+    #eee 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 10px;
+  height: 150px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* ===== FOCUS (ACCESSIBILITY) ===== */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ===== MOBILE ===== */
 @media (max-width: 576px) {
   .gallery-img {
     border-radius: 6px;
   }
+
   .avatar-card {
-    font-size: 0.95em;
+    padding: 6px;
   }
 }
-/* Modal image max size */
-#avatarModal img {
-  max-width: 100%;
-  max-height: 350px;
+
+/* ===== DARK MODE (OPTIONAL TOGGLE) ===== */
+body.dark-mode {
+  background: #0f172a;
+  color: #fff;
+}
+
+body.dark-mode .avatar-card {
+  background: #1e293b;
+}
+
+body.dark-mode .search-box {
+  background: #1e293b;
+  color: #fff;
+  border: 1px solid #334155;
 }
