@@ -5857,17 +5857,17 @@ document.addEventListener('DOMContentLoaded', function () {
   const searchInput = document.getElementById('searchInput');
   const resultCount = document.getElementById('resultCount');
 
-  let selectedAvatars = [];
-
   let html = '';
 
   for (const line of allPngFiles) {
     const filename = line.split('/').pop();
 
     html += `
-      <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-3 text-center avatar-card" data-name="${filename}">
-        <img src="${line}" class="gallery-img" alt="${filename}" loading="lazy">
-        <div class="small mt-1 text-break">${filename}</div>
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <div class="avatar-card" data-name="${filename}">
+          <img src="${line}" class="gallery-img" alt="${filename}" loading="lazy">
+          <div class="avatar-name">${filename}</div>
+        </div>
       </div>
     `;
   }
@@ -5878,7 +5878,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateCount() {
     const visible = [...imageGrid.children].filter(el => el.style.display !== 'none');
     if (resultCount) {
-      resultCount.textContent = `${visible.length} avatars found`;
+      resultCount.textContent = `${visible.length} avatars`;
     }
   }
 
@@ -5887,55 +5887,47 @@ document.addEventListener('DOMContentLoaded', function () {
   // 🔍 SEARCH
   searchInput.addEventListener('input', function () {
     const filter = this.value.toLowerCase();
-    const cards = imageGrid.querySelectorAll('.avatar-card');
+    const cards = imageGrid.querySelectorAll('.col-6');
 
     cards.forEach(card => {
-      const name = card.dataset.name.toLowerCase();
+      const name = card.querySelector('.avatar-card').dataset.name.toLowerCase();
       card.style.display = name.includes(filter) ? '' : 'none';
     });
 
     updateCount();
   });
 
-  // ⭐ SELECT SYSTEM
-  imageGrid.addEventListener('click', function (e) {
+  // ⚡ COPY ON TAP (APP FEEL)
+  imageGrid.addEventListener('click', async function (e) {
     const card = e.target.closest('.avatar-card');
     if (!card) return;
 
     const name = card.dataset.name;
 
-    if (selectedAvatars.includes(name)) {
-      selectedAvatars = selectedAvatars.filter(a => a !== name);
-      card.classList.remove('selected');
-    } else {
-      selectedAvatars.push(name);
-      card.classList.add('selected');
-    }
+    try {
+      await navigator.clipboard.writeText(name);
 
-    const selectedCount = document.getElementById('selectedCount');
-    if (selectedCount) {
-      selectedCount.textContent = `${selectedAvatars.length} selected`;
-    }
-  });
+      // visual feedback
+      card.classList.add('copied');
+      setTimeout(() => card.classList.remove('copied'), 600);
 
-  // 📩 SEND TO TELEGRAM
-  const sendBtn = document.getElementById('sendSelectionBtn');
-
-  if (sendBtn) {
-    sendBtn.onclick = () => {
-      if (selectedAvatars.length === 0) {
-        alert("Select at least one avatar");
-        return;
+      // toast (if using SweetAlert in HTML)
+      if (window.Swal) {
+        Swal.fire({
+          toast: true,
+          position: 'bottom',
+          icon: 'success',
+          title: 'Copied',
+          text: name,
+          showConfirmButton: false,
+          timer: 1200,
+          background: '#111',
+          color: '#fff'
+        });
       }
 
-      const message = encodeURIComponent(
-        "Avatar Request:\n\n" + selectedAvatars.join("\n")
-      );
-
-      window.open(
-        "https://t.me/ModdingXZ_Support_Bot?start=" + message,
-        "_blank"
-      );
-    };
-  }
-})
+    } catch {
+      alert("Copy failed");
+    }
+  });
+});
