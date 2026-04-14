@@ -3,72 +3,251 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Premium Modded Avatars Gallery</title>
+
+  <title>ModdingShop | Premium Modded Avatars</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="main.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #0d6efd;
+      --accent: #ffc107;
+      --dark: #0f172a;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      background: linear-gradient(180deg, #f8f9fa, #eef1f4);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    * {
+      transition: all 0.2s ease;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      backdrop-filter: blur(12px);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 {
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      color: #6c757d;
+      margin-bottom: 15px;
+    }
+
+    /* CTA */
+    .cta-btn {
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+    }
+
+    /* CONTROLS */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    /* FAVORITES */
+    #toggleFavoritesBtn {
+      border-radius: 20px;
+    }
+
+    /* GRID CARD */
+    .avatar-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 8px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .avatar-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    }
+
+    /* IMAGE */
+    .gallery-img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.05);
+    }
+
+    /* FAVORITE BUTTON */
+    .favorite-btn {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      border: none;
+      background: none;
+      z-index: 2;
+    }
+
+    .favorite-star {
+      font-size: 1.4em;
+      color: #ccc;
+    }
+
+    .favorite-btn.active .favorite-star {
+      color: var(--accent);
+    }
+
+    /* LOCKED STATE */
+    .locked .gallery-img {
+      filter: blur(5px) brightness(0.7);
+    }
+
+    .locked::after {
+      content: "🔒 Premium";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    /* BACK TO TOP */
+    #backToTopBtn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 1050;
+    }
+
+    #backToTopBtn.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 40px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 576px) {
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .avatar-card {
+        padding: 6px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">ModdingShop Avatars</a>
-    </div>
-  </nav>
 
-  <div class="container pb-4">
-    <h1 class="text-center mb-2 display-5 fw-semibold">6,288 Premium Modded Avatars</h1>
-    <p class="text-center text-muted mb-4">
-      Browse, search, and favorite your favorite avatars. Click any avatar for details, download, or sharing options!
-    </p>
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-primary mb-4">
+  <div class="container">
+    <span class="navbar-brand fw-bold">ModdingShop</span>
 
-    <!-- Favorites Toggle -->
-    <div class="d-flex justify-content-end mb-2">
-      <button class="btn btn-outline-warning btn-sm" id="toggleFavoritesBtn">
-        <span>&#9733;</span> View Favorites
-      </button>
-    </div>
+    <!-- IMPORTANT: keep your bot -->
+    <a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-warning btn-sm">
+      Unlock All
+    </a>
+  </div>
+</nav>
 
-    <!-- Search Card -->
-    <div class="row justify-content-center mb-4">
-      <div class="col-md-8">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <input type="text" class="form-control search-box" id="searchInput" placeholder="🔍 Search avatars by name, style, or tag...">
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="container">
 
-    <!-- Gallery Grid -->
-    <div class="row g-4" id="imageGrid">
-      <!-- Images will be loaded here by main.js -->
-      <div class="d-flex justify-content-center align-items-center" id="loadingSpinner" style="height:200px;">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading avatars...</span>
-        </div>
-      </div>
+  <!-- HERO -->
+  <div class="hero">
+    <h1 id="avatarCount">Loading avatars...</h1>
+    <p>Browse, search, and unlock premium modded avatars instantly.</p>
+
+    <a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-success cta-btn">
+      Unlock All Avatars
+    </a>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="controls">
+
+    <!-- KEEP THIS ID (important for JS) -->
+    <input 
+      type="text"
+      id="searchInput"
+      class="form-control search-box"
+      placeholder="🔍 Search avatars..."
+    >
+
+    <!-- KEEP THIS ID -->
+    <button class="btn btn-outline-warning btn-sm" id="toggleFavoritesBtn">
+      ⭐ Favorites
+    </button>
+
+  </div>
+
+  <!-- GRID (DO NOT CHANGE ID) -->
+  <div class="row g-4" id="imageGrid">
+    <div class="d-flex justify-content-center align-items-center" style="height:200px;">
+      <div class="spinner-border text-primary"></div>
     </div>
   </div>
 
-  <!-- Back to Top Button -->
-  <button type="button" class="btn btn-primary rounded-circle shadow" id="backToTopBtn" style="position:fixed;bottom:30px;right:30px;display:none;z-index:1050;">
-    &uarr;
-  </button>
+</div>
 
-  <!-- Footer -->
-  <footer class="bg-light text-center py-3 mt-auto border-top">
-    <small class="text-muted">&copy; 2024 ModdingShop. All rights reserved.</small>
-  </footer>
+<!-- BACK TO TOP -->
+<button class="btn btn-primary rounded-circle shadow" id="backToTopBtn">
+  ↑
+</button>
 
-  <script src="main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    // Back to Top Button
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    window.addEventListener('scroll', () => {
-      backToTopBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
-    });
-    backToTopBtn.onclick = () => window.scrollTo({top:0,behavior:'smooth'});
-  </script>
+<!-- FOOTER -->
+<footer class="bg-light text-center py-3 border-top">
+  <small class="text-muted">&copy; 2026 ModdingShop</small>
+</footer>
+
+<!-- JS (UNCHANGED STRUCTURE) -->
+<script src="script.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const btn = document.getElementById('backToTopBtn');
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('show', window.scrollY > 200);
+  });
+
+  btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+</script>
+
 </body>
 </html>
