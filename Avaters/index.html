@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Avatar Picker</title>
+  <title>ModdingShop Avatars</title>
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,28 +16,43 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
-    :root {
-      --accent: #0d6efd;
-    }
-
     body {
-      background: #eef1f4;
+      background: linear-gradient(180deg, #eef1f4, #ffffff);
       font-family: system-ui;
-      padding-bottom: 80px;
+      overflow-x: hidden;
     }
 
-    /* 🔥 PREMIUM HEADER */
+    /* HERO */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-weight: 800;
+      font-size: 2.2rem;
+    }
+
+    .hero button {
+      border-radius: 30px;
+      padding: 12px 28px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* HEADER */
     .app-header {
       position: sticky;
       top: 0;
       z-index: 1050;
       backdrop-filter: blur(12px);
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.85);
       padding: 10px;
       border-bottom: 1px solid #ddd;
     }
 
-    /* SEARCH */
     .search-box {
       border-radius: 12px;
       border: none;
@@ -45,13 +60,14 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    /* GRID */
+    /* CARD */
     .avatar-card {
       background: #fff;
       border-radius: 14px;
       overflow: hidden;
       cursor: pointer;
       transition: 0.2s;
+      position: relative;
     }
 
     .avatar-card:hover {
@@ -63,13 +79,27 @@
       transform: scale(0.95);
     }
 
-    /* IMAGE */
-    .gallery-img {
-      width: 100%;
-      display: block;
+    .avatar-card.locked img {
+      filter: blur(5px) brightness(0.6);
     }
 
-    /* NAME */
+    .avatar-card.locked::after {
+      content: "🔒 Premium";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 0.8rem;
+      background: rgba(0,0,0,0.8);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .gallery-img {
+      width: 100%;
+    }
+
     .avatar-name {
       font-size: 0.7rem;
       padding: 6px;
@@ -78,116 +108,163 @@
       color: #555;
     }
 
-    /* COPIED EFFECT */
     .avatar-card.copied {
       border: 2px solid #198754;
-      box-shadow: 0 0 0 3px rgba(25,135,84,0.2);
     }
 
-    /* FLOAT TIP */
-    .floating-bar {
+    /* RECENT BAR */
+    .recent-bar {
       position: fixed;
-      bottom: 15px;
+      bottom: 60px;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 5px;
+      overflow-x: auto;
+      white-space: nowrap;
+      z-index: 2000;
+    }
+
+    .recent-item {
+      display: inline-block;
+      background: #f1f3f6;
+      padding: 5px 10px;
+      border-radius: 20px;
+      margin-right: 5px;
+      font-size: 0.7rem;
+    }
+
+    /* FLOAT CTA */
+    .floating-cta {
+      position: fixed;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      background: #000;
+      background: #0d6efd;
       color: #fff;
-      padding: 10px 16px;
+      padding: 12px 20px;
       border-radius: 30px;
-      font-size: 0.8rem;
-      opacity: 0.9;
-    }
-
-    /* RESULT TEXT */
-    .meta-bar {
-      font-size: 0.8rem;
-      color: #666;
-      display: flex;
-      justify-content: space-between;
-      margin-top: 5px;
+      font-weight: 600;
+      z-index: 2100;
     }
   </style>
 </head>
 
 <body>
 
-<!-- 🔥 HEADER -->
-<div class="app-header">
-  <div class="container">
+<!-- HERO -->
+<section class="hero container">
+  <div>
+    <h1>Premium Modded Avatars</h1>
+    <p class="text-muted mb-3">Tap → Copy → Send to us</p>
 
-    <input 
-      type="text"
-      id="searchInput"
-      class="form-control search-box"
-      placeholder="🔍 Search avatars..."
-    >
-
-    <div class="meta-bar">
-      <span id="resultCount"></span>
-      <span class="text-success fw-bold">Tap to copy</span>
-    </div>
-
+    <button id="enterAppBtn" class="btn btn-primary btn-lg">
+      Browse Avatars
+    </button>
   </div>
-</div>
+</section>
 
-<!-- GRID -->
-<div class="container mt-2">
-  <div class="row g-3" id="imageGrid">
-    <div class="text-center py-5">
-      <div class="spinner-border"></div>
+<!-- APP -->
+<div id="appSection" style="display:none;">
+
+  <div class="app-header">
+    <div class="container">
+      <input id="searchInput" class="form-control search-box" placeholder="Search avatars...">
+      <div class="d-flex justify-content-between small mt-1">
+        <span id="resultCount"></span>
+        <span class="text-success">Tap to copy</span>
+      </div>
     </div>
   </div>
+
+  <div class="container mt-2">
+    <div class="row g-3" id="imageGrid"></div>
+  </div>
+
 </div>
 
-<!-- FLOAT BAR -->
-<div class="floating-bar">
-  Tap avatar → name copied
+<!-- RECENT -->
+<div id="recentBar" class="recent-bar"></div>
+
+<!-- CTA -->
+<div class="floating-cta" onclick="openTelegram()">
+  Send to Support
 </div>
 
-<!-- YOUR SCRIPT -->
+<!-- JS -->
 <script src="main.js" defer></script>
-
-<!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+  const btn = document.getElementById("enterAppBtn");
+  const app = document.getElementById("appSection");
+  const recentBar = document.getElementById("recentBar");
+
+  let recent = [];
+
+  btn.onclick = () => {
+    document.querySelector(".hero").style.display = "none";
+    app.style.display = "block";
+    window.scrollTo({ top: 0 });
+  };
+
+  function openTelegram() {
+    if (recent.length === 0) {
+      alert("Copy at least one avatar first");
+      return;
+    }
+
+    const msg = encodeURIComponent("Avatar Request:\n\n" + recent.join("\n"));
+    window.open("https://t.me/ModdingXZ_Support_Bot?start=" + msg);
+  }
+
   document.addEventListener("click", async (e) => {
     const card = e.target.closest(".avatar-card");
     if (!card) return;
 
-    const name = card.dataset.name;
-    if (!name) return;
-
-    try {
-      await navigator.clipboard.writeText(name);
-
-      // visual feedback
-      card.classList.add("copied", "animate__animated", "animate__pulse");
-
-      setTimeout(() => {
-        card.classList.remove("copied", "animate__pulse");
-      }, 600);
-
-      // premium toast
+    if (card.classList.contains("locked")) {
       Swal.fire({
-        toast: true,
-        position: 'bottom',
-        icon: 'success',
-        title: 'Copied',
-        text: name,
-        showConfirmButton: false,
-        timer: 1200,
-        background: '#111',
-        color: '#fff'
+        title: "Premium Only",
+        text: "Unlock all avatars via our Telegram bot",
+        confirmButtonText: "Open Bot"
+      }).then(() => {
+        window.open("https://t.me/ModdingXZ_Support_Bot");
       });
-
-    } catch {
-      Swal.fire({
-        icon: 'error',
-        title: 'Copy failed'
-      });
+      return;
     }
+
+    const name = card.dataset.name;
+
+    await navigator.clipboard.writeText(name);
+
+    card.classList.add("copied");
+    setTimeout(() => card.classList.remove("copied"), 500);
+
+    // add to recent
+    if (!recent.includes(name)) {
+      recent.unshift(name);
+      if (recent.length > 10) recent.pop();
+
+      renderRecent();
+    }
+
+    Swal.fire({
+      toast: true,
+      position: "bottom",
+      title: "Copied",
+      text: name,
+      showConfirmButton: false,
+      timer: 1000
+    });
   });
+
+  function renderRecent() {
+    recentBar.innerHTML = "";
+    recent.forEach(name => {
+      recentBar.innerHTML += `<span class="recent-item">${name}</span>`;
+    });
+  }
 </script>
 
 </body>
