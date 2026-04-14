@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>ModdingShop — PSN Avatars</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Exo+2:wght@300;400;700&display=swap" rel="stylesheet">
+  
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
   <style>
     :root {
       --ps-blue: #0072CE;
@@ -29,7 +32,7 @@
       min-height: 100vh;
     }
 
-    /* ====== SPLASH ====== */
+    /* ====== SPLASH SCREEN ====== */
     #splash {
       position: fixed; inset: 0; z-index: 9999;
       background: var(--ps-darker);
@@ -42,7 +45,8 @@
     
     .splash-content { position: relative; z-index: 10; text-align: center; }
     .splash-title { font-family: 'Rajdhani'; font-size: 3.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; background: linear-gradient(to bottom, #fff, var(--ps-accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
+    .splash-sub { color: var(--ps-muted); letter-spacing: 2px; font-size: 0.9rem; margin-top: 5px; }
+
     .enter-btn {
       margin-top: 30px; background: linear-gradient(135deg, var(--ps-blue), var(--ps-accent));
       border: none; color: white; padding: 16px 45px; border-radius: 50px;
@@ -50,7 +54,7 @@
       box-shadow: 0 10px 30px var(--ps-blue-glow);
     }
 
-    /* ====== APP ====== */
+    /* ====== APP MAIN UI ====== */
     #app { display: none; }
     #app.visible { display: block; }
 
@@ -63,52 +67,65 @@
     .search-wrap { flex: 1; position: relative; }
     #searchInput {
       width: 100%; background: rgba(255,255,255,0.06); border: 1px solid var(--ps-border);
-      border-radius: 30px; color: white; padding: 10px 15px 10px 40px; outline: none;
+      border-radius: 30px; color: white; padding: 12px 15px 12px 40px; outline: none;
+      font-size: 1rem;
     }
 
     .how-bar {
-      display: flex; justify-content: center; gap: 10px; padding: 15px;
-      background: rgba(0,114,206,0.1); font-size: 0.75rem; color: var(--ps-muted);
+      display: flex; justify-content: center; gap: 15px; padding: 15px;
+      background: rgba(0,114,206,0.05); font-size: 0.75rem; color: var(--ps-muted);
+      border-bottom: 1px solid var(--ps-border);
     }
     .step-num { color: var(--ps-accent); font-weight: 700; }
 
-    /* ====== GRID ====== */
+    /* ====== AVATAR GRID ====== */
     .grid-wrap { padding: 15px; max-width: 1400px; margin: 0 auto; min-height: 100vh; }
     #imageGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    
     @media (min-width: 768px) { #imageGrid { grid-template-columns: repeat(6, 1fr); } }
 
     .avatar-card {
       background: var(--ps-card); border-radius: 12px; aspect-ratio: 1;
       overflow: hidden; border: 1px solid var(--ps-border); cursor: pointer;
       transition: transform 0.2s, border-color 0.2s;
+      position: relative;
     }
-    .avatar-card img { width: 100%; height: 100%; object-fit: cover; }
-    .avatar-card.copied { border-color: var(--ps-green); box-shadow: 0 0 15px var(--ps-green); }
+    .avatar-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+    .avatar-card:active { transform: scale(0.95); }
+    .avatar-card.copied { border: 2px solid var(--ps-green); box-shadow: 0 0 15px rgba(0,255,136,0.3); }
 
-    /* ====== RECENT BAR ====== */
+    /* ====== BOTTOM UI ====== */
     .recent-bar {
-      position: fixed; bottom: 85px; left: 0; width: 100%; z-index: 100;
+      position: fixed; bottom: 90px; left: 0; width: 100%; z-index: 100;
       padding: 0 16px; pointer-events: none;
     }
-    .recent-inner { display: flex; gap: 8px; overflow-x: auto; pointer-events: all; }
+    .recent-inner { 
+      display: flex; gap: 8px; overflow-x: auto; pointer-events: all; 
+      padding-bottom: 10px; scrollbar-width: none; 
+    }
     .recent-pill {
       background: rgba(18,18,26,0.95); border: 1px solid var(--ps-border);
-      padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; color: var(--ps-accent);
+      padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; color: var(--ps-accent);
       white-space: nowrap; backdrop-filter: blur(10px);
     }
 
-    /* ====== FLOATING BUTTON ====== */
-    .float-cta { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 1100; width: 90%; max-width: 400px; }
+    .float-cta { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 1100; width: 90%; max-width: 420px; }
     .send-btn {
       width: 100%; background: linear-gradient(135deg, var(--ps-blue), var(--ps-accent));
-      border: none; color: white; padding: 16px; border-radius: 50px;
+      border: none; color: white; padding: 18px; border-radius: 50px;
       font-family: 'Rajdhani'; font-weight: 700; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      font-size: 1.1rem;
     }
-    .recent-chip-count { background: white; color: var(--ps-blue); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
+    .recent-chip-count { 
+      background: white; color: var(--ps-blue); 
+      width: 24px; height: 24px; border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center; 
+      font-size: 0.8rem; font-weight: 800;
+    }
 
-    .loader-msg { text-align: center; padding: 40px; color: var(--ps-muted); }
+    .loader-msg { text-align: center; padding: 50px; color: var(--ps-muted); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -117,8 +134,8 @@
     <div class="splash-bg"><div class="splash-orb"></div></div>
     <div class="splash-content">
       <h1 class="splash-title">ModdingShop</h1>
-      <p class="splash-sub">5,847 PSN AVATARS AVAILABLE</p>
-      <button class="enter-btn" id="enterBtn">Browse Collection →</button>
+      <p class="splash-sub">OVER 5,000 PREMIUM AVATARS</p>
+      <button class="enter-btn" id="enterBtn">Open Catalog</button>
     </div>
   </div>
 
@@ -126,22 +143,21 @@
     <nav class="app-nav">
       <div class="nav-inner">
         <div class="search-wrap">
-          <input id="searchInput" type="search" placeholder="Search IDs (e.g. 01ABD)...">
+          <input id="searchInput" type="search" placeholder="Search by ID...">
         </div>
       </div>
     </nav>
 
     <div class="how-bar">
-      <div><span class="step-num">1</span> Tap to Copy</div>
+      <div><span class="step-num">1</span> Tap to Pick</div>
       <div><span class="step-num">2</span> Collect IDs</div>
-      <div><span class="step-num">3</span> Send to Support</div>
+      <div><span class="step-num">3</span> Send to Bot</div>
     </div>
 
     <div class="grid-wrap">
       <div id="imageGrid"></div>
-      <div id="loader" class="loader-msg">Loading more...</div>
-      <div style="height: 150px;"></div>
-    </div>
+      <div id="loader" class="loader-msg">Scrolling for more...</div>
+      <div style="height: 180px;"></div> </div>
 
     <div class="recent-bar">
       <div class="recent-inner" id="recentBar"></div>
@@ -149,90 +165,12 @@
 
     <div class="float-cta">
       <button class="send-btn" onclick="openTelegram()">
-        <span>📨 Send to Support</span>
+        <span>Message Support</span>
         <div class="recent-chip-count" id="recentCount">0</div>
       </button>
     </div>
   </div>
 
-  <script>
-    // 1. DATA ARRAY (Add all your 5,847 paths here)
-    const allFiles = [
-      "PNG_files/PSNA_01ABD248AE966E360E4671AC7C81183A8BA7C9ED.png",
-      "PNG_files/PSNA_01CC995F4CCF3D46FEA245B1D8C448C9D6CC4C54.png",
-      "PNG_files/PSNA_01CA008E35D16191F12E7F6A5AD980956C52F3E4.png",
-      "PNG_files/PSNA_01C3F4698C9FB254972274B63EC3308C1038C192.png",
-      // ... Add the remaining 5,800+ here
-    ];
-
-    let filtered = [...allFiles];
-    let itemsLoaded = 0;
-    const batchSize = 60;
-    let selectedIDs = [];
-
-    // 2. INFINITE SCROLL LOGIC
-    const grid = document.getElementById('imageGrid');
-    const searchInput = document.getElementById('searchInput');
-
-    function loadNext() {
-      const nextBatch = filtered.slice(itemsLoaded, itemsLoaded + batchSize);
-      const frag = document.createDocumentFragment();
-
-      nextBatch.forEach(path => {
-        const id = path.split('/').pop();
-        const card = document.createElement('div');
-        card.className = 'avatar-card';
-        card.innerHTML = `<img src="${path}" loading="lazy">`;
-        card.onclick = () => {
-          navigator.clipboard.writeText(id);
-          card.classList.add('copied');
-          if (!selectedIDs.includes(id)) {
-            selectedIDs.push(id);
-            renderUI();
-          }
-          Swal.fire({ toast: true, position: 'top', icon: 'success', title: 'ID Copied', showConfirmButton: false, timer: 1000 });
-        };
-        frag.appendChild(card);
-      });
-
-      grid.appendChild(frag);
-      itemsLoaded += batchSize;
-      if (itemsLoaded >= filtered.length) document.getElementById('loader').style.display = 'none';
-    }
-
-    function renderUI() {
-      document.getElementById('recentCount').innerText = selectedIDs.length;
-      document.getElementById('recentBar').innerHTML = selectedIDs.slice(-5).map(id => 
-        `<div class="recent-pill">${id.substring(0, 12)}...</div>`
-      ).join('');
-    }
-
-    // 3. SEARCH & EVENTS
-    searchInput.oninput = (e) => {
-      const val = e.target.value.toLowerCase();
-      filtered = allFiles.filter(f => f.toLowerCase().includes(val));
-      grid.innerHTML = ''; itemsLoaded = 0;
-      document.getElementById('loader').style.display = 'block';
-      loadNext();
-    };
-
-    window.onscroll = () => {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
-        if (itemsLoaded < filtered.length) loadNext();
-      }
-    };
-
-    document.getElementById('enterBtn').onclick = () => {
-      document.getElementById('splash').classList.add('hide');
-      document.getElementById('app').classList.add('visible');
-      loadNext();
-    };
-
-    function openTelegram() {
-      if (selectedIDs.length === 0) return Swal.fire('Wait!', 'Select some avatars first.', 'info');
-      const msg = encodeURIComponent("I want these avatars for my PSN account:\n\n" + selectedIDs.join("\n"));
-      window.open(`https://t.me/ModdingXZ_Support_Bot?text=${msg}`);
-    }
-  </script>
+  <script src="main.js"></script>
 </body>
 </html>
