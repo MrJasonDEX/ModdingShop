@@ -1,246 +1,902 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModdingXZ — PlayStation Services</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ModdingXZ Dashboard</title>
-
+```
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Electrolize&display=swap" rel="stylesheet">
 
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-body{
-background:#020202;
-color:white;
-font-family:'Segoe UI',sans-serif;
-display:flex;
-}
+    body {
+        background: linear-gradient(135deg, #0a0e27 0%, #1a1a2e 100%);
+        color: #fff;
+        font-family: 'Space Mono', monospace;
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
 
-/* SIDEBAR */
-.sidebar{
-width:230px;
-background:#000;
-height:100vh;
-padding:20px;
-border-right:1px solid #111;
-position:fixed;
-}
+    /* LAYOUT */
+    .layout-wrapper {
+        display: flex;
+        min-height: 100vh;
+    }
 
-.sidebar h3{
-color:#00ffc8;
-}
+    /* SIDEBAR */
+    .sidebar {
+        width: 260px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 30px 20px;
+        border-right: 2px solid #00ff88;
+        position: fixed;
+        height: 100vh;
+        overflow-y: auto;
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+    }
 
-.sidebar button{
-width:100%;
-margin-top:10px;
-background:none;
-border:none;
-color:white;
-text-align:left;
-padding:10px;
-border-radius:8px;
-}
+    .sidebar-header {
+        margin-bottom: 40px;
+    }
 
-.sidebar button:hover{
-background:#111;
-}
+    .sidebar-logo {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        background: linear-gradient(90deg, #00ff88, #00ccff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-family: 'Electrolize', sans-serif;
+        margin-bottom: 10px;
+    }
 
-/* CONTENT */
-.content{
-margin-left:230px;
-padding:30px;
-width:100%;
-}
+    .sidebar-subtitle {
+        font-size: 11px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-/* CARD */
-.card-neon{
-background:#0a0a0a;
-padding:20px;
-border-radius:15px;
-border:1px solid #111;
-margin-bottom:20px;
-}
+    .nav-section {
+        margin-bottom: 30px;
+    }
 
-.card-neon:hover{
-border-color:#00ffc8;
-}
+    .nav-section-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #666;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        padding-left: 10px;
+    }
 
-/* BUTTON */
-.btn-neon{
-background:linear-gradient(90deg,#00ffc8,#00aaff);
-border:none;
-border-radius:20px;
-padding:10px 20px;
-}
+    .nav-btn {
+        display: block;
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 8px;
+        background: transparent;
+        border: none;
+        color: #ccc;
+        text-align: left;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-family: 'Space Mono', monospace;
+        font-size: 13px;
+        position: relative;
+    }
 
-/* LIVE */
-.live{
-position:fixed;
-bottom:20px;
-left:20px;
-background:#111;
-padding:10px 15px;
-border-radius:20px;
-display:none;
-}
+    .nav-btn:hover {
+        background: rgba(0, 255, 136, 0.1);
+        color: #00ff88;
+        padding-left: 20px;
+    }
 
+    .nav-btn.active {
+        background: rgba(0, 255, 136, 0.2);
+        color: #00ff88;
+        border-left: 3px solid #00ff88;
+    }
+
+    .support-link {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(90deg, #00ff88, #00ccff);
+        border: none;
+        border-radius: 8px;
+        color: #000;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        margin-top: 30px;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        transition: all 0.3s ease;
+    }
+
+    .support-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+        padding: 40px;
+    }
+
+    .page {
+        display: none;
+        animation: fadeIn 0.4s ease;
+    }
+
+    .page.active {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HEADERS */
+    .page-header {
+        margin-bottom: 40px;
+    }
+
+    .page-header h1 {
+        font-family: 'Electrolize', sans-serif;
+        font-size: 36px;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        background: linear-gradient(90deg, #00ff88, #00ccff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .page-header p {
+        color: #888;
+        font-size: 13px;
+        letter-spacing: 1px;
+    }
+
+    /* GRID */
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    /* PRODUCT CARD */
+    .product-card {
+        background: rgba(20, 30, 60, 0.6);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        border-radius: 12px;
+        padding: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .product-card:hover {
+        border-color: #00ff88;
+        background: rgba(20, 30, 60, 0.9);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(0, 255, 136, 0.15);
+    }
+
+    .product-badge {
+        display: inline-block;
+        background: #ff6b35;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        letter-spacing: 1px;
+    }
+
+    .product-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-family: 'Electrolize', sans-serif;
+        letter-spacing: 1px;
+    }
+
+    .product-subtitle {
+        color: #aaa;
+        font-size: 12px;
+        margin-bottom: 15px;
+        line-height: 1.5;
+    }
+
+    .product-features {
+        list-style: none;
+        margin-bottom: 20px;
+        font-size: 12px;
+    }
+
+    .product-features li {
+        padding: 6px 0;
+        color: #bbb;
+        border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+    }
+
+    .product-features li:last-child {
+        border-bottom: none;
+    }
+
+    .product-features li::before {
+        content: '✓ ';
+        color: #00ff88;
+        font-weight: 700;
+        margin-right: 8px;
+    }
+
+    .product-price {
+        font-size: 24px;
+        font-weight: 700;
+        color: #00ff88;
+        margin-bottom: 15px;
+        font-family: 'Electrolize', sans-serif;
+        letter-spacing: 1px;
+    }
+
+    .product-action {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-order {
+        flex: 1;
+        padding: 12px;
+        background: linear-gradient(90deg, #00ff88, #00ccff);
+        border: none;
+        border-radius: 8px;
+        color: #000;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    .btn-order:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+    }
+
+    .btn-info {
+        padding: 12px 15px;
+        background: transparent;
+        border: 1px solid #00ccff;
+        border-radius: 8px;
+        color: #00ccff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Space Mono', monospace;
+        font-size: 12px;
+    }
+
+    .btn-info:hover {
+        background: rgba(0, 204, 255, 0.1);
+    }
+
+    /* CATEGORY SECTION */
+    .category-section {
+        margin-bottom: 50px;
+    }
+
+    .category-title {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 25px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+        font-family: 'Electrolize', sans-serif;
+        letter-spacing: 1px;
+    }
+
+    /* MODAL */
+    .modal-dialog {
+        max-width: 500px;
+    }
+
+    .modal-content {
+        background: rgba(20, 30, 60, 0.95);
+        border: 1px solid rgba(0, 255, 136, 0.3);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+    }
+
+    .modal-title {
+        font-family: 'Electrolize', sans-serif;
+        letter-spacing: 1px;
+    }
+
+    .modal-body {
+        color: #ddd;
+    }
+
+    .form-control {
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        color: #fff;
+        border-radius: 8px;
+        padding: 12px;
+        font-family: 'Space Mono', monospace;
+        font-size: 13px;
+    }
+
+    .form-control:focus {
+        background: rgba(0, 0, 0, 0.5);
+        border-color: #00ff88;
+        color: #fff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 136, 0.25);
+    }
+
+    .form-label {
+        color: #aaa;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+    }
+
+    /* ACCOUNT PAGE */
+    .account-section {
+        background: rgba(20, 30, 60, 0.6);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        max-width: 500px;
+    }
+
+    .account-section h3 {
+        font-family: 'Electrolize', sans-serif;
+        margin-bottom: 20px;
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    /* ORDERS PAGE */
+    .order-item {
+        background: rgba(20, 30, 60, 0.6);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .order-info h4 {
+        font-family: 'Electrolize', sans-serif;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .order-info p {
+        color: #888;
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .order-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #00ff88;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) {
+        .products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 100%;
+            height: auto;
+            border-right: none;
+            border-bottom: 2px solid #00ff88;
+            position: relative;
+        }
+
+        .main-content {
+            margin-left: 0;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .layout-wrapper {
+            flex-direction: column;
+        }
+
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+        }
+
+        .account-section {
+            max-width: 100%;
+        }
+    }
 </style>
+```
+
 </head>
 
 <body>
+    <div class="layout-wrapper">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">⚡ MODDINGXZ</div>
+                <div class="sidebar-subtitle">PlayStation Services</div>
+            </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
+```
+        <div class="nav-section">
+            <div class="nav-section-label">Menu</div>
+            <button class="nav-btn active" onclick="showPage('shop')">
+                <i class="fas fa-gamepad"></i> Shop
+            </button>
+            <button class="nav-btn" onclick="showPage('orders')">
+                <i class="fas fa-box"></i> Orders
+            </button>
+            <button class="nav-btn" onclick="showPage('account')">
+                <i class="fas fa-user"></i> Account
+            </button>
+        </div>
 
-<h3>ModdingXZ</h3>
+        <a href="https://t.me/ModdingXZ_Support_Bot" target="_blank" class="support-link">
+            <i class="fas fa-headset"></i> Support Bot
+        </a>
+    </div>
 
-<button onclick="showPage('shop')">🛒 Shop</button>
-<button onclick="showPage('orders')">📦 Orders</button>
-<button onclick="showPage('account')">👤 Account</button>
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
 
-<hr>
+        <!-- SHOP PAGE -->
+        <div id="shop" class="page active">
+            <div class="page-header">
+                <h1>Shop</h1>
+                <p>Premium PlayStation services</p>
+            </div>
 
-<a href="https://t.me/ModdingXZ_Support_Bot" class="btn btn-neon w-100">Support</a>
+            <!-- CALL OF DUTY -->
+            <div class="category-section">
+                <div class="category-title">🎮 Call of Duty Services</div>
+                <div class="products-grid">
 
+                    <div class="product-card" onclick="openOrder('COD Max Package', 15, ['Level 1000 MW2019', 'All Trophies', 'Cold War Complete', 'Dark Aether Unlock All', 'Vanguard Max Rank'])">
+                        <div class="product-badge">Popular</div>
+                        <div class="product-title">COD Max Package</div>
+                        <div class="product-subtitle">Full progression bundle across all titles</div>
+                        <ul class="product-features">
+                            <li>MW2019 Level 1000</li>
+                            <li>Cold War Complete</li>
+                            <li>Dark Aether Unlock</li>
+                            <li>Vanguard Max Rank</li>
+                        </ul>
+                        <div class="product-price">£15</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('Cold War Dark Aether', 10, ['Dark Aether Unlock All', 'DM Ultra Unlock All', 'All Calling Cards', 'All Trophies'])">
+                        <div class="product-badge">Hot</div>
+                        <div class="product-title">Cold War Complete</div>
+                        <div class="product-subtitle">Dark Aether mastery unlock</div>
+                        <ul class="product-features">
+                            <li>Dark Aether Unlock</li>
+                            <li>DM Ultra All Weapons</li>
+                            <li>All Calling Cards</li>
+                            <li>All Trophies</li>
+                        </ul>
+                        <div class="product-price">£10</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('COD Ghosts', 15, ['Max Level', 'All Weapons Unlocked', 'All Camos', 'All Achievements'])">
+                        <div class="product-title">COD Ghosts</div>
+                        <div class="product-subtitle">Classic Call of Duty progression</div>
+                        <ul class="product-features">
+                            <li>Max Level</li>
+                            <li>All Weapons</li>
+                            <li>All Camos</li>
+                            <li>All Achievements</li>
+                        </ul>
+                        <div class="product-price">£15</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('COD Advanced Warfare', 10, ['Max Prestige', 'All Weapons', 'Complete Progression'])">
+                        <div class="product-title">Advanced Warfare</div>
+                        <div class="product-subtitle">Full progression unlock</div>
+                        <ul class="product-features">
+                            <li>Max Prestige</li>
+                            <li>All Weapons</li>
+                            <li>All Camos</li>
+                            <li>All Scorestreaks</li>
+                        </ul>
+                        <div class="product-price">£10</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- BLACK OPS 3 -->
+            <div class="category-section">
+                <div class="category-title">🔥 Black Ops 3</div>
+                <div class="products-grid">
+
+                    <div class="product-card" onclick="openOrder('BO3 Ultimate', 15, ['Prestige 1000 MP', 'Prestige 12 Zombies', 'Unlock All Classes', 'All Easter Eggs', 'Unlimited Death Machine'])">
+                        <div class="product-badge">Exclusive</div>
+                        <div class="product-title">BO3 Ultimate</div>
+                        <div class="product-subtitle">Complete mastery unlock</div>
+                        <ul class="product-features">
+                            <li>Prestige 1000 MP</li>
+                            <li>Prestige 12 Zombies</li>
+                            <li>All Easter Eggs</li>
+                            <li>Unlimited Death Machine</li>
+                            <li>Custom Avatars</li>
+                        </ul>
+                        <div class="product-price">£15</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('BO3 Maxed-Out', 10, ['Prestige Master', 'Level 1000', 'Unlimited Death Machine', 'Modded Classes'])">
+                        <div class="product-title">BO3 Maxed-Out</div>
+                        <div class="product-subtitle">Multiplayer & Zombies progression</div>
+                        <ul class="product-features">
+                            <li>Prestige Master MP</li>
+                            <li>Level 1000</li>
+                            <li>Unlimited Death Machine</li>
+                            <li>Modded Classes</li>
+                        </ul>
+                        <div class="product-price">£10</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('BO3 Liquid Divinium 100k', 5, ['100k Liquid Divinium', 'Instant Delivery', 'Safe Transfer'])">
+                        <div class="product-title">Liquid Divinium</div>
+                        <div class="product-subtitle">In-game currency bundle</div>
+                        <ul class="product-features">
+                            <li>100k Divinium</li>
+                            <li>Instant Delivery</li>
+                            <li>Safe Transfer</li>
+                            <li>No Ban Risk</li>
+                        </ul>
+                        <div class="product-price">£5</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('BO3 Death Machine', 3, ['Unlimited Death Machine Class', 'Modded Weapons', 'Instant Setup'])">
+                        <div class="product-title">Death Machine Class</div>
+                        <div class="product-subtitle">Pre-built modded loadout</div>
+                        <ul class="product-features">
+                            <li>Unlimited Death Machine</li>
+                            <li>Beast Mode</li>
+                            <li>Modded Weapons</li>
+                            <li>Custom Setup</li>
+                        </ul>
+                        <div class="product-price">£3</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- PSN PROFILE -->
+            <div class="category-section">
+                <div class="category-title">🎖 PSN Profile Services</div>
+                <div class="products-grid">
+
+                    <div class="product-card" onclick="openOrder('Custom Avatar', 2, ['HD Avatar', 'Instant Delivery', 'Profile Ready'])">
+                        <div class="product-title">Custom Avatar</div>
+                        <div class="product-subtitle">Personalize your PSN profile</div>
+                        <ul class="product-features">
+                            <li>Custom Avatar Design</li>
+                            <li>HD Quality</li>
+                            <li>Instant Setup</li>
+                            <li>Permanent</li>
+                        </ul>
+                        <div class="product-price">£2</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('Custom Trophy Level', 30, ['Any Level (999/666)', 'Custom Numbers', 'Instant Apply'])">
+                        <div class="product-title">Trophy Level</div>
+                        <div class="product-subtitle">Set any custom trophy level</div>
+                        <ul class="product-features">
+                            <li>Any Level (999/666)</li>
+                            <li>Custom Numbers</li>
+                            <li>Instant Apply</li>
+                            <li>Permanent Setting</li>
+                        </ul>
+                        <div class="product-price">From £30</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" onclick="openOrder('About Me Mod', 2, ['Custom Bio', 'Unique Text Formatting', 'Profile Enhancement'])">
+                        <div class="product-title">About Me Mod</div>
+                        <div class="product-subtitle">Modded profile bio text</div>
+                        <ul class="product-features">
+                            <li>Custom Bio</li>
+                            <li>Unique Formatting</li>
+                            <li>Profile Enhancement</li>
+                            <li>Permanent</li>
+                        </ul>
+                        <div class="product-price">£2</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- IPTV -->
+            <div class="category-section">
+                <div class="category-title">📺 IPTV Subscription</div>
+                <div class="products-grid">
+
+                    <div class="product-card" onclick="openOrder('IPTV 1-Year', 50, ['Unlimited Channels', 'Firestick & Android', 'HD Quality', 'Bulk Pricing Available'])">
+                        <div class="product-badge">Popular</div>
+                        <div class="product-title">1-Year Unlimited</div>
+                        <div class="product-subtitle">Full entertainment package</div>
+                        <ul class="product-features">
+                            <li>Unlimited Channels</li>
+                            <li>Firestick Compatible</li>
+                            <li>Android Supported</li>
+                            <li>24/7 Support</li>
+                            <li>Bulk Pricing Available</li>
+                        </ul>
+                        <div class="product-price">£50</div>
+                        <div class="product-action">
+                            <button class="btn-order">Order Now</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ORDERS PAGE -->
+        <div id="orders" class="page">
+            <div class="page-header">
+                <h1>Your Orders</h1>
+                <p>Order history and delivery status</p>
+            </div>
+            <div id="orderList"></div>
+        </div>
+
+        <!-- ACCOUNT PAGE -->
+        <div id="account" class="page">
+            <div class="page-header">
+                <h1>Account Settings</h1>
+                <p>Manage your profile information</p>
+            </div>
+
+            <div class="account-section">
+                <h3>PSN Username</h3>
+                <label class="form-label">Your PlayStation Network username</label>
+                <input id="savedUser" class="form-control" placeholder="e.g. xXProGamer420Xx">
+                <button class="btn-order" style="margin-top: 15px; width: 100%;" onclick="saveUser()">Save Username</button>
+            </div>
+
+            <div class="account-section">
+                <h3>Support</h3>
+                <p style="font-size: 13px; color: #aaa; line-height: 1.6;">For order support, account issues, or custom requests, contact our support team on Telegram.</p>
+                <a href="https://t.me/ModdingXZ_Support_Bot" target="_blank" class="support-link" style="margin-top: 15px;">
+                    <i class="fas fa-telegram"></i> Message Support
+                </a>
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
-<!-- CONTENT -->
-<div class="content">
+<!-- ORDER MODAL -->
+<div class="modal fade" id="orderModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Confirm Order</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modalFeatures" style="margin-bottom: 20px; padding: 15px; background: rgba(0, 255, 136, 0.05); border-radius: 8px; border-left: 3px solid #00ff88;"></div>
+                
+                <div class="mb-3">
+                    <label class="form-label">PSN Username</label>
+                    <input id="username" type="text" class="form-control" placeholder="Your PSN username">
+                </div>
 
-<div id="shop">
+                <div class="mb-3">
+                    <label class="form-label">Email (optional)</label>
+                    <input id="email" type="email" class="form-control" placeholder="For order confirmation">
+                </div>
 
-<h2>Shop</h2>
+                <div id="modalPrice" style="font-size: 18px; font-weight: 700; color: #00ff88; margin-bottom: 20px; text-align: right;">£0.00</div>
 
-<div class="card-neon">
-<h4>COD Max Package</h4>
-<p>Full progression bundle</p>
-<b>£15</b><br>
-<button class="btn btn-neon mt-2" onclick="openOrder('COD Max Package',15)">Order</button>
+                <button class="btn-order w-100" onclick="submitOrder()">Complete Order</button>
+                <p style="font-size: 11px; color: #888; margin-top: 15px; text-align: center;">You'll be redirected to Telegram to complete payment</p>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="card-neon">
-<h4>BO3 Ultimate</h4>
-<p>Unlock all + prestige</p>
-<b>£15</b><br>
-<button class="btn btn-neon mt-2" onclick="openOrder('BO3 Ultimate',15)">Order</button>
-</div>
-
-</div>
-
-<div id="orders" style="display:none;">
-<h2>Your Orders</h2>
-<div id="orderList"></div>
-</div>
-
-<div id="account" style="display:none;">
-<h2>Account</h2>
-
-<input id="savedUser" class="form-control" placeholder="PSN Username">
-<button class="btn btn-neon mt-2" onclick="saveUser()">Save</button>
-
-</div>
-
-</div>
-
-<!-- MODAL -->
-<div class="modal fade" id="orderModal">
-<div class="modal-dialog">
-<div class="modal-content p-4 bg-dark">
-
-<h4>Confirm Order</h4>
-
-<input id="username" class="form-control mt-2" placeholder="PSN Username">
-
-<button class="btn btn-neon mt-3" onclick="submitOrder()">Submit</button>
-
-</div>
-</div>
-</div>
-
-<div class="live" id="live"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
 
-/* NAV */
-function showPage(page){
-document.getElementById("shop").style.display="none";
-document.getElementById("orders").style.display="none";
-document.getElementById("account").style.display="none";
+    let currentOrder = {
+        service: '',
+        price: 0,
+        features: []
+    };
 
-document.getElementById(page).style.display="block";
-}
+    // PAGE NAVIGATION
+    function showPage(page) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(page).classList.add('active');
 
-/* ACCOUNT */
-function saveUser(){
-localStorage.setItem("user", document.getElementById("savedUser").value);
-alert("Saved");
-}
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
 
-/* LOAD USER */
-window.onload = ()=>{
-let user = localStorage.getItem("user");
-if(user){
-document.getElementById("savedUser").value = user;
-document.getElementById("username").value = user;
-}
-loadOrders();
-}
+    // ACCOUNT
+    function saveUser() {
+        const user = document.getElementById('savedUser').value;
+        if (user.trim()) {
+            localStorage.setItem('user', user);
+            document.getElementById('username').value = user;
+            alert('Username saved!');
+        }
+    }
 
-/* ORDER */
-let currentService="";
-let currentPrice="";
+    // LOAD DATA
+    window.addEventListener('load', () => {
+        const user = localStorage.getItem('user');
+        if (user) {
+            document.getElementById('savedUser').value = user;
+            document.getElementById('username').value = user;
+        }
+        loadOrders();
+    });
 
-function openOrder(name,price){
-currentService=name;
-currentPrice=price;
-new bootstrap.Modal(document.getElementById('orderModal')).show();
-}
+    // OPEN ORDER
+    function openOrder(service, price, features = []) {
+        currentOrder = { service, price, features };
+        document.getElementById('modalTitle').textContent = `Order: ${service}`;
+        document.getElementById('modalPrice').textContent = `£${price}`;
+        
+        let featuresHtml = features.map(f => `<div style="padding: 4px 0; font-size: 12px;">✓ ${f}</div>`).join('');
+        document.getElementById('modalFeatures').innerHTML = featuresHtml || '';
 
-function submitOrder(){
+        const user = localStorage.getItem('user');
+        if (user) document.getElementById('username').value = user;
 
-let user=document.getElementById("username").value;
+        new bootstrap.Modal(document.getElementById('orderModal')).show();
+    }
 
-let order={
-service:currentService,
-price:currentPrice,
-user:user,
-date:new Date().toLocaleString()
-};
+    // SUBMIT ORDER
+    function submitOrder() {
+        const user = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
 
-let orders=JSON.parse(localStorage.getItem("orders")||"[]");
-orders.push(order);
-localStorage.setItem("orders",JSON.stringify(orders));
+        if (!user) {
+            alert('Please enter your PSN username');
+            return;
+        }
 
-let msg=encodeURIComponent(`Order: ${currentService} | ${user}`);
-window.location.href=`https://t.me/ModdingXZ_Support_Bot?start=${msg}`;
+        const order = {
+            service: currentOrder.service,
+            price: currentOrder.price,
+            user: user,
+            email: email,
+            date: new Date().toLocaleString('en-GB')
+        };
 
-}
+        let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        orders.push(order);
+        localStorage.setItem('orders', JSON.stringify(orders));
 
-/* LOAD ORDERS */
-function loadOrders(){
-let orders=JSON.parse(localStorage.getItem("orders")||"[]");
-let html="";
-orders.forEach(o=>{
-html+=`<div class="card-neon">${o.service} - £${o.price}<br>${o.date}</div>`;
-});
-document.getElementById("orderList").innerHTML=html;
-}
+        const msg = encodeURIComponent(`Order: ${currentOrder.service} | PSN: ${user} | £${currentOrder.price}`);
+        window.location.href = `https://t.me/ModdingXZ_Support_Bot?start=${msg}`;
+    }
 
-/* LIVE */
-const buyers=["Someone bought BO3","User bought IPTV","Client bought COD"];
+    // LOAD ORDERS
+    function loadOrders() {
+        const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+        const container = document.getElementById('orderList');
 
-setInterval(()=>{
-let box=document.getElementById("live");
-box.innerText=buyers[Math.floor(Math.random()*buyers.length)];
-box.style.display="block";
-setTimeout(()=>box.style.display="none",3000);
-},10000);
+        if (orders.length === 0) {
+            container.innerHTML = '<p style="color: #888; font-size: 14px;">No orders yet. Start shopping!</p>';
+            return;
+        }
+
+        container.innerHTML = orders.map(o => `
+            <div class="order-item">
+                <div class="order-info">
+                    <h4>${o.service}</h4>
+                    <p>${o.user}</p>
+                    <p>${o.date}</p>
+                </div>
+                <div class="order-price">£${o.price}</div>
+            </div>
+        `).join('');
+    }
 
 </script>
+```
 
 </body>
 </html>
