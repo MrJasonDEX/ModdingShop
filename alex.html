@@ -1,140 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unreleased Playlist</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unreleased Playlist</title>
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <style>
-    body {
-      background: #0d0d0d;
-      color: #fff;
-      font-family: system-ui, -apple-system, sans-serif;
-    }
+<style>
+body {
+  background: linear-gradient(180deg, #0d0d0d, #000);
+  color: #fff;
+  font-family: system-ui;
+}
 
-    .hero {
-      padding: 60px 20px 30px;
-      text-align: center;
-    }
+.navbar {
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+}
 
-    .embed-box {
-      height: 75vh;
-      max-width: 900px;
-      margin: auto;
-      background: #111;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    }
+.hero {
+  padding: 80px 20px 40px;
+  text-align: center;
+}
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+.hero h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
 
-    .loader {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 10;
-    }
+.hero p {
+  color: #aaa;
+}
 
-    .fallback {
-      position: absolute;
-      inset: 0;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background: #111;
-      text-align: center;
-      padding: 20px;
-    }
+.player {
+  max-width: 700px;
+  margin: auto;
+  background: #181818;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+}
 
-    .btn-custom {
-      background: #fff;
-      color: #000;
-      font-weight: 600;
-      border-radius: 10px;
-      padding: 12px 20px;
-      text-decoration: none;
-    }
+.cover {
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
 
-    .btn-custom:hover {
-      background: #ddd;
-    }
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
 
-    footer {
-      margin-top: 40px;
-      text-align: center;
-      color: #777;
-      font-size: 14px;
-    }
-  </style>
+.artist {
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.play-btn {
+  background: #1db954;
+  border: none;
+  padding: 16px 22px;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+}
+
+.progress {
+  height: 6px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: #1db954;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.tracklist {
+  margin-top: 20px;
+}
+
+.track {
+  padding: 12px;
+  border-bottom: 1px solid #2a2a2a;
+  cursor: pointer;
+}
+
+.track:hover {
+  background: #222;
+}
+
+.cta {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.cta a {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #fff;
+  color: #000;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 60px;
+  text-align: center;
+  color: #666;
+  padding-bottom: 30px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="hero">
-    <h1>🎧 Unreleased Playlist</h1>
-    <p class="text-secondary">Listen to exclusive content from Alex Warren</p>
+<nav class="navbar navbar-dark px-3">
+  <span class="navbar-brand mb-0 h1">🎧 Music Hub</span>
+</nav>
+
+<div class="hero">
+  <h1>Unreleased Playlist</h1>
+  <p>Exclusive content from Alex Warren</p>
+</div>
+
+<div class="player">
+
+  <img class="cover" src="https://i.imgur.com/8Km9tLL.jpg">
+
+  <div class="title">Unreleased Playlist</div>
+  <div class="artist">Alex Warren</div>
+
+  <div class="controls">
+    <button class="play-btn" onclick="togglePlay()">▶</button>
   </div>
 
-  <div class="embed-box">
-
-    <!-- Loader -->
-    <div id="loader" class="loader">
-      <div class="spinner-border text-light"></div>
-    </div>
-
-    <!-- Iframe -->
-    <iframe 
-      id="frame"
-      src="https://alexwarren.lnk.to/FFOTRVinyl"
-      onload="loaded()">
-    </iframe>
-
-    <!-- Fallback -->
-    <div id="fallback" class="fallback">
-      <h4 class="mb-3">⚠️ Preview not available inside site</h4>
-      <p class="mb-4 text-secondary">Tap below to open the playlist</p>
-      <a href="https://alexwarren.lnk.to/FFOTRVinyl" target="_blank" class="btn-custom">
-        Open Playlist
-      </a>
-    </div>
-
+  <div class="progress">
+    <div class="progress-bar" id="bar"></div>
   </div>
 
-  <footer>
-    <p>Fan page • Not affiliated</p>
-  </footer>
+  <div class="time">
+    <span id="current">0:00</span>
+    <span>2:30</span>
+  </div>
 
-  <script>
-    function loaded() {
-      document.getElementById("loader").style.display = "none";
-    }
+  <div class="tracklist">
+    <div class="track" onclick="playTrack()">1. Track One</div>
+    <div class="track" onclick="playTrack()">2. Track Two</div>
+    <div class="track" onclick="playTrack()">3. Track Three</div>
+    <div class="track" onclick="playTrack()">4. Track Four</div>
+  </div>
 
-    // Detect iframe block
-    setTimeout(() => {
-      const iframe = document.getElementById("frame");
+  <div class="cta">
+    <a href="https://alexwarren.lnk.to/FFOTRVinyl" target="_blank">
+      Open Official Playlist
+    </a>
+  </div>
 
-      try {
-        let test = iframe.contentWindow.location.href;
-      } catch (e) {
-        document.getElementById("fallback").style.display = "flex";
-        document.getElementById("loader").style.display = "none";
-        iframe.style.display = "none";
-      }
-    }, 3000);
-  </script>
+</div>
+
+<footer>
+  <p>Fan-made site • Not affiliated</p>
+</footer>
+
+<script>
+let playing = false;
+let progress = 0;
+let interval;
+
+function togglePlay() {
+  const btn = document.querySelector('.play-btn');
+
+  if (!playing) {
+    playing = true;
+    btn.innerHTML = "⏸";
+    interval = setInterval(updateProgress, 200);
+  } else {
+    playing = false;
+    btn.innerHTML = "▶";
+    clearInterval(interval);
+  }
+}
+
+function updateProgress() {
+  if (progress >= 100) {
+    clearInterval(interval);
+    return;
+  }
+
+  progress += 0.5;
+  document.getElementById("bar").style.width = progress + "%";
+
+  let seconds = Math.floor((progress / 100) * 150);
+  let mins = Math.floor(seconds / 60);
+  let secs = seconds % 60;
+
+  document.getElementById("current").innerText =
+    mins + ":" + (secs < 10 ? "0" : "") + secs;
+}
+
+function playTrack() {
+  progress = 0;
+  document.getElementById("bar").style.width = "0%";
+  document.getElementById("current").innerText = "0:00";
+}
+</script>
 
 </body>
 </html>
