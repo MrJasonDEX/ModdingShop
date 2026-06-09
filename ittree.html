@@ -12,149 +12,171 @@
   <style>
     :root {
       --brand-primary: #0d6efd;
-      --surface-bg: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
-      --card-bg: rgba(255, 255, 255, 0.9);
-      --card-border: rgba(15, 23, 42, 0.08);
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --input-bg: #ffffff;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --brand-primary: #3b82f6;
-        --surface-bg: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
-        --card-bg: rgba(30, 41, 59, 0.8);
-        --card-border: rgba(255, 255, 255, 0.08);
-        --text-primary: #f8fafc;
-        --text-secondary: #94a3b8;
-        --input-bg: #1e293b;
-      }
-      .btn-light { background: #334155 !important; color: #f8fafc !important; border-color: rgba(255,255,255,0.05) !important; }
-      .form-select, .form-control { background-color: #1e293b !important; color: #f8fafc !important; border-color: #334155 !important; }
+      --surface-bg: #f4f7f6; /* Soft, clean background to make white bubbles pop */
+      --card-bg: #ffffff;    /* Pure crisp white bubble base */
+      --card-border: rgba(0, 0, 0, 0.05);
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --bubble-hover: #f8fafc;
     }
 
     body {
-      background: var(--surface-bg);
-      background-attachment: fixed;
+      background-color: var(--surface-bg);
       font-family: system-ui, -apple-system, sans-serif;
       color: var(--text-primary);
-      padding: 2rem 0 6rem 0;
+      padding: 2rem 0 7rem 0;
     }
 
     .container-layout {
       max-width: 520px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 0 1.25rem;
     }
 
-    .glass-card {
+    /* Bubbly Card Base */
+    .bubbly-card {
       background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      border-radius: 24px; /* Highly rounded bubble edges */
+      padding: 1.75rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.025); /* Ultra soft cloud shadow */
     }
 
     .header-card {
       text-align: center;
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      padding: 2.5rem 1.5rem 1.75rem 1.5rem;
     }
 
-    .avatar-icon {
-      width: 75px;
-      height: 75px;
-      background: linear-gradient(135deg, #0d6efd, #004dc7);
+    .avatar-bubble {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
       color: white;
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 2.25rem;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 50%;
-      margin: 0 auto 1rem;
+      border-radius: 30px; /* Bubbly squircle icon */
+      margin: 0 auto 1.25rem;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
     }
 
+    /* Rounded Segmented Control Navigation */
     .segment-bar {
-      background: rgba(15, 23, 42, 0.06);
-      padding: 0.25rem;
-      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.03);
+      padding: 0.35rem;
+      border-radius: 50px; /* Fully round pill layout */
       display: flex;
       width: 100%;
       margin-bottom: 1.5rem;
-    }
-    @media (prefers-color-scheme: dark) {
-      .segment-bar { background: rgba(255, 255, 255, 0.06); }
+      border: 1px solid rgba(0, 0, 0, 0.01);
     }
     .segment-bar .nav-link {
       color: var(--text-secondary);
-      font-weight: 600;
-      border-radius: 9px;
-      padding: 0.6rem;
+      font-weight: 700;
+      border-radius: 50px; /* Rounded interior toggles */
+      padding: 0.75rem;
       flex: 1;
       font-size: 0.9rem;
       border: none;
       background: transparent;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .segment-bar .nav-link.active {
-      background: var(--input-bg);
-      color: var(--text-primary);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background: var(--card-bg);
+      color: var(--brand-primary);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
-    .action-row-btn {
+    /* Bubbly Dynamic Interaction Buttons */
+    .action-bubble-btn {
       width: 100%;
       text-align: left;
-      font-weight: 600;
-      padding: 1rem 1.25rem;
-      border-radius: 14px;
-      border: 1px solid transparent;
+      font-weight: 700;
+      padding: 1.1rem 1.4rem;
+      border-radius: 20px; /* Bubbly curves */
+      border: 1px solid var(--card-border);
       display: flex;
       align-items: center;
       text-decoration: none;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       color: var(--text-primary);
-      background: var(--input-bg);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-      transition: transform 0.15s ease;
+      background: var(--card-bg);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); /* Snappy bounce effect */
     }
-    .action-row-btn:hover {
-      transform: translateY(-1px);
+    .action-bubble-btn:hover {
+      transform: scale(1.02) translateY(-2px); /* Bouncy expand expansion */
+      background-color: var(--bubble-hover);
+      color: var(--brand-primary);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
     }
-    .action-row-btn i {
-      font-size: 1.25rem;
-      margin-right: 0.75rem;
+    .action-bubble-btn i {
+      font-size: 1.4rem;
+      margin-right: 0.85rem;
     }
 
+    /* Clean Bubbly Communication Grid Layout */
     .grid-communication {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
-    .grid-communication .action-row-btn {
+    .grid-communication .action-bubble-btn {
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding: 1rem;
+      padding: 1.25rem 1rem;
+      margin-bottom: 0;
     }
-    .grid-communication .action-row-btn i { margin-right: 0; margin-bottom: 0.25rem; }
+    .grid-communication .action-bubble-btn i { 
+      margin-right: 0; 
+      margin-bottom: 0.4rem; 
+      font-size: 1.6rem;
+    }
 
+    /* Bubbly Badges */
     .badge-status {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      padding: 0.4rem 0.8rem;
-      border-radius: 50px;
+      padding: 0.5rem 1rem;
+      border-radius: 50px; /* Bubble pill shape */
       display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
+      gap: 0.4rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+    .animate-pulse {
+      animation: pulseAnimation 2s infinite;
+    }
+    @keyframes pulseAnimation {
+      0% { opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { opacity: 0.6; }
     }
 
-    .map-frame-wrapper {
-      border-radius: 12px;
+    /* Ultra Rounded Selects and Inputs */
+    .form-select, .form-control {
+      border-radius: 14px !important;
+      padding: 0.65rem 1rem;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .form-select:focus, .form-control:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    }
+    .input-group .btn {
+      border-radius: 14px !important;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    .map-bubble-wrapper {
+      border-radius: 18px;
       overflow: hidden;
       border: 1px solid var(--card-border);
       position: relative;
@@ -162,45 +184,62 @@
     }
 
     .author-credit {
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.75rem;
+      font-weight: 700;
       color: var(--text-secondary);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 0.2rem;
-      padding: 0.25rem 0.5rem;
-      border-radius: 6px;
-      background: rgba(0,0,0,0.03);
-      margin-top: 0.75rem;
+      gap: 0.3rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      background: rgba(0, 0, 0, 0.03);
+      margin-top: 1rem;
+      transition: all 0.2s ease;
     }
-    @media (prefers-color-scheme: dark) {
-      .author-credit { background: rgba(255,255,255,0.04); }
+    .author-credit:hover { 
+      color: var(--brand-primary); 
+      background: rgba(59, 130, 246, 0.08);
     }
-    .author-credit:hover { color: var(--brand-primary); }
 
+    /* Bottom Floating Navigation Dock */
     .bottom-dock {
       position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-top: 1px solid var(--card-border);
-      padding: 0.75rem 1rem;
+      bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50px; /* Floats as a sleek bubble capsule */
+      padding: 0.65rem;
       z-index: 1000;
-    }
-    .bottom-dock-inner {
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
       max-width: 480px;
       margin: 0 auto;
+    }
+    .bottom-dock-inner {
       display: flex;
       gap: 0.5rem;
     }
     .bottom-dock-inner .btn {
       flex: 1;
       font-weight: 700;
-      padding: 0.75rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
+      padding: 0.85rem;
+      border-radius: 50px; /* Round pill buttons inside footer */
+      font-size: 0.9rem;
+      transition: transform 0.2s ease;
+    }
+    .bottom-dock-inner .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-rounded-dark {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+    }
+    .btn-rounded-dark:hover {
+      background: #1e293b;
+      color: #ffffff;
     }
   </style>
 </head>
@@ -209,10 +248,10 @@
 <div class="container-layout">
 
   <!-- Profile Card Layer -->
-  <div class="glass-card header-card">
-    <div class="avatar-icon">IT</div>
-    <h1 class="h5 fw-bold mb-1">I.T Repair All</h1>
-    <p class="text-secondary small mb-2">No Fix &bull; No Fee Electronics Engineers</p>
+  <div class="bubbly-card header-card">
+    <div class="avatar-bubble">IT</div>
+    <h1 class="h4 fw-bold mb-1">I.T Repair All</h1>
+    <p class="text-secondary small mb-3 fw-medium">No Fix &bull; No Fee Electronics Engineers</p>
     
     <div id="live-timeline-status" class="mb-2">
       <!-- Generated dynamically via JS -->
@@ -237,16 +276,16 @@
     <div class="tab-pane fade show active" id="tab-booking" role="tabpanel">
       
       <!-- Primary Calendars -->
-      <div class="glass-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.04em;">Select Workspace Channel</div>
-        <a href="https://itrepairall53.booksy.com/a" class="action-row-btn border-start border-primary border-3" target="_blank">
+      <div class="bubbly-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Select Workspace Channel</div>
+        <a href="https://itrepairall53.booksy.com/a" class="action-bubble-btn" target="_blank">
           <i class="bi bi-calendar-check text-primary"></i>
           <div>
             <span class="d-block">Book Field Service Technician</span>
             <small class="text-secondary fw-normal">Mobile appointments via Booksy</small>
           </div>
         </a>
-        <a href="https://www.sumupbookings.com/i-t-repair-all" class="action-row-btn border-start border-success border-3" target="_blank">
+        <a href="https://www.sumupbookings.com/i-t-repair-all" class="action-bubble-btn" target="_blank">
           <i class="bi bi-house text-success"></i>
           <div>
             <span class="d-block">Book Lab Drop-Off Slot</span>
@@ -256,50 +295,50 @@
       </div>
 
       <!-- Live Messaging Channels -->
-      <div class="glass-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Direct Technical Helpdesk</div>
+      <div class="bubbly-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Direct Technical Helpdesk</div>
         <div class="grid-communication">
-          <a href="https://wa.me/message/3Q466CYO3F6CP1" class="action-row-btn text-center" target="_blank">
-            <i class="bi bi-whatsapp text-success fs-4"></i>
+          <a href="https://wa.me/message/3Q466CYO3F6CP1" class="action-bubble-btn" target="_blank">
+            <i class="bi bi-whatsapp text-success"></i>
             <span class="small">WhatsApp</span>
           </a>
-          <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="action-row-btn text-center" target="_blank">
-            <i class="bi bi-chat-text text-primary fs-4"></i>
+          <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="action-bubble-btn" target="_blank">
+            <i class="bi bi-chat-text text-primary"></i>
             <span class="small">Signal</span>
           </a>
-          <a href="https://t.me/itrepairallcouk" class="action-row-btn text-center" target="_blank">
-            <i class="bi bi-telegram text-info fs-4"></i>
+          <a href="https://t.me/itrepairallcouk" class="action-bubble-btn" target="_blank">
+            <i class="bi bi-telegram text-info"></i>
             <span class="small">Telegram</span>
           </a>
-          <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="action-row-btn text-center" target="_blank">
-            <i class="bi bi-snapchat text-warning fs-4"></i>
+          <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="action-bubble-btn" target="_blank">
+            <i class="bi bi-snapchat text-warning"></i>
             <span class="small">Snapchat</span>
           </a>
         </div>
       </div>
 
       <!-- Components Storefronts -->
-      <div class="glass-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Component Storefronts</div>
-        <a href="https://ebay.us/m/kWMlAd" class="action-row-btn" target="_blank">
+      <div class="bubbly-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Component Storefronts</div>
+        <a href="https://ebay.us/m/kWMlAd" class="action-bubble-btn" target="_blank">
           <i class="bi bi-bag-check text-danger"></i>
           <span>Official Verified eBay Outlet</span>
         </a>
-        <a href="https://wa.me/c/447939875777" class="action-row-btn" target="_blank">
+        <a href="https://wa.me/c/447939875777" class="action-bubble-btn" target="_blank">
           <i class="bi bi-list-stars text-success"></i>
           <span>View Parts Catalog on WhatsApp</span>
         </a>
       </div>
 
       <!-- Performance Badges -->
-      <div class="glass-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Performance History</div>
+      <div class="bubbly-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Performance History</div>
         <div class="grid-communication">
-          <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" class="action-row-btn text-center" target="_blank">
+          <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" class="action-bubble-btn" target="_blank">
             <i class="bi bi-star-fill text-warning"></i>
             <span class="small">Trustpilot Reviews</span>
           </a>
-          <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="action-row-btn text-center" target="_blank">
+          <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="action-bubble-btn" target="_blank">
             <i class="bi bi-shield-check text-success"></i>
             <span class="small">TrustIndex Audit</span>
           </a>
@@ -312,8 +351,8 @@
     <div class="tab-pane fade" id="tab-diagnostics" role="tabpanel">
       
       <!-- Live Calculation Pricing Tool -->
-      <div class="glass-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.04em;">Modular Rate Matrix</div>
+      <div class="bubbly-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Modular Rate Matrix</div>
         <div class="mb-3">
           <label class="form-label small text-secondary fw-bold">Select Hardware Architecture</label>
           <select class="form-select" id="calc-device" onchange="runCostEngine()">
@@ -330,50 +369,50 @@
             <option value="130">BGA Logic Board Micro-soldering / Liquid Recovery</option>
           </select>
         </div>
-        <div class="p-3 rounded-3 text-center border bg-light mb-0" style="background: var(--input-bg) !important;">
+        <div class="p-3 text-center border mb-0" style="background: #f8fafc !important; border-radius: 18px; border-color: rgba(0,0,0,0.05) !important;">
           <span class="text-uppercase text-secondary small d-block fw-bold mb-1" style="font-size: 0.65rem;">Estimated Cost Framework</span>
-          <span class="h2 fw-bold" id="calc-output-display">£155</span>
+          <span class="h2 fw-extrabold text-primary m-0" id="calc-output-display" style="font-weight:800;">£155</span>
           <small class="d-block text-secondary small mt-1" style="font-size: 0.7rem;">*Indicative baseline. Subject to full bench diagnostics.</small>
         </div>
       </div>
 
       <!-- Interactive Coverage Postcode Module -->
-      <div class="glass-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Verify Onsite Callout Radius</div>
+      <div class="bubbly-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.06em;">Verify Onsite Callout Radius</div>
         <p class="text-secondary small mb-3">Input your postal district outward sector below to evaluate standard field operational ranges.</p>
         <div class="input-group">
           <input type="text" class="form-control" id="postcode-input-field" placeholder="e.g. PA4 or G51" maxlength="4">
-          <button class="btn btn-dark fw-bold" type="button" onclick="runRadiusEngine()">Verify</button>
+          <button class="btn btn-dark fw-bold rounded-pill" type="button" onclick="runRadiusEngine()">Verify</button>
         </div>
-        <div id="radius-badge-result" class="alert mt-3 mb-0 text-center small fw-bold d-none"></div>
+        <div id="radius-badge-result" class="alert mt-3 mb-0 text-center small fw-bold d-none" style="border-radius: 14px;"></div>
       </div>
 
       <!-- Workshop Map Module -->
-      <div class="glass-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Workshop Logistics Map</div>
+      <div class="bubbly-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.06em;">Workshop Logistics Map</div>
         <p class="text-secondary small mb-3"><strong>Address:</strong> Flat 3/2, 46 Canal St, Renfrew, PA4 8QD</p>
         
         <!-- Standard Verified Embedded Google Map -->
-        <div class="map-frame-wrapper mb-3">
+        <div class="map-bubble-wrapper mb-3">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m13!1d2239.141753140502!2d-4.3892301!3d55.8837119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884f18eb3335c7%3A0xe0b7240c165a3d6c!2sI.T%20Repair%20All!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk" 
             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
 
-        <a href="https://maps.google.com/?q=I.T+Repair+All+Renfrew" target="_blank" class="btn btn-outline-secondary btn-sm w-100 fw-bold py-2 rounded-3">
+        <a href="https://maps.google.com/?q=I.T+Repair+All+Renfrew" target="_blank" class="btn btn-outline-secondary btn-sm w-100 fw-bold py-2" style="border-radius: 14px;">
           <i class="bi bi-geo-alt-fill me-1"></i> Launch Standard Native GPS Routing
         </a>
       </div>
 
       <!-- Direct Invoice Quick BACS Copy Component -->
-      <div class="glass-card text-center">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Direct BACS Processing Details</div>
+      <div class="bubbly-card text-center">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.06em;">Direct BACS Processing Details</div>
         <div class="d-flex justify-content-center gap-2 small">
-          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" onclick="runCopyEngine('04-14-50', this, 'Sort Code')">
+          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('04-14-50', this, 'Sort Code')">
             <span class="font-monospace">Sort: <strong>04-14-50</strong></span>
           </button>
-          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" onclick="runCopyEngine('16523518', this, 'Account')">
+          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('16523518', this, 'Account')">
             <span class="font-monospace">Acc: <strong>16523518</strong></span>
           </button>
         </div>
@@ -386,7 +425,7 @@
 
 </div>
 
-<!-- Fixed Footer Sticky Communication Bar -->
+<!-- Fixed Floating Footer Capsule -->
 <div class="bottom-dock">
   <div class="bottom-dock-inner">
     <a href="tel:+447939875777" class="btn btn-outline-dark"><i class="bi bi-telephone-outbound me-1"></i> Call Desk</a>
@@ -416,7 +455,7 @@
     }
 
     if (operationalState) {
-      logBox.innerHTML = '<span class="badge-status bg-success text-white"><i class="bi bi-circle-fill fs-6 text-white me-1 animate-pulse"></i> Engineering Lab Active & Handling Enquiries</span>';
+      logBox.innerHTML = '<span class="badge-status bg-success text-white"><i class="bi bi-circle-fill fs-6 text-white me-1 animate-pulse"></i> Lab Active & Handling Enquiries</span>';
     } else {
       logBox.innerHTML = '<span class="badge-status bg-secondary text-white"><i class="bi bi-moon-stars-fill me-1"></i> Bench Queue Paused &bull; Book Next Slot Below</span>';
     }
