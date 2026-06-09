@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>I.T Repair All (Renfrew) - Customer Hub</title>
-  <!-- Bootstrap 5.3 CSS Framework -->
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Material Icon Framework -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
   
   <style>
     :root {
-      --brand-primary: #0d6efd;
-      --surface-bg: #f4f7f6; /* Soft, clean background to make white bubbles pop */
-      --card-bg: #ffffff;    /* Pure crisp white bubble base */
-      --card-border: rgba(0, 0, 0, 0.05);
+      --brand-primary: #3b82f6;
+      --surface-bg: #f3f4f6; /* Modern clay/off-white background */
+      --card-bg: #ffffff;    /* Bright white bubble base */
+      --card-border: rgba(0, 0, 0, 0.04);
       --text-primary: #1e293b;
       --text-secondary: #64748b;
       --bubble-hover: #f8fafc;
@@ -24,11 +24,12 @@
       background-color: var(--surface-bg);
       font-family: system-ui, -apple-system, sans-serif;
       color: var(--text-primary);
-      padding: 2rem 0 7rem 0;
+      padding: 1.5rem 0 7.5rem 0;
+      overflow-x: hidden;
     }
 
     .container-layout {
-      max-width: 520px;
+      max-width: 500px;
       margin: 0 auto;
       padding: 0 1.25rem;
     }
@@ -37,20 +38,20 @@
     .bubbly-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 24px; /* Highly rounded bubble edges */
-      padding: 1.75rem;
+      border-radius: 26px; /* High rounding */
+      padding: 1.6rem;
       margin-bottom: 1.25rem;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.025); /* Ultra soft cloud shadow */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
     }
 
     .header-card {
       text-align: center;
-      padding: 2.5rem 1.5rem 1.75rem 1.5rem;
+      padding: 2.25rem 1.5rem 1.5rem 1.5rem;
     }
 
     .avatar-bubble {
-      width: 80px;
-      height: 80px;
+      width: 84px;
+      height: 84px;
       background: linear-gradient(135deg, #3b82f6, #1d4ed8);
       color: white;
       font-size: 2.25rem;
@@ -58,45 +59,45 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 30px; /* Bubbly squircle icon */
+      border-radius: 28px; /* Cute squircle */
       margin: 0 auto 1.25rem;
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
     }
 
-    /* Rounded Segmented Control Navigation */
+    /* Bubbly Navigation Toggles */
     .segment-bar {
       background: rgba(0, 0, 0, 0.03);
       padding: 0.35rem;
-      border-radius: 50px; /* Fully round pill layout */
+      border-radius: 50px;
       display: flex;
       width: 100%;
       margin-bottom: 1.5rem;
-      border: 1px solid rgba(0, 0, 0, 0.01);
+      border: 1px solid rgba(0, 0, 0, 0.005);
     }
     .segment-bar .nav-link {
       color: var(--text-secondary);
       font-weight: 700;
-      border-radius: 50px; /* Rounded interior toggles */
+      border-radius: 50px;
       padding: 0.75rem;
       flex: 1;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       border: none;
       background: transparent;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .segment-bar .nav-link.active {
       background: var(--card-bg);
       color: var(--brand-primary);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
     }
 
-    /* Bubbly Dynamic Interaction Buttons */
+    /* Interactive Bubbly Rows */
     .action-bubble-btn {
       width: 100%;
       text-align: left;
       font-weight: 700;
-      padding: 1.1rem 1.4rem;
-      border-radius: 20px; /* Bubbly curves */
+      padding: 1.1rem 1.35rem;
+      border-radius: 20px;
       border: 1px solid var(--card-border);
       display: flex;
       align-items: center;
@@ -104,21 +105,22 @@
       margin-bottom: 0.75rem;
       color: var(--text-primary);
       background: var(--card-bg);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); /* Snappy bounce effect */
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); /* Squishy click feel */
     }
     .action-bubble-btn:hover {
-      transform: scale(1.02) translateY(-2px); /* Bouncy expand expansion */
+      transform: scale(1.02) translateY(-2px);
       background-color: var(--bubble-hover);
       color: var(--brand-primary);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
     }
     .action-bubble-btn i {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       margin-right: 0.85rem;
+      width: 24px;
+      text-align: center;
     }
 
-    /* Clean Bubbly Communication Grid Layout */
+    /* Bubbly Grid Channels */
     .grid-communication {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -137,49 +139,33 @@
       font-size: 1.6rem;
     }
 
-    /* Bubbly Badges */
     .badge-status {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       padding: 0.5rem 1rem;
-      border-radius: 50px; /* Bubble pill shape */
+      border-radius: 50px;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
-    }
-    .animate-pulse {
-      animation: pulseAnimation 2s infinite;
-    }
-    @keyframes pulseAnimation {
-      0% { opacity: 0.6; }
-      50% { opacity: 1; }
-      100% { opacity: 0.6; }
     }
 
-    /* Ultra Rounded Selects and Inputs */
     .form-select, .form-control {
-      border-radius: 14px !important;
-      padding: 0.65rem 1rem;
+      border-radius: 16px !important;
+      padding: 0.7rem 1rem;
       border: 1px solid rgba(0, 0, 0, 0.08);
       color: var(--text-primary);
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
     .form-select:focus, .form-control:focus {
       border-color: #3b82f6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-    }
-    .input-group .btn {
-      border-radius: 14px !important;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
     }
 
     .map-bubble-wrapper {
-      border-radius: 18px;
+      border-radius: 20px;
       overflow: hidden;
       border: 1px solid var(--card-border);
-      position: relative;
       height: 220px;
     }
 
@@ -194,27 +180,22 @@
       padding: 0.4rem 0.8rem;
       border-radius: 50px;
       background: rgba(0, 0, 0, 0.03);
-      margin-top: 1rem;
-      transition: all 0.2s ease;
-    }
-    .author-credit:hover { 
-      color: var(--brand-primary); 
-      background: rgba(59, 130, 246, 0.08);
+      margin-top: 0.85rem;
     }
 
-    /* Bottom Floating Navigation Dock */
+    /* Floating Capsule Footer Menu */
     .bottom-dock {
       position: fixed;
       bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
       background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 50px; /* Floats as a sleek bubble capsule */
-      padding: 0.65rem;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      padding: 0.6rem;
       z-index: 1000;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-      max-width: 480px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+      max-width: 460px;
       margin: 0 auto;
     }
     .bottom-dock-inner {
@@ -225,46 +206,29 @@
       flex: 1;
       font-weight: 700;
       padding: 0.85rem;
-      border-radius: 50px; /* Round pill buttons inside footer */
+      border-radius: 50px;
       font-size: 0.9rem;
-      transition: transform 0.2s ease;
-    }
-    .bottom-dock-inner .btn:active {
-      transform: scale(0.97);
-    }
-    .btn-rounded-dark {
-      background: #0f172a;
-      color: #ffffff;
-      border: none;
-    }
-    .btn-rounded-dark:hover {
-      background: #1e293b;
-      color: #ffffff;
     }
   </style>
 </head>
 <body>
 
-<div class="container-layout">
+<div class="container-layout animate__animated animate__fadeInUp">
 
-  <!-- Profile Card Layer -->
   <div class="bubbly-card header-card">
-    <div class="avatar-bubble">IT</div>
+    <div class="avatar-bubble animate__animated animate__bounceIn">IT</div>
     <h1 class="h4 fw-bold mb-1">I.T Repair All</h1>
-    <p class="text-secondary small mb-3 fw-medium">No Fix &bull; No Fee Electronics Engineers</p>
+    <p class="text-secondary small mb-3 fw-medium">No Fix • No Fee Electronics Engineers</p>
     
-    <div id="live-timeline-status" class="mb-2">
-      <!-- Generated dynamically via JS -->
-    </div>
+    <div id="live-timeline-status" class="mb-2"></div>
 
     <div>
       <a href="https://www.facebook.com/share/18nx6WkbEx/" class="author-credit" target="_blank" rel="noopener">
-        <i class="bi bi-code-slash"></i> Made by Jason
+        <i class="fa-solid fa-code"></i> Made by Jason
       </a>
     </div>
   </div>
 
-  <!-- Tab Toggle Bar Navigation -->
   <div class="nav segment-bar" role="tablist">
     <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-booking" type="button" role="tab">Services & Bookings</button>
     <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-diagnostics" type="button" role="tab">Diagnostics & Location</button>
@@ -272,21 +236,19 @@
 
   <div class="tab-content">
     
-    <!-- Tab Block 1: Main Bookings Interface -->
     <div class="tab-pane fade show active" id="tab-booking" role="tabpanel">
       
-      <!-- Primary Calendars -->
       <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Select Workspace Channel</div>
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Select Workspace Channel</div>
         <a href="https://itrepairall53.booksy.com/a" class="action-bubble-btn" target="_blank">
-          <i class="bi bi-calendar-check text-primary"></i>
+          <i class="fa-regular fa-calendar-check text-primary"></i>
           <div>
             <span class="d-block">Book Field Service Technician</span>
             <small class="text-secondary fw-normal">Mobile appointments via Booksy</small>
           </div>
         </a>
         <a href="https://www.sumupbookings.com/i-t-repair-all" class="action-bubble-btn" target="_blank">
-          <i class="bi bi-house text-success"></i>
+          <i class="fa-solid fa-house-laptop text-success"></i>
           <div>
             <span class="d-block">Book Lab Drop-Off Slot</span>
             <small class="text-secondary fw-normal">In-store scheduling via SumUp</small>
@@ -294,52 +256,49 @@
         </a>
       </div>
 
-      <!-- Live Messaging Channels -->
       <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Direct Technical Helpdesk</div>
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Direct Technical Helpdesk</div>
         <div class="grid-communication">
           <a href="https://wa.me/message/3Q466CYO3F6CP1" class="action-bubble-btn" target="_blank">
-            <i class="bi bi-whatsapp text-success"></i>
+            <i class="fa-brands fa-whatsapp text-success"></i>
             <span class="small">WhatsApp</span>
           </a>
           <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="action-bubble-btn" target="_blank">
-            <i class="bi bi-chat-text text-primary"></i>
+            <i class="fa-solid fa-comment-sms text-primary"></i>
             <span class="small">Signal</span>
           </a>
           <a href="https://t.me/itrepairallcouk" class="action-bubble-btn" target="_blank">
-            <i class="bi bi-telegram text-info"></i>
+            <i class="fa-brands fa-telegram text-info"></i>
             <span class="small">Telegram</span>
           </a>
           <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="action-bubble-btn" target="_blank">
-            <i class="bi bi-snapchat text-warning"></i>
+            <i class="fa-brands fa-snapchat text-warning"></i>
             <span class="small">Snapchat</span>
           </a>
         </div>
       </div>
 
-      <!-- Components Storefronts -->
       <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Component Storefronts</div>
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Component Storefronts</div>
         <a href="https://ebay.us/m/kWMlAd" class="action-bubble-btn" target="_blank">
-          <i class="bi bi-bag-check text-danger"></i>
+          <i class="fa-brands fa-ebay text-danger" style="font-size:1.6rem;"></i>
           <span>Official Verified eBay Outlet</span>
         </a>
         <a href="https://wa.me/c/447939875777" class="action-bubble-btn" target="_blank">
-          <i class="bi bi-list-stars text-success"></i>
+          <i class="fa-solid fa-boxes-stacked text-success"></i>
           <span>View Parts Catalog on WhatsApp</span>
         </a>
       </div>
 
-      <!-- Performance Badges -->
       <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Performance History</div>
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Performance History</div>
         <div class="grid-communication">
           <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" class="action-bubble-btn" target="_blank">
-            <i class="bi bi-star-fill text-warning"></i>
+            <i class="fa-solid fa-star text-warning"></i>
             <span class="small">Trustpilot Reviews</span>
           </a>
           <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="action-bubble-btn" target="_blank">
-            <i class="bi bi-shield-check text-success"></i>
+            <i class="fa-solid fa-shield-halved text-success"></i>
             <span class="small">TrustIndex Audit</span>
           </a>
         </div>
@@ -347,72 +306,68 @@
 
     </div>
 
-    <!-- Tab Block 2: Diagnostics & Location -->
     <div class="tab-pane fade" id="tab-diagnostics" role="tabpanel">
       
-      <!-- Live Calculation Pricing Tool -->
       <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.06em;">Modular Rate Matrix</div>
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Modular Rate Matrix</div>
         <div class="mb-3">
           <label class="form-label small text-secondary fw-bold">Select Hardware Architecture</label>
           <select class="form-select" id="calc-device" onchange="runCostEngine()">
             <option value="45">Mobile Smart Devices (iPhone / Samsung)</option>
-            <option value="65">Next-Gen Gaming Consoles (PS5 / Xbox Series / Switch)</option>
-            <option value="80" selected>Laptops / Desktop Systems</option>
+            <option value="65">Next-Gen Gaming Consoles (PS5 / Xbox / Switch)</option>
+            <option value="80">Laptops / Desktop Systems</option>
           </select>
         </div>
         <div class="mb-3">
           <label class="form-label small text-secondary fw-bold">Select General Symptom Area</label>
           <select class="form-select" id="calc-fault" onchange="runCostEngine()">
             <option value="35">Battery Systems / Charge Port Array</option>
-            <option value="75" selected>Glass Assembly / Liquid Crystal Digitizer</option>
+            <option value="75">Glass Assembly / Liquid Crystal Digitizer</option>
             <option value="130">BGA Logic Board Micro-soldering / Liquid Recovery</option>
           </select>
         </div>
-        <div class="p-3 text-center border mb-0" style="background: #f8fafc !important; border-radius: 18px; border-color: rgba(0,0,0,0.05) !important;">
+        <div class="p-3 text-center mb-2" style="background: #f8fafc; border-radius: 18px; border: 1px solid rgba(0,0,0,0.03);">
           <span class="text-uppercase text-secondary small d-block fw-bold mb-1" style="font-size: 0.65rem;">Estimated Cost Framework</span>
-          <span class="h2 fw-extrabold text-primary m-0" id="calc-output-display" style="font-weight:800;">£155</span>
-          <small class="d-block text-secondary small mt-1" style="font-size: 0.7rem;">*Indicative baseline. Subject to full bench diagnostics.</small>
+          <span class="h2 text-primary m-0" id="calc-output-display" style="font-weight:800;">£155</span>
         </div>
+        <button class="btn btn-outline-primary btn-sm w-100 fw-bold py-2 mt-1" style="border-radius:12px;" onclick="shareQuoteDetails()">
+          <i class="fa-solid fa-arrow-up-from-bracket me-1"></i> Share Estimate Details
+        </button>
       </div>
 
-      <!-- Interactive Coverage Postcode Module -->
       <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.06em;">Verify Onsite Callout Radius</div>
-        <p class="text-secondary small mb-3">Input your postal district outward sector below to evaluate standard field operational ranges.</p>
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.72rem; letter-spacing:0.06em;">Verify Onsite Callout Radius</div>
+        <p class="text-secondary small mb-3">Input your postal district outward sector below to evaluate travel ranges.</p>
         <div class="input-group">
-          <input type="text" class="form-control" id="postcode-input-field" placeholder="e.g. PA4 or G51" maxlength="4">
-          <button class="btn btn-dark fw-bold rounded-pill" type="button" onclick="runRadiusEngine()">Verify</button>
+          <input type="text" class="form-control" id="postcode-input-field" placeholder="e.g. PA4 or G51" maxlength="4" oninput="savePostcodeToMemory()">
+          <button class="btn btn-dark fw-bold px-3" style="border-radius: 16px !important;" type="button" onclick="runRadiusEngine()">Verify</button>
         </div>
-        <div id="radius-badge-result" class="alert mt-3 mb-0 text-center small fw-bold d-none" style="border-radius: 14px;"></div>
+        <div id="radius-badge-result" class="alert mt-3 mb-0 text-center small fw-bold d-none" style="border-radius: 16px;"></div>
       </div>
 
-      <!-- Workshop Map Module -->
       <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.06em;">Workshop Logistics Map</div>
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.72rem; letter-spacing:0.06em;">Workshop Logistics Map</div>
         <p class="text-secondary small mb-3"><strong>Address:</strong> Flat 3/2, 46 Canal St, Renfrew, PA4 8QD</p>
         
-        <!-- Standard Verified Embedded Google Map -->
         <div class="map-bubble-wrapper mb-3">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m13!1d2239.141753140502!2d-4.3892301!3d55.8837119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884f18eb3335c7%3A0xe0b7240c165a3d6c!2sI.T%20Repair%20All!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2239.539745582963!2d-4.389278023306806!3d55.8706309832717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884fbc99951635%3A0xe6796fe8da5cc1cb!2s46%20Canal%20St%2C%20Renfrew%20PA4%208QD!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk" 
             width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
 
-        <a href="https://maps.google.com/?q=I.T+Repair+All+Renfrew" target="_blank" class="btn btn-outline-secondary btn-sm w-100 fw-bold py-2" style="border-radius: 14px;">
-          <i class="bi bi-geo-alt-fill me-1"></i> Launch Standard Native GPS Routing
+        <a href="https://maps.google.com/?q=46+Canal+St,+Renfrew,+PA4+8QD" target="_blank" class="btn btn-outline-secondary btn-sm w-100 fw-bold py-2" style="border-radius: 14px;">
+          <i class="fa-solid fa-diamond-turn-right me-1"></i> Launch Standard GPS Routing
         </a>
       </div>
 
-      <!-- Direct Invoice Quick BACS Copy Component -->
       <div class="bubbly-card text-center">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.06em;">Direct BACS Processing Details</div>
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.72rem; letter-spacing:0.06em;">Direct BACS Processing Details</div>
         <div class="d-flex justify-content-center gap-2 small">
-          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('04-14-50', this, 'Sort Code')">
+          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('04-14-50', this)">
             <span class="font-monospace">Sort: <strong>04-14-50</strong></span>
           </button>
-          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('16523518', this, 'Account')">
+          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('16523518', this)">
             <span class="font-monospace">Acc: <strong>16523518</strong></span>
           </button>
         </div>
@@ -425,19 +380,17 @@
 
 </div>
 
-<!-- Fixed Floating Footer Capsule -->
 <div class="bottom-dock">
   <div class="bottom-dock-inner">
-    <a href="tel:+447939875777" class="btn btn-outline-dark"><i class="bi bi-telephone-outbound me-1"></i> Call Desk</a>
-    <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn btn-primary"><i class="bi bi-whatsapp me-1"></i> Live Chat</a>
+    <a href="tel:+447939875777" class="btn btn-outline-dark"><i class="fa-solid fa-phone-flip me-1"></i> Call Desk</a>
+    <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn btn-primary"><i class="fa-brands fa-whatsapp me-1"></i> Live Chat</a>
   </div>
 </div>
 
-<!-- Bootstrap 5.3 Core Script Integration -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Business Operational Hour Check Script Engine
+  // Live Business Clock Checker Engine
   function calculateTimeMetrics() {
     const logBox = document.getElementById('live-timeline-status');
     const systemClock = new Date();
@@ -455,20 +408,59 @@
     }
 
     if (operationalState) {
-      logBox.innerHTML = '<span class="badge-status bg-success text-white"><i class="bi bi-circle-fill fs-6 text-white me-1 animate-pulse"></i> Lab Active & Handling Enquiries</span>';
+      logBox.innerHTML = '<span class="badge-status bg-success text-white animate__animated animate__pulse animate__infinite"><i class="fa-solid fa-circle text-white me-1" style="font-size:0.6rem;"></i> Lab Active & Handling Enquiries</span>';
     } else {
-      logBox.innerHTML = '<span class="badge-status bg-secondary text-white"><i class="bi bi-moon-stars-fill me-1"></i> Bench Queue Paused &bull; Book Next Slot Below</span>';
+      logBox.innerHTML = '<span class="badge-status bg-secondary text-white"><i class="fa-regular fa-moon me-1"></i> Lab Closed • Queueing Next Bookings Slots</span>';
     }
   }
 
-  // Cost Matrix Logic
+  // Cost Engine Core Calculation + Browser Storage Sync
   function runCostEngine() {
-    const rawDevice = parseInt(document.getElementById('calc-device').value) || 0;
-    const rawFault = parseInt(document.getElementById('calc-fault').value) || 0;
-    document.getElementById('calc-output-display').innerText = '£' + (rawDevice + rawFault);
+    const devSelect = document.getElementById('calc-device');
+    const faultSelect = document.getElementById('calc-fault');
+    
+    const rawDevice = parseInt(devSelect.value) || 0;
+    const rawFault = parseInt(faultSelect.value) || 0;
+    const totalSum = rawDevice + rawFault;
+    
+    document.getElementById('calc-output-display').innerText = '£' + totalSum;
+
+    // LocalStorage State Sync (GitHub Pages client persistent cache)
+    localStorage.setItem('saved_device_index', devSelect.selectedIndex);
+    localStorage.setItem('saved_fault_index', faultSelect.selectedIndex);
   }
 
-  // Postal Outward Bounds Radials
+  // Memory Recall on Page Setup
+  function recallSavedSelections() {
+    const savedDev = localStorage.getItem('saved_device_index');
+    const savedFault = localStorage.getItem('saved_fault_index');
+    const savedPostcode = localStorage.getItem('saved_postcode_string');
+
+    if(savedDev !== null) document.getElementById('calc-device').selectedIndex = savedDev;
+    if(savedFault !== null) document.getElementById('calc-fault').selectedIndex = savedFault;
+    if(savedPostcode !== null) document.getElementById('postcode-input-field').value = savedPostcode;
+  }
+
+  // Native Front-End API Device Share Sheet System
+  function shareQuoteDetails() {
+    const totalVal = document.getElementById('calc-output-display').innerText;
+    if (navigator.share) {
+      navigator.share({
+        title: 'I.T Repair All - Estimate Breakdown',
+        text: `Got a bench repair estimate framework from I.T Repair All: ${totalVal}. Check them out here:`,
+        url: window.location.href
+      }).catch(console.error);
+    } else {
+      alert(`Quote Estimate Framework: ${totalVal}. Copy our URL to share with a friend!`);
+    }
+  }
+
+  // Postcode Callout Validator Engine
+  function savePostcodeToMemory() {
+    const rawString = document.getElementById('postcode-input-field').value;
+    localStorage.setItem('saved_postcode_string', rawString);
+  }
+
   function runRadiusEngine() {
     const rawString = document.getElementById('postcode-input-field').value.toUpperCase().trim().replace(/\s+/g, '');
     const displayElement = document.getElementById('radius-badge-result');
@@ -483,27 +475,28 @@
 
     if (standardZones.includes(cleanThreeVal) || standardZones.includes(cleanFourVal) || standardZones.includes(rawString)) {
       displayElement.className = "alert alert-success mt-3 mb-0 text-center small fw-bold";
-      displayElement.innerHTML = "<i class='bi bi-check-circle-fill me-1'></i> Service Check: Within Free Travel Radius Configuration.";
+      displayElement.innerHTML = "<i class='fa-solid fa-circle-check me-1'></i> Service Check: Within Free Travel Radius Configuration.";
     } else if (extendedZones.includes(cleanThreeVal) || extendedZones.includes(cleanFourVal) || extendedZones.includes(rawString)) {
       displayElement.className = "alert alert-warning mt-3 mb-0 text-center small fw-bold text-dark";
-      displayElement.innerHTML = "<i class='bi bi-exclamation-triangle-fill me-1'></i> Service Check: Callout Available (Subject to standard £10 travel surcharge).";
+      displayElement.innerHTML = "<i class='fa-solid fa-circle-exclamation me-1'></i> Service Check: Callout Available (Subject to standard £10 travel surcharge).";
     } else {
       displayElement.className = "alert alert-danger mt-3 mb-0 text-center small fw-bold";
-      displayElement.innerHTML = "<i class='bi bi-x-circle-fill me-1'></i> Service Check: Outside local travel radius. Please request a mail-in layout.";
+      displayElement.innerHTML = "<i class='fa-solid fa-circle-xmark me-1'></i> Service Check: Outside local travel radius. Please request a mail-in layout.";
     }
   }
 
-  // Clipboard Copier
-  function runCopyEngine(stringText, domNode, systemLabel) {
+  // Front-End Fast System Clipboard Copy Engine
+  function runCopyEngine(stringText, domNode) {
     navigator.clipboard.writeText(stringText).then(() => {
       const rollbackLayout = domNode.innerHTML;
-      domNode.innerHTML = `<span class="small text-success fw-bold"><i class="bi bi-check2"></i> Copied</span>`;
+      domNode.innerHTML = `<span class="small text-success fw-bold"><i class="fa-solid fa-check"></i> Copied</span>`;
       setTimeout(() => { domNode.innerHTML = rollbackLayout; }, 1200);
     });
   }
 
-  // Runtime Bootstrap
+  // Page Boot Instantiator
   window.addEventListener('DOMContentLoaded', () => {
+    recallSavedSelections();
     calculateTimeMetrics();
     runCostEngine();
     setInterval(calculateTimeMetrics, 30000);
