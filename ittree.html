@@ -3,820 +3,471 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I.T Repair All (Renfrew) - Interactive Hub</title>
-  <!-- Bootstrap 5.3 CSS -->
+  <title>I.T Repair All (Renfrew) - Customer Hub</title>
+  <!-- Bootstrap 5.3 CSS Framework -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
+  <!-- Material Icon Framework -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   
   <style>
     :root {
-      --primary-gradient: linear-gradient(135deg, #0d6efd, #0a58ca);
-      --success-gradient: linear-gradient(135deg, #198754, #146c43);
-      --emergency-gradient: linear-gradient(135deg, #dc3545, #b02a37);
-      --glass-bg: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.6);
-      --card-shadow: 0 8px 32px rgba(15, 23, 42, 0.04);
-      --app-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
-      --fluid-transition: all 0.25s var(--app-easing);
-      --body-bg: radial-gradient(circle at top left, #f8fafc 0%, #cbd5e1 100%);
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --inner-box: #ffffff;
+      --brand-primary: #0d6efd;
+      --surface-bg: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-border: rgba(15, 23, 42, 0.08);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --input-bg: #ffffff;
     }
 
-    /* 🌙 Automatic Native Dark Mode Override (UX Idea #3) */
     @media (prefers-color-scheme: dark) {
       :root {
-        --glass-bg: rgba(30, 41, 59, 0.75);
-        --glass-border: rgba(255, 255, 255, 0.1);
-        --card-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-        --body-bg: radial-gradient(circle at top left, #0f172a 0%, #020617 100%);
-        --text-main: #f8fafc;
-        --text-muted: #94a3b8;
-        --inner-box: #1e293b;
+        --brand-primary: #3b82f6;
+        --surface-bg: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+        --card-bg: rgba(30, 41, 59, 0.8);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --input-bg: #1e293b;
       }
-      .btn-light { background: #334155 !important; color: #f8fafc !important; border-color: rgba(255,255,255,0.1) !important; }
+      .btn-light { background: #334155 !important; color: #f8fafc !important; border-color: rgba(255,255,255,0.05) !important; }
       .form-select, .form-control { background-color: #1e293b !important; color: #f8fafc !important; border-color: #334155 !important; }
-      .list-group-item { background-color: #1e293b !important; color: #f8fafc !important; border-color: #334155 !important; }
     }
 
     body {
-      background: var(--body-bg);
+      background: var(--surface-bg);
       background-attachment: fixed;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      padding: 1.5rem 0 5.5rem 0; /* Clear bottom navbar space */
-      color: var(--text-main);
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      transition: background 0.3s ease, color 0.3s ease;
+      font-family: system-ui, -apple-system, sans-serif;
+      color: var(--text-primary);
+      padding: 2rem 0 6rem 0;
     }
 
-    .linktree-wrapper {
-      max-width: 580px;
+    .container-layout {
+      max-width: 520px;
       margin: 0 auto;
       padding: 0 1rem;
     }
 
-    /* 👤 Card Containers */
-    .profile-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 28px;
-      padding: 2rem 1.5rem 1.25rem 1.5rem;
-      box-shadow: var(--card-shadow);
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .header-card {
       text-align: center;
-      margin-bottom: 1.25rem;
-      border: 1px solid var(--glass-border);
-      position: relative;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
     }
 
-    .share-trigger-btn {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      background: rgba(15, 23, 42, 0.05);
-      border: none;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      color: var(--text-main);
-      transition: var(--fluid-transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .share-trigger-btn:hover {
-      background: rgba(13, 110, 253, 0.1);
-      color: #0d6efd;
-      transform: scale(1.05);
-    }
-
-    .avatar-circle {
-      width: 90px;
-      height: 90px;
-      background: var(--primary-gradient);
-      color: #fff;
-      font-size: 2.4rem;
+    .avatar-icon {
+      width: 75px;
+      height: 75px;
+      background: linear-gradient(135deg, #0d6efd, #004dc7);
+      color: white;
+      font-size: 2rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      margin: 0 auto 1.2rem;
-      box-shadow: 0 10px 25px rgba(13, 110, 253, 0.2);
+      margin: 0 auto 1rem;
     }
 
-    .status-badge {
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.45rem 0.9rem;
-      border-radius: 50px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      text-transform: uppercase;
-      margin-top: 0.5rem;
-      letter-spacing: 0.04em;
-    }
-
-    /* Creator Signature Styling */
-    .creator-credit {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: var(--fluid-transition);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 6px;
-      background: rgba(15, 23, 42, 0.03);
-    }
-    @media (prefers-color-scheme: dark) {
-      .creator-credit { background: rgba(255, 255, 255, 0.03); }
-    }
-    .creator-credit:hover {
-      color: #0d6efd;
-      background: rgba(13, 110, 253, 0.08);
-    }
-
-    /* ⚡ Segmented Controls */
-    .nav-pills-custom {
-      background: rgba(15, 23, 42, 0.08);
-      padding: 0.3rem;
-      border-radius: 16px;
-      display: inline-flex;
-      width: 100%;
-      backdrop-filter: blur(8px);
-    }
-    @media (prefers-color-scheme: dark) {
-      .nav-pills-custom { background: rgba(255, 255, 255, 0.06); }
-    }
-    .nav-pills-custom .nav-link {
-      color: var(--text-muted);
-      font-weight: 600;
+    .segment-bar {
+      background: rgba(15, 23, 42, 0.06);
+      padding: 0.25rem;
       border-radius: 12px;
-      padding: 0.7rem 1rem;
-      background: transparent;
-      border: none;
+      display: flex;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    @media (prefers-color-scheme: dark) {
+      .segment-bar { background: rgba(255, 255, 255, 0.06); }
+    }
+    .segment-bar .nav-link {
+      color: var(--text-secondary);
+      font-weight: 600;
+      border-radius: 9px;
+      padding: 0.6rem;
       flex: 1;
       font-size: 0.9rem;
-      transition: var(--fluid-transition);
+      border: none;
+      background: transparent;
+      transition: all 0.2s ease;
     }
-    .nav-pills-custom .nav-link.active {
-      background: var(--inner-box);
-      color: var(--text-main);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    }
-
-    /* 📱 Modern Action Blocks */
-    .card-block {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 1.25rem;
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--card-shadow);
-      margin-bottom: 1rem;
+    .segment-bar .nav-link.active {
+      background: var(--input-bg);
+      color: var(--text-primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
-    .block-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-      padding-left: 0.25rem;
-    }
-
-    .link-btn {
+    .action-row-btn {
       width: 100%;
       text-align: left;
       font-weight: 600;
-      padding: 1.1rem 1.25rem;
-      border-radius: 18px;
+      padding: 1rem 1.25rem;
+      border-radius: 14px;
       border: 1px solid transparent;
-      transition: var(--fluid-transition);
       display: flex;
       align-items: center;
       text-decoration: none;
       margin-bottom: 0.5rem;
+      color: var(--text-primary);
+      background: var(--input-bg);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      transition: transform 0.15s ease;
     }
-    .link-btn:last-child { margin-bottom: 0; }
-    .link-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    .action-row-btn:hover {
+      transform: translateY(-1px);
     }
-    .link-btn:active { transform: scale(0.97); }
-    
-    .link-btn i {
-      font-size: 1.4rem;
-      margin-right: 0.9rem;
-      width: 24px;
-      text-align: center;
+    .action-row-btn i {
+      font-size: 1.25rem;
+      margin-right: 0.75rem;
     }
 
-    /* 🗂️ App Micro-Grid System */
-    .app-grid {
+    .grid-communication {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.5rem;
     }
-    .grid-btn {
-      padding: 1rem;
+    .grid-communication .action-row-btn {
       flex-direction: column;
       align-items: center;
       text-align: center;
-      border-radius: 18px;
-      font-size: 0.85rem;
-      background: var(--inner-box);
-      border: 1px solid rgba(0,0,0,0.04);
-      color: var(--text-main);
+      padding: 1rem;
     }
-    .grid-btn i { margin-right: 0; margin-bottom: 0.4rem; font-size: 1.6rem; }
+    .grid-communication .action-row-btn i { margin-right: 0; margin-bottom: 0.25rem; }
 
-    /* Brand Accents */
-    .btn-whatsapp { background: rgba(37, 211, 102, 0.12); color: #25d366; }
-    @media (prefers-color-scheme: light) { .btn-whatsapp { color: #075e54; } }
-    .btn-whatsapp:hover { background: #25d366; color: #fff; }
-    
-    .btn-trustpilot { background: rgba(0, 184, 124, 0.12); color: #00b87c; }
-    @media (prefers-color-scheme: light) { .btn-trustpilot { color: #005e3f; } }
-    .btn-trustpilot:hover { background: #00b87c; color: #fff; }
-
-    .btn-ebay { background: rgba(0, 100, 214, 0.12); color: #0064d6; }
-    .btn-ebay:hover { background: #0064d6; color: #fff; }
-
-    .form-select, .form-control {
-      padding: 0.8rem 1rem;
-      border-radius: 14px;
-      border: 1px solid rgba(0,0,0,0.15);
-      background-color: var(--inner-box);
-      color: var(--text-main);
-      transition: var(--fluid-transition);
-    }
-    
-    .guarantee-banner {
-      background: rgba(254, 243, 199, 0.3);
-      border: 1px solid #fde68a;
-      border-radius: 16px;
-      color: #b45309;
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-    @media (prefers-color-scheme: dark) {
-      .guarantee-banner { color: #fef08a; border-color: rgba(254,240,138,0.2); }
-    }
-
-    .badge-row {
-      display: flex;
-      gap: 0.4rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 0.75rem;
-    }
-    .offer-badge {
-      font-size: 0.7rem;
-      padding: 0.3rem 0.65rem;
-      background: rgba(15, 23, 42, 0.05);
-      color: var(--text-muted);
-      border-radius: 8px;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-    @media (prefers-color-scheme: dark) {
-      .offer-badge { background: rgba(255,255,255,0.05); }
-    }
-
-    /* 📍 Bottom Sticky Navigation Strip (UX Idea #6) */
-    .sticky-action-dock {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: var(--glass-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-top: 1px solid var(--glass-border);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1050;
-      box-shadow: 0 -4px 24px rgba(0,0,0,0.06);
-    }
-    .dock-container {
-      max-width: 550px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      gap: 0.75rem;
-    }
-    .dock-link {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-main);
+    .badge-status {
       font-size: 0.75rem;
       font-weight: 700;
-      transition: var(--fluid-transition);
-    }
-    .dock-link i { font-size: 1.35rem; margin-bottom: 0.15rem; }
-    .dock-link:active { transform: scale(0.9); }
-    .dock-link-primary {
-      background: var(--primary-gradient);
-      color: #fff !important;
-      border-radius: 14px;
-      padding: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
     }
 
-    /* Progress Tracker Dots (UX Idea #8) */
-    .step-indicator {
-      display: flex;
-      justify-content: space-between;
+    .map-frame-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
       position: relative;
-      margin: 1rem 0;
+      height: 220px;
     }
-    .step-indicator::before {
-      content: '';
-      position: absolute;
-      top: 12px; left: 0; right: 0;
-      height: 2px;
-      background: rgba(0,0,0,0.1);
-      z-index: 1;
+
+    .author-credit {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      background: rgba(0,0,0,0.03);
+      margin-top: 0.75rem;
     }
-    @media (prefers-color-scheme: dark) { .step-indicator::before { background: rgba(255,255,255,0.1); } }
-    .step-dot {
-      width: 26px; height: 26px;
-      border-radius: 50%;
-      background: var(--inner-box);
-      border: 2px solid var(--text-muted);
-      z-index: 2;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem; font-weight: bold; color: var(--text-muted);
+    @media (prefers-color-scheme: dark) {
+      .author-credit { background: rgba(255,255,255,0.04); }
     }
-    .step-dot.active {
-      border-color: #0d6efd; background: #0d6efd; color: #fff;
-      box-shadow: 0 0 10px rgba(13,110,253,0.4);
+    .author-credit:hover { color: var(--brand-primary); }
+
+    .bottom-dock {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--card-border);
+      padding: 0.75rem 1rem;
+      z-index: 1000;
     }
-    .step-dot.complete {
-      border-color: #198754; background: #198754; color: #fff;
+    .bottom-dock-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .bottom-dock-inner .btn {
+      flex: 1;
+      font-weight: 700;
+      padding: 0.75rem;
+      border-radius: 12px;
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
 
-<div class="container linktree-wrapper">
+<div class="container-layout">
 
-  <!-- 👤 Profile Header -->
-  <div class="profile-card">
-    <button class="share-trigger-btn" onclick="shareProfile()" title="Share Hub">
-      <i class="bi bi-share-fill"></i>
-    </button>
-    <div class="avatar-circle">IT</div>
-    <h1 class="h4 fw-bold mb-1">I.T Repair All <i class="bi bi-patch-check-fill text-primary" title="Verified Workshop"></i></h1>
-    <p class="text-muted small mb-2">No Fix, No Fee &bull; Electronics & Console Engineering</p>
+  <!-- Profile Card Layer -->
+  <div class="glass-card header-card">
+    <div class="avatar-icon">IT</div>
+    <h1 class="h5 fw-bold mb-1">I.T Repair All</h1>
+    <p class="text-secondary small mb-2">No Fix &bull; No Fee Electronics Engineers</p>
     
-    <div id="shop-status-container" class="mb-2">
-      <span class="status-badge bg-light text-secondary"><i class="bi bi-clock"></i> Analyzing workshop schedule...</span>
+    <div id="live-timeline-status" class="mb-2">
+      <!-- Generated dynamically via JS -->
     </div>
 
-    <!-- Financing & Promotions (UX Idea #4) -->
-    <div class="badge-row mb-3">
-      <span class="offer-badge"><i class="bi bi-credit-card-2-back text-primary"></i> PayPal Credit Accepted</span>
-      <span class="offer-badge"><i class="bi bi-mortarboard-fill text-success"></i> Student Discounts Available</span>
-    </div>
-
-    <!-- Creator Signature Integration Links -->
-    <div class="pt-2 border-top mt-2">
-      <a href="https://www.facebook.com/share/18nx6WkbEx/" class="creator-credit" target="_blank" rel="noopener noreferrer">
+    <div>
+      <a href="https://www.facebook.com/share/18nx6WkbEx/" class="author-credit" target="_blank" rel="noopener">
         <i class="bi bi-code-slash"></i> Made by Jason
       </a>
     </div>
   </div>
 
-  <!-- ⚡ Segmented Control System -->
-  <div class="d-flex justify-content-center mb-3">
-    <div class="nav nav-pills nav-pills-custom" role="tablist">
-      <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#panel-links" type="button" role="tab"><i class="bi bi-grid-fill me-1"></i> Directory</button>
-      <button class="nav-link" data-bs-toggle="pill" data-bs-target="#panel-estimator" type="button" role="tab"><i class="bi bi-calculator-fill me-1"></i> Estimator</button>
-      <button class="nav-link" data-bs-toggle="pill" data-bs-target="#panel-support" type="button" role="tab"><i class="bi bi-wrench-adjustable me-1"></i> Diagnostic</button>
-    </div>
+  <!-- Tab Toggle Bar Navigation -->
+  <div class="nav segment-bar" role="tablist">
+    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-booking" type="button" role="tab">Services & Bookings</button>
+    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-diagnostics" type="button" role="tab">Diagnostics & Location</button>
   </div>
 
   <div class="tab-content">
     
-    <!-- 🗂️ PANEL 1: App Directory Routing -->
-    <div class="tab-pane fade show active" id="panel-links" role="tabpanel">
+    <!-- Tab Block 1: Main Bookings Interface -->
+    <div class="tab-pane fade show active" id="tab-booking" role="tabpanel">
       
-      <!-- Dynamic Real-time Booking Block (UX Idea #2) -->
-      <div class="card-block" id="dynamic-booking-block">
-        <div class="block-title" id="booking-block-title">Instant Booking Channels</div>
-        <div id="booking-buttons-placeholder">
-          <!-- Dynamically populated via JavaScript based on the current time -->
-        </div>
-      </div>
-
-      <!-- Quick Communication Grid -->
-      <div class="card-block">
-        <div class="block-title">Live Technical Desk</div>
-        <div class="app-grid">
-          <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn link-btn grid-btn btn-whatsapp" target="_blank">
-            <i class="bi bi-whatsapp"></i>WhatsApp Live
-          </a>
-          <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="btn link-btn grid-btn" style="background: rgba(81,81,229,0.12); color:#5151e5;" target="_blank">
-            <i class="bi bi-chat-dots-fill"></i>Signal Line
-          </a>
-          <a href="https://t.me/itrepairallcouk" class="btn link-btn grid-btn" style="background: rgba(34,158,217,0.12); color:#229ed9;" target="_blank">
-            <i class="bi bi-telegram"></i>Telegram
-          </a>
-          <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="btn link-btn grid-btn" style="background: rgba(255,252,0,0.15); color:#858300;" target="_blank">
-            <i class="bi bi-snapchat"></i>Snapchat
-          </a>
-        </div>
-      </div>
-
-      <!-- Turnaround Speed Metrics (UX Idea #1) -->
-      <div class="card-block">
-        <div class="block-title">Turnaround Metrics (While-You-Wait)</div>
-        <div class="row g-2 text-center small">
-          <div class="col-4">
-            <div class="p-2 rounded-3 bg-white border h-100 d-flex flex-column justify-content-center" style="background: var(--inner-box) !important;">
-              <span class="text-muted d-block mb-1" style="font-size:0.65rem;">iPhones</span>
-              <strong class="text-primary">10-15 Mins</strong>
-            </div>
+      <!-- Primary Calendars -->
+      <div class="glass-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.04em;">Select Workspace Channel</div>
+        <a href="https://itrepairall53.booksy.com/a" class="action-row-btn border-start border-primary border-3" target="_blank">
+          <i class="bi bi-calendar-check text-primary"></i>
+          <div>
+            <span class="d-block">Book Field Service Technician</span>
+            <small class="text-secondary fw-normal">Mobile appointments via Booksy</small>
           </div>
-          <div class="col-4">
-            <div class="p-2 rounded-3 bg-white border h-100 d-flex flex-column justify-content-center" style="background: var(--inner-box) !important;">
-              <span class="text-muted d-block mb-1" style="font-size:0.65rem;">Consoles</span>
-              <strong class="text-primary">Same Day</strong>
-            </div>
-          </div>
-          <div class="col-4">
-            <div class="p-2 rounded-3 bg-white border h-100 d-flex flex-column justify-content-center" style="background: var(--inner-box) !important;">
-              <span class="text-muted d-block mb-1" style="font-size:0.65rem;">Diagnostics</span>
-              <strong class="text-success">Free</strong>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Live Bench Workflow Simulator (UX Idea #8) -->
-      <div class="card-block">
-        <div class="block-title">Live Bench Progress Simulator</div>
-        <p class="text-muted small mb-2">Track real-time testing steps on active customer hardware queues:</p>
-        <div class="step-indicator">
-          <div class="step-dot complete" title="Logged"><i class="bi bi-check-lg"></i></div>
-          <div class="step-dot complete" title="Analyzed"><i class="bi bi-check-lg"></i></div>
-          <div class="step-dot active" title="Soldering">3</div>
-          <div class="step-dot" title="Stress Test">4</div>
-          <div class="step-dot" title="Done"><i class="bi bi-box-seam"></i></div>
-        </div>
-        <div class="text-center small fw-bold text-primary" style="font-size: 0.75rem;">Current Node Status: Micro-soldering Motherboard Component Repair</div>
-      </div>
-
-      <!-- Storefront Inventories -->
-      <div class="card-block">
-        <div class="block-title">Stockroom & Components</div>
-        <a href="https://ebay.us/m/kWMlAd" class="btn link-btn btn-ebay" target="_blank">
-          <i class="bi bi-shop"></i> Browse Verified eBay Storefront
         </a>
-        <a href="https://wa.me/c/447939875777" class="btn link-btn text-dark" style="background: var(--inner-box); color: var(--text-main) !important;" target="_blank">
-          <i class="bi bi-card-list text-success"></i> View Spares Catalog via WhatsApp
+        <a href="https://www.sumupbookings.com/i-t-repair-all" class="action-row-btn border-start border-success border-3" target="_blank">
+          <i class="bi bi-house text-success"></i>
+          <div>
+            <span class="d-block">Book Lab Drop-Off Slot</span>
+            <small class="text-secondary fw-normal">In-store scheduling via SumUp</small>
+          </div>
         </a>
       </div>
 
-      <!-- Verification Indexes -->
-      <div class="card-block">
-        <div class="block-title">Verified Reviews Matrix</div>
-        <div class="app-grid">
-          <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" class="btn link-btn grid-btn btn-trustpilot" target="_blank">
-            <i class="bi bi-star-fill"></i>Trustpilot
+      <!-- Live Messaging Channels -->
+      <div class="glass-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Direct Technical Helpdesk</div>
+        <div class="grid-communication">
+          <a href="https://wa.me/message/3Q466CYO3F6CP1" class="action-row-btn text-center" target="_blank">
+            <i class="bi bi-whatsapp text-success fs-4"></i>
+            <span class="small">WhatsApp</span>
           </a>
-          <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="btn link-btn grid-btn text-dark" style="color: var(--text-main) !important;" target="_blank">
-            <i class="bi bi-patch-check-fill text-success"></i>TrustIndex Verified
+          <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="action-row-btn text-center" target="_blank">
+            <i class="bi bi-chat-text text-primary fs-4"></i>
+            <span class="small">Signal</span>
+          </a>
+          <a href="https://t.me/itrepairallcouk" class="action-row-btn text-center" target="_blank">
+            <i class="bi bi-telegram text-info fs-4"></i>
+            <span class="small">Telegram</span>
+          </a>
+          <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="action-row-btn text-center" target="_blank">
+            <i class="bi bi-snapchat text-warning fs-4"></i>
+            <span class="small">Snapchat</span>
           </a>
         </div>
       </div>
+
+      <!-- Components Storefronts -->
+      <div class="glass-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Component Storefronts</div>
+        <a href="https://ebay.us/m/kWMlAd" class="action-row-btn" target="_blank">
+          <i class="bi bi-bag-check text-danger"></i>
+          <span>Official Verified eBay Outlet</span>
+        </a>
+        <a href="https://wa.me/c/447939875777" class="action-row-btn" target="_blank">
+          <i class="bi bi-list-stars text-success"></i>
+          <span>View Parts Catalog on WhatsApp</span>
+        </a>
+      </div>
+
+      <!-- Performance Badges -->
+      <div class="glass-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Performance History</div>
+        <div class="grid-communication">
+          <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" class="action-row-btn text-center" target="_blank">
+            <i class="bi bi-star-fill text-warning"></i>
+            <span class="small">Trustpilot Reviews</span>
+          </a>
+          <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="action-row-btn text-center" target="_blank">
+            <i class="bi bi-shield-check text-success"></i>
+            <span class="small">TrustIndex Audit</span>
+          </a>
+        </div>
+      </div>
+
     </div>
 
-    <!-- 🧮 PANEL 2: Dynamic Pricing Matrix -->
-    <div class="tab-pane fade" id="panel-estimator" role="tabpanel">
-      <div class="card-block mb-3">
-        <div class="block-title">Modular Price Tool</div>
-        <div class="guarantee-banner p-3 mb-3 d-flex align-items-center gap-2">
-          <i class="bi bi-shield-check-fill fs-5 flex-shrink-0"></i>
-          <span>Strict No-Fix, No-Fee baseline configuration logic applied.</span>
+    <!-- Tab Block 2: Diagnostics & Location -->
+    <div class="tab-pane fade" id="tab-diagnostics" role="tabpanel">
+      
+      <!-- Live Calculation Pricing Tool -->
+      <div class="glass-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.75rem; letter-spacing:0.04em;">Modular Rate Matrix</div>
+        <div class="mb-3">
+          <label class="form-label small text-secondary fw-bold">Select Hardware Architecture</label>
+          <select class="form-select" id="calc-device" onchange="runCostEngine()">
+            <option value="45">Mobile Smart Devices (iPhone / Samsung)</option>
+            <option value="65">Next-Gen Gaming Consoles (PS5 / Xbox Series / Switch)</option>
+            <option value="80" selected>Laptops / Desktop Systems</option>
+          </select>
         </div>
-        
-        <form id="priceEstimatorForm">
-          <div class="mb-3">
-            <label class="form-label small fw-bold text-secondary">Hardware System Architecture</label>
-            <select class="form-select" id="deviceType" onchange="calculateEstimate()">
-              <option value="45">Smartphones (Apple iPhone / Samsung Galaxy)</option>
-              <option value="65">Next-Gen Consoles (PlayStation 5 / Xbox Series X / Switch)</option>
-              <option value="80" selected>Laptops, MacBooks & Ultrabooks</option>
-              <option value="110">Custom Built High-End Gaming Rigs</option>
-            </select>
-          </div>
-          
-          <div class="mb-3">
-            <label class="form-label small fw-bold text-secondary">Symptom Class & Fault Verification</label>
-            <select class="form-select" id="faultType" onchange="calculateEstimate()">
-              <option value="35">Battery Profiling / Solid-State Port Replacement</option>
-              <option value="75" selected>Broken Glass / Liquid Crystal Digitizer Replacement</option>
-              <option value="55">Thermal Management (Liquid Metal Deep Clean & Repaste)</option>
-              <option value="130">BGA Microsoldering / Liquid Damage Logic Board Recovery</option>
-            </select>
-          </div>
-
-          <div class="p-3 rounded-4 bg-white text-center my-4 border animate-pulse" style="background: var(--inner-box) !important;">
-            <span class="text-uppercase text-muted small d-block fw-bold mb-1" style="font-size: 0.7er; letter-spacing: 0.05em;">Calculated Matrix Baseline</span>
-            <span class="h1 fw-bold text-dark" id="calculatedPrice" style="color: var(--text-main) !important;">£155</span>
-            <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">*Indicative benchmark only. Includes diagnostics under true operational workloads.</small>
-          </div>
-
-          <a href="https://wa.me/message/3Q466CYO3F6CP1" id="estimator-cta-whatsapp" target="_blank" class="btn btn-primary w-100 py-3 fw-bold rounded-4 bg-gradient">
-            <i class="bi bi-whatsapp me-1"></i> Lock Estimate via Live Desk
-          </a>
-        </form>
+        <div class="mb-3">
+          <label class="form-label small text-secondary fw-bold">Select General Symptom Area</label>
+          <select class="form-select" id="calc-fault" onchange="runCostEngine()">
+            <option value="35">Battery Systems / Charge Port Array</option>
+            <option value="75" selected>Glass Assembly / Liquid Crystal Digitizer</option>
+            <option value="130">BGA Logic Board Micro-soldering / Liquid Recovery</option>
+          </select>
+        </div>
+        <div class="p-3 rounded-3 text-center border bg-light mb-0" style="background: var(--input-bg) !important;">
+          <span class="text-uppercase text-secondary small d-block fw-bold mb-1" style="font-size: 0.65rem;">Estimated Cost Framework</span>
+          <span class="h2 fw-bold" id="calc-output-display">£155</span>
+          <small class="d-block text-secondary small mt-1" style="font-size: 0.7rem;">*Indicative baseline. Subject to full bench diagnostics.</small>
+        </div>
       </div>
 
-      <!-- Mobile Service Distance Check Engine (UX Idea #5) -->
-      <div class="card-block mb-3">
-        <div class="block-title">Onsite Service Coverage Matcher</div>
-        <p class="text-muted small">Enter the first half of your postcode to check call-out technician availability:</p>
+      <!-- Interactive Coverage Postcode Module -->
+      <div class="glass-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Verify Onsite Callout Radius</div>
+        <p class="text-secondary small mb-3">Input your postal district outward sector below to evaluate standard field operational ranges.</p>
         <div class="input-group">
-          <input type="text" class="form-control" id="postcodeInput" placeholder="e.g. PA4 or G51" maxlength="4">
-          <button class="btn btn-dark" type="button" onclick="checkPostcodeZone()">Verify Radius</button>
+          <input type="text" class="form-control" id="postcode-input-field" placeholder="e.g. PA4 or G51" maxlength="4">
+          <button class="btn btn-dark fw-bold" type="button" onclick="runRadiusEngine()">Verify</button>
         </div>
-        <div id="zoneResult" class="d-none"></div>
-      </div>
-    </div>
-
-    <!-- 🛠️ PANEL 3: Troubleshooting Checklist & Address (UX Idea #1 & #10) -->
-    <div class="tab-pane fade" id="panel-support" role="tabpanel">
-      
-      <!-- Interactive Triage Checklist Component (UX Idea #1) -->
-      <div class="card-block mb-3">
-        <div class="block-title">Pre-Diagnostic Troubleshooting Wizard</div>
-        <p class="text-muted small">Rule out minor software locks before booking a hardware bench slot:</p>
-        <div class="list-group list-group-flush rounded-3 border">
-          <label class="list-group-item d-flex gap-2 py-3">
-            <input class="form-check-input flex-shrink-0" type="checkbox">
-            <span>
-              <strong>Hard Forced Restart Tried?</strong>
-              <small class="d-block text-muted">Clears locked kernel loops (Vol Up + Vol Down, then hold power button).</small>
-            </span>
-          </label>
-          <label class="list-group-item d-flex gap-2 py-3">
-            <input class="form-check-input flex-shrink-0" type="checkbox">
-            <span>
-              <strong>Charging Port Physical Verification?</strong>
-              <small class="d-block text-muted">Inspect with a flashlight for packed pocket lint preventing clean connection lines.</small>
-            </span>
-          </label>
-          <label class="list-group-item d-flex gap-2 py-3">
-            <input class="form-check-input flex-shrink-0" type="checkbox">
-            <span>
-              <strong>USB Host handshake analysis?</strong>
-              <small class="d-block text-muted">Does a Mac or PC detect structural device layers when connected via wire?</small>
-            </span>
-          </label>
-        </div>
+        <div id="radius-badge-result" class="alert mt-3 mb-0 text-center small fw-bold d-none"></div>
       </div>
 
-      <!-- Console Audio Symptom Matcher (UX Idea #7) -->
-      <div class="card-block mb-3">
-        <div class="block-title">Console Fault Noise Key</div>
-        <p class="text-muted small">Match internal hardware sounds to engineering fault classes:</p>
-        <select class="form-select" onchange="alert('Diagnostic Signature: ' + this.value)">
-          <option value="Select a sound component...">Select an audible symptom...</option>
-          <option value="Likely standard mechanical drive bearing degradation. Safe to run but needs swap eventual.">Rhythmic Clicking or Tapping Sound</option>
-          <option value="Heavily restricted airway or dried liquid metal substrate. Needs complete clean & repaste immediately.">High Velocity Jet Engine Fan Whine</option>
-          <option value="Power delivery board capacitor short-circuit trace fault. Needs bench teardown.">Instant Beep then Immediate Power Down</option>
-        </select>
-      </div>
-
-      <!-- Location Card Framework with Postal Label (UX Idea #10) -->
-      <div class="card-block mb-3">
-        <div class="block-title">Workshop Address Map</div>
-        <p class="text-muted small mb-3">
-          <strong>Main Lab Location:</strong> Flat 3/2, 46 Canal St, Renfrew, PA4 8QD.<br>
-        </p>
+      <!-- Workshop Map Module -->
+      <div class="glass-card">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Workshop Logistics Map</div>
+        <p class="text-secondary small mb-3"><strong>Address:</strong> Flat 3/2, 46 Canal St, Renfrew, PA4 8QD</p>
         
-        <div class="rounded-4 overflow-hidden border mb-3">
+        <!-- Standard Verified Embedded Google Map -->
+        <div class="map-frame-wrapper mb-3">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m13!1d2239.387114138612!2d-4.387626299999999!3d55.879651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884f18eb3335c7%3A0xe0b7240c165a3d6c!2sI.T%20Repair%20All!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk" 
-            width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m13!1d2239.141753140502!2d-4.3892301!3d55.8837119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884f18eb3335c7%3A0xe0b7240c165a3d6c!2sI.T%20Repair%20All!5e0!3m2!1sen!2suk!4v1718000000000!5m2!1sen!2suk" 
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
-        
-        <!-- Post Care Tips (UX Idea #4) -->
-        <div class="p-3 bg-light rounded-3 text-secondary border mb-3 small" style="background: var(--inner-box) !important; color: var(--text-muted) !important;">
-          <strong class="text-dark d-block mb-1" style="color: var(--text-main) !important;"><i class="bi bi-info-circle-fill"></i> Post-Repair Engineering Tips:</strong>
-          Let structural display adhesive cure for 48 hours without heavy high-amp fast-charging heat stress cycles. Clean gaming consoles at least once every 12 months.
-        </div>
 
-        <div class="d-flex gap-2">
-          <a href="https://www.google.com/maps/place/flat+3%2F2,+I.T+Repair+All,+46+Canal+St,+Renfrew+PA4+8QD/" target="_blank" class="btn btn-outline-dark btn-sm flex-grow-1 py-2 fw-bold">
-            <i class="bi bi-signpost-2-fill me-1"></i> Open GPS
-          </a>
-          <button onclick="window.print()" class="btn btn-light btn-sm border py-2 px-3 fw-bold"><i class="bi bi-printer"></i> Print Mail-In Slip</button>
-        </div>
+        <a href="https://maps.google.com/?q=I.T+Repair+All+Renfrew" target="_blank" class="btn btn-outline-secondary btn-sm w-100 fw-bold py-2 rounded-3">
+          <i class="bi bi-geo-alt-fill me-1"></i> Launch Standard Native GPS Routing
+        </a>
       </div>
+
+      <!-- Direct Invoice Quick BACS Copy Component -->
+      <div class="glass-card text-center">
+        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.75rem; letter-spacing:0.04em;">Direct BACS Processing Details</div>
+        <div class="d-flex justify-content-center gap-2 small">
+          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" onclick="runCopyEngine('04-14-50', this, 'Sort Code')">
+            <span class="font-monospace">Sort: <strong>04-14-50</strong></span>
+          </button>
+          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" onclick="runCopyEngine('16523518', this, 'Account')">
+            <span class="font-monospace">Acc: <strong>16523518</strong></span>
+          </button>
+        </div>
+        <div class="small font-monospace fw-bold text-secondary mt-2" style="font-size: 0.75rem;">Beneficiary Reference: I.T Repair All</div>
+      </div>
+
     </div>
 
   </div>
 
-  <!-- 🖳 Bank Processing Module with Tactile Feel (UX Idea #9) -->
-  <div class="card-block text-center bg-white rounded-4 border-0 shadow-sm mt-3" style="background: var(--glass-bg) !important; border: 1px solid var(--glass-border) !important;">
-    <div class="block-title" style="font-size:0.75rem;">Direct Invoice Processing (BACS)</div>
-    <p class="small text-muted mb-2">Tap numeric elements to commit strings to system memory clipboards:</p>
-    
-    <div class="d-flex justify-content-center gap-2 mb-2">
-      <button class="btn btn-sm btn-light border rounded-3 px-3 py-2 text-secondary" onclick="copyToClipboard('04-14-50', this, 'Sort Code')">
-        <span class="font-monospace">Sort: <strong>04-14-50</strong></span> <i class="bi bi-copy ms-1 opacity-50"></i>
-      </button>
-      <button class="btn btn-sm btn-light border rounded-3 px-3 py-2 text-secondary" onclick="copyToClipboard('16523518', this, 'Account No')">
-        <span class="font-monospace">Acc: <strong>16523518</strong></span> <i class="bi bi-copy ms-1 opacity-50"></i>
-      </button>
-    </div>
-    <div class="small font-monospace fw-bold text-muted mb-2" style="font-size: 0.8rem;">Beneficiary: I.T Repair All</div>
-  </div>
-
 </div>
 
-<!-- 📍 Mobile Bottom Action Dock Bar Container (UX Idea #6) -->
-<div class="sticky-action-dock">
-  <div class="dock-container">
-    <a href="tel:+447939875777" class="dock-link" onclick="triggerHaptic()">
-      <i class="bi bi-telephone-outbound-fill text-primary"></i> Call Desk
-    </a>
-    <a href="https://wa.me/message/3Q466CYO3F6CP1" class="dock-link dock-link-primary" onclick="triggerHaptic()">
-      <i class="bi bi-whatsapp"></i> WhatsApp
-    </a>
-    <a href="https://itrepairall53.booksy.com/a" class="dock-link" onclick="triggerHaptic()">
-      <i class="bi bi-calendar-event text-success"></i> Book Slot
-    </a>
+<!-- Fixed Footer Sticky Communication Bar -->
+<div class="bottom-dock">
+  <div class="bottom-dock-inner">
+    <a href="tel:+447939875777" class="btn btn-outline-dark"><i class="bi bi-telephone-outbound me-1"></i> Call Desk</a>
+    <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn btn-primary"><i class="bi bi-whatsapp me-1"></i> Live Chat</a>
   </div>
 </div>
 
-<!-- Bootstrap 5.3 JavaScript Bundle -->
+<!-- Bootstrap 5.3 Core Script Integration -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // 1. Tactile Haptic Vibration Wrapper (UX Idea #9)
-  function triggerHaptic() {
-    if (window.navigator && window.navigator.vibrate) {
-      window.navigator.vibrate(12); // Short pulse physical confirmation
-    }
-  }
+  // Business Operational Hour Check Script Engine
+  function calculateTimeMetrics() {
+    const logBox = document.getElementById('live-timeline-status');
+    const systemClock = new Date();
+    const activeDay = systemClock.getDay();
+    const activeHour = systemClock.getHours();
+    let operationalState = false;
 
-  // 2. Real-time Live Schedule & Dynamic Urgency Engine (UX Idea #2)
-  function checkShopStatus() {
-    const container = document.getElementById('shop-status-container');
-    const bookingTitle = document.getElementById('booking-block-title');
-    const bookingPlaceholder = document.getElementById('booking-buttons-placeholder');
-    const estimatorCta = document.getElementById('estimator-cta-whatsapp');
-    
-    const now = new Date();
-    const currentDay = now.getDay();
-    const currentHour = now.getHours();
-    
-    let isOpen = false;
-    let isEmergencyHours = false;
-
-    // Real business operating constraints verified:
     // Mon-Fri: 11:30 - 21:00 | Sat: 10:00 - 19:00 | Sun: 12:00 - 18:00
-    if (currentDay >= 1 && currentDay <= 5) {
-      if (currentHour >= 11 && currentHour < 21) isOpen = true;
-      else if (currentHour >= 21 || currentHour < 23) isEmergencyHours = true; 
-    } else if (currentDay === 6) {
-      if (currentHour >= 10 && currentHour < 19) isOpen = true;
-      else if (currentHour >= 19 || currentHour < 23) isEmergencyHours = true;
-    } else if (currentDay === 0) {
-      if (currentHour >= 12 && currentHour < 18) isOpen = true;
+    if (activeDay >= 1 && activeDay <= 5) {
+      if (activeHour >= 11 && activeHour < 21) operationalState = true;
+    } else if (activeDay === 6) {
+      if (activeHour >= 10 && activeHour < 19) operationalState = true;
+    } else if (activeDay === 0) {
+      if (activeHour >= 12 && activeHour < 18) operationalState = true;
     }
 
-    if (isOpen) {
-      container.innerHTML = '<span class="status-badge bg-success text-white"><span class="spinner-grow spinner-grow-sm me-1" style="animation-duration: 1.2s;"></span> Lab Active & Processing Quotes</span>';
-      bookingTitle.innerHTML = "Instant Booking Channels";
-      bookingPlaceholder.innerHTML = `
-        <a href="https://itrepairall53.booksy.com/a" class="btn btn-primary link-btn text-white bg-gradient py-3" target="_blank">
-          <i class="bi bi-calendar-check-fill"></i> Book Outbound Field Engineer (Booksy)
-        </a>
-        <a href="https://www.sumupbookings.com/i-t-repair-all" class="btn btn-success link-btn text-white bg-gradient py-3" target="_blank">
-          <i class="bi bi-house-door-fill"></i> Arrange Workshop Drop-Off / Mail-In
-        </a>`;
-      if(estimatorCta) estimatorCta.href = "https://wa.me/message/3Q466CYO3F6CP1?text=I%20would%20like%20to%20lock%20in%20my%20repair%20estimate.";
-    } else if (isEmergencyHours) {
-      container.innerHTML = '<span class="status-badge bg-warning text-dark border border-warning shadow-sm"><i class="bi bi-exclamation-triangle-fill animate-bounce"></i> Emergency Late Protocol Active</span>';
-      bookingTitle.innerHTML = "🚨 Emergency Late-Night Repair Dispatch";
-      bookingPlaceholder.innerHTML = `
-        <a href="https://wa.me/message/3Q466CYO3F6CP1?text=EMERGENCY%20REPAIR%20REQUEST%20-%20LATE%20DISPATCH" class="btn btn-danger link-btn text-white bg-gradient py-3" target="_blank">
-          <i class="bi bi-lightning-charge-fill animate-pulse"></i> Force Route Emergency WhatsApp (Direct to Bench)
-        </a>
-        <a href="https://itrepairall53.booksy.com/a" class="btn btn-secondary link-btn text-white py-2 btn-sm opacity-75" target="_blank">
-          <i class="bi bi-calendar-minus"></i> Or queue non-urgent slot for tomorrow morning
-        </a>`;
-      if(estimatorCta) estimatorCta.href = "https://wa.me/message/3Q466CYO3F6CP1?text=EMERGENCY%20REPAIR%20ESTIMATE%20REQUEST";
+    if (operationalState) {
+      logBox.innerHTML = '<span class="badge-status bg-success text-white"><i class="bi bi-circle-fill fs-6 text-white me-1 animate-pulse"></i> Engineering Lab Active & Handling Enquiries</span>';
     } else {
-      container.innerHTML = '<span class="status-badge bg-danger text-white">Workshop Closed &bull; Queue Open</span>';
-      bookingTitle.innerHTML = "Reserve Next Available Slot";
-      bookingPlaceholder.innerHTML = `
-        <a href="https://itrepairall53.booksy.com/a" class="btn btn-primary link-btn text-white bg-gradient py-3" target="_blank">
-          <i class="bi bi-calendar-check-fill"></i> Secure Next Available Bench Slot Tomorrow
-        </a>`;
+      logBox.innerHTML = '<span class="badge-status bg-secondary text-white"><i class="bi bi-moon-stars-fill me-1"></i> Bench Queue Paused &bull; Book Next Slot Below</span>';
     }
   }
 
-  // 3. Mathematical Pricing Compilation Matrix
-  function calculateEstimate() {
-    const devCost = parseInt(document.getElementById('deviceType').value) || 0;
-    const faultCost = parseInt(document.getElementById('faultType').value) || 0;
-    document.getElementById('calculatedPrice').innerText = '£' + (devCost + faultCost);
+  // Cost Matrix Logic
+  function runCostEngine() {
+    const rawDevice = parseInt(document.getElementById('calc-device').value) || 0;
+    const rawFault = parseInt(document.getElementById('calc-fault').value) || 0;
+    document.getElementById('calc-output-display').innerText = '£' + (rawDevice + rawFault);
   }
 
-  // 4. Geographic Service Radius Validation Rule (UX Idea #5)
-  function checkPostcodeZone() {
-    triggerHaptic();
-    const input = document.getElementById('postcodeInput').value.toUpperCase().trim().replace(/\s+/g, '');
-    const outputBadge = document.getElementById('zoneResult');
+  // Postal Outward Bounds Radials
+  function runRadiusEngine() {
+    const rawString = document.getElementById('postcode-input-field').value.toUpperCase().trim().replace(/\s+/g, '');
+    const displayElement = document.getElementById('radius-badge-result');
     
-    // Extracted target logistics rings around Renfrewshire/Glasgow area
-    const freeZones = ['PA1', 'PA2', 'PA3', 'PA4', 'G51', 'G52', 'G11', 'G12', 'G13', 'G14'];
+    const standardZones = ['PA1', 'PA2', 'PA3', 'PA4', 'G51', 'G52', 'G11', 'G12', 'G13', 'G14'];
     const extendedZones = ['PA5', 'PA6', 'PA7', 'PA8', 'G1', 'G2', 'G3', 'G4', 'G20', 'G31', 'G41'];
 
-    outputBadge.classList.remove('d-none');
+    displayElement.classList.remove('d-none', 'alert-success', 'alert-warning', 'alert-danger');
 
-    // Simple match validation over string prefixes
-    const cleanPrefix = input.substring(0, 3);
-    const multiCharPrefix = input.substring(0, 4);
+    const cleanThreeVal = rawString.substring(0, 3);
+    const cleanFourVal = rawString.substring(0, 4);
 
-    if (freeZones.includes(cleanPrefix) || freeZones.includes(multiCharPrefix) || freeZones.includes(input)) {
-      outputBadge.className = "alert alert-success mt-2 mb-0 small py-2 fw-bold text-center";
-      outputBadge.innerHTML = "<i class='bi bi-check-circle-fill me-1'></i> Within Free Travel Radius. Field Technician available for Home/Office repair.";
-    } else if (extendedZones.includes(cleanPrefix) || extendedZones.includes(multiCharPrefix) || extendedZones.includes(input)) {
-      outputBadge.className = "alert alert-warning mt-2 mb-0 small py-2 fw-bold text-center text-dark";
-      outputBadge.innerHTML = "<i class='bi bi-info-circle-fill me-1'></i> Extended Travel Zone. Onsite repair subject to a £10 travel call-out premium.";
+    if (standardZones.includes(cleanThreeVal) || standardZones.includes(cleanFourVal) || standardZones.includes(rawString)) {
+      displayElement.className = "alert alert-success mt-3 mb-0 text-center small fw-bold";
+      displayElement.innerHTML = "<i class='bi bi-check-circle-fill me-1'></i> Service Check: Within Free Travel Radius Configuration.";
+    } else if (extendedZones.includes(cleanThreeVal) || extendedZones.includes(cleanFourVal) || extendedZones.includes(rawString)) {
+      displayElement.className = "alert alert-warning mt-3 mb-0 text-center small fw-bold text-dark";
+      displayElement.innerHTML = "<i class='bi bi-exclamation-triangle-fill me-1'></i> Service Check: Callout Available (Subject to standard £10 travel surcharge).";
     } else {
-      outputBadge.className = "alert alert-danger mt-2 mb-0 small py-2 fw-bold text-center";
-      outputBadge.innerHTML = "<i class='bi bi-envelope-paper-fill me-1'></i> Outside Mobile Travel Radius. Mail-In repair service configuration applies.";
+      displayElement.className = "alert alert-danger mt-3 mb-0 text-center small fw-bold";
+      displayElement.innerHTML = "<i class='bi bi-x-circle-fill me-1'></i> Service Check: Outside local travel radius. Please request a mail-in layout.";
     }
   }
 
-  // 5. Native Clipboard API with Tactile Callback Haptics (UX Idea #9)
-  function copyToClipboard(text, element, label) {
-    triggerHaptic();
-    navigator.clipboard.writeText(text).then(() => {
-      const originalHTML = element.innerHTML;
-      element.innerHTML = `<span class="small text-success fw-bold"><i class="bi bi-check-lg"></i> ${label} Saved</span>`;
-      element.classList.add('border-success');
-      setTimeout(() => {
-        element.innerHTML = originalHTML;
-        element.classList.remove('border-success');
-      }, 1500);
+  // Clipboard Copier
+  function runCopyEngine(stringText, domNode, systemLabel) {
+    navigator.clipboard.writeText(stringText).then(() => {
+      const rollbackLayout = domNode.innerHTML;
+      domNode.innerHTML = `<span class="small text-success fw-bold"><i class="bi bi-check2"></i> Copied</span>`;
+      setTimeout(() => { domNode.innerHTML = rollbackLayout; }, 1200);
     });
   }
 
-  // 6. Native Share Dispatcher
-  function shareProfile() {
-    triggerHaptic();
-    if (navigator.share) {
-      navigator.share({
-        title: 'I.T Repair All - Hub',
-        text: 'Access live component cost pipelines, drop-off routes, and diagnostic check systems.',
-        url: window.location.href
-      }).catch(console.error);
-    } else {
-      alert('Copy the current URL bar location link to share this engineering hub manual.');
-    }
-  }
-
-  // Load hooks and session recovery listeners
-  document.querySelectorAll('#priceEstimatorForm select').forEach(dropdown => {
-    dropdown.addEventListener('change', () => localStorage.setItem('hub_' + dropdown.id, dropdown.value));
-  });
-
+  // Runtime Bootstrap
   window.addEventListener('DOMContentLoaded', () => {
-    checkShopStatus();
-    if(localStorage.getItem('hub_deviceType')) document.getElementById('deviceType').value = localStorage.getItem('hub_deviceType');
-    if(localStorage.getItem('hub_faultType')) document.getElementById('faultType').value = localStorage.getItem('hub_faultType');
-    calculateEstimate();
-    
-    // Keep checking business hours every 30 seconds
-    setInterval(checkShopStatus, 30000);
+    calculateTimeMetrics();
+    runCostEngine();
+    setInterval(calculateTimeMetrics, 30000);
   });
 </script>
 </body>
