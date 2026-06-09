@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I.T Repair All (Renfrew) - Link Hub</title>
+  <title>I.T Repair All (Renfrew) - Interactive Hub</title>
   <!-- Bootstrap 5.3 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -13,165 +13,214 @@
     :root {
       --primary-gradient: linear-gradient(135deg, #0d6efd, #0a58ca);
       --success-gradient: linear-gradient(135deg, #198754, #146c43);
-      --dark-card: #ffffff;
-      --bg-light: #f4f7f6;
+      --glass-bg: rgba(255, 255, 255, 0.82);
+      --glass-border: rgba(255, 255, 255, 0.6);
+      --app-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --fluid-transition: all 0.25s var(--app-easing);
     }
 
     body {
-      background: var(--bg-light);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      padding: 2.5rem 0;
-      color: #333;
+      background: radial-gradient(circle at top left, #f8fafc 0%, #cbd5e1 100%);
+      background-attachment: fixed;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding: 2rem 0;
+      color: #0f172a;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .linktree-wrapper {
-      max-width: 620px;
+      max-width: 580px;
       margin: 0 auto;
-      padding: 0 1.25rem;
+      padding: 0 1rem;
     }
 
-    /* Cool Floating Profile Header */
+    /* 👤 Native App Profile Glass Container */
     .profile-card {
-      background: #fff;
-      border-radius: 24px;
-      padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06);
       text-align: center;
-      margin-bottom: 2rem;
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .avatar-wrapper {
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--glass-border);
       position: relative;
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 1.25rem;
     }
 
-    .profile-avatar {
-      width: 100%;
-      height: 100%;
+    .share-trigger-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(15, 23, 42, 0.05);
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: #475569;
+      transition: var(--fluid-transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .share-trigger-btn:hover {
+      background: rgba(13, 110, 253, 0.1);
+      color: #0d6efd;
+      transform: scale(1.05);
+    }
+
+    .avatar-circle {
+      width: 90px;
+      height: 90px;
       background: var(--primary-gradient);
       color: #fff;
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
-      transition: transform 0.3s ease;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 10px 25px rgba(13, 110, 253, 0.2);
     }
 
-    .profile-card:hover .profile-avatar {
-      transform: scale(1.05) rotate(5deg);
+    .status-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.45rem 0.9rem;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
     }
 
-    .verified-badge {
-      color: #0d6efd;
-      font-size: 1.4rem;
-      vertical-align: middle;
-      margin-left: 0.2rem;
+    /* ⚡ iOS-Style Segmented Control */
+    .nav-pills-custom {
+      background: rgba(15, 23, 42, 0.08);
+      padding: 0.3rem;
+      border-radius: 16px;
+      display: inline-flex;
+      width: 100%;
+      backdrop-filter: blur(8px);
     }
-
-    /* Core Action Tabs */
     .nav-pills-custom .nav-link {
-      color: #495057;
+      color: #475569;
       font-weight: 600;
       border-radius: 12px;
-      padding: 0.6rem 1.2rem;
-      transition: all 0.2s;
-      background: #fff;
-      border: 1px solid #e9ecef;
-      margin: 0 0.25rem;
+      padding: 0.7rem 1rem;
+      background: transparent;
+      border: none;
+      flex: 1;
+      font-size: 0.9rem;
+      transition: var(--fluid-transition);
     }
-
     .nav-pills-custom .nav-link.active {
-      background: var(--primary-gradient);
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
     }
 
-    /* Beautiful Interactive Accordion Grouping */
-    .accordion-custom .accordion-item {
-      background: #fff;
-      border-radius: 16px !important;
+    /* 📱 Modern Action Blocks */
+    .card-block {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 1.25rem;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.02);
       margin-bottom: 1rem;
-      border: 1px solid rgba(0,0,0,0.05);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.01);
-      overflow: hidden;
     }
 
-    .accordion-custom .accordion-button {
+    .block-title {
+      font-size: 0.85rem;
       font-weight: 700;
-      color: #212529;
-      padding: 1.1rem 1.5rem;
-      background: #fff;
-      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #64748b;
+      margin-bottom: 0.75rem;
+      padding-left: 0.25rem;
     }
 
-    .accordion-custom .accordion-button:not(.collapsed) {
-      background: rgba(13, 110, 253, 0.03);
-      color: #0d6efd;
-      box-shadow: none;
-    }
-
-    /* Interactive Button Elements */
     .link-btn {
-      margin: 0.5rem 0;
       width: 100%;
       text-align: left;
       font-weight: 600;
-      padding: 0.9rem 1.2rem;
-      border-radius: 14px;
+      padding: 1.1rem 1.25rem;
+      border-radius: 18px;
       border: 1px solid transparent;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-      transition: all 0.2s ease;
+      transition: var(--fluid-transition);
       display: flex;
       align-items: center;
       text-decoration: none;
+      margin-bottom: 0.5rem;
     }
-
+    .link-btn:last-child { margin-bottom: 0; }
     .link-btn:hover {
-      transform: translateX(4px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     }
-
+    .link-btn:active { transform: scale(0.97); }
+    
     .link-btn i {
-      font-size: 1.25rem;
-      margin-right: 0.85rem;
-      width: 28px;
+      font-size: 1.4rem;
+      margin-right: 0.9rem;
+      width: 24px;
       text-align: center;
     }
 
-    /* Maps Container */
-    .map-container {
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.08);
+    /* 🗂️ App Micro-Grid System */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
     }
-
-    /* Footer Components */
-    .footer-icons a {
-      margin: 0 0.5rem;
-      color: #6c757d;
-      font-size: 1.5rem;
-      transition: color 0.2s ease, transform 0.2s ease;
-      display: inline-block;
-    }
-
-    .footer-icons a:hover {
-      color: #0d6efd;
-      transform: translateY(-3px);
-    }
-
-    .banking-panel {
-      font-size: 0.85rem;
-      background: #fff;
+    .grid-btn {
+      padding: 1rem;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       border-radius: 18px;
-      border: 1px solid rgba(0,0,0,0.05);
+      font-size: 0.85rem;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.04);
+      color: #334155;
+    }
+    .grid-btn i { margin-right: 0; margin-bottom: 0.4rem; font-size: 1.6rem; }
+
+    /* Brand Accent Colors */
+    .btn-whatsapp { background: rgba(37, 211, 102, 0.1); color: #075e54; }
+    .btn-whatsapp:hover { background: #25d366; color: #fff; }
+    
+    .btn-trustpilot { background: rgba(0, 184, 124, 0.1); color: #005e3f; }
+    .btn-trustpilot:hover { background: #00b87c; color: #fff; }
+
+    .btn-ebay { background: rgba(0, 100, 214, 0.1); color: #004696; }
+    .btn-ebay:hover { background: #0064d6; color: #fff; }
+
+    .form-select {
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      transition: var(--fluid-transition);
+    }
+    .form-select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.12);
+    }
+    
+    .guarantee-banner {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 16px;
+      color: #92400e;
+      font-size: 0.85rem;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -179,180 +228,238 @@
 
 <div class="container linktree-wrapper">
 
-  <!-- 👤 Header Section -->
+  <!-- 👤 App Header Panel -->
   <div class="profile-card">
-    <div class="avatar-wrapper">
-      <div class="profile-avatar">IT</div>
-    </div>
-    <h1>I.T Repair All <i class="bi bi-patch-check-fill verified-badge" title="Verified Repair Hub"></i></h1>
-    <p class="text-muted mb-3">Fast, friendly service, fixes 💻🎮🖥️⌚️</p>
+    <button class="share-trigger-btn" onclick="shareProfile()" title="Share Hub">
+      <i class="bi bi-share-fill"></i>
+    </button>
+    <div class="avatar-circle">IT</div>
+    <h1 class="h4 fw-bold mb-1">I.T Repair All <i class="bi bi-patch-check-fill text-primary" title="Verified Workshop"></i></h1>
+    <p class="text-muted small mb-2">No Fix, No Fee &bull; Electronics & Console Engineering</p>
     
-    <!-- Quick Access Quick-Call Buttons -->
-    <div class="d-flex justify-content-center gap-2 mt-3">
-      <a href="tel:01415615907" class="btn btn-primary rounded-pill px-3 btn-sm fw-bold"><i class="bi bi-telephone-fill me-1"></i> Office</a>
-      <a href="tel:07939875777" class="btn btn-success rounded-pill px-3 btn-sm fw-bold"><i class="bi bi-phone-fill me-1"></i> Mobile</a>
+    <div id="shop-status-container">
+      <span class="status-badge bg-light text-secondary"><i class="bi bi-clock"></i> Analyzing workshop schedule...</span>
     </div>
   </div>
 
-  <!-- ⚡ Dynamic Layout Tabs for Navigation Segments -->
-  <div class="d-flex justify-content-center mb-4">
-    <div class="nav nav-pills nav-pills-custom" id="tree-tab" role="tablist">
-      <button class="nav-link active" id="links-tab-btn" data-bs-toggle="pill" data-bs-target="#tab-links" type="button" role="tab">All Services & Links</button>
-      <button class="nav-link" id="map-tab-btn" data-bs-toggle="pill" data-bs-target="#tab-map" type="button" role="tab"><i class="bi bi-geo-alt-fill me-1"></i> Find Workshop</button>
+  <!-- ⚡ Segmented Tabs Layout Control -->
+  <div class="d-flex justify-content-center mb-3">
+    <div class="nav nav-pills nav-pills-custom" role="tablist">
+      <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#panel-links" type="button" role="tab"><i class="bi bi-grid-fill me-1"></i> Directory</button>
+      <button class="nav-link" data-bs-toggle="pill" data-bs-target="#panel-estimator" type="button" role="tab"><i class="bi bi-calculator-fill me-1"></i> Estimator</button>
+      <button class="nav-link" data-bs-toggle="pill" data-bs-target="#panel-map" type="button" role="tab"><i class="bi bi-geo-alt-fill me-1"></i> Location</button>
     </div>
   </div>
 
-  <div class="tab-content" id="tree-tabContent">
+  <div class="tab-content">
     
-    <!-- 🗂️ TAB 1: Links & Accordions -->
-    <div class="tab-pane fade show active" id="tab-links" role="tabpanel">
-      <div class="accordion accordion-custom" id="linktreeAccordion">
+    <!-- 🗂️ PANEL 1: App Links -->
+    <div class="tab-pane fade show active" id="panel-links" role="tabpanel">
+      
+      <!-- Primary Booking Entrypoints -->
+      <div class="card-block">
+        <div class="block-title">Instant Booking Channels</div>
+        <a href="https://itrepairall53.booksy.com/a" class="btn btn-primary link-btn text-white bg-gradient py-3" target="_blank">
+          <i class="bi bi-calendar-check-fill"></i> Schedule Outbound Field Engineer (Booksy)
+        </a>
+        <a href="https://www.sumupbookings.com/i-t-repair-all" class="btn btn-success link-btn text-white bg-gradient py-3" target="_blank">
+          <i class="bi bi-house-door-fill"></i> Arrange Workshop Drop-Off / Mail-In
+        </a>
+      </div>
 
-        <!-- Accordion Item: Instant Booking & Support -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBooking" aria-expanded="true">
-              <i class="bi bi-calendar-check-fill me-2 text-primary"></i> Bookings & Remote Support
-            </button>
-          </h2>
-          <div id="collapseBooking" class="accordion-collapse collapse show" data-bs-parent="#linktreeAccordion">
-            <div class="accordion-body pt-1">
-              <a href="https://itrepairall53.booksy.com/a" class="btn btn-outline-primary link-btn" target="_blank"><i class="bi bi-calendar-check"></i> Outbound Repairs (Booksy)</a>
-              <a href="https://www.sumupbookings.com/i-t-repair-all" class="btn btn-outline-primary link-btn" target="_blank"><i class="bi bi-calendar2-event"></i> Inbound Repairs (SumUp)</a>
-              <a href="https://www.itrepairall.co.uk/shop-1" class="btn btn-outline-dark link-btn" target="_blank"><i class="bi bi-laptop"></i> Online Remote Tech Support</a>
-            </div>
-          </div>
+      <!-- Quick Communication Channels -->
+      <div class="card-block">
+        <div class="block-title">Live Technical Desk</div>
+        <div class="app-grid">
+          <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn link-btn grid-btn btn-whatsapp" target="_blank">
+            <i class="bi bi-whatsapp"></i>WhatsApp Live
+          </a>
+          <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="btn link-btn grid-btn" style="background: rgba(81,81,229,0.1); color:#5151e5;" target="_blank">
+            <i class="bi bi-chat-dots-fill"></i>Signal Line
+          </a>
+          <a href="https://t.me/itrepairallcouk" class="btn link-btn grid-btn" style="background: rgba(34,158,217,0.1); color:#229ed9;" target="_blank">
+            <i class="bi bi-telegram"></i>Telegram
+          </a>
+          <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="btn link-btn grid-btn" style="background: rgba(255,252,0,0.15); color:#706e00;" target="_blank">
+            <i class="bi bi-snapchat"></i>Snapchat
+          </a>
         </div>
+      </div>
 
-        <!-- Accordion Item: Messaging Channels -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMessaging">
-              <i class="bi bi-chat-left-heart-fill me-2 text-success"></i> Direct Messaging Channels
-            </button>
-          </h2>
-          <div id="collapseMessaging" class="accordion-collapse collapse" data-bs-parent="#linktreeAccordion">
-            <div class="accordion-body pt-1">
-              <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn btn-success link-btn text-white" target="_blank"><i class="bi bi-whatsapp"></i> WhatsApp Business Helpdesk</a>
-              <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="btn btn-secondary link-btn text-white" target="_blank"><i class="bi bi-chat-dots"></i> Message via Signal</a>
-              <a href="https://t.me/itrepairallcouk" class="btn btn-info link-btn text-white" target="_blank"><i class="bi bi-telegram"></i> Telegram Chat</a>
-              <a href="https://line.me/ti/p/1DbBkIQaio" class="btn btn-success link-btn text-white" style="background-color: #06c755;" target="_blank"><i class="bi bi-line"></i> LINE Messenger</a>
-              <a href="https://vb.me/letsChatOnViber" class="btn link-btn text-white" style="background-color: #59267c;" target="_blank"><i class="bi bi-chat-left-text"></i> Viber Connection</a>
-              <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="btn btn-warning link-btn text-dark" target="_blank"><i class="bi bi-snapchat"></i> Snapchat Profile</a>
-            </div>
-          </div>
+      <!-- Inventory Stores -->
+      <div class="card-block">
+        <div class="block-title">Stockroom & Components</div>
+        <a href="https://ebay.us/m/kWMlAd" class="btn link-btn btn-ebay" target="_blank">
+          <i class="bi bi-shop"></i> Browse Verified eBay Storefront
+        </a>
+        <a href="https://wa.me/c/447939875777" class="btn link-btn text-dark" style="background: #f1f5f9;" target="_blank">
+          <i class="bi bi-card-list text-success"></i> View Spares Catalog via WhatsApp
+        </a>
+      </div>
+
+      <!-- Verification Infrastructure -->
+      <div class="card-block">
+        <div class="block-title">Verified Reviews Matrix</div>
+        <div class="app-grid">
+          <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" class="btn link-btn grid-btn btn-trustpilot" target="_blank">
+            <i class="bi bi-star-fill"></i>Trustpilot
+          </a>
+          <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="btn link-btn grid-btn text-dark" target="_blank">
+            <i class="bi bi-patch-check-fill text-success"></i>TrustIndex Verified
+          </a>
         </div>
-
-        <!-- Accordion Item: Marketplace & E-Commerce -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStores">
-              <i class="bi bi-bag-check-fill me-2 text-dark"></i> E-Commerce Shops & Stores
-            </button>
-          </h2>
-          <div id="collapseStores" class="accordion-collapse collapse" data-bs-parent="#linktreeAccordion">
-            <div class="accordion-body pt-1">
-              <a href="https://wa.me/c/447939875777" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-card-list text-success"></i> WhatsApp Product Catalog</a>
-              <a href="https://ebay.us/m/kWMlAd" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-shop text-primary"></i> Official eBay Shop (itra-tech)</a>
-              <a href="https://www.itrepairall.co.uk/shop-1" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-bag-heart-fill text-danger"></i> Shop Direct Website Store</a>
-              <a href="https://app.squareup.com/gift/JK9PTTKNDRKCH/order" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-gift text-warning"></i> Buy Digital eGift Cards</a>
-              <a href="https://www.shpock.com/en-gb/shop/itrepairallcouk" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-shop-window text-info"></i> Shpock Storefront</a>
-              <a href="http://www.mobileapp.app/to/sUBwAGY?ref=cl" class="btn btn-dark link-btn text-white" target="_blank"><i class="bi bi-phone-vibrate"></i> Download Our Android/iOS App</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Accordion Item: Customer Reviews & Verification -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReviews">
-              <i class="bi bi-star-fill me-2 text-warning"></i> Customer Reviews & Accreditations
-            </button>
-          </h2>
-          <div id="collapseReviews" class="accordion-collapse collapse" data-bs-parent="#linktreeAccordion">
-            <div class="accordion-body pt-1">
-              <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="btn btn-light link-btn border text-secondary" target="_blank"><i class="bi bi-shield-check text-success"></i> Trustindex Aggregated Reviews</a>
-              <a href="https://uk.trustpilot.com/review/itrepairall.co.uk?sort=recency" class="btn btn-light link-btn border text-secondary" target="_blank"><i class="bi bi-star-fill text-danger"></i> Trustpilot Reviews Feed</a>
-              <a href="https://threebestrated.co.uk/computer-repair-in-renfrewshire" class="btn btn-light link-btn border text-secondary" target="_blank"><i class="bi bi-award-fill text-warning"></i> Top 3 Rated Repairers Certificate</a>
-              <a href="https://m.facebook.com/itrepairall.co.uk" class="btn btn-light link-btn border text-secondary" target="_blank"><i class="bi bi-facebook text-primary"></i> Facebook Business Reviews</a>
-              <a href="https://www.yell.com/biz/www-itrepairall-co-uk-renfrew-7345017/" class="btn btn-light link-btn border text-secondary" target="_blank"><i class="bi bi-telephone text-warning"></i> Yell.com Verified Listing</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Accordion Item: Utilities & Digital Downloads -->
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDigital">
-              <i class="bi bi-cpu-fill me-2 text-info"></i> Digital Utilities & Services
-            </button>
-          </h2>
-          <div id="collapseDigital" class="accordion-collapse collapse" data-bs-parent="#linktreeAccordion">
-            <div class="accordion-body pt-1">
-              <a href="https://www.itrepairall.co.uk/" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-phone-flip text-primary"></i> Carrier Network Unlocking Panel</a>
-              <a href="https://www.itrepairall.co.uk/" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-lightning-charge text-warning"></i> Automated Global Mobile Top-Up</a>
-              <a href="https://www.itrepairall.co.uk/shop-1" class="btn btn-light link-btn border" target="_blank"><i class="bi bi-key-fill text-success"></i> MS Office Lifetime Activation Codes</a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- 🗺️ TAB 2: Embedded Google Maps Integration -->
-    <div class="tab-pane fade" id="tab-map" role="tabpanel">
-      <div class="card p-3 border-0 shadow-sm bg-white rounded-4 mb-4">
-        <h5 class="fw-bold mb-2"><i class="bi bi-geo-alt text-danger me-1"></i> Central Workshop Location</h5>
-        <p class="text-muted small mb-3">Flat 3/2, 46 Canal St, Renfrew, PA4 8QD. Out of hours and drop-off coordination available via messaging tabs.</p>
+    <!-- 🧮 PANEL 2: Dynamic Cost Estimator -->
+    <div class="tab-pane fade" id="panel-estimator" role="tabpanel">
+      <div class="card-block mb-3">
+        <div class="block-title">Modular Price Tool</div>
+        <div class="guarantee-banner p-3 mb-3 d-flex align-items-center gap-2">
+          <i class="bi bi-shield-check-fill fs-5 flex-shrink-0"></i>
+          <span>Strict No-Fix, No-Fee baseline configuration logic applied.</span>
+        </div>
         
-        <div class="map-container mb-3">
-          <!-- Embedded Iframe Google Map Mapping target site destination -->
+        <form id="priceEstimatorForm">
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-secondary">Hardware System Architecture</label>
+            <select class="form-select" id="deviceType" onchange="calculateEstimate()">
+              <option value="45">Smartphones (Apple iPhone / Samsung Galaxy)</option>
+              <option value="65">Next-Gen Consoles (PlayStation 5 / Xbox Series X / Switch)</option>
+              <option value="80" selected>Laptops, MacBooks & Ultrabooks</option>
+              <option value="110">Custom Built High-End Gaming Rigs</option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label small fw-bold text-secondary">Symptom Class & Fault Verification</label>
+            <select class="form-select" id="faultType" onchange="calculateEstimate()">
+              <option value="35">Battery Profiling / Solid-State Port Replacement</option>
+              <option value="75" selected>Broken Glass / Liquid Crystal Digitizer Replacement</option>
+              <option value="55">Thermal Management (Liquid Metal Deep Clean & Repaste)</option>
+              <option value="130">BGA Microsoldering / Liquid Damage Logic Board Recovery</option>
+            </select>
+          </div>
+
+          <div class="p-3 rounded-4 bg-white text-center my-4 border">
+            <span class="text-uppercase text-muted small d-block fw-bold mb-1" style="font-size: 0.7rem; letter-spacing: 0.05em;">Calculated Matrix Baseline</span>
+            <span class="h1 fw-bold text-dark" id="calculatedPrice">£155</span>
+            <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">*Indicative benchmark only. Includes diagnostics under true operational workloads.</small>
+          </div>
+
+          <a href="https://wa.me/message/3Q466CYO3F6CP1" target="_blank" class="btn btn-primary w-100 py-3 fw-bold rounded-4 bg-gradient">
+            <i class="bi bi-whatsapp me-1"></i> lock Estimate via Live Desk
+          </a>
+        </form>
+      </div>
+    </div>
+
+    <!-- 🗺️ PANEL 3: Location Metrics -->
+    <div class="tab-pane fade" id="panel-map" role="tabpanel">
+      <div class="card-block mb-3">
+        <div class="block-title">Engineering Workshop Address</div>
+        <p class="text-muted small mb-3">Flat 3/2, 46 Canal St, Renfrew, PA4 8QD. Mail-in hardware tracking drops should require pre-authorization.</p>
+        
+        <div class="rounded-4 overflow-hidden border mb-3">
           <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1d2239.387114138612!2d-4.387626299999999!3d55.879651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884f18eb3335c7%3A0xe0b7240c165a3d6c!2sI.T%20Repair%20All!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk" 
-            width="100%" 
-            height="320" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m13!1d2239.387114138612!2d-4.387626299999999!3d55.879651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884f18eb3335c7%3A0xe0b7240c165a3d6c!2sI.T%20Repair%20All!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk" 
+            width="100%" height="260" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
         
-        <a href="https://www.google.com/maps/place/flat+3%2F2,+I.T+Repair+All,+46+Canal+St,+Renfrew+PA4+8QD/" 
-           target="_blank" 
-           class="btn btn-primary w-100 rounded-3 fw-bold py-2">
-           <i class="bi bi-cursor-fill me-1"></i> Open Directly in Native Google Maps App
+        <a href="https://www.google.com/maps/place/flat+3%2F2,+I.T+Repair+All,+46+Canal+St,+Renfrew+PA4+8QD/" target="_blank" class="btn btn-outline-dark w-100 py-3 rounded-4 fw-bold">
+          <i class="bi bi-signpost-2-fill me-1"></i> Open Native GPS Routing Engine
         </a>
       </div>
     </div>
 
   </div>
 
-  <!-- 🔗 Social Network Footers -->
-  <div class="text-center footer-icons">
-    <a href="https://www.itrepairall.co.uk" target="_blank" title="Website Hub"><i class="bi bi-globe"></i></a>
-    <a href="https://www.tiktok.com/@itrepairall.co.uk" target="_blank" title="TikTok"><i class="bi bi-tiktok"></i></a>
-    <a href="https://www.threads.net/@itrepairall.co.uk" target="_blank" title="Threads"><i class="bi bi-hash"></i></a>
-    <a href="https://www.instagram.com/@itrepairall.co.uk" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
-    <a href="https://www.facebook.com/itrepairall.co.uk" target="_blank" title="Facebook Page"><i class="bi bi-facebook"></i></a>
-    <a href="https://www.reddit.com/user/itrepairall" target="_blank" title="Reddit Profile"><i class="bi bi-reddit"></i></a>
-    <a href="https://github.com/itrepairall" target="_blank" title="GitHub Source"><i class="bi bi-github"></i></a>
-  </div>
-
-  <!-- 🔲 Secure Banking & Instant Payment Block -->
-  <div class="banking-panel text-center mt-5 p-4 shadow-sm">
-    <p class="mb-1 text-dark fw-bold">Direct Secure Invoice Clearing</p>
-    <p class="mb-1 text-muted"><strong>Account Name:</strong> I.T Repair All</p>
-    <p class="mb-1 text-muted"><strong>Sort Code:</strong> 04-14-50 | <strong>Account No:</strong> 16523518</p>
-    <p class="mb-3 small text-muted"><i class="bi bi-shield-lock-fill text-success"></i> Settlement gateway protected via SumUp Payments UK</p>
-    <a href="https://paypal.me/itrepairall" class="btn btn-outline-primary btn-sm px-4 rounded-pill fw-bold" target="_blank">
-      <i class="bi bi-paypal me-1"></i> Express Checkout via PayPal.Me
-    </a>
+  <!-- 🖳 Bank Processing Module -->
+  <div class="card-block text-center bg-white rounded-4 border-0 shadow-sm mt-3">
+    <div class="block-title" style="font-size:0.75rem;">Direct Invoice Processing (BACS)</div>
+    <p class="small text-muted mb-2">Tap data point elements below to write structural numbers directly to active system clipboards.</p>
+    
+    <div class="d-flex justify-content-center gap-2 mb-2">
+      <button class="btn btn-sm btn-light border rounded-3 px-3 py-2 text-secondary" onclick="copyToClipboard('04-14-50', this, 'Sort Code')">
+        <span class="font-monospace">Sort: <strong>04-14-50</strong></span> <i class="bi bi-copy ms-1 opacity-50"></i>
+      </button>
+      <button class="btn btn-sm btn-light border rounded-3 px-3 py-2 text-secondary" onclick="copyToClipboard('16523518', this, 'Account No')">
+        <span class="font-monospace">Acc: <strong>16523518</strong></span> <i class="bi bi-copy ms-1 opacity-50"></i>
+      </button>
+    </div>
+    <div class="small font-monospace fw-bold text-muted mb-2" style="font-size: 0.8rem;">Beneficiary: I.T Repair All</div>
   </div>
 
 </div>
 
-<!-- Bootstrap 5.3 Javascript Runtime Stack -->
+<!-- Bootstrap 5.3 JavaScript Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // 1. Live Operational Verification Logic
+  function checkShopStatus() {
+    const container = document.getElementById('shop-status-container');
+    const now = new Date();
+    const currentDay = now.getDay();
+    const currentHour = now.getHours();
+    let isOpen = false;
+
+    // Operational schedule validation: Monday to Friday (9am-6pm), Saturday (10am-4pm)
+    if (currentDay >= 1 && currentDay <= 5) { if (currentHour >= 9 && currentHour < 18) isOpen = true; }
+    else if (currentDay === 6) { if (currentHour >= 10 && currentHour < 16) isOpen = true; }
+
+    if (isOpen) {
+      container.innerHTML = '<span class="status-badge bg-success text-white"><span class="spinner-grow spinner-grow-sm me-1" style="animation-duration: 1.5s;"></span> Lab Active & Processing Quotes</span>';
+    } else {
+      container.innerHTML = '<span class="status-badge bg-danger text-white">Workshop Closed &bull; Direct Messages Monitored</span>';
+    }
+  }
+
+  // 2. Linear Price Compilation Logic
+  function calculateEstimate() {
+    const devCost = parseInt(document.getElementById('deviceType').value) || 0;
+    const faultCost = parseInt(document.getElementById('faultType').value) || 0;
+    document.getElementById('calculatedPrice').innerText = '£' + (devCost + faultCost);
+  }
+
+  // 3. Native Clipboard Interface API
+  function copyToClipboard(text, element, label) {
+    navigator.clipboard.writeText(text).then(() => {
+      const originalHTML = element.innerHTML;
+      element.innerHTML = `<span class="small text-success fw-bold"><i class="bi bi-check-lg"></i> ${label} Copied</span>`;
+      element.classList.add('border-success');
+      setTimeout(() => {
+        element.innerHTML = originalHTML;
+        element.classList.remove('border-success');
+      }, 1500);
+    });
+  }
+
+  // 4. Web Share WebAPI Interface Call
+  function shareProfile() {
+    if (navigator.share) {
+      navigator.share({
+        title: 'I.T Repair All Matrix Hub',
+        text: 'Access live diagnostic pricing matrices, custom repair channels, and work paths.',
+        url: window.location.href
+      }).catch(console.error);
+    } else {
+      alert('Copy the current browser location URL bar address to share this secure hub.');
+    }
+  }
+
+  // Session State Persistence Hook
+  document.querySelectorAll('#priceEstimatorForm select').forEach(dropdown => {
+    dropdown.addEventListener('change', () => localStorage.setItem('track_' + dropdown.id, dropdown.value));
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    checkShopStatus();
+    if(localStorage.getItem('track_deviceType')) document.getElementById('deviceType').value = localStorage.getItem('track_deviceType');
+    if(localStorage.getItem('track_faultType')) document.getElementById('faultType').value = localStorage.getItem('track_faultType');
+    calculateEstimate();
+  });
+</script>
 </body>
 </html>
