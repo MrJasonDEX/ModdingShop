@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I.T Repair All | Premium Device Repair & Smart Outlet Hub</title>
+    <title>I.T Repair All | Premium Device Repair & Social Hub</title>
     
+    <!-- External Frameworks & Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
@@ -24,12 +25,11 @@
 
         body {
             background-color: var(--bg-canvas);
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: system-ui, -apple-system, sans-serif;
             color: var(--text-main);
             padding-bottom: 8.5rem;
         }
 
-        /* Architectural Scaffolding Framework classes */
         .app-shell { max-width: 490px; }
         
         .premium-card {
@@ -51,7 +51,6 @@
             box-shadow: 0 12px 24px -6px rgba(37, 99, 235, 0.3);
         }
 
-        /* Component Segment Nav Controls */
         .segmented-control {
             background: rgba(15, 23, 42, 0.04);
             border: 1px solid rgba(15, 23, 42, 0.02);
@@ -59,91 +58,70 @@
             border-radius: 100px;
         }
         .segmented-control .nav-link {
-            color: var(--text-muted);
-            font-weight: 700;
-            font-size: 0.85rem;
-            border-radius: 100px;
-            padding: 0.7rem 1rem;
-            transition: all 0.2s ease;
+            color: var(--text-muted); font-weight: 700; font-size: 0.85rem;
+            border-radius: 100px; padding: 0.7rem 1rem; transition: all 0.2s ease;
         }
         .segmented-control .nav-link.active {
-            background: var(--surface-card);
-            color: var(--accent-primary);
-            box-index: 2;
+            background: var(--surface-card); color: var(--accent-primary);
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
         }
 
-        /* Action-Linked Anchor Layout Templates */
-        .gateway-anchor {
-            border: 1px solid var(--border-light);
-            border-radius: 18px;
+        /* Social Link Grid & List System */
+        .social-link-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1rem 1.2rem; margin-bottom: 0.75rem; border-radius: 16px;
+            border: 1px solid var(--border-light); background: #ffffff;
+            text-decoration: none; color: var(--text-main); font-weight: 600;
             transition: all 0.2s ease;
         }
-        .gateway-anchor:hover {
-            background: rgba(15, 23, 42, 0.01) !important;
-            border-color: rgba(15, 23, 42, 0.15);
-            transform: translateX(2px);
+        .social-link-item:hover {
+            transform: translateX(3px);
+            background: rgba(15, 23, 42, 0.01);
+            border-color: rgba(15, 23, 42, 0.12);
         }
+        .social-link-item i { font-size: 1.4rem; width: 30px; text-align: center; }
+        
+        /* Custom Brand Colors for Socials */
+        .icon-whatsapp { color: #25D366; }
+        .icon-ebay { color: #E53238; }
+        .icon-tiktok { color: #000000; }
+        .icon-facebook { color: #1877F2; }
+        .icon-instagram { color: #E1306C; }
+        .icon-trustpilot { color: #00B67A; }
 
-        /* Custom Social Matrix Elements */
-        .social-chip {
-            border-radius: 14px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: opacity 0.15s;
-        }
-        .social-chip:hover { opacity: 0.85; }
-        .social-chip.facebook { color: #1877f2; background: rgba(24, 119, 242, 0.06); }
-        .social-chip.tiktok { color: #000000; background: rgba(0, 0, 0, 0.06); }
-
-        /* Multi-Choice Configurator Item Rules */
         .matrix-item {
-            border: 2px solid rgba(15, 23, 42, 0.04);
-            border-radius: 18px;
-            transition: all 0.2s ease;
+            border: 2px solid rgba(15, 23, 42, 0.04); border-radius: 18px; transition: all 0.2s ease;
         }
         .matrix-item.active-node {
-            border-color: var(--accent-secondary);
-            background: rgba(124, 58, 237, 0.03);
+            border-color: var(--accent-secondary); background: rgba(124, 58, 237, 0.03);
         }
 
-        /* Interactive Timeline Visual Base Tracks */
-        .pipeline-track {
-            position: relative;
-        }
+        .pipeline-track { position: relative; }
         .pipeline-track::before {
             content: ''; position: absolute; top: 16px; left: 0; right: 0;
             height: 4px; background: rgba(15, 23, 42, 0.04); z-index: 1;
         }
         .pipeline-node {
-            width: 36px; height: 36px; border-radius: 50%;
-            background: #e2e8f0; color: var(--text-muted);
-            font-size: 0.9rem; font-weight: 700; z-index: 2;
-            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 36px; height: 36px; border-radius: 50%; background: #e2e8f0; color: var(--text-muted);
+            font-size: 0.9rem; font-weight: 700; z-index: 2; transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .pipeline-node.node-filled {
-            background: var(--accent-primary); color: white;
-            box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.15);
+            background: var(--accent-primary); color: white; box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.15);
         }
 
-        /* Docked Execution Bar Overlay */
         .docked-action-shelf {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 32px;
-            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.12);
-            max-width: 450px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 32px;
+            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.12); max-width: 450px;
         }
-        .docked-action-shelf .btn-action-trigger {
-            border-radius: 50px; padding: 0.8rem 1.2rem; font-weight: 700; font-size: 0.9rem;
-        }
+        .docked-action-shelf .btn-action-trigger { border-radius: 50px; padding: 0.8rem 1.2rem; font-weight: 700; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <div class="container-fluid app-shell mx-auto px-3 pt-4 animate__animated animate__fadeIn">
 
+    <!-- Profile Context Header Block -->
     <header class="premium-card p-4 text-center mb-4">
         <div class="avatar-squircle mx-auto d-flex align-items-center justify-content-center text-white mb-3">
             <i class="fa-solid fa-screwdriver-wrench fa-xl"></i>
@@ -151,40 +129,99 @@
         <h1 class="h4 fw-bold mb-1">I.T Repair All</h1>
         <p class="text-secondary small fw-medium mb-3">Micro-Soldering Specialties & Hardware Diagnostics</p>
         
-        <div class="d-flex gap-2 justify-content-center mb-3">
-            <span class="badge bg-light text-dark border rounded-pill px-3 py-2 small fw-semibold"><i class="fa-solid fa-star text-warning me-1"></i>4.9 Trustpilot Verified</span>
-            <span class="badge bg-light text-dark border rounded-pill px-3 py-2 small fw-semibold"><i class="fa-solid fa-truck-ramp-box text-primary me-1"></i>Local Callouts</span>
+        <div class="d-flex gap-2 justify-content-center">
+            <span class="badge bg-light text-dark border rounded-pill px-3 py-2 small fw-semibold"><i class="fa-solid fa-star text-warning me-1"></i>4.9 Trustpilot</span>
+            <span class="badge bg-light text-dark border rounded-pill px-3 py-2 small fw-semibold"><i class="fa-solid fa-house-laptop text-primary me-1"></i>Glasgow & Renfrewshire</span>
         </div>
 
-        <div class="d-flex gap-2 justify-content-center mb-3">
-            <a href="https://www.facebook.com/itrepairall" target="_blank" rel="noopener" class="social-chip facebook px-3 py-2 border w-50 d-flex align-items-center justify-content-center gap-1 text-decoration-none">
-                <i class="fa-brands fa-facebook-f"></i> Facebook
-            </a>
-            <a href="https://www.tiktok.com/@itrepairall" target="_blank" rel="noopener" class="social-chip tiktok px-3 py-2 border w-50 d-flex align-items-center justify-content-center gap-1 text-decoration-none">
-                <i class="fa-brands fa-tiktok"></i> TikTok
-            </a>
-        </div>
-
-        <div class="p-3 text-start rounded-4 mt-2" style="background: rgba(16, 185, 129, 0.05); border: 1px dashed var(--status-success);">
+        <!-- Zero-Risk Assurance Block Banner -->
+        <div class="p-3 text-start rounded-4 mt-3" style="background: rgba(16, 185, 129, 0.05); border: 1px dashed var(--status-success);">
             <div class="d-flex align-items-center gap-2 text-success small fw-bold mb-1">
                 <i class="fa-solid fa-shield-check"></i>
                 <span>Official Policy: No Fix, No Fee.</span>
             </div>
             <p class="text-muted m-0 small" style="font-size: 0.78rem; padding-left: 1.35rem;">
-                Zero assessment or baseline benchmarking fees if logic-board micro-traces are found completely unrecoverable.
+                Zero assessment or benchmark diagnostic fees if logic-board micro-traces are completely unrecoverable.
             </p>
         </div>
     </header>
 
+    <!-- Operational Tab Control Navigation -->
     <nav class="nav segmented-control mb-4" role="tablist">
-        <button class="nav-link active border-0 flex-grow-1" data-bs-toggle="pill" data-bs-target="#panel-retail" type="button" role="tab">Retail & Diagnostics</button>
-        <button class="nav-link border-0 flex-grow-1" data-bs-toggle="pill" data-bs-target="#panel-pricing" type="button" role="tab">Pricing & Routing</button>
+        <button class="nav-link active border-0 flex-grow-1" data-bs-toggle="pill" data-bs-target="#panel-links" type="button" role="tab">Our Links</button>
+        <button class="nav-link border-0 flex-grow-1" data-bs-toggle="pill" data-bs-target="#panel-retail" type="button" role="tab">Interactive Tools</button>
+        <button class="nav-link border-0 flex-grow-1" data-bs-toggle="pill" data-bs-target="#panel-pricing" type="button" role="tab">Pricing</button>
     </nav>
 
+    <!-- Unified Tab Panel Matrix -->
     <main class="tab-content">
         
-        <div class="tab-pane fade show active" id="panel-retail" role="tabpanel">
+        <!-- Tab 1: Comprehensive Socials & Links Hub -->
+        <div class="tab-pane fade show active" id="panel-links" role="tabpanel">
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Connect With Us</div>
+                
+                <!-- WhatsApp Catalog -->
+                <a href="https://wa.me/c/447939875777" target="_blank" rel="noopener" class="social-link-item">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-brands fa-whatsapp icon-whatsapp"></i>
+                        <span>WhatsApp Product Catalog</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square fa-xs text-muted"></i>
+                </a>
+
+                <!-- eBay Store -->
+                <a href="https://ebay.us/m/kWMlAd" target="_blank" rel="noopener" class="social-link-item">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-brands fa-ebay icon-ebay"></i>
+                        <span>Official eBay Store</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square fa-xs text-muted"></i>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@itrepairall" target="_blank" rel="noopener" class="social-link-item">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-brands fa-tiktok icon-tiktok"></i>
+                        <span>Follow Our TikTok Repair Videos</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square fa-xs text-muted"></i>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/itrepairall" target="_blank" rel="noopener" class="social-link-item">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-brands fa-facebook-f icon-facebook"></i>
+                        <span>Facebook Business Page</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square fa-xs text-muted"></i>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/itrepairall.co.uk" target="_blank" rel="noopener" class="social-link-item">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-brands fa-instagram icon-instagram"></i>
+                        <span>Instagram Repair Portfolio</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square fa-xs text-muted"></i>
+                </a>
+
+                <!-- Trustpilot -->
+                <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" target="_blank" rel="noopener" class="social-link-item">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-star icon-trustpilot"></i>
+                        <span>Read Verified Customer Reviews</span>
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square fa-xs text-muted"></i>
+                </a>
+
+            </section>
+        </div>
+        
+        <!-- Tab 2: Interactive Engineering Suites -->
+        <div class="tab-pane fade" id="panel-retail" role="tabpanel">
             
+            <!-- Real-Time Workbench Progress Pipeline -->
             <section class="premium-card p-4 mb-4">
                 <div class="text-uppercase text-secondary fw-bold small mb-2 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Interactive Lab Status Emulator</div>
                 <p class="text-secondary small mb-4">Step through the lifecycle stages of an advanced motherboard restoration or liquid reclamation job.</p>
@@ -202,6 +239,7 @@
                 </div>
             </section>
 
+            <!-- Dynamic Clearance Combo Configurator -->
             <section class="premium-card p-4 mb-4">
                 <div class="text-uppercase text-secondary fw-bold small mb-2 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Outlet Smart Bundle Configurator</div>
                 <p class="text-secondary small mb-4">Combine active catalog clearance devices below to calculate automated compound bulk savings.</p>
@@ -243,79 +281,12 @@
                     <span class="h3 fw-bold m-0" id="composite-bundle-price-view" style="color: var(--accent-secondary);">£0.00</span>
                 </div>
             </section>
-
-            <section class="premium-card p-4 mb-4">
-                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Lab Technical Specializations</div>
-                <div class="row g-2 text-center">
-                    <div class="col-6">
-                        <div class="p-3 rounded-4 border bg-light h-100">
-                            <i class="fa-solid fa-droplet text-primary mb-2 fa-lg"></i>
-                            <span class="d-block fw-bold text-dark small">Liquid Fixes</span>
-                            <small class="text-muted d-block mt-1" style="font-size:0.68rem;">Renfrew & Paisley</small>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 rounded-4 border bg-light h-100">
-                            <i class="fa-solid fa-microchip text-purple mb-2 fa-lg" style="color: var(--accent-secondary);"></i>
-                            <span class="d-block fw-bold text-dark small">IC Micro-Soldering</span>
-                            <span class="text-muted d-block mt-1" style="font-size:0.68rem;">Glasgow & Govan</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="premium-card p-4 mb-4">
-                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Online Storefront Outlets</div>
-                <a href="https://ebay.us/m/kWMlAd" target="_blank" rel="noopener" class="gateway-anchor d-flex align-items-center justify-content-between p-3 bg-white text-decoration-none text-dark mb-2">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-light p-2 rounded-3 text-danger"><i class="fa-brands fa-ebay fa-lg"></i></div>
-                        <div>
-                            <span class="fw-bold d-block small">Official eBay Component Depot</span>
-                            <small class="text-secondary d-block" style="font-size:0.72rem;">Browse modular IC arrays and spare components</small>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-muted fa-sm"></i>
-                </a>
-                <a href="https://wa.me/c/447939875777" target="_blank" rel="noopener" class="gateway-anchor d-flex align-items-center justify-content-between p-3 bg-white text-decoration-none text-dark">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="bg-light p-2 rounded-3 text-success"><i class="fa-solid fa-boxes-stacked fa-lg"></i></div>
-                        <div>
-                            <span class="fw-bold d-block small">Live WhatsApp Product Catalog</span>
-                            <small class="text-secondary d-block" style="font-size:0.72rem;">Verify exact gadget and console stock lists in real-time</small>
-                        </div>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-muted fa-sm"></i>
-                </a>
-            </section>
-
-            <section class="premium-card p-4 mb-4">
-                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Verified Lab Feedback</div>
-                <div id="feedbackCarouselEngine" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-                    <div class="carousel-inner pb-2">
-                        <div class="carousel-item active">
-                            <p class="text-secondary small fst-italic mb-2">"Fantastic service, fixed my partner's iPhone in minutes when Apple were no use, highly recommended! Nothing the guy can't do!"</p>
-                            <span class="fw-bold text-primary" style="font-size:0.75rem;">- Victoria Roy</span>
-                        </div>
-                        <div class="carousel-item">
-                            <p class="text-secondary small fst-italic mb-2">"Excellent service. I called at 4pm and my iPhone was fully repaired by 5pm. The whole process was quick, easy, and hassle-free."</p>
-                            <span class="fw-bold text-primary" style="font-size:0.75rem;">- Joe Steel</span>
-                        </div>
-                        <div class="carousel-item">
-                            <p class="text-secondary small fst-italic mb-2">"Absolutely brilliant service. It's very refreshing to have someone who keeps you up to speed with the status of the job. Thanks again Paul."</p>
-                            <span class="fw-bold text-primary" style="font-size:0.75rem;">- Yo gi</span>
-                        </div>
-                    </div>
-                    <div class="carousel-indicators position-relative m-0 mt-3">
-                        <button type="button" data-bs-target="#feedbackCarouselEngine" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#feedbackCarouselEngine" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#feedbackCarouselEngine" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-                </div>
-            </section>
         </div>
 
+        <!-- Tab 3: Interactive Pricing Matrices & Logistics Channels -->
         <div class="tab-pane fade" id="panel-pricing" role="tabpanel">
             
+            <!-- Real-Time Estimate Estimation Tool -->
             <section class="premium-card p-4 mb-4">
                 <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Base Cost Assessment Assistant</div>
                 
@@ -344,6 +315,7 @@
                 </div>
             </section>
 
+            <!-- Mail-In Distribution Anchor Info -->
             <section class="premium-card p-4 mb-4">
                 <div class="text-uppercase text-secondary fw-bold small mb-2 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">UK National Mail-In Workbench Routing</div>
                 <p class="text-secondary small mb-3">Living outside the greater Glasgow dispatch area? Safe-pack your hardware and dispatch to the main testing lab:</p>
@@ -356,6 +328,7 @@
         </div>
     </main>
 
+    <!-- Structural Locked Attribution Branding Footer Element -->
     <footer class="text-center pt-3 mt-4 border-top" style="border-color: var(--border-light) !important;">
         <p class="m-0 small text-secondary fw-semibold">&copy; I.T Repair All. All Hardware Rights Reserved.</p>
         <p class="m-0 text-muted mt-1" style="font-size:0.68rem; opacity:0.8;"><i class="fa-solid fa-code-merge me-1"></i> Engineered & Maintained in partnership with the Engineering Development Team</p>
@@ -363,6 +336,7 @@
 
 </div>
 
+<!-- High-Fidelity Thumb-Friendly Call-To-Action Floating Dock -->
 <div class="fixed-bottom px-3 pb-3">
     <div class="docked-action-shelf mx-auto p-2 d-flex gap-2">
         <a href="tel:+447939875777" class="btn btn-dark flex-grow-1 btn-action-trigger d-flex align-items-center justify-content-center gap-2">
@@ -374,13 +348,13 @@
     </div>
 </div>
 
+<!-- Bootstrapped Functional Runtime Layer -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6Rzs3g7mSk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov" crossorigin="anonymous"></script>
 
+<!-- High-Fidelity Performance Script Execution Layer -->
 <script>
-    // State Tracking Schema Matrix
     let configurationBundleStateMap = { portal: 0, lenovo: 0, nest: 0, echodot: 0 };
 
-    // Structural Dictionary containing diagnostic step profiles
     const labPipelineDataDictionary = {
         1: "<strong>Stage 1: Logging & Diagnostics Registry</strong><br>The hardware parameters are cataloged; baseline multi-meter trace current draw limits are checked.",
         2: "<strong>Stage 2: Layer Separation & High-Heat Cleaning</strong><br>Display matrices are peeled carefully via precise thermo-plates, clearing structural moisture or old adhesive residue tracks cleanly.",
@@ -388,10 +362,6 @@
         4: "<strong>Stage 4: Quality Assay & Stress Verification</strong><br>The sealed component assembly runs complete touch digitizer sweeps, power cycle profiling, and continuous loop loading tests."
     };
 
-    /**
-     * Shifts the active state elements inside the visual pipeline lab simulator widget
-     * @param {number} selectedStageId Target state integer (1-4)
-     */
     function updateLabPipelineView(selectedStageId) {
         for (let idx = 1; idx <= 4; idx++) {
             document.getElementById(`node-stage-${idx}`).classList.remove('node-filled');
@@ -400,11 +370,6 @@
         document.getElementById('pipeline-status-log').innerHTML = labPipelineDataDictionary[selectedStageId];
     }
 
-    /**
-     * Registers and manages multi-choice options inside the smart item outlet calculator matrix
-     * @param {string} itemKey Target configuration reference key
-     * @param {number} itemCost Native component list price value
-     */
     function computeBundleMatrixItem(itemKey, itemCost) {
         const DOMNodeElementRef = document.getElementById(`node-item-${itemKey}`);
         
@@ -412,7 +377,6 @@
             configurationBundleStateMap[itemKey] = 0;
             DOMNodeElementRef.classList.remove('active-node');
         } else {
-            // Apply categorical mutual exclusivity overrides
             if (itemKey === 'portal') { configurationBundleStateMap['lenovo'] = 0; document.getElementById('node-item-lenovo').classList.remove('active-node'); }
             if (itemKey === 'lenovo') { configurationBundleStateMap['portal'] = 0; document.getElementById('node-item-portal').classList.remove('active-node'); }
             if (itemKey === 'nest') { configurationBundleStateMap['echodot'] = 0; document.getElementById('node-item-echodot').classList.remove('active-node'); }
@@ -421,44 +385,29 @@
             configurationBundleStateMap[itemKey] = itemCost;
             DOMNodeElementRef.classList.add('active-node');
         }
-        
         executeBundleCalculationsPipeline();
     }
 
-    /**
-     * Executes pricing sum aggregation and maps automated compound tier discounts
-     */
     function executeBundleCalculationsPipeline() {
         let cumulativeBaseSum = configurationBundleStateMap.portal + configurationBundleStateMap.lenovo + configurationBundleStateMap.nest + configurationBundleStateMap.echodot;
         let runningDiscountMultiplier = 1.0;
-        
         let visualStationSelected = (configurationBundleStateMap.portal > 0 || configurationBundleStateMap.lenovo > 0);
         let audioAccessorySelected = (configurationBundleStateMap.nest > 0 || configurationBundleStateMap.echodot > 0);
         
-        // Execute automatic 15% pricing markdown algorithm if combo selection maps rules successfully
-        if (visualStationSelected && audioAccessorySelected) {
-            runningDiscountMultiplier = 0.85;
-        }
+        if (visualStationSelected && audioAccessorySelected) { runningDiscountMultiplier = 0.85; }
         
         let processingFinalSumResult = cumulativeBaseSum * runningDiscountMultiplier;
         document.getElementById('composite-bundle-price-view').innerText = '£' + processingFinalSumResult.toFixed(2);
     }
 
-    /**
-     * Calculates baseline service quotes based on combined drop-down selectors
-     */
     function runLiveDiagnosticCalculation() {
         const hardwareBaselineValue = parseFloat(document.getElementById('input-device-tier').value) || 0;
         const faultBaselineValue = parseFloat(document.getElementById('input-fault-tier').value) || 0;
         const outputCompositeAggregate = hardwareBaselineValue + faultBaselineValue;
-        
         document.getElementById('output-matrix-price').innerText = '£' + outputCompositeAggregate.toFixed(2);
     }
 
-    // Main App Lifecycle Entry Point Initialization
-    window.addEventListener('DOMContentLoaded', () => {
-        runLiveDiagnosticCalculation();
-    });
+    window.addEventListener('DOMContentLoaded', () => { runLiveDiagnosticCalculation(); });
 </script>
 </body>
 </html>
