@@ -107,6 +107,11 @@
             background: var(--brand-blue); color: white; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
         }
 
+        /* Testimonials Slider Adjustments */
+        .carousel-indicators [data-bs-target] {
+            background-color: var(--brand-blue); width: 8px; height: 8px; border-radius: 50%;
+        }
+
         .credit-footer {
             text-align: center; padding: 1.5rem 1rem; margin-top: 2rem;
             border-top: 1px solid var(--card-border); font-size: 0.75rem;
@@ -122,7 +127,7 @@
         .thumb-dock-inner { display: flex; gap: 0.5rem; }
         .thumb-dock-inner .btn { flex: 1; font-weight: 700; padding: 0.75rem; border-radius: 50px; font-size: 0.88rem; border: none; }
         .btn-call { background: var(--text-primary); color: white; }
-        .btn-chat { background: var(--brand-blue); color: white; }
+        .btn-chat { background: var(--brand-blue); color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
@@ -134,9 +139,21 @@
         <div class="logo-squircle">🔧</div>
         <h1 class="h4 fw-bold mb-1">I.T Repair All</h1>
         <p class="text-secondary small mb-2 fw-medium">Micro-Soldering & Device Optimization Suite</p>
+        
         <div class="d-flex justify-content-center gap-2">
             <span class="badge bg-light text-dark border px-2 py-1" style="font-size:0.7rem;"><i class="fa-solid fa-star text-warning"></i> 4.9 Trustpilot Verified</span>
             <span class="badge bg-light text-dark border px-2 py-1" style="font-size:0.7rem;"><i class="fa-solid fa-house-chimney-crack text-primary"></i> Home Callouts</span>
+        </div>
+
+        <!-- No-Risk Guarantee Ribbon Overlay -->
+        <div class="mt-3 p-2 rounded-3 text-start" style="background: rgba(16, 185, 129, 0.06); border: 1px dashed var(--brand-green);">
+            <div class="d-flex align-items-center gap-2 text-success small fw-bold">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Official Guarantee: No Fix, No Fee.</span>
+            </div>
+            <small class="text-secondary d-block mt-1" style="font-size: 0.75rem; padding-left: 1.35rem;">
+                Zero assessment or benchmark diagnostic fees if logic-board traces are beyond structural recovery.
+            </small>
         </div>
     </div>
 
@@ -151,7 +168,7 @@
         <!-- Tab 1: Interactive App Tools & Stores -->
         <div class="tab-pane fade show active" id="tab-outpost" role="tabpanel">
             
-            <!-- EXCLUSIVE APP IDEA: Live Diagnostic Track Pipeline Simulator -->
+            <!-- Interactive Lab Status Emulator -->
             <div class="bubbly-card">
                 <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.7rem; letter-spacing:0.04em;">Interactive Lab Status Emulator</div>
                 <p class="text-secondary small mb-3">See how Paul and the engineering lab advance complex logic board or screen assemblies step-by-step.</p>
@@ -168,7 +185,7 @@
                 </div>
             </div>
 
-            <!-- EXCLUSIVE APP IDEA: Live Intelligent Smart-Home Bundle Configurator -->
+            <!-- Intelligent Smart-Home Bundle Configurator -->
             <div class="bubbly-card">
                 <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.7rem; letter-spacing:0.04em;">Outlet Smart Bundle Configurator</div>
                 <p class="text-secondary small mb-3">Combine available hardware clearance lines instantly to isolate maximum package savings.</p>
@@ -203,6 +220,27 @@
                 </div>
             </div>
 
+            <!-- Local Specialty Engineering Badges for Search Engine Visibility -->
+            <div class="bubbly-card">
+                <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.7rem; letter-spacing:0.04em;">Lab Specialties & Local Callouts</div>
+                <div class="row g-2 text-center">
+                    <div class="col-6">
+                        <div class="p-3 rounded-3 border bg-light">
+                            <i class="fa-solid fa-droplet text-primary mb-1 animate__animated animate__pulse animate__infinite"></i>
+                            <span class="d-block fw-bold small" style="font-size:0.75rem;">Liquid Restoration</span>
+                            <small class="text-muted d-block" style="font-size:0.65rem;">Renfrewshire & Paisley</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 rounded-3 border bg-light">
+                            <i class="fa-solid fa-microchip text-purple mb-1" style="color: var(--brand-purple);"></i>
+                            <span class="d-block fw-bold small" style="font-size:0.75rem;">IC Board Soldering</span>
+                            <small class="text-muted d-block" style="font-size:0.65rem;">Glasgow & Greater Govan</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Core Hub Channels -->
             <div class="bubbly-card">
                 <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.7rem; letter-spacing:0.04em;">Official Stockroom Outlets</div>
@@ -221,6 +259,33 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Client Feedbacks Touch-Friendly Carousel Section -->
+            <div class="bubbly-card">
+                <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.7rem; letter-spacing:0.04em;">Customer Testimonials</div>
+                <div id="testimonialSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
+                    <div class="carousel-inner pb-3">
+                        <div class="carousel-item active">
+                            <p class="text-secondary small fst-italic mb-2">"Absolutely fantastic service, fixed my partner's iPhone in minutes when Apple were no use, highly recommended! Nothing the guy can't do!"</p>
+                            <span class="fw-bold d-block text-primary" style="font-size:0.75rem;">- Victoria Roy</span>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="text-secondary small fst-italic mb-2">"Excellent service. I called at 4pm and my iPhone was fully repaired by 5pm. The whole process was quick, easy, and hassle-free."</p>
+                            <span class="fw-bold d-block text-primary" style="font-size:0.75rem;">- Joe Steel</span>
+                        </div>
+                        <div class="carousel-item">
+                            <p class="text-secondary small fst-italic mb-2">"Absolutely brilliant service. It's very refreshing to have someone who keeps you up to speed with the status of the job. Thanks again Paul."</p>
+                            <span class="fw-bold d-block text-primary" style="font-size:0.75rem;">- Yo gi</span>
+                        </div>
+                    </div>
+                    <div class="carousel-indicators position-relative m-0 mt-2">
+                        <button type="button" data-bs-target="#testimonialSlider" data-bs-slide-to="0" class="active" aria-current="true"></button>
+                        <button type="button" data-bs-target="#testimonialSlider" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#testimonialSlider" data-bs-slide-to="2"></button>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <!-- Tab 2: Pricing Framework & Logistics -->
@@ -269,7 +334,7 @@
 
     </div>
 
-    <!-- CORE ATTRIBUTION CREDIT INTERFACE FOOTER ELEMENT - LOCKED STATUS -->
+    <!-- Core Credit Interface Footer Block -->
     <div class="credit-footer">
         <p class="m-0 mb-1">&copy; I.T Repair All. All Hardware Rights Reserved.</p>
         <p class="m-0 text-muted" style="font-size: 0.68rem; opacity:0.85;"><i class="fa-solid fa-code-branch me-1"></i> Engineered & Maintained in partnership with the Engineering Development Team</p>
@@ -277,11 +342,13 @@
 
 </div>
 
-<!-- Clustered Mobile Interaction Zone -->
+<!-- Clustered Mobile Interaction Zone with Deep-Linked Presets -->
 <div class="floating-thumb-dock animate__animated animate__fadeInUp">
     <div class="thumb-dock-inner">
         <a href="tel:+447939875777" class="btn btn-call"><i class="fa-solid fa-phone me-1"></i> Call Workbench</a>
-        <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn btn-chat"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp Paul</a>
+        <a href="https://wa.me/447939875777?text=Hi%20Paul,%20I%20found%20your%20site.%20I%20need%20a%20fast%20quote%20on%20a%20device%20repair%20please!" class="btn btn-chat" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp me-1"></i> WhatsApp Paul
+        </a>
     </div>
 </div>
 
