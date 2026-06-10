@@ -3,448 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I.T Repair All | High-Tier Engineering Center & Smart Outlet</title>
+    <title>I.T Repair All | Premium Device Repair & Smart Outlet Hub</title>
     
-    <!-- CDNs -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     
     <style>
         :root {
-            --surface-canvas: #f1f5f9;  
-            --bubble-card: #ffffff;     
-            --text-primary: #0f172a;    
-            --text-secondary: #64748b;  
-            --brand-blue: #2563eb;      
-            --brand-purple: #7c3aed;
-            --brand-green: #10b981;     
-            --card-border: rgba(15, 23, 42, 0.08);
-            --bubbly-radius: 24px;      
+            --bg-canvas: #f8fafc;
+            --surface-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent-primary: #2563eb;
+            --accent-secondary: #7c3aed;
+            --status-success: #10b981;
+            --border-light: rgba(15, 23, 42, 0.06);
+            --radius-premium: 24px;
         }
 
         body {
-            background-color: var(--surface-canvas);
-            font-family: system-ui, -apple-system, sans-serif;
-            color: var(--text-primary);
-            padding: 1rem 0 9rem 0;
+            background-color: var(--bg-canvas);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main);
+            padding-bottom: 8.5rem;
         }
 
-        .hub-container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 0 1rem;
+        /* Architectural Scaffolding Framework classes */
+        .app-shell { max-width: 490px; }
+        
+        .premium-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-premium);
+            box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04);
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+        }
+        .premium-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
         }
 
-        .bubbly-card {
-            background: var(--bubble-card);
-            border: 1px solid var(--card-border);
-            border-radius: var(--bubbly-radius);
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.01);
+        .avatar-squircle {
+            width: 76px; height: 76px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 22px;
+            box-shadow: 0 12px 24px -6px rgba(37, 99, 235, 0.3);
         }
 
-        .logo-squircle {
-            width: 80px; height: 80px;
-            background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
-            color: white; font-size: 2.2rem; display: flex;
-            align-items: center; justify-content: center;
-            border-radius: 24px; margin: 0 auto 1rem;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.25);
+        /* Component Segment Nav Controls */
+        .segmented-control {
+            background: rgba(15, 23, 42, 0.04);
+            border: 1px solid rgba(15, 23, 42, 0.02);
+            padding: 4px;
+            border-radius: 100px;
         }
-
-        /* Segment Bar Navs */
-        .segment-bar {
-            background: rgba(15, 23, 42, 0.05);
-            padding: 0.35rem; border-radius: 50px; display: flex; border: none; margin-bottom: 1.5rem;
-        }
-        .segment-bar .nav-link {
-            color: var(--text-secondary); font-weight: 700; border-radius: 50px;
-            padding: 0.65rem; flex: 1; font-size: 0.85rem; border: none; background: transparent;
-        }
-        .segment-bar .nav-link.active {
-            background: var(--bubble-card); color: var(--brand-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        /* Action Buttons */
-        .action-bubble-btn {
-            width: 100%; text-align: left; font-weight: 700; padding: 1rem 1.2rem;
-            border-radius: 18px; border: 1px solid var(--card-border); display: flex;
-            align-items: center; text-decoration: none; margin-bottom: 0.65rem;
-            color: var(--text-primary); background: var(--bubble-card);
+        .segmented-control .nav-link {
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 100px;
+            padding: 0.7rem 1rem;
             transition: all 0.2s ease;
         }
-        .action-bubble-btn:active { transform: scale(0.98); }
-        .action-bubble-btn i { font-size: 1.3rem; margin-right: 0.75rem; width: 24px; text-align: center; }
-
-        /* Social Icon Ribbon Layout */
-        .social-ribbon {
-            display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.75rem;
-        }
-        .social-icon-btn {
-            flex: 1; max-width: 120px; padding: 0.5rem; border-radius: 12px;
-            border: 1px solid var(--card-border); text-decoration: none; font-weight: 600;
-            font-size: 0.78rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;
-            transition: background 0.2s;
-        }
-        .social-icon-btn.fb { color: #1877f2; background: rgba(24, 119, 242, 0.05); }
-        .social-icon-btn.tt { color: #000000; background: rgba(0, 0, 0, 0.05); }
-        .social-icon-btn:active { transform: scale(0.97); }
-
-        /* Custom Interactive Bundle Components Grid */
-        .bundle-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-bottom: 1rem;
-        }
-        .bundle-item {
-            border: 2px solid var(--surface-canvas); border-radius: 16px; padding: 0.75rem;
-            text-align: center; cursor: pointer; transition: all 0.2s ease; background: var(--bubble-card);
-        }
-        .bundle-item.selected {
-            border-color: var(--brand-purple); background: rgba(124, 58, 237, 0.04);
+        .segmented-control .nav-link.active {
+            background: var(--surface-card);
+            color: var(--accent-primary);
+            box-index: 2;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
         }
 
-        /* Timeline Engine Track */
-        .tracker-steps {
-            display: flex; justify-content: space-between; position: relative; margin-bottom: 1rem;
+        /* Action-Linked Anchor Layout Templates */
+        .gateway-anchor {
+            border: 1px solid var(--border-light);
+            border-radius: 18px;
+            transition: all 0.2s ease;
         }
-        .tracker-steps::before {
-            content: ''; position: absolute; top: 15px; left: 0; right: 0;
-            height: 3px; background: var(--surface-canvas); z-index: 1;
-        }
-        .tracker-step-node {
-            width: 32px; height: 32px; border-radius: 50%; background: var(--surface-canvas);
-            color: var(--text-secondary); display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem; font-weight: 700; z-index: 2; cursor: pointer; transition: all 0.2s ease;
-        }
-        .tracker-step-node.active {
-            background: var(--brand-blue); color: white; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        .gateway-anchor:hover {
+            background: rgba(15, 23, 42, 0.01) !important;
+            border-color: rgba(15, 23, 42, 0.15);
+            transform: translateX(2px);
         }
 
-        /* Testimonials Slider Adjustments */
-        .carousel-indicators [data-bs-target] {
-            background-color: var(--brand-blue); width: 8px; height: 8px; border-radius: 50%;
+        /* Custom Social Matrix Elements */
+        .social-chip {
+            border-radius: 14px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: opacity 0.15s;
+        }
+        .social-chip:hover { opacity: 0.85; }
+        .social-chip.facebook { color: #1877f2; background: rgba(24, 119, 242, 0.06); }
+        .social-chip.tiktok { color: #000000; background: rgba(0, 0, 0, 0.06); }
+
+        /* Multi-Choice Configurator Item Rules */
+        .matrix-item {
+            border: 2px solid rgba(15, 23, 42, 0.04);
+            border-radius: 18px;
+            transition: all 0.2s ease;
+        }
+        .matrix-item.active-node {
+            border-color: var(--accent-secondary);
+            background: rgba(124, 58, 237, 0.03);
         }
 
-        .credit-footer {
-            text-align: center; padding: 1.5rem 1rem; margin-top: 2rem;
-            border-top: 1px solid var(--card-border); font-size: 0.75rem;
-            color: var(--text-secondary); font-weight: 600; letter-spacing: 0.02em;
+        /* Interactive Timeline Visual Base Tracks */
+        .pipeline-track {
+            position: relative;
+        }
+        .pipeline-track::before {
+            content: ''; position: absolute; top: 16px; left: 0; right: 0;
+            height: 4px; background: rgba(15, 23, 42, 0.04); z-index: 1;
+        }
+        .pipeline-node {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: #e2e8f0; color: var(--text-muted);
+            font-size: 0.9rem; font-weight: 700; z-index: 2;
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .pipeline-node.node-filled {
+            background: var(--accent-primary); color: white;
+            box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.15);
         }
 
-        .floating-thumb-dock {
-            position: fixed; bottom: 1rem; left: 1rem; right: 1rem;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 50px; padding: 0.5rem;
-            z-index: 1000; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08); max-width: 440px; margin: 0 auto;
+        /* Docked Execution Bar Overlay */
+        .docked-action-shelf {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 32px;
+            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.12);
+            max-width: 450px;
         }
-        .thumb-dock-inner { display: flex; gap: 0.5rem; }
-        .thumb-dock-inner .btn { flex: 1; font-weight: 700; padding: 0.75rem; border-radius: 50px; font-size: 0.88rem; border: none; }
-        .btn-call { background: var(--text-primary); color: white; }
-        .btn-chat { background: var(--brand-blue); color: white; text-decoration: none; display: flex; align-items: center; justify-content: center; }
+        .docked-action-shelf .btn-action-trigger {
+            border-radius: 50px; padding: 0.8rem 1.2rem; font-weight: 700; font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
-<div class="hub-container animate__animated animate__fadeIn">
+<div class="container-fluid app-shell mx-auto px-3 pt-4 animate__animated animate__fadeIn">
 
-    <!-- Brand Profile Context Block -->
-    <div class="bubbly-card text-center py-4">
-        <div class="logo-squircle">🔧</div>
+    <header class="premium-card p-4 text-center mb-4">
+        <div class="avatar-squircle mx-auto d-flex align-items-center justify-content-center text-white mb-3">
+            <i class="fa-solid fa-screwdriver-wrench fa-xl"></i>
+        </div>
         <h1 class="h4 fw-bold mb-1">I.T Repair All</h1>
-        <p class="text-secondary small mb-2 fw-medium">Micro-Soldering & Device Optimization Suite</p>
+        <p class="text-secondary small fw-medium mb-3">Micro-Soldering Specialties & Hardware Diagnostics</p>
         
-        <div class="d-flex justify-content-center gap-2 mb-2">
-            <span class="badge bg-light text-dark border px-2 py-1" style="font-size:0.7rem;"><i class="fa-solid fa-star text-warning"></i> 4.9 Trustpilot Verified</span>
-            <span class="badge bg-light text-dark border px-2 py-1" style="font-size:0.7rem;"><i class="fa-solid fa-house-chimney-crack text-primary"></i> Home Callouts</span>
+        <div class="d-flex gap-2 justify-content-center mb-3">
+            <span class="badge bg-light text-dark border rounded-pill px-3 py-2 small fw-semibold"><i class="fa-solid fa-star text-warning me-1"></i>4.9 Trustpilot Verified</span>
+            <span class="badge bg-light text-dark border rounded-pill px-3 py-2 small fw-semibold"><i class="fa-solid fa-truck-ramp-box text-primary me-1"></i>Local Callouts</span>
         </div>
 
-        <!-- Re-integrated Social Media Link Channels -->
-        <div class="social-ribbon">
-            <a href="https://www.facebook.com/itrepairall" class="social-icon-btn fb" target="_blank" rel="noopener">
-                <i class="fa-brands fa-facebook"></i> Facebook
+        <div class="d-flex gap-2 justify-content-center mb-3">
+            <a href="https://www.facebook.com/itrepairall" target="_blank" rel="noopener" class="social-chip facebook px-3 py-2 border w-50 d-flex align-items-center justify-content-center gap-1 text-decoration-none">
+                <i class="fa-brands fa-facebook-f"></i> Facebook
             </a>
-            <a href="https://www.tiktok.com/@itrepairall" class="social-icon-btn tt" target="_blank" rel="noopener">
+            <a href="https://www.tiktok.com/@itrepairall" target="_blank" rel="noopener" class="social-chip tiktok px-3 py-2 border w-50 d-flex align-items-center justify-content-center gap-1 text-decoration-none">
                 <i class="fa-brands fa-tiktok"></i> TikTok
             </a>
         </div>
 
-        <!-- No-Risk Guarantee Ribbon Overlay -->
-        <div class="mt-3 p-2 rounded-3 text-start" style="background: rgba(16, 185, 129, 0.06); border: 1px dashed var(--brand-green);">
-            <div class="d-flex align-items-center gap-2 text-success small fw-bold">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>Official Guarantee: No Fix, No Fee.</span>
+        <div class="p-3 text-start rounded-4 mt-2" style="background: rgba(16, 185, 129, 0.05); border: 1px dashed var(--status-success);">
+            <div class="d-flex align-items-center gap-2 text-success small fw-bold mb-1">
+                <i class="fa-solid fa-shield-check"></i>
+                <span>Official Policy: No Fix, No Fee.</span>
             </div>
-            <small class="text-secondary d-block mt-1" style="font-size: 0.75rem; padding-left: 1.35rem;">
-                Zero assessment or benchmark diagnostic fees if logic-board traces are beyond structural recovery.
-            </small>
+            <p class="text-muted m-0 small" style="font-size: 0.78rem; padding-left: 1.35rem;">
+                Zero assessment or baseline benchmarking fees if logic-board micro-traces are found completely unrecoverable.
+            </p>
         </div>
-    </div>
+    </header>
 
-    <!-- Segment Switcher Header -->
-    <div class="nav segment-bar" role="tablist">
-        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-outpost" type="button">Retail & Testing</button>
-        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-logistics" type="button">Pricing & Routes</button>
-    </div>
+    <nav class="nav segmented-control mb-4" role="tablist">
+        <button class="nav-link active border-0 flex-grow-1" data-bs-toggle="pill" data-bs-target="#panel-retail" type="button" role="tab">Retail & Diagnostics</button>
+        <button class="nav-link border-0 flex-grow-1" data-bs-toggle="pill" data-bs-target="#panel-pricing" type="button" role="tab">Pricing & Routing</button>
+    </nav>
 
-    <div class="tab-content">
+    <main class="tab-content">
         
-        <!-- Tab 1: Interactive App Tools & Stores -->
-        <div class="tab-pane fade show active" id="tab-outpost" role="tabpanel">
+        <div class="tab-pane fade show active" id="panel-retail" role="tabpanel">
             
-            <!-- Interactive Lab Status Emulator -->
-            <div class="bubbly-card">
-                <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.7rem; letter-spacing:0.04em;">Interactive Lab Status Emulator</div>
-                <p class="text-secondary small mb-3">See how Paul and the engineering lab advance complex logic board or screen assemblies step-by-step.</p>
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-2 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Interactive Lab Status Emulator</div>
+                <p class="text-secondary small mb-4">Step through the lifecycle stages of an advanced motherboard restoration or liquid reclamation job.</p>
                 
-                <div class="tracker-steps">
-                    <div class="tracker-step-node active" id="tstep-1" onclick="shiftTrackerPipelineView(1)">1</div>
-                    <div class="tracker-step-node" id="tstep-2" onclick="shiftTrackerPipelineView(2)">2</div>
-                    <div class="tracker-step-node" id="tstep-3" onclick="shiftTrackerPipelineView(3)">3</div>
-                    <div class="tracker-step-node" id="tstep-4" onclick="shiftTrackerPipelineView(4)">4</div>
+                <div class="pipeline-track d-flex justify-content-between mb-4">
+                    <button class="pipeline-node node-filled border-0 d-flex align-items-center justify-content-center" id="node-stage-1" onclick="updateLabPipelineView(1)">1</button>
+                    <button class="pipeline-node border-0 d-flex align-items-center justify-content-center" id="node-stage-2" onclick="updateLabPipelineView(2)">2</button>
+                    <button class="pipeline-node border-0 d-flex align-items-center justify-content-center" id="node-stage-3" onclick="updateLabPipelineView(3)">3</button>
+                    <button class="pipeline-node border-0 d-flex align-items-center justify-content-center" id="node-stage-4" onclick="updateLabPipelineView(4)">4</button>
                 </div>
                 
-                <div class="p-3 bg-light rounded-3 text-secondary small font-medium" id="tracker-display-text" style="min-height: 65px; border: 1px solid var(--card-border);">
-                    <strong>Stage 1: Logging & Diagnostics Registry</strong><br>The hardware device properties are mapped; diagnostic baseline current draws are cataloged.
+                <div class="p-3 bg-light rounded-4 text-secondary small fw-medium" id="pipeline-status-log" style="min-height: 70px; border: 1px solid var(--border-light);">
+                    <strong class="text-dark d-block mb-1">Stage 1: Logging & Diagnostics Registry</strong>
+                    The hardware parameters are cataloged; baseline multi-meter trace current draw limits are checked.
                 </div>
-            </div>
+            </section>
 
-            <!-- Intelligent Smart-Home Bundle Configurator -->
-            <div class="bubbly-card">
-                <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.7rem; letter-spacing:0.04em;">Outlet Smart Bundle Configurator</div>
-                <p class="text-secondary small mb-3">Combine available hardware clearance lines instantly to isolate maximum package savings.</p>
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-2 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Outlet Smart Bundle Configurator</div>
+                <p class="text-secondary small mb-4">Combine active catalog clearance devices below to calculate automated compound bulk savings.</p>
                 
-                <label class="small text-secondary fw-bold mb-1 d-block">Select Core Visual Station</label>
-                <div class="bundle-grid">
-                    <div class="bundle-item" id="bitem-portal" onclick="toggleBundleHardwarePiece('portal', 79.99)">
-                        <span class="fw-bold d-block small">Portal Mini 8"</span>
-                        <span class="text-primary fw-semibold small">£79.99</span>
+                <span class="small text-secondary fw-bold mb-2 d-block">1. Base Visual Display Station</span>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="matrix-item p-3 text-center h-100 cursor-pointer" id="node-item-portal" onclick="computeBundleMatrixItem('portal', 79.99)">
+                            <span class="fw-bold d-block small mb-1">Portal Mini 8"</span>
+                            <span class="text-primary fw-bold small">£79.99</span>
+                        </div>
                     </div>
-                    <div class="bundle-item" id="bitem-lenovo" onclick="toggleBundleHardwarePiece('lenovo', 55.00)">
-                        <span class="fw-bold d-block small">Lenovo Smart Clock</span>
-                        <span class="text-primary fw-semibold small">£55.00</span>
-                    </div>
-                </div>
-
-                <label class="small text-secondary fw-bold mb-1 d-block">Select Audio Accessory Satellite</label>
-                <div class="bundle-grid">
-                    <div class="bundle-item" id="bitem-nest" onclick="toggleBundleHardwarePiece('nest', 39.99)">
-                        <span class="fw-bold d-block small">Nest Mini Smart Eco</span>
-                        <span class="text-primary fw-semibold small">£39.99</span>
-                    </div>
-                    <div class="bundle-item" id="bitem-echodot" onclick="toggleBundleHardwarePiece('echodot', 45.00)">
-                        <span class="fw-bold d-block small">Echo Dot Alexa 3G</span>
-                        <span class="text-primary fw-semibold small">£45.00</span>
+                    <div class="col-6">
+                        <div class="matrix-item p-3 text-center h-100 cursor-pointer" id="node-item-lenovo" onclick="computeBundleMatrixItem('lenovo', 55.00)">
+                            <span class="fw-bold d-block small mb-1">Lenovo Clock</span>
+                            <span class="text-primary fw-bold small">£55.00</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="p-3 text-center" style="background: rgba(15,23,42,0.02); border-radius:16px;">
-                    <span class="text-secondary small d-block mb-1">Combined Outlet Estimate (Includes Bundle Discount)</span>
-                    <span class="h3 fw-bold text-purple m-0" id="bundle-total-view" style="color:var(--brand-purple);">£0.00</span>
+                <span class="small text-secondary fw-bold mb-2 d-block">2. Satellite Audio Element</span>
+                <div class="row g-2 mb-4">
+                    <div class="col-6">
+                        <div class="matrix-item p-3 text-center h-100 cursor-pointer" id="node-item-nest" onclick="computeBundleMatrixItem('nest', 39.99)">
+                            <span class="fw-bold d-block small mb-1">Nest Mini Audio</span>
+                            <span class="text-primary fw-bold small">£39.99</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="matrix-item p-3 text-center h-100 cursor-pointer" id="node-item-echodot" onclick="computeBundleMatrixItem('echodot', 45.00)">
+                            <span class="fw-bold d-block small mb-1">Echo Dot Alexa</span>
+                            <span class="text-primary fw-bold small">£45.00</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Local Specialty Engineering Badges for Search Engine Visibility -->
-            <div class="bubbly-card">
-                <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.7rem; letter-spacing:0.04em;">Lab Specialties & Local Callouts</div>
+                <div class="p-3 text-center rounded-4" style="background: rgba(15,23,42,0.02); border: 1px solid var(--border-light);">
+                    <span class="text-secondary small d-block mb-1 fw-medium">Configured Dynamic Estimate (Includes Bundle Discount)</span>
+                    <span class="h3 fw-bold m-0" id="composite-bundle-price-view" style="color: var(--accent-secondary);">£0.00</span>
+                </div>
+            </section>
+
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Lab Technical Specializations</div>
                 <div class="row g-2 text-center">
                     <div class="col-6">
-                        <div class="p-3 rounded-3 border bg-light">
-                            <i class="fa-solid fa-droplet text-primary mb-1"></i>
-                            <span class="d-block fw-bold small" style="font-size:0.75rem;">Liquid Restoration</span>
-                            <small class="text-muted d-block" style="font-size:0.65rem;">Renfrewshire & Paisley</small>
+                        <div class="p-3 rounded-4 border bg-light h-100">
+                            <i class="fa-solid fa-droplet text-primary mb-2 fa-lg"></i>
+                            <span class="d-block fw-bold text-dark small">Liquid Fixes</span>
+                            <small class="text-muted d-block mt-1" style="font-size:0.68rem;">Renfrew & Paisley</small>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="p-3 rounded-3 border bg-light">
-                            <i class="fa-solid fa-microchip text-purple mb-1" style="color: var(--brand-purple);"></i>
-                            <span class="d-block fw-bold small" style="font-size:0.75rem;">IC Board Soldering</span>
-                            <small class="text-muted d-block" style="font-size:0.65rem;">Glasgow & Greater Govan</small>
+                        <div class="p-3 rounded-4 border bg-light h-100">
+                            <i class="fa-solid fa-microchip text-purple mb-2 fa-lg" style="color: var(--accent-secondary);"></i>
+                            <span class="d-block fw-bold text-dark small">IC Micro-Soldering</span>
+                            <span class="text-muted d-block mt-1" style="font-size:0.68rem;">Glasgow & Govan</span>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Core Hub Channels -->
-            <div class="bubbly-card">
-                <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.7rem; letter-spacing:0.04em;">Official Stockroom Outlets</div>
-                <a href="https://ebay.us/m/kWMlAd" class="action-bubble-btn" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-ebay text-danger"></i>
-                    <div>
-                        <span class="d-block">Official eBay Components Store</span>
-                        <small class="text-secondary fw-normal">Procure raw IC microchips and display elements</small>
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Online Storefront Outlets</div>
+                <a href="https://ebay.us/m/kWMlAd" target="_blank" rel="noopener" class="gateway-anchor d-flex align-items-center justify-content-between p-3 bg-white text-decoration-none text-dark mb-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-light p-2 rounded-3 text-danger"><i class="fa-brands fa-ebay fa-lg"></i></div>
+                        <div>
+                            <span class="fw-bold d-block small">Official eBay Component Depot</span>
+                            <small class="text-secondary d-block" style="font-size:0.72rem;">Browse modular IC arrays and spare components</small>
+                        </div>
                     </div>
+                    <i class="fa-solid fa-chevron-right text-muted fa-sm"></i>
                 </a>
-                <a href="https://wa.me/c/447939875777" class="action-bubble-btn" target="_blank" rel="noopener">
-                    <i class="fa-solid fa-boxes-stacked text-success"></i>
-                    <div>
-                        <span class="d-block">Live Inventory Asset Catalog</span>
-                        <small class="text-secondary fw-normal">Verify components directly inside WhatsApp profile lists</small>
+                <a href="https://wa.me/c/447939875777" target="_blank" rel="noopener" class="gateway-anchor d-flex align-items-center justify-content-between p-3 bg-white text-decoration-none text-dark">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-light p-2 rounded-3 text-success"><i class="fa-solid fa-boxes-stacked fa-lg"></i></div>
+                        <div>
+                            <span class="fw-bold d-block small">Live WhatsApp Product Catalog</span>
+                            <small class="text-secondary d-block" style="font-size:0.72rem;">Verify exact gadget and console stock lists in real-time</small>
+                        </div>
                     </div>
+                    <i class="fa-solid fa-chevron-right text-muted fa-sm"></i>
                 </a>
-            </div>
+            </section>
 
-            <!-- Client Feedbacks Touch-Friendly Carousel Section -->
-            <div class="bubbly-card">
-                <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.7rem; letter-spacing:0.04em;">Customer Testimonials</div>
-                <div id="testimonialSlider" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4500">
-                    <div class="carousel-inner pb-3">
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Verified Lab Feedback</div>
+                <div id="feedbackCarouselEngine" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                    <div class="carousel-inner pb-2">
                         <div class="carousel-item active">
-                            <p class="text-secondary small fst-italic mb-2">"Absolutely fantastic service, fixed my partner's iPhone in minutes when Apple were no use, highly recommended! Nothing the guy can't do!"</p>
-                            <span class="fw-bold d-block text-primary" style="font-size:0.75rem;">- Victoria Roy</span>
+                            <p class="text-secondary small fst-italic mb-2">"Fantastic service, fixed my partner's iPhone in minutes when Apple were no use, highly recommended! Nothing the guy can't do!"</p>
+                            <span class="fw-bold text-primary" style="font-size:0.75rem;">- Victoria Roy</span>
                         </div>
                         <div class="carousel-item">
                             <p class="text-secondary small fst-italic mb-2">"Excellent service. I called at 4pm and my iPhone was fully repaired by 5pm. The whole process was quick, easy, and hassle-free."</p>
-                            <span class="fw-bold d-block text-primary" style="font-size:0.75rem;">- Joe Steel</span>
+                            <span class="fw-bold text-primary" style="font-size:0.75rem;">- Joe Steel</span>
                         </div>
                         <div class="carousel-item">
                             <p class="text-secondary small fst-italic mb-2">"Absolutely brilliant service. It's very refreshing to have someone who keeps you up to speed with the status of the job. Thanks again Paul."</p>
-                            <span class="fw-bold d-block text-primary" style="font-size:0.75rem;">- Yo gi</span>
+                            <span class="fw-bold text-primary" style="font-size:0.75rem;">- Yo gi</span>
                         </div>
                     </div>
-                    <div class="carousel-indicators position-relative m-0 mt-2">
-                        <button type="button" data-bs-target="#testimonialSlider" data-bs-slide-to="0" class="active" aria-current="true"></button>
-                        <button type="button" data-bs-target="#testimonialSlider" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#testimonialSlider" data-bs-slide-to="2"></button>
+                    <div class="carousel-indicators position-relative m-0 mt-3">
+                        <button type="button" data-bs-target="#feedbackCarouselEngine" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#feedbackCarouselEngine" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#feedbackCarouselEngine" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
                 </div>
-            </div>
-
+            </section>
         </div>
 
-        <!-- Tab 2: Pricing Framework & Logistics -->
-        <div class="tab-pane fade" id="tab-logistics" role="tabpanel">
+        <div class="tab-pane fade" id="panel-pricing" role="tabpanel">
             
-            <!-- Labor Matrix Calculator -->
-            <div class="bubbly-card">
-                <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.7rem; letter-spacing:0.04em;">Base Component Price Guide Matrix</div>
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-3 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">Base Cost Assessment Assistant</div>
                 
                 <div class="mb-3">
-                    <label class="form-label small text-secondary fw-bold">Device Profile Architecture</label>
-                    <select class="form-select" id="calc-device" onchange="runLiveCalculatorFramework()">
-                        <option value="40">iPhone Standard (Glass / Digitizer Baselines)</option>
-                        <option value="70">iPhone Premium Series (Pro Max Display Frameworks)</option>
-                        <option value="55">iPad Series Assembly Group</option>
-                        <option value="80">PC Workstations / Core Gaming Consolidation</option>
+                    <label class="form-label small text-secondary fw-bold mb-1">Target Component Group</label>
+                    <select class="form-select rounded-3 text-dark small" id="input-device-tier" onchange="runLiveDiagnosticCalculation()">
+                        <option value="40">iPhone Baselines (Glass & Digitizers)</option>
+                        <option value="70">iPhone High-Tier Pro Max Series Displays</option>
+                        <option value="55">iPad Series Glass Overhauls</option>
+                        <option value="80">PC / Logic Workstations & Gaming Consoles</option>
                     </select>
                 </div>
                 
                 <div class="mb-3">
-                    <label class="form-label small text-secondary fw-bold">Fault Profile Classification</label>
-                    <select class="form-select" id="calc-fault" onchange="runLiveCalculatorFramework()">
-                        <option value="0">Standard Structural Glass Replacement</option>
-                        <option value="35">Battery Maintenance Overhaul / IC Realignment</option>
-                        <option value="60">Advanced Logic Board Trace Micro-Soldering</option>
+                    <label class="form-label small text-secondary fw-bold mb-1">Identified Fault Profile</label>
+                    <select class="form-select rounded-3 text-dark small" id="input-fault-tier" onchange="runLiveDiagnosticCalculation()">
+                        <option value="0">Standard Structural Component Installation</option>
+                        <option value="35">Battery Profiling / Internal IC Realignment</option>
+                        <option value="60">Advanced Trace Microscope Micro-Soldering</option>
                     </select>
                 </div>
 
-                <div class="p-3 text-center rounded-3" style="background: var(--surface-canvas); border: 1px solid var(--card-border);">
-                    <span class="text-secondary small d-block fw-semibold mb-1" style="font-size:0.65rem;">Base Calculation Tier Target</span>
-                    <span class="h3 text-primary fw-bold" id="calc-total-display">£40.00</span>
+                <div class="p-3 text-center rounded-4" style="background: var(--bg-canvas); border: 1px solid var(--border-light);">
+                    <span class="text-secondary small d-block fw-semibold mb-1" style="font-size:0.65rem; letter-spacing: 0.02em;">CALCULATED WORKBENCH BASELINE</span>
+                    <span class="h3 text-primary fw-bold m-0" id="output-matrix-price">£40.00</span>
                 </div>
-            </div>
+            </section>
 
-            <!-- Mail-In & Routing Info -->
-            <div class="bubbly-card">
-                <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.7rem; letter-spacing:0.04em;">National UK Mail-In Hub Info</div>
-                <p class="text-secondary small mb-3">If outside Glasgow, package your hardware safely and dispatch to the primary workbench location:</p>
-                <div class="p-3 font-monospace text-secondary small bg-light rounded-3 mb-2" style="font-size:0.75rem;">
+            <section class="premium-card p-4 mb-4">
+                <div class="text-uppercase text-secondary fw-bold small mb-2 tracking-wider" style="font-size:0.7rem; letter-spacing:0.05em;">UK National Mail-In Workbench Routing</div>
+                <p class="text-secondary small mb-3">Living outside the greater Glasgow dispatch area? Safe-pack your hardware and dispatch to the main testing lab:</p>
+                <div class="p-3 font-monospace text-secondary small bg-light rounded-4" style="font-size:0.78rem; line-height: 1.5; border: 1px solid var(--border-light);">
                     I.T Repair All,<br>
                     Flat 3/2, 46 Canal St,<br>
                     Renfrew, PA4 8QD
                 </div>
-            </div>
+            </section>
         </div>
+    </main>
 
-    </div>
-
-    <!-- Core Credit Interface Footer Block -->
-    <div class="credit-footer">
-        <p class="m-0 mb-1">&copy; I.T Repair All. All Hardware Rights Reserved.</p>
-        <p class="m-0 text-muted" style="font-size: 0.68rem; opacity:0.85;"><i class="fa-solid fa-code-branch me-1"></i> Engineered & Maintained in partnership with the Engineering Development Team</p>
-    </div>
+    <footer class="text-center pt-3 mt-4 border-top" style="border-color: var(--border-light) !important;">
+        <p class="m-0 small text-secondary fw-semibold">&copy; I.T Repair All. All Hardware Rights Reserved.</p>
+        <p class="m-0 text-muted mt-1" style="font-size:0.68rem; opacity:0.8;"><i class="fa-solid fa-code-merge me-1"></i> Engineered & Maintained in partnership with the Engineering Development Team</p>
+    </footer>
 
 </div>
 
-<!-- Clustered Mobile Interaction Zone with Deep-Linked Presets -->
-<div class="floating-thumb-dock animate__animated animate__fadeInUp">
-    <div class="thumb-dock-inner">
-        <a href="tel:+447939875777" class="btn btn-call"><i class="fa-solid fa-phone me-1"></i> Call Workbench</a>
-        <a href="https://wa.me/447939875777?text=Hi%20Paul,%20I%20found%20your%20site.%20I%20need%20a%20fast%20quote%20on%20a%20device%20repair%20please!" class="btn btn-chat" target="_blank" rel="noopener">
-            <i class="fa-brands fa-whatsapp me-1"></i> WhatsApp Paul
+<div class="fixed-bottom px-3 pb-3">
+    <div class="docked-action-shelf mx-auto p-2 d-flex gap-2">
+        <a href="tel:+447939875777" class="btn btn-dark flex-grow-1 btn-action-trigger d-flex align-items-center justify-content-center gap-2">
+            <i class="fa-solid fa-phone-volume"></i> Call Lab
+        </a>
+        <a href="https://wa.me/447939875777?text=Hi%20Paul,%20I%20found%20your%20site.%20I%20need%20a%20fast%20quote%20on%20a%20device%20repair%20please!" target="_blank" rel="noopener" class="btn btn-primary flex-grow-1 btn-action-trigger d-flex align-items-center justify-content-center gap-2">
+            <i class="fa-brands fa-whatsapp fa-lg"></i> WhatsApp Paul
         </a>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6Rzs3g7mSk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov" crossorigin="anonymous"></script>
 
 <script>
-    // Global Configuration Object Variables
-    let dynamicConfiguredBundleMap = { portal: 0, lenovo: 0, nest: 0, echodot: 0 };
+    // State Tracking Schema Matrix
+    let configurationBundleStateMap = { portal: 0, lenovo: 0, nest: 0, echodot: 0 };
 
-    // 1. Interactive Diagnostic Step Simulation Handler Array Engine
-    const structuralPipelineSteps = {
-        1: "<strong>Stage 1: Logging & Diagnostics Registry</strong><br>The hardware device properties are mapped; diagnostic baseline current draws are cataloged.",
-        2: "<strong>Stage 2: Layer Separation & Cleaning</strong><br>Chassis arrays separate carefully under specialized thermo-pads. Adhesive tracks undergo absolute micro-chemical cleaning.",
-        3: "<strong>Stage 3: Advanced Logic Micro-Soldering</strong><br>Microscope-guided interventions target trace paths, swapping faulty capacitors or surface-mount elements.",
-        4: "<strong>Stage 4: Validation Calibration Test</strong><br>The reconstructed assembly undergoes charging cycle profiling, panel multi-touch calibration, and thermal stress assays."
+    // Structural Dictionary containing diagnostic step profiles
+    const labPipelineDataDictionary = {
+        1: "<strong>Stage 1: Logging & Diagnostics Registry</strong><br>The hardware parameters are cataloged; baseline multi-meter trace current draw limits are checked.",
+        2: "<strong>Stage 2: Layer Separation & High-Heat Cleaning</strong><br>Display matrices are peeled carefully via precise thermo-plates, clearing structural moisture or old adhesive residue tracks cleanly.",
+        3: "<strong>Stage 3: Microscope-Guided Trace Repair</strong><br>Engineers target internal motherboard traces via continuous logic microscope arrays, correcting broken surface trace pins.",
+        4: "<strong>Stage 4: Quality Assay & Stress Verification</strong><br>The sealed component assembly runs complete touch digitizer sweeps, power cycle profiling, and continuous loop loading tests."
     };
 
-    function shiftTrackerPipelineView(selectedStepIdx) {
-        for(let incrementor=1; incrementor<=4; incrementor++) {
-            document.getElementById(`tstep-${incrementor}`).classList.remove('active');
+    /**
+     * Shifts the active state elements inside the visual pipeline lab simulator widget
+     * @param {number} selectedStageId Target state integer (1-4)
+     */
+    function updateLabPipelineView(selectedStageId) {
+        for (let idx = 1; idx <= 4; idx++) {
+            document.getElementById(`node-stage-${idx}`).classList.remove('node-filled');
         }
-        document.getElementById(`tstep-${selectedStepIdx}`).classList.add('active');
-        document.getElementById('tracker-display-text').innerHTML = structuralPipelineSteps[selectedStepIdx];
+        document.getElementById(`node-stage-${selectedStageId}`).classList.add('node-filled');
+        document.getElementById('pipeline-status-log').innerHTML = labPipelineDataDictionary[selectedStageId];
     }
 
-    // 2. Interactive Intelligent Hardware Bundle Selector Calculations Engine
-    function toggleBundleHardwarePiece(elementIdKey, nativeCostValue) {
-        const itemDomReference = document.getElementById(`bitem-${elementIdKey}`);
+    /**
+     * Registers and manages multi-choice options inside the smart item outlet calculator matrix
+     * @param {string} itemKey Target configuration reference key
+     * @param {number} itemCost Native component list price value
+     */
+    function computeBundleMatrixItem(itemKey, itemCost) {
+        const DOMNodeElementRef = document.getElementById(`node-item-${itemKey}`);
         
-        if(dynamicConfiguredBundleMap[elementIdKey] > 0) {
-            dynamicConfiguredBundleMap[elementIdKey] = 0;
-            itemDomReference.classList.remove('selected');
+        if (configurationBundleStateMap[itemKey] > 0) {
+            configurationBundleStateMap[itemKey] = 0;
+            DOMNodeElementRef.classList.remove('active-node');
         } else {
-            // Enforce clear hardware subgroup exclusivity rules (Displays vs Speakers)
-            if(elementIdKey === 'portal') { dynamicConfiguredBundleMap['lenovo'] = 0; document.getElementById('bitem-lenovo').classList.remove('selected'); }
-            if(elementIdKey === 'lenovo') { dynamicConfiguredBundleMap['portal'] = 0; document.getElementById('bitem-portal').classList.remove('selected'); }
-            if(elementIdKey === 'nest') { dynamicConfiguredBundleMap['echodot'] = 0; document.getElementById('bitem-echodot').classList.remove('selected'); }
-            if(elementIdKey === 'echodot') { dynamicConfiguredBundleMap['nest'] = 0; document.getElementById('bitem-nest').classList.remove('selected'); }
+            // Apply categorical mutual exclusivity overrides
+            if (itemKey === 'portal') { configurationBundleStateMap['lenovo'] = 0; document.getElementById('node-item-lenovo').classList.remove('active-node'); }
+            if (itemKey === 'lenovo') { configurationBundleStateMap['portal'] = 0; document.getElementById('node-item-portal').classList.remove('active-node'); }
+            if (itemKey === 'nest') { configurationBundleStateMap['echodot'] = 0; document.getElementById('node-item-echodot').classList.remove('active-node'); }
+            if (itemKey === 'echodot') { configurationBundleStateMap['nest'] = 0; document.getElementById('node-item-nest').classList.remove('active-node'); }
             
-            dynamicConfiguredBundleMap[elementIdKey] = nativeCostValue;
-            itemDomReference.classList.add('selected');
+            configurationBundleStateMap[itemKey] = itemCost;
+            DOMNodeElementRef.classList.add('active-node');
         }
         
-        evaluateBundleCompositeOutput();
+        executeBundleCalculationsPipeline();
     }
 
-    function evaluateBundleCompositeOutput() {
-        let aggregatedSumTotal = dynamicConfiguredBundleMap.portal + dynamicConfiguredBundleMap.lenovo + dynamicConfiguredBundleMap.nest + dynamicConfiguredBundleMap.echodot;
+    /**
+     * Executes pricing sum aggregation and maps automated compound tier discounts
+     */
+    function executeBundleCalculationsPipeline() {
+        let cumulativeBaseSum = configurationBundleStateMap.portal + configurationBundleStateMap.lenovo + configurationBundleStateMap.nest + configurationBundleStateMap.echodot;
+        let runningDiscountMultiplier = 1.0;
         
-        // Execute automatic conditional compound markdown algorithms if items match multiple subgroups
-        let multiCategoryBonusModifier = 1.0;
-        let isDisplayNodeSelected = (dynamicConfiguredBundleMap.portal > 0 || dynamicConfiguredBundleMap.lenovo > 0);
-        let isAudioNodeSelected = (dynamicConfiguredBundleMap.nest > 0 || dynamicConfiguredBundleMap.echodot > 0);
+        let visualStationSelected = (configurationBundleStateMap.portal > 0 || configurationBundleStateMap.lenovo > 0);
+        let audioAccessorySelected = (configurationBundleStateMap.nest > 0 || configurationBundleStateMap.echodot > 0);
         
-        if(isDisplayNodeSelected && isAudioNodeSelected) {
-            multiCategoryBonusModifier = 0.85; // Process a flat 15% system markdown configuration
+        // Execute automatic 15% pricing markdown algorithm if combo selection maps rules successfully
+        if (visualStationSelected && audioAccessorySelected) {
+            runningDiscountMultiplier = 0.85;
         }
         
-        let calculatedFinalOutput = aggregatedSumTotal * multiCategoryBonusModifier;
-        document.getElementById('bundle-total-view').innerText = '£' + calculatedFinalOutput.toFixed(2);
+        let processingFinalSumResult = cumulativeBaseSum * runningDiscountMultiplier;
+        document.getElementById('composite-bundle-price-view').innerText = '£' + processingFinalSumResult.toFixed(2);
     }
 
-    // 3. Calculator Matrices
-    function runLiveCalculatorFramework() {
-        const structuralDeviceBaseline = parseFloat(document.getElementById('calc-device').value) || 0;
-        const structuralFaultBaseline = parseFloat(document.getElementById('calc-fault').value) || 0;
-        const completeSumComputed = structuralDeviceBaseline + structuralFaultBaseline;
-        document.getElementById('calc-total-display').innerText = '£' + completeSumComputed.toFixed(2);
+    /**
+     * Calculates baseline service quotes based on combined drop-down selectors
+     */
+    function runLiveDiagnosticCalculation() {
+        const hardwareBaselineValue = parseFloat(document.getElementById('input-device-tier').value) || 0;
+        const faultBaselineValue = parseFloat(document.getElementById('input-fault-tier').value) || 0;
+        const outputCompositeAggregate = hardwareBaselineValue + faultBaselineValue;
+        
+        document.getElementById('output-matrix-price').innerText = '£' + outputCompositeAggregate.toFixed(2);
     }
 
+    // Main App Lifecycle Entry Point Initialization
     window.addEventListener('DOMContentLoaded', () => {
-        runLiveCalculatorFramework();
+        runLiveDiagnosticCalculation();
     });
 </script>
 </body>
