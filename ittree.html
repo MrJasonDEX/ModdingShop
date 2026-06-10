@@ -1,506 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I.T Repair All (Renfrew) - Customer Hub</title>
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-  
-  <style>
-    :root {
-      --brand-primary: #3b82f6;
-      --surface-bg: #f3f4f6; /* Modern clay/off-white background */
-      --card-bg: #ffffff;    /* Bright white bubble base */
-      --card-border: rgba(0, 0, 0, 0.04);
-      --text-primary: #1e293b;
-      --text-secondary: #64748b;
-      --bubble-hover: #f8fafc;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I.T Repair All (Renfrew) - Interactive Workbench Dashboard</title>
+    <style>
+        /* Bubbly Lab Aesthetic & Global Variables */
+        :root {
+            --bg-canvas: #f6f8fa;
+            --bg-card: #ffffff;
+            --text-main: #1f2328;
+            --text-muted: #636c76;
+            --accent-blue: #0969da;
+            --accent-green: #1a7f37;
+            --accent-orange: #bc4c00;
+            --border-bubbly: #d0d7de;
+            --radius-soft: 24px;
+            --shadow-bubbly: 0 8px 24px rgba(140, 149, 159, 0.15);
+            --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        }
 
-    body {
-      background-color: var(--surface-bg);
-      font-family: system-ui, -apple-system, sans-serif;
-      color: var(--text-primary);
-      padding: 1.5rem 0 7.5rem 0;
-      overflow-x: hidden;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-stack);
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    .container-layout {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 0 1.25rem;
-    }
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            padding: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-    /* Bubbly Card Base */
-    .bubbly-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 26px; /* High rounding */
-      padding: 1.6rem;
-      margin-bottom: 1.25rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
-    }
+        .dashboard-container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-bubbly);
+            border-radius: var(--radius-soft);
+            box-shadow: var(--shadow-bubbly);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    .header-card {
-      text-align: center;
-      padding: 2.25rem 1.5rem 1.5rem 1.5rem;
-    }
+        /* 1. Contextual Urgency Banner Component */
+        .urgency-banner {
+            background: linear-gradient(135deg, #f0f7ff, #ddf4ff);
+            border: 1px solid #b4e0fa;
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .urgency-pulse {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(26, 127, 55, 0.7);
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(26, 127, 55, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(26, 127, 55, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(26, 127, 55, 0); }
+        }
+        .urgency-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+        }
 
-    .avatar-bubble {
-      width: 84px;
-      height: 84px;
-      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-      color: white;
-      font-size: 2.25rem;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 28px; /* Cute squircle */
-      margin: 0 auto 1.25rem;
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25);
-    }
+        /* Core Elements */
+        h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* Bubbly Navigation Toggles */
-    .segment-bar {
-      background: rgba(0, 0, 0, 0.03);
-      padding: 0.35rem;
-      border-radius: 50px;
-      display: flex;
-      width: 100%;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(0, 0, 0, 0.005);
-    }
-    .segment-bar .nav-link {
-      color: var(--text-secondary);
-      font-weight: 700;
-      border-radius: 50px;
-      padding: 0.75rem;
-      flex: 1;
-      font-size: 0.88rem;
-      border: none;
-      background: transparent;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .segment-bar .nav-link.active {
-      background: var(--card-bg);
-      color: var(--brand-primary);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-    }
+        /* 2. Brand & Service Pill Matrices */
+        .pill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pill {
+            background: var(--bg-canvas);
+            border: 1px solid var(--border-bubbly);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pill:active {
+            transform: scale(0.93);
+        }
+        .pill.selected {
+            background: var(--text-main);
+            color: #ffffff;
+            border-color: var(--text-main);
+        }
 
-    /* Interactive Bubbly Rows */
-    .action-bubble-btn {
-      width: 100%;
-      text-align: left;
-      font-weight: 700;
-      padding: 1.1rem 1.35rem;
-      border-radius: 20px;
-      border: 1px solid var(--card-border);
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      margin-bottom: 0.75rem;
-      color: var(--text-primary);
-      background: var(--card-bg);
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); /* Squishy click feel */
-    }
-    .action-bubble-btn:hover {
-      transform: scale(1.02) translateY(-2px);
-      background-color: var(--bubble-hover);
-      color: var(--brand-primary);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
-    }
-    .action-bubble-btn i {
-      font-size: 1.35rem;
-      margin-right: 0.85rem;
-      width: 24px;
-      text-align: center;
-    }
+        /* 3. HTML5 Interactive Pattern Canvas Lock */
+        .canvas-container {
+            background: #fafafa;
+            border: 2px dashed var(--border-bubbly);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        #patternCanvas {
+            background: transparent;
+            cursor: pointer;
+            touch-action: none;
+        }
+        .canvas-btn {
+            background: transparent;
+            border: 1px solid var(--border-bubbly);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        .canvas-btn:hover { background: #f0f0f0; }
 
-    /* Bubbly Grid Channels */
-    .grid-communication {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-    }
-    .grid-communication .action-bubble-btn {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 1.25rem 1rem;
-      margin-bottom: 0;
-    }
-    .grid-communication .action-bubble-btn i { 
-      margin-right: 0; 
-      margin-bottom: 0.4rem; 
-      font-size: 1.6rem;
-    }
+        /* 4. Booksy/SumUp Embedding Layer Toggle */
+        .booking-toggle-card {
+            border: 1px solid var(--border-bubbly);
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-canvas);
+        }
+        .booking-trigger {
+            width: 100%;
+            background: var(--accent-blue);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .booking-trigger:hover { background: #0550ae; }
+        .iframe-wrapper {
+            display: none;
+            width: 100%;
+            height: 450px;
+            background: #ffffff;
+            border-top: 1px solid var(--border-bubbly);
+            transition: all 0.3s ease;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-    .badge-status {
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
+        /* 5. One-Tap Quick Share & Clipboard Logic */
+        .action-button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        .btn-action {
+            flex: 1;
+            padding: 12px;
+            border-radius: 14px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+        }
+        .btn-whatsapp:hover { background-color: #20ba5a; }
+        .btn-copy {
+            background-color: var(--bg-canvas);
+            border: 1px solid var(--border-bubbly);
+            color: var(--text-main);
+        }
+        .btn-copy:hover { background-color: #eaeef2; }
 
-    .form-select, .form-control {
-      border-radius: 16px !important;
-      padding: 0.7rem 1rem;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    .form-select:focus, .form-control:focus {
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
-    }
-
-    .map-bubble-wrapper {
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--card-border);
-      height: 220px;
-    }
-
-    .author-credit {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.4rem 0.8rem;
-      border-radius: 50px;
-      background: rgba(0, 0, 0, 0.03);
-      margin-top: 0.85rem;
-    }
-
-    /* Floating Capsule Footer Menu */
-    .bottom-dock {
-      position: fixed;
-      bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 50px;
-      padding: 0.6rem;
-      z-index: 1000;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
-      max-width: 460px;
-      margin: 0 auto;
-    }
-    .bottom-dock-inner {
-      display: flex;
-      gap: 0.5rem;
-    }
-    .bottom-dock-inner .btn {
-      flex: 1;
-      font-weight: 700;
-      padding: 0.85rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-    }
-  </style>
+        .trust-badge {
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: -5px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container-layout animate__animated animate__fadeInUp">
-
-  <div class="bubbly-card header-card">
-    <div class="avatar-bubble animate__animated animate__bounceIn">IT</div>
-    <h1 class="h4 fw-bold mb-1">I.T Repair All</h1>
-    <p class="text-secondary small mb-3 fw-medium">No Fix • No Fee Electronics Engineers</p>
+<div class="dashboard-container">
     
-    <div id="live-timeline-status" class="mb-2"></div>
+    <!-- Header Area -->
+    <div>
+        <h1>🛠️ I.T Repair All <span style="font-weight: 400; font-size: 1rem; color: var(--text-muted);">Renfrew</span></h1>
+    </div>
+
+    <!-- 1. Contextual Clock Urgency Banner -->
+    <div class="urgency-banner" id="urgencyBanner">
+        <div class="urgency-pulse"></div>
+        <div class="urgency-text" id="urgencyText">Evaluating bench queue arrays...</div>
+    </div>
+
+    <!-- 2. Interactive Component Matrices -->
+    <div>
+        <div class="section-title">Select Device</div>
+        <div class="pill-grid" id="deviceGrid">
+            <div class="pill selected" data-value="iPhone">iPhone</div>
+            <div class="pill" data-value="Apple Watch">Apple Watch</div>
+            <div class="pill" data-value="iPad">iPad</div>
+            <div class="pill" data-value="Samsung">Samsung</div>
+            <div class="pill" data-value="Sony">Sony / PS5</div>
+            <div class="pill" data-value="Google Pixel">Pixel</div>
+            <div class="pill" data-value="Laptop/PC">Laptop / PC</div>
+        </div>
+    </div>
 
     <div>
-      <a href="https://www.facebook.com/share/18nx6WkbEx/" class="author-credit" target="_blank" rel="noopener">
-        <i class="fa-solid fa-code"></i> Made by Jason
-      </a>
-    </div>
-  </div>
-
-  <div class="nav segment-bar" role="tablist">
-    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-booking" type="button" role="tab">Services & Bookings</button>
-    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-diagnostics" type="button" role="tab">Diagnostics & Location</button>
-  </div>
-
-  <div class="tab-content">
-    
-    <div class="tab-pane fade show active" id="tab-booking" role="tabpanel">
-      
-      <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Select Workspace Channel</div>
-        <a href="https://itrepairall53.booksy.com/a" class="action-bubble-btn" target="_blank">
-          <i class="fa-regular fa-calendar-check text-primary"></i>
-          <div>
-            <span class="d-block">Book Field Service Technician</span>
-            <small class="text-secondary fw-normal">Mobile appointments via Booksy</small>
-          </div>
-        </a>
-        <a href="https://www.sumupbookings.com/i-t-repair-all" class="action-bubble-btn" target="_blank">
-          <i class="fa-solid fa-house-laptop text-success"></i>
-          <div>
-            <span class="d-block">Book Lab Drop-Off Slot</span>
-            <small class="text-secondary fw-normal">In-store scheduling via SumUp</small>
-          </div>
-        </a>
-      </div>
-
-      <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Direct Technical Helpdesk</div>
-        <div class="grid-communication">
-          <a href="https://wa.me/message/3Q466CYO3F6CP1" class="action-bubble-btn" target="_blank">
-            <i class="fa-brands fa-whatsapp text-success"></i>
-            <span class="small">WhatsApp</span>
-          </a>
-          <a href="https://signal.me/#eu/prqRndI77z90uGAS6gTF456UoTiL5IS24iXEvit4G1wmu2pqBSJIDKLKHOZfJINl" class="action-bubble-btn" target="_blank">
-            <i class="fa-solid fa-comment-sms text-primary"></i>
-            <span class="small">Signal</span>
-          </a>
-          <a href="https://t.me/itrepairallcouk" class="action-bubble-btn" target="_blank">
-            <i class="fa-brands fa-telegram text-info"></i>
-            <span class="small">Telegram</span>
-          </a>
-          <a href="https://m.snapchat.com/add/itrepairall.co.uk" class="action-bubble-btn" target="_blank">
-            <i class="fa-brands fa-snapchat text-warning"></i>
-            <span class="small">Snapchat</span>
-          </a>
+        <div class="section-title">Select Core Symptom</div>
+        <div class="pill-grid" id="symptomGrid">
+            <div class="pill selected" data-value="Smashed Screen">Smashed Screen</div>
+            <div class="pill" data-value="Battery Replacement">Battery Degradation</div>
+            <div class="pill" data-value="Charging Port Issue">Charging Port Fault</div>
+            <div class="pill" data-value="Liquid Damage Treatment">Liquid Damage</div>
+            <div class="pill" data-value="Micro-Soldering Logic Board">Micro-Soldering</div>
+            <div class="pill" data-value="Phone Unlocking">Network Unlocking</div>
         </div>
-      </div>
-
-      <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Component Storefronts</div>
-        <a href="https://ebay.us/m/kWMlAd" class="action-bubble-btn" target="_blank">
-          <i class="fa-brands fa-ebay text-danger" style="font-size:1.6rem;"></i>
-          <span>Official Verified eBay Outlet</span>
-        </a>
-        <a href="https://wa.me/c/447939875777" class="action-bubble-btn" target="_blank">
-          <i class="fa-solid fa-boxes-stacked text-success"></i>
-          <span>View Parts Catalog on WhatsApp</span>
-        </a>
-      </div>
-
-      <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Performance History</div>
-        <div class="grid-communication">
-          <a href="https://uk.trustpilot.com/review/itrepairall.co.uk" class="action-bubble-btn" target="_blank">
-            <i class="fa-solid fa-star text-warning"></i>
-            <span class="small">Trustpilot Reviews</span>
-          </a>
-          <a href="https://www.trustindex.io/reviews/www.itrepairall.co.uk" class="action-bubble-btn" target="_blank">
-            <i class="fa-solid fa-shield-halved text-success"></i>
-            <span class="small">TrustIndex Audit</span>
-          </a>
-        </div>
-      </div>
-
     </div>
 
-    <div class="tab-pane fade" id="tab-diagnostics" role="tabpanel">
-      
-      <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-3" style="font-size:0.72rem; letter-spacing:0.06em;">Modular Rate Matrix</div>
-        <div class="mb-3">
-          <label class="form-label small text-secondary fw-bold">Select Hardware Architecture</label>
-          <select class="form-select" id="calc-device" onchange="runCostEngine()">
-            <option value="45">Mobile Smart Devices (iPhone / Samsung)</option>
-            <option value="65">Next-Gen Gaming Consoles (PS5 / Xbox / Switch)</option>
-            <option value="80">Laptops / Desktop Systems</option>
-          </select>
+    <!-- 3. HTML5 Canvas Pattern Draw Box -->
+    <div>
+        <div class="section-title">
+            <span>Draw Device Security Pattern</span>
+            <span style="font-size: 0.75rem; font-weight: 500; color: var(--text-muted);" id="patternKeyDisplay">None</span>
         </div>
-        <div class="mb-3">
-          <label class="form-label small text-secondary fw-bold">Select General Symptom Area</label>
-          <select class="form-select" id="calc-fault" onchange="runCostEngine()">
-            <option value="35">Battery Systems / Charge Port Array</option>
-            <option value="75">Glass Assembly / Liquid Crystal Digitizer</option>
-            <option value="130">BGA Logic Board Micro-soldering / Liquid Recovery</option>
-          </select>
+        <div class="canvas-container">
+            <canvas id="patternCanvas" width="260" height="260"></canvas>
+            <button class="canvas-btn" onclick="clearPattern()">Reset Grid Matrix</button>
         </div>
-        <div class="p-3 text-center mb-2" style="background: #f8fafc; border-radius: 18px; border: 1px solid rgba(0,0,0,0.03);">
-          <span class="text-uppercase text-secondary small d-block fw-bold mb-1" style="font-size: 0.65rem;">Estimated Cost Framework</span>
-          <span class="h2 text-primary m-0" id="calc-output-display" style="font-weight:800;">£155</span>
-        </div>
-        <button class="btn btn-outline-primary btn-sm w-100 fw-bold py-2 mt-1" style="border-radius:12px;" onclick="shareQuoteDetails()">
-          <i class="fa-solid fa-arrow-up-from-bracket me-1"></i> Share Estimate Details
+    </div>
+
+    <!-- 4. Adaptive Booking Engine Frame (SumUp/Booksy) -->
+    <div class="booking-toggle-card">
+        <button class="booking-trigger" onclick="toggleBookingEngine()">
+            📅 View Real-Time Bench Appointments
         </button>
-      </div>
-
-      <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.72rem; letter-spacing:0.06em;">Verify Onsite Callout Radius</div>
-        <p class="text-secondary small mb-3">Input your postal district outward sector below to evaluate travel ranges.</p>
-        <div class="input-group">
-          <input type="text" class="form-control" id="postcode-input-field" placeholder="e.g. PA4 or G51" maxlength="4" oninput="savePostcodeToMemory()">
-          <button class="btn btn-dark fw-bold px-3" style="border-radius: 16px !important;" type="button" onclick="runRadiusEngine()">Verify</button>
+        <div class="iframe-wrapper" id="iframeWrapper">
+            <!-- Using your active SumUp Bookings routing platform context -->
+            <iframe src="https://www.sumupbookings.com/i-t-repair-all" title="I.T Repair All Calendar Engine"></iframe>
         </div>
-        <div id="radius-badge-result" class="alert mt-3 mb-0 text-center small fw-bold d-none" style="border-radius: 16px;"></div>
-      </div>
-
-      <div class="bubbly-card">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.72rem; letter-spacing:0.06em;">Workshop Logistics Map</div>
-        <p class="text-secondary small mb-3"><strong>Address:</strong> Flat 3/2, 46 Canal St, Renfrew, PA4 8QD</p>
-        
-        <div class="map-bubble-wrapper mb-3">
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2239.539745582963!2d-4.389278023306806!3d55.8706309832717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48884fbc99951635%3A0xe6796fe8da5cc1cb!2s46%20Canal%20St%2C%20Renfrew%20PA4%208QD!5e0!3m2!1sen!2suk!4v1710000000000!5m2!1sen!2suk" 
-            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
-
-        <a href="https://maps.google.com/?q=46+Canal+St,+Renfrew,+PA4+8QD" target="_blank" class="btn btn-outline-secondary btn-sm w-100 fw-bold py-2" style="border-radius: 14px;">
-          <i class="fa-solid fa-diamond-turn-right me-1"></i> Launch Standard GPS Routing
-        </a>
-      </div>
-
-      <div class="bubbly-card text-center">
-        <div class="text-uppercase text-secondary fw-bold small mb-2" style="font-size:0.72rem; letter-spacing:0.06em;">Direct BACS Processing Details</div>
-        <div class="d-flex justify-content-center gap-2 small">
-          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('04-14-50', this)">
-            <span class="font-monospace">Sort: <strong>04-14-50</strong></span>
-          </button>
-          <button class="btn btn-sm btn-light border px-3 py-2 text-secondary" style="border-radius:12px;" onclick="runCopyEngine('16523518', this)">
-            <span class="font-monospace">Acc: <strong>16523518</strong></span>
-          </button>
-        </div>
-        <div class="small font-monospace fw-bold text-secondary mt-2" style="font-size: 0.75rem;">Beneficiary Reference: I.T Repair All</div>
-      </div>
-
     </div>
 
-  </div>
+    <!-- 5. Client Clipboard Auto-Packaging Engine Actions -->
+    <div class="action-button-group">
+        <button class="btn-action btn-copy" onclick="copyCheckInToClipboard()">📋 Copy Details</button>
+        <button class="btn-action btn-whatsapp" onclick="sendWhatsAppIntake()">💬 Send via WhatsApp</button>
+    </div>
 
+    <div class="trust-badge">
+        ★ 4.9/5 Star Lab Authority • 550+ Verified Trustpilot & Yell Footprints
+    </div>
 </div>
-
-<div class="bottom-dock">
-  <div class="bottom-dock-inner">
-    <a href="tel:+447939875777" class="btn btn-outline-dark"><i class="fa-solid fa-phone-flip me-1"></i> Call Desk</a>
-    <a href="https://wa.me/message/3Q466CYO3F6CP1" class="btn btn-primary"><i class="fa-brands fa-whatsapp me-1"></i> Live Chat</a>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-  // Live Business Clock Checker Engine
-  function calculateTimeMetrics() {
-    const logBox = document.getElementById('live-timeline-status');
-    const systemClock = new Date();
-    const activeDay = systemClock.getDay();
-    const activeHour = systemClock.getHours();
-    let operationalState = false;
+    // System Memory Cache
+    let selectedDevice = "iPhone";
+    let selectedSymptom = "Smashed Screen";
+    let patternSequence = [];
 
-    // Mon-Fri: 11:30 - 21:00 | Sat: 10:00 - 19:00 | Sun: 12:00 - 18:00
-    if (activeDay >= 1 && activeDay <= 5) {
-      if (activeHour >= 11 && activeHour < 21) operationalState = true;
-    } else if (activeDay === 6) {
-      if (activeHour >= 10 && activeHour < 19) operationalState = true;
-    } else if (activeDay === 0) {
-      if (activeHour >= 12 && activeHour < 18) operationalState = true;
+    // Grid System Logic arrays
+    const deviceGrid = document.getElementById('deviceGrid');
+    const symptomGrid = document.getElementById('symptomGrid');
+
+    function setupGridListeners(gridElement, callback) {
+        gridElement.addEventListener('click', (e) => {
+            if (e.target.classList.contains('pill')) {
+                gridElement.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+                e.target.classList.add('selected');
+                callback(e.target.getAttribute('data-value'));
+            }
+        });
+    }
+    setupGridListeners(deviceGrid, (val) => { selectedDevice = val; });
+    setupGridListeners(symptomGrid, (val) => { selectedSymptom = val; });
+
+    // 1. Clock-Adaptive Contextual Banner Engine
+    function updateUrgencyBanner() {
+        const now = new Date();
+        const currentHour = now.getHours();
+        const bannerText = document.getElementById('urgencyText');
+        
+        if (currentHour >= 11 && currentHour < 17) {
+            bannerText.innerText = "Lab Active on Canal St: 10-Minute Screen Express Tiers Live.";
+        } else if (currentHour >= 17 && currentHour < 21) {
+            bannerText.innerText = "Evening Queue Processing. Book Ahead to Secure Early Morning Diagnostic Priority.";
+        } else {
+            bannerText.innerText = "Lab Closed. Secure Your Next Available Bench Slot via Calendar Below.";
+        }
+    }
+    updateUrgencyBanner();
+
+    // 3. HTML5 Pattern Grid Interaction Array
+    const canvas = document.getElementById('patternCanvas');
+    const ctx = canvas.getContext('2d');
+    const display = document.getElementById('patternKeyDisplay');
+    let dots = [];
+    let isDrawing = false;
+
+    function initCanvasGrid() {
+        dots = [];
+        const spacing = canvas.width / 4;
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                dots.push({
+                    id: row * 3 + col + 1,
+                    x: spacing * (col + 1),
+                    y: spacing * (row + 1),
+                    radius: 10
+                });
+            }
+        }
+        drawCanvas();
     }
 
-    if (operationalState) {
-      logBox.innerHTML = '<span class="badge-status bg-success text-white animate__animated animate__pulse animate__infinite"><i class="fa-solid fa-circle text-white me-1" style="font-size:0.6rem;"></i> Lab Active & Handling Enquiries</span>';
-    } else {
-      logBox.innerHTML = '<span class="badge-status bg-secondary text-white"><i class="fa-regular fa-moon me-1"></i> Lab Closed • Queueing Next Bookings Slots</span>';
+    function drawCanvas() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw path links
+        if (patternSequence.length > 0) {
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = '#0969da';
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            
+            let firstDot = dots.find(d => d.id === patternSequence[0]);
+            ctx.moveTo(firstDot.x, firstDot.y);
+            
+            for (let i = 1; i < patternSequence.length; i++) {
+                let currentDot = dots.find(d => d.id === patternSequence[i]);
+                ctx.lineTo(currentDot.x, currentDot.y);
+            }
+            ctx.stroke();
+        }
+
+        // Draw node metrics
+        dots.forEach(dot => {
+            ctx.beginPath();
+            ctx.arc(dot.x, dot.y, dot.radius, 0, Math.PI * 2);
+            ctx.fillStyle = patternSequence.includes(dot.id) ? '#0969da' : '#d0d7de';
+            ctx.fill();
+            ctx.closePath();
+        });
     }
-  }
 
-  // Cost Engine Core Calculation + Browser Storage Sync
-  function runCostEngine() {
-    const devSelect = document.getElementById('calc-device');
-    const faultSelect = document.getElementById('calc-fault');
-    
-    const rawDevice = parseInt(devSelect.value) || 0;
-    const rawFault = parseInt(faultSelect.value) || 0;
-    const totalSum = rawDevice + rawFault;
-    
-    document.getElementById('calc-output-display').innerText = '£' + totalSum;
-
-    // LocalStorage State Sync (GitHub Pages client persistent cache)
-    localStorage.setItem('saved_device_index', devSelect.selectedIndex);
-    localStorage.setItem('saved_fault_index', faultSelect.selectedIndex);
-  }
-
-  // Memory Recall on Page Setup
-  function recallSavedSelections() {
-    const savedDev = localStorage.getItem('saved_device_index');
-    const savedFault = localStorage.getItem('saved_fault_index');
-    const savedPostcode = localStorage.getItem('saved_postcode_string');
-
-    if(savedDev !== null) document.getElementById('calc-device').selectedIndex = savedDev;
-    if(savedFault !== null) document.getElementById('calc-fault').selectedIndex = savedFault;
-    if(savedPostcode !== null) document.getElementById('postcode-input-field').value = savedPostcode;
-  }
-
-  // Native Front-End API Device Share Sheet System
-  function shareQuoteDetails() {
-    const totalVal = document.getElementById('calc-output-display').innerText;
-    if (navigator.share) {
-      navigator.share({
-        title: 'I.T Repair All - Estimate Breakdown',
-        text: `Got a bench repair estimate framework from I.T Repair All: ${totalVal}. Check them out here:`,
-        url: window.location.href
-      }).catch(console.error);
-    } else {
-      alert(`Quote Estimate Framework: ${totalVal}. Copy our URL to share with a friend!`);
+    function getMousePos(e) {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        return {
+            x: clientX - rect.left,
+            y: clientY - rect.top
+        };
     }
-  }
 
-  // Postcode Callout Validator Engine
-  function savePostcodeToMemory() {
-    const rawString = document.getElementById('postcode-input-field').value;
-    localStorage.setItem('saved_postcode_string', rawString);
-  }
-
-  function runRadiusEngine() {
-    const rawString = document.getElementById('postcode-input-field').value.toUpperCase().trim().replace(/\s+/g, '');
-    const displayElement = document.getElementById('radius-badge-result');
-    
-    const standardZones = ['PA1', 'PA2', 'PA3', 'PA4', 'G51', 'G52', 'G11', 'G12', 'G13', 'G14'];
-    const extendedZones = ['PA5', 'PA6', 'PA7', 'PA8', 'G1', 'G2', 'G3', 'G4', 'G20', 'G31', 'G41'];
-
-    displayElement.classList.remove('d-none', 'alert-success', 'alert-warning', 'alert-danger');
-
-    const cleanThreeVal = rawString.substring(0, 3);
-    const cleanFourVal = rawString.substring(0, 4);
-
-    if (standardZones.includes(cleanThreeVal) || standardZones.includes(cleanFourVal) || standardZones.includes(rawString)) {
-      displayElement.className = "alert alert-success mt-3 mb-0 text-center small fw-bold";
-      displayElement.innerHTML = "<i class='fa-solid fa-circle-check me-1'></i> Service Check: Within Free Travel Radius Configuration.";
-    } else if (extendedZones.includes(cleanThreeVal) || extendedZones.includes(cleanFourVal) || extendedZones.includes(rawString)) {
-      displayElement.className = "alert alert-warning mt-3 mb-0 text-center small fw-bold text-dark";
-      displayElement.innerHTML = "<i class='fa-solid fa-circle-exclamation me-1'></i> Service Check: Callout Available (Subject to standard £10 travel surcharge).";
-    } else {
-      displayElement.className = "alert alert-danger mt-3 mb-0 text-center small fw-bold";
-      displayElement.innerHTML = "<i class='fa-solid fa-circle-xmark me-1'></i> Service Check: Outside local travel radius. Please request a mail-in layout.";
+    function handleStart(e) {
+        isDrawing = true;
+        handleMove(e);
     }
-  }
 
-  // Front-End Fast System Clipboard Copy Engine
-  function runCopyEngine(stringText, domNode) {
-    navigator.clipboard.writeText(stringText).then(() => {
-      const rollbackLayout = domNode.innerHTML;
-      domNode.innerHTML = `<span class="small text-success fw-bold"><i class="fa-solid fa-check"></i> Copied</span>`;
-      setTimeout(() => { domNode.innerHTML = rollbackLayout; }, 1200);
-    });
-  }
+    function handleMove(e) {
+        if (!isDrawing) return;
+        const pos = getMousePos(e);
+        dots.forEach(dot => {
+            const dist = Math.hypot(pos.x - dot.x, pos.y - dot.y);
+            if (dist < 22 && !patternSequence.includes(dot.id)) {
+                patternSequence.push(dot.id);
+                display.innerText = patternSequence.join(' ➔ ');
+                drawCanvas();
+            }
+        });
+    }
 
-  // Page Boot Instantiator
-  window.addEventListener('DOMContentLoaded', () => {
-    recallSavedSelections();
-    calculateTimeMetrics();
-    runCostEngine();
-    setInterval(calculateTimeMetrics, 30000);
-  });
+    function handleEnd() {
+        isDrawing = false;
+    }
+
+    canvas.addEventListener('mousedown', handleStart);
+    canvas.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleEnd);
+    canvas.addEventListener('touchstart', handleStart);
+    canvas.addEventListener('touchmove', handleMove);
+    window.addEventListener('touchend', handleEnd);
+
+    function clearPattern() {
+        patternSequence = [];
+        display.innerText = "None";
+        drawCanvas();
+    }
+    initCanvasGrid();
+
+    // 4. Booking Iframe Expand Protocol
+    function toggleBookingEngine() {
+        const wrapper = document.getElementById('iframeWrapper');
+        if (wrapper.style.display === 'block') {
+            wrapper.style.display = 'none';
+        } else {
+            wrapper.style.display = 'block';
+        }
+    }
+
+    // 5. Automated Data Packing Assembly Recipes
+    function buildSummaryString() {
+        const cleanPattern = patternSequence.length > 0 ? patternSequence.join('-') : 'Not Configured';
+        return `I.T Repair All (Renfrew) Ticket Detail:\n• Hardware Asset: ${selectedDevice}\n• Registered Symptom: ${selectedSymptom}\n• Lock Gesture Vector: ${cleanPattern}\n• Policy Parameter: No Fix • No Fee Standard Acknowledged`;
+    }
+
+    function copyCheckInToClipboard() {
+        const text = buildSummaryString();
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Diagnostic summary packed onto device clipboard registry successfully!");
+        });
+    }
+
+    function sendWhatsAppIntake() {
+        const text = encodeURIComponent(buildSummaryString());
+        window.open(`https://wa.me/447939875777?text=${text}`, '_blank');
+    }
 </script>
+
 </body>
 </html>
