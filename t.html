@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ModdingXz | Road To 5K</title>
+<title>ModdingXz | Gaming Modding Community</title>
 
-<meta name="description" content="ModdingXz - The ultimate gaming modding community. Tools, releases, support and updates.">
-<meta property="og:title" content="ModdingXz | Road To 5K">
-<meta property="og:description" content="Join the fastest growing modding & gaming community.">
-<meta property="og:type" content="website">
+<meta name="description" content="ModdingXz - The home of gaming mods, tools, releases and community.">
+
+<meta name="theme-color" content="#229ED9">
+
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
 <style>
+
 
 *{
 margin:0;
@@ -30,44 +33,62 @@ font-family:'Poppins',sans-serif;
 body{
 
 min-height:100vh;
-background:#050b18;
+
+background:
+radial-gradient(circle at top,#10233f,#050816);
+
 color:white;
+
 overflow-x:hidden;
 
 display:flex;
-align-items:center;
+
 justify-content:center;
+
+align-items:center;
 
 }
 
 
-/* Background */
-
 canvas{
 
 position:fixed;
+
 top:0;
+
 left:0;
+
+width:100%;
+
+height:100%;
+
 z-index:-2;
 
 }
 
 
-body:before{
+
+/* Scanline effect */
+
+body:after{
 
 content:"";
+
 position:fixed;
+
 inset:0;
 
 background:
 linear-gradient(
-120deg,
-rgba(34,158,217,.15),
-transparent,
-rgba(14,165,233,.15)
+rgba(255,255,255,0.02) 50%,
+transparent 50%
 );
 
-z-index:-1;
+background-size:100% 4px;
+
+pointer-events:none;
+
+opacity:.2;
 
 }
 
@@ -78,7 +99,8 @@ z-index:-1;
 .container{
 
 width:100%;
-max-width:1000px;
+
+max-width:1100px;
 
 padding:40px 25px;
 
@@ -88,41 +110,73 @@ text-align:center;
 
 
 
+
+
 /* Logo */
 
 
 .logo{
 
-width:130px;
-height:130px;
+width:140px;
+
+height:140px;
 
 margin:auto;
 
-border-radius:50%;
-
 display:flex;
+
 align-items:center;
+
 justify-content:center;
 
-font-size:55px;
-font-weight:800;
+
+font-size:60px;
+
+font-weight:900;
+
+
+border-radius:50%;
+
 
 background:
-linear-gradient(135deg,#229ED9,#38bdf8);
+linear-gradient(
+135deg,
+#229ED9,
+#38bdf8
+);
+
 
 box-shadow:
-0 0 30px #229ED9,
-0 0 70px rgba(34,158,217,.5);
+
+0 0 25px #229ED9,
+
+0 0 80px rgba(34,158,217,.5);
 
 
-animation:float 3s infinite;
+animation:
+
+float 3s infinite;
+
+
+position:relative;
 
 }
 
 
-.logo span{
 
-color:white;
+.logo:before{
+
+content:"";
+
+position:absolute;
+
+inset:-8px;
+
+border-radius:50%;
+
+border:2px solid #38bdf8;
+
+animation:spin 5s linear infinite;
 
 }
 
@@ -131,39 +185,88 @@ color:white;
 @keyframes float{
 
 50%{
-transform:translateY(-12px);
+
+transform:translateY(-15px);
+
+}
+
+}
+
+
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
 }
 
 }
 
 
 
-/* Heading */
+
+
+/* Title */
 
 
 h1{
 
-font-size:3.5rem;
+margin-top:30px;
 
-margin-top:25px;
+font-size:4rem;
 
-font-weight:800;
+font-weight:900;
+
+letter-spacing:3px;
+
+}
+
+
+
+.glitch{
+
+color:#38bdf8;
+
+text-shadow:
+
+3px 0 #229ED9,
+
+-3px 0 #0ea5e9;
+
+animation:glitch 2s infinite;
 
 }
 
 
-.gradient{
 
-background:linear-gradient(
-90deg,
-#38bdf8,
-#229ED9
-);
+@keyframes glitch{
 
--webkit-background-clip:text;
-color:transparent;
+
+0%,90%,100%{
+
+transform:none;
 
 }
+
+
+92%{
+
+transform:translateX(4px);
+
+}
+
+
+94%{
+
+transform:translateX(-4px);
+
+}
+
+
+}
+
 
 
 
@@ -179,22 +282,24 @@ font-size:1.2rem;
 
 
 
-/* Badge */
-
-
 .badge{
-
-display:inline-block;
 
 margin-top:25px;
 
-padding:10px 25px;
+display:inline-block;
+
+padding:12px 30px;
 
 border-radius:50px;
 
-background:rgba(34,158,217,.15);
+background:
 
-border:1px solid rgba(34,158,217,.5);
+rgba(34,158,217,.15);
+
+border:
+
+1px solid #229ED9;
+
 
 color:#38bdf8;
 
@@ -204,37 +309,153 @@ font-weight:700;
 
 
 
+
+
+/* Glass boxes */
+
+
+.box{
+
+margin-top:35px;
+
+padding:30px;
+
+
+background:
+
+rgba(255,255,255,.06);
+
+
+border:
+
+1px solid rgba(255,255,255,.15);
+
+
+border-radius:25px;
+
+
+backdrop-filter:blur(15px);
+
+
+box-shadow:
+
+0 0 30px rgba(0,0,0,.3);
+
+}
+
+
+
+
+/* Counter */
+
+
+.counter-title{
+
+font-size:1.3rem;
+
+}
+
+
+
+#members{
+
+font-size:2.8rem;
+
+font-weight:800;
+
+margin:15px;
+
+}
+
+
+
+.progress{
+
+height:22px;
+
+background:#111827;
+
+border-radius:50px;
+
+overflow:hidden;
+
+}
+
+
+
+#progressBar{
+
+height:100%;
+
+width:0;
+
+background:
+
+linear-gradient(
+90deg,
+#229ED9,
+#38bdf8
+);
+
+
+transition:1.5s;
+
+}
+
+
+
+#percentage{
+
+margin-top:10px;
+
+color:#94a3b8;
+
+}
+
+
+
+
+
+
+
 /* Cards */
 
 
 .cards{
 
-margin-top:45px;
+margin-top:40px;
 
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
+
+repeat(auto-fit,minmax(240px,1fr));
+
 
 gap:20px;
 
 }
 
 
+
 .card{
 
-padding:25px;
+
+padding:30px;
+
 
 background:
-rgba(255,255,255,.06);
+
+rgba(255,255,255,.05);
+
+
+border-radius:20px;
+
 
 border:
 
 1px solid rgba(255,255,255,.12);
 
-border-radius:20px;
-
-backdrop-filter:blur(15px);
 
 transition:.3s;
 
@@ -247,7 +468,8 @@ transition:.3s;
 transform:translateY(-10px);
 
 box-shadow:
-0 0 30px rgba(34,158,217,.3);
+
+0 0 35px rgba(34,158,217,.4);
 
 }
 
@@ -255,7 +477,7 @@ box-shadow:
 
 .card i{
 
-font-size:35px;
+font-size:40px;
 
 color:#38bdf8;
 
@@ -265,51 +487,56 @@ margin-bottom:15px;
 
 
 
-.card h3{
-
-margin-bottom:10px;
-
-}
-
-
-
 .card p{
 
 color:#cbd5e1;
 
-font-size:.9rem;
+font-size:.95rem;
 
 }
 
 
 
-/* Roadmap */
 
 
-.roadmap{
+/* Updates */
 
-margin-top:45px;
 
-background:
-rgba(255,255,255,.05);
+.update{
 
-padding:25px;
-
-border-radius:20px;
+text-align:left;
 
 }
 
 
 
-.progress{
+.update li{
 
-height:18px;
+list-style:none;
 
-background:#111827;
+padding:10px;
 
-border-radius:50px;
+color:#cbd5e1;
 
-overflow:hidden;
+}
+
+
+
+
+
+/* Milestones */
+
+
+.timeline{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(auto-fit,minmax(150px,1fr));
+
+
+gap:15px;
 
 margin-top:20px;
 
@@ -317,39 +544,37 @@ margin-top:20px;
 
 
 
-.progress span{
+.mile{
 
-display:block;
+padding:20px;
 
-height:100%;
+background:#ffffff08;
 
-width:95%;
-
-background:
-
-linear-gradient(
-90deg,
-#229ED9,
-#38bdf8
-);
-
-animation:load 2s;
+border-radius:15px;
 
 }
 
 
 
-@keyframes load{
+.done{
 
-from{
-width:0;
-}
+border:1px solid #22c55e;
 
 }
 
 
 
-/* Button */
+.future{
+
+border:1px solid #229ED9;
+
+}
+
+
+
+
+
+/* Join button */
 
 
 .join{
@@ -359,22 +584,32 @@ display:inline-block;
 
 margin-top:40px;
 
-padding:18px 50px;
+
+padding:20px 60px;
+
 
 border-radius:50px;
 
+
 background:#229ED9;
+
 
 color:white;
 
+
 text-decoration:none;
+
 
 font-size:1.2rem;
 
+
 font-weight:800;
 
+
 box-shadow:
-0 0 35px rgba(34,158,217,.8);
+
+0 0 40px #229ED9;
+
 
 transition:.3s;
 
@@ -391,57 +626,14 @@ transform:scale(1.08);
 
 
 
-/* Stats */
 
 
-.stats{
+/* Social */
+
+
+.socials{
 
 margin-top:30px;
-
-display:flex;
-
-justify-content:center;
-
-gap:30px;
-
-flex-wrap:wrap;
-
-}
-
-
-
-.stat{
-
-font-size:1.1rem;
-
-color:#cbd5e1;
-
-}
-
-
-
-.stat strong{
-
-display:block;
-
-font-size:1.8rem;
-
-color:white;
-
-}
-
-
-
-/* Footer */
-
-
-footer{
-
-margin-top:40px;
-
-color:#64748b;
-
-font-size:.85rem;
 
 }
 
@@ -449,15 +641,16 @@ font-size:.85rem;
 
 .socials a{
 
+font-size:30px;
+
+margin:12px;
+
 color:white;
-
-font-size:25px;
-
-margin:10px;
 
 transition:.3s;
 
 }
+
 
 
 .socials a:hover{
@@ -468,10 +661,21 @@ color:#38bdf8;
 
 
 
-/* Mobile */
+
+
+footer{
+
+margin-top:40px;
+
+color:#64748b;
+
+}
+
+
 
 
 @media(max-width:600px){
+
 
 h1{
 
@@ -479,7 +683,18 @@ font-size:2.5rem;
 
 }
 
+
+#members{
+
+font-size:2rem;
+
 }
+
+
+}
+
+
+
 
 </style>
 
@@ -496,21 +711,26 @@ font-size:2.5rem;
 
 
 <div class="logo">
+
 MX
+
 </div>
 
 
 <h1>
-<span class="gradient">
-ModdingXz
+
+<span class="glitch">
+
+MODDINGXZ
+
 </span>
+
 </h1>
 
 
 <p class="subtitle">
 
-The ultimate hub for gaming mods,
-tools, exploits & community releases.
+Gaming • Mods • Tools • Community
 
 </p>
 
@@ -522,28 +742,27 @@ tools, exploits & community releases.
 </div>
 
 
+<div class="box">
 
-<div class="stats">
+<h2 class="counter-title">
+🔥 Community Growth
+</h2>
 
-<div class="stat">
-<strong>4.7K+</strong>
-Members
-</div>
+<h3 id="members">
+Loading...
+</h3>
 
+<div class="progress">
 
-<div class="stat">
-<strong>24/7</strong>
-Support
-</div>
-
-
-<div class="stat">
-<strong>Daily</strong>
-Updates
-</div>
+<div id="progressBar"></div>
 
 </div>
 
+<p id="percentage">
+Checking Telegram...
+</p>
+
+</div>
 
 
 
@@ -555,11 +774,11 @@ Updates
 <i class="fa-solid fa-gamepad"></i>
 
 <h3>
-Gaming Mods
+🎮 Gaming Mods
 </h3>
 
 <p>
-Console modding, tools and community projects.
+Console modding, gaming tools, tutorials and community projects.
 </p>
 
 </div>
@@ -571,15 +790,14 @@ Console modding, tools and community projects.
 <i class="fa-solid fa-bolt"></i>
 
 <h3>
-Latest Releases
+⚡ Latest Releases
 </h3>
 
 <p>
-Stay updated with new drops and releases.
+Stay updated with new releases, discoveries and updates.
 </p>
 
 </div>
-
 
 
 
@@ -588,84 +806,198 @@ Stay updated with new drops and releases.
 <i class="fa-solid fa-users"></i>
 
 <h3>
-Active Community
+💬 Community
 </h3>
 
 <p>
-Meet gamers, developers and modders.
+Meet gamers, modders and developers in one place.
 </p>
 
 </div>
 
 
 
+<div class="card">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+<h3>
+🛡 Trusted Community
+</h3>
+
+<p>
+A growing community focused on sharing and helping.
+</p>
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="box update">
+
+<h2>
+📢 Latest Updates
+</h2>
+
+<ul>
+
+<li>🔥 Black Ops content & community events</li>
+
+<li>⚡ New tools and releases added regularly</li>
+
+<li>🎮 Gaming discussions and support</li>
+
+<li>🚀 Road to 5,000 members continues</li>
+
+</ul>
+
 </div>
 
 
 
 
 
-<div class="roadmap">
+<div class="box">
 
 
 <h2>
-🚀 Road To 5K
+🏆 Community Milestones
 </h2>
 
 
-<p>
-Almost there! Help us reach the next milestone.
+<div class="timeline">
+
+
+<div class="mile done">
+
+✅<br>
+100 Members
+
+</div>
+
+
+<div class="mile done">
+
+✅<br>
+500 Members
+
+</div>
+
+
+<div class="mile future">
+
+🔥<br>
+1,000 Members
+
+</div>
+
+
+<div class="mile future">
+
+🚀<br>
+2,500 Members
+
+</div>
+
+
+<div class="mile future">
+
+👑<br>
+5,000 Members
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="box">
+
+
+<h2>
+⭐ Why Join ModdingXz?
+</h2>
+
+
+<p style="color:#cbd5e1;margin-top:15px;">
+
+A growing gaming community bringing together modders,
+gamers and creators.
+
+<br><br>
+
+✔ Community Support<br>
+✔ Gaming Discussions<br>
+✔ Modding Projects<br>
+✔ Latest Updates
+
 </p>
 
 
-<div class="progress">
-
-<span></span>
-
-</div>
-
-
 </div>
 
 
 
 
-<a class="join" href="https://t.me/moddingxz">
+
+<a class="join" href="https://t.me/moddingxz" target="_blank">
 
 <i class="fa-brands fa-telegram"></i>
 
-Join Telegram Now
+Join Telegram
 
 </a>
+
+
 
 
 
 <div class="socials">
 
-<br>
 
 <a href="https://t.me/moddingxz">
+
 <i class="fa-brands fa-telegram"></i>
+
 </a>
 
+
 <a href="#">
+
 <i class="fa-brands fa-tiktok"></i>
+
 </a>
 
+
 <a href="#">
+
 <i class="fa-brands fa-github"></i>
+
 </a>
+
 
 </div>
+
 
 
 
 <footer>
 
 © 2026 ModdingXz Community<br>
+
 Built for gamers & modders
 
 </footer>
+
 
 
 
@@ -678,50 +1010,209 @@ Built for gamers & modders
 <script>
 
 
-const canvas=document.getElementById("particles");
-
-const ctx=canvas.getContext("2d");
-
-
-canvas.width=innerWidth;
-canvas.height=innerHeight;
+/*
+================================
+ TELEGRAM MEMBER COUNTER
+================================
+*/
 
 
-let particles=[];
+async function updateMembers(){
 
 
-for(let i=0;i<120;i++){
+const fallbackMembers = 749;
 
-particles.push({
+const goal = 5000;
 
-x:Math.random()*canvas.width,
 
-y:Math.random()*canvas.height,
+try{
 
-r:Math.random()*2,
 
-dx:(Math.random()-.5),
+const proxy = 
+"https://api.allorigins.win/raw?url=";
 
-dy:(Math.random()-.5)
 
-});
+const telegram =
+"https://t.me/moddingxz";
+
+
+
+const response = await fetch(
+
+proxy + encodeURIComponent(telegram)
+
+);
+
+
+
+const html = await response.text();
+
+
+
+/*
+Telegram page format can change,
+so multiple checks are used
+*/
+
+
+let match =
+html.match(/([\d,]+)\s+members/i);
+
+
+
+let members =
+match
+?
+Number(match[1].replace(/,/g,""))
+:
+fallbackMembers;
+
+
+
+showMembers(members,goal);
+
+
+
+}
+
+catch(error){
+
+
+console.log(error);
+
+
+showMembers(fallbackMembers,goal);
+
 
 }
 
 
 
-function animate(){
+}
+
+
+
+
+function showMembers(members,goal){
+
+
+let percentage =
+(members / goal) * 100;
+
+
+
+document.getElementById("members")
+.innerHTML =
+members.toLocaleString()
++
+" Members";
+
+
+
+document.getElementById("percentage")
+.innerHTML =
+percentage.toFixed(1)
++
+"% towards 5K 🚀";
+
+
+
+document.getElementById("progressBar")
+.style.width =
+Math.min(percentage,100)
++
+"%";
+
+
+}
+
+
+
+updateMembers();
+
+
+
+
+
+/*
+================================
+ PARTICLE BACKGROUND
+================================
+*/
+
+
+const canvas =
+document.getElementById("particles");
+
+
+const ctx =
+canvas.getContext("2d");
+
+
+
+canvas.width =
+window.innerWidth;
+
+
+canvas.height =
+window.innerHeight;
+
+
+
+let particles=[];
+
+
+
+for(let i=0;i<120;i++){
+
+
+particles.push({
+
+
+x:Math.random()*canvas.width,
+
+
+y:Math.random()*canvas.height,
+
+
+size:Math.random()*2+1,
+
+
+speedX:(Math.random()-0.5),
+
+
+speedY:(Math.random()-0.5)
+
+
+
+});
+
+
+}
+
+
+
+
+
+function animateParticles(){
 
 
 ctx.clearRect(
+
 0,
+
 0,
+
 canvas.width,
+
 canvas.height
+
 );
 
 
+
 ctx.fillStyle="#38bdf8";
+
 
 
 particles.forEach(p=>{
@@ -729,53 +1220,87 @@ particles.forEach(p=>{
 
 ctx.beginPath();
 
+
 ctx.arc(
+
 p.x,
+
 p.y,
-p.r,
+
+p.size,
+
 0,
+
 Math.PI*2
+
 );
+
 
 ctx.fill();
 
 
-p.x+=p.dx;
 
-p.y+=p.dy;
+p.x += p.speedX;
 
-
-if(p.x<0||p.x>canvas.width)
-p.dx*=-1;
+p.y += p.speedY;
 
 
-if(p.y<0||p.y>canvas.height)
-p.dy*=-1;
+
+if(
+p.x<0 ||
+p.x>canvas.width
+)
+
+p.speedX*=-1;
+
+
+
+if(
+p.y<0 ||
+p.y>canvas.height
+)
+
+p.speedY*=-1;
+
 
 
 });
 
 
-requestAnimationFrame(animate);
+
+requestAnimationFrame(animateParticles);
 
 
 }
 
 
-animate();
+
+animateParticles();
 
 
 
-window.onresize=()=>{
 
-canvas.width=innerWidth;
-canvas.height=innerHeight;
 
-};
+window.addEventListener(
+"resize",
+()=>{
+
+
+canvas.width =
+window.innerWidth;
+
+
+canvas.height =
+window.innerHeight;
+
+
+});
+
 
 
 </script>
 
 
 </body>
+
 </html>
