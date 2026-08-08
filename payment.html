@@ -2,697 +2,1312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>ModdingXZ | Payment Portal</title>
-    <meta name="description" content="ModdingXZ secure payment portal. Choose PayPal or Revolut and select your preferred payment account.">
-    <meta name="theme-color" content="#08080d">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #07070b;
-            --bg-secondary: #0d0d14;
-            --card: rgba(20, 20, 30, 0.78);
-            --card-hover: rgba(28, 28, 40, 0.95);
-            --border: rgba(255,255,255,0.08);
-            --text: #ffffff;
-            --muted: #9999a8;
-            --purple: #8b5cf6;
-            --purple-dark: #6d28d9;
-            --blue: #3b82f6;
-            --green: #22c55e;
-            --paypal: #0070ba;
-            --revolut: #ffffff;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: "Rubik", sans-serif;
-            background:
-                radial-gradient(circle at 20% 10%, rgba(139,92,246,.14), transparent 30%),
-                radial-gradient(circle at 80% 20%, rgba(59,130,246,.10), transparent 30%),
-                var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Background */
-
-        .background {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: .12;
-        }
-
-        .orb.one {
-            width: 350px;
-            height: 350px;
-            background: var(--purple);
-            top: -120px;
-            left: -100px;
-        }
-
-        .orb.two {
-            width: 300px;
-            height: 300px;
-            background: var(--blue);
-            right: -100px;
-            top: 30%;
-        }
-
-        /* Header */
-
-        header {
-            width: 100%;
-            padding: 24px 20px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(7,7,11,.7);
-            backdrop-filter: blur(18px);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-        }
-
-        .nav {
-            max-width: 1050px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 21px;
-            font-weight: 900;
-            letter-spacing: -.5px;
-        }
-
-        .logo-icon {
-            width: 42px;
-            height: 42px;
-            display: grid;
-            place-items: center;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--purple), #4f46e5);
-            box-shadow: 0 10px 35px rgba(139,92,246,.25);
-        }
-
-        .logo-icon span {
-            font-size: 20px;
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #a9a9b5;
-            font-size: 13px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--green);
-            border-radius: 50%;
-            box-shadow: 0 0 12px rgba(34,197,94,.8);
-        }
-
-        /* Main */
-
-        main {
-            width: min(100% - 32px, 850px);
-            margin: auto;
-            padding: 70px 0 100px;
-        }
-
-        .hero {
-            text-align: center;
-            margin-bottom: 42px;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 8px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(139,92,246,.25);
-            background: rgba(139,92,246,.08);
-            color: #c4b5fd;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            font-size: clamp(36px, 7vw, 64px);
-            line-height: 1;
-            letter-spacing: -2.5px;
-            margin-bottom: 18px;
-        }
-
-        .gradient {
-            background: linear-gradient(90deg, #a78bfa, #60a5fa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            max-width: 600px;
-            margin: auto;
-            color: var(--muted);
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        /* Payment Card */
-
-        .payment-container {
-            background: rgba(13,13,20,.78);
-            border: 1px solid var(--border);
-            border-radius: 26px;
-            padding: 26px;
-            box-shadow:
-                0 30px 80px rgba(0,0,0,.35),
-                inset 0 1px rgba(255,255,255,.03);
-            backdrop-filter: blur(20px);
-        }
-
-        .section-title {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: #dddde6;
-        }
-
-        /* Amount */
-
-        .amount-box {
-            margin-bottom: 28px;
-        }
-
-        .amount-input {
-            position: relative;
-        }
-
-        .currency {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #aaaab8;
-            font-size: 24px;
-            font-weight: 700;
-        }
-
-        #amount {
-            width: 100%;
-            height: 65px;
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            background: #090910;
-            color: white;
-            outline: none;
-            font-size: 25px;
-            font-weight: 700;
-            padding: 0 20px 0 45px;
-            transition: .2s;
-        }
-
-        #amount:focus {
-            border-color: var(--purple);
-            box-shadow: 0 0 0 4px rgba(139,92,246,.08);
-        }
-
-        /* Options */
-
-        .options {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
-            margin-bottom: 28px;
-        }
-
-        .payment-option {
-            border: 1px solid var(--border);
-            background: var(--card);
-            border-radius: 17px;
-            padding: 20px;
-            cursor: pointer;
-            transition: .25s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .payment-option:hover {
-            transform: translateY(-2px);
-            background: var(--card-hover);
-            border-color: rgba(139,92,246,.35);
-        }
-
-        .payment-option.selected {
-            border-color: var(--purple);
-            background: rgba(139,92,246,.10);
-            box-shadow: 0 0 0 1px rgba(139,92,246,.15);
-        }
-
-        .check {
-            position: absolute;
-            right: 14px;
-            top: 14px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            border: 1px solid #454553;
-            display: grid;
-            place-items: center;
-            font-size: 12px;
-            color: transparent;
-        }
-
-        .payment-option.selected .check {
-            background: var(--purple);
-            border-color: var(--purple);
-            color: white;
-        }
-
-        .payment-icon {
-            width: 46px;
-            height: 46px;
-            border-radius: 13px;
-            display: grid;
-            place-items: center;
-            font-size: 22px;
-            margin-bottom: 14px;
-        }
-
-        .paypal-icon {
-            background: rgba(0,112,186,.15);
-        }
-
-        .revolut-icon {
-            background: rgba(255,255,255,.08);
-        }
-
-        .payment-option h3 {
-            font-size: 17px;
-            margin-bottom: 5px;
-        }
-
-        .payment-option p {
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        /* Account selection */
-
-        .accounts {
-            display: none;
-            margin-top: -8px;
-            margin-bottom: 28px;
-        }
-
-        .accounts.show {
-            display: block;
-            animation: fadeIn .25s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .account-list {
-            display: grid;
-            gap: 10px;
-        }
-
-        .account {
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,.025);
-            padding: 16px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: .2s;
-        }
-
-        .account:hover {
-            background: rgba(255,255,255,.05);
-        }
-
-        .account.selected {
-            border-color: var(--purple);
-            background: rgba(139,92,246,.08);
-        }
-
-        .account-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .account-avatar {
-            width: 38px;
-            height: 38px;
-            border-radius: 11px;
-            display: grid;
-            place-items: center;
-            font-weight: 800;
-            background: linear-gradient(135deg, #27273a, #161622);
-        }
-
-        .account-name {
-            font-size: 14px;
-            font-weight: 700;
-        }
-
-        .account-link {
-            color: var(--muted);
-            font-size: 11px;
-            margin-top: 3px;
-        }
-
-        .radio {
-            width: 20px;
-            height: 20px;
-            border: 1px solid #4b4b59;
-            border-radius: 50%;
-            padding: 4px;
-        }
-
-        .account.selected .radio {
-            border-color: var(--purple);
-        }
-
-        .account.selected .radio::after {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: var(--purple);
-        }
-
-        /* Reference */
-
-        .reference {
-            margin-bottom: 28px;
-        }
-
-        #reference {
-            width: 100%;
-            height: 50px;
-            border-radius: 13px;
-            border: 1px solid var(--border);
-            background: #090910;
-            color: white;
-            outline: none;
-            padding: 0 15px;
-            font-family: inherit;
-        }
-
-        #reference:focus {
-            border-color: var(--purple);
-        }
-
-        /* Button */
-
-        .continue {
-            width: 100%;
-            border: none;
-            height: 60px;
-            border-radius: 15px;
-            background: linear-gradient(135deg, var(--purple), #6366f1);
-            color: white;
-            font-family: inherit;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: .25s;
-            box-shadow: 0 15px 35px rgba(109,40,217,.25);
-        }
-
-        .continue:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 45px rgba(109,40,217,.35);
-        }
-
-        .continue:active {
-            transform: translateY(0);
-        }
-
-        .continue:disabled {
-            opacity: .45;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* Security */
-
-        .security {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            color: #777784;
-            font-size: 11px;
-        }
-
-        .security span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* Info */
-
-        .info {
-            margin-top: 20px;
-            padding: 17px;
-            border-radius: 14px;
-            background: rgba(59,130,246,.06);
-            border: 1px solid rgba(59,130,246,.12);
-            color: #9898a8;
-            font-size: 12px;
-            line-height: 1.6;
-        }
-
-        .info strong {
-            color: #c7c7d3;
-        }
-
-        /* Footer */
-
-        footer {
-            text-align: center;
-            color: #666674;
-            font-size: 12px;
-            padding: 0 20px 35px;
-        }
-
-        footer strong {
-            color: #9292a0;
-        }
-
-        /* Modal */
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.75);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 100;
-        }
-
-        .modal.show {
-            display: flex;
-        }
-
-        .modal-box {
-            width: min(100%, 450px);
-            background: #111119;
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 30px 100px rgba(0,0,0,.6);
-            animation: modalIn .25s ease;
-        }
-
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(.95) translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        .success-icon {
-            width: 65px;
-            height: 65px;
-            margin: 0 auto 18px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            background: rgba(34,197,94,.12);
-            border: 1px solid rgba(34,197,94,.25);
-            font-size: 28px;
-        }
-
-        .modal h2 {
-            margin-bottom: 8px;
-        }
-
-        .modal p {
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .payment-summary {
-            padding: 15px;
-            border-radius: 13px;
-            background: rgba(255,255,255,.04);
-            margin-bottom: 18px;
-            text-align: left;
-            font-size: 13px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 5px 0;
-        }
-
-        .summary-row span:first-child {
-            color: var(--muted);
-        }
-
-        .modal-buttons {
-            display: grid;
-            gap: 10px;
-        }
-
-        .pay-button {
-            width: 100%;
-            height: 52px;
-            border: none;
-            border-radius: 13px;
-            color: white;
-            font-family: inherit;
-            font-weight: 800;
-            cursor: pointer;
-            background: linear-gradient(135deg, var(--purple), #6366f1);
-        }
-
-        .close-button {
-            width: 100%;
-            height: 48px;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: transparent;
-            color: #aaaab8;
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        /* Toast */
-
-        .toast {
-            position: fixed;
-            left: 50%;
-            bottom: 25px;
-            transform: translate(-50%, 100px);
-            padding: 13px 18px;
-            background: #181820;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-size: 13px;
-            box-shadow: 0 15px 40px rgba(0,0,0,.4);
-            transition: .3s;
-            z-index: 200;
-        }
-
-        .toast.show {
-            transform: translate(-50%, 0);
-        }
-
-        /* Mobile */
-
-        @media (max-width: 650px) {
-            main {
-                padding-top: 45px;
-            }
-
-            .options {
-                grid-template-columns: 1fr;
-            }
-
-            .payment-container {
-                padding: 19px;
-                border-radius: 20px;
-            }
-
-            .hero h1 {
-                letter-spacing: -1.5px;
-            }
-
-            .status {
-                display: none;
-            }
-
-            .logo {
-                font-size: 18px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ModdingXZ | Gaming Services</title>
+
+<meta name="description" content="ModdingXZ gaming services, modded accounts, progression services, IPTV and more.">
+<meta name="theme-color" content="#08080d">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --bg: #07070b;
+    --bg2: #0c0c13;
+    --card: #11111a;
+    --card2: #15151f;
+    --border: rgba(255,255,255,.08);
+
+    --text: #ffffff;
+    --muted: #9696a5;
+
+    --purple: #8b5cf6;
+    --purple2: #6366f1;
+    --blue: #3b82f6;
+    --green: #22c55e;
+    --red: #ef4444;
+
+    --shadow: 0 25px 70px rgba(0,0,0,.35);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Rubik", sans-serif;
+    background:
+        radial-gradient(circle at 15% 0%, rgba(139,92,246,.14), transparent 30%),
+        radial-gradient(circle at 90% 20%, rgba(59,130,246,.09), transparent 30%),
+        var(--bg);
+
+    color: var(--text);
+    min-height: 100vh;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+/* =========================================
+   BACKGROUND
+========================================= */
+
+.background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: .12;
+}
+
+.orb.one {
+    width: 400px;
+    height: 400px;
+    background: var(--purple);
+    top: -180px;
+    left: -120px;
+}
+
+.orb.two {
+    width: 350px;
+    height: 350px;
+    background: var(--blue);
+    right: -150px;
+    top: 40%;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    border-bottom: 1px solid var(--border);
+
+    background: rgba(7,7,11,.78);
+    backdrop-filter: blur(20px);
+}
+
+.nav {
+    width: min(1180px, calc(100% - 32px));
+    margin: auto;
+
+    min-height: 74px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    display: grid;
+    place-items: center;
+
+    background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--purple2)
+    );
+
+    box-shadow:
+        0 10px 35px rgba(139,92,246,.25);
+}
+
+.logo-icon span {
+    font-size: 20px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.online {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.online-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+    background: var(--green);
+
+    box-shadow: 0 0 12px rgba(34,197,94,.8);
+}
+
+.cart-button {
+    position: relative;
+
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.04);
+
+    color: white;
+
+    height: 42px;
+    padding: 0 15px;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.cart-button:hover {
+    background: rgba(255,255,255,.08);
+}
+
+.cart-count {
+    position: absolute;
+
+    top: -7px;
+    right: -7px;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 5px;
+
+    border-radius: 999px;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--purple);
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+main {
+    width: min(1180px, calc(100% - 32px));
+    margin: auto;
+
+    padding: 65px 0 100px;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    background: rgba(139,92,246,.08);
+    border: 1px solid rgba(139,92,246,.25);
+
+    color: #c4b5fd;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(40px, 7vw, 72px);
+    line-height: 1;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 18px;
+}
+
+.gradient {
+    background: linear-gradient(
+        90deg,
+        #a78bfa,
+        #60a5fa
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero p {
+    max-width: 650px;
+    margin: auto;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+/* =========================================
+   FEATURED
+========================================= */
+
+.featured {
+    position: relative;
+
+    margin-bottom: 35px;
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    border: 1px solid rgba(139,92,246,.28);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139,92,246,.13),
+            rgba(59,130,246,.05)
+        );
+
+    overflow: hidden;
+}
+
+.featured::after {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -100px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(139,92,246,.13);
+    filter: blur(50px);
+}
+
+.featured-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 14px;
+}
+
+.featured-label {
+    color: #c4b5fd;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: .8px;
+}
+
+.featured-price {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.featured h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.featured p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+
+    max-width: 750px;
+}
+
+.featured button {
+    margin-top: 17px;
+
+    border: 0;
+
+    padding: 12px 17px;
+
+    border-radius: 11px;
+
+    background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--purple2)
+    );
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+/* =========================================
+   STORE LAYOUT
+========================================= */
+
+.store {
+    display: grid;
+
+    grid-template-columns: 220px 1fr;
+
+    gap: 22px;
+
+    align-items: start;
+}
+
+/* =========================================
+   CATEGORIES
+========================================= */
+
+.categories {
+    position: sticky;
+    top: 95px;
+
+    display: grid;
+    gap: 7px;
+}
+
+.category {
+    width: 100%;
+
+    border: 1px solid transparent;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    padding: 13px 14px;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-weight: 700;
+    font-size: 13px;
+
+    transition: .2s;
+}
+
+.category:hover {
+    background: rgba(255,255,255,.04);
+    color: white;
+}
+
+.category.active {
+    background: rgba(139,92,246,.11);
+
+    border-color: rgba(139,92,246,.22);
+
+    color: white;
+}
+
+/* =========================================
+   SHOP
+========================================= */
+
+.shop {
+    min-width: 0;
+}
+
+.shop-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.shop-title h2 {
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.shop-title p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.search {
+    width: 240px;
+
+    height: 43px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    background: rgba(255,255,255,.03);
+
+    color: white;
+
+    outline: none;
+
+    padding: 0 14px;
+}
+
+.search:focus {
+    border-color: var(--purple);
+}
+
+/* =========================================
+   PRODUCTS
+========================================= */
+
+.products {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+
+    padding: 19px;
+
+    border-radius: 17px;
+
+    background: rgba(17,17,26,.82);
+
+    border: 1px solid var(--border);
+
+    transition: .22s;
+}
+
+.product:hover {
+    transform: translateY(-3px);
+
+    border-color:
+        rgba(139,92,246,.25);
+
+    background: var(--card2);
+
+    box-shadow: var(--shadow);
+}
+
+.product-icon {
+    width: 43px;
+    height: 43px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: rgba(139,92,246,.09);
+
+    font-size: 20px;
+
+    margin-bottom: 14px;
+}
+
+.product h3 {
+    font-size: 15px;
+
+    margin-bottom: 7px;
+
+    line-height: 1.3;
+}
+
+.product-description {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+    min-height: 36px;
+
+    margin-bottom: 17px;
+}
+
+.product-bottom {
+    margin-top: auto;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.add {
+    border: 0;
+
+    padding: 9px 13px;
+
+    border-radius: 9px;
+
+    background: rgba(139,92,246,.12);
+
+    color: #c4b5fd;
+
+    font-weight: 800;
+    font-size: 11px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.add:hover {
+    background: var(--purple);
+    color: white;
+}
+
+/* =========================================
+   CART DRAWER
+========================================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0,0,0,.68);
+
+    backdrop-filter: blur(6px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .25s;
+
+    z-index: 150;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart {
+    position: fixed;
+
+    top: 0;
+    right: 0;
+
+    width: min(440px, 100%);
+
+    height: 100vh;
+
+    background: #0d0d14;
+
+    border-left: 1px solid var(--border);
+
+    transform: translateX(100%);
+
+    transition: .3s;
+
+    z-index: 160;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.cart.show {
+    transform: translateX(0);
+}
+
+.cart-header {
+    min-height: 75px;
+
+    padding: 0 22px;
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cart-header h2 {
+    font-size: 18px;
+}
+
+.close {
+    width: 36px;
+    height: 36px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: rgba(255,255,255,.04);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.cart-items {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px;
+}
+
+.empty {
+    text-align: center;
+
+    padding: 70px 20px;
+
+    color: var(--muted);
+}
+
+.empty-icon {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.cart-item {
+    padding: 14px 0;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.cart-item-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.cart-item-name {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.cart-item-price {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.cart-item-bottom {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 10px;
+}
+
+.quantity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+.quantity button {
+    width: 27px;
+    height: 27px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    background: rgba(255,255,255,.04);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+.quantity span {
+    min-width: 25px;
+
+    text-align: center;
+
+    font-size: 12px;
+}
+
+.remove {
+    border: 0;
+
+    background: transparent;
+
+    color: #777784;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.remove:hover {
+    color: var(--red);
+}
+
+.cart-footer {
+    padding: 20px;
+
+    border-top: 1px solid var(--border);
+}
+
+.total {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.total span {
+    color: var(--muted);
+}
+
+.total strong {
+    font-size: 24px;
+}
+
+.checkout {
+    width: 100%;
+
+    height: 55px;
+
+    border: 0;
+
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        var(--purple),
+        var(--purple2)
+    );
+
+    color: white;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+/* =========================================
+   CHECKOUT MODAL
+========================================= */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.78);
+
+    backdrop-filter: blur(9px);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 300;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: min(620px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #111119;
+
+    border: 1px solid var(--border);
+
+    border-radius: 23px;
+
+    padding: 27px;
+
+    box-shadow: 0 40px 120px rgba(0,0,0,.6);
+}
+
+.modal-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+}
+
+.modal-header h2 {
+    font-size: 21px;
+}
+
+.modal-subtitle {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+.order-box {
+    padding: 16px;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.03);
+
+    border: 1px solid var(--border);
+
+    margin-bottom: 20px;
+}
+
+.order-line {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 8px 0;
+
+    font-size: 12px;
+
+    border-bottom: 1px solid rgba(255,255,255,.04);
+}
+
+.order-line:last-child {
+    border-bottom: 0;
+}
+
+.order-line span {
+    color: var(--muted);
+}
+
+.order-total {
+    margin-top: 10px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 17px;
+    font-weight: 900;
+}
+
+/* Support */
+
+.support-box {
+    padding: 18px;
+
+    border-radius: 15px;
+
+    border: 1px solid rgba(59,130,246,.16);
+
+    background: rgba(59,130,246,.05);
+
+    margin-bottom: 20px;
+}
+
+.support-box h3 {
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+.support-box p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.customer-input {
+    width: 100%;
+
+    height: 48px;
+
+    border-radius: 11px;
+
+    border: 1px solid var(--border);
+
+    background: #090910;
+
+    color: white;
+
+    outline: none;
+
+    padding: 0 13px;
+
+    margin-top: 10px;
+}
+
+.customer-input:focus {
+    border-color: var(--purple);
+}
+
+.action-buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+}
+
+.telegram-button {
+    height: 52px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background: #229ed9;
+
+    color: white;
+
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.copy-button {
+    height: 52px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.04);
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+/* =========================================
+   PAYMENT INFORMATION
+========================================= */
+
+.payment-section {
+    display: none;
+
+    margin-top: 22px;
+}
+
+.payment-section.show {
+    display: block;
+}
+
+.payment-notice {
+    padding: 18px;
+
+    border-radius: 14px;
+
+    background: rgba(34,197,94,.06);
+
+    border: 1px solid rgba(34,197,94,.15);
+
+    margin-bottom: 15px;
+}
+
+.payment-notice strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 14px;
+}
+
+.payment-notice p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.payment-methods {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+}
+
+.payment-method {
+    padding: 15px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 13px;
+
+    background: rgba(255,255,255,.03);
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.payment-method:hover {
+    border-color: var(--purple);
+}
+
+.payment-method h4 {
+    margin-bottom: 5px;
+}
+
+.payment-method p {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.payment-accounts {
+    margin-top: 12px;
+
+    display: grid;
+
+    gap: 8px;
+}
+
+.payment-account {
+    padding: 13px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 11px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: rgba(255,255,255,.025);
+}
+
+.payment-account-name {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.payment-account-link {
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.payment-account a {
+    color: #c4b5fd;
+
+    font-size: 10px;
+
+    text-decoration: none;
+
+    font-weight: 800;
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 25px;
+
+    transform: translate(-50%, 100px);
+
+    padding: 13px 18px;
+
+    border-radius: 11px;
+
+    background: #181820;
+
+    border: 1px solid var(--border);
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.4);
+
+    font-size: 12px;
+
+    z-index: 500;
+
+    transition: .3s;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+    text-align: center;
+
+    padding: 0 20px 40px;
+
+    color: #656572;
+
+    font-size: 11px;
+}
+
+footer strong {
+    color: #91919e;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .store {
+        grid-template-columns: 1fr;
+    }
+
+    .categories {
+        position: static;
+
+        display: flex;
+
+        overflow-x: auto;
+
+        padding-bottom: 5px;
+    }
+
+    .category {
+        min-width: max-content;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    main {
+        padding-top: 40px;
+    }
+
+    .online {
+        display: none;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-top {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .search {
+        width: 100%;
+    }
+
+    .featured {
+        padding: 20px;
+    }
+
+    .featured-top {
+        align-items: flex-start;
+    }
+
+    .payment-methods,
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-box {
+        padding: 20px;
+    }
+
+}
+
+</style>
 </head>
 
 <body>
@@ -702,227 +1317,457 @@
     <div class="orb two"></div>
 </div>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header>
+
     <div class="nav">
+
         <div class="logo">
+
             <div class="logo-icon">
-                <span>⚡</span>
+                ⚡
             </div>
+
             ModdingXZ
+
         </div>
 
-        <div class="status">
-            <span class="status-dot"></span>
-            Payment Portal Online
+        <div class="header-right">
+
+            <div class="online">
+
+                <span class="online-dot"></span>
+
+                Support Online
+
+            </div>
+
+            <button
+                class="cart-button"
+                onclick="openCart()"
+            >
+
+                🛒 Cart
+
+                <span
+                    class="cart-count"
+                    id="cartCount"
+                >
+                    0
+                </span>
+
+            </button>
+
         </div>
+
     </div>
+
 </header>
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
 
 <main>
 
-    <section class="hero">
-        <div class="badge">
-            🔒 SECURE PAYMENT PORTAL
+
+<section class="hero">
+
+    <div class="badge">
+        🔥 MODDINGXZ SERVICES — 2026
+    </div>
+
+    <h1>
+        Choose Your <span class="gradient">Service</span>
+    </h1>
+
+    <p>
+        Browse our gaming services, build your order and
+        contact ModdingXZ Support before making payment.
+    </p>
+
+</section>
+
+
+<!-- =========================================
+     FEATURED BUNDLE
+========================================= -->
+
+<section class="featured">
+
+    <div class="featured-top">
+
+        <div class="featured-label">
+            🚀 FEATURED • LIMITED
         </div>
 
-        <h1>
-            Pay <span class="gradient">ModdingXZ</span>
-        </h1>
-
-        <p>
-            Choose your preferred payment method and select which
-            ModdingXZ payment account you'd like to use.
-        </p>
-    </section>
-
-    <section class="payment-container">
-
-        <!-- Amount -->
-
-        <div class="amount-box">
-            <div class="section-title">
-                Payment Amount
-            </div>
-
-            <div class="amount-input">
-                <span class="currency">£</span>
-                <input
-                    type="number"
-                    id="amount"
-                    min="0.01"
-                    step="0.01"
-                    placeholder="0.00"
-                    inputmode="decimal"
-                >
-            </div>
+        <div class="featured-price">
+            £15
         </div>
 
-        <!-- Payment Method -->
+    </div>
 
-        <div class="section-title">
-            1. Choose Payment Method
-        </div>
+    <h2>
+        💥 Full COD Max Progression Package
+    </h2>
 
-        <div class="options">
+    <p>
+        Cross-platform package supporting PS4, PS5, Xbox and PC.
+        MW2019 Level 1000 + all trophies, Cold War Level 2500 +
+        DA Unlock All + calling cards + trophies, and Vanguard
+        Max Rank.
+        <br><br>
+        ⚠️ Must own MW2019 before purchase — everything is
+        hosted through it.
+    </p>
 
-            <div
-                class="payment-option"
-                id="paypalOption"
-                onclick="selectMethod('paypal')"
-            >
-                <div class="check">✓</div>
+    <button onclick="addProduct('codbundle')">
+        Add Bundle — £15
+    </button>
 
-                <div class="payment-icon paypal-icon">
-                    💙
-                </div>
+</section>
 
-                <h3>PayPal</h3>
+
+<!-- =========================================
+     STORE
+========================================= -->
+
+<section class="store">
+
+
+    <!-- CATEGORIES -->
+
+    <aside class="categories">
+
+        <button
+            class="category active"
+            data-category="all"
+            onclick="setCategory('all')"
+        >
+            🏠 All Services
+        </button>
+
+        <button
+            class="category"
+            data-category="bo3"
+            onclick="setCategory('bo3')"
+        >
+            🎮 Black Ops 3
+        </button>
+
+        <button
+            class="category"
+            data-category="coldwar"
+            onclick="setCategory('coldwar')"
+        >
+            🧊 Cold War
+        </button>
+
+        <button
+            class="category"
+            data-category="cod"
+            onclick="setCategory('cod')"
+        >
+            🔥 Other COD
+        </button>
+
+        <button
+            class="category"
+            data-category="psn"
+            onclick="setCategory('psn')"
+        >
+            🎭 PSN Modding
+        </button>
+
+        <button
+            class="category"
+            data-category="racing"
+            onclick="setCategory('racing')"
+        >
+            🏎 Other Games
+        </button>
+
+        <button
+            class="category"
+            data-category="iptv"
+            onclick="setCategory('iptv')"
+        >
+            📺 IPTV
+        </button>
+
+    </aside>
+
+
+    <!-- SHOP -->
+
+    <div class="shop">
+
+        <div class="shop-top">
+
+            <div class="shop-title">
+
+                <h2>
+                    Services
+                </h2>
 
                 <p>
-                    Pay securely using PayPal
+                    Select a service to add it to your order.
                 </p>
-            </div>
 
-            <div
-                class="payment-option"
-                id="revolutOption"
-                onclick="selectMethod('revolut')"
-            >
-                <div class="check">✓</div>
-
-                <div class="payment-icon revolut-icon">
-                    🟣
-                </div>
-
-                <h3>Revolut</h3>
-
-                <p>
-                    Pay securely using Revolut
-                </p>
-            </div>
-
-        </div>
-
-        <!-- Accounts -->
-
-        <div class="accounts" id="accounts">
-
-            <div class="section-title">
-                2. Choose Payment Account
-            </div>
-
-            <div class="account-list" id="accountList">
-                <!-- Generated by JavaScript -->
-            </div>
-
-        </div>
-
-        <!-- Reference -->
-
-        <div class="reference">
-
-            <div class="section-title">
-                Order / Reference
-                <span style="color:#666674;font-weight:400;">
-                    (optional)
-                </span>
             </div>
 
             <input
-                type="text"
-                id="reference"
-                placeholder="Example: Order #1234"
-                maxlength="80"
+                type="search"
+                class="search"
+                id="search"
+                placeholder="🔎 Search services..."
             >
+
+        </div>
+
+
+        <div
+            class="products"
+            id="products"
+        ></div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+    © 2026 <strong>ModdingXZ</strong>
+    · Gaming Modding Community
+    · All services are subject to availability.
+
+</footer>
+
+
+<!-- =========================================
+     CART OVERLAY
+========================================= -->
+
+<div
+    class="overlay"
+    id="overlay"
+    onclick="closeCart()"
+></div>
+
+
+<!-- =========================================
+     CART
+========================================= -->
+
+<aside
+    class="cart"
+    id="cart"
+>
+
+    <div class="cart-header">
+
+        <h2>
+            🛒 Your Order
+        </h2>
+
+        <button
+            class="close"
+            onclick="closeCart()"
+        >
+            ✕
+        </button>
+
+    </div>
+
+
+    <div
+        class="cart-items"
+        id="cartItems"
+    ></div>
+
+
+    <div class="cart-footer">
+
+        <div class="total">
+
+            <span>
+                Total
+            </span>
+
+            <strong id="cartTotal">
+                £0.00
+            </strong>
 
         </div>
 
         <button
-            class="continue"
-            id="continueButton"
-            onclick="continuePayment()"
-            disabled
+            class="checkout"
+            onclick="openCheckout()"
         >
-            Continue to Payment →
+            Continue to Support →
         </button>
 
-        <div class="security">
-            <span>🔒 Secure payment</span>
-            <span>⚡ Fast checkout</span>
-            <span>🌐 No card details stored</span>
-        </div>
+    </div>
 
-        <div class="info">
-            <strong>Important:</strong>
-            This website does not process or store your payment details.
-            When you continue, you will be redirected directly to the
-            selected PayPal or Revolut payment page.
-        </div>
-
-    </section>
-
-</main>
-
-<footer>
-    © 2026 <strong>ModdingXZ</strong> · Payment Portal
-</footer>
+</aside>
 
 
-<!-- Confirmation Modal -->
+<!-- =========================================
+     CHECKOUT
+========================================= -->
 
-<div class="modal" id="modal">
+<div
+    class="modal"
+    id="checkoutModal"
+>
 
     <div class="modal-box">
 
-        <div class="success-icon">
-            💳
+
+        <div class="modal-header">
+
+            <h2>
+                📋 Order Summary
+            </h2>
+
+            <button
+                class="close"
+                onclick="closeCheckout()"
+            >
+                ✕
+            </button>
+
         </div>
 
-        <h2>Ready to Pay?</h2>
 
-        <p>
-            Check the details below before continuing.
+        <p class="modal-subtitle">
+
+            Review your order below. Your order number will
+            be generated automatically. Contact ModdingXZ
+            Support before making payment.
+
         </p>
 
-        <div class="payment-summary">
 
-            <div class="summary-row">
-                <span>Amount</span>
-                <strong id="summaryAmount">£0.00</strong>
-            </div>
+        <div
+            class="order-box"
+            id="orderSummary"
+        ></div>
 
-            <div class="summary-row">
-                <span>Method</span>
-                <strong id="summaryMethod">-</strong>
-            </div>
 
-            <div class="summary-row">
-                <span>Account</span>
-                <strong id="summaryAccount">-</strong>
-            </div>
+        <div class="support-box">
 
-            <div class="summary-row" id="summaryReferenceRow">
-                <span>Reference</span>
-                <strong id="summaryReference">-</strong>
-            </div>
+            <h3>
+                💬 Step 1 — Contact Support
+            </h3>
+
+            <p>
+                Enter your name or Telegram username below.
+                We'll include it in your order message so
+                support knows who the order belongs to.
+            </p>
+
+            <input
+                class="customer-input"
+                id="customer"
+                placeholder="@YourTelegramUsername"
+                maxlength="50"
+            >
 
         </div>
 
-        <div class="modal-buttons">
+
+        <div class="action-buttons">
 
             <button
-                class="pay-button"
-                onclick="openPayment()"
+                class="telegram-button"
+                onclick="sendToTelegram()"
             >
-                Continue to Payment →
+                ✈️ Contact Support
             </button>
 
             <button
-                class="close-button"
-                onclick="closeModal()"
+                class="copy-button"
+                onclick="copyOrder()"
             >
-                Go Back
+                📋 Copy Order
             </button>
+
+        </div>
+
+
+        <!-- PAYMENT INFORMATION -->
+
+        <div
+            class="payment-section"
+            id="paymentSection"
+        >
+
+            <div class="payment-notice">
+
+                <strong>
+                    💳 Payment Instructions
+                </strong>
+
+                <p>
+                    Once support has confirmed your order,
+                    they will tell you which payment account
+                    to use. Choose from the available accounts
+                    below if support has instructed you to
+                    use one.
+                </p>
+
+            </div>
+
+
+            <div class="payment-methods">
+
+                <div
+                    class="payment-method"
+                    onclick="showPayment('paypal')"
+                >
+
+                    <h4>
+                        💙 PayPal
+                    </h4>
+
+                    <p>
+                        GBP payments
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="payment-method"
+                    onclick="showPayment('revolut')"
+                >
+
+                    <h4>
+                        🟣 Revolut
+                    </h4>
+
+                    <p>
+                        GBP payments
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="payment-accounts"
+                id="paymentAccounts"
+            ></div>
 
         </div>
 
@@ -931,366 +1776,1117 @@
 </div>
 
 
-<div class="toast" id="toast">
-    Copied to clipboard!
+<!-- =========================================
+     TOAST
+========================================= -->
+
+<div
+    class="toast"
+    id="toast"
+>
+    Copied!
 </div>
 
 
 <script>
 
-    /*
-    ============================================
-        MODDINGXZ PAYMENT CONFIGURATION
-    ============================================
-    */
+/* =====================================================
+   MODDINGXZ SERVICE DATABASE
+===================================================== */
 
-    const paymentAccounts = {
+const services = [
 
-        paypal: [
-            {
-                name: "MrJasonDEX",
-                username: "paypal.me/MrJasonDEX",
-                url: "https://paypal.me/MrJasonDEX"
-            },
+    {
+        id: "codbundle",
+        category: "cod",
+        icon: "💥",
+        name: "Full COD Max Progression Package",
+        description:
+            "MW2019 Level 1000 + trophies, Cold War Level 2500 + DA Unlock All + calling cards + trophies, Vanguard Max Rank. PS4 / PS5 / Xbox / PC.",
+        price: 15
+    },
 
-            {
-                name: "ShawnCrouse357",
-                username: "paypal.me/ShawnCrouse357",
-                url: "https://www.paypal.me/ShawnCrouse357"
-            }
-        ],
+    /* BLACK OPS 3 */
 
-        revolut: [
-            {
-                name: "ModdingXZ",
-                username: "revolut.me/moddingxz",
-                url: "https://revolut.me/moddingxz"
-            },
+    {
+        id: "bo3ultimate",
+        category: "bo3",
+        icon: "🔥",
+        name: "BO3 Ultimate",
+        description:
+            "Prestige 1000 MP, modded classes, unlock all, custom avatars, Cherry Fizz/Void, Zombies Prestige 12, EE, Death Machine, Beast Mode and more.",
+        price: 15
+    },
 
-            {
-                name: "s_crouse",
-                username: "revolut.me/s_crouse",
-                url: "https://revolut.me/s_crouse"
-            }
-        ]
+    {
+        id: "bo3max",
+        category: "bo3",
+        icon: "⚡",
+        name: "BO3 Maxed-Out",
+        description:
+            "Prestige Master MP + Zombies Level 1000, Unlimited Death Machine and God Mode Classes.",
+        price: 10
+    },
 
-    };
+    {
+        id: "divinium100k",
+        category: "bo3",
+        icon: "🧪",
+        name: "100K Liquid Divinium",
+        description:
+            "100,000 Liquid Divinium.",
+        price: 5
+    },
+
+    {
+        id: "divinium500k",
+        category: "bo3",
+        icon: "🧪",
+        name: "500K Liquid Divinium",
+        description:
+            "500,000 Liquid Divinium.",
+        price: 10
+    },
+
+    {
+        id: "divinium1m",
+        category: "bo3",
+        icon: "💎",
+        name: "1M Liquid Divinium",
+        description:
+            "1,000,000 Liquid Divinium including all trophies.",
+        price: 20
+    },
+
+    {
+        id: "bo3extras",
+        category: "bo3",
+        icon: "💣",
+        name: "Unlimited DM / Beast Classes",
+        description:
+            "Unlimited Death Machine and Beast Mode classes.",
+        price: 3
+    },
+
+    /* COLD WAR */
+
+    {
+        id: "cwclasses",
+        category: "coldwar",
+        icon: "🎮",
+        name: "Custom Modded Classes",
+        description:
+            "Custom Cold War modded classes.",
+        price: 15
+    },
+
+    {
+        id: "cwda",
+        category: "coldwar",
+        icon: "🟢",
+        name: "DA Unlock All",
+        description:
+            "Dark Aether Unlock All with trophies included.",
+        price: 10
+    },
+
+    {
+        id: "cwcrystals",
+        category: "coldwar",
+        icon: "💎",
+        name: "Crystals / Currency",
+        description:
+            "Cold War crystals and currency service. Trophies included.",
+        price: 5
+    },
+
+    /* OTHER COD */
+
+    {
+        id: "ghosts",
+        category: "cod",
+        icon: "👻",
+        name: "COD Ghosts",
+        description:
+            "Call of Duty Ghosts modding service.",
+        price: 15
+    },
+
+    {
+        id: "advancedwarfare",
+        category: "cod",
+        icon: "🚀",
+        name: "COD Advanced Warfare",
+        description:
+            "Call of Duty Advanced Warfare modding service.",
+        price: 10
+    },
+
+    {
+        id: "bo4classes",
+        category: "cod",
+        icon: "🎮",
+        name: "BO4 Modded Classes",
+        description:
+            "Black Ops 4 custom modded classes.",
+        price: 10
+    },
+
+    {
+        id: "bo4trophies",
+        category: "cod",
+        icon: "🏆",
+        name: "BO4 All Trophies",
+        description:
+            "Black Ops 4 all trophies service.",
+        price: 5
+    },
+
+    /* PSN */
+
+    {
+        id: "avatar",
+        category: "psn",
+        icon: "🖼️",
+        name: "Custom Avatar",
+        description:
+            "Custom PSN profile avatar.",
+        price: 2
+    },
+
+    {
+        id: "aboutme",
+        category: "psn",
+        icon: "📝",
+        name: 'Modded "About Me"',
+        description:
+            "Custom modded PSN About Me section.",
+        price: 2
+    },
+
+    {
+        id: "profilecolour",
+        category: "psn",
+        icon: "🎨",
+        name: "Any Profile Colour",
+        description:
+            "Custom PSN profile colour.",
+        price: 2
+    },
+
+    /* OTHER GAMES */
+
+    {
+        id: "nfsheat",
+        category: "racing",
+        icon: "🏎️",
+        name: "Need for Speed Heat",
+        description:
+            "Unlock All + Cars.",
+        price: 10
+    },
+
+    {
+        id: "nfshotpursuit",
+        category: "racing",
+        icon: "🚓",
+        name: "Need for Speed Hot Pursuit Remastered",
+        description:
+            "Modded save/service.",
+        price: 5
+    },
+
+    {
+        id: "save",
+        category: "racing",
+        icon: "💾",
+        name: "PS4 Game Save / Reassign",
+        description:
+            "Any modded save or PS4 game save reassign service.",
+        price: 5
+    },
+
+    /* IPTV */
+
+    {
+        id: "iptv",
+        category: "iptv",
+        icon: "📺",
+        name: "IPTV — 1 Year Unlimited",
+        description:
+            "1-year unlimited IPTV. Works on Firestick + Android. Bulk pricing available.",
+        price: 50
+    }
+
+];
 
 
-    let selectedMethod = null;
-    let selectedAccount = null;
+/* =====================================================
+   PAYMENT ACCOUNTS
+===================================================== */
+
+const paymentAccounts = {
+
+    paypal: [
+
+        {
+            name: "MrJasonDEX",
+            link: "paypal.me/MrJasonDEX",
+            url: "https://paypal.me/MrJasonDEX"
+        },
+
+        {
+            name: "ShawnCrouse357",
+            link: "paypal.me/ShawnCrouse357",
+            url: "https://www.paypal.me/ShawnCrouse357"
+        }
+
+    ],
+
+    revolut: [
+
+        {
+            name: "ModdingXZ",
+            link: "revolut.me/moddingxz",
+            url: "https://revolut.me/moddingxz"
+        },
+
+        {
+            name: "s_crouse",
+            link: "revolut.me/s_crouse",
+            url: "https://revolut.me/s_crouse"
+        }
+
+    ]
+
+};
 
 
-    /*
-    ============================================
-        SELECT PAYMENT METHOD
-    ============================================
-    */
+/* =====================================================
+   CONFIG
+===================================================== */
 
-    function selectMethod(method) {
+const TELEGRAM_USERNAME =
+    "ModdingXZ_Support_Bot";
 
-        selectedMethod = method;
-        selectedAccount = null;
 
+/* =====================================================
+   STATE
+===================================================== */
+
+let cart = [];
+
+let activeCategory = "all";
+
+let currentOrderNumber = "";
+
+
+/* =====================================================
+   DISPLAY PRODUCTS
+===================================================== */
+
+function renderProducts() {
+
+    const container =
+        document.getElementById("products");
+
+    const search =
         document
-            .getElementById("paypalOption")
-            .classList.remove("selected");
+            .getElementById("search")
+            .value
+            .toLowerCase()
+            .trim();
 
-        document
-            .getElementById("revolutOption")
-            .classList.remove("selected");
+    const filtered =
+        services.filter(service => {
 
-        document
-            .getElementById(
-                method === "paypal"
-                    ? "paypalOption"
-                    : "revolutOption"
-            )
-            .classList.add("selected");
+            const categoryMatch =
+                activeCategory === "all" ||
+                service.category === activeCategory;
 
-        renderAccounts();
+            const searchMatch =
+                !search ||
+                service.name
+                    .toLowerCase()
+                    .includes(search) ||
+                service.description
+                    .toLowerCase()
+                    .includes(search);
 
-        document
-            .getElementById("accounts")
-            .classList.add("show");
+            return categoryMatch && searchMatch;
 
-        updateButton();
+        });
+
+
+    if (!filtered.length) {
+
+        container.innerHTML = `
+
+            <div style="
+                grid-column:1/-1;
+                text-align:center;
+                padding:60px 20px;
+                color:#777784;
+            ">
+
+                🔎<br><br>
+
+                No services found.
+
+            </div>
+
+        `;
+
+        return;
     }
 
 
-    /*
-    ============================================
-        RENDER ACCOUNTS
-    ============================================
-    */
+    container.innerHTML =
+        filtered.map(service => `
 
-    function renderAccounts() {
+            <article class="product">
 
-        const list = document.getElementById("accountList");
+                <div class="product-icon">
+                    ${service.icon}
+                </div>
 
-        list.innerHTML = "";
+                <h3>
+                    ${service.name}
+                </h3>
 
-        paymentAccounts[selectedMethod].forEach(
-            (account, index) => {
+                <p class="product-description">
+                    ${service.description}
+                </p>
 
-                const item = document.createElement("div");
+                <div class="product-bottom">
 
-                item.className = "account";
-
-                item.onclick = () => {
-                    selectAccount(index);
-                };
-
-                const initial =
-                    account.name
-                        .charAt(0)
-                        .toUpperCase();
-
-                item.innerHTML = `
-
-                    <div class="account-left">
-
-                        <div class="account-avatar">
-                            ${initial}
-                        </div>
-
-                        <div>
-                            <div class="account-name">
-                                ${account.name}
-                            </div>
-
-                            <div class="account-link">
-                                ${account.username}
-                            </div>
-                        </div>
-
+                    <div class="price">
+                        £${service.price.toFixed(2)}
                     </div>
 
-                    <div class="radio"></div>
+                    <button
+                        class="add"
+                        onclick="addProduct('${service.id}')"
+                    >
+                        + Add
+                    </button>
 
-                `;
+                </div>
 
-                list.appendChild(item);
+            </article>
 
-            }
-        );
+        `).join("");
 
-    }
-
-
-    /*
-    ============================================
-        SELECT ACCOUNT
-    ============================================
-    */
-
-    function selectAccount(index) {
-
-        selectedAccount = index;
-
-        document
-            .querySelectorAll(".account")
-            .forEach((element, i) => {
-
-                element.classList.toggle(
-                    "selected",
-                    i === index
-                );
-
-            });
-
-        updateButton();
-    }
+}
 
 
-    /*
-    ============================================
-        UPDATE CONTINUE BUTTON
-    ============================================
-    */
+/* =====================================================
+   CATEGORY
+===================================================== */
 
-    function updateButton() {
+function setCategory(category) {
 
-        const amount =
-            parseFloat(
-                document.getElementById("amount").value
-            );
-
-        const button =
-            document.getElementById("continueButton");
-
-        button.disabled =
-            !amount ||
-            amount <= 0 ||
-            selectedMethod === null ||
-            selectedAccount === null;
-
-    }
-
-
-    /*
-    ============================================
-        AMOUNT INPUT
-    ============================================
-    */
+    activeCategory = category;
 
     document
-        .getElementById("amount")
-        .addEventListener("input", updateButton);
+        .querySelectorAll(".category")
+        .forEach(button => {
 
-
-    /*
-    ============================================
-        CONTINUE
-    ============================================
-    */
-
-    function continuePayment() {
-
-        const amount =
-            parseFloat(
-                document.getElementById("amount").value
+            button.classList.toggle(
+                "active",
+                button.dataset.category === category
             );
 
-        if (
-            !amount ||
-            amount <= 0 ||
-            selectedMethod === null ||
-            selectedAccount === null
-        ) {
-            return;
-        }
+        });
 
-        const account =
-            paymentAccounts[selectedMethod][selectedAccount];
+    renderProducts();
 
-        document.getElementById("summaryAmount")
-            .textContent =
-            "£" + amount.toFixed(2);
-
-        document.getElementById("summaryMethod")
-            .textContent =
-            selectedMethod === "paypal"
-                ? "PayPal"
-                : "Revolut";
-
-        document.getElementById("summaryAccount")
-            .textContent =
-            account.name;
-
-        const reference =
-            document.getElementById("reference").value.trim();
-
-        document.getElementById("summaryReference")
-            .textContent =
-            reference || "Not provided";
-
-        document
-            .getElementById("modal")
-            .classList.add("show");
-
-    }
+}
 
 
-    /*
-    ============================================
-        OPEN PAYMENT
-    ============================================
-    */
+/* =====================================================
+   SEARCH
+===================================================== */
 
-    function openPayment() {
-
-        const account =
-            paymentAccounts[selectedMethod][selectedAccount];
-
-        const amount =
-            parseFloat(
-                document.getElementById("amount").value
-            );
-
-        let url = account.url;
-
-
-        /*
-        PayPal.Me supports amount parameters.
-
-        Example:
-        paypal.me/USERNAME/15
-        */
-
-        if (selectedMethod === "paypal") {
-
-            url =
-                account.url +
-                "/" +
-                amount.toFixed(2);
-
-        }
-
-
-        /*
-        Revolut links are opened normally.
-        The customer enters/confirms the amount
-        on Revolut's payment page.
-        */
-
-        window.location.href = url;
-
-    }
-
-
-    /*
-    ============================================
-        CLOSE MODAL
-    ============================================
-    */
-
-    function closeModal() {
-
-        document
-            .getElementById("modal")
-            .classList.remove("show");
-
-    }
-
-
-    /*
-    ============================================
-        ESC KEY
-    ============================================
-    */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Escape") {
-                closeModal();
-            }
-
-        }
+document
+    .getElementById("search")
+    .addEventListener(
+        "input",
+        renderProducts
     );
 
 
-    /*
-    ============================================
-        CLICK OUTSIDE MODAL
-    ============================================
-    */
+/* =====================================================
+   ADD PRODUCT
+===================================================== */
 
-    document
-        .getElementById("modal")
-        .addEventListener(
-            "click",
-            function(event) {
+function addProduct(id) {
 
-                if (event.target === this) {
-                    closeModal();
-                }
-
-            }
+    const service =
+        services.find(
+            item => item.id === id
         );
 
+    if (!service) return;
+
+
+    const existing =
+        cart.find(
+            item => item.id === id
+        );
+
+
+    if (existing) {
+
+        existing.quantity++;
+
+    } else {
+
+        cart.push({
+
+            ...service,
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    updateCart();
+
+    showToast(
+        `${service.name} added to your order`
+    );
+
+}
+
+
+/* =====================================================
+   CHANGE QUANTITY
+===================================================== */
+
+function changeQuantity(id, amount) {
+
+    const item =
+        cart.find(
+            product => product.id === id
+        );
+
+    if (!item) return;
+
+
+    item.quantity += amount;
+
+
+    if (item.quantity <= 0) {
+
+        cart =
+            cart.filter(
+                product => product.id !== id
+            );
+
+    }
+
+
+    updateCart();
+
+}
+
+
+/* =====================================================
+   REMOVE
+===================================================== */
+
+function removeProduct(id) {
+
+    cart =
+        cart.filter(
+            item => item.id !== id
+        );
+
+    updateCart();
+
+}
+
+
+/* =====================================================
+   CART TOTAL
+===================================================== */
+
+function getTotal() {
+
+    return cart.reduce(
+        (total, item) =>
+            total +
+            item.price *
+            item.quantity,
+        0
+    );
+
+}
+
+
+/* =====================================================
+   UPDATE CART
+===================================================== */
+
+function updateCart() {
+
+    const count =
+        cart.reduce(
+            (total, item) =>
+                total + item.quantity,
+            0
+        );
+
+
+    document
+        .getElementById("cartCount")
+        .textContent = count;
+
+
+    document
+        .getElementById("cartTotal")
+        .textContent =
+        `£${getTotal().toFixed(2)}`;
+
+
+    const container =
+        document.getElementById("cartItems");
+
+
+    if (!cart.length) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🛒
+                </div>
+
+                Your order is empty.
+
+                <br><br>
+
+                Choose a service to get started.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        cart.map(item => `
+
+            <div class="cart-item">
+
+                <div class="cart-item-top">
+
+                    <div class="cart-item-name">
+                        ${item.icon}
+                        ${item.name}
+                    </div>
+
+                    <div class="cart-item-price">
+                        £${(
+                            item.price *
+                            item.quantity
+                        ).toFixed(2)}
+                    </div>
+
+                </div>
+
+                <div class="cart-item-bottom">
+
+                    <div class="quantity">
+
+                        <button
+                            onclick="changeQuantity(
+                                '${item.id}',
+                                -1
+                            )"
+                        >
+                            −
+                        </button>
+
+                        <span>
+                            ${item.quantity}
+                        </span>
+
+                        <button
+                            onclick="changeQuantity(
+                                '${item.id}',
+                                1
+                            )"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                    <button
+                        class="remove"
+                        onclick="removeProduct(
+                            '${item.id}'
+                        )"
+                    >
+                        Remove
+                    </button>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =====================================================
+   OPEN CART
+===================================================== */
+
+function openCart() {
+
+    document
+        .getElementById("cart")
+        .classList.add("show");
+
+    document
+        .getElementById("overlay")
+        .classList.add("show");
+
+}
+
+
+/* =====================================================
+   CLOSE CART
+===================================================== */
+
+function closeCart() {
+
+    document
+        .getElementById("cart")
+        .classList.remove("show");
+
+    document
+        .getElementById("overlay")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   GENERATE ORDER NUMBER
+===================================================== */
+
+function generateOrderNumber() {
+
+    const date =
+        new Date();
+
+    const datePart =
+        date
+            .toISOString()
+            .slice(0,10)
+            .replaceAll("-", "");
+
+
+    const random =
+        Math
+            .floor(
+                1000 +
+                Math.random() * 9000
+            );
+
+
+    return `MZX-${datePart}-${random}`;
+
+}
+
+
+/* =====================================================
+   OPEN CHECKOUT
+===================================================== */
+
+function openCheckout() {
+
+    if (!cart.length) {
+
+        showToast(
+            "Add a service first"
+        );
+
+        return;
+
+    }
+
+
+    currentOrderNumber =
+        generateOrderNumber();
+
+
+    renderOrderSummary();
+
+
+    document
+        .getElementById("checkoutModal")
+        .classList.add("show");
+
+
+    closeCart();
+
+}
+
+
+/* =====================================================
+   CLOSE CHECKOUT
+===================================================== */
+
+function closeCheckout() {
+
+    document
+        .getElementById("checkoutModal")
+        .classList.remove("show");
+
+}
+
+
+/* =====================================================
+   ORDER SUMMARY
+===================================================== */
+
+function renderOrderSummary() {
+
+    const total =
+        getTotal();
+
+
+    let html = `
+
+        <div class="order-line">
+
+            <span>
+                Order Number
+            </span>
+
+            <strong>
+                ${currentOrderNumber}
+            </strong>
+
+        </div>
+
+    `;
+
+
+    cart.forEach(item => {
+
+        html += `
+
+            <div class="order-line">
+
+                <span>
+                    ${item.quantity} × ${item.name}
+                </span>
+
+                <strong>
+                    £${(
+                        item.price *
+                        item.quantity
+                    ).toFixed(2)}
+                </strong>
+
+            </div>
+
+        `;
+
+    });
+
+
+    html += `
+
+        <div class="order-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong>
+                £${total.toFixed(2)}
+            </strong>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById("orderSummary")
+        .innerHTML = html;
+
+}
+
+
+/* =====================================================
+   BUILD ORDER MESSAGE
+===================================================== */
+
+function buildOrderMessage() {
+
+    const customer =
+        document
+            .getElementById("customer")
+            .value
+            .trim() ||
+        "Not provided";
+
+
+    let message =
+`🔥 MODDINGXZ NEW ORDER
+
+Order: ${currentOrderNumber}
+Customer: ${customer}
+
+━━━━━━━━━━━━━━━━━━━
+
+SERVICES
+`;
+
+
+    cart.forEach(item => {
+
+        message +=
+`\n${item.quantity}x ${item.name} — £${(
+            item.price *
+            item.quantity
+        ).toFixed(2)}`;
+
+    });
+
+
+    message += `
+
+━━━━━━━━━━━━━━━━━━━
+
+TOTAL: £${getTotal().toFixed(2)}
+
+Please confirm availability and
+provide payment instructions.
+
+━━━━━━━━━━━━━━━━━━━
+Sent via ModdingXZ Store
+`;
+
+
+    return message;
+
+}
+
+
+/* =====================================================
+   TELEGRAM
+===================================================== */
+
+function sendToTelegram() {
+
+    const customer =
+        document
+            .getElementById("customer")
+            .value
+            .trim();
+
+
+    if (!customer) {
+
+        showToast(
+            "Please enter your Telegram username"
+        );
+
+        document
+            .getElementById("customer")
+            .focus();
+
+        return;
+
+    }
+
+
+    const message =
+        buildOrderMessage();
+
+
+    /*
+        Telegram username URL.
+
+        The message is copied first because
+        Telegram username links do not reliably
+        support pre-filled messages on every device.
+    */
+
+    navigator.clipboard
+        .writeText(message)
+        .then(() => {
+
+            showToast(
+                "Order copied — opening Telegram"
+            );
+
+            setTimeout(() => {
+
+                window.open(
+                    `https://t.me/${TELEGRAM_USERNAME}`,
+                    "_blank"
+                );
+
+            }, 500);
+
+        })
+        .catch(() => {
+
+            window.open(
+                `https://t.me/${TELEGRAM_USERNAME}`,
+                "_blank"
+            );
+
+        });
+
+
+    document
+        .getElementById("paymentSection")
+        .classList.add("show");
+
+}
+
+
+/* =====================================================
+   COPY ORDER
+===================================================== */
+
+function copyOrder() {
+
+    const message =
+        buildOrderMessage();
+
+
+    navigator.clipboard
+        .writeText(message)
+        .then(() => {
+
+            showToast(
+                "Order copied to clipboard"
+            );
+
+        });
+
+}
+
+
+/* =====================================================
+   PAYMENT INFORMATION
+===================================================== */
+
+function showPayment(method) {
+
+    const container =
+        document.getElementById(
+            "paymentAccounts"
+        );
+
+
+    const accounts =
+        paymentAccounts[method];
+
+
+    container.innerHTML =
+        accounts.map(account => `
+
+            <div class="payment-account">
+
+                <div>
+
+                    <div class="payment-account-name">
+                        ${account.name}
+                    </div>
+
+                    <div class="payment-account-link">
+                        ${account.link}
+                    </div>
+
+                </div>
+
+                <a
+                    href="${account.url}"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    Open →
+                </a>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    }, 2500);
+
+}
+
+
+/* =====================================================
+   ESCAPE MODALS
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Escape") {
+
+            closeCart();
+            closeCheckout();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   INITIALISE
+===================================================== */
+
+renderProducts();
+
+updateCart();
 
 </script>
 
