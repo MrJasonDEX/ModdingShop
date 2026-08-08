@@ -6,695 +6,1468 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ModdingXz | Gaming Modding Community</title>
+<title>ModdingXZ | Gaming Mods, Tools & Community</title>
 
-<meta name="description" content="ModdingXz - The home of gaming mods, tools, releases and community.">
+<meta name="description" content="ModdingXZ — Gaming mods, tools, releases, jailbreak news, tutorials and community support. Join our growing gaming community.">
 
-<meta name="theme-color" content="#229ED9">
+<meta name="theme-color" content="#030712">
 
+<meta name="author" content="ModdingXZ">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<meta property="og:title" content="ModdingXZ | Gaming Modding Community">
+<meta property="og:description" content="Gaming mods, tools, releases, jailbreak news and community support.">
+<meta property="og:type" content="website">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap"
+rel="stylesheet"
+>
 
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
 <style>
 
+/* =========================================================
+   RESET
+========================================================= */
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
+html{
+    scroll-behavior:smooth;
+}
 
 body{
+    min-height:100vh;
 
-min-height:100vh;
+    background:
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(34,158,217,.18),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(59,130,246,.12),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(14,165,233,.08),
+            transparent 35%
+        ),
+        #030712;
 
-background:
-radial-gradient(circle at top,#10233f,#050816);
+    color:#fff;
 
-color:white;
+    font-family:'Inter',sans-serif;
 
-overflow-x:hidden;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
+    overflow-x:hidden;
 }
 
 
-canvas{
+/* =========================================================
+   BACKGROUND
+========================================================= */
 
-position:fixed;
+#particles{
+    position:fixed;
 
-top:0;
+    inset:0;
 
-left:0;
+    width:100%;
+    height:100%;
 
-width:100%;
+    z-index:-5;
+}
 
-height:100%;
+.background-grid{
+    position:fixed;
 
-z-index:-2;
+    inset:0;
 
+    z-index:-4;
+
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(
+            rgba(56,189,248,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(56,189,248,.035) 1px,
+            transparent 1px
+        );
+
+    background-size:50px 50px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.9),
+            transparent 90%
+        );
+}
+
+.background-glow{
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:#229ed9;
+
+    filter:blur(180px);
+
+    opacity:.07;
+
+    pointer-events:none;
+
+    z-index:-3;
+
+    top:-200px;
+
+    left:50%;
+
+    transform:translateX(-50%);
 }
 
 
+/* =========================================================
+   SCANLINES
+========================================================= */
 
-/* Scanline effect */
+body::after{
+    content:"";
 
-body:after{
+    position:fixed;
 
-content:"";
+    inset:0;
 
-position:fixed;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.015) 0px,
+            rgba(255,255,255,.015) 1px,
+            transparent 1px,
+            transparent 4px
+        );
 
-inset:0;
+    pointer-events:none;
 
-background:
-linear-gradient(
-rgba(255,255,255,0.02) 50%,
-transparent 50%
-);
+    z-index:999;
 
-background-size:100% 4px;
-
-pointer-events:none;
-
-opacity:.2;
-
+    opacity:.3;
 }
 
 
-
-/* Main */
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
 
 .container{
+    width:min(1180px,100%);
 
-width:100%;
+    margin:auto;
 
-max-width:1100px;
+    padding:
+        25px 22px 60px;
+}
 
-padding:40px 25px;
 
-text-align:center;
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navbar{
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:14px 18px;
+
+    background:
+        rgba(15,23,42,.55);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    margin-bottom:70px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+}
+
+.nav-brand{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-weight:900;
+
+    letter-spacing:.5px;
+}
+
+.nav-logo{
+    width:40px;
+    height:40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #229ed9,
+            #38bdf8
+        );
+
+    box-shadow:
+        0 0 25px rgba(34,158,217,.45);
+
+    font-weight:900;
+
+    font-size:14px;
+}
+
+.nav-status{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#94a3b8;
+
+    font-size:13px;
+}
+
+.status-dot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 12px #22c55e;
+
+    animation:
+        pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+    50%{
+        opacity:.5;
+        transform:scale(.75);
+    }
 
 }
 
 
+/* =========================================================
+   HERO
+========================================================= */
 
+.hero{
+    text-align:center;
 
+    max-width:900px;
 
-/* Logo */
-
+    margin:auto;
+}
 
 .logo{
+    width:145px;
+    height:145px;
 
-width:140px;
+    margin:auto;
 
-height:140px;
+    display:flex;
 
-margin:auto;
+    align-items:center;
 
-display:flex;
+    justify-content:center;
 
-align-items:center;
+    position:relative;
 
-justify-content:center;
+    border-radius:42px;
 
+    background:
+        linear-gradient(
+            145deg,
+            #229ed9,
+            #0ea5e9
+        );
 
-font-size:60px;
+    font-family:'Poppins',sans-serif;
 
-font-weight:900;
+    font-size:58px;
 
+    font-weight:900;
 
-border-radius:50%;
+    letter-spacing:-5px;
 
+    box-shadow:
+        0 0 25px rgba(34,158,217,.6),
+        0 0 90px rgba(34,158,217,.25);
 
-background:
-linear-gradient(
-135deg,
-#229ED9,
-#38bdf8
-);
+    transform:rotate(-3deg);
 
-
-box-shadow:
-
-0 0 25px #229ED9,
-
-0 0 80px rgba(34,158,217,.5);
-
-
-animation:
-
-float 3s infinite;
-
-
-position:relative;
-
+    animation:
+        logoFloat 4s ease-in-out infinite;
 }
 
+.logo::before{
+    content:"";
 
+    position:absolute;
 
-.logo:before{
+    inset:-9px;
 
-content:"";
+    border-radius:48px;
 
-position:absolute;
+    border:
+        1px solid rgba(56,189,248,.6);
 
-inset:-8px;
-
-border-radius:50%;
-
-border:2px solid #38bdf8;
-
-animation:spin 5s linear infinite;
-
+    animation:
+        spin 8s linear infinite;
 }
 
+.logo::after{
+    content:"";
 
+    position:absolute;
 
-@keyframes float{
+    inset:-18px;
 
-50%{
+    border-radius:55px;
 
-transform:translateY(-15px);
-
+    border:
+        1px dashed rgba(56,189,248,.18);
 }
 
+@keyframes logoFloat{
+
+    0%,100%{
+        transform:
+            translateY(0)
+            rotate(-3deg);
+    }
+
+    50%{
+        transform:
+            translateY(-12px)
+            rotate(3deg);
+    }
+
 }
-
-
 
 @keyframes spin{
 
-100%{
+    from{
+        transform:rotate(0deg);
+    }
 
-transform:rotate(360deg);
-
-}
-
-}
-
-
-
-
-
-/* Title */
-
-
-h1{
-
-margin-top:30px;
-
-font-size:4rem;
-
-font-weight:900;
-
-letter-spacing:3px;
+    to{
+        transform:rotate(360deg);
+    }
 
 }
 
 
+/* =========================================================
+   HERO TEXT
+========================================================= */
 
-.glitch{
+.hero h1{
+    margin-top:42px;
 
-color:#38bdf8;
+    font-family:'Poppins',sans-serif;
 
-text-shadow:
+    font-size:
+        clamp(3rem,8vw,6rem);
 
-3px 0 #229ED9,
+    line-height:.95;
 
--3px 0 #0ea5e9;
+    font-weight:900;
 
-animation:glitch 2s infinite;
+    letter-spacing:-4px;
 
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 20%,
+            #38bdf8 55%,
+            #229ed9 100%
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-subtitle{
+    margin-top:25px;
+
+    color:#94a3b8;
+
+    font-size:
+        clamp(1rem,2vw,1.25rem);
+
+    line-height:1.7;
+}
+
+.hero-subtitle strong{
+    color:#e2e8f0;
 }
 
 
+/* =========================================================
+   HERO BADGES
+========================================================= */
 
-@keyframes glitch{
+.hero-badges{
+    display:flex;
 
+    justify-content:center;
 
-0%,90%,100%{
+    flex-wrap:wrap;
 
-transform:none;
+    gap:10px;
 
+    margin-top:30px;
+}
+
+.hero-badge{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:
+        10px 17px;
+
+    border-radius:999px;
+
+    background:
+        rgba(34,158,217,.08);
+
+    border:
+        1px solid rgba(56,189,248,.22);
+
+    color:#bae6fd;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    backdrop-filter:blur(10px);
 }
 
 
-92%{
+/* =========================================================
+   BUTTONS
+========================================================= */
 
-transform:translateX(4px);
+.hero-buttons{
+    display:flex;
 
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:14px;
+
+    margin-top:35px;
+}
+
+.btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    min-height:56px;
+
+    padding:
+        0 28px;
+
+    border-radius:15px;
+
+    text-decoration:none;
+
+    font-weight:800;
+
+    transition:.3s ease;
+
+    border:
+        1px solid transparent;
+
+    cursor:pointer;
+}
+
+.btn-primary{
+    background:
+        linear-gradient(
+            135deg,
+            #229ed9,
+            #0ea5e9
+        );
+
+    color:white;
+
+    box-shadow:
+        0 12px 35px rgba(34,158,217,.3);
+}
+
+.btn-primary:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 18px 45px rgba(34,158,217,.5);
+}
+
+.btn-secondary{
+    background:
+        rgba(255,255,255,.04);
+
+    border-color:
+        rgba(255,255,255,.12);
+
+    color:#e2e8f0;
+}
+
+.btn-secondary:hover{
+    transform:translateY(-4px);
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-color:
+        rgba(56,189,248,.3);
 }
 
 
-94%{
-
-transform:translateX(-4px);
-
-}
-
-
-}
-
-
-
-
-.subtitle{
-
-margin-top:15px;
-
-color:#cbd5e1;
-
-font-size:1.2rem;
-
-}
-
-
-
-.badge{
-
-margin-top:25px;
-
-display:inline-block;
-
-padding:12px 30px;
-
-border-radius:50px;
-
-background:
-
-rgba(34,158,217,.15);
-
-border:
-
-1px solid #229ED9;
-
-
-color:#38bdf8;
-
-font-weight:700;
-
-}
-
-
-
-
-
-/* Glass boxes */
-
+/* =========================================================
+   GLASS BOX
+========================================================= */
 
 .box{
+    margin-top:30px;
 
-margin-top:35px;
+    padding:30px;
 
-padding:30px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.025)
+        );
 
+    border:
+        1px solid rgba(255,255,255,.1);
 
-background:
+    border-radius:24px;
 
-rgba(255,255,255,.06);
+    backdrop-filter:blur(18px);
 
+    -webkit-backdrop-filter:blur(18px);
 
-border:
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.25);
 
-1px solid rgba(255,255,255,.15);
+    position:relative;
 
+    overflow:hidden;
+}
 
-border-radius:25px;
+.box::before{
+    content:"";
 
+    position:absolute;
 
-backdrop-filter:blur(15px);
+    top:0;
 
+    left:10%;
 
-box-shadow:
+    right:10%;
 
-0 0 30px rgba(0,0,0,.3);
+    height:1px;
 
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(56,189,248,.6),
+            transparent
+        );
 }
 
 
+/* =========================================================
+   COMMUNITY
+========================================================= */
 
-
-/* Counter */
-
-
-.counter-title{
-
-font-size:1.3rem;
-
+.community-box{
+    margin-top:65px;
 }
 
+.section-heading{
+    display:flex;
 
+    align-items:center;
 
-#members{
+    justify-content:space-between;
 
-font-size:2.8rem;
+    gap:20px;
 
-font-weight:800;
-
-margin:15px;
-
+    margin-bottom:25px;
 }
 
+.section-title{
+    display:flex;
 
+    align-items:center;
+
+    gap:12px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:20px;
+
+    font-weight:800;
+}
+
+.section-icon{
+    width:42px;
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:
+        rgba(34,158,217,.12);
+
+    color:#38bdf8;
+}
+
+.live-badge{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:
+        7px 11px;
+
+    border-radius:999px;
+
+    background:
+        rgba(34,197,94,.08);
+
+    border:
+        1px solid rgba(34,197,94,.2);
+
+    color:#86efac;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+}
+
+.community-number{
+    font-family:'Poppins',sans-serif;
+
+    font-size:
+        clamp(2.8rem,7vw,4.8rem);
+
+    font-weight:900;
+
+    letter-spacing:-3px;
+
+    margin:
+        5px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #38bdf8
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.community-subtitle{
+    color:#64748b;
+
+    font-size:14px;
+}
+
+.progress-wrapper{
+    margin-top:25px;
+}
 
 .progress{
+    width:100%;
 
-height:22px;
+    height:18px;
 
-background:#111827;
+    background:#020617;
 
-border-radius:50px;
+    border-radius:999px;
 
-overflow:hidden;
+    overflow:hidden;
 
+    border:
+        1px solid rgba(255,255,255,.07);
+}
+
+.progress-bar{
+    width:36%;
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #229ed9,
+            #38bdf8,
+            #7dd3fc
+        );
+
+    box-shadow:
+        0 0 25px rgba(56,189,248,.55);
+
+    transition:
+        width 1.8s cubic-bezier(.2,.8,.2,1);
+}
+
+.progress-info{
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:12px;
+
+    color:#64748b;
+
+    font-size:12px;
+}
+
+.progress-info strong{
+    color:#cbd5e1;
 }
 
 
+/* =========================================================
+   STATS
+========================================================= */
 
-#progressBar{
+.stats{
+    display:grid;
 
-height:100%;
+    grid-template-columns:
+        repeat(3,1fr);
 
-width:0;
+    gap:12px;
 
-background:
+    margin-top:25px;
+}
 
-linear-gradient(
-90deg,
-#229ED9,
-#38bdf8
-);
+.stat{
+    padding:18px;
 
+    border-radius:16px;
 
-transition:1.5s;
+    background:
+        rgba(255,255,255,.025);
 
+    border:
+        1px solid rgba(255,255,255,.06);
+
+    text-align:center;
+}
+
+.stat-value{
+    font-size:20px;
+
+    font-weight:900;
+
+    color:#e0f2fe;
+}
+
+.stat-label{
+    margin-top:4px;
+
+    font-size:11px;
+
+    color:#64748b;
 }
 
 
-
-#percentage{
-
-margin-top:10px;
-
-color:#94a3b8;
-
-}
-
-
-
-
-
-
-
-/* Cards */
-
+/* =========================================================
+   FEATURE CARDS
+========================================================= */
 
 .cards{
+    display:grid;
 
-margin-top:40px;
+    grid-template-columns:
+        repeat(4,1fr);
 
-display:grid;
+    gap:16px;
 
-grid-template-columns:
-
-repeat(auto-fit,minmax(240px,1fr));
-
-
-gap:20px;
-
+    margin-top:30px;
 }
-
-
 
 .card{
+    padding:
+        28px 22px;
 
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
 
-padding:30px;
+    border:
+        1px solid rgba(255,255,255,.08);
 
+    border-radius:22px;
 
-background:
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
 
-rgba(255,255,255,.05);
+    position:relative;
 
-
-border-radius:20px;
-
-
-border:
-
-1px solid rgba(255,255,255,.12);
-
-
-transition:.3s;
-
+    overflow:hidden;
 }
 
+.card::after{
+    content:"";
 
+    position:absolute;
+
+    width:100px;
+    height:100px;
+
+    top:-50px;
+    right:-50px;
+
+    border-radius:50%;
+
+    background:#38bdf8;
+
+    filter:blur(50px);
+
+    opacity:.08;
+}
 
 .card:hover{
+    transform:translateY(-8px);
 
-transform:translateY(-10px);
+    border-color:
+        rgba(56,189,248,.3);
 
-box-shadow:
-
-0 0 35px rgba(34,158,217,.4);
-
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.3),
+        0 0 35px rgba(34,158,217,.08);
 }
 
+.card-icon{
+    width:52px;
+    height:52px;
 
+    display:flex;
 
-.card i{
+    align-items:center;
 
-font-size:40px;
+    justify-content:center;
 
-color:#38bdf8;
+    border-radius:15px;
 
-margin-bottom:15px;
+    background:
+        rgba(34,158,217,.1);
 
+    color:#38bdf8;
+
+    font-size:22px;
+
+    margin-bottom:20px;
 }
 
+.card h3{
+    font-family:'Poppins',sans-serif;
 
+    font-size:17px;
+
+    margin-bottom:10px;
+}
 
 .card p{
+    color:#94a3b8;
 
-color:#cbd5e1;
+    font-size:13px;
 
-font-size:.95rem;
-
+    line-height:1.7;
 }
 
 
+/* =========================================================
+   UPDATES
+========================================================= */
 
+.update-list{
+    list-style:none;
 
+    margin-top:20px;
+}
 
-/* Updates */
+.update-list li{
+    display:flex;
 
+    align-items:center;
 
-.update{
+    gap:14px;
 
-text-align:left;
+    padding:15px 0;
 
+    color:#cbd5e1;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+
+    font-size:14px;
+}
+
+.update-list li:last-child{
+    border-bottom:0;
+}
+
+.update-icon{
+    width:36px;
+    height:36px;
+
+    min-width:36px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:
+        rgba(34,158,217,.1);
+
+    color:#38bdf8;
+
+    font-size:13px;
 }
 
 
-
-.update li{
-
-list-style:none;
-
-padding:10px;
-
-color:#cbd5e1;
-
-}
-
-
-
-
-
-/* Milestones */
-
+/* =========================================================
+   MILESTONES
+========================================================= */
 
 .timeline{
+    display:grid;
 
-display:grid;
+    grid-template-columns:
+        repeat(7,1fr);
 
-grid-template-columns:
+    gap:10px;
 
-repeat(auto-fit,minmax(150px,1fr));
-
-
-gap:15px;
-
-margin-top:20px;
-
+    margin-top:25px;
 }
-
-
 
 .mile{
+    padding:
+        20px 8px;
 
-padding:20px;
+    text-align:center;
 
-background:#ffffff08;
+    border-radius:18px;
 
-border-radius:15px;
+    background:
+        rgba(255,255,255,.025);
 
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    transition:.3s;
+}
+
+.mile:hover{
+    transform:translateY(-5px);
+}
+
+.mile-icon{
+    font-size:22px;
+
+    margin-bottom:10px;
+}
+
+.mile-number{
+    font-weight:900;
+
+    font-size:15px;
+}
+
+.mile-status{
+    margin-top:6px;
+
+    font-size:9px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.8px;
+
+    color:#64748b;
+}
+
+.mile.done{
+    border-color:
+        rgba(34,197,94,.25);
+
+    background:
+        rgba(34,197,94,.04);
+}
+
+.mile.done .mile-status{
+    color:#4ade80;
+}
+
+.mile.future{
+    border-color:
+        rgba(56,189,248,.15);
 }
 
 
+/* =========================================================
+   WHY JOIN
+========================================================= */
 
-.done{
+.why-grid{
+    display:grid;
 
-border:1px solid #22c55e;
+    grid-template-columns:
+        repeat(3,1fr);
 
+    gap:12px;
+
+    margin-top:22px;
+}
+
+.why-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:#cbd5e1;
+
+    font-size:13px;
+}
+
+.why-item i{
+    color:#38bdf8;
 }
 
 
+/* =========================================================
+   CTA
+========================================================= */
 
-.future{
+.cta{
+    margin-top:55px;
 
-border:1px solid #229ED9;
+    padding:
+        50px 25px;
 
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:28px;
+
+    border:
+        1px solid rgba(56,189,248,.18);
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(34,158,217,.15),
+            rgba(255,255,255,.025) 65%
+        );
+}
+
+.cta::before{
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    top:-200px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    border-radius:50%;
+
+    background:#229ed9;
+
+    filter:blur(100px);
+
+    opacity:.1;
+}
+
+.cta h2{
+    position:relative;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:
+        clamp(1.8rem,4vw,2.7rem);
+
+    font-weight:900;
+}
+
+.cta p{
+    position:relative;
+
+    margin:
+        12px auto 25px;
+
+    max-width:600px;
+
+    color:#94a3b8;
+
+    line-height:1.7;
+
+    font-size:14px;
 }
 
 
-
-
-
-/* Join button */
-
-
-.join{
-
-
-display:inline-block;
-
-margin-top:40px;
-
-
-padding:20px 60px;
-
-
-border-radius:50px;
-
-
-background:#229ED9;
-
-
-color:white;
-
-
-text-decoration:none;
-
-
-font-size:1.2rem;
-
-
-font-weight:800;
-
-
-box-shadow:
-
-0 0 40px #229ED9;
-
-
-transition:.3s;
-
-
-}
-
-
-
-.join:hover{
-
-transform:scale(1.08);
-
-}
-
-
-
-
-
-/* Social */
-
+/* =========================================================
+   SOCIALS
+========================================================= */
 
 .socials{
+    display:flex;
 
-margin-top:30px;
+    justify-content:center;
 
+    gap:12px;
+
+    margin-top:30px;
+}
+
+.social{
+    width:48px;
+    height:48px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:15px;
+
+    color:#94a3b8;
+
+    text-decoration:none;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.social:hover{
+    color:#38bdf8;
+
+    border-color:
+        rgba(56,189,248,.3);
+
+    transform:translateY(-4px);
+
+    background:
+        rgba(56,189,248,.06);
 }
 
 
-
-.socials a{
-
-font-size:30px;
-
-margin:12px;
-
-color:white;
-
-transition:.3s;
-
-}
-
-
-
-.socials a:hover{
-
-color:#38bdf8;
-
-}
-
-
-
-
+/* =========================================================
+   FOOTER
+========================================================= */
 
 footer{
+    text-align:center;
 
-margin-top:40px;
+    margin-top:45px;
 
-color:#64748b;
+    color:#475569;
 
+    font-size:12px;
+
+    line-height:1.8;
+}
+
+footer strong{
+    color:#64748b;
 }
 
 
+/* =========================================================
+   REVEAL
+========================================================= */
 
+.reveal{
+    opacity:0;
+
+    transform:
+        translateY(25px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .cards{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .timeline{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .timeline{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .why-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
 
 @media(max-width:600px){
 
+    .container{
+        padding:
+            20px 15px 40px;
+    }
 
-h1{
+    .navbar{
+        margin-bottom:50px;
+    }
 
-font-size:2.5rem;
+    .nav-status{
+        display:none;
+    }
+
+    .logo{
+        width:115px;
+        height:115px;
+
+        font-size:45px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+
+        margin-top:32px;
+    }
+
+    .hero-subtitle{
+        font-size:14px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .btn{
+        width:100%;
+    }
+
+    .community-box{
+        margin-top:45px;
+    }
+
+    .box{
+        padding:
+            22px 18px;
+
+        border-radius:20px;
+    }
+
+    .section-heading{
+        align-items:flex-start;
+    }
+
+    .stats{
+        grid-template-columns:
+            1fr 1fr 1fr;
+    }
+
+    .stat{
+        padding:
+            13px 5px;
+    }
+
+    .stat-value{
+        font-size:16px;
+    }
+
+    .stat-label{
+        font-size:9px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .timeline{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .why-grid{
+        grid-template-columns:1fr;
+    }
+
+    .cta{
+        padding:
+            38px 20px;
+    }
 
 }
 
 
-#members{
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
-font-size:2rem;
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        scroll-behavior:auto !important;
+
+        transition-duration:.01ms !important;
+    }
 
 }
-
-
-}
-
-
-
 
 </style>
 
@@ -706,597 +1479,1343 @@ font-size:2rem;
 
 <canvas id="particles"></canvas>
 
+<div class="background-grid"></div>
+
+<div class="background-glow"></div>
+
 
 <div class="container">
 
 
-<div class="logo">
+<!-- =======================================================
+     NAVBAR
+======================================================= -->
 
-MX
+<nav class="navbar">
 
-</div>
+    <div class="nav-brand">
 
+        <div class="nav-logo">
+            MX
+        </div>
 
-<h1>
+        <span>
+            ModdingXZ
+        </span>
 
-<span class="glitch">
+    </div>
 
-MODDINGXZ
 
-</span>
+    <div class="nav-status">
 
-</h1>
+        <span class="status-dot"></span>
 
+        Community Online
 
-<p class="subtitle">
+    </div>
 
-Gaming • Mods • Tools • Community
+</nav>
 
-</p>
 
+<!-- =======================================================
+     HERO
+======================================================= -->
 
-<div class="badge">
+<header class="hero">
 
-🔥 Road To 5,000 Members
 
-</div>
+    <div class="logo">
+        MX
+    </div>
 
 
-<div class="box">
+    <h1>
+        MODDINGXZ
+    </h1>
 
-<h2 class="counter-title">
-🔥 Community Growth
-</h2>
 
-<h3 id="members">
-Loading...
-</h3>
+    <p class="hero-subtitle">
 
-<div class="progress">
+        The home of
 
-<div id="progressBar"></div>
+        <strong>
+            gaming mods, tools, releases & community.
+        </strong>
 
-</div>
+        <br>
 
-<p id="percentage">
-Checking Telegram...
-</p>
+        Join a growing community of gamers, modders
+        and creators.
 
-</div>
+    </p>
 
 
+    <div class="hero-badges">
 
-<div class="cards">
 
+        <div class="hero-badge">
 
-<div class="card">
+            <i class="fa-solid fa-gamepad"></i>
 
-<i class="fa-solid fa-gamepad"></i>
+            Gaming
 
-<h3>
-🎮 Gaming Mods
-</h3>
+        </div>
 
-<p>
-Console modding, gaming tools, tutorials and community projects.
-</p>
 
-</div>
+        <div class="hero-badge">
 
+            <i class="fa-solid fa-code"></i>
 
+            Tools
 
-<div class="card">
+        </div>
 
-<i class="fa-solid fa-bolt"></i>
 
-<h3>
-⚡ Latest Releases
-</h3>
+        <div class="hero-badge">
 
-<p>
-Stay updated with new releases, discoveries and updates.
-</p>
+            <i class="fa-solid fa-bolt"></i>
 
-</div>
+            Releases
 
+        </div>
 
 
-<div class="card">
+        <div class="hero-badge">
 
-<i class="fa-solid fa-users"></i>
+            <i class="fa-solid fa-users"></i>
 
-<h3>
-💬 Community
-</h3>
+            1.8K+ Community
 
-<p>
-Meet gamers, modders and developers in one place.
-</p>
+        </div>
 
-</div>
 
+    </div>
 
 
-<div class="card">
+    <div class="hero-buttons">
 
-<i class="fa-solid fa-shield-halved"></i>
 
-<h3>
-🛡 Trusted Community
-</h3>
+        <a
+            class="btn btn-primary"
+            href="https://t.me/moddingxz"
+            target="_blank"
+            rel="noopener"
+        >
 
-<p>
-A growing community focused on sharing and helping.
-</p>
+            <i class="fa-brands fa-telegram"></i>
 
-</div>
+            Join Telegram
 
+        </a>
 
-</div>
 
+        <a
+            class="btn btn-secondary"
+            href="#community"
+        >
 
+            <i class="fa-solid fa-chart-line"></i>
 
+            View Community
 
-<div class="box update">
+        </a>
 
-<h2>
-📢 Latest Updates
-</h2>
 
-<ul>
+    </div>
 
-<li>🔥 Black Ops content & community events</li>
 
-<li>⚡ New tools and releases added regularly</li>
+</header>
 
-<li>🎮 Gaming discussions and support</li>
 
-<li>🚀 Road to 5,000 members continues</li>
+<!-- =======================================================
+     COMMUNITY GROWTH
+======================================================= -->
 
-</ul>
+<section
+    id="community"
+    class="box community-box reveal"
+>
 
-</div>
 
+    <div class="section-heading">
 
 
+        <h2 class="section-title">
 
+            <span class="section-icon">
 
-<div class="box">
+                <i class="fa-solid fa-users"></i>
 
+            </span>
 
-<h2>
-🏆 Community Milestones
-</h2>
+            Community Growth
 
+        </h2>
 
-<div class="timeline">
 
+        <span class="live-badge">
 
-<div class="mile done">
+            <span class="status-dot"></span>
 
-✅<br>
-100 Members
+            1.8K STRONG
 
-</div>
+        </span>
 
 
-<div class="mile done">
+    </div>
 
-✅<br>
-500 Members
 
-</div>
+    <div
+        id="members"
+        class="community-number"
+    >
+        1,800 Members
+    </div>
 
 
-<div class="mile future">
+    <p class="community-subtitle">
 
-🔥<br>
-1,000 Members
+        and growing every day 🚀
 
-</div>
+    </p>
 
 
-<div class="mile future">
+    <div class="progress-wrapper">
 
-🚀<br>
-2,500 Members
 
-</div>
+        <div class="progress">
 
 
-<div class="mile future">
+            <div
+                id="progressBar"
+                class="progress-bar"
+                style="width:36%"
+            ></div>
 
-👑<br>
-5,000 Members
 
-</div>
+        </div>
 
 
-</div>
+        <div class="progress-info">
 
-</div>
 
+            <span id="percentage">
 
+                <strong>
+                    36.0%
+                </strong>
 
+                towards 5K 🚀
 
+            </span>
 
-<div class="box">
 
+            <strong>
+                Goal: 5,000
+            </strong>
 
-<h2>
-⭐ Why Join ModdingXz?
-</h2>
 
+        </div>
 
-<p style="color:#cbd5e1;margin-top:15px;">
 
-A growing gaming community bringing together modders,
-gamers and creators.
+    </div>
 
-<br><br>
 
-✔ Community Support<br>
-✔ Gaming Discussions<br>
-✔ Modding Projects<br>
-✔ Latest Updates
+    <div class="stats">
 
-</p>
 
+        <div class="stat">
 
-</div>
+            <div
+                id="remaining"
+                class="stat-value"
+            >
+                3,200
+            </div>
 
+            <div class="stat-label">
+                Members To Goal
+            </div>
 
+        </div>
 
 
+        <div class="stat">
 
-<a class="join" href="https://telegram.me/moddingxz" target="_blank">
+            <div
+                id="progressPercent"
+                class="stat-value"
+            >
+                36.0%
+            </div>
 
-<i class="fa-brands fa-telegram"></i>
+            <div class="stat-label">
+                Progress
+            </div>
 
-Join Telegram
+        </div>
 
-</a>
 
+        <div class="stat">
 
+            <div class="stat-value">
+                5K
+            </div>
 
+            <div class="stat-label">
+                Target
+            </div>
 
+        </div>
 
-<div class="socials">
 
+    </div>
 
-<a href="https://t.me/moddingxz">
 
-<i class="fa-brands fa-telegram"></i>
+</section>
 
-</a>
 
+<!-- =======================================================
+     FEATURES
+======================================================= -->
 
-<a href="#">
+<section class="cards reveal">
 
-<i class="fa-brands fa-tiktok"></i>
 
-</a>
+    <div class="card">
 
 
-<a href="#">
+        <div class="card-icon">
 
-<i class="fa-brands fa-github"></i>
+            <i class="fa-solid fa-gamepad"></i>
 
-</a>
+        </div>
 
 
-</div>
+        <h3>
+            Gaming Mods
+        </h3>
 
 
+        <p>
 
+            Console modding, gaming tools,
+            custom content, tutorials and
+            community projects.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="card">
+
+
+        <div class="card-icon">
+
+            <i class="fa-solid fa-bolt"></i>
+
+        </div>
+
+
+        <h3>
+            Latest Releases
+        </h3>
+
+
+        <p>
+
+            Keep up with new releases,
+            discoveries, updates and
+            developments from the scene.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="card">
+
+
+        <div class="card-icon">
+
+            <i class="fa-solid fa-code"></i>
+
+        </div>
+
+
+        <h3>
+            Tools & Projects
+        </h3>
+
+
+        <p>
+
+            Discover useful gaming tools,
+            projects, utilities and resources
+            from the community.
+
+        </p>
+
+
+    </div>
+
+
+    <div class="card">
+
+
+        <div class="card-icon">
+
+            <i class="fa-solid fa-users"></i>
+
+        </div>
+
+
+        <h3>
+            Community
+        </h3>
+
+
+        <p>
+
+            Connect with gamers, modders
+            and developers and get help
+            when you need it.
+
+        </p>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =======================================================
+     LATEST UPDATES
+======================================================= -->
+
+<section class="box reveal">
+
+
+    <div class="section-heading">
+
+
+        <h2 class="section-title">
+
+
+            <span class="section-icon">
+
+                <i class="fa-solid fa-bolt"></i>
+
+            </span>
+
+
+            Latest Updates
+
+
+        </h2>
+
+
+    </div>
+
+
+    <ul class="update-list">
+
+
+        <li>
+
+            <span class="update-icon">
+
+                <i class="fa-solid fa-fire"></i>
+
+            </span>
+
+            Black Ops content, gaming mods
+            and community projects
+
+        </li>
+
+
+        <li>
+
+            <span class="update-icon">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+            </span>
+
+            New tools, releases and resources
+            added regularly
+
+        </li>
+
+
+        <li>
+
+            <span class="update-icon">
+
+                <i class="fa-solid fa-comments"></i>
+
+            </span>
+
+            Gaming discussions, support
+            and community help
+
+        </li>
+
+
+        <li>
+
+            <span class="update-icon">
+
+                <i class="fa-solid fa-rocket"></i>
+
+            </span>
+
+            Road to 2,000 members is officially on
+
+        </li>
+
+
+    </ul>
+
+
+</section>
+
+
+<!-- =======================================================
+     MILESTONES
+======================================================= -->
+
+<section class="box reveal">
+
+
+    <div class="section-heading">
+
+
+        <h2 class="section-title">
+
+
+            <span class="section-icon">
+
+                <i class="fa-solid fa-trophy"></i>
+
+            </span>
+
+
+            Community Milestones
+
+
+        </h2>
+
+
+    </div>
+
+
+    <div class="timeline">
+
+
+        <div class="mile done">
+
+            <div class="mile-icon">
+                🟢
+            </div>
+
+            <div class="mile-number">
+                100
+            </div>
+
+            <div class="mile-status">
+                Completed
+            </div>
+
+        </div>
+
+
+        <div class="mile done">
+
+            <div class="mile-icon">
+                🟢
+            </div>
+
+            <div class="mile-number">
+                500
+            </div>
+
+            <div class="mile-status">
+                Completed
+            </div>
+
+        </div>
+
+
+        <div class="mile done">
+
+            <div class="mile-icon">
+                🟢
+            </div>
+
+            <div class="mile-number">
+                1,000
+            </div>
+
+            <div class="mile-status">
+                Completed
+            </div>
+
+        </div>
+
+
+        <div class="mile done">
+
+            <div class="mile-icon">
+                🔥
+            </div>
+
+            <div class="mile-number">
+                1,800
+            </div>
+
+            <div class="mile-status">
+                Current
+            </div>
+
+        </div>
+
+
+        <div class="mile future">
+
+            <div class="mile-icon">
+                🚀
+            </div>
+
+            <div class="mile-number">
+                2,000
+            </div>
+
+            <div class="mile-status">
+                Next Goal
+            </div>
+
+        </div>
+
+
+        <div class="mile future">
+
+            <div class="mile-icon">
+                ⚡
+            </div>
+
+            <div class="mile-number">
+                2,500
+            </div>
+
+            <div class="mile-status">
+                Upcoming
+            </div>
+
+        </div>
+
+
+        <div class="mile future">
+
+            <div class="mile-icon">
+                👑
+            </div>
+
+            <div class="mile-number">
+                5,000
+            </div>
+
+            <div class="mile-status">
+                Ultimate Goal
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =======================================================
+     WHY JOIN
+======================================================= -->
+
+<section class="box reveal">
+
+
+    <div class="section-heading">
+
+
+        <h2 class="section-title">
+
+
+            <span class="section-icon">
+
+                <i class="fa-solid fa-star"></i>
+
+            </span>
+
+
+            Why Join ModdingXZ?
+
+
+        </h2>
+
+
+    </div>
+
+
+    <div class="why-grid">
+
+
+        <div class="why-item">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Community Support
+
+        </div>
+
+
+        <div class="why-item">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Gaming Discussions
+
+        </div>
+
+
+        <div class="why-item">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Modding Projects
+
+        </div>
+
+
+        <div class="why-item">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Latest Scene Updates
+
+        </div>
+
+
+        <div class="why-item">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Gaming Tools & Resources
+
+        </div>
+
+
+        <div class="why-item">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Gamers & Modders
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =======================================================
+     CALL TO ACTION
+======================================================= -->
+
+<section class="cta reveal">
+
+
+    <h2>
+        Ready to join 1,800+ members?
+    </h2>
+
+
+    <p>
+
+        Join ModdingXZ on Telegram and stay connected
+        with the latest gaming content, tools, releases,
+        discussions and community updates.
+
+    </p>
+
+
+    <a
+        class="btn btn-primary"
+        href="https://t.me/moddingxz"
+        target="_blank"
+        rel="noopener"
+    >
+
+        <i class="fa-brands fa-telegram"></i>
+
+        Join ModdingXZ
+
+    </a>
+
+
+    <div class="socials">
+
+
+        <a
+            class="social"
+            href="https://t.me/moddingxz"
+            target="_blank"
+            rel="noopener"
+            aria-label="Telegram"
+        >
+
+            <i class="fa-brands fa-telegram"></i>
+
+        </a>
+
+
+        <a
+            class="social"
+            href="https://www.tiktok.com/@moddingx1"
+            target="_blank"
+            rel="noopener"
+            aria-label="TikTok"
+        >
+
+            <i class="fa-brands fa-tiktok"></i>
+
+        </a>
+
+
+        <a
+            class="social"
+            href="https://github.com/MrJasonDEX"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+        >
+
+            <i class="fa-brands fa-github"></i>
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
 
 <footer>
 
-© 2026 ModdingXz Community<br>
+    © 2026 <strong>ModdingXZ</strong> Community
 
-Built for gamers & modders
+    <br>
+
+    Gaming • Mods • Tools • Releases • Community
 
 </footer>
 
 
-
-
 </div>
-
-
-
 
 
 <script>
 
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+const GOAL = 5000;
 
 /*
-================================
- TELEGRAM MEMBER COUNTER
-================================
+    Current known ModdingXZ member count.
+
+    If Telegram cannot be queried, the website
+    will fall back to this number.
 */
 
+const FALLBACK_MEMBERS = 1800;
+
+
+/* =========================================================
+   TELEGRAM MEMBER COUNTER
+========================================================= */
 
 async function updateMembers(){
 
+    try{
 
-const fallbackMembers = 749;
+        const telegramURL =
+            "https://t.me/moddingxz";
 
-const goal = 5000;
-
-
-try{
-
-
-const proxy = 
-"https://api.allorigins.win/raw?url=";
+        const proxy =
+            "https://api.allorigins.win/raw?url=";
 
 
-const telegram =
-"https://t.me/moddingxz";
+        const response =
+            await fetch(
+                proxy +
+                encodeURIComponent(
+                    telegramURL
+                ),
+                {
+                    cache:"no-store"
+                }
+            );
 
 
+        if(!response.ok){
 
-const response = await fetch(
+            throw new Error(
+                "Telegram request failed"
+            );
 
-proxy + encodeURIComponent(telegram)
-
-);
+        }
 
 
+        const html =
+            await response.text();
 
-const html = await response.text();
 
+        const patterns = [
+
+            /([\d,]+)\s+members/i,
+
+            /([\d,]+)\s+Members/i,
+
+            /members[^0-9]*([\d,]+)/i
+
+        ];
+
+
+        let members = null;
+
+
+        for(
+            const pattern of patterns
+        ){
+
+            const match =
+                html.match(pattern);
+
+
+            if(match){
+
+                members =
+                    parseInt(
+                        match[1]
+                            .replace(/,/g,""),
+                        10
+                    );
+
+                break;
+
+            }
+
+        }
+
+
+        if(
+            !members ||
+            isNaN(members)
+        ){
+
+            members =
+                FALLBACK_MEMBERS;
+
+        }
+
+
+        showMembers(
+            members
+        );
+
+
+    }
+    catch(error){
+
+        console.log(
+            "Telegram counter fallback:",
+            error
+        );
+
+
+        showMembers(
+            FALLBACK_MEMBERS
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY MEMBER DATA
+========================================================= */
+
+function showMembers(
+    members
+){
+
+    const percentage =
+        (members / GOAL) * 100;
+
+
+    const safePercentage =
+        Math.min(
+            percentage,
+            100
+        );
+
+
+    const remaining =
+        Math.max(
+            GOAL - members,
+            0
+        );
+
+
+    document.getElementById(
+        "members"
+    ).textContent =
+        members.toLocaleString() +
+        " Members";
+
+
+    document.getElementById(
+        "percentage"
+    ).innerHTML =
+
+        `<strong>
+            ${percentage.toFixed(1)}%
+        </strong>
+        towards 5K 🚀`;
+
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        percentage.toFixed(1) +
+        "%";
+
+
+    document.getElementById(
+        "remaining"
+    ).textContent =
+        remaining.toLocaleString();
+
+
+    requestAnimationFrame(
+        () => {
+
+            document.getElementById(
+                "progressBar"
+            ).style.width =
+                safePercentage +
+                "%";
+
+        }
+    );
+
+}
 
 
 /*
-Telegram page format can change,
-so multiple checks are used
+    Load immediately.
 */
-
-
-let match =
-html.match(/([\d,]+)\s+members/i);
-
-
-
-let members =
-match
-?
-Number(match[1].replace(/,/g,""))
-:
-fallbackMembers;
-
-
-
-showMembers(members,goal);
-
-
-
-}
-
-catch(error){
-
-
-console.log(error);
-
-
-showMembers(fallbackMembers,goal);
-
-
-}
-
-
-
-}
-
-
-
-
-function showMembers(members,goal){
-
-
-let percentage =
-(members / goal) * 100;
-
-
-
-document.getElementById("members")
-.innerHTML =
-members.toLocaleString()
-+
-" Members";
-
-
-
-document.getElementById("percentage")
-.innerHTML =
-percentage.toFixed(1)
-+
-"% towards 5K 🚀";
-
-
-
-document.getElementById("progressBar")
-.style.width =
-Math.min(percentage,100)
-+
-"%";
-
-
-}
-
-
 
 updateMembers();
 
 
-
-
-
-/*
-================================
- PARTICLE BACKGROUND
-================================
-*/
-
+/* =========================================================
+   PARTICLE BACKGROUND
+========================================================= */
 
 const canvas =
-document.getElementById("particles");
+    document.getElementById(
+        "particles"
+    );
 
 
 const ctx =
-canvas.getContext("2d");
+    canvas.getContext(
+        "2d"
+    );
 
 
+let particles = [];
 
-canvas.width =
-window.innerWidth;
+let width;
 
-
-canvas.height =
-window.innerHeight;
+let height;
 
 
+/* =========================================================
+   CANVAS RESIZE
+========================================================= */
 
-let particles=[];
+function resizeCanvas(){
 
-
-
-for(let i=0;i<120;i++){
-
-
-particles.push({
-
-
-x:Math.random()*canvas.width,
+    width =
+        canvas.width =
+        window.innerWidth;
 
 
-y:Math.random()*canvas.height,
-
-
-size:Math.random()*2+1,
-
-
-speedX:(Math.random()-0.5),
-
-
-speedY:(Math.random()-0.5)
-
-
-
-});
-
+    height =
+        canvas.height =
+        window.innerHeight;
 
 }
 
 
+/* =========================================================
+   CREATE PARTICLES
+========================================================= */
+
+function createParticles(){
+
+    particles = [];
 
 
+    const amount =
+        window.innerWidth < 600
+        ? 45
+        : 100;
+
+
+    for(
+        let i = 0;
+        i < amount;
+        i++
+    ){
+
+        particles.push({
+
+            x:
+                Math.random() *
+                width,
+
+            y:
+                Math.random() *
+                height,
+
+            size:
+                Math.random() *
+                1.7 +
+                .4,
+
+            speedX:
+                (
+                    Math.random() -
+                    .5
+                ) * .35,
+
+            speedY:
+                (
+                    Math.random() -
+                    .5
+                ) * .35,
+
+            opacity:
+                Math.random() *
+                .6 +
+                .1
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALISE PARTICLES
+========================================================= */
+
+resizeCanvas();
+
+createParticles();
+
+
+/* =========================================================
+   PARTICLE ANIMATION
+========================================================= */
 
 function animateParticles(){
 
-
-ctx.clearRect(
-
-0,
-
-0,
-
-canvas.width,
-
-canvas.height
-
-);
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
 
 
+    particles.forEach(
+        p => {
 
-ctx.fillStyle="#38bdf8";
+            p.x += p.speedX;
 
-
-
-particles.forEach(p=>{
-
-
-ctx.beginPath();
+            p.y += p.speedY;
 
 
-ctx.arc(
-
-p.x,
-
-p.y,
-
-p.size,
-
-0,
-
-Math.PI*2
-
-);
+            if(p.x < 0)
+                p.x = width;
 
 
-ctx.fill();
+            if(p.x > width)
+                p.x = 0;
 
 
-
-p.x += p.speedX;
-
-p.y += p.speedY;
+            if(p.y < 0)
+                p.y = height;
 
 
-
-if(
-p.x<0 ||
-p.x>canvas.width
-)
-
-p.speedX*=-1;
+            if(p.y > height)
+                p.y = 0;
 
 
-
-if(
-p.y<0 ||
-p.y>canvas.height
-)
-
-p.speedY*=-1;
+            ctx.beginPath();
 
 
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI * 2
+            );
 
-});
+
+            ctx.fillStyle =
+                `rgba(
+                    56,
+                    189,
+                    248,
+                    ${p.opacity}
+                )`;
 
 
+            ctx.fill();
 
-requestAnimationFrame(animateParticles);
+        }
+    );
 
+
+    requestAnimationFrame(
+        animateParticles
+    );
 
 }
-
 
 
 animateParticles();
 
 
-
-
+/* =========================================================
+   WINDOW RESIZE
+========================================================= */
 
 window.addEventListener(
-"resize",
-()=>{
+    "resize",
+    () => {
+
+        resizeCanvas();
+
+        createParticles();
+
+    }
+);
 
 
-canvas.width =
-window.innerWidth;
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal"
+    );
 
 
-canvas.height =
-window.innerHeight;
+const observer =
+    new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(
+                entry => {
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target
+                            .classList
+                            .add(
+                                "visible"
+                            );
 
 
-});
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold:.12
+        }
+
+    );
 
 
+revealElements.forEach(
+    element => {
+
+        observer.observe(
+            element
+        );
+
+    }
+);
+
+
+/* =========================================================
+   MEMBER COUNTER REFRESH
+========================================================= */
+
+/*
+    Attempt to refresh the counter
+    every 5 minutes.
+*/
+
+setInterval(
+    updateMembers,
+    5 * 60 * 1000
+);
 
 </script>
 
