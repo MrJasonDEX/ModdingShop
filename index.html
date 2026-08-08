@@ -1,268 +1,4185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ModdingXZ — PlayStation Services</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#07070d">
+<meta name="description"
+      content="ModdingXZ — Gaming, Modding, Jailbreak Information, Tools & Services.">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>ModdingXZ — Gaming • Modding • Services</title>
+
+<!-- =========================================================
+     EXTERNAL DEPENDENCIES
+========================================================= -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap"
+      rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      rel="stylesheet">
+
+<!-- =========================================================
+     MAIN STYLE
+========================================================= -->
 
 <style>
 
-/* ===== BASE ===== */
-body{
-margin:0;
-background:#0b0f14;
-color:#e6edf3;
-font-family:'Inter', sans-serif;
+:root {
+
+    --bg: #050509;
+    --bg-secondary: #090912;
+    --surface: rgba(17,17,28,.78);
+    --surface-solid: #11111c;
+
+    --border: rgba(255,255,255,.08);
+    --border-hover: rgba(139,92,246,.45);
+
+    --text: #ffffff;
+    --muted: #9696aa;
+
+    --purple: #8b5cf6;
+    --purple-light: #a78bfa;
+
+    --blue: #3b82f6;
+    --cyan: #22d3ee;
+
+    --pink: #ec4899;
+    --green: #22c55e;
+    --yellow: #facc15;
+    --red: #ef4444;
+
+    --radius: 22px;
+
+    --shadow:
+        0 20px 60px rgba(0,0,0,.45);
+
+    --glow:
+        0 0 40px rgba(139,92,246,.15);
 }
 
-/* HEADER */
-.header{
-position:sticky;
-top:0;
-background:#0d1117;
-padding:15px;
-text-align:center;
-border-bottom:1px solid #1f2933;
-font-weight:700;
-z-index:1000;
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
 }
 
-/* CONTAINER */
-.app{
-padding:15px;
-padding-bottom:100px;
+html {
+    scroll-behavior: smooth;
 }
 
-/* SECTION */
-.section{
-margin-bottom:30px;
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    color: var(--text);
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        sans-serif;
+
+    background:
+
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(139,92,246,.20),
+            transparent 28rem
+        ),
+
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(34,211,238,.10),
+            transparent 26rem
+        ),
+
+        radial-gradient(
+            circle at 50% 70%,
+            rgba(236,72,153,.06),
+            transparent 30rem
+        ),
+
+        var(--bg);
+
+    padding-bottom: 115px;
+
+    overflow-x: hidden;
 }
 
-/* CARDS */
-.card-ui{
-background:#111827;
-border-radius:14px;
-padding:18px;
-margin-bottom:15px;
-border:1px solid #1f2933;
-transition:.2s;
+
+/* GRID BACKGROUND */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .18;
+
+    background-image:
+
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 40px 40px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 80%
+        );
+
+    z-index: -5;
 }
 
-.card-ui:hover{
-border-color:#00ffc8;
+
+/* FLOATING LIGHT */
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,.08),
+            transparent 70%
+        );
+
+    top: 30%;
+    left: 50%;
+
+    transform: translate(-50%,-50%);
+
+    pointer-events: none;
+
+    z-index: -4;
+
+    animation:
+        ambientGlow 8s ease-in-out infinite alternate;
 }
 
-/* PRICE */
-.price{
-color:#00ffc8;
-font-size:20px;
-font-weight:700;
+
+@keyframes ambientGlow {
+
+    from {
+        transform:
+            translate(-50%,-50%)
+            scale(.85);
+    }
+
+    to {
+        transform:
+            translate(-50%,-50%)
+            scale(1.15);
+    }
 }
 
-/* BUTTON */
-.btn-main{
-width:100%;
-background:#00ffc8;
-border:none;
-padding:12px;
-border-radius:10px;
-font-weight:600;
-margin-top:10px;
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-/* TRUST */
-.trust{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
 }
 
-.trust div{
-background:#111827;
-padding:10px;
-border-radius:8px;
-font-size:12px;
+
+.container-main {
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding:
+        18px
+        16px
+        30px;
 }
 
-/* NAV */
-.bottom-nav{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:#0d1117;
-padding:10px;
-border-top:1px solid #1f2933;
+
+/* =========================================================
+   GLASS
+========================================================= */
+
+.glass {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        var(--shadow),
+        var(--glow);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
 }
 
-.bottom-nav button{
-background:none;
-border:none;
-color:#aaa;
-font-size:20px;
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar-xz {
+
+    position: sticky;
+
+    top: 12px;
+
+    z-index: 999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 10px;
+
+    margin-bottom: 25px;
+
+    border-radius: 18px;
 }
 
-/* LIVE FEED */
-.live-feed{
-position:fixed;
-bottom:70px;
-left:50%;
-transform:translateX(-50%);
-background:#111827;
-padding:10px 18px;
-border-radius:20px;
-font-size:12px;
+
+.logo {
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 14px;
+
+    display: grid;
+    place-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 0 30px
+        rgba(139,92,246,.35);
+
+    font-family: Orbitron;
+
+    font-size: .72rem;
+
+    font-weight: 900;
+
+    flex-shrink: 0;
 }
 
-/* PAGE */
-.page{display:none;}
-.page.active{display:block;}
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.brand-title {
+
+    font-family: Orbitron;
+
+    font-weight: 900;
+
+    letter-spacing: .4px;
+
+    font-size: .92rem;
+}
+
+
+.brand-title span {
+    color: var(--purple-light);
+}
+
+
+.brand-subtitle {
+
+    color: var(--muted);
+
+    font-size: .59rem;
+
+    margin-top: 1px;
+}
+
+
+.nav-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+}
+
+
+.icon-btn {
+
+    width: 39px;
+    height: 39px;
+
+    border-radius: 12px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--border);
+
+    background:
+        rgba(255,255,255,.04);
+
+    color: white;
+
+    transition: .2s;
+}
+
+
+.icon-btn:hover {
+
+    background:
+        rgba(139,92,246,.15);
+
+    border-color:
+        var(--border-hover);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    padding: 32px 22px;
+
+    margin-bottom: 20px;
+}
+
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+
+    right: -180px;
+    top: -180px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139,92,246,.35),
+            transparent 68%
+        );
+
+    pointer-events: none;
+}
+
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    left: -180px;
+    bottom: -180px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(34,211,238,.15),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+.live-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        7px
+        11px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(34,197,94,.08);
+
+    border:
+        1px solid
+        rgba(34,197,94,.22);
+
+    color: #86efac;
+
+    font-size: .65rem;
+
+    font-weight: 900;
+
+    text-transform: uppercase;
+
+    letter-spacing: .09em;
+}
+
+
+.live-dot {
+
+    width: 6px;
+    height: 6px;
+
+    background: var(--green);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px var(--green);
+
+    animation:
+        pulse 1.7s infinite;
+}
+
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .35;
+        transform: scale(.7);
+    }
+}
+
+
+.hero h1 {
+
+    font-family: Orbitron;
+
+    font-size:
+        clamp(
+            2.3rem,
+            9vw,
+            5rem
+        );
+
+    line-height: .95;
+
+    letter-spacing: -3px;
+
+    margin:
+        20px
+        0
+        15px;
+}
+
+
+.gradient {
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            var(--cyan),
+            var(--purple-light),
+            var(--pink)
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    background-size: 250% auto;
+
+    animation:
+        gradientMove 6s linear infinite;
+}
+
+
+@keyframes gradientMove {
+
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 250% center;
+    }
+}
+
+
+.hero-description {
+
+    color: var(--muted);
+
+    line-height: 1.7;
+
+    font-size: .85rem;
+
+    max-width: 690px;
+}
+
+
+.hero-buttons {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 22px;
+}
+
+
+.btn-xz {
+
+    border: 0;
+
+    border-radius: 14px;
+
+    padding:
+        12px
+        16px;
+
+    font-weight: 900;
+
+    font-size: .73rem;
+
+    transition: .2s;
+}
+
+
+.btn-primary-xz {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    box-shadow:
+        0 12px 30px
+        rgba(99,102,241,.25);
+}
+
+
+.btn-primary-xz:hover {
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 15px 40px
+        rgba(99,102,241,.35);
+}
+
+
+.btn-secondary-xz {
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid var(--border);
+}
+
+
+.btn-secondary-xz:hover {
+
+    color: white;
+
+    background:
+        rgba(255,255,255,.09);
+}
+
+
+/* HERO STATS */
+
+.hero-stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 7px;
+
+    margin-top: 24px;
+}
+
+
+.hero-stat {
+
+    text-align: center;
+
+    padding: 12px 5px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+
+.hero-stat strong {
+
+    display: block;
+
+    font-size: .95rem;
+
+    font-weight: 900;
+}
+
+
+.hero-stat span {
+
+    color: var(--muted);
+
+    font-size: .53rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section {
+
+    margin-top: 28px;
+}
+
+
+.section-header {
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+}
+
+
+.section-title {
+
+    margin: 0;
+
+    font-size: 1rem;
+
+    font-weight: 900;
+}
+
+
+.section-subtitle {
+
+    margin: 4px 0 0;
+
+    color: var(--muted);
+
+    font-size: .66rem;
+}
+
+
+.section-link {
+
+    color: var(--purple-light);
+
+    font-size: .65rem;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   FEATURED
+========================================================= */
+
+.featured {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 25px;
+
+    padding: 21px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(139,92,246,.20),
+            rgba(59,130,246,.08),
+            rgba(236,72,153,.06)
+        );
+
+    border:
+        1px solid
+        rgba(139,92,246,.30);
+}
+
+
+.featured::before {
+
+    content: "LIMITED";
+
+    position: absolute;
+
+    top: 14px;
+    right: -35px;
+
+    padding:
+        6px
+        45px;
+
+    transform:
+        rotate(35deg);
+
+    background:
+        var(--pink);
+
+    color: white;
+
+    font-size: .48rem;
+
+    font-weight: 900;
+
+    letter-spacing: .12em;
+}
+
+
+.featured-label {
+
+    display: inline-block;
+
+    padding:
+        5px
+        8px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(34,211,238,.08);
+
+    border:
+        1px solid
+        rgba(34,211,238,.15);
+
+    color: var(--cyan);
+
+    font-size: .55rem;
+
+    font-weight: 900;
+}
+
+
+.featured-title {
+
+    font-size: 1.15rem;
+
+    font-weight: 900;
+
+    margin:
+        12px
+        0
+        5px;
+}
+
+
+.featured-description {
+
+    color: var(--muted);
+
+    font-size: .68rem;
+
+    line-height: 1.55;
+}
+
+
+.featured-price {
+
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    color: white;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CHIPS
+========================================================= */
+
+.chips {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+
+    margin-top: 12px;
+}
+
+
+.chip {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding:
+        6px
+        9px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    color: #cfcfdb;
+
+    font-size: .55rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filter-bar {
+
+    display: flex;
+
+    gap: 7px;
+
+    overflow-x: auto;
+
+    padding-bottom: 4px;
+
+    scrollbar-width: none;
+}
+
+
+.filter-bar::-webkit-scrollbar {
+    display: none;
+}
+
+
+.filter {
+
+    flex-shrink: 0;
+
+    padding:
+        9px
+        13px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid var(--border);
+
+    color: var(--muted);
+
+    font-size: .61rem;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.filter.active {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139,92,246,.32),
+            rgba(59,130,246,.18)
+        );
+
+    border-color:
+        rgba(139,92,246,.4);
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-wrap {
+
+    position: relative;
+
+    margin-top: 10px;
+}
+
+
+.search-wrap i {
+
+    position: absolute;
+
+    left: 13px;
+
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: var(--muted);
+
+    font-size: .75rem;
+}
+
+
+.search {
+
+    width: 100%;
+
+    background:
+        rgba(255,255,255,.035)!important;
+
+    border:
+        1px solid
+        var(--border)!important;
+
+    border-radius:
+        14px!important;
+
+    color: white!important;
+
+    padding:
+        11px
+        12px
+        11px
+        37px!important;
+
+    font-size: .7rem!important;
+}
+
+
+.search::placeholder {
+    color: #6c6c7d!important;
+}
+
+
+/* =========================================================
+   SERVICE GRID
+========================================================= */
+
+.service-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+
+.service-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    padding: 16px;
+
+    transition:
+        transform .2s,
+        border-color .2s,
+        box-shadow .2s;
+
+    cursor: pointer;
+}
+
+
+.service-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        var(--border-hover);
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.5);
+}
+
+
+.service-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    right: -60px;
+    bottom: -60px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(139,92,246,.08);
+
+    pointer-events: none;
+}
+
+
+.service-icon {
+
+    width: 41px;
+    height: 41px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(139,92,246,.11);
+
+    color:
+        var(--purple-light);
+
+    margin-bottom: 12px;
+}
+
+
+.service-title {
+
+    font-size: .78rem;
+
+    font-weight: 900;
+
+    margin-bottom: 5px;
+}
+
+
+.service-description {
+
+    color: var(--muted);
+
+    font-size: .61rem;
+
+    line-height: 1.5;
+
+    min-height: 42px;
+}
+
+
+.service-bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 7px;
+
+    margin-top: 13px;
+}
+
+
+.service-price {
+
+    font-weight: 900;
+
+    font-size: .95rem;
+}
+
+
+.service-price small {
+
+    color: var(--muted);
+
+    font-size: .53rem;
+
+    font-weight: 600;
+}
+
+
+.view-btn {
+
+    border:
+        1px solid
+        rgba(139,92,246,.25);
+
+    background:
+        rgba(139,92,246,.09);
+
+    color:
+        var(--purple-light);
+
+    border-radius:
+        10px;
+
+    padding:
+        7px
+        9px;
+
+    font-size: .55rem;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-card {
+
+    border-radius: 23px;
+
+    padding: 18px;
+}
+
+
+.status-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding:
+        12px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.06);
+}
+
+
+.status-row:last-child {
+    border-bottom: 0;
+}
+
+
+.status-icon {
+
+    width: 39px;
+    height: 39px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.045);
+}
+
+
+.status-info {
+    flex: 1;
+}
+
+
+.status-info strong {
+
+    display: block;
+
+    font-size: .72rem;
+}
+
+
+.status-info small {
+
+    color: var(--muted);
+
+    font-size: .57rem;
+}
+
+
+.status-badge {
+
+    padding:
+        5px
+        8px;
+
+    border-radius: 999px;
+
+    font-size: .5rem;
+
+    font-weight: 900;
+
+    background:
+        rgba(34,197,94,.09);
+
+    color:
+        #86efac;
+
+    border:
+        1px solid
+        rgba(34,197,94,.18);
+}
+
+
+/* =========================================================
+   TOOLS
+========================================================= */
+
+.tool {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px;
+
+    border-radius: 17px;
+
+    margin-bottom: 8px;
+
+    transition: .2s;
+}
+
+
+.tool:hover {
+
+    border-color:
+        rgba(34,211,238,.25);
+
+    transform:
+        translateX(2px);
+}
+
+
+.tool-icon {
+
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(34,211,238,.07);
+
+    color:
+        var(--cyan);
+}
+
+
+.tool-info {
+    flex: 1;
+}
+
+
+.tool-info strong {
+
+    display: block;
+
+    font-size: .72rem;
+}
+
+
+.tool-info small {
+
+    color: var(--muted);
+
+    font-size: .57rem;
+}
+
+
+.tool-arrow {
+
+    color: var(--muted);
+
+    font-size: .65rem;
+}
+
+
+/* =========================================================
+   COMMUNITY
+========================================================= */
+
+.community-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 10px;
+}
+
+
+.community {
+
+    border-radius: 20px;
+
+    padding: 18px;
+
+    transition: .2s;
+}
+
+
+.community:hover {
+
+    transform:
+        translateY(-3px);
+
+    border-color:
+        var(--border-hover);
+}
+
+
+.community-icon {
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 13px;
+
+    margin-bottom: 13px;
+
+    background:
+        rgba(139,92,246,.1);
+
+    color:
+        var(--purple-light);
+}
+
+
+.community h3 {
+
+    font-size: .78rem;
+
+    font-weight: 900;
+
+    margin-bottom: 5px;
+}
+
+
+.community p {
+
+    color: var(--muted);
+
+    font-size: .61rem;
+
+    line-height: 1.5;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.payment {
+
+    border-radius: 23px;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34,197,94,.06),
+            rgba(139,92,246,.08)
+        );
+}
+
+
+.payment-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 7px;
+
+    margin-top: 12px;
+}
+
+
+.payment-item {
+
+    padding: 10px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.05);
+
+    color: var(--muted);
+
+    font-size: .58rem;
+}
+
+
+.payment-item i {
+
+    color:
+        var(--purple-light);
+
+    margin-right: 5px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-content {
+
+    background:
+        #0f0f19;
+
+    color: white;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:
+        25px;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.7);
+}
+
+
+.modal-header,
+.modal-footer {
+
+    border-color:
+        var(--border);
+}
+
+
+.modal-body {
+
+    padding:
+        20px;
+}
+
+
+.modal-price {
+
+    font-size:
+        2rem;
+
+    font-weight:
+        900;
+
+    color:
+        var(--purple-light);
+}
+
+
+.modal-list {
+
+    padding: 0;
+
+    list-style: none;
+}
+
+
+.modal-list li {
+
+    color: #c9c9d5;
+
+    font-size: .72rem;
+
+    padding:
+        8px
+        0;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.05);
+}
+
+
+.modal-list li:last-child {
+    border-bottom: 0;
+}
+
+
+.modal-list i {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast-xz {
+
+    position: fixed;
+
+    right: 15px;
+
+    bottom: 95px;
+
+    z-index: 5000;
+
+    padding:
+        12px
+        15px;
+
+    border-radius: 14px;
+
+    background:
+        #151522;
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:
+        var(--shadow);
+
+    font-size: .65rem;
+
+    transform:
+        translateY(20px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .25s;
+}
+
+
+.toast-xz.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================================
+   BOTTOM BAR
+========================================================= */
+
+.bottom-bar {
+
+    position: fixed;
+
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+
+    max-width: 720px;
+
+    margin: auto;
+
+    z-index: 2000;
+
+    padding: 7px;
+
+    border-radius: 20px;
+
+    display: flex;
+
+    gap: 7px;
+}
+
+
+.bottom-btn {
+
+    flex: 1;
+
+    text-align: center;
+
+    padding:
+        11px
+        7px;
+
+    border-radius: 14px;
+
+    font-size: .59rem;
+
+    font-weight: 900;
+}
+
+
+.telegram {
+
+    background:
+        #229ed9;
+
+    color: white;
+}
+
+
+.order {
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--blue)
+        );
+
+    color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+    text-align: center;
+
+    color: #626275;
+
+    font-size: .57rem;
+
+    padding:
+        35px
+        10px
+        20px;
+}
+
+
+.footer-brand {
+
+    font-family: Orbitron;
+
+    font-size: .8rem;
+
+    color: white;
+
+    margin-bottom: 5px;
+}
+
+
+.footer-brand span {
+    color: var(--purple-light);
+}
+
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+.loader {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        var(--bg);
+
+    transition:
+        opacity .4s,
+        visibility .4s;
+}
+
+
+.loader.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+}
+
+
+.loader-logo {
+
+    font-family: Orbitron;
+
+    font-size: 2rem;
+
+    font-weight: 900;
+
+    animation:
+        loaderPulse 1s infinite alternate;
+}
+
+
+.loader-logo span {
+    color: var(--purple);
+}
+
+
+@keyframes loaderPulse {
+
+    from {
+        opacity: .35;
+        transform: scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(min-width:700px) {
+
+    .container-main {
+        padding:
+            20px
+            24px
+            40px;
+    }
+
+    .hero {
+        padding: 50px;
+    }
+
+    .service-grid {
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+    .community-grid {
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+}
+
+
+@media(max-width:500px) {
+
+    .hero-stats {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
 
 </style>
-
 </head>
+
 
 <body>
 
-<div class="header">
-⚡ ModdingXZ
-</div>
 
-<div class="app">
+<!-- =========================================================
+     LOADING SCREEN
+========================================================= -->
 
-<!-- HOME -->
-<div id="home" class="page active">
+<div class="loader" id="loader">
 
-<div class="section">
-<h5>🚀 PlayStation Services</h5>
-<p style="font-size:13px;color:#888;">
-Professional hosting • Secure delivery • 24–48h turnaround
-</p>
-</div>
-
-<div class="section trust">
-<div>✔ 1000+ Orders</div>
-<div>✔ Fast Delivery</div>
-<div>✔ Trusted Service</div>
-</div>
-
-<div class="section">
-<h6>🔥 Popular</h6>
-
-<div class="card-ui">
-<h6>COD Max Progression</h6>
-<p>MW2019 • Cold War • Vanguard</p>
-<div class="price">£15</div>
-<button class="btn-main" onclick="buy('COD Max',15)">Order</button>
-</div>
-
-<div class="card-ui">
-<h6>BO3 Ultimate</h6>
-<p>Prestige 1000 • Unlock All • Zombies</p>
-<div class="price">£15</div>
-<button class="btn-main" onclick="buy('BO3 Ultimate',15)">Order</button>
-</div>
-
-<div class="card-ui">
-<h6>Cold War Dark Aether</h6>
-<p>Unlock All + Trophies</p>
-<div class="price">£10</div>
-<button class="btn-main" onclick="buy('Dark Aether',10)">Order</button>
-</div>
-
-<div class="card-ui">
-<h6>IPTV 1 Year</h6>
-<p>Firestick • Android • Smart TV</p>
-<div class="price">£50</div>
-<button class="btn-main" onclick="buy('IPTV',50)">Order</button>
-</div>
+    <div class="loader-logo">
+        MODDING<span>XZ</span>
+    </div>
 
 </div>
 
+
+<div class="container-main">
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="navbar-xz glass">
+
+    <a href="#" class="brand">
+
+        <div class="logo">
+            MZ
+        </div>
+
+        <div>
+
+            <div class="brand-title">
+                Modding<span>XZ</span>
+            </div>
+
+            <div class="brand-subtitle">
+                GAMING • MODDING • SERVICES
+            </div>
+
+        </div>
+
+    </a>
+
+
+    <div class="nav-actions">
+
+        <button
+            class="icon-btn"
+            onclick="scrollToSection('services')"
+            title="Services">
+
+            <i class="fa-solid fa-store"></i>
+
+        </button>
+
+
+        <a
+            class="icon-btn"
+            href="https://t.me/ModdingXZ"
+            target="_blank"
+            rel="noopener"
+            title="Telegram">
+
+            <i class="fa-brands fa-telegram"></i>
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero glass">
+
+    <div class="hero-content">
+
+        <div class="live-badge">
+
+            <span class="live-dot"></span>
+
+            SERVICES ONLINE
+
+        </div>
+
+
+        <h1>
+
+            MODDING<span class="gradient">XZ</span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            Your all-in-one gaming hub for modded services,
+            PlayStation tools, jailbreak information,
+            trophy services and community updates.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="#services"
+                class="btn-xz btn-primary-xz">
+
+                <i class="fa-solid fa-cart-shopping me-2"></i>
+
+                Browse Services
+
+            </a>
+
+
+            <a
+                href="https://t.me/ModdingXZ_Support_Bot"
+                target="_blank"
+                rel="noopener"
+                class="btn-xz btn-secondary-xz">
+
+                <i class="fa-solid fa-headset me-2"></i>
+
+                Support
+
+            </a>
+
+        </div>
+
+
+        <div class="hero-stats">
+
+            <div class="hero-stat">
+
+                <strong
+                    data-counter="15">
+                    0
+                </strong>
+
+                <span>Services</span>
+
+            </div>
+
+
+            <div class="hero-stat">
+
+                <strong
+                    data-counter="4">
+                    0
+                </strong>
+
+                <span>Platforms</span>
+
+            </div>
+
+
+            <div class="hero-stat">
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>Community</span>
+
+            </div>
+
+
+            <div class="hero-stat">
+
+                <strong>
+                    £2+
+                </strong>
+
+                <span>Starting</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FEATURED
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2 class="section-title">
+                🔥 Featured Service
+            </h2>
+
+            <p class="section-subtitle">
+                Limited-time ModdingXZ package
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="featured glass">
+
+        <div
+            class="d-flex justify-content-between gap-3 flex-wrap">
+
+            <div>
+
+                <span class="featured-label">
+                    🚀 CROSS-PLATFORM
+                </span>
+
+
+                <h2 class="featured-title">
+                    Full COD Max Pro Package
+                </h2>
+
+
+                <p class="featured-description">
+
+                    A complete progression package
+                    covering MW2019, Cold War and Vanguard.
+
+                </p>
+
+            </div>
+
+
+            <div class="featured-price">
+
+                £15
+
+            </div>
+
+        </div>
+
+
+        <div class="chips">
+
+            <span class="chip">
+                🟦 MW2019 Level 1000
+            </span>
+
+            <span class="chip">
+                🏆 All Trophies
+            </span>
+
+            <span class="chip">
+                🟩 Cold War Level 2500
+            </span>
+
+            <span class="chip">
+                🔓 DA Unlock All
+            </span>
+
+            <span class="chip">
+                🟥 Vanguard Max Rank
+            </span>
+
+        </div>
+
+
+        <div class="mt-3 text-warning"
+             style="font-size:.6rem">
+
+            ⚠️ Must own MW2019 before purchase —
+            everything is hosted through it.
+
+        </div>
+
+
+        <button
+            class="btn-xz btn-primary-xz mt-3"
+            onclick="openOrder('Full COD Max Pro Package — £15')">
+
+            <i class="fa-solid fa-bag-shopping me-2"></i>
+
+            Order Package
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     JAILBREAK STATUS
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2 class="section-title">
+                🔓 Platform Status
+            </h2>
+
+            <p class="section-subtitle">
+                ModdingXZ platform information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="status-card glass">
+
+
+        <div class="status-row">
+
+            <div class="status-icon">
+                <i class="fa-brands fa-playstation"></i>
+            </div>
+
+            <div class="status-info">
+
+                <strong>PS4</strong>
+
+                <small>
+                    Jailbreak / modding support
+                </small>
+
+            </div>
+
+            <span class="status-badge">
+                AVAILABLE
+            </span>
+
+        </div>
+
+
+
+        <div class="status-row">
+
+            <div class="status-icon">
+                <i class="fa-brands fa-playstation"></i>
+            </div>
+
+            <div class="status-info">
+
+                <strong>PS5</strong>
+
+                <small>
+                    Firmware-dependent support
+                </small>
+
+            </div>
+
+            <span class="status-badge">
+                CHECK
+            </span>
+
+        </div>
+
+
+
+        <div class="status-row">
+
+            <div class="status-icon">
+                <i class="fa-brands fa-xbox"></i>
+            </div>
+
+            <div class="status-info">
+
+                <strong>Xbox</strong>
+
+                <small>
+                    Cross-platform services
+                </small>
+
+            </div>
+
+            <span class="status-badge">
+                AVAILABLE
+            </span>
+
+        </div>
+
+
+
+        <div class="status-row">
+
+            <div class="status-icon">
+                <i class="fa-solid fa-desktop"></i>
+            </div>
+
+            <div class="status-info">
+
+                <strong>PC</strong>
+
+                <small>
+                    Selected cross-platform services
+                </small>
+
+            </div>
+
+            <span class="status-badge">
+                AVAILABLE
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SERVICES
+========================================================= -->
+
+<section
+    class="section"
+    id="services">
+
+
+    <div class="section-header">
+
+        <div>
+
+            <h2 class="section-title">
+                🎮 Service Catalogue
+            </h2>
+
+            <p class="section-subtitle">
+                Browse everything currently available
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FILTERS -->
+
+    <div class="filter-bar">
+
+        <button
+            class="filter active"
+            onclick="filterServices('all',this)">
+
+            All
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterServices('cod',this)">
+
+            🎮 Call of Duty
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterServices('psn',this)">
+
+            👤 PSN
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterServices('trophy',this)">
+
+            🏆 Trophies
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterServices('games',this)">
+
+            🏎 Games
+
+        </button>
+
+
+        <button
+            class="filter"
+            onclick="filterServices('iptv',this)">
+
+            📺 IPTV
+
+        </button>
+
+    </div>
+
+
+
+    <!-- SEARCH -->
+
+    <div class="search-wrap">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            id="serviceSearch"
+            class="form-control search"
+            placeholder="Search services..."
+            oninput="searchServices()">
+
+    </div>
+
+
+
+    <!-- SERVICE GRID -->
+
+    <div
+        class="service-grid"
+        id="serviceGrid">
+
+
+
+        <!-- BO3 ULTIMATE -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="cod"
+            data-search="bo3 black ops 3 ultimate prestige unlock all zombies">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-skull"></i>
+            </div>
+
+            <div class="service-title">
+                Black Ops 3 Ultimate
+            </div>
+
+            <div class="service-description">
+
+                Prestige 1000 MP,
+                modded classes,
+                unlock all,
+                Zombies Prestige 12
+                and more.
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £15
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'Black Ops 3 Ultimate',
+                        '£15',
+                        [
+                        'Prestige 1000 MP',
+                        'Modded Classes',
+                        'Unlock All',
+                        'Custom Avatars + Cherry Fizz / Void',
+                        'Zombies Prestige 12',
+                        'All EE',
+                        'Unlimited Death Machine + Beast Mode',
+                        'Unreleased Camos',
+                        'Green Clan Tag'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- BO3 MAXED -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="cod"
+            data-search="bo3 black ops 3 maxed prestige master">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <div class="service-title">
+                BO3 Maxed-Out
+            </div>
+
+            <div class="service-description">
+
+                Prestige Master MP +
+                Zombies Level 1000,
+                Unlimited Death Machine
+                and God Mode Classes.
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £10
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'BO3 Maxed-Out',
+                        '£10',
+                        [
+                        'Prestige Master MP',
+                        'Zombies Level 1000',
+                        'Unlimited Death Machine',
+                        'God Mode Classes'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- LIQUID DIVINIUM -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="cod"
+            data-search="liquid divinium crypto keys bo3">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-flask"></i>
+            </div>
+
+            <div class="service-title">
+                Liquid Divinium
+            </div>
+
+            <div class="service-description">
+
+                BO3 Liquid Divinium
+                packages. Crypto keys
+                also available.
+
+            </div>
+
+            <div class="chips">
+
+                <span class="chip">
+                    100K £5
+                </span>
+
+                <span class="chip">
+                    500K £10
+                </span>
+
+                <span class="chip">
+                    1M £20
+                </span>
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £5+
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="openOrder('BO3 Liquid Divinium')">
+
+                    ORDER
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- COLD WAR -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="cod"
+            data-search="cold war classes da unlock all crystals currency">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-snowflake"></i>
+            </div>
+
+            <div class="service-title">
+                Cold War
+            </div>
+
+            <div class="service-description">
+
+                Custom classes,
+                DA Unlock All,
+                crystals/currency
+                and trophies.
+
+            </div>
+
+            <div class="chips">
+
+                <span class="chip">
+                    Classes £15
+                </span>
+
+                <span class="chip">
+                    DA £10
+                </span>
+
+                <span class="chip">
+                    Crystals £5
+                </span>
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £5+
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'Cold War Services',
+                        'From £5',
+                        [
+                        'Custom Modded Classes — £15',
+                        'DA Unlock All — £10',
+                        'Crystals / Currency — £5',
+                        'Trophies included'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- OTHER COD -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="cod"
+            data-search="ghosts advanced warfare bo4 call of duty">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-crosshairs"></i>
+            </div>
+
+            <div class="service-title">
+                Other COD Games
+            </div>
+
+            <div class="service-description">
+
+                Ghosts, Advanced Warfare
+                and Black Ops 4 services.
+
+            </div>
+
+            <div class="chips">
+
+                <span class="chip">
+                    Ghosts £15
+                </span>
+
+                <span class="chip">
+                    AW £10
+                </span>
+
+                <span class="chip">
+                    BO4 £10
+                </span>
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £5+
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'Other Call of Duty Games',
+                        'From £5',
+                        [
+                        'COD Ghosts — £15',
+                        'COD Advanced Warfare — £10',
+                        'BO4 Modded Classes — £10',
+                        'BO4 All Trophies — £5'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- PSN -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="psn"
+            data-search="psn avatar about me profile colour color">
+
+            <div class="service-icon">
+                <i class="fa-brands fa-playstation"></i>
+            </div>
+
+            <div class="service-title">
+                PSN Profile Extras
+            </div>
+
+            <div class="service-description">
+
+                Custom avatars,
+                About Me sections
+                and profile colours.
+
+            </div>
+
+            <div class="chips">
+
+                <span class="chip">
+                    Avatar £2
+                </span>
+
+                <span class="chip">
+                    About Me £2
+                </span>
+
+                <span class="chip">
+                    Colour £2
+                </span>
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £2
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'PSN Profile Extras',
+                        '£2 each',
+                        [
+                        'Custom Avatar — £2',
+                        'Modded About Me — £2',
+                        'Any Profile Colour — £2'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- NFS -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="games"
+            data-search="need for speed heat hot pursuit save reassign">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-car-side"></i>
+            </div>
+
+            <div class="service-title">
+                Other Modded Games
+            </div>
+
+            <div class="service-description">
+
+                Need for Speed
+                and PS4 save services.
+
+            </div>
+
+            <div class="chips">
+
+                <span class="chip">
+                    NFS Heat £10
+                </span>
+
+                <span class="chip">
+                    Hot Pursuit £5
+                </span>
+
+                <span class="chip">
+                    Saves £5
+                </span>
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £5+
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'Other Modded Services',
+                        'From £5',
+                        [
+                        'Need for Speed Heat — £10',
+                        'Unlock All + Cars',
+                        'Need for Speed Hot Pursuit Remastered — £5',
+                        'Any Modded Save / Reassign PS4 Game Save — £5'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- TROPHIES -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="trophy"
+            data-search="trophy level 999 platinum playstation">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <div class="service-title">
+                Trophy Level 999
+            </div>
+
+            <div class="service-description">
+
+                PlayStation Trophy
+                Level 999 packages
+                with massive platinum counts.
+
+            </div>
+
+            <div class="chips">
+
+                <span class="chip">
+                    1,100+ £30
+                </span>
+
+                <span class="chip">
+                    1,800+ £40
+                </span>
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £30+
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'PlayStation Trophy Level 999',
+                        '£30 / £40',
+                        [
+                        'Level 999 + 1,100+ Platinum Trophies — £30',
+                        'Level 999 + 1,800+ Platinum Trophies — £40',
+                        'Typical completion: 24–48 hours',
+                        'Account email/password required',
+                        'Full instructions provided after purchase'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- IPTV -->
+
+        <article
+            class="service-card glass service-item"
+            data-category="iptv"
+            data-search="iptv firestick android subscription">
+
+            <div class="service-icon">
+                <i class="fa-solid fa-tv"></i>
+            </div>
+
+            <div class="service-title">
+                IPTV Subscription
+            </div>
+
+            <div class="service-description">
+
+                One-year unlimited
+                subscription for
+                supported devices.
+
+            </div>
+
+            <div class="chips">
+
+                <span class="chip">
+                    Firestick
+                </span>
+
+                <span class="chip">
+                    Android
+                </span>
+
+            </div>
+
+            <div class="service-bottom">
+
+                <div class="service-price">
+                    £50
+                    <small>/ year</small>
+                </div>
+
+                <button
+                    class="view-btn"
+                    onclick="showService(
+                        'IPTV Subscription',
+                        '£50 / Year',
+                        [
+                        '1-Year Unlimited — £50',
+                        'Firestick support',
+                        'Android support',
+                        'Bulk pricing available'
+                        ]
+                    )">
+
+                    DETAILS
+
+                </button>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <div
+        id="noResults"
+        class="text-center text-secondary mt-4"
+        style="
+            display:none;
+            font-size:.7rem;
+        ">
+
+        <i class="fa-solid fa-face-frown mb-2"
+           style="font-size:1.4rem">
+        </i>
+
+        <br>
+
+        No services found.
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TOOLS
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2 class="section-title">
+                🛠️ ModdingXZ Tools
+            </h2>
+
+            <p class="section-subtitle">
+                Projects and utilities
+            </p>
+
+        </div>
+
+        <a
+            href="https://github.com/MrJasonDEX"
+            target="_blank"
+            rel="noopener"
+            class="section-link">
+
+            GitHub
+
+        </a>
+
+    </div>
+
+
+    <div class="glass"
+         style="
+            border-radius:23px;
+            padding:9px;
+         ">
+
+
+        <a
+            class="tool glass"
+            href="https://github.com/MrJasonDEX/PSN-Unfriender-Tool"
+            target="_blank"
+            rel="noopener">
+
+            <div class="tool-icon">
+                <i class="fa-solid fa-user-minus"></i>
+            </div>
+
+            <div class="tool-info">
+
+                <strong>
+                    PSN Unfriender Tool
+                </strong>
+
+                <small>
+                    GitHub project
+                </small>
+
+            </div>
+
+            <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
+
+        </a>
+
+
+
+        <a
+            class="tool glass"
+            href="https://github.com/MrJasonDEX"
+            target="_blank"
+            rel="noopener">
+
+            <div class="tool-icon">
+                <i class="fa-brands fa-github"></i>
+            </div>
+
+            <div class="tool-info">
+
+                <strong>
+                    ModdingXZ GitHub
+                </strong>
+
+                <small>
+                    Tools, projects and source
+                </small>
+
+            </div>
+
+            <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     COMMUNITY
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2 class="section-title">
+                💬 Join ModdingXZ
+            </h2>
+
+            <p class="section-subtitle">
+                Community, updates and support
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="community-grid">
+
+
+        <a
+            class="community glass"
+            href="https://t.me/ModdingXZ"
+            target="_blank"
+            rel="noopener">
+
+            <div class="community-icon">
+                <i class="fa-brands fa-telegram"></i>
+            </div>
+
+            <h3>
+                Telegram
+            </h3>
+
+            <p>
+                Gaming discussions,
+                updates and community news.
+            </p>
+
+        </a>
+
+
+
+        <a
+            class="community glass"
+            href="https://t.me/ModdingXZ_Support_Bot"
+            target="_blank"
+            rel="noopener">
+
+            <div class="community-icon">
+                <i class="fa-solid fa-headset"></i>
+            </div>
+
+            <h3>
+                Support Bot
+            </h3>
+
+            <p>
+                Orders and service enquiries.
+            </p>
+
+        </a>
+
+
+
+        <a
+            class="community glass"
+            href="https://www.tiktok.com/@moddingx1"
+            target="_blank"
+            rel="noopener">
+
+            <div class="community-icon">
+                <i class="fa-brands fa-tiktok"></i>
+            </div>
+
+            <h3>
+                TikTok
+            </h3>
+
+            <p>
+                Modding content,
+                videos and updates.
+            </p>
+
+        </a>
+
+
+
+        <a
+            class="community glass"
+            href="https://github.com/MrJasonDEX"
+            target="_blank"
+            rel="noopener">
+
+            <div class="community-icon">
+                <i class="fa-brands fa-github"></i>
+            </div>
+
+            <h3>
+                GitHub
+            </h3>
+
+            <p>
+                Projects and gaming tools.
+            </p>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PAYMENT
+========================================================= -->
+
+<section class="section">
+
+    <div class="payment glass">
+
+        <h2 class="section-title">
+            💳 Payment & Delivery
+        </h2>
+
+        <p
+            class="section-subtitle"
+            style="margin-top:5px">
+
+            Everything you need before ordering.
+
+        </p>
+
+
+        <div class="payment-grid">
+
+
+            <div class="payment-item">
+
+                <i class="fa-brands fa-paypal"></i>
+
+                PayPal — GBP Only
+
+            </div>
+
+
+            <div class="payment-item">
+
+                <i class="fa-solid fa-clock"></i>
+
+                5–30 Minutes
+
+            </div>
+
+
+            <div class="payment-item">
+
+                <i class="fa-solid fa-ban"></i>
+
+                No Refunds Once Started
+
+            </div>
+
+
+            <div class="payment-item">
+
+                <i class="fa-solid fa-key"></i>
+
+                Some Services Require Login
+
+            </div>
+
+
+        </div>
+
+
+        <div
+            class="mt-3 text-secondary"
+            style="
+                font-size:.58rem;
+                line-height:1.6;
+            ">
+
+            ⚠️ Never post account credentials publicly.
+            Only provide information through the official
+            ModdingXZ support process when required.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="footer-brand">
+        Modding<span>XZ</span>
+    </div>
+
+    Gaming • Modding • Tools • Services
+
+    <br><br>
+
+    © 2026 ModdingXZ.
+    All rights reserved.
+
+</footer>
+
+
 </div>
 
-<!-- SERVICES -->
-<div id="services" class="page">
 
-<h5>📦 Full Service List</h5>
 
-<div class="card-ui">
-<h6>Liquid Divinium</h6>
-<p>100k £5 • 500k £10 • 1M £20</p>
-<button class="btn-main" onclick="buy('Divinium',5)">Order</button>
-</div>
+<!-- =========================================================
+     BOTTOM BAR
+========================================================= -->
 
-<div class="card-ui">
-<h6>PSN Customisation</h6>
-<p>Avatar • Bio • Trophy Level</p>
-<button class="btn-main" onclick="buy('PSN Custom',5)">Order</button>
-</div>
+<div class="bottom-bar glass">
 
-</div>
+    <a
+        class="bottom-btn telegram"
+        href="https://t.me/ModdingXZ"
+        target="_blank"
+        rel="noopener">
 
-<!-- INFO -->
-<div id="info" class="page">
+        <i class="fa-brands fa-telegram me-1"></i>
 
-<h5>ℹ️ How It Works</h5>
+        COMMUNITY
 
-<div class="card-ui">1️⃣ Choose Service</div>
-<div class="card-ui">2️⃣ Enter PSN on Telegram</div>
-<div class="card-ui">3️⃣ Delivered in 24–48h</div>
+    </a>
 
-<div class="card-ui" style="margin-top:20px;">
-⚠️ No refunds after service starts  
-⚠️ Some services require login
-</div>
 
-</div>
+    <a
+        class="bottom-btn order"
+        href="https://t.me/ModdingXZ_Support_Bot"
+        target="_blank"
+        rel="noopener">
+
+        <i class="fa-solid fa-cart-shopping me-1"></i>
+
+        ORDER / SUPPORT
+
+    </a>
 
 </div>
 
-<!-- NAV -->
-<div class="bottom-nav">
-<button onclick="showPage('home')">🏠</button>
-<button onclick="showPage('services')">📦</button>
-<button onclick="showPage('info')">ℹ️</button>
+
+
+<!-- =========================================================
+     SERVICE MODAL
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="serviceModal"
+    tabindex="-1">
+
+    <div
+        class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+
+                <div>
+
+                    <div
+                        class="text-secondary"
+                        style="font-size:.55rem">
+
+                        MODDINGXZ SERVICE
+
+                    </div>
+
+                    <h5
+                        class="modal-title fw-bold"
+                        id="modalTitle">
+
+                        Service
+
+                    </h5>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+
+            <div class="modal-body">
+
+                <div
+                    class="modal-price"
+                    id="modalPrice">
+
+                    £0
+
+                </div>
+
+
+                <ul
+                    class="modal-list mt-3"
+                    id="modalList">
+                </ul>
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn-xz btn-secondary-xz"
+                    data-bs-dismiss="modal">
+
+                    Close
+
+                </button>
+
+
+                <button
+                    class="btn-xz btn-primary-xz"
+                    id="modalOrder">
+
+                    <i class="fa-solid fa-cart-shopping me-1"></i>
+
+                    Order Now
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
 </div>
 
-<!-- LIVE FEED -->
-<div id="liveFeed" class="live-feed"></div>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast-xz"
+    id="toast">
+
+    <i
+        class="fa-solid fa-circle-check text-success me-2">
+    </i>
+
+    <span id="toastText">
+        Done
+    </span>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <script>
 
-/* NAV */
-function showPage(page){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(page).classList.add('active');
+/* =========================================================
+   CONFIG
+========================================================= */
+
+const CONFIG = {
+
+    supportBot:
+        "https://t.me/ModdingXZ_Support_Bot",
+
+    telegram:
+        "https://t.me/ModdingXZ",
+
+    github:
+        "https://github.com/MrJasonDEX"
+
+};
+
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+
+        document
+            .getElementById("loader")
+            .classList.add("hide");
+
+    }, 600);
+
+});
+
+
+/* =========================================================
+   COUNTERS
+========================================================= */
+
+function animateCounters() {
+
+    const counters =
+        document.querySelectorAll(
+            "[data-counter]"
+        );
+
+    counters.forEach(counter => {
+
+        const target =
+            Number(
+                counter.dataset.counter
+            );
+
+        let current = 0;
+
+        const increment =
+            Math.max(
+                1,
+                Math.ceil(target / 30)
+            );
+
+        const timer =
+            setInterval(() => {
+
+                current += increment;
+
+                if (current >= target) {
+
+                    current = target;
+
+                    clearInterval(timer);
+
+                }
+
+                counter.textContent =
+                    current;
+
+            }, 35);
+
+    });
+
 }
 
-/* TELEGRAM ORDER */
-function buy(name,price){
-let msg = encodeURIComponent(`🛒 ${name} | £${price}`);
-window.location.href = `https://t.me/ModdingXZ_Support_Bot?start=${msg}`;
+
+setTimeout(
+    animateCounters,
+    700
+);
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollToSection(id) {
+
+    const element =
+        document.getElementById(id);
+
+    if (!element) return;
+
+    element.scrollIntoView({
+        behavior: "smooth"
+    });
+
 }
 
-/* LIVE FEED */
-const feed = [
-"Alex bought BO3 Ultimate",
-"Liam bought COD Max",
-"Jamie bought IPTV",
-"Chris bought Dark Aether"
-];
 
-setInterval(()=>{
-let msg = feed[Math.floor(Math.random()*feed.length)];
-document.getElementById("liveFeed").innerText = msg;
-},4000);
+/* =========================================================
+   FILTER SERVICES
+========================================================= */
+
+function filterServices(
+    category,
+    button
+) {
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+    button.classList.add("active");
+
+    document
+        .getElementById("serviceSearch")
+        .value = "";
+
+    let visible = 0;
+
+    document
+        .querySelectorAll(".service-item")
+        .forEach(card => {
+
+            const match =
+                category === "all" ||
+                card.dataset.category === category;
+
+            card.style.display =
+                match
+                ? ""
+                : "none";
+
+            if (match) visible++;
+
+        });
+
+
+    document
+        .getElementById("noResults")
+        .style.display =
+            visible
+            ? "none"
+            : "block";
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchServices() {
+
+    const query =
+        document
+            .getElementById("serviceSearch")
+            .value
+            .toLowerCase()
+            .trim();
+
+
+    let visible = 0;
+
+
+    document
+        .querySelectorAll(".service-item")
+        .forEach(card => {
+
+            const searchable =
+                (
+                    card.dataset.search +
+                    " " +
+                    card.innerText
+                ).toLowerCase();
+
+
+            const match =
+                !query ||
+                searchable.includes(query);
+
+
+            card.style.display =
+                match
+                ? ""
+                : "none";
+
+
+            if (match) visible++;
+
+        });
+
+
+    document
+        .querySelectorAll(".filter")
+        .forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+
+    document
+        .getElementById("noResults")
+        .style.display =
+            visible
+            ? "none"
+            : "block";
+
+}
+
+
+/* =========================================================
+   SERVICE MODAL
+========================================================= */
+
+let serviceModal;
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        serviceModal =
+            new bootstrap.Modal(
+                document.getElementById(
+                    "serviceModal"
+                )
+            );
+
+    }
+);
+
+
+function showService(
+    title,
+    price,
+    items
+) {
+
+    document
+        .getElementById("modalTitle")
+        .textContent =
+            title;
+
+
+    document
+        .getElementById("modalPrice")
+        .textContent =
+            price;
+
+
+    const list =
+        document.getElementById(
+            "modalList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    items.forEach(item => {
+
+        const li =
+            document.createElement("li");
+
+
+        li.innerHTML =
+            `
+            <i class="fa-solid fa-check me-2"></i>
+            ${escapeHTML(item)}
+            `;
+
+
+        list.appendChild(li);
+
+    });
+
+
+    document
+        .getElementById("modalOrder")
+        .onclick =
+            () =>
+                openOrder(
+                    title +
+                    " — " +
+                    price
+                );
+
+
+    serviceModal.show();
+
+}
+
+
+/* =========================================================
+   ORDER
+========================================================= */
+
+function openOrder(service) {
+
+    const message =
+        `Hi ModdingXZ! I'd like to order: ${service}`;
+
+
+    const url =
+        CONFIG.supportBot +
+        "?start=" +
+        encodeURIComponent(service);
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener"
+    );
+
+
+    showToast(
+        "Opening ModdingXZ Support..."
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    document
+        .getElementById("toastText")
+        .textContent =
+            message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 2800);
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(
+            /[&<>"']/g,
+            char => {
+
+                const map = {
+
+                    "&": "&amp;",
+                    "<": "&lt;",
+                    ">": "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+
+                };
+
+                return map[char];
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "/" &&
+            document.activeElement.tagName !== "INPUT"
+        ) {
+
+            event.preventDefault();
+
+            document
+                .getElementById(
+                    "serviceSearch"
+                )
+                .focus();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   PWA SERVICE WORKER
+=========================================================
+
+   GitHub Pages supports service workers when served
+   over HTTPS. This creates a small offline cache.
+
+========================================================= */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            const sw = `
+                const CACHE = "moddingxz-v1";
+
+                self.addEventListener(
+                    "install",
+                    event => {
+
+                        self.skipWaiting();
+
+                    }
+                );
+
+                self.addEventListener(
+                    "activate",
+                    event => {
+
+                        event.waitUntil(
+                            caches.keys()
+                                .then(keys =>
+                                    Promise.all(
+                                        keys
+                                            .filter(k => k !== CACHE)
+                                            .map(k => caches.delete(k))
+                                    )
+                                )
+                        );
+
+                    }
+                );
+
+                self.addEventListener(
+                    "fetch",
+                    event => {
+
+                        if (
+                            event.request.method !== "GET"
+                        ) return;
+
+                        event.respondWith(
+
+                            fetch(event.request)
+                                .then(response => {
+
+                                    const copy =
+                                        response.clone();
+
+                                    caches.open(CACHE)
+                                        .then(cache =>
+                                            cache.put(
+                                                event.request,
+                                                copy
+                                            )
+                                        );
+
+                                    return response;
+
+                                })
+                                .catch(() =>
+                                    caches.match(
+                                        event.request
+                                    )
+                                )
+
+                        );
+
+                    }
+                );
+            `;
+
+
+            const blob =
+                new Blob(
+                    [sw],
+                    {
+                        type:
+                            "application/javascript"
+                    }
+                );
+
+
+            const url =
+                URL.createObjectURL(blob);
+
+
+            navigator.serviceWorker
+                .register(url)
+                .catch(() => {});
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FUTURE TRANSLATION API HOOK
+=========================================================
+
+   IMPORTANT:
+
+   Never put a private API key here.
+
+   GitHub Pages is public.
+
+   For automatic full-site translation, use:
+
+   GitHub Pages
+          ↓
+   Cloudflare Worker / API Proxy
+          ↓
+   Translation API
+
+   Example function structure:
+
+   async function translatePage(language) {
+
+       const response =
+           await fetch(
+               "YOUR-WORKER-ENDPOINT",
+               {
+                   method: "POST",
+                   headers: {
+                       "Content-Type":
+                           "application/json"
+                   },
+                   body: JSON.stringify({
+                       language: language,
+                       text: document.body.innerText
+                   })
+               }
+           );
+
+       return response.json();
+
+   }
+
+========================================================= */
+
+
+/* =========================================================
+   RANDOM AMBIENT EFFECT
+========================================================= */
+
+setInterval(() => {
+
+    const cards =
+        document.querySelectorAll(
+            ".service-card"
+        );
+
+
+    if (!cards.length) return;
+
+
+    const random =
+        cards[
+            Math.floor(
+                Math.random() *
+                cards.length
+            )
+        ];
+
+
+    random.style.boxShadow =
+        `
+        0 0 35px
+        rgba(139,92,246,.12)
+        `;
+
+
+    setTimeout(() => {
+
+        random.style.boxShadow = "";
+
+    }, 700);
+
+}, 5000);
 
 </script>
+
 
 </body>
 </html>
