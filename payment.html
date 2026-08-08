@@ -7,79 +7,58 @@
 
     <title>ModdingXZ | Payment Portal</title>
 
-    <meta name="description" content="ModdingXZ secure payment portal for confirmed orders.">
-    <meta name="theme-color" content="#08080d">
+    <meta name="description" content="ModdingXZ payment portal. Choose your preferred payment method and account.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
+
         :root {
-            --bg: #07070b;
-            --panel: rgba(15, 15, 23, .88);
-            --panel-2: rgba(23, 23, 34, .8);
-            --border: rgba(255,255,255,.08);
-            --text: #fff;
+            --background: #07070b;
+            --card: rgba(18, 18, 27, 0.88);
+            --card-light: rgba(255,255,255,0.035);
+            --border: rgba(255,255,255,0.08);
+
+            --text: #ffffff;
             --muted: #9696a7;
+
             --purple: #8b5cf6;
-            --purple2: #6366f1;
+            --purple-dark: #6366f1;
+
             --green: #22c55e;
-            --blue: #3b82f6;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            box-sizing: border-box;
         }
 
         body {
             min-height: 100vh;
+
             font-family: "Rubik", sans-serif;
+
             color: var(--text);
+
             background:
-                radial-gradient(circle at 15% 5%, rgba(139,92,246,.16), transparent 28%),
-                radial-gradient(circle at 85% 25%, rgba(59,130,246,.10), transparent 30%),
-                var(--bg);
+                radial-gradient(
+                    circle at 15% 5%,
+                    rgba(139,92,246,0.18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 30%,
+                    rgba(59,130,246,0.10),
+                    transparent 30%
+                ),
+                var(--background);
+
             overflow-x: hidden;
         }
 
-        button,
-        select {
-            font-family: inherit;
-        }
-
-        /* =========================
-           BACKGROUND
-        ========================= */
-
-        .orb {
-            position: fixed;
-            width: 320px;
-            height: 320px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: .10;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .orb.one {
-            background: #8b5cf6;
-            top: -120px;
-            left: -100px;
-        }
-
-        .orb.two {
-            background: #2563eb;
-            right: -120px;
-            bottom: 10%;
-        }
 
         /* =========================
            HEADER
@@ -88,16 +67,22 @@
         header {
             position: sticky;
             top: 0;
-            z-index: 20;
+            z-index: 50;
+
             border-bottom: 1px solid var(--border);
-            background: rgba(7,7,11,.72);
+
+            background: rgba(7,7,11,0.75);
+
             backdrop-filter: blur(18px);
         }
 
         .nav {
             width: min(1050px, calc(100% - 32px));
-            min-height: 76px;
+
+            min-height: 74px;
+
             margin: auto;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -106,102 +91,157 @@
         .brand {
             display: flex;
             align-items: center;
+
             gap: 12px;
-            font-weight: 900;
+
             font-size: 20px;
+            font-weight: 900;
         }
 
         .brand-icon {
             width: 42px;
             height: 42px;
+
             display: grid;
             place-items: center;
+
             border-radius: 12px;
-            background: linear-gradient(135deg, var(--purple), #4f46e5);
-            box-shadow: 0 10px 35px rgba(139,92,246,.28);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-dark)
+                );
+
+            box-shadow:
+                0 10px 35px rgba(139,92,246,0.3);
         }
 
-        .status {
+        .online {
             display: flex;
             align-items: center;
             gap: 8px;
+
             color: var(--muted);
+
             font-size: 12px;
         }
 
-        .status-dot {
+        .online-dot {
             width: 8px;
             height: 8px;
+
             border-radius: 50%;
+
             background: var(--green);
-            box-shadow: 0 0 12px rgba(34,197,94,.8);
+
+            box-shadow:
+                0 0 12px rgba(34,197,94,0.8);
         }
+
 
         /* =========================
            MAIN
         ========================= */
 
         main {
-            width: min(850px, calc(100% - 32px));
+            width: min(760px, calc(100% - 32px));
+
             margin: auto;
-            padding: 70px 0 90px;
+
+            padding: 75px 0 90px;
         }
 
         .hero {
             text-align: center;
+
             margin-bottom: 38px;
         }
 
         .badge {
             display: inline-flex;
             align-items: center;
+
             gap: 7px;
+
             padding: 8px 14px;
+
             margin-bottom: 18px;
+
             border-radius: 999px;
+
             color: #c4b5fd;
-            background: rgba(139,92,246,.08);
-            border: 1px solid rgba(139,92,246,.24);
+
+            background: rgba(139,92,246,0.08);
+
+            border:
+                1px solid
+                rgba(139,92,246,0.25);
+
             font-size: 12px;
             font-weight: 800;
         }
 
         .hero h1 {
-            font-size: clamp(38px, 7vw, 64px);
+            font-size: clamp(40px, 7vw, 64px);
+
             line-height: 1;
+
             letter-spacing: -2.5px;
+
             margin-bottom: 18px;
         }
 
         .gradient {
-            background: linear-gradient(90deg, #a78bfa, #60a5fa);
+            background:
+                linear-gradient(
+                    90deg,
+                    #a78bfa,
+                    #60a5fa
+                );
+
             -webkit-background-clip: text;
             background-clip: text;
+
             color: transparent;
         }
 
         .hero p {
-            max-width: 650px;
+            max-width: 620px;
+
             margin: auto;
+
             color: var(--muted);
+
             line-height: 1.7;
+
             font-size: 15px;
         }
 
+
         /* =========================
-           PAYMENT CARD
+           CARD
         ========================= */
 
-        .card {
-            padding: 26px;
-            border: 1px solid var(--border);
+        .payment-card {
+            padding: 27px;
+
+            border:
+                1px solid
+                var(--border);
+
             border-radius: 26px;
-            background: var(--panel);
+
+            background: var(--card);
+
             box-shadow:
-                0 30px 80px rgba(0,0,0,.38),
-                inset 0 1px rgba(255,255,255,.03);
+                0 30px 90px rgba(0,0,0,0.4),
+                inset 0 1px rgba(255,255,255,0.03);
+
             backdrop-filter: blur(20px);
         }
+
 
         /* =========================
            NOTICE
@@ -209,201 +249,259 @@
 
         .notice {
             display: flex;
+
             gap: 14px;
+
             padding: 17px;
+
             margin-bottom: 28px;
+
+            border:
+                1px solid
+                rgba(139,92,246,0.18);
+
             border-radius: 16px;
-            border: 1px solid rgba(245,158,11,.22);
-            background: rgba(245,158,11,.06);
+
+            background:
+                rgba(139,92,246,0.055);
         }
 
         .notice-icon {
-            flex: 0 0 38px;
-            width: 38px;
-            height: 38px;
+            flex: 0 0 40px;
+
+            width: 40px;
+            height: 40px;
+
             display: grid;
             place-items: center;
-            border-radius: 11px;
-            background: rgba(245,158,11,.12);
+
+            border-radius: 12px;
+
+            background:
+                rgba(139,92,246,0.12);
         }
 
         .notice h3 {
-            font-size: 14px;
             margin-bottom: 5px;
+
+            font-size: 14px;
         }
 
         .notice p {
-            color: #aaa9b6;
+            color: var(--muted);
+
             font-size: 12px;
+
             line-height: 1.6;
         }
 
+
         /* =========================
-           SECTION
+           LABEL
         ========================= */
 
-        .section {
+        .label {
+            display: block;
+
+            margin-bottom: 11px;
+
+            color: #dddde7;
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================
+           AMOUNT
+        ========================= */
+
+        .amount-wrapper {
+            position: relative;
+
             margin-bottom: 28px;
         }
 
-        .section-title {
-            margin-bottom: 13px;
-            font-size: 13px;
-            font-weight: 800;
-            color: #dddde6;
-        }
-
-        /* =========================
-           SERVICE
-        ========================= */
-
-        .select-wrap {
-            position: relative;
-        }
-
-        select {
-            width: 100%;
-            height: 64px;
-            padding: 0 52px 0 17px;
-            appearance: none;
-            outline: none;
-            cursor: pointer;
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            background: #090910;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            transition: .2s;
-        }
-
-        select:hover {
-            border-color: rgba(139,92,246,.28);
-        }
-
-        select:focus {
-            border-color: var(--purple);
-            box-shadow: 0 0 0 4px rgba(139,92,246,.08);
-        }
-
-        option,
-        optgroup {
-            background: #111119;
-            color: #fff;
-        }
-
-        .arrow {
+        .currency {
             position: absolute;
+
+            left: 18px;
             top: 50%;
-            right: 19px;
+
             transform: translateY(-50%);
+
+            color: #aaaaba;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
             pointer-events: none;
-            color: #aaaab8;
         }
 
-        .price {
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 12px;
-            padding: 16px;
-            border-radius: 14px;
-            border: 1px solid rgba(139,92,246,.13);
-            background: rgba(139,92,246,.06);
+        .amount {
+            width: 100%;
+
+            height: 66px;
+
+            padding:
+                0 18px 0 43px;
+
+            outline: none;
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius: 15px;
+
+            background:
+                #090910;
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+            transition: 0.2s;
         }
 
-        .price.show {
-            display: flex;
+        .amount::placeholder {
+            color: #4d4d5b;
         }
 
-        .price small {
-            color: var(--muted);
-            font-size: 11px;
+        .amount:focus {
+            border-color: var(--purple);
+
+            box-shadow:
+                0 0 0 4px
+                rgba(139,92,246,0.08);
         }
 
-        .price strong {
-            color: #c4b5fd;
-            font-size: 22px;
-        }
 
         /* =========================
-           PAYMENT METHODS
+           METHODS
         ========================= */
 
         .methods {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
             gap: 13px;
+
+            margin-bottom: 28px;
         }
 
         .method {
             position: relative;
-            padding: 20px;
+
+            padding: 21px;
+
+            border:
+                1px solid
+                var(--border);
+
             border-radius: 17px;
-            border: 1px solid var(--border);
-            background: var(--panel-2);
+
+            background:
+                var(--card-light);
+
             cursor: pointer;
-            transition: .2s;
+
+            transition: 0.2s;
         }
 
         .method:hover {
             transform: translateY(-2px);
-            border-color: rgba(139,92,246,.35);
+
+            border-color:
+                rgba(139,92,246,0.35);
         }
 
         .method.selected {
             border-color: var(--purple);
-            background: rgba(139,92,246,.10);
-            box-shadow: 0 0 0 1px rgba(139,92,246,.12);
+
+            background:
+                rgba(139,92,246,0.10);
+
+            box-shadow:
+                0 0 0 1px
+                rgba(139,92,246,0.12);
         }
 
-        .method-check {
+        .check {
             position: absolute;
+
             top: 13px;
             right: 13px;
+
             width: 22px;
             height: 22px;
+
             display: grid;
             place-items: center;
-            border: 1px solid #484855;
+
+            border:
+                1px solid
+                #484855;
+
             border-radius: 50%;
+
             color: transparent;
+
             font-size: 12px;
         }
 
-        .method.selected .method-check {
-            color: #fff;
-            border-color: var(--purple);
+        .method.selected .check {
             background: var(--purple);
+
+            border-color: var(--purple);
+
+            color: white;
         }
 
         .method-icon {
-            width: 46px;
-            height: 46px;
+            width: 47px;
+            height: 47px;
+
             display: grid;
             place-items: center;
+
             margin-bottom: 13px;
+
             border-radius: 13px;
+
             font-size: 22px;
         }
 
-        .paypal {
-            background: rgba(0,112,186,.14);
+        .paypal-icon {
+            background:
+                rgba(0,112,186,0.14);
         }
 
-        .revolut {
-            background: rgba(255,255,255,.07);
+        .revolut-icon {
+            background:
+                rgba(255,255,255,0.07);
         }
 
         .method h3 {
             margin-bottom: 5px;
+
             font-size: 16px;
         }
 
         .method p {
             color: var(--muted);
+
             font-size: 11px;
         }
+
 
         /* =========================
            ACCOUNTS
@@ -411,155 +509,250 @@
 
         .accounts {
             display: none;
-            margin-top: 28px;
+
+            margin-bottom: 28px;
         }
 
         .accounts.show {
             display: block;
-            animation: fadeIn .2s ease;
+
+            animation:
+                fadeIn 0.2s ease;
         }
 
         @keyframes fadeIn {
+
             from {
                 opacity: 0;
-                transform: translateY(5px);
+
+                transform:
+                    translateY(6px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+
+                transform:
+                    translateY(0);
             }
+
         }
 
         .account-list {
             display: grid;
+
             gap: 10px;
         }
 
         .account {
             display: flex;
+
             align-items: center;
             justify-content: space-between;
+
             gap: 15px;
+
             padding: 15px;
+
+            border:
+                1px solid
+                var(--border);
+
             border-radius: 14px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,.025);
+
+            background:
+                rgba(255,255,255,0.025);
+
             cursor: pointer;
-            transition: .2s;
+
+            transition: 0.2s;
         }
 
         .account:hover {
-            background: rgba(255,255,255,.05);
+            background:
+                rgba(255,255,255,0.05);
         }
 
         .account.selected {
-            border-color: var(--purple);
-            background: rgba(139,92,246,.08);
+            border-color:
+                var(--purple);
+
+            background:
+                rgba(139,92,246,0.08);
         }
 
         .account-left {
             display: flex;
+
             align-items: center;
+
             gap: 12px;
         }
 
         .avatar {
-            width: 40px;
-            height: 40px;
+            width: 41px;
+            height: 41px;
+
             display: grid;
             place-items: center;
+
             border-radius: 11px;
-            background: linear-gradient(135deg, #29293a, #15151f);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #29293a,
+                    #15151f
+                );
+
             font-weight: 900;
         }
 
         .account-name {
             font-size: 14px;
+
             font-weight: 800;
         }
 
         .account-link {
             margin-top: 3px;
+
             color: var(--muted);
+
             font-size: 11px;
         }
 
         .radio {
             width: 20px;
             height: 20px;
+
             padding: 4px;
-            border: 1px solid #4b4b59;
+
+            border:
+                1px solid
+                #4b4b59;
+
             border-radius: 50%;
         }
 
         .account.selected .radio {
-            border-color: var(--purple);
+            border-color:
+                var(--purple);
         }
 
         .account.selected .radio::after {
             content: "";
+
             display: block;
+
             width: 100%;
             height: 100%;
+
             border-radius: 50%;
-            background: var(--purple);
+
+            background:
+                var(--purple);
         }
 
+
         /* =========================
-           CONTINUE
+           BUTTON
         ========================= */
 
         .continue {
             width: 100%;
+
             height: 60px;
-            margin-top: 28px;
+
             border: 0;
+
             border-radius: 15px;
-            background: linear-gradient(135deg, var(--purple), var(--purple2));
-            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-dark)
+                );
+
+            color: white;
+
+            font-family: inherit;
+
             font-size: 15px;
+
             font-weight: 900;
+
             cursor: pointer;
-            transition: .2s;
-            box-shadow: 0 15px 35px rgba(109,40,217,.25);
+
+            transition: 0.2s;
+
+            box-shadow:
+                0 15px 35px
+                rgba(109,40,217,0.25);
         }
 
         .continue:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 45px rgba(109,40,217,.35);
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 20px 45px
+                rgba(109,40,217,0.35);
         }
 
         .continue:disabled {
-            opacity: .4;
+            opacity: 0.4;
+
             cursor: not-allowed;
+
             box-shadow: none;
         }
 
+
         /* =========================
-           INFO
+           FOOTER INFO
         ========================= */
 
         .info {
-            margin-top: 18px;
-            padding: 16px;
+            margin-top: 17px;
+
+            padding: 15px;
+
+            border:
+                1px solid
+                rgba(59,130,246,0.12);
+
             border-radius: 14px;
-            border: 1px solid rgba(59,130,246,.12);
-            background: rgba(59,130,246,.05);
-            color: #9696a6;
+
+            background:
+                rgba(59,130,246,0.045);
+
+            color: var(--muted);
+
             font-size: 11px;
+
             line-height: 1.6;
+
+            text-align: center;
         }
 
         .security {
             display: flex;
+
             justify-content: center;
+
             gap: 18px;
+
             flex-wrap: wrap;
+
             margin-top: 18px;
-            color: #72727f;
+
+            color: #6f6f7d;
+
             font-size: 10px;
         }
+
 
         /* =========================
            MODAL
@@ -567,14 +760,23 @@
 
         .modal {
             position: fixed;
+
             inset: 0;
+
             z-index: 100;
+
             display: none;
+
             align-items: center;
             justify-content: center;
+
             padding: 20px;
-            background: rgba(0,0,0,.78);
-            backdrop-filter: blur(9px);
+
+            background:
+                rgba(0,0,0,0.78);
+
+            backdrop-filter:
+                blur(9px);
         }
 
         .modal.show {
@@ -582,64 +784,85 @@
         }
 
         .modal-box {
-            width: min(100%, 460px);
-            padding: 28px;
+            width:
+                min(100%, 460px);
+
+            padding: 27px;
+
+            border:
+                1px solid
+                var(--border);
+
             border-radius: 23px;
-            border: 1px solid var(--border);
-            background: #111119;
-            box-shadow: 0 30px 100px rgba(0,0,0,.6);
-            animation: modalIn .2s ease;
-        }
 
-        @keyframes modalIn {
-            from {
-                opacity: 0;
-                transform: scale(.96) translateY(10px);
-            }
+            background:
+                #111119;
 
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
+            box-shadow:
+                0 30px 100px
+                rgba(0,0,0,0.6);
         }
 
         .modal-icon {
             width: 62px;
             height: 62px;
+
             display: grid;
             place-items: center;
-            margin: 0 auto 16px;
+
+            margin:
+                0 auto 16px;
+
             border-radius: 50%;
-            border: 1px solid rgba(139,92,246,.25);
-            background: rgba(139,92,246,.10);
+
+            background:
+                rgba(139,92,246,0.10);
+
+            border:
+                1px solid
+                rgba(139,92,246,0.25);
+
             font-size: 26px;
         }
 
         .modal h2 {
             text-align: center;
+
             margin-bottom: 7px;
         }
 
-        .modal-subtitle {
-            text-align: center;
+        .modal p {
             color: var(--muted);
+
+            text-align: center;
+
             font-size: 13px;
+
             line-height: 1.6;
+
             margin-bottom: 20px;
         }
 
         .summary {
             padding: 15px;
+
             margin-bottom: 17px;
+
             border-radius: 13px;
-            background: rgba(255,255,255,.04);
+
+            background:
+                rgba(255,255,255,0.04);
         }
 
         .summary-row {
             display: flex;
+
             justify-content: space-between;
+
             gap: 15px;
+
             padding: 6px 0;
+
             font-size: 12px;
         }
 
@@ -651,36 +874,64 @@
             text-align: right;
         }
 
-        .pay {
+        .pay-button {
             width: 100%;
+
             height: 53px;
+
             border: 0;
+
             border-radius: 13px;
-            background: linear-gradient(135deg, var(--purple), var(--purple2));
-            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-dark)
+                );
+
+            color: white;
+
+            font-family: inherit;
+
             font-weight: 900;
+
             cursor: pointer;
         }
 
-        .close {
+        .close-button {
             width: 100%;
+
             height: 47px;
+
             margin-top: 9px;
-            border: 1px solid var(--border);
+
+            border:
+                1px solid
+                var(--border);
+
             border-radius: 13px;
+
             background: transparent;
+
             color: #aaaab8;
+
             cursor: pointer;
         }
+
 
         /* =========================
            FOOTER
         ========================= */
 
         footer {
-            padding: 0 20px 35px;
+            padding:
+                0 20px 35px;
+
             text-align: center;
+
             color: #666674;
+
             font-size: 11px;
         }
 
@@ -688,17 +939,14 @@
             color: #9292a0;
         }
 
+
         /* =========================
            MOBILE
         ========================= */
 
         @media (max-width: 650px) {
 
-            .nav {
-                min-height: 68px;
-            }
-
-            .status {
+            .online {
                 display: none;
             }
 
@@ -706,12 +954,9 @@
                 padding-top: 45px;
             }
 
-            .hero h1 {
-                letter-spacing: -1.5px;
-            }
-
-            .card {
+            .payment-card {
                 padding: 19px;
+
                 border-radius: 20px;
             }
 
@@ -719,18 +964,17 @@
                 grid-template-columns: 1fr;
             }
 
-            .notice {
-                align-items: flex-start;
+            .hero h1 {
+                letter-spacing: -1.5px;
             }
 
         }
+
     </style>
 </head>
 
-<body>
 
-    <div class="orb one"></div>
-    <div class="orb two"></div>
+<body>
 
 
     <!-- HEADER -->
@@ -750,9 +994,9 @@
             </div>
 
 
-            <div class="status">
+            <div class="online">
 
-                <span class="status-dot"></span>
+                <span class="online-dot"></span>
 
                 Payment Portal Online
 
@@ -763,37 +1007,46 @@
     </header>
 
 
+
     <!-- MAIN -->
 
     <main>
 
+
         <section class="hero">
 
             <div class="badge">
-                🔒 SECURE PAYMENT PORTAL
+                💳 PAYMENT PORTAL
             </div>
 
             <h1>
+
                 Pay
                 <span class="gradient">
                     ModdingXZ
                 </span>
+
             </h1>
 
             <p>
-                Select the service you have already
-                agreed with our support team, choose
-                your payment method and continue to
-                the selected payment account.
+
+                Enter the amount you have been
+                instructed to pay, choose your preferred
+                payment method and select the correct
+                payment account.
+
             </p>
 
         </section>
 
 
-        <section class="card">
+
+        <!-- PAYMENT CARD -->
+
+        <section class="payment-card">
 
 
-            <!-- EXISTING ORDER NOTICE -->
+            <!-- NOTICE -->
 
             <div class="notice">
 
@@ -804,16 +1057,18 @@
                 <div>
 
                     <h3>
-                        PAYMENT LINK — EXISTING ORDERS ONLY
+                        EXISTING CUSTOMERS ONLY
                     </h3>
 
                     <p>
-                        This payment portal is for customers
-                        who have already contacted ModdingXZ
-                        Support and received payment instructions.
-                        Please do not make a payment unless your
-                        service and payment details have been
-                        confirmed by support.
+
+                        Please only use this payment portal
+                        after contacting ModdingXZ Support
+                        and receiving payment instructions.
+
+                        Make sure the amount and payment
+                        account match what you were given.
+
                     </p>
 
                 </div>
@@ -821,236 +1076,111 @@
             </div>
 
 
-            <!-- SERVICE -->
 
-            <div class="section">
+            <!-- AMOUNT -->
 
-                <div class="section-title">
-                    1. Select Your Confirmed Service
-                </div>
+            <label class="label">
 
+                1. Enter Payment Amount
 
-                <div class="select-wrap">
-
-                    <select id="service">
-
-                        <option value="">
-                            Choose a service...
-                        </option>
+            </label>
 
 
-                        <optgroup label="🚀 Featured Bundle">
+            <div class="amount-wrapper">
 
-                            <option
-                                value="15"
-                                data-name="Full COD Max Progression Package"
-                            >
-                                Full COD Max Progression Package — £15
-                            </option>
+                <span class="currency">
+                    £
+                </span>
 
-                        </optgroup>
-
-
-                        <optgroup label="🎮 Black Ops 3">
-
-                            <option value="15" data-name="BO3 Ultimate">
-                                BO3 Ultimate — £15
-                            </option>
-
-                            <option value="10" data-name="BO3 Maxed-Out">
-                                BO3 Maxed-Out — £10
-                            </option>
-
-                            <option value="5" data-name="100K Liquid Divinium">
-                                100K Liquid Divinium — £5
-                            </option>
-
-                            <option value="10" data-name="500K Liquid Divinium">
-                                500K Liquid Divinium — £10
-                            </option>
-
-                            <option value="20" data-name="1M Liquid Divinium">
-                                1M Liquid Divinium — £20
-                            </option>
-
-                            <option value="3" data-name="Unlimited DM / Beast Classes">
-                                Unlimited DM / Beast Classes — £3
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="🎮 Cold War">
-
-                            <option value="15" data-name="Custom Modded Classes">
-                                Custom Modded Classes — £15
-                            </option>
-
-                            <option value="10" data-name="DA Unlock All">
-                                DA Unlock All — £10
-                            </option>
-
-                            <option value="5" data-name="Crystals / Currency">
-                                Crystals / Currency — £5
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="🎮 Other Call of Duty">
-
-                            <option value="15" data-name="COD Ghosts">
-                                COD Ghosts — £15
-                            </option>
-
-                            <option value="10" data-name="COD Advanced Warfare">
-                                COD Advanced Warfare — £10
-                            </option>
-
-                            <option value="10" data-name="BO4 Modded Classes">
-                                BO4 Modded Classes — £10
-                            </option>
-
-                            <option value="5" data-name="BO4 All Trophies">
-                                BO4 All Trophies — £5
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="🎭 PSN Modding">
-
-                            <option value="2" data-name="Custom Avatar">
-                                Custom Avatar — £2
-                            </option>
-
-                            <option value="2" data-name='Modded "About Me"'>
-                                Modded "About Me" — £2
-                            </option>
-
-                            <option value="2" data-name="Any Profile Colour">
-                                Any Profile Colour — £2
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="🏎 Other Modded Services">
-
-                            <option value="10" data-name="Need for Speed Heat">
-                                Need for Speed Heat — £10
-                            </option>
-
-                            <option value="5" data-name="Need for Speed Hot Pursuit Remastered">
-                                Need for Speed Hot Pursuit Remastered — £5
-                            </option>
-
-                            <option value="5" data-name="Any Modded Save / Reassign PS4 Game Save">
-                                Any Modded Save / Reassign PS4 Game Save — £5
-                            </option>
-
-                        </optgroup>
-
-
-                        <optgroup label="📺 IPTV">
-
-                            <option value="50" data-name="IPTV — 1 Year Unlimited">
-                                IPTV — 1 Year Unlimited — £50
-                            </option>
-
-                        </optgroup>
-
-                    </select>
-
-                    <span class="arrow">
-                        ▼
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="price"
-                    id="price"
+                <input
+                    id="amount"
+                    class="amount"
+                    type="number"
+                    inputmode="decimal"
+                    min="0.01"
+                    max="9999"
+                    step="0.01"
+                    placeholder="0.00"
+                    autocomplete="off"
                 >
 
-                    <small>
-                        Confirmed service price
-                    </small>
-
-                    <strong id="priceValue">
-                        £0.00
-                    </strong>
-
-                </div>
-
             </div>
+
 
 
             <!-- PAYMENT METHOD -->
 
-            <div class="section">
+            <label class="label">
 
-                <div class="section-title">
-                    2. Choose Payment Method
+                2. Choose Payment Method
+
+            </label>
+
+
+            <div class="methods">
+
+
+                <!-- PAYPAL -->
+
+                <div
+                    class="method"
+                    id="paypalMethod"
+                    onclick="selectMethod('paypal')"
+                >
+
+                    <div class="check">
+                        ✓
+                    </div>
+
+                    <div
+                        class="method-icon paypal-icon"
+                    >
+                        💙
+                    </div>
+
+                    <h3>
+                        PayPal
+                    </h3>
+
+                    <p>
+                        Pay securely through PayPal
+                    </p>
+
                 </div>
 
 
-                <div class="methods">
 
+                <!-- REVOLUT -->
 
-                    <div
-                        class="method"
-                        id="paypalMethod"
-                        onclick="selectMethod('paypal')"
-                    >
+                <div
+                    class="method"
+                    id="revolutMethod"
+                    onclick="selectMethod('revolut')"
+                >
 
-                        <div class="method-check">
-                            ✓
-                        </div>
-
-                        <div class="method-icon paypal">
-                            💙
-                        </div>
-
-                        <h3>
-                            PayPal
-                        </h3>
-
-                        <p>
-                            Pay securely through PayPal
-                        </p>
-
+                    <div class="check">
+                        ✓
                     </div>
 
-
                     <div
-                        class="method"
-                        id="revolutMethod"
-                        onclick="selectMethod('revolut')"
+                        class="method-icon revolut-icon"
                     >
-
-                        <div class="method-check">
-                            ✓
-                        </div>
-
-                        <div class="method-icon revolut">
-                            🟣
-                        </div>
-
-                        <h3>
-                            Revolut
-                        </h3>
-
-                        <p>
-                            Pay securely through Revolut
-                        </p>
-
+                        🟣
                     </div>
+
+                    <h3>
+                        Revolut
+                    </h3>
+
+                    <p>
+                        Pay securely through Revolut
+                    </p>
 
                 </div>
+
 
             </div>
+
 
 
             <!-- ACCOUNTS -->
@@ -1060,9 +1190,12 @@
                 id="accounts"
             >
 
-                <div class="section-title">
+                <label class="label">
+
                     3. Choose Payment Account
-                </div>
+
+                </label>
+
 
                 <div
                     class="account-list"
@@ -1072,7 +1205,8 @@
             </div>
 
 
-            <!-- BUTTON -->
+
+            <!-- CONTINUE -->
 
             <button
                 class="continue"
@@ -1080,43 +1214,50 @@
                 onclick="continuePayment()"
                 disabled
             >
+
                 Continue to Payment →
+
             </button>
+
 
 
             <div class="security">
 
                 <span>
-                    🔒 Secure payment
+                    🔒 Secure
                 </span>
 
                 <span>
-                    ⚡ Fast checkout
+                    ⚡ Fast
                 </span>
 
                 <span>
-                    🌐 No card details stored
+                    🌐 No payment details stored
                 </span>
 
             </div>
+
 
 
             <div class="info">
 
                 <strong>
-                    Payment information:
+                    Important:
                 </strong>
 
-                This website does not process or store
-                payment details. You will be redirected
-                directly to PayPal or Revolut to complete
-                your payment.
+                ModdingXZ does not process or store
+                your payment details on this website.
+                Payments are completed directly through
+                PayPal or Revolut.
 
             </div>
 
+
         </section>
 
+
     </main>
+
 
 
     <footer>
@@ -1128,6 +1269,7 @@
     </footer>
 
 
+
     <!-- CONFIRMATION MODAL -->
 
     <div
@@ -1136,6 +1278,7 @@
     >
 
         <div class="modal-box">
+
 
             <div class="modal-icon">
                 💳
@@ -1147,26 +1290,16 @@
             </h2>
 
 
-            <p class="modal-subtitle">
-                Make sure the service, amount and
-                payment account match the instructions
-                you received from support.
+            <p>
+
+                Please check that the amount and
+                payment account are correct before
+                continuing.
+
             </p>
 
 
             <div class="summary">
-
-                <div class="summary-row">
-
-                    <span>
-                        Service
-                    </span>
-
-                    <strong id="summaryService">
-                        -
-                    </strong>
-
-                </div>
 
 
                 <div class="summary-row">
@@ -1207,30 +1340,38 @@
 
                 </div>
 
+
             </div>
 
 
             <button
-                class="pay"
+                class="pay-button"
                 onclick="openPayment()"
             >
+
                 Continue to Payment →
+
             </button>
 
 
             <button
-                class="close"
+                class="close-button"
                 onclick="closeModal()"
             >
+
                 Go Back
+
             </button>
+
 
         </div>
 
     </div>
 
 
+
     <script>
+
 
         /*
         ========================================
@@ -1240,34 +1381,54 @@
 
         const paymentAccounts = {
 
+
             paypal: [
 
                 {
                     name: "MrJasonDEX",
-                    username: "paypal.me/MrJasonDEX",
-                    url: "https://paypal.me/MrJasonDEX"
+
+                    username:
+                        "paypal.me/MrJasonDEX",
+
+                    url:
+                        "https://paypal.me/MrJasonDEX"
                 },
+
 
                 {
                     name: "ShawnCrouse357",
-                    username: "paypal.me/ShawnCrouse357",
-                    url: "https://www.paypal.me/ShawnCrouse357"
+
+                    username:
+                        "paypal.me/ShawnCrouse357",
+
+                    url:
+                        "https://www.paypal.me/ShawnCrouse357"
                 }
 
             ],
+
 
             revolut: [
 
                 {
                     name: "ModdingXZ",
-                    username: "revolut.me/moddingxz",
-                    url: "https://revolut.me/moddingxz"
+
+                    username:
+                        "revolut.me/moddingxz",
+
+                    url:
+                        "https://revolut.me/moddingxz"
                 },
+
 
                 {
                     name: "s_crouse",
-                    username: "revolut.me/s_crouse",
-                    url: "https://revolut.me/s_crouse"
+
+                    username:
+                        "revolut.me/s_crouse",
+
+                    url:
+                        "https://revolut.me/s_crouse"
                 }
 
             ]
@@ -1275,89 +1436,44 @@
         };
 
 
+
         /*
         ========================================
-        CURRENT SELECTION
+        STATE
         ========================================
         */
-
-        let selectedService = null;
 
         let selectedMethod = null;
 
         let selectedAccount = null;
 
 
+
         /*
         ========================================
-        SERVICE SELECTION
+        AMOUNT
         ========================================
         */
 
-        const serviceSelect =
-            document.getElementById("service");
+        const amountInput =
+            document.getElementById("amount");
 
 
-        serviceSelect.addEventListener(
-            "change",
-            function () {
-
-                const option =
-                    this.options[
-                        this.selectedIndex
-                    ];
-
-
-                if (!this.value) {
-
-                    selectedService = null;
-
-                    document
-                        .getElementById("price")
-                        .classList.remove("show");
-
-                    updateButton();
-
-                    return;
-
-                }
-
-
-                selectedService = {
-
-                    name:
-                        option.dataset.name,
-
-                    price:
-                        Number(this.value)
-
-                };
-
-
-                document
-                    .getElementById("priceValue")
-                    .textContent =
-                    `£${selectedService.price.toFixed(2)}`;
-
-
-                document
-                    .getElementById("price")
-                    .classList.add("show");
-
-
-                updateButton();
-
-            }
+        amountInput.addEventListener(
+            "input",
+            updateButton
         );
+
 
 
         /*
         ========================================
-        PAYMENT METHOD
+        SELECT PAYMENT METHOD
         ========================================
         */
 
         function selectMethod(method) {
+
 
             selectedMethod = method;
 
@@ -1405,13 +1521,15 @@
         }
 
 
+
         /*
         ========================================
-        PAYMENT ACCOUNTS
+        DISPLAY ACCOUNTS
         ========================================
         */
 
         function renderAccounts() {
+
 
             const list =
                 document.getElementById(
@@ -1426,6 +1544,7 @@
                 selectedMethod
             ].forEach(
                 (account, index) => {
+
 
                     const item =
                         document.createElement(
@@ -1446,24 +1565,33 @@
                         <div class="account-left">
 
                             <div class="avatar">
+
                                 ${account.name
                                     .charAt(0)
                                     .toUpperCase()}
+
                             </div>
+
 
                             <div>
 
                                 <div class="account-name">
+
                                     ${account.name}
+
                                 </div>
 
+
                                 <div class="account-link">
+
                                     ${account.username}
+
                                 </div>
 
                             </div>
 
                         </div>
+
 
                         <div class="radio"></div>
 
@@ -1478,6 +1606,7 @@
         }
 
 
+
         /*
         ========================================
         SELECT ACCOUNT
@@ -1485,6 +1614,7 @@
         */
 
         function selectAccount(index) {
+
 
             selectedAccount = index;
 
@@ -1508,13 +1638,15 @@
         }
 
 
+
         /*
         ========================================
-        BUTTON STATE
+        BUTTON
         ========================================
         */
 
         function updateButton() {
+
 
             const button =
                 document.getElementById(
@@ -1522,24 +1654,40 @@
                 );
 
 
+            const amount =
+                parseFloat(
+                    amountInput.value
+                );
+
+
             button.disabled =
-                !selectedService ||
+                !amount ||
+                amount <= 0 ||
                 !selectedMethod ||
                 selectedAccount === null;
 
         }
 
 
+
         /*
         ========================================
-        OPEN CONFIRMATION
+        CONFIRMATION
         ========================================
         */
 
         function continuePayment() {
 
+
+            const amount =
+                parseFloat(
+                    amountInput.value
+                );
+
+
             if (
-                !selectedService ||
+                !amount ||
+                amount <= 0 ||
                 !selectedMethod ||
                 selectedAccount === null
             ) {
@@ -1556,15 +1704,9 @@
 
 
             document
-                .getElementById("summaryService")
-                .textContent =
-                selectedService.name;
-
-
-            document
                 .getElementById("summaryAmount")
                 .textContent =
-                `£${selectedService.price.toFixed(2)}`;
+                `£${amount.toFixed(2)}`;
 
 
             document
@@ -1588,6 +1730,7 @@
         }
 
 
+
         /*
         ========================================
         OPEN PAYMENT
@@ -1596,8 +1739,16 @@
 
         function openPayment() {
 
+
+            const amount =
+                parseFloat(
+                    amountInput.value
+                );
+
+
             if (
-                !selectedService ||
+                !amount ||
+                amount <= 0 ||
                 !selectedMethod ||
                 selectedAccount === null
             ) {
@@ -1613,15 +1764,19 @@
                 ][selectedAccount];
 
 
-            let url = account.url;
+            let url =
+                account.url;
+
 
 
             /*
-            PayPal.Me can accept an amount
-            at the end of the payment URL.
+            PayPal.Me supports an amount
+            at the end of the URL.
 
             Example:
+
             paypal.me/MrJasonDEX/15
+
             */
 
             if (
@@ -1631,15 +1786,16 @@
                 url =
                     account.url +
                     "/" +
-                    selectedService.price
-                        .toFixed(2);
+                    amount.toFixed(2);
 
             }
+
 
 
             window.location.href = url;
 
         }
+
 
 
         /*
@@ -1657,6 +1813,7 @@
         }
 
 
+
         /*
         ========================================
         ESC KEY
@@ -1665,7 +1822,7 @@
 
         document.addEventListener(
             "keydown",
-            function (event) {
+            function(event) {
 
                 if (
                     event.key === "Escape"
@@ -1679,6 +1836,7 @@
         );
 
 
+
         /*
         ========================================
         CLICK OUTSIDE MODAL
@@ -1689,7 +1847,7 @@
             .getElementById("modal")
             .addEventListener(
                 "click",
-                function (event) {
+                function(event) {
 
                     if (
                         event.target === this
