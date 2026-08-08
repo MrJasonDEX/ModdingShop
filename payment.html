@@ -1,0 +1,1299 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ModdingXZ | Payment Portal</title>
+    <meta name="description" content="ModdingXZ secure payment portal. Choose PayPal or Revolut and select your preferred payment account.">
+    <meta name="theme-color" content="#08080d">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #07070b;
+            --bg-secondary: #0d0d14;
+            --card: rgba(20, 20, 30, 0.78);
+            --card-hover: rgba(28, 28, 40, 0.95);
+            --border: rgba(255,255,255,0.08);
+            --text: #ffffff;
+            --muted: #9999a8;
+            --purple: #8b5cf6;
+            --purple-dark: #6d28d9;
+            --blue: #3b82f6;
+            --green: #22c55e;
+            --paypal: #0070ba;
+            --revolut: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Rubik", sans-serif;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(139,92,246,.14), transparent 30%),
+                radial-gradient(circle at 80% 20%, rgba(59,130,246,.10), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Background */
+
+        .background {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .12;
+        }
+
+        .orb.one {
+            width: 350px;
+            height: 350px;
+            background: var(--purple);
+            top: -120px;
+            left: -100px;
+        }
+
+        .orb.two {
+            width: 300px;
+            height: 300px;
+            background: var(--blue);
+            right: -100px;
+            top: 30%;
+        }
+
+        /* Header */
+
+        header {
+            width: 100%;
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(7,7,11,.7);
+            backdrop-filter: blur(18px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .nav {
+            max-width: 1050px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: -.5px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--purple), #4f46e5);
+            box-shadow: 0 10px 35px rgba(139,92,246,.25);
+        }
+
+        .logo-icon span {
+            font-size: 20px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #a9a9b5;
+            font-size: 13px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(34,197,94,.8);
+        }
+
+        /* Main */
+
+        main {
+            width: min(100% - 32px, 850px);
+            margin: auto;
+            padding: 70px 0 100px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(139,92,246,.25);
+            background: rgba(139,92,246,.08);
+            color: #c4b5fd;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 7vw, 64px);
+            line-height: 1;
+            letter-spacing: -2.5px;
+            margin-bottom: 18px;
+        }
+
+        .gradient {
+            background: linear-gradient(90deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        /* Payment Card */
+
+        .payment-container {
+            background: rgba(13,13,20,.78);
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            padding: 26px;
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.35),
+                inset 0 1px rgba(255,255,255,.03);
+            backdrop-filter: blur(20px);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: #dddde6;
+        }
+
+        /* Amount */
+
+        .amount-box {
+            margin-bottom: 28px;
+        }
+
+        .amount-input {
+            position: relative;
+        }
+
+        .currency {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaaab8;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        #amount {
+            width: 100%;
+            height: 65px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: #090910;
+            color: white;
+            outline: none;
+            font-size: 25px;
+            font-weight: 700;
+            padding: 0 20px 0 45px;
+            transition: .2s;
+        }
+
+        #amount:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(139,92,246,.08);
+        }
+
+        /* Options */
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .payment-option {
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 17px;
+            padding: 20px;
+            cursor: pointer;
+            transition: .25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .payment-option:hover {
+            transform: translateY(-2px);
+            background: var(--card-hover);
+            border-color: rgba(139,92,246,.35);
+        }
+
+        .payment-option.selected {
+            border-color: var(--purple);
+            background: rgba(139,92,246,.10);
+            box-shadow: 0 0 0 1px rgba(139,92,246,.15);
+        }
+
+        .check {
+            position: absolute;
+            right: 14px;
+            top: 14px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid #454553;
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            color: transparent;
+        }
+
+        .payment-option.selected .check {
+            background: var(--purple);
+            border-color: var(--purple);
+            color: white;
+        }
+
+        .payment-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            margin-bottom: 14px;
+        }
+
+        .paypal-icon {
+            background: rgba(0,112,186,.15);
+        }
+
+        .revolut-icon {
+            background: rgba(255,255,255,.08);
+        }
+
+        .payment-option h3 {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        .payment-option p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* Account selection */
+
+        .accounts {
+            display: none;
+            margin-top: -8px;
+            margin-bottom: 28px;
+        }
+
+        .accounts.show {
+            display: block;
+            animation: fadeIn .25s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .account-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .account {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,.025);
+            padding: 16px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .account:hover {
+            background: rgba(255,255,255,.05);
+        }
+
+        .account.selected {
+            border-color: var(--purple);
+            background: rgba(139,92,246,.08);
+        }
+
+        .account-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            background: linear-gradient(135deg, #27273a, #161622);
+        }
+
+        .account-name {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .account-link {
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .radio {
+            width: 20px;
+            height: 20px;
+            border: 1px solid #4b4b59;
+            border-radius: 50%;
+            padding: 4px;
+        }
+
+        .account.selected .radio {
+            border-color: var(--purple);
+        }
+
+        .account.selected .radio::after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--purple);
+        }
+
+        /* Reference */
+
+        .reference {
+            margin-bottom: 28px;
+        }
+
+        #reference {
+            width: 100%;
+            height: 50px;
+            border-radius: 13px;
+            border: 1px solid var(--border);
+            background: #090910;
+            color: white;
+            outline: none;
+            padding: 0 15px;
+            font-family: inherit;
+        }
+
+        #reference:focus {
+            border-color: var(--purple);
+        }
+
+        /* Button */
+
+        .continue {
+            width: 100%;
+            border: none;
+            height: 60px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--purple), #6366f1);
+            color: white;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .25s;
+            box-shadow: 0 15px 35px rgba(109,40,217,.25);
+        }
+
+        .continue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 45px rgba(109,40,217,.35);
+        }
+
+        .continue:active {
+            transform: translateY(0);
+        }
+
+        .continue:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Security */
+
+        .security {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            color: #777784;
+            font-size: 11px;
+        }
+
+        .security span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Info */
+
+        .info {
+            margin-top: 20px;
+            padding: 17px;
+            border-radius: 14px;
+            background: rgba(59,130,246,.06);
+            border: 1px solid rgba(59,130,246,.12);
+            color: #9898a8;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .info strong {
+            color: #c7c7d3;
+        }
+
+        /* Footer */
+
+        footer {
+            text-align: center;
+            color: #666674;
+            font-size: 12px;
+            padding: 0 20px 35px;
+        }
+
+        footer strong {
+            color: #9292a0;
+        }
+
+        /* Modal */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.75);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            width: min(100%, 450px);
+            background: #111119;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 30px 100px rgba(0,0,0,.6);
+            animation: modalIn .25s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(.95) translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .success-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: rgba(34,197,94,.12);
+            border: 1px solid rgba(34,197,94,.25);
+            font-size: 28px;
+        }
+
+        .modal h2 {
+            margin-bottom: 8px;
+        }
+
+        .modal p {
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .payment-summary {
+            padding: 15px;
+            border-radius: 13px;
+            background: rgba(255,255,255,.04);
+            margin-bottom: 18px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+        .summary-row span:first-child {
+            color: var(--muted);
+        }
+
+        .modal-buttons {
+            display: grid;
+            gap: 10px;
+        }
+
+        .pay-button {
+            width: 100%;
+            height: 52px;
+            border: none;
+            border-radius: 13px;
+            color: white;
+            font-family: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            background: linear-gradient(135deg, var(--purple), #6366f1);
+        }
+
+        .close-button {
+            width: 100%;
+            height: 48px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: transparent;
+            color: #aaaab8;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        /* Toast */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 25px;
+            transform: translate(-50%, 100px);
+            padding: 13px 18px;
+            background: #181820;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-size: 13px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.4);
+            transition: .3s;
+            z-index: 200;
+        }
+
+        .toast.show {
+            transform: translate(-50%, 0);
+        }
+
+        /* Mobile */
+
+        @media (max-width: 650px) {
+            main {
+                padding-top: 45px;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-container {
+                padding: 19px;
+                border-radius: 20px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .status {
+                display: none;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="background">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+</div>
+
+<header>
+    <div class="nav">
+        <div class="logo">
+            <div class="logo-icon">
+                <span>⚡</span>
+            </div>
+            ModdingXZ
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            Payment Portal Online
+        </div>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="badge">
+            🔒 SECURE PAYMENT PORTAL
+        </div>
+
+        <h1>
+            Pay <span class="gradient">ModdingXZ</span>
+        </h1>
+
+        <p>
+            Choose your preferred payment method and select which
+            ModdingXZ payment account you'd like to use.
+        </p>
+    </section>
+
+    <section class="payment-container">
+
+        <!-- Amount -->
+
+        <div class="amount-box">
+            <div class="section-title">
+                Payment Amount
+            </div>
+
+            <div class="amount-input">
+                <span class="currency">£</span>
+                <input
+                    type="number"
+                    id="amount"
+                    min="0.01"
+                    step="0.01"
+                    placeholder="0.00"
+                    inputmode="decimal"
+                >
+            </div>
+        </div>
+
+        <!-- Payment Method -->
+
+        <div class="section-title">
+            1. Choose Payment Method
+        </div>
+
+        <div class="options">
+
+            <div
+                class="payment-option"
+                id="paypalOption"
+                onclick="selectMethod('paypal')"
+            >
+                <div class="check">✓</div>
+
+                <div class="payment-icon paypal-icon">
+                    💙
+                </div>
+
+                <h3>PayPal</h3>
+
+                <p>
+                    Pay securely using PayPal
+                </p>
+            </div>
+
+            <div
+                class="payment-option"
+                id="revolutOption"
+                onclick="selectMethod('revolut')"
+            >
+                <div class="check">✓</div>
+
+                <div class="payment-icon revolut-icon">
+                    🟣
+                </div>
+
+                <h3>Revolut</h3>
+
+                <p>
+                    Pay securely using Revolut
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Accounts -->
+
+        <div class="accounts" id="accounts">
+
+            <div class="section-title">
+                2. Choose Payment Account
+            </div>
+
+            <div class="account-list" id="accountList">
+                <!-- Generated by JavaScript -->
+            </div>
+
+        </div>
+
+        <!-- Reference -->
+
+        <div class="reference">
+
+            <div class="section-title">
+                Order / Reference
+                <span style="color:#666674;font-weight:400;">
+                    (optional)
+                </span>
+            </div>
+
+            <input
+                type="text"
+                id="reference"
+                placeholder="Example: Order #1234"
+                maxlength="80"
+            >
+
+        </div>
+
+        <button
+            class="continue"
+            id="continueButton"
+            onclick="continuePayment()"
+            disabled
+        >
+            Continue to Payment →
+        </button>
+
+        <div class="security">
+            <span>🔒 Secure payment</span>
+            <span>⚡ Fast checkout</span>
+            <span>🌐 No card details stored</span>
+        </div>
+
+        <div class="info">
+            <strong>Important:</strong>
+            This website does not process or store your payment details.
+            When you continue, you will be redirected directly to the
+            selected PayPal or Revolut payment page.
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    © 2026 <strong>ModdingXZ</strong> · Payment Portal
+</footer>
+
+
+<!-- Confirmation Modal -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <div class="success-icon">
+            💳
+        </div>
+
+        <h2>Ready to Pay?</h2>
+
+        <p>
+            Check the details below before continuing.
+        </p>
+
+        <div class="payment-summary">
+
+            <div class="summary-row">
+                <span>Amount</span>
+                <strong id="summaryAmount">£0.00</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Method</span>
+                <strong id="summaryMethod">-</strong>
+            </div>
+
+            <div class="summary-row">
+                <span>Account</span>
+                <strong id="summaryAccount">-</strong>
+            </div>
+
+            <div class="summary-row" id="summaryReferenceRow">
+                <span>Reference</span>
+                <strong id="summaryReference">-</strong>
+            </div>
+
+        </div>
+
+        <div class="modal-buttons">
+
+            <button
+                class="pay-button"
+                onclick="openPayment()"
+            >
+                Continue to Payment →
+            </button>
+
+            <button
+                class="close-button"
+                onclick="closeModal()"
+            >
+                Go Back
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast">
+    Copied to clipboard!
+</div>
+
+
+<script>
+
+    /*
+    ============================================
+        MODDINGXZ PAYMENT CONFIGURATION
+    ============================================
+    */
+
+    const paymentAccounts = {
+
+        paypal: [
+            {
+                name: "MrJasonDEX",
+                username: "paypal.me/MrJasonDEX",
+                url: "https://paypal.me/MrJasonDEX"
+            },
+
+            {
+                name: "ShawnCrouse357",
+                username: "paypal.me/ShawnCrouse357",
+                url: "https://www.paypal.me/ShawnCrouse357"
+            }
+        ],
+
+        revolut: [
+            {
+                name: "ModdingXZ",
+                username: "revolut.me/moddingxz",
+                url: "https://revolut.me/moddingxz"
+            },
+
+            {
+                name: "s_crouse",
+                username: "revolut.me/s_crouse",
+                url: "https://revolut.me/s_crouse"
+            }
+        ]
+
+    };
+
+
+    let selectedMethod = null;
+    let selectedAccount = null;
+
+
+    /*
+    ============================================
+        SELECT PAYMENT METHOD
+    ============================================
+    */
+
+    function selectMethod(method) {
+
+        selectedMethod = method;
+        selectedAccount = null;
+
+        document
+            .getElementById("paypalOption")
+            .classList.remove("selected");
+
+        document
+            .getElementById("revolutOption")
+            .classList.remove("selected");
+
+        document
+            .getElementById(
+                method === "paypal"
+                    ? "paypalOption"
+                    : "revolutOption"
+            )
+            .classList.add("selected");
+
+        renderAccounts();
+
+        document
+            .getElementById("accounts")
+            .classList.add("show");
+
+        updateButton();
+    }
+
+
+    /*
+    ============================================
+        RENDER ACCOUNTS
+    ============================================
+    */
+
+    function renderAccounts() {
+
+        const list = document.getElementById("accountList");
+
+        list.innerHTML = "";
+
+        paymentAccounts[selectedMethod].forEach(
+            (account, index) => {
+
+                const item = document.createElement("div");
+
+                item.className = "account";
+
+                item.onclick = () => {
+                    selectAccount(index);
+                };
+
+                const initial =
+                    account.name
+                        .charAt(0)
+                        .toUpperCase();
+
+                item.innerHTML = `
+
+                    <div class="account-left">
+
+                        <div class="account-avatar">
+                            ${initial}
+                        </div>
+
+                        <div>
+                            <div class="account-name">
+                                ${account.name}
+                            </div>
+
+                            <div class="account-link">
+                                ${account.username}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="radio"></div>
+
+                `;
+
+                list.appendChild(item);
+
+            }
+        );
+
+    }
+
+
+    /*
+    ============================================
+        SELECT ACCOUNT
+    ============================================
+    */
+
+    function selectAccount(index) {
+
+        selectedAccount = index;
+
+        document
+            .querySelectorAll(".account")
+            .forEach((element, i) => {
+
+                element.classList.toggle(
+                    "selected",
+                    i === index
+                );
+
+            });
+
+        updateButton();
+    }
+
+
+    /*
+    ============================================
+        UPDATE CONTINUE BUTTON
+    ============================================
+    */
+
+    function updateButton() {
+
+        const amount =
+            parseFloat(
+                document.getElementById("amount").value
+            );
+
+        const button =
+            document.getElementById("continueButton");
+
+        button.disabled =
+            !amount ||
+            amount <= 0 ||
+            selectedMethod === null ||
+            selectedAccount === null;
+
+    }
+
+
+    /*
+    ============================================
+        AMOUNT INPUT
+    ============================================
+    */
+
+    document
+        .getElementById("amount")
+        .addEventListener("input", updateButton);
+
+
+    /*
+    ============================================
+        CONTINUE
+    ============================================
+    */
+
+    function continuePayment() {
+
+        const amount =
+            parseFloat(
+                document.getElementById("amount").value
+            );
+
+        if (
+            !amount ||
+            amount <= 0 ||
+            selectedMethod === null ||
+            selectedAccount === null
+        ) {
+            return;
+        }
+
+        const account =
+            paymentAccounts[selectedMethod][selectedAccount];
+
+        document.getElementById("summaryAmount")
+            .textContent =
+            "£" + amount.toFixed(2);
+
+        document.getElementById("summaryMethod")
+            .textContent =
+            selectedMethod === "paypal"
+                ? "PayPal"
+                : "Revolut";
+
+        document.getElementById("summaryAccount")
+            .textContent =
+            account.name;
+
+        const reference =
+            document.getElementById("reference").value.trim();
+
+        document.getElementById("summaryReference")
+            .textContent =
+            reference || "Not provided";
+
+        document
+            .getElementById("modal")
+            .classList.add("show");
+
+    }
+
+
+    /*
+    ============================================
+        OPEN PAYMENT
+    ============================================
+    */
+
+    function openPayment() {
+
+        const account =
+            paymentAccounts[selectedMethod][selectedAccount];
+
+        const amount =
+            parseFloat(
+                document.getElementById("amount").value
+            );
+
+        let url = account.url;
+
+
+        /*
+        PayPal.Me supports amount parameters.
+
+        Example:
+        paypal.me/USERNAME/15
+        */
+
+        if (selectedMethod === "paypal") {
+
+            url =
+                account.url +
+                "/" +
+                amount.toFixed(2);
+
+        }
+
+
+        /*
+        Revolut links are opened normally.
+        The customer enters/confirms the amount
+        on Revolut's payment page.
+        */
+
+        window.location.href = url;
+
+    }
+
+
+    /*
+    ============================================
+        CLOSE MODAL
+    ============================================
+    */
+
+    function closeModal() {
+
+        document
+            .getElementById("modal")
+            .classList.remove("show");
+
+    }
+
+
+    /*
+    ============================================
+        ESC KEY
+    ============================================
+    */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeModal();
+            }
+
+        }
+    );
+
+
+    /*
+    ============================================
+        CLICK OUTSIDE MODAL
+    ============================================
+    */
+
+    document
+        .getElementById("modal")
+        .addEventListener(
+            "click",
+            function(event) {
+
+                if (event.target === this) {
+                    closeModal();
+                }
+
+            }
+        );
+
+
+</script>
+
+</body>
+</html>
+```
