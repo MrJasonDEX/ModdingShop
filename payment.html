@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ModdingXZ | Payment</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ModdingXZ | Official Payment Portal</title>
 
     <meta
         name="description"
         content="Official ModdingXZ payment portal."
     >
 
-    <meta name="theme-color" content="#07070b">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
+    <meta
+        name="theme-color"
+        content="#07070b"
     >
 
     <!-- Bootstrap -->
@@ -29,1722 +29,2067 @@
 
     <!-- Bootstrap Icons -->
     <link
-        rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
     >
 
-    <style>
-
-        /* =====================================================
-           MODDINGXZ PAYMENT PORTAL
-           Everything is contained in this HTML file.
-        ===================================================== */
-
-        :root {
-            --bg: #07070b;
-            --bg-2: #0b0b12;
-            --card: rgba(17, 17, 27, .88);
-            --card-2: rgba(255,255,255,.035);
-            --border: rgba(255,255,255,.09);
-
-            --text: #ffffff;
-            --muted: #9898aa;
-
-            --purple: #8b5cf6;
-            --purple-2: #6366f1;
-
-            --green: #22c55e;
-            --red: #ef4444;
-            --blue: #3b82f6;
-
-            --shadow:
-                0 30px 100px rgba(0,0,0,.45);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: 100vh;
-            margin: 0;
-
-            font-family: "Rubik", sans-serif;
-
-            color: var(--text);
-
-            background:
-                radial-gradient(
-                    circle at 15% 5%,
-                    rgba(139,92,246,.18),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 85% 20%,
-                    rgba(59,130,246,.10),
-                    transparent 30%
-                ),
-                radial-gradient(
-                    circle at 50% 100%,
-                    rgba(139,92,246,.08),
-                    transparent 35%
-                ),
-                var(--bg);
-
-            overflow-x: hidden;
-        }
-
-        button,
-        input {
-            font-family: inherit;
-        }
-
-        /* =====================================================
-           LOADING SCREEN
-        ===================================================== */
-
-        #loader {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background: #07070b;
-
-            transition:
-                opacity .5s ease,
-                visibility .5s ease;
-        }
-
-        #loader.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-content {
-            text-align: center;
-        }
-
-        .loader-logo {
-            width: 72px;
-            height: 72px;
-
-            display: grid;
-            place-items: center;
-
-            margin: 0 auto 22px;
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-            border-radius: 20px;
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--purple),
-                    var(--purple-2)
-                );
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
 
-            box-shadow:
-                0 0 50px rgba(139,92,246,.4);
 
-            font-size: 32px;
+<style>
 
-            animation:
-                loaderPulse 1.5s infinite;
-        }
-
-        @keyframes loaderPulse {
-            0%,100% {
-                transform: scale(1);
-                box-shadow:
-                    0 0 30px rgba(139,92,246,.25);
-            }
+/* =========================================================
+   ROOT
+========================================================= */
 
-            50% {
-                transform: scale(1.06);
-                box-shadow:
-                    0 0 60px rgba(139,92,246,.5);
-            }
-        }
+:root {
 
-        .loader-title {
-            font-size: 22px;
-            font-weight: 900;
-            margin-bottom: 8px;
-        }
-
-        .loader-text {
-            color: var(--muted);
-            font-size: 12px;
-        }
+    --bg: #07070b;
 
-        .loader-bar {
-            width: 190px;
-            height: 4px;
-
-            margin: 18px auto 0;
+    --bg-2: #0b0b12;
 
-            overflow: hidden;
+    --card: rgba(18,18,27,.92);
 
-            border-radius: 999px;
+    --card-soft: rgba(255,255,255,.035);
 
-            background: rgba(255,255,255,.08);
-        }
+    --border: rgba(255,255,255,.08);
 
-        .loader-bar span {
-            display: block;
-            width: 45%;
-            height: 100%;
+    --border-hover: rgba(139,92,246,.45);
 
-            border-radius: inherit;
+    --text: #ffffff;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    var(--purple),
-                    #60a5fa
-                );
+    --muted: #9696a7;
 
-            animation:
-                loaderBar 1.2s infinite;
-        }
+    --purple: #8b5cf6;
 
-        @keyframes loaderBar {
-            0% {
-                transform: translateX(-120%);
-            }
+    --purple-2: #6366f1;
 
-            100% {
-                transform: translateX(450%);
-            }
-        }
+    --blue: #60a5fa;
 
-        /* =====================================================
-           HEADER
-        ===================================================== */
+    --green: #22c55e;
 
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+    --red: #ef4444;
 
-            border-bottom: 1px solid var(--border);
+    --orange: #f59e0b;
 
-            background:
-                rgba(7,7,11,.78);
+}
 
-            backdrop-filter: blur(20px);
-        }
 
-        .nav {
-            width: min(1100px, calc(100% - 30px));
-            min-height: 72px;
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-            margin: auto;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 11px;
+body {
 
-            font-size: 19px;
-            font-weight: 900;
-        }
+    min-height: 100vh;
 
-        .brand-icon {
-            width: 40px;
-            height: 40px;
+    font-family:
+        "Rubik",
+        sans-serif;
 
-            display: grid;
-            place-items: center;
+    color: var(--text);
 
-            border-radius: 12px;
+    background:
 
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--purple),
-                    var(--purple-2)
-                );
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(139,92,246,.18),
+            transparent 30%
+        ),
 
-            box-shadow:
-                0 8px 30px rgba(139,92,246,.3);
-        }
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(59,130,246,.10),
+            transparent 28%
+        ),
 
-        .nav-actions {
-            display: flex;
-            gap: 8px;
-        }
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(139,92,246,.08),
+            transparent 35%
+        ),
 
-        .nav-button {
-            height: 38px;
+        var(--bg);
 
-            padding: 0 13px;
+    overflow-x: hidden;
 
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
+}
 
-            border: 1px solid var(--border);
-            border-radius: 10px;
 
-            background: rgba(255,255,255,.035);
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
 
-            color: #dddde8;
+#loader {
 
-            text-decoration: none;
+    position: fixed;
 
-            font-size: 11px;
-            font-weight: 800;
+    inset: 0;
 
-            transition: .2s;
-        }
+    z-index: 9999;
 
-        .nav-button:hover {
-            color: white;
-            border-color: rgba(139,92,246,.4);
-            background: rgba(139,92,246,.08);
-            transform: translateY(-1px);
-        }
+    display: flex;
 
-        .support-button {
-            border-color: rgba(34,197,94,.18);
-        }
+    align-items: center;
 
-        /* =====================================================
-           MAIN
-        ===================================================== */
+    justify-content: center;
 
-        main {
-            width: min(850px, calc(100% - 30px));
+    flex-direction: column;
 
-            margin: auto;
+    background: #07070b;
 
-            padding:
-                65px 0 80px;
-        }
+    transition:
+        opacity .5s ease,
+        visibility .5s ease;
 
-        /* =====================================================
-           HERO
-        ===================================================== */
+}
 
-        .hero {
-            text-align: center;
-            margin-bottom: 35px;
-        }
+#loader.hidden {
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
+    opacity: 0;
 
-            padding: 8px 14px;
+    visibility: hidden;
 
-            margin-bottom: 17px;
+    pointer-events: none;
 
-            border:
-                1px solid
-                rgba(139,92,246,.25);
+}
 
-            border-radius: 999px;
+.loader-logo {
 
-            background:
-                rgba(139,92,246,.08);
+    width: 68px;
 
-            color: #c4b5fd;
+    height: 68px;
 
-            font-size: 11px;
-            font-weight: 900;
-        }
+    display: grid;
 
-        .hero h1 {
-            margin-bottom: 16px;
+    place-items: center;
 
-            font-size:
-                clamp(40px, 7vw, 64px);
+    border-radius: 20px;
 
-            line-height: 1;
+    font-size: 30px;
 
-            letter-spacing: -2.5px;
-            font-weight: 900;
-        }
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-2)
+        );
 
-        .gradient {
-            background:
-                linear-gradient(
-                    90deg,
-                    #a78bfa,
-                    #60a5fa
-                );
+    box-shadow:
+        0 15px 50px
+        rgba(139,92,246,.35);
 
-            -webkit-background-clip: text;
-            background-clip: text;
+    animation:
+        loaderPulse 1.5s infinite;
 
-            color: transparent;
-        }
+}
 
-        .hero p {
-            max-width: 620px;
+.loader-title {
 
-            margin: auto;
+    margin-top: 18px;
 
-            color: var(--muted);
+    font-size: 22px;
 
-            font-size: 14px;
-            line-height: 1.7;
-        }
+    font-weight: 900;
 
-        /* =====================================================
-           STEPPER
-        ===================================================== */
+}
 
-        .steps {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+.loader-text {
 
-            margin-bottom: 28px;
-        }
+    margin-top: 5px;
 
-        .step {
-            display: flex;
-            align-items: center;
-        }
+    color: var(--muted);
 
-        .step-circle {
-            width: 34px;
-            height: 34px;
+    font-size: 12px;
 
-            display: grid;
-            place-items: center;
+}
 
-            border:
-                1px solid
-                rgba(255,255,255,.12);
+.loader-bar {
 
-            border-radius: 50%;
+    width: 150px;
 
-            background: rgba(255,255,255,.035);
+    height: 3px;
 
-            color: #777786;
+    margin-top: 20px;
 
-            font-size: 11px;
-            font-weight: 900;
+    overflow: hidden;
 
-            transition: .3s;
-        }
+    border-radius: 99px;
 
-        .step.active .step-circle {
-            border-color: var(--purple);
+    background:
+        rgba(255,255,255,.08);
 
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--purple),
-                    var(--purple-2)
-                );
+}
 
-            color: white;
+.loader-bar::after {
 
-            box-shadow:
-                0 0 25px rgba(139,92,246,.3);
-        }
+    content: "";
 
-        .step.completed .step-circle {
-            border-color: var(--green);
-            background: rgba(34,197,94,.12);
-            color: var(--green);
-        }
+    display: block;
 
-        .step-label {
-            margin-left: 8px;
+    width: 45%;
 
-            color: #777786;
+    height: 100%;
 
-            font-size: 10px;
-            font-weight: 800;
-        }
+    border-radius: inherit;
 
-        .step.active .step-label {
-            color: #ddddea;
-        }
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--blue)
+        );
 
-        .step-line {
-            width: 50px;
-            height: 1px;
+    animation:
+        loadingBar 1s infinite;
 
-            margin: 0 10px;
+}
 
-            background: rgba(255,255,255,.1);
-        }
+@keyframes loaderPulse {
 
-        .step-line.completed {
-            background: var(--green);
-        }
+    0%,
+    100% {
+        transform: scale(1);
+    }
 
-        /* =====================================================
-           CARD
-        ===================================================== */
+    50% {
+        transform: scale(1.06);
+    }
 
-        .payment-card {
-            position: relative;
+}
 
-            padding: 28px;
+@keyframes loadingBar {
 
-            border:
-                1px solid
-                var(--border);
+    from {
+        transform: translateX(-150%);
+    }
 
-            border-radius: 27px;
+    to {
+        transform: translateX(350%);
+    }
 
-            background: var(--card);
+}
 
-            box-shadow: var(--shadow);
 
-            backdrop-filter: blur(20px);
-        }
+/* =========================================================
+   HEADER
+========================================================= */
 
-        /* =====================================================
-           NOTICE
-        ===================================================== */
+header {
 
-        .notice {
-            display: flex;
-            gap: 14px;
+    position: sticky;
 
-            padding: 17px;
+    top: 0;
 
-            margin-bottom: 28px;
+    z-index: 100;
 
-            border:
-                1px solid
-                rgba(139,92,246,.2);
+    border-bottom:
+        1px solid
+        var(--border);
 
-            border-radius: 16px;
+    background:
+        rgba(7,7,11,.78);
 
-            background:
-                rgba(139,92,246,.055);
-        }
+    backdrop-filter:
+        blur(20px);
 
-        .notice-icon {
-            width: 42px;
-            height: 42px;
+}
 
-            flex: 0 0 42px;
+.nav {
 
-            display: grid;
-            place-items: center;
+    width:
+        min(
+            1050px,
+            calc(100% - 30px)
+        );
 
-            border-radius: 12px;
+    min-height: 72px;
 
-            background:
-                rgba(139,92,246,.12);
+    margin: auto;
 
-            color: #c4b5fd;
-        }
+    display: flex;
 
-        .notice h3 {
-            margin-bottom: 5px;
+    align-items: center;
 
-            font-size: 13px;
-            font-weight: 900;
-        }
+    justify-content: space-between;
 
-        .notice p {
-            margin: 0;
+    gap: 15px;
 
-            color: var(--muted);
+}
 
-            font-size: 11px;
-            line-height: 1.65;
-        }
+.brand {
 
-        /* =====================================================
-           STEP CONTENT
-        ===================================================== */
+    display: flex;
 
-        .step-content {
-            display: none;
+    align-items: center;
 
-            animation:
-                stepIn .3s ease;
-        }
+    gap: 11px;
 
-        .step-content.active {
-            display: block;
-        }
+    font-size: 19px;
 
-        @keyframes stepIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+    font-weight: 900;
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+}
 
-        .step-heading {
-            margin-bottom: 18px;
-        }
+.brand-icon {
 
-        .step-heading small {
-            display: block;
+    width: 41px;
 
-            margin-bottom: 5px;
+    height: 41px;
 
-            color: var(--purple);
+    display: grid;
 
-            font-size: 10px;
-            font-weight: 900;
+    place-items: center;
 
-            text-transform: uppercase;
-            letter-spacing: .8px;
-        }
+    border-radius: 12px;
 
-        .step-heading h2 {
-            margin: 0;
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-2)
+        );
 
-            font-size: 22px;
-            font-weight: 900;
-        }
+    box-shadow:
+        0 10px 30px
+        rgba(139,92,246,.28);
 
-        .step-heading p {
-            margin: 7px 0 0;
+}
 
-            color: var(--muted);
+.nav-actions {
 
-            font-size: 12px;
-        }
+    display: flex;
 
-        /* =====================================================
-           AMOUNT
-        ===================================================== */
+    align-items: center;
 
-        .amount-wrapper {
-            position: relative;
-        }
+    gap: 8px;
 
-        .currency {
-            position: absolute;
+}
 
-            left: 19px;
-            top: 50%;
+.nav-btn {
 
-            transform: translateY(-50%);
+    display: inline-flex;
 
-            color: #aaaaba;
+    align-items: center;
 
-            font-size: 21px;
-            font-weight: 900;
-        }
+    gap: 7px;
 
-        .amount {
-            width: 100%;
-            height: 70px;
+    padding: 9px 12px;
 
-            padding:
-                0 20px 0 46px;
+    border:
+        1px solid
+        var(--border);
 
-            outline: none;
+    border-radius: 10px;
 
-            border:
-                1px solid
-                var(--border);
+    background:
+        rgba(255,255,255,.025);
 
-            border-radius: 16px;
+    color: #d8d8e2;
 
-            background: #090910;
+    text-decoration: none;
 
-            color: white;
+    font-size: 11px;
 
-            font-size: 26px;
-            font-weight: 900;
+    font-weight: 700;
 
-            transition: .2s;
-        }
+    transition: .2s;
 
-        .amount:focus {
-            border-color: var(--purple);
+}
 
-            box-shadow:
-                0 0 0 4px
-                rgba(139,92,246,.08);
-        }
+.nav-btn:hover {
 
-        .amount::placeholder {
-            color: #454552;
-        }
+    color: white;
 
-        .quick-amounts {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+    border-color:
+        rgba(139,92,246,.4);
 
-            gap: 8px;
+    background:
+        rgba(139,92,246,.08);
 
-            margin-top: 12px;
-        }
+    transform:
+        translateY(-1px);
 
-        .quick {
-            height: 42px;
+}
 
-            border:
-                1px solid
-                var(--border);
+.online {
 
-            border-radius: 10px;
+    display: flex;
 
-            background:
-                rgba(255,255,255,.025);
+    align-items: center;
 
-            color: #aaaab8;
+    gap: 7px;
 
-            font-size: 11px;
-            font-weight: 800;
+    color: var(--muted);
 
-            cursor: pointer;
+    font-size: 11px;
 
-            transition: .2s;
-        }
+}
 
-        .quick:hover {
-            border-color: var(--purple);
-            color: white;
-        }
+.online-dot {
 
-        .amount-error {
-            display: none;
+    width: 7px;
 
-            margin-top: 9px;
+    height: 7px;
 
-            color: #f87171;
+    border-radius: 50%;
 
-            font-size: 11px;
-        }
+    background: var(--green);
 
-        .amount-error.show {
-            display: block;
-        }
+    box-shadow:
+        0 0 12px
+        rgba(34,197,94,.8);
 
-        /* =====================================================
-           PAYMENT METHODS
-        ===================================================== */
+}
 
-        .methods {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
 
-            gap: 12px;
-        }
+/* =========================================================
+   MAIN
+========================================================= */
 
-        .method {
-            position: relative;
+main {
 
-            min-height: 175px;
+    width:
+        min(
+            820px,
+            calc(100% - 30px)
+        );
 
-            padding: 20px;
+    margin: auto;
 
-            border:
-                1px solid
-                var(--border);
+    padding:
+        55px 0 80px;
 
-            border-radius: 17px;
+}
 
-            background:
-                rgba(255,255,255,.025);
 
-            cursor: pointer;
+/* =========================================================
+   HERO
+========================================================= */
 
-            transition: .25s;
-        }
+.hero {
 
-        .method:hover {
-            transform: translateY(-3px);
+    text-align: center;
 
-            border-color:
-                rgba(139,92,246,.35);
-        }
+    margin-bottom: 32px;
 
-        .method.selected {
-            border-color: var(--purple);
+}
 
-            background:
-                rgba(139,92,246,.1);
+.badge {
 
-            box-shadow:
-                0 0 0 1px
-                rgba(139,92,246,.12);
-        }
+    display: inline-flex;
 
-        .method-check {
-            position: absolute;
+    align-items: center;
 
-            top: 12px;
-            right: 12px;
+    gap: 7px;
 
-            width: 21px;
-            height: 21px;
+    padding:
+        8px 14px;
 
-            display: grid;
-            place-items: center;
+    margin-bottom: 17px;
 
-            border:
-                1px solid
-                #41414e;
+    border:
+        1px solid
+        rgba(139,92,246,.25);
 
-            border-radius: 50%;
+    border-radius: 999px;
 
-            color: transparent;
+    background:
+        rgba(139,92,246,.08);
 
-            font-size: 11px;
-        }
+    color:
+        #c4b5fd;
 
-        .method.selected .method-check {
-            color: white;
+    font-size: 11px;
 
-            border-color: var(--purple);
+    font-weight: 800;
 
-            background: var(--purple);
-        }
+}
 
-        .method-icon {
-            width: 48px;
-            height: 48px;
+.hero h1 {
 
-            display: grid;
-            place-items: center;
+    margin-bottom: 15px;
 
-            margin-bottom: 15px;
+    font-size:
+        clamp(
+            40px,
+            7vw,
+            62px
+        );
 
-            border-radius: 13px;
+    line-height: 1;
 
-            font-size: 22px;
-        }
+    letter-spacing: -2.5px;
 
-        .paypal {
-            background: rgba(0,112,186,.13);
-        }
+}
 
-        .revolut {
-            background: rgba(255,255,255,.07);
-        }
+.gradient {
 
-        .cashapp {
-            background: rgba(34,197,94,.12);
-        }
+    background:
+        linear-gradient(
+            90deg,
+            #a78bfa,
+            #60a5fa
+        );
 
-        .method h3 {
-            margin-bottom: 5px;
+    -webkit-background-clip: text;
 
-            font-size: 15px;
-            font-weight: 900;
-        }
+    background-clip: text;
 
-        .method p {
-            margin: 0;
+    color: transparent;
 
-            color: var(--muted);
+}
 
-            font-size: 10px;
-            line-height: 1.5;
-        }
+.hero p {
 
-        /* =====================================================
-           ACCOUNTS
-        ===================================================== */
+    max-width: 620px;
 
-        .accounts {
-            display: grid;
-            gap: 10px;
-        }
+    margin: auto;
 
-        .account {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+    color: var(--muted);
 
-            gap: 15px;
+    font-size: 14px;
 
-            padding: 15px;
+    line-height: 1.7;
 
-            border:
-                1px solid
-                var(--border);
+}
 
-            border-radius: 14px;
 
-            background:
-                rgba(255,255,255,.025);
+/* =========================================================
+   CHECKOUT CARD
+========================================================= */
 
-            cursor: pointer;
+.checkout {
 
-            transition: .2s;
-        }
+    padding: 26px;
 
-        .account:hover {
-            background:
-                rgba(255,255,255,.05);
-        }
+    border:
+        1px solid
+        var(--border);
 
-        .account.selected {
-            border-color: var(--purple);
+    border-radius: 25px;
 
-            background:
-                rgba(139,92,246,.08);
-        }
+    background:
+        var(--card);
 
-        .account-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.45),
 
-        .avatar {
-            width: 43px;
-            height: 43px;
+        inset 0 1px
+        rgba(255,255,255,.025);
 
-            display: grid;
-            place-items: center;
+    backdrop-filter:
+        blur(20px);
 
-            border-radius: 12px;
+}
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #29293a,
-                    #15151f
-                );
 
-            font-weight: 900;
-        }
+/* =========================================================
+   PROGRESS
+========================================================= */
 
-        .account-name {
-            font-size: 13px;
-            font-weight: 900;
-        }
+.progress-wrapper {
 
-        .account-link {
-            margin-top: 3px;
+    margin-bottom: 27px;
 
-            color: var(--muted);
+}
 
-            font-size: 10px;
-        }
+.progress-top {
 
-        .radio {
-            width: 21px;
-            height: 21px;
+    display: flex;
 
-            padding: 4px;
+    align-items: center;
 
-            border:
-                1px solid
-                #4b4b59;
+    justify-content: space-between;
 
-            border-radius: 50%;
-        }
+    margin-bottom: 10px;
 
-        .account.selected .radio {
-            border-color: var(--purple);
-        }
+}
 
-        .account.selected .radio::after {
-            content: "";
+.progress-title {
 
-            display: block;
+    font-size: 12px;
 
-            width: 100%;
-            height: 100%;
+    font-weight: 800;
 
-            border-radius: 50%;
+}
 
-            background: var(--purple);
-        }
+.progress-number {
 
-        /* =====================================================
-           PAYMENT DETAILS
-        ===================================================== */
+    color: var(--muted);
 
-        .payment-details {
-            padding: 17px;
+    font-size: 11px;
 
-            margin-top: 15px;
+}
 
-            border:
-                1px solid
-                var(--border);
+.progress-track {
 
-            border-radius: 15px;
+    height: 5px;
 
-            background:
-                rgba(255,255,255,.025);
-        }
+    overflow: hidden;
 
-        .details-title {
-            margin-bottom: 12px;
+    border-radius: 99px;
 
-            color: #dddde8;
+    background:
+        rgba(255,255,255,.07);
 
-            font-size: 11px;
-            font-weight: 900;
-        }
+}
 
-        .detail-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+.progress-fill {
 
-            gap: 12px;
+    width: 33.333%;
 
-            padding: 9px 0;
+    height: 100%;
 
-            border-bottom:
-                1px solid
-                rgba(255,255,255,.05);
-        }
+    border-radius: inherit;
 
-        .detail-row:last-child {
-            border-bottom: 0;
-        }
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--blue)
+        );
 
-        .detail-label {
-            color: var(--muted);
-            font-size: 10px;
-        }
+    transition:
+        width .35s ease;
 
-        .detail-value {
-            color: white;
-            font-size: 11px;
-            font-weight: 800;
+}
 
-            word-break: break-word;
-            text-align: right;
-        }
 
-        .copy-button {
-            margin-top: 12px;
+/* =========================================================
+   STEP
+========================================================= */
 
-            width: 100%;
-            height: 40px;
+.step {
 
-            border:
-                1px solid
-                var(--border);
+    display: none;
 
-            border-radius: 10px;
+    animation:
+        stepIn .3s ease;
 
-            background:
-                rgba(255,255,255,.035);
+}
 
-            color: #dddde8;
+.step.active {
 
-            font-size: 10px;
-            font-weight: 800;
+    display: block;
 
-            cursor: pointer;
+}
 
-            transition: .2s;
-        }
+@keyframes stepIn {
 
-        .copy-button:hover {
-            border-color: var(--purple);
-        }
+    from {
 
-        /* =====================================================
-           SUMMARY
-        ===================================================== */
+        opacity: 0;
 
-        .summary {
-            padding: 17px;
+        transform:
+            translateY(10px);
 
-            border:
-                1px solid
-                var(--border);
+    }
 
-            border-radius: 15px;
+    to {
 
-            background:
-                rgba(255,255,255,.025);
-        }
+        opacity: 1;
 
-        .summary-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        transform:
+            translateY(0);
 
-            gap: 15px;
+    }
 
-            padding: 10px 0;
+}
 
-            border-bottom:
-                1px solid
-                rgba(255,255,255,.05);
-        }
+.step-header {
 
-        .summary-row:last-child {
-            border-bottom: 0;
-        }
+    margin-bottom: 22px;
 
-        .summary-row span {
-            color: var(--muted);
-            font-size: 11px;
-        }
+}
 
-        .summary-row strong {
-            font-size: 12px;
-            text-align: right;
-        }
+.step-number {
 
-        .total {
-            color: #c4b5fd;
-            font-size: 18px !important;
-        }
+    display: inline-flex;
 
-        /* =====================================================
-           WARNING
-        ===================================================== */
+    align-items: center;
 
-        .warning {
-            display: flex;
-            gap: 11px;
+    gap: 7px;
 
-            margin-top: 15px;
-            padding: 14px;
+    margin-bottom: 8px;
 
-            border:
-                1px solid
-                rgba(239,68,68,.18);
+    color:
+        #a78bfa;
 
-            border-radius: 13px;
+    font-size: 11px;
 
-            background:
-                rgba(239,68,68,.05);
+    font-weight: 800;
 
-            color: #fca5a5;
+    text-transform: uppercase;
 
-            font-size: 10px;
-            line-height: 1.6;
-        }
+    letter-spacing: .5px;
 
-        /* =====================================================
-           NAVIGATION BUTTONS
-        ===================================================== */
+}
 
-        .navigation {
-            display: flex;
+.step-header h2 {
 
-            gap: 10px;
+    margin-bottom: 6px;
 
-            margin-top: 25px;
-        }
+    font-size: 24px;
 
-        .back-button,
-        .continue-button {
-            height: 56px;
+    font-weight: 900;
 
-            border-radius: 14px;
+}
 
-            font-size: 12px;
-            font-weight: 900;
+.step-header p {
 
-            cursor: pointer;
+    color: var(--muted);
 
-            transition: .2s;
-        }
+    font-size: 12px;
 
-        .back-button {
-            width: 125px;
+    line-height: 1.6;
 
-            border:
-                1px solid
-                var(--border);
+}
 
-            background:
-                rgba(255,255,255,.035);
 
-            color: #aaaab8;
-        }
+/* =========================================================
+   OFFICIAL NOTICE
+========================================================= */
 
-        .back-button:hover {
-            color: white;
-            border-color: rgba(255,255,255,.2);
-        }
+.notice {
 
-        .continue-button {
-            flex: 1;
+    display: flex;
 
-            border: 0;
+    gap: 13px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--purple),
-                    var(--purple-2)
-                );
+    padding: 16px;
 
-            color: white;
+    margin-bottom: 22px;
 
-            box-shadow:
-                0 15px 35px
-                rgba(109,40,217,.22);
-        }
+    border:
+        1px solid
+        rgba(139,92,246,.20);
 
-        .continue-button:hover:not(:disabled) {
-            transform: translateY(-2px);
+    border-radius: 15px;
 
-            box-shadow:
-                0 20px 45px
-                rgba(109,40,217,.35);
-        }
+    background:
+        rgba(139,92,246,.055);
 
-        .continue-button:disabled {
-            opacity: .35;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
+}
 
-        /* =====================================================
-           FINAL PAYMENT BUTTON
-        ===================================================== */
+.notice-icon {
 
-        .final-button {
-            width: 100%;
-            height: 58px;
+    flex:
+        0 0 40px;
 
-            margin-top: 15px;
+    width: 40px;
 
-            border: 0;
-            border-radius: 14px;
+    height: 40px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #22c55e,
-                    #16a34a
-                );
+    display: grid;
 
-            color: white;
+    place-items: center;
 
-            font-size: 13px;
-            font-weight: 900;
+    border-radius: 11px;
 
-            cursor: pointer;
+    background:
+        rgba(139,92,246,.12);
 
-            box-shadow:
-                0 15px 35px
-                rgba(34,197,94,.18);
+    color:
+        #c4b5fd;
 
-            transition: .2s;
-        }
+}
 
-        .final-button:hover {
-            transform: translateY(-2px);
-        }
+.notice h3 {
 
-        /* =====================================================
-           SECURITY
-        ===================================================== */
+    margin-bottom: 4px;
 
-        .security {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+    font-size: 12px;
 
-            gap: 17px;
+    font-weight: 900;
 
-            margin-top: 18px;
+}
 
-            color: #686875;
+.notice p {
 
-            font-size: 9px;
-        }
+    color: var(--muted);
 
-        /* =====================================================
-           INFO
-        ===================================================== */
+    font-size: 10px;
 
-        .info {
-            margin-top: 16px;
-            padding: 15px;
+    line-height: 1.6;
 
-            border:
-                1px solid
-                rgba(59,130,246,.12);
+}
 
-            border-radius: 13px;
 
-            background:
-                rgba(59,130,246,.04);
+/* =========================================================
+   AMOUNT
+========================================================= */
 
-            color: var(--muted);
+.field-label {
 
-            font-size: 10px;
-            line-height: 1.65;
+    display: block;
 
-            text-align: center;
-        }
+    margin-bottom: 9px;
 
-        .info strong {
-            color: #c7c7d2;
-        }
+    color: #dddde7;
 
-        /* =====================================================
-           SUCCESS
-        ===================================================== */
+    font-size: 12px;
 
-        .success {
-            text-align: center;
-        }
+    font-weight: 800;
 
-        .success-icon {
-            width: 75px;
-            height: 75px;
+}
 
-            display: grid;
-            place-items: center;
+.amount-wrapper {
 
-            margin: 0 auto 18px;
+    position: relative;
 
-            border:
-                1px solid
-                rgba(34,197,94,.25);
+    margin-bottom: 17px;
 
-            border-radius: 50%;
+}
 
-            background:
-                rgba(34,197,94,.1);
+.currency {
 
-            color: var(--green);
+    position: absolute;
 
-            font-size: 32px;
+    left: 18px;
 
-            box-shadow:
-                0 0 40px
-                rgba(34,197,94,.12);
-        }
+    top: 50%;
 
-        .success h2 {
-            margin-bottom: 8px;
+    transform:
+        translateY(-50%);
 
-            font-size: 24px;
-            font-weight: 900;
-        }
+    color: #aaaaba;
 
-        .success p {
-            margin: 0 auto;
+    font-size: 21px;
 
-            max-width: 520px;
+    font-weight: 900;
 
-            color: var(--muted);
+    pointer-events: none;
 
-            font-size: 12px;
-            line-height: 1.7;
-        }
+}
 
-        /* =====================================================
-           FOOTER
-        ===================================================== */
+.amount {
 
-        footer {
-            padding: 0 20px 35px;
+    width: 100%;
 
-            text-align: center;
+    height: 64px;
 
-            color: #62626f;
+    padding:
+        0 18px 0 44px;
 
-            font-size: 10px;
-        }
+    border:
+        1px solid
+        var(--border);
 
-        footer strong {
-            color: #9292a0;
-        }
+    border-radius: 14px;
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
+    outline: none;
 
-            gap: 15px;
+    background:
+        #090910;
 
-            margin-top: 9px;
-        }
+    color: white;
 
-        .footer-links a {
-            color: #777784;
-            text-decoration: none;
-        }
+    font-family: inherit;
 
-        .footer-links a:hover {
-            color: white;
-        }
+    font-size: 23px;
 
-        /* =====================================================
-           TOAST
-        ===================================================== */
+    font-weight: 900;
 
-        #toast {
-            position: fixed;
+    transition: .2s;
 
-            left: 50%;
-            bottom: 25px;
+}
 
-            z-index: 9998;
+.amount:focus {
 
-            transform:
-                translate(-50%, 100px);
+    border-color:
+        var(--purple);
 
-            padding:
-                12px 17px;
+    box-shadow:
+        0 0 0 4px
+        rgba(139,92,246,.08);
 
-            border:
-                1px solid
-                var(--border);
+}
 
-            border-radius: 12px;
+.amount.invalid {
 
-            background:
-                rgba(17,17,27,.96);
+    border-color:
+        var(--red);
 
-            color: white;
+}
 
-            font-size: 11px;
-            font-weight: 800;
+.amount-help {
 
-            box-shadow:
-                0 20px 50px
-                rgba(0,0,0,.4);
+    margin-top: 7px;
 
-            opacity: 0;
+    color:
+        #6f6f7d;
 
-            transition:
-                .3s ease;
-        }
+    font-size: 10px;
 
-        #toast.show {
-            transform:
-                translate(-50%, 0);
+}
 
-            opacity: 1;
-        }
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+/* =========================================================
+   QUICK AMOUNTS
+========================================================= */
 
-        @media (max-width: 750px) {
+.quick-title {
 
-            .methods {
-                grid-template-columns: 1fr;
-            }
+    margin-top: 18px;
 
-            .method {
-                min-height: 125px;
-            }
+    margin-bottom: 9px;
 
-            .method-icon {
-                float: left;
-                margin-right: 14px;
-                margin-bottom: 0;
-            }
+    color: #cfcfd9;
 
-            .method h3 {
-                padding-top: 5px;
-            }
+    font-size: 11px;
 
-            .step-label {
-                display: none;
-            }
+    font-weight: 800;
 
-            .step-line {
-                width: 35px;
-            }
+}
 
-        }
+.quick-buttons {
 
-        @media (max-width: 600px) {
+    display: flex;
 
-            main {
-                padding-top: 40px;
-            }
+    flex-wrap: wrap;
 
-            .payment-card {
-                padding: 18px;
-                border-radius: 21px;
-            }
+    gap: 8px;
 
-            .nav {
-                min-height: 65px;
-            }
+    margin-bottom: 23px;
 
-            .brand {
-                font-size: 16px;
-            }
+}
 
-            .brand-icon {
-                width: 37px;
-                height: 37px;
-            }
+.quick {
 
-            .nav-button span {
-                display: none;
-            }
+    padding:
+        8px 13px;
 
-            .nav-button {
-                width: 38px;
-                padding: 0;
+    border:
+        1px solid
+        var(--border);
 
-                justify-content: center;
-            }
+    border-radius: 10px;
 
-            .quick-amounts {
-                grid-template-columns: repeat(2, 1fr);
-            }
+    background:
+        rgba(255,255,255,.025);
 
-            .navigation {
-                flex-direction: row;
-            }
+    color:
+        #bdbdca;
 
-            .back-button {
-                width: 105px;
-            }
+    font-family: inherit;
 
-            .hero h1 {
-                letter-spacing: -1.5px;
-            }
+    font-size: 11px;
 
-        }
+    font-weight: 700;
 
-    </style>
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.quick:hover {
+
+    color: white;
+
+    border-color:
+        var(--purple);
+
+    background:
+        rgba(139,92,246,.08);
+
+}
+
+.quick.active {
+
+    border-color:
+        var(--purple);
+
+    background:
+        rgba(139,92,246,.12);
+
+    color: white;
+
+}
+
+
+/* =========================================================
+   PAYMENT METHODS
+========================================================= */
+
+.methods {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+}
+
+.method {
+
+    position: relative;
+
+    min-height: 155px;
+
+    padding: 18px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 16px;
+
+    background:
+        var(--card-soft);
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.method:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        var(--border-hover);
+
+}
+
+.method.selected {
+
+    border-color:
+        var(--purple);
+
+    background:
+        rgba(139,92,246,.09);
+
+    box-shadow:
+        0 0 0 1px
+        rgba(139,92,246,.12);
+
+}
+
+.method-check {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+    width: 21px;
+
+    height: 21px;
+
+    display: grid;
+
+    place-items: center;
+
+    border:
+        1px solid
+        #484855;
+
+    border-radius: 50%;
+
+    color: transparent;
+
+    font-size: 11px;
+
+}
+
+.method.selected .method-check {
+
+    background:
+        var(--purple);
+
+    border-color:
+        var(--purple);
+
+    color: white;
+
+}
+
+.method-icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: grid;
+
+    place-items: center;
+
+    margin-bottom: 12px;
+
+    border-radius: 12px;
+
+    font-size: 20px;
+
+}
+
+.paypal-icon {
+
+    background:
+        rgba(0,112,186,.14);
+
+}
+
+.revolut-icon {
+
+    background:
+        rgba(255,255,255,.07);
+
+}
+
+.cashapp-icon {
+
+    background:
+        rgba(34,197,94,.12);
+
+}
+
+.method h3 {
+
+    margin-bottom: 5px;
+
+    font-size: 15px;
+
+    font-weight: 900;
+
+}
+
+.method p {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   ACCOUNTS
+========================================================= */
+
+.account-list {
+
+    display: grid;
+
+    gap: 10px;
+
+}
+
+.account {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.account:hover {
+
+    background:
+        rgba(255,255,255,.05);
+
+    border-color:
+        rgba(139,92,246,.25);
+
+}
+
+.account.selected {
+
+    border-color:
+        var(--purple);
+
+    background:
+        rgba(139,92,246,.08);
+
+}
+
+.account-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+.avatar {
+
+    width: 43px;
+
+    height: 43px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #29293a,
+            #15151f
+        );
+
+    font-weight: 900;
+
+}
+
+.account-name {
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+}
+
+.account-link {
+
+    margin-top: 3px;
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+}
+
+.radio {
+
+    width: 20px;
+
+    height: 20px;
+
+    padding: 4px;
+
+    border:
+        1px solid
+        #4b4b59;
+
+    border-radius: 50%;
+
+}
+
+.account.selected .radio {
+
+    border-color:
+        var(--purple);
+
+}
+
+.account.selected .radio::after {
+
+    content: "";
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    border-radius: 50%;
+
+    background:
+        var(--purple);
+
+}
+
+
+/* =========================================================
+   ACCOUNT DETAILS
+========================================================= */
+
+.account-details {
+
+    display: none;
+
+    margin-top: 16px;
+
+    padding: 15px;
+
+    border:
+        1px solid
+        rgba(139,92,246,.16);
+
+    border-radius: 14px;
+
+    background:
+        rgba(139,92,246,.045);
+
+}
+
+.account-details.show {
+
+    display: block;
+
+    animation:
+        stepIn .25s ease;
+
+}
+
+.detail-label {
+
+    margin-bottom: 7px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+}
+
+.detail-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+}
+
+.detail-value {
+
+    overflow: hidden;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    text-overflow: ellipsis;
+
+}
+
+.copy-btn {
+
+    flex-shrink: 0;
+
+    padding:
+        7px 10px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    color:
+        #cfcfd9;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+}
+
+.copy-btn:hover {
+
+    border-color:
+        var(--purple);
+
+    color: white;
+
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary {
+
+    margin-top: 18px;
+
+    padding: 16px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.025);
+
+}
+
+.summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 6px 0;
+
+    font-size: 11px;
+
+}
+
+.summary-row span {
+
+    color:
+        var(--muted);
+
+}
+
+.summary-row strong {
+
+    text-align: right;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.step-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 24px;
+
+}
+
+.back-btn {
+
+    min-width: 115px;
+
+    height: 50px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color:
+        #aaaab8;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.back-btn:hover {
+
+    color: white;
+
+    border-color:
+        rgba(255,255,255,.18);
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+.continue-btn {
+
+    flex: 1;
+
+    height: 50px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-2)
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 30px
+        rgba(109,40,217,.22);
+
+    transition: .2s;
+
+}
+
+.continue-btn:hover:not(:disabled) {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 17px 38px
+        rgba(109,40,217,.32);
+
+}
+
+.continue-btn:disabled {
+
+    opacity: .4;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+}
+
+
+/* =========================================================
+   FINAL PAYMENT BUTTON
+========================================================= */
+
+.final-payment {
+
+    width: 100%;
+
+    height: 57px;
+
+    border: 0;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple-2)
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 15px 35px
+        rgba(109,40,217,.25);
+
+    transition: .2s;
+
+}
+
+.final-payment:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 20px 45px
+        rgba(109,40,217,.35);
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.security {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    margin-top: 18px;
+
+    color:
+        #686875;
+
+    font-size: 9px;
+
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.info {
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border:
+        1px solid
+        rgba(59,130,246,.12);
+
+    border-radius: 13px;
+
+    background:
+        rgba(59,130,246,.04);
+
+    color:
+        var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.65;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast-box {
+
+    position: fixed;
+
+    right: 20px;
+
+    bottom: 20px;
+
+    z-index: 9998;
+
+    max-width: 320px;
+
+    padding:
+        12px 15px;
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius: 12px;
+
+    background:
+        #13131d;
+
+    color: white;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,.45);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+    pointer-events: none;
+
+    transition: .25s;
+
+}
+
+.toast-box.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+
+    padding:
+        0 20px 35px;
+
+    color:
+        #666674;
+
+    text-align: center;
+
+    font-size: 10px;
+
+}
+
+footer strong {
+
+    color:
+        #9292a0;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 750px) {
+
+    .methods {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .method {
+
+        min-height: 120px;
+
+    }
+
+    .method-icon {
+
+        float: left;
+
+        margin-right: 12px;
+
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .online {
+
+        display: none;
+
+    }
+
+    .nav {
+
+        min-height: 65px;
+
+    }
+
+    .nav-btn {
+
+        padding:
+            8px 9px;
+
+    }
+
+    .nav-btn span {
+
+        display: none;
+
+    }
+
+    main {
+
+        padding-top: 38px;
+
+    }
+
+    .checkout {
+
+        padding: 18px;
+
+        border-radius: 20px;
+
+    }
+
+    .hero h1 {
+
+        letter-spacing:
+            -1.5px;
+
+    }
+
+    .step-actions {
+
+        gap: 9px;
+
+    }
+
+    .back-btn {
+
+        min-width: 95px;
+
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-    <!-- =====================================================
-         LOADING SCREEN
-    ===================================================== -->
 
-    <div id="loader">
+<!-- =========================================================
+     LOADER
+========================================================= -->
 
-        <div class="loader-content">
+<div id="loader">
 
-            <div class="loader-logo">
+    <div class="loader-logo">
+        ⚡
+    </div>
+
+    <div class="loader-title">
+        ModdingXZ
+    </div>
+
+    <div class="loader-text">
+        Loading secure payment portal...
+    </div>
+
+    <div class="loader-bar"></div>
+
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <div class="nav">
+
+        <a
+            href="index.html"
+            class="brand"
+            aria-label="Return to ModdingXZ home"
+            style="text-decoration:none;color:white;"
+        >
+
+            <div class="brand-icon">
                 ⚡
             </div>
 
-            <div class="loader-title">
-                ModdingXZ
-            </div>
+            ModdingXZ
 
-            <div class="loader-text">
-                Loading secure payment portal...
-            </div>
+        </a>
 
-            <div class="loader-bar">
-                <span></span>
+
+        <div class="nav-actions">
+
+            <a
+                href="index.html"
+                class="nav-btn"
+            >
+
+                <i class="bi bi-house-fill"></i>
+
+                <span>
+                    Home
+                </span>
+
+            </a>
+
+
+            <a
+                href="https://t.me/ModdingXZ_Support_Bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="nav-btn"
+            >
+
+                <i class="bi bi-telegram"></i>
+
+                <span>
+                    Support
+                </span>
+
+            </a>
+
+
+            <div class="online">
+
+                <span class="online-dot"></span>
+
+                Official Portal
+
             </div>
 
         </div>
 
     </div>
 
-
-    <!-- =====================================================
-         HEADER
-    ===================================================== -->
-
-    <header>
-
-        <div class="nav">
-
-            <a
-                href="index.html"
-                class="brand text-decoration-none text-white"
-            >
-
-                <div class="brand-icon">
-                    ⚡
-                </div>
-
-                ModdingXZ
-
-            </a>
+</header>
 
 
-            <div class="nav-actions">
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
-                <a
-                    href="index.html"
-                    class="nav-button"
-                    title="Home"
-                >
-
-                    <i class="bi bi-house-fill"></i>
-
-                    <span>Home</span>
-
-                </a>
+<main>
 
 
-                <a
-                    href="https://t.me/ModdingXZ_Support_Bot"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="nav-button support-button"
-                    title="Telegram Support"
-                >
+    <!-- HERO -->
 
-                    <i class="bi bi-telegram"></i>
+    <section class="hero">
 
-                    <span>Support</span>
+        <div class="badge">
 
-                </a>
+            <i class="bi bi-shield-lock-fill"></i>
 
-            </div>
+            OFFICIAL PAYMENT PORTAL
 
         </div>
 
-    </header>
+
+        <h1>
+
+            Pay
+
+            <span class="gradient">
+                ModdingXZ
+            </span>
+
+        </h1>
+
+
+        <p>
+
+            Complete your payment in just a few steps.
+            Select your amount, choose an official payment
+            method and continue directly to the payment provider.
+
+        </p>
+
+    </section>
 
 
     <!-- =====================================================
-         MAIN
+         CHECKOUT
     ===================================================== -->
 
-    <main>
+    <section class="checkout">
 
 
-        <!-- HERO -->
+        <!-- PROGRESS -->
 
-        <section class="hero">
+        <div class="progress-wrapper">
 
-            <div class="badge">
+            <div class="progress-top">
 
-                <i class="bi bi-shield-lock-fill"></i>
-
-                OFFICIAL PAYMENT PORTAL
-
-            </div>
-
-
-            <h1>
-
-                Pay
-
-                <span class="gradient">
-                    ModdingXZ
+                <span
+                    class="progress-title"
+                    id="progressTitle"
+                >
+                    Payment Amount
                 </span>
 
-            </h1>
-
-
-            <p>
-
-                Follow the simple steps below to select
-                your payment method and continue securely
-                to the official payment provider.
-
-            </p>
-
-        </section>
-
-
-        <!-- =================================================
-             STEPPER
-        ================================================= -->
-
-        <div class="steps">
-
-            <div
-                class="step active"
-                id="indicator1"
-            >
-
-                <div class="step-circle">
-                    1
-                </div>
-
-                <div class="step-label">
-                    Amount
-                </div>
+                <span
+                    class="progress-number"
+                    id="progressNumber"
+                >
+                    Step 1 of 3
+                </span>
 
             </div>
 
 
-            <div
-                class="step-line"
-                id="line1"
-            ></div>
+            <div class="progress-track">
 
-
-            <div
-                class="step"
-                id="indicator2"
-            >
-
-                <div class="step-circle">
-                    2
-                </div>
-
-                <div class="step-label">
-                    Method
-                </div>
-
-            </div>
-
-
-            <div
-                class="step-line"
-                id="line2"
-            ></div>
-
-
-            <div
-                class="step"
-                id="indicator3"
-            >
-
-                <div class="step-circle">
-                    3
-                </div>
-
-                <div class="step-label">
-                    Account
-                </div>
-
-            </div>
-
-
-            <div
-                class="step-line"
-                id="line3"
-            ></div>
-
-
-            <div
-                class="step"
-                id="indicator4"
-            >
-
-                <div class="step-circle">
-                    4
-                </div>
-
-                <div class="step-label">
-                    Confirm
-                </div>
+                <div
+                    class="progress-fill"
+                    id="progressFill"
+                ></div>
 
             </div>
 
@@ -1752,13 +2097,41 @@
 
 
         <!-- =================================================
-             PAYMENT CARD
+             STEP 1
         ================================================= -->
 
-        <section class="payment-card">
+        <section
+            class="step active"
+            id="step1"
+        >
+
+            <div class="step-header">
+
+                <div class="step-number">
+
+                    <i class="bi bi-1-circle-fill"></i>
+
+                    Step 1
+
+                </div>
 
 
-            <!-- OFFICIAL NOTICE -->
+                <h2>
+                    Enter your payment amount
+                </h2>
+
+
+                <p>
+
+                    Enter the exact amount provided
+                    by ModdingXZ Support.
+
+                </p>
+
+            </div>
+
+
+            <!-- NOTICE -->
 
             <div class="notice">
 
@@ -1772,18 +2145,14 @@
                 <div>
 
                     <h3>
-                        OFFICIAL PAYMENT METHODS ONLY
+                        OFFICIAL PAYMENT PORTAL
                     </h3>
 
                     <p>
 
-                        Only use the payment accounts displayed
-                        on this page. ModdingXZ will never ask
-                        you to send payment to an alternative
-                        account through an unofficial message.
-
-                        If you receive different payment details,
-                        stop and contact our Telegram Support.
+                        Only use the payment methods
+                        and accounts displayed on this
+                        official ModdingXZ payment page.
 
                     </p>
 
@@ -1792,555 +2161,610 @@
             </div>
 
 
-            <!-- =================================================
-                 STEP 1
-            ================================================= -->
+            <!-- AMOUNT -->
 
-            <div
-                class="step-content active"
-                id="step1"
+            <label
+                class="field-label"
+                for="amount"
             >
 
-                <div class="step-heading">
+                Payment Amount
 
-                    <small>
-                        Step 1 of 4
-                    </small>
+            </label>
 
-                    <h2>
-                        Enter your payment amount
-                    </h2>
 
-                    <p>
-                        Enter the exact amount provided by ModdingXZ Support.
-                    </p>
+            <div class="amount-wrapper">
 
-                </div>
+                <span class="currency">
+                    £
+                </span>
 
 
-                <div class="amount-wrapper">
-
-                    <span class="currency">
-                        £
-                    </span>
-
-                    <input
-                        id="amount"
-                        class="amount"
-                        type="number"
-                        min="0.01"
-                        max="9999"
-                        step="0.01"
-                        inputmode="decimal"
-                        placeholder="0.00"
-                        autocomplete="off"
-                    >
-
-                </div>
-
-
-                <div
-                    id="amountError"
-                    class="amount-error"
-                >
-                    Please enter a valid amount between £0.01 and £9,999.
-                </div>
-
-
-                <div class="quick-amounts">
-
-                    <button
-                        class="quick"
-                        onclick="setAmount(5)"
-                    >
-                        £5
-                    </button>
-
-                    <button
-                        class="quick"
-                        onclick="setAmount(10)"
-                    >
-                        £10
-                    </button>
-
-                    <button
-                        class="quick"
-                        onclick="setAmount(15)"
-                    >
-                        £15
-                    </button>
-
-                    <button
-                        class="quick"
-                        onclick="setAmount(20)"
-                    >
-                        £20
-                    </button>
-
-                </div>
-
-
-                <div class="navigation">
-
-                    <button
-                        class="continue-button"
-                        id="amountContinue"
-                        onclick="goToStep(2)"
-                        disabled
-                    >
-                        Continue to Payment Method
-                        <i class="bi bi-arrow-right ms-2"></i>
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 STEP 2
-            ================================================= -->
-
-            <div
-                class="step-content"
-                id="step2"
-            >
-
-                <div class="step-heading">
-
-                    <small>
-                        Step 2 of 4
-                    </small>
-
-                    <h2>
-                        Choose your payment method
-                    </h2>
-
-                    <p>
-                        Select one of the official methods below.
-                    </p>
-
-                </div>
-
-
-                <div class="methods">
-
-
-                    <!-- PAYPAL -->
-
-                    <div
-                        class="method"
-                        id="paypalMethod"
-                        onclick="selectMethod('paypal')"
-                        tabindex="0"
-                        role="button"
-                    >
-
-                        <div class="method-check">
-                            ✓
-                        </div>
-
-                        <div class="method-icon paypal">
-                            💙
-                        </div>
-
-                        <h3>
-                            PayPal
-                        </h3>
-
-                        <p>
-                            Pay using an official PayPal account.
-                        </p>
-
-                    </div>
-
-
-                    <!-- REVOLUT -->
-
-                    <div
-                        class="method"
-                        id="revolutMethod"
-                        onclick="selectMethod('revolut')"
-                        tabindex="0"
-                        role="button"
-                    >
-
-                        <div class="method-check">
-                            ✓
-                        </div>
-
-                        <div class="method-icon revolut">
-                            🟣
-                        </div>
-
-                        <h3>
-                            Revolut
-                        </h3>
-
-                        <p>
-                            Pay using an official Revolut account.
-                        </p>
-
-                    </div>
-
-
-                    <!-- CASH APP -->
-
-                    <div
-                        class="method"
-                        id="cashappMethod"
-                        onclick="selectMethod('cashapp')"
-                        tabindex="0"
-                        role="button"
-                    >
-
-                        <div class="method-check">
-                            ✓
-                        </div>
-
-                        <div class="method-icon cashapp">
-                            💵
-                        </div>
-
-                        <h3>
-                            Cash App
-                        </h3>
-
-                        <p>
-                            Pay using the official Cash App account.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="navigation">
-
-                    <button
-                        class="back-button"
-                        onclick="goBack()"
-                    >
-
-                        <i class="bi bi-arrow-left me-1"></i>
-
-                        Back
-
-                    </button>
-
-
-                    <button
-                        class="continue-button"
-                        id="methodContinue"
-                        onclick="goToStep(3)"
-                        disabled
-                    >
-
-                        Continue
-
-                        <i class="bi bi-arrow-right ms-2"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 STEP 3
-            ================================================= -->
-
-            <div
-                class="step-content"
-                id="step3"
-            >
-
-                <div class="step-heading">
-
-                    <small>
-                        Step 3 of 4
-                    </small>
-
-                    <h2>
-                        Select payment account
-                    </h2>
-
-                    <p id="accountDescription">
-                        Choose the official account you want to pay.
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="accounts"
-                    id="accountList"
-                ></div>
-
-
-                <div
-                    class="payment-details"
-                    id="paymentDetails"
-                    style="display:none;"
+                <input
+                    id="amount"
+                    class="amount"
+                    type="number"
+                    min="0.01"
+                    max="9999"
+                    step="0.01"
+                    inputmode="decimal"
+                    placeholder="0.00"
+                    autocomplete="off"
                 >
 
-                    <div class="details-title">
-                        PAYMENT DETAILS
-                    </div>
+            </div>
 
 
-                    <div class="detail-row">
+            <div class="amount-help">
 
-                        <span class="detail-label">
-                            Account
-                        </span>
-
-                        <span
-                            class="detail-value"
-                            id="detailName"
-                        >
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span class="detail-label">
-                            Payment address
-                        </span>
-
-                        <span
-                            class="detail-value"
-                            id="detailUsername"
-                        >
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <button
-                        class="copy-button"
-                        onclick="copyPaymentDetails()"
-                    >
-
-                        <i class="bi bi-copy me-1"></i>
-
-                        Copy Payment Details
-
-                    </button>
-
-                </div>
-
-
-                <div class="navigation">
-
-                    <button
-                        class="back-button"
-                        onclick="goBack()"
-                    >
-
-                        <i class="bi bi-arrow-left me-1"></i>
-
-                        Back
-
-                    </button>
-
-
-                    <button
-                        class="continue-button"
-                        id="accountContinue"
-                        onclick="goToStep(4)"
-                        disabled
-                    >
-
-                        Review Payment
-
-                        <i class="bi bi-arrow-right ms-2"></i>
-
-                    </button>
-
-                </div>
+                Minimum £0.01 · Maximum £9,999.00
 
             </div>
 
 
-            <!-- =================================================
-                 STEP 4
-            ================================================= -->
+            <!-- QUICK AMOUNTS -->
 
-            <div
-                class="step-content"
-                id="step4"
-            >
-
-                <div class="step-heading">
-
-                    <small>
-                        Step 4 of 4
-                    </small>
-
-                    <h2>
-                        Confirm your payment
-                    </h2>
-
-                    <p>
-                        Check everything carefully before continuing.
-                    </p>
-
-                </div>
+            <div class="quick-title">
+                Quick amount
+            </div>
 
 
-                <div class="summary">
-
-
-                    <div class="summary-row">
-
-                        <span>
-                            Amount
-                        </span>
-
-                        <strong
-                            id="summaryAmount"
-                            class="total"
-                        >
-                            £0.00
-                        </strong>
-
-                    </div>
-
-
-                    <div class="summary-row">
-
-                        <span>
-                            Payment method
-                        </span>
-
-                        <strong
-                            id="summaryMethod"
-                        >
-                            -
-                        </strong>
-
-                    </div>
-
-
-                    <div class="summary-row">
-
-                        <span>
-                            Payment account
-                        </span>
-
-                        <strong
-                            id="summaryAccount"
-                        >
-                            -
-                        </strong>
-
-                    </div>
-
-
-                    <div class="summary-row">
-
-                        <span>
-                            Payment address
-                        </span>
-
-                        <strong
-                            id="summaryUsername"
-                        >
-                            -
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
+            <div class="quick-buttons">
 
                 <button
-                    class="final-button"
-                    onclick="openPayment()"
+                    class="quick"
+                    data-amount="5"
+                >
+                    £5
+                </button>
+
+                <button
+                    class="quick"
+                    data-amount="10"
+                >
+                    £10
+                </button>
+
+                <button
+                    class="quick"
+                    data-amount="15"
+                >
+                    £15
+                </button>
+
+                <button
+                    class="quick"
+                    data-amount="20"
+                >
+                    £20
+                </button>
+
+                <button
+                    class="quick"
+                    data-amount="30"
+                >
+                    £30
+                </button>
+
+                <button
+                    class="quick"
+                    data-amount="50"
+                >
+                    £50
+                </button>
+
+            </div>
+
+
+            <div class="step-actions">
+
+                <button
+                    class="continue-btn"
+                    id="amountContinue"
+                    disabled
                 >
 
-                    <i class="bi bi-box-arrow-up-right me-2"></i>
+                    Continue
+                    <i class="bi bi-arrow-right"></i>
 
-                    Continue to Official Payment
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STEP 2
+        ================================================= -->
+
+        <section
+            class="step"
+            id="step2"
+        >
+
+            <div class="step-header">
+
+                <div class="step-number">
+
+                    <i class="bi bi-2-circle-fill"></i>
+
+                    Step 2
+
+                </div>
+
+
+                <h2>
+                    Choose payment method
+                </h2>
+
+
+                <p>
+
+                    Select one of the official payment
+                    providers available below.
+
+                </p>
+
+            </div>
+
+
+            <div class="methods">
+
+
+                <!-- PAYPAL -->
+
+                <div
+                    class="method"
+                    data-method="paypal"
+                    tabindex="0"
+                    role="button"
+                >
+
+                    <div class="method-check">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+
+
+                    <div
+                        class="method-icon paypal-icon"
+                    >
+
+                        <i class="bi bi-paypal"></i>
+
+                    </div>
+
+
+                    <h3>
+                        PayPal
+                    </h3>
+
+
+                    <p>
+                        Pay securely through PayPal.
+                    </p>
+
+                </div>
+
+
+                <!-- REVOLUT -->
+
+                <div
+                    class="method"
+                    data-method="revolut"
+                    tabindex="0"
+                    role="button"
+                >
+
+                    <div class="method-check">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+
+
+                    <div
+                        class="method-icon revolut-icon"
+                    >
+
+                        <i class="bi bi-credit-card-2-front"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Revolut
+                    </h3>
+
+
+                    <p>
+                        Pay through the official Revolut link.
+                    </p>
+
+                </div>
+
+
+                <!-- CASH APP -->
+
+                <div
+                    class="method"
+                    data-method="cashapp"
+                    tabindex="0"
+                    role="button"
+                >
+
+                    <div class="method-check">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+
+
+                    <div
+                        class="method-icon cashapp-icon"
+                    >
+
+                        <i class="bi bi-cash-stack"></i>
+
+                    </div>
+
+
+                    <h3>
+                        Cash App
+                    </h3>
+
+
+                    <p>
+                        Pay through the official Cash App account.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="step-actions">
+
+                <button
+                    class="back-btn"
+                    id="backToAmount"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back
 
                 </button>
 
 
-                <!-- NO BACK BUTTON ON FINAL STEP -->
+                <button
+                    class="continue-btn"
+                    id="methodContinue"
+                    disabled
+                >
+
+                    Continue
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STEP 3
+        ================================================= -->
+
+        <section
+            class="step"
+            id="step3"
+        >
+
+            <div class="step-header">
+
+                <div class="step-number">
+
+                    <i class="bi bi-3-circle-fill"></i>
+
+                    Step 3
+
+                </div>
+
+
+                <h2>
+                    Choose payment account
+                </h2>
+
+
+                <p id="accountDescription">
+
+                    Select the account you want to pay.
+
+                </p>
 
             </div>
 
 
-            <!-- =================================================
-                 SUCCESS / REDIRECT MESSAGE
-            ================================================= -->
+            <div
+                class="account-list"
+                id="accountList"
+            ></div>
+
+
+            <!-- ACCOUNT DETAILS -->
 
             <div
-                class="step-content"
-                id="success"
+                class="account-details"
+                id="accountDetails"
             >
 
-                <div class="success">
+                <div class="detail-label">
+                    Payment Address
+                </div>
 
-                    <div class="success-icon">
 
-                        <i class="bi bi-check-lg"></i>
+                <div class="detail-row">
 
+                    <div
+                        class="detail-value"
+                        id="detailValue"
+                    >
+                        -
                     </div>
 
-                    <h2>
-                        Payment Page Opened
-                    </h2>
 
-                    <p>
+                    <button
+                        class="copy-btn"
+                        id="copyButton"
+                    >
 
-                        You have been redirected to the selected
-                        payment provider.
+                        <i class="bi bi-copy"></i>
 
-                        Complete your payment there, then contact
-                        ModdingXZ Support if required.
+                        Copy
 
-                    </p>
-
-
-                    <div class="navigation">
-
-                        <a
-                            href="index.html"
-                            class="continue-button d-flex align-items-center justify-content-center text-decoration-none"
-                        >
-
-                            <i class="bi bi-house-fill me-2"></i>
-
-                            Return Home
-
-                        </a>
-
-                    </div>
+                    </button>
 
                 </div>
 
             </div>
 
 
-            <!-- SECURITY -->
+            <!-- SUMMARY -->
+
+            <div class="summary">
+
+                <div class="summary-row">
+
+                    <span>
+                        Amount
+                    </span>
+
+                    <strong id="finalAmount">
+                        £0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Payment Method
+                    </span>
+
+                    <strong id="finalMethod">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Account
+                    </span>
+
+                    <strong id="finalAccount">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- FINAL PAYMENT -->
+
+            <div class="step-actions">
+
+                <button
+                    class="back-btn"
+                    id="backToMethod"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back
+
+                </button>
+
+
+                <button
+                    class="continue-btn"
+                    id="reviewPayment"
+                    disabled
+                >
+
+                    Review Payment
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STEP 4 / CONFIRMATION
+        ================================================= -->
+
+        <section
+            class="step"
+            id="step4"
+        >
+
+            <div class="step-header text-center">
+
+                <div class="step-number justify-content-center">
+
+                    <i class="bi bi-shield-check"></i>
+
+                    Ready to Pay
+
+                </div>
+
+
+                <h2>
+                    Confirm your payment
+                </h2>
+
+
+                <p>
+
+                    Check the details below before
+                    continuing to the selected provider.
+
+                </p>
+
+            </div>
+
+
+            <div class="summary">
+
+                <div class="summary-row">
+
+                    <span>
+                        Amount
+                    </span>
+
+                    <strong id="confirmAmount">
+                        £0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Method
+                    </span>
+
+                    <strong id="confirmMethod">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Account
+                    </span>
+
+                    <strong id="confirmAccount">
+                        -
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Payment Address
+                    </span>
+
+                    <strong id="confirmAddress">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="notice">
+
+                <div class="notice-icon">
+
+                    <i class="bi bi-info-circle"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        PAYMENT REDIRECT
+                    </h3>
+
+                    <p>
+
+                        Clicking the button below will
+                        take you directly to the selected
+                        payment provider.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="final-payment"
+                id="payNow"
+            >
+
+                <i class="bi bi-lock-fill"></i>
+
+                Continue to Payment
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </button>
+
+
+            <div class="step-actions">
+
+                <button
+                    class="back-btn"
+                    id="backToAccount"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back
+
+                </button>
+
+            </div>
+
 
             <div class="security">
 
                 <span>
-                    <i class="bi bi-shield-lock-fill"></i>
+                    <i class="bi bi-shield-lock"></i>
                     Secure
                 </span>
 
                 <span>
-                    <i class="bi bi-lightning-fill"></i>
+                    <i class="bi bi-lightning-charge"></i>
                     Fast
                 </span>
 
@@ -2351,706 +2775,890 @@
 
             </div>
 
-
-            <!-- INFO -->
-
-            <div class="info">
-
-                <strong>
-                    Payment information:
-                </strong>
-
-                ModdingXZ does not process or store card,
-                banking or login information on this website.
-
-                Your payment is completed directly through
-                the selected payment provider.
-
-                <br><br>
-
-                <strong>
-                    Official methods:
-                </strong>
-
-                PayPal, Revolut and Cash App only.
-
-            </div>
-
         </section>
 
-    </main>
 
+        <!-- SECURITY -->
 
-    <!-- =====================================================
-         FOOTER
-    ===================================================== -->
+        <div class="security">
 
-    <footer>
+            <span>
+                <i class="bi bi-shield-check"></i>
+                Official Portal
+            </span>
 
-        © 2026
-        <strong>ModdingXZ</strong>
-        · Official Payment Portal
+            <span>
+                <i class="bi bi-lock"></i>
+                Secure Redirect
+            </span>
 
-        <div class="footer-links">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a
-                href="https://t.me/ModdingXZ_Support_Bot"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Telegram Support
-            </a>
+            <span>
+                <i class="bi bi-credit-card"></i>
+                External Payment
+            </span>
 
         </div>
 
-    </footer>
+
+        <div class="info">
+
+            Payments are completed directly through
+            the selected payment provider.
+
+            ModdingXZ does not process or store your
+            card or banking details on this website.
+
+            <br><br>
+
+            <strong>
+                Official payment methods:
+            </strong>
+
+            PayPal · Revolut · Cash App
+
+        </div>
+
+    </section>
+
+</main>
 
 
-    <!-- TOAST -->
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
-    <div id="toast"></div>
+<footer>
 
+    © 2026
+    <strong>ModdingXZ</strong>
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ===================================================== -->
+    · Official Payment Portal
 
-    <script>
-
-        /* =====================================================
-           OFFICIAL PAYMENT ACCOUNTS
-        ===================================================== */
-
-        const paymentAccounts = {
-
-            paypal: [
-
-                {
-                    name: "ModdingX",
-                    username: "paypal.me/MrJasonDEX",
-                    url: "https://paypal.me/MrJasonDEX"
-                },
-
-                {
-                    name: "Gameralday2001",
-                    username: "paypal.me/ShawnCrouse357",
-                    url: "https://www.paypal.me/ShawnCrouse357"
-                }
-
-            ],
-
-            revolut: [
-
-                {
-                    name: "ModdingXZ",
-                    username: "revolut.me/moddingxz",
-                    url: "https://revolut.me/moddingxz"
-                },
-
-                {
-                    name: "Gameralday2001",
-                    username: "revolut.me/s_crouse",
-                    url: "https://revolut.me/s_crouse"
-                }
-
-            ],
-
-            cashapp: [
-
-                {
-                    name: "Gameralday2001",
-                    username: "$Crouse0612",
-                    url: "https://cash.app/$Crouse0612"
-                }
-
-            ]
-
-        };
+</footer>
 
 
-        /* =====================================================
-           STATE
-        ===================================================== */
+<!-- =========================================================
+     TOAST
+========================================================= -->
 
-        let currentStep = 1;
-
-        let selectedMethod = null;
-
-        let selectedAccount = null;
-
-        let amount = 0;
+<div
+    class="toast-box"
+    id="toast"
+>
+</div>
 
 
-        const methodNames = {
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
 
-            paypal: "PayPal",
+<script>
 
-            revolut: "Revolut",
+/* =========================================================
+   OFFICIAL PAYMENT ACCOUNTS
+========================================================= */
 
-            cashapp: "Cash App"
+const paymentAccounts = {
 
-        };
+    paypal: [
+
+        {
+            name: "ModdingX",
+            username: "paypal.me/MrJasonDEX",
+            url: "https://paypal.me/MrJasonDEX"
+        },
+
+        {
+            name: "Gameralday2001",
+            username: "paypal.me/ShawnCrouse357",
+            url: "https://www.paypal.me/ShawnCrouse357"
+        }
+
+    ],
+
+    revolut: [
+
+        {
+            name: "ModdingXZ",
+            username: "revolut.me/moddingxz",
+            url: "https://revolut.me/moddingxz"
+        },
+
+        {
+            name: "Gameralday2001",
+            username: "revolut.me/s_crouse",
+            url: "https://revolut.me/s_crouse"
+        }
+
+    ],
+
+    cashapp: [
+
+        {
+            name: "Gameralday2001",
+            username: "$Crouse0612",
+            url: "https://cash.app/$Crouse0612"
+        }
+
+    ]
+
+};
 
 
-        /* =====================================================
-           ELEMENTS
-        ===================================================== */
+/* =========================================================
+   STATE
+========================================================= */
 
-        const amountInput =
-            document.getElementById("amount");
+let currentStep = 1;
 
-        const amountContinue =
-            document.getElementById("amountContinue");
+let selectedMethod = null;
 
-        const methodContinue =
-            document.getElementById("methodContinue");
-
-        const accountContinue =
-            document.getElementById("accountContinue");
-
-        const amountError =
-            document.getElementById("amountError");
+let selectedAccount = null;
 
 
-        /* =====================================================
-           LOADING
-        ===================================================== */
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-        window.addEventListener("load", () => {
+const amountInput =
+    document.getElementById("amount");
 
-            setTimeout(() => {
+const amountContinue =
+    document.getElementById("amountContinue");
+
+const methodContinue =
+    document.getElementById("methodContinue");
+
+const reviewPayment =
+    document.getElementById("reviewPayment");
+
+const accountList =
+    document.getElementById("accountList");
+
+const accountDetails =
+    document.getElementById("accountDetails");
+
+const detailValue =
+    document.getElementById("detailValue");
+
+const copyButton =
+    document.getElementById("copyButton");
+
+const progressFill =
+    document.getElementById("progressFill");
+
+const progressNumber =
+    document.getElementById("progressNumber");
+
+const progressTitle =
+    document.getElementById("progressTitle");
+
+const toast =
+    document.getElementById("toast");
+
+
+/* =========================================================
+   METHOD NAMES
+========================================================= */
+
+const methodNames = {
+
+    paypal: "PayPal",
+
+    revolut: "Revolut",
+
+    cashapp: "Cash App"
+
+};
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        setTimeout(
+            () => {
 
                 document
                     .getElementById("loader")
                     .classList
-                    .add("hide");
+                    .add("hidden");
 
-            }, 850);
+            },
+            650
+        );
 
-        });
-
-
-        /* =====================================================
-           AMOUNT
-        ===================================================== */
-
-        amountInput.addEventListener("input", () => {
-
-            validateAmount();
-
-        });
+    }
+);
 
 
-        function validateAmount() {
+/* =========================================================
+   TOAST
+========================================================= */
 
-            const value =
-                parseFloat(amountInput.value);
+let toastTimer;
+
+function showToast(message) {
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove("show");
+
+            },
+            2500
+        );
+
+}
 
 
-            const valid =
-                Number.isFinite(value) &&
-                value >= 0.01 &&
-                value <= 9999;
+/* =========================================================
+   STEP TITLES
+========================================================= */
+
+const stepTitles = {
+
+    1: "Payment Amount",
+
+    2: "Payment Method",
+
+    3: "Payment Account",
+
+    4: "Confirmation"
+
+};
 
 
-            amountContinue.disabled =
-                !valid;
+/* =========================================================
+   SHOW STEP
+========================================================= */
 
+function showStep(step) {
 
-            if (
-                amountInput.value &&
-                !valid
-            ) {
+    currentStep = step;
 
-                amountError.classList.add("show");
+    document
+        .querySelectorAll(".step")
+        .forEach(
+            element => {
 
-            } else {
-
-                amountError.classList.remove("show");
+                element.classList.remove("active");
 
             }
+        );
+
+    const target =
+        document.getElementById(
+            `step${step}`
+        );
+
+    if (target) {
+
+        target.classList.add("active");
+
+    }
 
 
-            return valid;
+    progressTitle.textContent =
+        stepTitles[step];
 
-        }
+
+    progressNumber.textContent =
+        step === 4
+            ? "Ready"
+            : `Step ${step} of 3`;
 
 
-        function setAmount(value) {
+    const percentage =
+        step === 1
+            ? 33.333
+            : step === 2
+                ? 66.666
+                : 100;
 
-            amountInput.value =
-                value.toFixed(2);
 
-            validateAmount();
+    progressFill.style.width =
+        `${percentage}%`;
 
-            showToast(
-                `Amount set to £${value.toFixed(2)}`
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   VALIDATE AMOUNT
+========================================================= */
+
+function getAmount() {
+
+    const amount =
+        parseFloat(
+            amountInput.value
+        );
+
+    if (
+        Number.isNaN(amount) ||
+        amount <= 0 ||
+        amount > 9999
+    ) {
+
+        return null;
+
+    }
+
+    return amount;
+
+}
+
+
+/* =========================================================
+   AMOUNT INPUT
+========================================================= */
+
+amountInput.addEventListener(
+    "input",
+    () => {
+
+        const amount =
+            getAmount();
+
+        amountInput.classList.toggle(
+            "invalid",
+            amount === null &&
+            amountInput.value !== ""
+        );
+
+        amountContinue.disabled =
+            amount === null;
+
+        document
+            .querySelectorAll(".quick")
+            .forEach(
+                button => {
+
+                    button.classList.toggle(
+                        "active",
+                        parseFloat(
+                            button.dataset.amount
+                        ) === amount
+                    );
+
+                }
+            );
+
+    }
+);
+
+
+/* =========================================================
+   QUICK AMOUNTS
+========================================================= */
+
+document
+    .querySelectorAll(".quick")
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    amountInput.value =
+                        button.dataset.amount;
+
+                    amountInput.dispatchEvent(
+                        new Event("input")
+                    );
+
+                }
             );
 
         }
+    );
 
 
-        /* =====================================================
-           STEP NAVIGATION
-        ===================================================== */
+/* =========================================================
+   STEP 1 CONTINUE
+========================================================= */
 
-        function goToStep(step) {
+amountContinue.addEventListener(
+    "click",
+    () => {
 
-            if (step === 2) {
+        const amount =
+            getAmount();
 
-                if (!validateAmount()) {
-                    return;
-                }
+        if (amount === null) {
 
-                amount =
-                    parseFloat(
-                        amountInput.value
-                    );
+            showToast(
+                "Please enter a valid payment amount."
+            );
 
-            }
-
-
-            if (step === 3) {
-
-                if (!selectedMethod) {
-                    return;
-                }
-
-            }
-
-
-            if (step === 4) {
-
-                if (
-                    selectedAccount === null
-                ) {
-                    return;
-                }
-
-                buildSummary();
-
-            }
-
-
-            currentStep = step;
-
-            updateStepUI();
+            return;
 
         }
 
+        showStep(2);
 
-        function goBack() {
-
-            if (currentStep <= 1) {
-                return;
-            }
-
-            currentStep--;
-
-            updateStepUI();
-
-        }
+    }
+);
 
 
-        function updateStepUI() {
+/* =========================================================
+   PAYMENT METHOD SELECTION
+========================================================= */
 
-            document
-                .querySelectorAll(".step-content")
-                .forEach(section => {
+document
+    .querySelectorAll(".method")
+    .forEach(
+        method => {
 
-                    section.classList.remove("active");
+            function selectThisMethod() {
 
-                });
+                selectedMethod =
+                    method.dataset.method;
 
-
-            const current =
-                document.getElementById(
-                    `step${currentStep}`
-                );
-
-
-            if (current) {
-                current.classList.add("active");
-            }
+                selectedAccount =
+                    null;
 
 
-            /* Indicators */
+                document
+                    .querySelectorAll(".method")
+                    .forEach(
+                        item => {
 
-            for (let i = 1; i <= 4; i++) {
+                            item.classList.remove(
+                                "selected"
+                            );
 
-                const indicator =
-                    document.getElementById(
-                        `indicator${i}`
+                        }
                     );
 
 
-                indicator.classList.remove(
-                    "active",
-                    "completed"
-                );
-
-
-                if (i < currentStep) {
-
-                    indicator.classList.add(
-                        "completed"
-                    );
-
-                    indicator
-                        .querySelector(".step-circle")
-                        .innerHTML =
-                        '<i class="bi bi-check-lg"></i>';
-
-                }
-
-                else if (i === currentStep) {
-
-                    indicator.classList.add(
-                        "active"
-                    );
-
-                    indicator
-                        .querySelector(".step-circle")
-                        .textContent =
-                        i;
-
-                }
-
-                else {
-
-                    indicator
-                        .querySelector(".step-circle")
-                        .textContent =
-                        i;
-
-                }
-
-            }
-
-
-            document
-                .getElementById("line1")
-                .classList.toggle(
-                    "completed",
-                    currentStep > 1
-                );
-
-
-            document
-                .getElementById("line2")
-                .classList.toggle(
-                    "completed",
-                    currentStep > 2
-                );
-
-
-            document
-                .getElementById("line3")
-                .classList.toggle(
-                    "completed",
-                    currentStep > 3
-                );
-
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        }
-
-
-        /* =====================================================
-           PAYMENT METHOD
-        ===================================================== */
-
-        function selectMethod(method) {
-
-            selectedMethod =
-                method;
-
-            selectedAccount =
-                null;
-
-
-            document
-                .querySelectorAll(".method")
-                .forEach(item => {
-
-                    item.classList.remove(
-                        "selected"
-                    );
-
-                });
-
-
-            document
-                .getElementById(
-                    `${method}Method`
-                )
-                .classList.add(
+                method.classList.add(
                     "selected"
                 );
 
 
-            methodContinue.disabled =
-                false;
+                methodContinue.disabled =
+                    false;
+
+            }
 
 
-            showToast(
-                `${methodNames[method]} selected`
+            method.addEventListener(
+                "click",
+                selectThisMethod
             );
 
-        }
 
+            method.addEventListener(
+                "keydown",
+                event => {
 
-        /* =====================================================
-           RENDER ACCOUNTS
-        ===================================================== */
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
 
-        function renderAccounts() {
+                        event.preventDefault();
 
-            const accountList =
-                document.getElementById(
-                    "accountList"
-                );
+                        selectThisMethod();
 
-
-            accountList.innerHTML = "";
-
-
-            paymentAccounts[
-                selectedMethod
-            ].forEach(
-                (account, index) => {
-
-                    const item =
-                        document.createElement("div");
-
-
-                    item.className =
-                        "account";
-
-
-                    item.onclick =
-                        () => selectAccount(index);
-
-
-                    item.innerHTML = `
-
-                        <div class="account-left">
-
-                            <div class="avatar">
-
-                                ${account.name
-                                    .charAt(0)
-                                    .toUpperCase()}
-
-                            </div>
-
-                            <div>
-
-                                <div class="account-name">
-
-                                    ${escapeHTML(
-                                        account.name
-                                    )}
-
-                                </div>
-
-                                <div class="account-link">
-
-                                    ${escapeHTML(
-                                        account.username
-                                    )}
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="radio"></div>
-
-                    `;
-
-
-                    accountList.appendChild(item);
+                    }
 
                 }
             );
 
         }
+    );
 
 
-        /* =====================================================
-           ACCOUNT SELECTION
-        ===================================================== */
+/* =========================================================
+   STEP 2 CONTINUE
+========================================================= */
 
-        function selectAccount(index) {
+methodContinue.addEventListener(
+    "click",
+    () => {
 
-            selectedAccount =
-                index;
+        if (!selectedMethod) {
+
+            showToast(
+                "Please select a payment method."
+            );
+
+            return;
+
+        }
+
+        renderAccounts();
+
+        showStep(3);
+
+    }
+);
 
 
-            document
-                .querySelectorAll(".account")
-                .forEach(
-                    (account, i) => {
+/* =========================================================
+   RENDER ACCOUNTS
+========================================================= */
 
-                        account.classList.toggle(
-                            "selected",
-                            i === index
-                        );
+function renderAccounts() {
 
-                    }
+    accountList.innerHTML = "";
+
+    accountDetails.classList.remove(
+        "show"
+    );
+
+    paymentAccounts[
+        selectedMethod
+    ].forEach(
+        (
+            account,
+            index
+        ) => {
+
+            const item =
+                document.createElement(
+                    "div"
                 );
 
 
-            const account =
-                paymentAccounts[
-                    selectedMethod
-                ][
-                    selectedAccount
-                ];
+            item.className =
+                "account";
 
 
-            document
-                .getElementById(
-                    "paymentDetails"
-                )
-                .style.display =
-                "block";
+            item.setAttribute(
+                "tabindex",
+                "0"
+            );
 
 
-            document
-                .getElementById(
-                    "detailName"
-                )
-                .textContent =
-                account.name;
+            const letter =
+                account.name
+                    .charAt(0)
+                    .toUpperCase();
 
 
-            document
-                .getElementById(
-                    "detailUsername"
-                )
-                .textContent =
-                account.username;
+            item.innerHTML = `
+
+                <div class="account-left">
+
+                    <div class="avatar">
+
+                        ${letter}
+
+                    </div>
+
+                    <div>
+
+                        <div class="account-name">
+
+                            ${account.name}
+
+                        </div>
+
+                        <div class="account-link">
+
+                            ${account.username}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="radio"></div>
+
+            `;
 
 
-            accountContinue.disabled =
-                false;
+            function chooseAccount() {
+
+                selectAccount(index);
+
+            }
+
+
+            item.addEventListener(
+                "click",
+                chooseAccount
+            );
+
+
+            item.addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
+
+                        event.preventDefault();
+
+                        chooseAccount();
+
+                    }
+
+                }
+            );
+
+
+            accountList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SELECT ACCOUNT
+========================================================= */
+
+function selectAccount(index) {
+
+    selectedAccount =
+        index;
+
+
+    document
+        .querySelectorAll(".account")
+        .forEach(
+            (
+                item,
+                i
+            ) => {
+
+                item.classList.toggle(
+                    "selected",
+                    i === index
+                );
+
+            }
+        );
+
+
+    const account =
+        paymentAccounts[
+            selectedMethod
+        ][
+            index
+        ];
+
+
+    detailValue.textContent =
+        account.username;
+
+
+    accountDetails.classList.add(
+        "show"
+    );
+
+
+    reviewPayment.disabled =
+        false;
+
+
+    const amount =
+        getAmount();
+
+
+    document
+        .getElementById("finalAmount")
+        .textContent =
+        `£${amount.toFixed(2)}`;
+
+
+    document
+        .getElementById("finalMethod")
+        .textContent =
+        methodNames[
+            selectedMethod
+        ];
+
+
+    document
+        .getElementById("finalAccount")
+        .textContent =
+        account.name;
+
+}
+
+
+/* =========================================================
+   COPY PAYMENT ADDRESS
+========================================================= */
+
+copyButton.addEventListener(
+    "click",
+    async () => {
+
+        if (!selectedMethod ||
+            selectedAccount === null) {
+
+            return;
+
+        }
+
+
+        const account =
+            paymentAccounts[
+                selectedMethod
+            ][
+                selectedAccount
+            ];
+
+
+        try {
+
+            await navigator.clipboard.writeText(
+                account.username
+            );
+
+
+            copyButton.innerHTML =
+                '<i class="bi bi-check-lg"></i> Copied';
 
 
             showToast(
-                "Payment account selected"
+                "Payment address copied."
+            );
+
+
+            setTimeout(
+                () => {
+
+                    copyButton.innerHTML =
+                        '<i class="bi bi-copy"></i> Copy';
+
+                },
+                1800
+            );
+
+        } catch {
+
+            showToast(
+                "Unable to copy automatically."
             );
 
         }
 
-
-        /* =====================================================
-           STEP 3 ENTRY
-        ===================================================== */
-
-        const originalGoToStep =
-            goToStep;
+    }
+);
 
 
-        /* Re-render accounts whenever Step 3 opens */
+/* =========================================================
+   REVIEW PAYMENT
+========================================================= */
 
-        const oldUpdateStepUI =
-            updateStepUI;
+reviewPayment.addEventListener(
+    "click",
+    () => {
 
+        if (
+            !selectedMethod ||
+            selectedAccount === null
+        ) {
 
-        updateStepUI = function() {
+            showToast(
+                "Please select a payment account."
+            );
 
-            oldUpdateStepUI();
-
-
-            if (
-                currentStep === 3 &&
-                selectedMethod
-            ) {
-
-                renderAccounts();
-
-                accountContinue.disabled =
-                    selectedAccount === null;
-
-            }
-
-        };
-
-
-        /* =====================================================
-           SUMMARY
-        ===================================================== */
-
-        function buildSummary() {
-
-            const account =
-                paymentAccounts[
-                    selectedMethod
-                ][
-                    selectedAccount
-                ];
-
-
-            document
-                .getElementById(
-                    "summaryAmount"
-                )
-                .textContent =
-                `£${amount.toFixed(2)}`;
-
-
-            document
-                .getElementById(
-                    "summaryMethod"
-                )
-                .textContent =
-                methodNames[
-                    selectedMethod
-                ];
-
-
-            document
-                .getElementById(
-                    "summaryAccount"
-                )
-                .textContent =
-                account.name;
-
-
-            document
-                .getElementById(
-                    "summaryUsername"
-                )
-                .textContent =
-                account.username;
+            return;
 
         }
 
 
-        /* =====================================================
-           OPEN PAYMENT
-        ===================================================== */
+        const amount =
+            getAmount();
 
-        function openPayment() {
+
+        const account =
+            paymentAccounts[
+                selectedMethod
+            ][
+                selectedAccount
+            ];
+
+
+        document
+            .getElementById("confirmAmount")
+            .textContent =
+            `£${amount.toFixed(2)}`;
+
+
+        document
+            .getElementById("confirmMethod")
+            .textContent =
+            methodNames[
+                selectedMethod
+            ];
+
+
+        document
+            .getElementById("confirmAccount")
+            .textContent =
+            account.name;
+
+
+        document
+            .getElementById("confirmAddress")
+            .textContent =
+            account.username;
+
+
+        showStep(4);
+
+    }
+);
+
+
+/* =========================================================
+   OPEN PAYMENT
+========================================================= */
+
+document
+    .getElementById("payNow")
+    .addEventListener(
+        "click",
+        () => {
 
             if (
                 !selectedMethod ||
-                selectedAccount === null ||
-                !amount
+                selectedAccount === null
             ) {
+
                 return;
+
             }
+
+
+            const amount =
+                getAmount();
 
 
             const account =
@@ -3066,8 +3674,8 @@
 
 
             /*
-                PayPal.Me supports an amount
-                appended to the payment URL.
+                PayPal.Me allows an amount
+                to be appended to the URL.
             */
 
             if (
@@ -3084,213 +3692,87 @@
 
 
             showToast(
-                "Opening official payment page..."
+                "Opening payment provider..."
             );
 
 
-            /*
-                Small delay gives the user
-                feedback before redirecting.
-            */
+            setTimeout(
+                () => {
 
-            setTimeout(() => {
+                    window.location.href =
+                        url;
 
-                window.location.href =
-                    url;
-
-            }, 450);
-
-        }
-
-
-        /* =====================================================
-           COPY PAYMENT DETAILS
-        ===================================================== */
-
-        async function copyPaymentDetails() {
-
-            if (
-                !selectedMethod ||
-                selectedAccount === null
-            ) {
-                return;
-            }
-
-
-            const account =
-                paymentAccounts[
-                    selectedMethod
-                ][
-                    selectedAccount
-                ];
-
-
-            const text =
-                `${methodNames[selectedMethod]} - ${account.name}\n${account.username}`;
-
-
-            try {
-
-                await navigator.clipboard.writeText(
-                    text
-                );
-
-
-                showToast(
-                    "Payment details copied"
-                );
-
-            }
-
-            catch {
-
-                showToast(
-                    "Unable to copy automatically"
-                );
-
-            }
-
-        }
-
-
-        /* =====================================================
-           TOAST
-        ===================================================== */
-
-        let toastTimer;
-
-
-        function showToast(message) {
-
-            const toast =
-                document.getElementById(
-                    "toast"
-                );
-
-
-            toast.textContent =
-                message;
-
-
-            toast.classList.add(
-                "show"
+                },
+                350
             );
 
+        }
+    );
 
-            clearTimeout(
-                toastTimer
+
+/* =========================================================
+   BACK BUTTONS
+========================================================= */
+
+document
+    .getElementById("backToAmount")
+    .addEventListener(
+        "click",
+        () => {
+
+            showStep(1);
+
+        }
+    );
+
+
+document
+    .getElementById("backToMethod")
+    .addEventListener(
+        "click",
+        () => {
+
+            showStep(2);
+
+        }
+    );
+
+
+document
+    .getElementById("backToAccount")
+    .addEventListener(
+        "click",
+        () => {
+
+            showStep(3);
+
+        }
+    );
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape" &&
+            currentStep > 1
+        ) {
+
+            showStep(
+                currentStep - 1
             );
 
-
-            toastTimer =
-                setTimeout(() => {
-
-                    toast.classList.remove(
-                        "show"
-                    );
-
-                }, 2200);
-
         }
 
+    }
+);
 
-        /* =====================================================
-           ESCAPE HTML
-        ===================================================== */
-
-        function escapeHTML(value) {
-
-            return String(value)
-                .replace(
-                    /&/g,
-                    "&amp;"
-                )
-                .replace(
-                    /</g,
-                    "&lt;"
-                )
-                .replace(
-                    />/g,
-                    "&gt;"
-                )
-                .replace(
-                    /"/g,
-                    "&quot;"
-                )
-                .replace(
-                    /'/g,
-                    "&#039;"
-                );
-
-        }
-
-
-        /* =====================================================
-           KEYBOARD ACCESSIBILITY
-        ===================================================== */
-
-        document
-            .querySelectorAll(".method")
-            .forEach(method => {
-
-                method.addEventListener(
-                    "keydown",
-                    event => {
-
-                        if (
-                            event.key === "Enter" ||
-                            event.key === " "
-                        ) {
-
-                            event.preventDefault();
-
-                            method.click();
-
-                        }
-
-                    }
-                );
-
-            });
-
-
-        /* =====================================================
-           PREVENT ENTER FROM SUBMITTING
-        ===================================================== */
-
-        amountInput.addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key === "Enter" &&
-                    !amountContinue.disabled
-                ) {
-
-                    event.preventDefault();
-
-                    goToStep(2);
-
-                }
-
-            }
-        );
-
-
-        /* =====================================================
-           INITIAL STATE
-        ===================================================== */
-
-        updateStepUI();
-
-    </script>
-
-
-    <!-- Bootstrap JS -->
-
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    ></script>
+</script>
 
 </body>
 </html>
