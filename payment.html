@@ -1,417 +1,2417 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>ModdingXZ | Secure Payment Portal</title>
+    <meta
+        name="theme-color"
+        content="#07070b"
+    >
 
-<meta name="description" content="Official ModdingXZ payment portal">
+    <meta
+        name="description"
+        content="Official ModdingXZ payment portal."
+    >
 
-<meta name="theme-color" content="#07070b">
+    <meta
+        name="robots"
+        content="noindex,nofollow"
+    >
 
+    <title>ModdingXZ | Payment Portal</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
 
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-<style>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-:root {
-    --bg:#07070b;
-    --card:#12121b;
-    --border:rgba(255,255,255,.08);
-    --purple:#8b5cf6;
-    --blue:#6366f1;
-    --text:#fff;
-    --muted:#9696a7;
-}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
 
 
-* {
-    box-sizing:border-box;
-}
+    <!-- =====================================================
+         BOOTSTRAP 5
+    ====================================================== -->
 
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-body {
 
-    margin:0;
-    min-height:100vh;
-    background:
-    radial-gradient(circle at top left,
-    rgba(139,92,246,.25),
-    transparent 35%),
-    var(--bg);
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
 
-    color:white;
-    font-family:"Rubik",sans-serif;
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
 
-}
 
+    <!-- =====================================================
+         AOS ANIMATION LIBRARY
+    ====================================================== -->
 
-/* LOADING */
+    <link
+        href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+        rel="stylesheet"
+    >
 
-#loader {
 
-    position:fixed;
-    inset:0;
-    background:#07070b;
-    z-index:9999;
+    <!-- =====================================================
+         CUSTOM CSS
+    ====================================================== -->
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
+    <style>
 
-    animation:fadeOut 1s ease 2.5s forwards;
+        /* =================================================
+           ROOT
+        ================================================= */
 
-}
+        :root {
 
+            --bg:
+                #06060a;
 
-.loader-logo {
+            --bg-2:
+                #0a0a12;
 
-    width:80px;
-    height:80px;
+            --card:
+                rgba(17, 17, 27, 0.88);
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+            --card-2:
+                rgba(255,255,255,0.035);
 
-    border-radius:25px;
+            --border:
+                rgba(255,255,255,0.085);
 
-    background:
-    linear-gradient(
-    135deg,
-    var(--purple),
-    var(--blue));
+            --border-hover:
+                rgba(139,92,246,0.45);
 
-    font-size:35px;
+            --text:
+                #ffffff;
 
-    animation:pulse 1s infinite;
+            --muted:
+                #9292a4;
 
-}
+            --purple:
+                #8b5cf6;
 
+            --purple-2:
+                #6366f1;
 
-.loader-title {
+            --blue:
+                #60a5fa;
 
-    margin-top:20px;
-    font-size:28px;
-    font-weight:900;
+            --green:
+                #22c55e;
 
-}
+            --red:
+                #ef4444;
 
+            --orange:
+                #f59e0b;
 
-.loader-text {
+            --shadow:
+                0 30px 100px rgba(0,0,0,0.45);
 
-    color:var(--muted);
-    margin-top:10px;
+        }
 
-}
 
+        /* =================================================
+           RESET
+        ================================================= */
 
+        * {
 
-@keyframes pulse {
+            box-sizing:
+                border-box;
 
-    50% {
-        transform:scale(1.08);
-    }
+            margin:
+                0;
 
-}
+            padding:
+                0;
 
+        }
 
-@keyframes fadeOut {
 
-    to {
-        opacity:0;
-        visibility:hidden;
-    }
+        html {
 
-}
+            scroll-behavior:
+                smooth;
 
+        }
 
 
-/* HEADER */
+        body {
 
+            min-height:
+                100vh;
 
-header {
+            font-family:
+                "Rubik",
+                sans-serif;
 
-    position:sticky;
-    top:0;
-    z-index:100;
+            color:
+                var(--text);
 
-    background:
-    rgba(7,7,11,.8);
+            background:
 
-    backdrop-filter:blur(20px);
+                radial-gradient(
+                    circle at 10% 0%,
+                    rgba(139,92,246,0.18),
+                    transparent 28%
+                ),
 
-    border-bottom:1px solid var(--border);
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(96,165,250,0.10),
+                    transparent 28%
+                ),
 
-}
+                radial-gradient(
+                    circle at 50% 100%,
+                    rgba(139,92,246,0.08),
+                    transparent 30%
+                ),
 
+                var(--bg);
 
-.navbar-brand {
+            overflow-x:
+                hidden;
 
-    font-weight:900;
-    color:white!important;
+        }
 
-}
 
+        button,
+        input {
 
-.brand-icon {
+            font-family:
+                inherit;
 
-    display:inline-flex;
+        }
 
-    width:40px;
-    height:40px;
 
-    align-items:center;
-    justify-content:center;
+        /* =================================================
+           LOADING SCREEN
+        ================================================= */
 
-    border-radius:12px;
+        #loadingScreen {
 
-    background:
-    linear-gradient(
-    135deg,
-    var(--purple),
-    var(--blue));
+            position:
+                fixed;
 
-}
+            inset:
+                0;
 
+            z-index:
+                99999;
 
-/* CONTAINER */
+            display:
+                flex;
 
+            align-items:
+                center;
 
-.container-box {
+            justify-content:
+                center;
 
-    max-width:850px;
-    margin:auto;
+            background:
+                #06060a;
 
-    padding:
-    60px 15px;
+            transition:
+                opacity .5s ease,
+                visibility .5s ease;
 
-}
+        }
 
 
+        #loadingScreen.hide {
 
-/* HERO */
+            opacity:
+                0;
 
+            visibility:
+                hidden;
 
-.hero {
+        }
 
-    text-align:center;
 
-}
+        .loader-wrapper {
 
+            text-align:
+                center;
 
-.badge-box {
+        }
 
-    display:inline-block;
 
-    padding:8px 15px;
+        .loader-logo {
 
-    border-radius:50px;
+            width:
+                76px;
 
-    background:
-    rgba(139,92,246,.15);
+            height:
+                76px;
 
-    border:
-    1px solid rgba(139,92,246,.3);
+            display:
+                grid;
 
-    color:#c4b5fd;
+            place-items:
+                center;
 
-    font-weight:700;
+            margin:
+                0 auto 22px;
 
-}
+            border-radius:
+                22px;
 
+            background:
 
-.hero h1 {
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-2)
+                );
 
-    margin-top:20px;
+            font-size:
+                32px;
 
-    font-size:
-    clamp(40px,7vw,65px);
+            box-shadow:
+                0 20px 70px
+                rgba(139,92,246,.4);
 
-    font-weight:900;
+            animation:
+                logoPulse 1.5s infinite;
 
-}
+        }
 
 
-.gradient {
+        @keyframes logoPulse {
 
-    background:
-    linear-gradient(
-    90deg,
-    #a78bfa,
-    #60a5fa);
+            0%,
+            100% {
 
-    -webkit-background-clip:text;
-    color:transparent;
+                transform:
+                    scale(1);
 
-}
+            }
 
+            50% {
 
-.hero p {
+                transform:
+                    scale(1.07);
 
-    color:var(--muted);
+            }
 
-}
+        }
 
 
+        .loader-title {
 
-/* CARD */
+            font-size:
+                22px;
 
+            font-weight:
+                900;
 
-.card-box {
+        }
 
-    margin-top:40px;
 
-    background:
-    rgba(18,18,27,.9);
+        .loader-subtitle {
 
-    border:
-    1px solid var(--border);
+            margin-top:
+                7px;
 
-    border-radius:25px;
+            color:
+                var(--muted);
 
-    padding:30px;
+            font-size:
+                12px;
 
-}
+        }
 
 
+        .loader-bar {
 
-/* STEPS */
+            width:
+                190px;
 
+            height:
+                4px;
 
-.step {
+            overflow:
+                hidden;
 
-    display:none;
+            margin:
+                20px auto 0;
 
-    animation:slide .3s ease;
+            border-radius:
+                99px;
 
-}
+            background:
+                rgba(255,255,255,.08);
 
+        }
 
-.step.active {
 
-    display:block;
+        .loader-progress {
 
-}
+            width:
+                40%;
 
+            height:
+                100%;
 
-@keyframes slide {
+            border-radius:
+                inherit;
 
-    from {
+            background:
 
-        opacity:0;
-        transform:translateY(15px);
+                linear-gradient(
+                    90deg,
+                    var(--purple),
+                    var(--blue)
+                );
 
-    }
+            animation:
+                loadingBar 1.2s infinite ease-in-out;
 
-    to {
+        }
 
-        opacity:1;
-        transform:none;
 
-    }
+        @keyframes loadingBar {
 
-}
+            0% {
 
+                transform:
+                    translateX(-150%);
 
+            }
 
-.form-control {
+            100% {
 
-    background:#090910!important;
+                transform:
+                    translateX(400%);
 
-    border:1px solid var(--border)!important;
+            }
 
-    color:white!important;
+        }
 
-    height:60px;
 
-}
+        /* =================================================
+           HEADER
+        ================================================= */
 
+        .topbar {
 
-.form-control:focus {
+            position:
+                sticky;
 
-    box-shadow:
-    0 0 0 4px rgba(139,92,246,.2)!important;
+            top:
+                0;
 
-}
+            z-index:
+                500;
 
+            border-bottom:
+                1px solid var(--border);
 
+            background:
+                rgba(6,6,10,.76);
 
-/* BUTTONS */
+            backdrop-filter:
+                blur(22px);
 
+        }
 
-.btn-main {
 
-    background:
-    linear-gradient(
-    135deg,
-    var(--purple),
-    var(--blue));
+        .nav-inner {
 
-    color:white;
+            width:
+                min(1100px, calc(100% - 30px));
 
-    border:none;
+            min-height:
+                72px;
 
-    height:55px;
+            margin:
+                auto;
 
-    border-radius:15px;
+            display:
+                flex;
 
-    font-weight:900;
+            align-items:
+                center;
 
-}
+            justify-content:
+                space-between;
 
+        }
 
-.btn-back {
 
-    background:
-    transparent;
+        .brand {
 
-    border:
-    1px solid var(--border);
+            display:
+                flex;
 
-    color:#aaa;
+            align-items:
+                center;
 
-    height:55px;
+            gap:
+                11px;
 
-    border-radius:15px;
+            text-decoration:
+                none;
 
-}
+            color:
+                white;
 
+            font-weight:
+                900;
 
+            font-size:
+                19px;
 
-/* FLOAT SUPPORT */
+        }
 
 
-.support {
+        .brand-icon {
 
-    position:fixed;
+            width:
+                42px;
 
-    bottom:20px;
+            height:
+                42px;
 
-    right:20px;
+            display:
+                grid;
 
-    background:#229ed9;
+            place-items:
+                center;
 
-    color:white;
+            border-radius:
+                13px;
 
-    padding:14px 20px;
+            background:
 
-    border-radius:50px;
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-2)
+                );
 
-    font-weight:700;
+            box-shadow:
+                0 10px 35px
+                rgba(139,92,246,.30);
 
-    text-decoration:none;
+        }
 
-}
 
+        .nav-actions {
 
-</style>
+            display:
+                flex;
+
+            gap:
+                8px;
+
+        }
+
+
+        .nav-btn {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            padding:
+                9px 13px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            color:
+                #bdbdcc;
+
+            text-decoration:
+                none;
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+            transition:
+                .2s ease;
+
+        }
+
+
+        .nav-btn:hover {
+
+            color:
+                white;
+
+            border-color:
+                var(--border-hover);
+
+            background:
+                rgba(139,92,246,.08);
+
+        }
+
+
+        /* =================================================
+           MAIN
+        ================================================= */
+
+        main {
+
+            width:
+                min(860px, calc(100% - 28px));
+
+            margin:
+                auto;
+
+            padding:
+                55px 0 80px;
+
+        }
+
+
+        /* =================================================
+           HERO
+        ================================================= */
+
+        .hero {
+
+            text-align:
+                center;
+
+            margin-bottom:
+                32px;
+
+        }
+
+
+        .official-badge {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                7px;
+
+            padding:
+                8px 14px;
+
+            margin-bottom:
+                18px;
+
+            border:
+                1px solid rgba(139,92,246,.28);
+
+            border-radius:
+                999px;
+
+            background:
+                rgba(139,92,246,.08);
+
+            color:
+                #c4b5fd;
+
+            font-size:
+                11px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                .3px;
+
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(39px, 7vw, 65px);
+
+            line-height:
+                1;
+
+            letter-spacing:
+                -3px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .gradient {
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    #a78bfa,
+                    #60a5fa
+                );
+
+            -webkit-background-clip:
+                text;
+
+            background-clip:
+                text;
+
+            color:
+                transparent;
+
+        }
+
+
+        .hero p {
+
+            max-width:
+                640px;
+
+            margin:
+                18px auto 0;
+
+            color:
+                var(--muted);
+
+            line-height:
+                1.7;
+
+            font-size:
+                14px;
+
+        }
+
+
+        /* =================================================
+           CHECKOUT CARD
+        ================================================= */
+
+        .checkout {
+
+            position:
+                relative;
+
+            padding:
+                25px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                27px;
+
+            background:
+                var(--card);
+
+            box-shadow:
+                var(--shadow);
+
+            backdrop-filter:
+                blur(22px);
+
+        }
+
+
+        /* =================================================
+           PROGRESS
+        ================================================= */
+
+        .progress-wrapper {
+
+            margin-bottom:
+                25px;
+
+        }
+
+
+        .progress-top {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            margin-bottom:
+                9px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .progress-track {
+
+            height:
+                5px;
+
+            overflow:
+                hidden;
+
+            border-radius:
+                99px;
+
+            background:
+                rgba(255,255,255,.07);
+
+        }
+
+
+        .progress-fill {
+
+            width:
+                25%;
+
+            height:
+                100%;
+
+            border-radius:
+                inherit;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    var(--purple),
+                    var(--blue)
+                );
+
+            transition:
+                width .35s ease;
+
+        }
+
+
+        .step-dots {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:
+                8px;
+
+            margin-top:
+                12px;
+
+        }
+
+
+        .step-dot {
+
+            text-align:
+                center;
+
+            color:
+                #555565;
+
+            font-size:
+                9px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .step-dot.active {
+
+            color:
+                #bda8ff;
+
+        }
+
+
+        /* =================================================
+           STEP
+        ================================================= */
+
+        .step {
+
+            display:
+                none;
+
+            animation:
+                stepIn .35s ease;
+
+        }
+
+
+        .step.active {
+
+            display:
+                block;
+
+        }
+
+
+        @keyframes stepIn {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    translateY(10px);
+
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .step-heading {
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .step-number {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            width:
+                31px;
+
+            height:
+                31px;
+
+            margin-bottom:
+                10px;
+
+            border-radius:
+                10px;
+
+            background:
+                rgba(139,92,246,.12);
+
+            border:
+                1px solid rgba(139,92,246,.25);
+
+            color:
+                #c4b5fd;
+
+            font-size:
+                12px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .step-heading h2 {
+
+            font-size:
+                23px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .step-heading p {
+
+            margin-top:
+                5px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        /* =================================================
+           SECURITY NOTICE
+        ================================================= */
+
+        .notice {
+
+            display:
+                flex;
+
+            gap:
+                14px;
+
+            padding:
+                17px;
+
+            margin-bottom:
+                22px;
+
+            border:
+                1px solid rgba(139,92,246,.2);
+
+            border-radius:
+                16px;
+
+            background:
+                rgba(139,92,246,.055);
+
+        }
+
+
+        .notice-icon {
+
+            flex:
+                0 0 42px;
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            border-radius:
+                12px;
+
+            background:
+                rgba(139,92,246,.12);
+
+            color:
+                #c4b5fd;
+
+        }
+
+
+        .notice strong {
+
+            display:
+                block;
+
+            margin-bottom:
+                5px;
+
+            font-size:
+                12px;
+
+        }
+
+
+        .notice p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            line-height:
+                1.65;
+
+        }
+
+
+        /* =================================================
+           AMOUNT
+        ================================================= */
+
+        .field-label {
+
+            display:
+                block;
+
+            margin-bottom:
+                9px;
+
+            color:
+                #dddde7;
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .amount-box {
+
+            position:
+                relative;
+
+            margin-bottom:
+                22px;
+
+        }
+
+
+        .currency {
+
+            position:
+                absolute;
+
+            left:
+                18px;
+
+            top:
+                50%;
+
+            transform:
+                translateY(-50%);
+
+            color:
+                #aaaaba;
+
+            font-size:
+                21px;
+
+            font-weight:
+                900;
+
+            pointer-events:
+                none;
+
+        }
+
+
+        #amount {
+
+            width:
+                100%;
+
+            height:
+                65px;
+
+            padding:
+                0 18px 0 45px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px;
+
+            outline:
+                none;
+
+            background:
+                #090910;
+
+            color:
+                white;
+
+            font-size:
+                24px;
+
+            font-weight:
+                900;
+
+            transition:
+                .2s;
+
+        }
+
+
+        #amount:focus {
+
+            border-color:
+                var(--purple);
+
+            box-shadow:
+                0 0 0 4px rgba(139,92,246,.08);
+
+        }
+
+
+        #amount.invalid {
+
+            border-color:
+                var(--red);
+
+        }
+
+
+        .amount-error {
+
+            display:
+                none;
+
+            margin-top:
+                7px;
+
+            color:
+                #f87171;
+
+            font-size:
+                10px;
+
+        }
+
+
+        .amount-error.show {
+
+            display:
+                block;
+
+        }
+
+
+        /* =================================================
+           PAYMENT METHODS
+        ================================================= */
+
+        .methods {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:
+                11px;
+
+        }
+
+
+        .method {
+
+            position:
+                relative;
+
+            min-height:
+                165px;
+
+            padding:
+                19px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                17px;
+
+            background:
+                var(--card-2);
+
+            cursor:
+                pointer;
+
+            transition:
+                .2s ease;
+
+        }
+
+
+        .method:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                var(--border-hover);
+
+        }
+
+
+        .method.selected {
+
+            border-color:
+                var(--purple);
+
+            background:
+                rgba(139,92,246,.09);
+
+            box-shadow:
+                0 0 0 1px rgba(139,92,246,.1);
+
+        }
+
+
+        .method-check {
+
+            position:
+                absolute;
+
+            top:
+                12px;
+
+            right:
+                12px;
+
+            width:
+                22px;
+
+            height:
+                22px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            border:
+                1px solid #444452;
+
+            border-radius:
+                50%;
+
+            color:
+                transparent;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .method.selected .method-check {
+
+            color:
+                white;
+
+            background:
+                var(--purple);
+
+            border-color:
+                var(--purple);
+
+        }
+
+
+        .method-icon {
+
+            width:
+                46px;
+
+            height:
+                46px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            margin-bottom:
+                14px;
+
+            border-radius:
+                13px;
+
+            font-size:
+                22px;
+
+        }
+
+
+        .paypal {
+
+            background:
+                rgba(0,112,186,.13);
+
+        }
+
+
+        .revolut {
+
+            background:
+                rgba(255,255,255,.07);
+
+        }
+
+
+        .cashapp {
+
+            background:
+                rgba(34,197,94,.12);
+
+        }
+
+
+        .method h3 {
+
+            margin-bottom:
+                4px;
+
+            font-size:
+                15px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .method p {
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            line-height:
+                1.5;
+
+        }
+
+
+        /* =================================================
+           ACCOUNTS
+        ================================================= */
+
+        .accounts-list {
+
+            display:
+                grid;
+
+            gap:
+                10px;
+
+        }
+
+
+        .account {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            padding:
+                15px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                15px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            cursor:
+                pointer;
+
+            transition:
+                .2s;
+
+        }
+
+
+        .account:hover {
+
+            border-color:
+                var(--border-hover);
+
+            background:
+                rgba(255,255,255,.045);
+
+        }
+
+
+        .account.selected {
+
+            border-color:
+                var(--purple);
+
+            background:
+                rgba(139,92,246,.09);
+
+        }
+
+
+        .account-left {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+        }
+
+
+        .account-avatar {
+
+            width:
+                43px;
+
+            height:
+                43px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            border-radius:
+                12px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    #29293a,
+                    #15151f
+                );
+
+            font-weight:
+                900;
+
+        }
+
+
+        .account-name {
+
+            font-size:
+                13px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .account-username {
+
+            margin-top:
+                3px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+        }
+
+
+        .radio {
+
+            width:
+                20px;
+
+            height:
+                20px;
+
+            padding:
+                4px;
+
+            border:
+                1px solid #4b4b59;
+
+            border-radius:
+                50%;
+
+        }
+
+
+        .account.selected .radio {
+
+            border-color:
+                var(--purple);
+
+        }
+
+
+        .account.selected .radio::after {
+
+            content:
+                "";
+
+            display:
+                block;
+
+            width:
+                100%;
+
+            height:
+                100%;
+
+            border-radius:
+                50%;
+
+            background:
+                var(--purple);
+
+        }
+
+
+        /* =================================================
+           SUMMARY
+        ================================================= */
+
+        .summary-card {
+
+            overflow:
+                hidden;
+
+            margin-bottom:
+                20px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                17px;
+
+            background:
+                rgba(255,255,255,.025);
+
+        }
+
+
+        .summary-header {
+
+            padding:
+                14px 16px;
+
+            border-bottom:
+                1px solid var(--border);
+
+            color:
+                #bdbdcc;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+            letter-spacing:
+                .5px;
+
+        }
+
+
+        .summary-body {
+
+            padding:
+                7px 16px 12px;
+
+        }
+
+
+        .summary-row {
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            gap:
+                15px;
+
+            padding:
+                9px 0;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .summary-row span {
+
+            color:
+                var(--muted);
+
+        }
+
+
+        .summary-row strong {
+
+            text-align:
+                right;
+
+        }
+
+
+        .total-row {
+
+            padding-top:
+                14px;
+
+            margin-top:
+                5px;
+
+            border-top:
+                1px solid var(--border);
+
+        }
+
+
+        .total-row strong {
+
+            color:
+                #c4b5fd;
+
+            font-size:
+                18px;
+
+        }
+
+
+        /* =================================================
+           BUTTONS
+        ================================================= */
+
+        .btn-main {
+
+            width:
+                100%;
+
+            height:
+                57px;
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            gap:
+                9px;
+
+            border:
+                0;
+
+            border-radius:
+                14px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--purple),
+                    var(--purple-2)
+                );
+
+            color:
+                white;
+
+            font-size:
+                13px;
+
+            font-weight:
+                900;
+
+            box-shadow:
+                0 15px 40px
+                rgba(109,40,217,.25);
+
+            transition:
+                .2s;
+
+        }
+
+
+        .btn-main:hover:not(:disabled) {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(109,40,217,.35);
+
+        }
+
+
+        .btn-main:disabled {
+
+            opacity:
+                .35;
+
+            cursor:
+                not-allowed;
+
+            box-shadow:
+                none;
+
+        }
+
+
+        .secondary-actions {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                10px;
+
+            margin-top:
+                10px;
+
+        }
+
+
+        .btn-secondary {
+
+            height:
+                48px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            background:
+                rgba(255,255,255,.025);
+
+            color:
+                #aaaab8;
+
+            font-size:
+                11px;
+
+            font-weight:
+                800;
+
+            transition:
+                .2s;
+
+        }
+
+
+        .btn-secondary:hover {
+
+            color:
+                white;
+
+            border-color:
+                var(--border-hover);
+
+            background:
+                rgba(139,92,246,.06);
+
+        }
+
+
+        /* =================================================
+           COPY BUTTON
+        ================================================= */
+
+        .copy-btn {
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                9px;
+
+            background:
+                rgba(255,255,255,.04);
+
+            color:
+                #aaaaba;
+
+            padding:
+                7px 10px;
+
+            font-size:
+                10px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .copy-btn:hover {
+
+            color:
+                white;
+
+        }
+
+
+        /* =================================================
+           SUPPORT
+        ================================================= */
+
+        .support-box {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                13px;
+
+            margin-top:
+                16px;
+
+            padding:
+                14px;
+
+            border:
+                1px solid rgba(34,197,94,.14);
+
+            border-radius:
+                14px;
+
+            background:
+                rgba(34,197,94,.035);
+
+        }
+
+
+        .support-icon {
+
+            width:
+                39px;
+
+            height:
+                39px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            flex:
+                0 0 39px;
+
+            border-radius:
+                11px;
+
+            background:
+                rgba(34,197,94,.10);
+
+            color:
+                #4ade80;
+
+        }
+
+
+        .support-text {
+
+            flex:
+                1;
+
+        }
+
+
+        .support-text strong {
+
+            display:
+                block;
+
+            font-size:
+                11px;
+
+        }
+
+
+        .support-text span {
+
+            color:
+                var(--muted);
+
+            font-size:
+                9px;
+
+        }
+
+
+        .support-link {
+
+            text-decoration:
+                none;
+
+            color:
+                #4ade80;
+
+            font-size:
+                10px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        /* =================================================
+           INFO
+        ================================================= */
+
+        .info {
+
+            margin-top:
+                17px;
+
+            padding:
+                15px;
+
+            border:
+                1px solid rgba(96,165,250,.12);
+
+            border-radius:
+                14px;
+
+            background:
+                rgba(96,165,250,.035);
+
+            color:
+                var(--muted);
+
+            font-size:
+                10px;
+
+            line-height:
+                1.65;
+
+            text-align:
+                center;
+
+        }
+
+
+        .info strong {
+
+            color:
+                #c5c5d0;
+
+        }
+
+
+        /* =================================================
+           SUCCESS
+        ================================================= */
+
+        .success {
+
+            text-align:
+                center;
+
+            padding:
+                18px 0 10px;
+
+        }
+
+
+        .success-icon {
+
+            width:
+                82px;
+
+            height:
+                82px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            margin:
+                0 auto 20px;
+
+            border:
+                1px solid rgba(34,197,94,.25);
+
+            border-radius:
+                50%;
+
+            background:
+                rgba(34,197,94,.10);
+
+            color:
+                #4ade80;
+
+            font-size:
+                34px;
+
+            animation:
+                successPop .5s ease;
+
+        }
+
+
+        @keyframes successPop {
+
+            from {
+
+                opacity:
+                    0;
+
+                transform:
+                    scale(.5);
+
+            }
+
+            to {
+
+                opacity:
+                    1;
+
+                transform:
+                    scale(1);
+
+            }
+
+        }
+
+
+        .success h2 {
+
+            margin-bottom:
+                8px;
+
+            font-size:
+                25px;
+
+            font-weight:
+                900;
+
+        }
+
+
+        .success p {
+
+            max-width:
+                500px;
+
+            margin:
+                0 auto 22px;
+
+            color:
+                var(--muted);
+
+            font-size:
+                12px;
+
+            line-height:
+                1.7;
+
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        footer {
+
+            padding:
+                0 20px 30px;
+
+            text-align:
+                center;
+
+            color:
+                #555565;
+
+            font-size:
+                10px;
+
+        }
+
+
+        footer strong {
+
+            color:
+                #858593;
+
+        }
+
+
+        /* =================================================
+           TOAST
+        ================================================= */
+
+        #toast {
+
+            position:
+                fixed;
+
+            right:
+                18px;
+
+            bottom:
+                18px;
+
+            z-index:
+                9999;
+
+            padding:
+                12px 15px;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            background:
+                #14141d;
+
+            box-shadow:
+                0 15px 50px rgba(0,0,0,.45);
+
+            color:
+                white;
+
+            font-size:
+                11px;
+
+            opacity:
+                0;
+
+            transform:
+                translateY(15px);
+
+            pointer-events:
+                none;
+
+            transition:
+                .25s;
+
+        }
+
+
+        #toast.show {
+
+            opacity:
+                1;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        /* =================================================
+           MOBILE
+        ================================================= */
+
+        @media (max-width: 720px) {
+
+            .methods {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .method {
+
+                min-height:
+                    125px;
+
+            }
+
+
+            .method-icon {
+
+                margin-bottom:
+                    9px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .nav-inner {
+
+                min-height:
+                    64px;
+
+            }
+
+
+            .nav-btn span {
+
+                display:
+                    none;
+
+            }
+
+
+            .nav-btn {
+
+                width:
+                    38px;
+
+                height:
+                    38px;
+
+                justify-content:
+                    center;
+
+                padding:
+                    0;
+
+            }
+
+
+            main {
+
+                padding-top:
+                    35px;
+
+            }
+
+
+            .checkout {
+
+                padding:
+                    18px;
+
+                border-radius:
+                    21px;
+
+            }
+
+
+            .hero h1 {
+
+                letter-spacing:
+                    -1.8px;
+
+            }
+
+
+            .secondary-actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 400px) {
+
+            .brand {
+
+                font-size:
+                    16px;
+
+            }
+
+
+            .brand-icon {
+
+                width:
+                    37px;
+
+                height:
+                    37px;
+
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -419,798 +2419,2087 @@ header {
 <body>
 
 
-<div id="loader">
+<!-- =====================================================
+     LOADING SCREEN
+====================================================== -->
 
-    <div class="loader-logo">
-        ⚡
-    </div>
+<div id="loadingScreen">
 
-    <div class="loader-title">
-        ModdingXZ
-    </div>
+    <div class="loader-wrapper">
 
-    <div class="loader-text">
-        Loading secure payment portal...
+        <div class="loader-logo">
+            <i class="bi bi-lightning-charge-fill"></i>
+        </div>
+
+        <div class="loader-title">
+            ModdingXZ
+        </div>
+
+        <div class="loader-subtitle">
+            Securing payment portal...
+        </div>
+
+        <div class="loader-bar">
+
+            <div class="loader-progress"></div>
+
+        </div>
+
     </div>
 
 </div>
 
 
 
-<header>
+<!-- =====================================================
+     HEADER
+====================================================== -->
 
-<nav class="navbar navbar-expand-lg">
+<header class="topbar">
 
-<div class="container">
-
-
-<a class="navbar-brand" href="index.html">
-
-<span class="brand-icon">
-⚡
-</span>
-
-ModdingXZ
-
-</a>
+    <div class="nav-inner">
 
 
-<a href="index.html"
-class="btn btn-outline-light">
+        <a
+            href="index.html"
+            class="brand"
+        >
 
-🏠 Home
+            <div class="brand-icon">
 
-</a>
+                <i class="bi bi-lightning-charge-fill"></i>
+
+            </div>
+
+            ModdingXZ
+
+        </a>
 
 
-</div>
+        <div class="nav-actions">
 
-</nav>
+
+            <a
+                href="index.html"
+                class="nav-btn"
+                title="Home"
+            >
+
+                <i class="bi bi-house-fill"></i>
+
+                <span>
+                    Home
+                </span>
+
+            </a>
+
+
+            <a
+                href="https://t.me/ModdingXZ_Support_Bot"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="nav-btn"
+                title="Support"
+            >
+
+                <i class="bi bi-telegram"></i>
+
+                <span>
+                    Support
+                </span>
+
+            </a>
+
+        </div>
+
+    </div>
 
 </header>
 
 
 
-<div class="container-box">
+<!-- =====================================================
+     MAIN
+====================================================== -->
 
+<main>
 
-<section class="hero">
 
+    <!-- =================================================
+         HERO
+    ================================================== -->
 
-<div class="badge-box">
+    <section
+        class="hero"
+        data-aos="fade-up"
+    >
 
-🔐 Official Payment Portal
+        <div class="official-badge">
 
-</div>
+            <i class="bi bi-shield-lock-fill"></i>
 
+            OFFICIAL MODDINGXZ PAYMENT PORTAL
 
-<h1>
+        </div>
 
-Pay
 
-<span class="gradient">
-ModdingXZ
-</span>
+        <h1>
 
-</h1>
+            Pay
 
+            <span class="gradient">
+                ModdingXZ
+            </span>
 
-<p>
-Complete your payment securely using our official payment methods.
-</p>
+        </h1>
 
 
-</section>
+        <p>
 
+            Complete your payment securely using one
+            of the official payment methods provided
+            by ModdingXZ Support.
 
+        </p>
 
-<div class="card-box">
+    </section>
 
 
-<!-- STEP 1 -->
 
-<div class="step active" id="step1">
+    <!-- =================================================
+         CHECKOUT
+    ================================================== -->
 
+    <section
+        class="checkout"
+        data-aos="fade-up"
+        data-aos-delay="100"
+    >
 
-<h4>
-Step 1 - Payment Details
-</h4>
 
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
 
-<label class="mt-3">
-Amount
-</label>
+        <div class="progress-wrapper">
 
 
-<input
-id="amount"
-type="number"
-class="form-control"
-placeholder="£0.00">
+            <div class="progress-top">
 
+                <span id="progressText">
+                    Step 1 of 4
+                </span>
 
-<label class="mt-3">
-Service Name (Optional)
-</label>
+                <span id="progressPercent">
+                    25%
+                </span>
 
+            </div>
 
-<input
-id="service"
-class="form-control"
-placeholder="Example: BO3 Ultimate">
 
+            <div class="progress-track">
 
-<button
-onclick="nextStep(2)"
-class="btn-main w-100 mt-4">
+                <div
+                    class="progress-fill"
+                    id="progressFill"
+                ></div>
 
-Continue →
+            </div>
 
-</button>
 
+            <div class="step-dots">
 
-</div>
+                <div
+                    class="step-dot active"
+                    id="dot1"
+                >
+                    AMOUNT
+                </div>
 
-<!-- STEP 2 -->
+                <div
+                    class="step-dot"
+                    id="dot2"
+                >
+                    METHOD
+                </div>
 
-<div class="step" id="step2">
+                <div
+                    class="step-dot"
+                    id="dot3"
+                >
+                    ACCOUNT
+                </div>
 
-<h4>
-Step 2 - Choose Payment Method
-</h4>
+                <div
+                    class="step-dot"
+                    id="dot4"
+                >
+                    CONFIRM
+                </div>
 
+            </div>
 
-<div class="row g-3 mt-3">
+        </div>
 
 
-<div class="col-md-4">
 
-<button
-class="w-100 btn-main"
-onclick="selectMethod('paypal')">
+        <!-- =================================================
+             STEP 1
+        ================================================== -->
 
-💙 PayPal
+        <div
+            class="step active"
+            id="step1"
+        >
 
-</button>
 
-</div>
+            <div class="step-heading">
 
+                <div class="step-number">
+                    01
+                </div>
 
-<div class="col-md-4">
+                <h2>
+                    Enter your payment amount
+                </h2>
 
-<button
-class="w-100 btn-main"
-onclick="selectMethod('revolut')">
+                <p>
+                    Enter the exact amount provided
+                    by ModdingXZ Support.
+                </p>
 
-🟣 Revolut
+            </div>
 
-</button>
 
-</div>
+            <div class="notice">
 
+                <div class="notice-icon">
 
-<div class="col-md-4">
+                    <i class="bi bi-shield-check"></i>
 
-<button
-class="w-100 btn-main"
-onclick="selectMethod('cashapp')">
+                </div>
 
-💵 Cash App
+                <div>
 
-</button>
+                    <strong>
+                        Official payment portal
+                    </strong>
 
-</div>
+                    <p>
 
+                        Only use payment details displayed
+                        through this official portal.
+                        If someone gives you different
+                        payment details, contact Support
+                        before sending money.
 
-</div>
+                    </p>
 
+                </div>
 
-<button
-onclick="previousStep()"
-class="btn-back w-100 mt-4">
+            </div>
 
-← Back
 
-</button>
+            <label
+                class="field-label"
+                for="amount"
+            >
 
+                Payment amount
 
-</div>
+            </label>
 
 
+            <div class="amount-box">
 
+                <span class="currency">
+                    £
+                </span>
 
 
-<!-- STEP 3 -->
+                <input
+                    id="amount"
+                    type="number"
+                    min="0.01"
+                    max="9999"
+                    step="0.01"
+                    inputmode="decimal"
+                    placeholder="0.00"
+                    autocomplete="off"
+                >
 
 
-<div class="step" id="step3">
+                <div
+                    class="amount-error"
+                    id="amountError"
+                >
 
+                    Please enter a valid amount between
+                    £0.01 and £9,999.
 
-<h4>
-Step 3 - Select Official Account
-</h4>
+                </div>
 
+            </div>
 
-<p class="text-secondary mt-2">
 
-Only use the accounts shown below.
+            <button
+                class="btn-main"
+                id="amountContinue"
+                disabled
+            >
 
-</p>
+                Continue
 
+                <i class="bi bi-arrow-right"></i>
 
-<div id="accountList"
-class="mt-3">
+            </button>
 
-</div>
 
+        </div>
 
 
-<button
-onclick="previousStep()"
-class="btn-back w-100 mt-4">
 
-← Back
+        <!-- =================================================
+             STEP 2
+        ================================================== -->
 
-</button>
+        <div
+            class="step"
+            id="step2"
+        >
 
 
-</div>
+            <div class="step-heading">
 
+                <div class="step-number">
+                    02
+                </div>
 
+                <h2>
+                    Choose your payment method
+                </h2>
 
+                <p>
+                    Select the payment provider you
+                    want to use.
+                </p>
 
+            </div>
 
 
-<!-- STEP 4 -->
+            <div class="methods">
 
 
-<div class="step" id="step4">
+                <!-- PAYPAL -->
 
+                <div
+                    class="method"
+                    data-method="paypal"
+                    tabindex="0"
+                >
 
-<h4>
-Step 4 - Confirm Payment
-</h4>
+                    <div class="method-check">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
 
 
-<div class="mt-4 p-3 rounded"
-style="
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.08);
-">
+                    <div class="method-icon paypal">
 
+                        <i class="bi bi-paypal"></i>
 
-<p>
+                    </div>
 
-<strong>
-Amount:
-</strong>
 
-<span id="confirmAmount">
-£0.00
-</span>
+                    <h3>
+                        PayPal
+                    </h3>
 
-</p>
 
+                    <p>
+                        Pay using an official
+                        PayPal account.
+                    </p>
 
+                </div>
 
-<p>
 
-<strong>
-Service:
-</strong>
 
-<span id="confirmService">
--
-</span>
+                <!-- REVOLUT -->
 
-</p>
+                <div
+                    class="method"
+                    data-method="revolut"
+                    tabindex="0"
+                >
 
+                    <div class="method-check">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
 
 
-<p>
+                    <div class="method-icon revolut">
 
-<strong>
-Payment Method:
-</strong>
+                        <i class="bi bi-credit-card-2-front-fill"></i>
 
-<span id="confirmMethod">
--
-</span>
+                    </div>
 
-</p>
 
+                    <h3>
+                        Revolut
+                    </h3>
 
 
-<p>
+                    <p>
+                        Pay using an official
+                        Revolut payment link.
+                    </p>
 
-<strong>
-Account:
-</strong>
+                </div>
 
-<span id="confirmAccount">
--
-</span>
 
-</p>
 
+                <!-- CASH APP -->
 
-</div>
+                <div
+                    class="method"
+                    data-method="cashapp"
+                    tabindex="0"
+                >
 
+                    <div class="method-check">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
 
 
-<button
-onclick="openPayment()"
-class="btn-main w-100 mt-3">
+                    <div class="method-icon cashapp">
 
-Continue To Payment →
+                        <i class="bi bi-cash-stack"></i>
 
-</button>
+                    </div>
 
 
+                    <h3>
+                        Cash App
+                    </h3>
 
-<button
-onclick="previousStep()"
-class="btn-back w-100 mt-3">
 
-← Back
+                    <p>
+                        Pay using the official
+                        Cash App account.
+                    </p>
 
-</button>
+                </div>
 
+            </div>
 
 
-</div>
+            <div class="secondary-actions">
 
+                <button
+                    class="btn-secondary"
+                    onclick="goBack()"
+                >
 
+                    <i class="bi bi-arrow-left"></i>
 
+                    Back
 
-</div>
+                </button>
 
+            </div>
 
-</div>
 
+        </div>
 
 
 
-<footer
-class="text-center text-secondary pb-5">
+        <!-- =================================================
+             STEP 3
+        ================================================== -->
 
-© 2026 ModdingXZ · Official Payment Portal
+        <div
+            class="step"
+            id="step3"
+        >
+
+
+            <div class="step-heading">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <h2>
+                    Choose the payment account
+                </h2>
+
+                <p>
+                    Select the official account you
+                    were instructed to use.
+                </p>
+
+            </div>
+
+
+            <div
+                class="accounts-list"
+                id="accountList"
+            ></div>
+
+
+            <div class="secondary-actions">
+
+                <button
+                    class="btn-secondary"
+                    onclick="goBack()"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back
+
+                </button>
+
+
+                <button
+                    class="btn-main"
+                    id="accountContinue"
+                    disabled
+                    style="height:48px;"
+                >
+
+                    Continue
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+
+            <div class="info">
+
+                <strong>
+                    Security reminder:
+                </strong>
+
+                Always check that the payment
+                account shown here matches the
+                official details provided by
+                ModdingXZ Support.
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             STEP 4
+        ================================================== -->
+
+        <div
+            class="step"
+            id="step4"
+        >
+
+
+            <div class="step-heading">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <h2>
+                    Confirm your payment
+                </h2>
+
+                <p>
+                    Check everything carefully before
+                    opening the payment provider.
+                </p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+
+                <div class="summary-header">
+
+                    PAYMENT SUMMARY
+
+                </div>
+
+
+                <div class="summary-body">
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Amount
+                        </span>
+
+                        <strong id="summaryAmount">
+                            £0.00
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Method
+                        </span>
+
+                        <strong id="summaryMethod">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Account
+                        </span>
+
+                        <strong id="summaryAccount">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row total-row">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong id="summaryTotal">
+                            £0.00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="notice">
+
+                <div class="notice-icon">
+
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Before you continue
+                    </strong>
+
+                    <p>
+
+                        Make sure the amount and account
+                        are correct. Your payment will
+                        open directly with the selected
+                        payment provider.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="btn-main"
+                id="payButton"
+            >
+
+                <i class="bi bi-lock-fill"></i>
+
+                Continue to Payment
+
+            </button>
+
+
+            <div class="secondary-actions">
+
+                <button
+                    class="btn-secondary"
+                    onclick="goBack()"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back
+
+                </button>
+
+            </div>
+
+
+            <div class="support-box">
+
+                <div class="support-icon">
+
+                    <i class="bi bi-telegram"></i>
+
+                </div>
+
+
+                <div class="support-text">
+
+                    <strong>
+                        Need help?
+                    </strong>
+
+                    <span>
+                        Contact ModdingXZ Support before
+                        sending payment.
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="https://t.me/ModdingXZ_Support_Bot"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="support-link"
+                >
+
+                    SUPPORT
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SUCCESS / OPENING
+        ================================================== -->
+
+        <div
+            class="step"
+            id="step5"
+        >
+
+
+            <div class="success">
+
+
+                <div class="success-icon">
+
+                    <i class="bi bi-check-lg"></i>
+
+                </div>
+
+
+                <h2>
+                    Payment page ready
+                </h2>
+
+
+                <p id="successText">
+
+                    Your selected payment provider
+                    is being opened.
+
+                </p>
+
+
+                <button
+                    class="btn-main"
+                    id="retryPayment"
+                >
+
+                    <i class="bi bi-box-arrow-up-right"></i>
+
+                    Open Payment Page
+
+                </button>
+
+
+                <div class="secondary-actions">
+
+                    <button
+                        class="btn-secondary"
+                        onclick="window.location.href='index.html'"
+                    >
+
+                        <i class="bi bi-house-fill"></i>
+
+                        Return Home
+
+                    </button>
+
+
+                    <button
+                        class="btn-secondary"
+                        onclick="window.open('https://t.me/ModdingXZ_Support_Bot','_blank')"
+                    >
+
+                        <i class="bi bi-telegram"></i>
+
+                        Support
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+    © 2026
+
+    <strong>
+        ModdingXZ
+    </strong>
+
+    · Official Payment Portal
 
 </footer>
 
 
 
-<a
-class="support"
-href="https://t.me/ModdingXZ_Support_Bot"
-target="_blank">
+<!-- =====================================================
+     TOAST
+====================================================== -->
 
-💬 Support
-
-</a>
+<div id="toast"></div>
 
 
 
+<!-- =====================================================
+     BOOTSTRAP JS
+====================================================== -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- =====================================================
+     AOS JS
+====================================================== -->
 
+<script
+    src="https://unpkg.com/aos@2.3.4/dist/aos.js"
+></script>
+
+
+<!-- =====================================================
+     CUSTOM JAVASCRIPT
+====================================================== -->
 
 <script>
 
+    /* =====================================================
+       INITIALISE AOS
+    ====================================================== */
 
-/*
-    OFFICIAL PAYMENT ACCOUNTS
-*/
+    AOS.init({
 
-const paymentAccounts = {
+        duration:
+            650,
+
+        once:
+            true,
+
+        offset:
+            20
+
+    });
 
 
-    paypal: [
 
-        {
-            name:"ModdingXZ",
-            username:"paypal.me/MrJasonDEX",
-            url:"https://paypal.me/MrJasonDEX"
-        },
+    /* =====================================================
+       OFFICIAL PAYMENT ACCOUNTS
 
-        {
-            name:"Gameralday2001",
-            username:"paypal.me/ShawnCrouse357",
-            url:"https://paypal.me/ShawnCrouse357"
+       CHANGE DETAILS HERE ONLY
+    ====================================================== */
+
+    const paymentAccounts = {
+
+
+        paypal: [
+
+            {
+
+                name:
+                    "ModdingX",
+
+                username:
+                    "paypal.me/MrJasonDEX",
+
+                url:
+                    "https://paypal.me/MrJasonDEX"
+
+            },
+
+
+            {
+
+                name:
+                    "Gameralday2001",
+
+                username:
+                    "paypal.me/ShawnCrouse357",
+
+                url:
+                    "https://www.paypal.me/ShawnCrouse357"
+
+            }
+
+        ],
+
+
+        revolut: [
+
+            {
+
+                name:
+                    "ModdingXZ",
+
+                username:
+                    "revolut.me/moddingxz",
+
+                url:
+                    "https://revolut.me/moddingxz"
+
+            },
+
+
+            {
+
+                name:
+                    "Gameralday2001",
+
+                username:
+                    "revolut.me/s_crouse",
+
+                url:
+                    "https://revolut.me/s_crouse"
+
+            }
+
+        ],
+
+
+        cashapp: [
+
+            {
+
+                name:
+                    "Gameralday2001",
+
+                username:
+                    "$Crouse0612",
+
+                url:
+                    "https://cash.app/$Crouse0612"
+
+            }
+
+        ]
+
+    };
+
+
+
+    /* =====================================================
+       STATE
+    ====================================================== */
+
+    let currentStep =
+        1;
+
+
+    let selectedMethod =
+        null;
+
+
+    let selectedAccount =
+        null;
+
+
+    let selectedAmount =
+        0;
+
+
+
+    /* =====================================================
+       ELEMENTS
+    ====================================================== */
+
+    const amountInput =
+        document.getElementById(
+            "amount"
+        );
+
+
+    const amountContinue =
+        document.getElementById(
+            "amountContinue"
+        );
+
+
+    const accountContinue =
+        document.getElementById(
+            "accountContinue"
+        );
+
+
+    const accountList =
+        document.getElementById(
+            "accountList"
+        );
+
+
+    const payButton =
+        document.getElementById(
+            "payButton"
+        );
+
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+
+    /* =====================================================
+       LOADING SCREEN
+    ====================================================== */
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            setTimeout(
+                function() {
+
+                    document
+                        .getElementById(
+                            "loadingScreen"
+                        )
+                        .classList
+                        .add(
+                            "hide"
+                        );
+
+                },
+                900
+            );
+
         }
-
-    ],
-
-
-
-    revolut:[
-
-        {
-            name:"ModdingXZ",
-            username:"revolut.me/moddingxz",
-            url:"https://revolut.me/moddingxz"
-        },
-
-
-        {
-            name:"Gameralday2001",
-            username:"revolut.me/s_crouse",
-            url:"https://revolut.me/s_crouse"
-        }
-
-    ],
-
-
-
-    cashapp:[
-
-        {
-            name:"Gameralday2001",
-            username:"$Crouse0612",
-            url:"https://cash.app/$Crouse0612"
-        }
-
-    ]
-
-};
-
-
-
-let currentStep = 1;
-
-let selectedMethod = null;
-
-let selectedAccount = null;
-
-
-
-/*
-    STEP SYSTEM
-*/
-
-
-function showStep(step){
-
-
-    document
-    .querySelectorAll(".step")
-    .forEach(
-        s =>
-        s.classList.remove("active")
     );
 
 
-    document
-    .getElementById("step"+step)
-    .classList.add("active");
+
+    /* =====================================================
+       SHOW STEP
+    ====================================================== */
+
+    function showStep(step) {
 
 
-    currentStep = step;
-
-}
-
-
-
-
-
-function nextStep(step){
-
-
-    if(step === 2){
-
-
-        let amount =
-        document
-        .getElementById("amount")
-        .value;
-
-
-        if(!amount || amount <= 0){
-
-            alert(
-            "Please enter a valid payment amount."
-            );
+        if (
+            step < 1 ||
+            step > 5
+        ) {
 
             return;
 
         }
 
+
+        document
+            .querySelectorAll(
+                ".step"
+            )
+            .forEach(
+                element => {
+
+                    element.classList
+                        .remove(
+                            "active"
+                        );
+
+                }
+            );
+
+
+        const target =
+            document.getElementById(
+                "step" + step
+            );
+
+
+        if (!target) {
+
+            return;
+
+        }
+
+
+        target.classList
+            .add(
+                "active"
+            );
+
+
+        currentStep =
+            step;
+
+
+        updateProgress();
+
+
+        window.scrollTo({
+
+            top:
+                0,
+
+            behavior:
+                "smooth"
+
+        });
+
     }
 
 
 
-    if(step === 4){
+    /* =====================================================
+       PROGRESS
+    ====================================================== */
+
+    function updateProgress() {
 
 
-        updateConfirmation();
+        const progressStep =
+            Math.min(
+                currentStep,
+                4
+            );
+
+
+        const percent =
+            Math.round(
+                (
+                    progressStep /
+                    4
+                ) * 100
+            );
+
+
+        document
+            .getElementById(
+                "progressFill"
+            )
+            .style
+            .width =
+                percent + "%";
+
+
+        document
+            .getElementById(
+                "progressText"
+            )
+            .textContent =
+
+                currentStep === 5
+
+                    ? "Complete"
+
+                    : `Step ${currentStep} of 4`;
+
+
+        document
+            .getElementById(
+                "progressPercent"
+            )
+            .textContent =
+
+                currentStep === 5
+
+                    ? "100%"
+
+                    : percent + "%";
+
+
+        for (
+            let i = 1;
+            i <= 4;
+            i++
+        ) {
+
+
+            const dot =
+                document.getElementById(
+                    "dot" + i
+                );
+
+
+            dot.classList.toggle(
+
+                "active",
+
+                i <= currentStep
+
+            );
+
+        }
 
     }
 
 
-    showStep(step);
 
-}
+    /* =====================================================
+       AMOUNT VALIDATION
+    ====================================================== */
 
-
-
-
-
-function previousStep(){
+    function validateAmount() {
 
 
-    if(currentStep > 1){
+        const value =
+            parseFloat(
+                amountInput.value
+            );
 
-        showStep(
-        currentStep - 1
+
+        const error =
+            document.getElementById(
+                "amountError"
+            );
+
+
+        const valid =
+
+            Number.isFinite(value) &&
+
+            value >= 0.01 &&
+
+            value <= 9999;
+
+
+        amountContinue.disabled =
+            !valid;
+
+
+        amountInput.classList.toggle(
+            "invalid",
+            amountInput.value.length > 0 &&
+            !valid
+        );
+
+
+        error.classList.toggle(
+            "show",
+            amountInput.value.length > 0 &&
+            !valid
+        );
+
+
+        if (valid) {
+
+            selectedAmount =
+                Number(
+                    value.toFixed(2)
+                );
+
+        }
+
+
+        return valid;
+
+    }
+
+
+    amountInput.addEventListener(
+        "input",
+        validateAmount
+    );
+
+
+
+    /* =====================================================
+       STEP 1 → STEP 2
+    ====================================================== */
+
+    amountContinue.addEventListener(
+        "click",
+        function() {
+
+
+            if (
+                !validateAmount()
+            ) {
+
+                return;
+
+            }
+
+
+            localStorage.setItem(
+                "moddingxz_payment_started",
+                "true"
+            );
+
+
+            showStep(2);
+
+        }
+    );
+
+
+
+    /* =====================================================
+       PAYMENT METHOD SELECTION
+    ====================================================== */
+
+    document
+        .querySelectorAll(
+            ".method"
+        )
+        .forEach(
+            method => {
+
+
+                method.addEventListener(
+                    "click",
+                    function() {
+
+                        chooseMethod(
+                            this.dataset.method
+                        );
+
+                    }
+                );
+
+
+                method.addEventListener(
+                    "keydown",
+                    function(event) {
+
+                        if (
+
+                            event.key ===
+                                "Enter" ||
+
+                            event.key ===
+                                " "
+
+                        ) {
+
+                            event.preventDefault();
+
+                            chooseMethod(
+                                this.dataset.method
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+    function chooseMethod(method) {
+
+
+        selectedMethod =
+            method;
+
+
+        selectedAccount =
+            null;
+
+
+        document
+            .querySelectorAll(
+                ".method"
+            )
+            .forEach(
+                element => {
+
+                    element.classList.toggle(
+
+                        "selected",
+
+                        element.dataset.method ===
+                            method
+
+                    );
+
+                }
+            );
+
+
+        renderAccounts();
+
+
+        showStep(3);
+
+    }
+
+
+
+    /* =====================================================
+       RENDER ACCOUNTS
+    ====================================================== */
+
+    function renderAccounts() {
+
+
+        accountList.innerHTML =
+            "";
+
+
+        const accounts =
+            paymentAccounts[
+                selectedMethod
+            ] || [];
+
+
+        accounts.forEach(
+            (
+                account,
+                index
+            ) => {
+
+
+                const element =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                element.className =
+                    "account";
+
+
+                element.tabIndex =
+                    0;
+
+
+                const firstLetter =
+                    account.name
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                element.innerHTML = `
+
+                    <div class="account-left">
+
+                        <div class="account-avatar">
+
+                            ${firstLetter}
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="account-name">
+
+                                ${escapeHtml(account.name)}
+
+                            </div>
+
+
+                            <div class="account-username">
+
+                                ${escapeHtml(account.username)}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="radio"></div>
+
+                `;
+
+
+                element.addEventListener(
+                    "click",
+                    function() {
+
+                        chooseAccount(
+                            index
+                        );
+
+                    }
+                );
+
+
+                element.addEventListener(
+                    "keydown",
+                    function(event) {
+
+                        if (
+
+                            event.key ===
+                                "Enter" ||
+
+                            event.key ===
+                                " "
+
+                        ) {
+
+                            event.preventDefault();
+
+                            chooseAccount(
+                                index
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                accountList.appendChild(
+                    element
+                );
+
+            }
         );
 
     }
 
-}
+
+
+    /* =====================================================
+       ACCOUNT SELECTION
+    ====================================================== */
+
+    function chooseAccount(index) {
+
+
+        selectedAccount =
+            index;
+
+
+        document
+            .querySelectorAll(
+                ".account"
+            )
+            .forEach(
+                (
+                    element,
+                    currentIndex
+                ) => {
+
+                    element.classList.toggle(
+
+                        "selected",
+
+                        currentIndex ===
+                            index
+
+                    );
+
+                }
+            );
+
+
+        accountContinue.disabled =
+            false;
+
+    }
 
 
 
+    /* =====================================================
+       STEP 3 → STEP 4
+    ====================================================== */
+
+    accountContinue.addEventListener(
+        "click",
+        function() {
 
 
-/*
-    PAYMENT METHOD
-*/
+            if (
+                selectedAccount === null
+            ) {
+
+                return;
+
+            }
 
 
-function selectMethod(method){
+            updateSummary();
 
 
-    selectedMethod = method;
+            showStep(4);
 
-    selectedAccount = null;
-
-
-    renderAccounts();
-
-
-    nextStep(3);
-
-
-}
-
-
-
-
-
-function renderAccounts(){
-
-
-    const box =
-    document.getElementById(
-    "accountList"
+        }
     );
 
 
-    box.innerHTML="";
+
+    /* =====================================================
+       SUMMARY
+    ====================================================== */
+
+    function updateSummary() {
 
 
-
-    paymentAccounts[selectedMethod]
-    .forEach(
-    (account,index)=>{
-
-
-        let div =
-        document.createElement("div");
+        const account =
+            paymentAccounts[
+                selectedMethod
+            ][
+                selectedAccount
+            ];
 
 
-        div.className =
-        "p-3 mb-3 rounded";
+        const names = {
 
+            paypal:
+                "PayPal",
 
-        div.style = `
+            revolut:
+                "Revolut",
 
-        cursor:pointer;
-
-        background:
-        rgba(255,255,255,.04);
-
-        border:
-        1px solid rgba(255,255,255,.08);
-
-        `;
-
-
-
-        div.innerHTML = `
-
-
-        <h5>
-
-        ${account.name}
-
-        </h5>
-
-
-        <p class="text-secondary">
-
-        ${account.username}
-
-        </p>
-
-
-        <button
-        class="btn btn-sm btn-outline-light">
-
-        Select
-
-        </button>
-
-        `;
-
-
-
-        div.onclick=function(){
-
-
-            selectedAccount=index;
-
-
-            nextStep(4);
-
+            cashapp:
+                "Cash App"
 
         };
 
 
+        const formattedAmount =
+            "£" +
+            selectedAmount.toFixed(2);
 
-        box.appendChild(div);
 
+        document
+            .getElementById(
+                "summaryAmount"
+            )
+            .textContent =
+                formattedAmount;
 
 
-    });
+        document
+            .getElementById(
+                "summaryMethod"
+            )
+            .textContent =
+                names[
+                    selectedMethod
+                ];
 
 
-}
+        document
+            .getElementById(
+                "summaryAccount"
+            )
+            .textContent =
+                account.name;
 
 
+        document
+            .getElementById(
+                "summaryTotal"
+            )
+            .textContent =
+                formattedAmount;
 
+    }
 
 
-/*
-    CONFIRMATION
-*/
 
+    /* =====================================================
+       PAY BUTTON
+    ====================================================== */
 
-function updateConfirmation(){
+    payButton.addEventListener(
+        "click",
+        function() {
 
 
-const amount =
-document
-.getElementById("amount")
-.value;
+            if (
 
+                !selectedMethod ||
 
-const service =
-document
-.getElementById("service")
-.value || "Not provided";
+                selectedAccount === null ||
 
+                !selectedAmount
 
+            ) {
 
-const account =
-paymentAccounts[selectedMethod]
-[selectedAccount];
+                return;
 
+            }
 
 
-document
-.getElementById("confirmAmount")
-.innerText =
-"£"+Number(amount).toFixed(2);
+            preparePayment();
 
+        }
+    );
 
 
-document
-.getElementById("confirmService")
-.innerText =
-service;
 
+    /* =====================================================
+       PREPARE PAYMENT
+    ====================================================== */
 
+    function preparePayment() {
 
-document
-.getElementById("confirmMethod")
-.innerText =
-selectedMethod
-.toUpperCase();
 
+        const account =
+            paymentAccounts[
+                selectedMethod
+            ][
+                selectedAccount
+            ];
 
 
-document
-.getElementById("confirmAccount")
-.innerText =
-account.name;
+        const methodNames = {
 
+            paypal:
+                "PayPal",
 
-}
+            revolut:
+                "Revolut",
 
+            cashapp:
+                "Cash App"
 
+        };
 
 
+        const provider =
+            methodNames[
+                selectedMethod
+            ];
 
-/*
-    OPEN PAYMENT
-*/
 
+        let paymentURL =
+            account.url;
 
-function openPayment(){
 
+        /*
+         * PayPal.Me allows an amount
+         * to be appended to the URL.
+         */
 
-const amount =
-document
-.getElementById("amount")
-.value;
+        if (
+            selectedMethod ===
+            "paypal"
+        ) {
 
+            paymentURL =
 
+                account.url +
 
-const account =
-paymentAccounts[selectedMethod]
-[selectedAccount];
+                "/" +
 
+                selectedAmount.toFixed(2);
 
+        }
 
-let url =
-account.url;
 
+        window.pendingPaymentURL =
+            paymentURL;
 
 
-if(selectedMethod==="paypal"){
+        document
+            .getElementById(
+                "successText"
+            )
+            .textContent =
 
+                `Your ${provider} payment page
+                is ready. Click below to open
+                ${account.username}.`;
 
-url =
-account.url
-+
-"/"
-+
-Number(amount)
-.toFixed(2);
 
+        showStep(5);
 
-}
 
+        showToast(
+            "Payment page ready"
+        );
 
+    }
 
-window.location.href=url;
 
 
+    /* =====================================================
+       OPEN PAYMENT
+    ====================================================== */
 
-}
+    document
+        .getElementById(
+            "retryPayment"
+        )
+        .addEventListener(
+            "click",
+            function() {
 
 
+                if (
+                    !window.pendingPaymentURL
+                ) {
 
+                    return;
 
+                }
 
 
-/*
-    LOADER CLEANUP
-*/
+                const button =
+                    this;
 
 
-window.addEventListener(
-"load",
-()=>{
+                button.disabled =
+                    true;
 
 
-setTimeout(
-()=>{
+                button.innerHTML = `
 
-document
-.getElementById("loader")
-.style.display="none";
+                    <span
+                        class="spinner-border spinner-border-sm"
+                    ></span>
 
+                    Opening payment...
 
-},
-2600);
+                `;
 
 
-});
+                setTimeout(
+                    function() {
 
+                        window.location.href =
+                            window.pendingPaymentURL;
 
+                    },
+                    600
+                );
+
+            }
+        );
+
+
+
+    /* =====================================================
+       BACK BUTTON
+    ====================================================== */
+
+    function goBack() {
+
+
+        /*
+         * Always go back exactly one
+         * checkout step.
+         */
+
+        if (
+            currentStep <= 1
+        ) {
+
+            window.location.href =
+                "index.html";
+
+            return;
+
+        }
+
+
+        showStep(
+            currentStep - 1
+        );
+
+    }
+
+
+
+    /* =====================================================
+       ESC KEY
+    ====================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                if (
+                    currentStep > 1 &&
+                    currentStep < 5
+                ) {
+
+                    goBack();
+
+                }
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       TOAST
+    ====================================================== */
+
+    let toastTimer;
+
+
+    function showToast(message) {
+
+
+        toast.textContent =
+            message;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            toastTimer
+        );
+
+
+        toastTimer =
+            setTimeout(
+                function() {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                2500
+            );
+
+    }
+
+
+
+    /* =====================================================
+       HTML ESCAPE
+    ====================================================== */
+
+    function escapeHtml(value) {
+
+
+        return String(value)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+
+    /* =====================================================
+       PREVENT INVALID AMOUNTS
+    ====================================================== */
+
+    amountInput.addEventListener(
+        "blur",
+        function() {
+
+
+            if (
+                this.value
+            ) {
+
+                const value =
+                    parseFloat(
+                        this.value
+                    );
+
+
+                if (
+                    Number.isFinite(value)
+                ) {
+
+                    this.value =
+                        value.toFixed(2);
+
+                }
+
+            }
+
+
+            validateAmount();
+
+        }
+    );
+
+
+
+    /* =====================================================
+       INITIAL STATE
+    ====================================================== */
+
+    updateProgress();
 
 </script>
 
