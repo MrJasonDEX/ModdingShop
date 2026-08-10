@@ -7,136 +7,162 @@
 
 <title>ModdingXZ | Official Payment Portal</title>
 
-<meta name="description" content="Official ModdingXZ payment portal">
+<meta name="description" content="Official ModdingXZ Payment Portal">
 
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 
 <style>
 
 :root{
-    --bg:#07070b;
-    --card:#12121b;
-    --border:rgba(255,255,255,.08);
-    --purple:#8b5cf6;
-    --blue:#6366f1;
-    --text:#fff;
-    --muted:#9696a7;
+
+--bg:#07070b;
+--card:rgba(18,18,27,.92);
+--border:rgba(255,255,255,.08);
+
+--text:#fff;
+--muted:#9696a7;
+
+--purple:#8b5cf6;
+--blue:#6366f1;
+
+--green:#22c55e;
+
 }
 
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 
 body{
 
-    min-height:100vh;
+min-height:100vh;
 
-    font-family:"Rubik",sans-serif;
+font-family:"Rubik",sans-serif;
 
-    background:
+color:white;
 
-    radial-gradient(
-        circle at top,
-        rgba(139,92,246,.25),
-        transparent 35%
-    ),
+background:
 
-    var(--bg);
+radial-gradient(
+circle at top,
+rgba(139,92,246,.25),
+transparent 35%
+),
 
-    color:var(--text);
+var(--bg);
+
+}
+
+
+
+button,
+input,
+select{
+
+font-family:inherit;
 
 }
 
 
 /* LOADER */
 
+
 #loader{
 
-    position:fixed;
-    inset:0;
-    z-index:999;
+position:fixed;
+inset:0;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+z-index:9999;
 
-    background:#07070b;
+display:flex;
 
-    transition:.5s;
+align-items:center;
+
+justify-content:center;
+
+background:#07070b;
+
+transition:.5s;
 
 }
 
 
 #loader.hide{
 
-    opacity:0;
-    visibility:hidden;
+opacity:0;
+visibility:hidden;
 
 }
 
 
 .loader{
 
-    text-align:center;
+text-align:center;
 
 }
 
 
-.loader span{
+.loader-logo{
 
-    display:grid;
+width:70px;
+height:70px;
 
-    place-items:center;
+display:grid;
 
-    width:70px;
-    height:70px;
+place-items:center;
 
-    margin:auto;
+margin:auto;
 
-    border-radius:20px;
+border-radius:20px;
 
-    background:
+background:
 
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
+linear-gradient(
+135deg,
+var(--purple),
+var(--blue)
+);
 
-    font-size:30px;
+font-size:30px;
 
-    animation:pulse 1s infinite;
+animation:pulse 1.2s infinite;
+
+}
+
+
+@keyframes pulse{
+
+50%{
+transform:scale(1.08);
+}
 
 }
 
 
 .loader h2{
 
-    margin-top:15px;
+margin-top:15px;
+
+font-weight:900;
 
 }
 
 
 .loader p{
 
-    color:var(--muted);
+margin-top:5px;
 
-    font-size:13px;
+font-size:13px;
 
-}
-
-
-
-@keyframes pulse{
-
-    50%{
-        transform:scale(1.08);
-    }
+color:var(--muted);
 
 }
 
@@ -147,74 +173,101 @@ body{
 
 header{
 
-    height:75px;
+position:sticky;
 
-    display:flex;
+top:0;
 
-    align-items:center;
+z-index:20;
 
-    justify-content:space-between;
+border-bottom:
 
-    padding:0 25px;
+1px solid var(--border);
 
-    background:rgba(7,7,11,.8);
+background:
 
-    backdrop-filter:blur(15px);
+rgba(7,7,11,.8);
 
-    border-bottom:1px solid var(--border);
-
-}
-
-
-.logo{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    font-weight:900;
-
-    font-size:22px;
+backdrop-filter:blur(15px);
 
 }
 
 
-.logo-box{
+.nav{
 
-    width:42px;
-    height:42px;
+height:75px;
 
-    display:grid;
-    place-items:center;
+width:min(1050px,calc(100% - 30px));
 
-    border-radius:12px;
+margin:auto;
 
-    background:
+display:flex;
 
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
+align-items:center;
+
+justify-content:space-between;
 
 }
 
 
-.header-btn{
+.brand{
 
-    padding:10px 15px;
+display:flex;
 
-    border-radius:10px;
+align-items:center;
 
-    border:1px solid var(--border);
+gap:12px;
 
-    background:#151520;
+font-size:22px;
 
-    color:white;
+font-weight:900;
 
-    cursor:pointer;
+}
+
+
+.brand-icon{
+
+width:42px;
+height:42px;
+
+display:grid;
+
+place-items:center;
+
+border-radius:12px;
+
+background:
+
+linear-gradient(
+135deg,
+var(--purple),
+var(--blue)
+);
+
+}
+
+
+
+.nav-button{
+
+height:40px;
+
+padding:0 15px;
+
+border-radius:10px;
+
+border:
+
+1px solid var(--border);
+
+background:
+
+rgba(255,255,255,.03);
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
 
 }
 
@@ -225,11 +278,11 @@ header{
 
 main{
 
-    width:min(850px,calc(100% - 30px));
+width:min(850px,calc(100% - 30px));
 
-    margin:auto;
+margin:auto;
 
-    padding:50px 0;
+padding:55px 0;
 
 }
 
@@ -237,277 +290,213 @@ main{
 
 .hero{
 
-    text-align:center;
+text-align:center;
 
-    margin-bottom:35px;
+margin-bottom:35px;
 
 }
 
 
 .badge{
 
-    display:inline-block;
+display:inline-block;
 
-    padding:8px 14px;
+padding:8px 14px;
 
-    border-radius:50px;
+border-radius:999px;
 
-    background:rgba(139,92,246,.15);
+font-size:11px;
 
-    color:#c4b5fd;
+font-weight:900;
 
-    font-size:12px;
+color:#c4b5fd;
 
-    font-weight:900;
+background:
+
+rgba(139,92,246,.12);
+
+border:
+
+1px solid rgba(139,92,246,.25);
 
 }
 
 
-h1{
+.hero h1{
 
-    margin-top:20px;
+font-size:clamp(40px,7vw,64px);
 
-    font-size:55px;
+margin-top:18px;
+
+letter-spacing:-2px;
 
 }
 
 
 .gradient{
 
-    background:
+background:
 
-    linear-gradient(
-        90deg,
-        #a78bfa,
-        #60a5fa
-    );
+linear-gradient(
+90deg,
+#a78bfa,
+#60a5fa
+);
 
-    -webkit-background-clip:text;
+-webkit-background-clip:text;
 
-    color:transparent;
+color:transparent;
 
 }
 
 
 .hero p{
 
-    margin-top:15px;
+margin-top:15px;
 
-    color:var(--muted);
-
-}
-
-
-
-/* CARD */
-
-
-.card{
-
-    padding:30px;
-
-    border-radius:25px;
-
-    background:var(--card);
-
-    border:1px solid var(--border);
-
-    box-shadow:0 30px 80px rgba(0,0,0,.4);
+color:var(--muted);
 
 }
 
 
 
-/* STEPS */
+.payment-card{
+
+padding:28px;
+
+border-radius:26px;
+
+background:var(--card);
+
+border:
+
+1px solid var(--border);
+
+box-shadow:
+
+0 30px 90px rgba(0,0,0,.45);
+
+}
+
+
+
+/* PROGRESS */
 
 
 .progress{
 
-    display:flex;
+display:flex;
 
-    justify-content:center;
+align-items:center;
 
-    gap:15px;
+justify-content:center;
 
-    margin-bottom:30px;
+gap:12px;
 
-}
-
-
-.progress div{
-
-    width:35px;
-
-    height:35px;
-
-    display:grid;
-
-    place-items:center;
-
-    border-radius:50%;
-
-    background:#24242f;
-
-    color:#777;
+margin-bottom:30px;
 
 }
 
 
-.progress .active{
+.progress-item{
 
-    background:var(--purple);
+width:34px;
 
-    color:white;
+height:34px;
+
+display:grid;
+
+place-items:center;
+
+border-radius:50%;
+
+background:#24242e;
+
+color:#777;
+
+font-size:12px;
+
+font-weight:900;
 
 }
 
 
+.progress-item.active{
 
-/* CONTENT */
+background:var(--purple);
+
+color:white;
+
+}
+
+
+.progress-item.done{
+
+background:var(--green);
+
+color:white;
+
+}
 
 
 .step{
 
-    display:none;
+display:none;
 
-    animation:show .3s;
+animation:slide .3s;
 
 }
 
 
 .step.active{
 
-    display:block;
+display:block;
 
 }
 
 
-@keyframes show{
+@keyframes slide{
 
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
+from{
 
-    to{
-        opacity:1;
-    }
+opacity:0;
+transform:translateY(10px);
 
 }
 
+to{
 
-
-input,
-select{
-
-    width:100%;
-
-    height:55px;
-
-    margin-top:15px;
-
-    padding:0 15px;
-
-    border-radius:12px;
-
-    border:1px solid var(--border);
-
-    background:#080810;
-
-    color:white;
-
-    font-size:16px;
+opacity:1;
 
 }
-
-
-
-.button{
-
-    width:100%;
-
-    height:55px;
-
-    margin-top:20px;
-
-    border:0;
-
-    border-radius:12px;
-
-    background:
-
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
-
-    color:white;
-
-    font-weight:900;
-
-    cursor:pointer;
-
-}
-
-
-.back{
-
-    background:#151520;
-
-    border:1px solid var(--border);
-
-}
-
-
-
-/* FOOTER */
-
-
-footer{
-
-    text-align:center;
-
-    color:#666;
-
-    padding:30px;
-
-}
-
-
-
-@media(max-width:600px){
-
-    h1{
-        font-size:42px;
-    }
-
-    .card{
-        padding:20px;
-    }
 
 }
 
 
 </style>
 
-</head>
+<!-- ==============================
+     CHECKOUT CONTENT
+============================== -->
 
+</head>
 
 <body>
 
 
 <div id="loader">
 
-<div class="loader">
+    <div class="loader">
 
-<span>⚡</span>
+        <div class="loader-logo">
+            ⚡
+        </div>
 
-<h2>ModdingXZ</h2>
+        <h2>ModdingXZ</h2>
 
-<p>Loading secure payment portal...</p>
+        <p>Loading secure payment portal...</p>
 
-</div>
+    </div>
 
 </div>
 
@@ -515,25 +504,33 @@ footer{
 
 <header>
 
-<div class="logo">
+<div class="nav">
 
-<div class="logo-box">
-⚡
+    <div class="brand">
+
+        <div class="brand-icon">
+            ⚡
+        </div>
+
+        ModdingXZ
+
+    </div>
+
+
+    <div>
+
+        <button
+        class="nav-button"
+        onclick="goHome()">
+
+            🏠 Home
+
+        </button>
+
+    </div>
+
+
 </div>
-
-ModdingXZ
-
-</div>
-
-
-<div>
-
-<button class="header-btn" onclick="goHome()">
-🏠 Home
-</button>
-
-</div>
-
 
 </header>
 
@@ -542,7 +539,8 @@ ModdingXZ
 <main>
 
 
-<div class="hero">
+<section class="hero">
+
 
 <div class="badge">
 🔐 OFFICIAL PAYMENT PORTAL
@@ -550,84 +548,148 @@ ModdingXZ
 
 
 <h1>
-Pay <span class="gradient">ModdingXZ</span>
+
+Pay
+
+<span class="gradient">
+ModdingXZ
+</span>
+
 </h1>
 
 
 <p>
-Secure checkout for ModdingXZ services.
+Secure checkout for official ModdingXZ services.
 </p>
 
 
-</div>
+</section>
 
 
 
-<div class="card">
+
+<section class="payment-card">
+
 
 
 <div class="progress">
 
-<div class="active">1</div>
-<div>2</div>
-<div>3</div>
-<div>4</div>
+<div class="progress-item active" id="p1">
+1
+</div>
+
+<div class="progress-item" id="p2">
+2
+</div>
+
+<div class="progress-item" id="p3">
+3
+</div>
+
+<div class="progress-item" id="p4">
+4
+</div>
 
 </div>
 
+
+
+
+
+<!-- STEP 1 -->
 
 
 <div class="step active" id="step1">
 
+
 <h2>
-Enter Payment Amount
+Payment Amount
 </h2>
 
 
-<input id="amount" type="number" placeholder="£ Amount">
+<p style="color:#9696a7;margin-top:8px">
+
+Enter the amount provided by ModdingXZ Support.
+
+</p>
 
 
-<button class="button" onclick="nextStep()">
+
+<input
+id="amount"
+type="number"
+placeholder="Enter amount (£)"
+>
+
+
+
+<button
+class="nav-button"
+style="width:100%;margin-top:20px;height:55px;background:linear-gradient(135deg,#8b5cf6,#6366f1)"
+onclick="nextStep()">
+
 Continue →
+
 </button>
 
 
 </div>
 
+
+
+
+
+<!-- STEP 2 -->
 
 
 <div class="step" id="step2">
 
+
 <h2>
-Payment Method
+Choose Payment Method
 </h2>
 
 
-<select>
+<p style="color:#9696a7;margin-top:8px">
 
-<option>
-PayPal
-</option>
+Select your preferred payment option.
 
-<option>
-Revolut
-</option>
-
-<option>
-Cash App
-</option>
+</p>
 
 
-</select>
+
+<div style="display:grid;gap:12px;margin-top:25px">
 
 
-<button class="button" onclick="nextStep()">
-Continue →
+<button
+class="nav-button"
+style="height:70px;text-align:left"
+onclick="selectMethod('PayPal')">
+
+💙 PayPal
+
 </button>
 
 
-<button class="button back" onclick="previousStep()">
-← Back
+
+<button
+class="nav-button"
+style="height:70px;text-align:left"
+onclick="selectMethod('Revolut')">
+
+🟣 Revolut
+
+</button>
+
+
+
+<button
+class="nav-button"
+style="height:70px;text-align:left"
+onclick="selectMethod('Cash App')">
+
+💵 Cash App
+
 </button>
 
 
@@ -635,25 +697,89 @@ Continue →
 
 
 
+
+<button
+class="nav-button"
+style="width:100%;margin-top:20px"
+onclick="previousStep()">
+
+← Back
+
+</button>
+
+
+
+<button
+class="nav-button"
+style="width:100%;margin-top:10px;background:linear-gradient(135deg,#8b5cf6,#6366f1)"
+onclick="nextStep()">
+
+Continue →
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- STEP 3 -->
+
+
 <div class="step" id="step3">
+
 
 <h2>
 Payment Account
 </h2>
 
 
-<p style="color:#9696a7;margin-top:10px">
-Official payment account selection will be added next.
+<p style="color:#9696a7;margin-top:8px">
+
+Your selected payment account will appear here.
+
 </p>
 
 
-<button class="button" onclick="nextStep()">
-Continue →
+
+<div id="accountBox"
+
+style="
+margin-top:25px;
+padding:20px;
+border:1px solid rgba(255,255,255,.08);
+border-radius:15px;
+background:rgba(255,255,255,.03);
+">
+
+Select payment method first.
+
+</div>
+
+
+
+<button
+class="nav-button"
+style="width:100%;margin-top:20px"
+onclick="previousStep()">
+
+← Back
+
 </button>
 
 
-<button class="button back" onclick="previousStep()">
-← Back
+
+<button
+class="nav-button"
+style="width:100%;margin-top:10px;background:linear-gradient(135deg,#8b5cf6,#6366f1)"
+onclick="nextStep()">
+
+Review Payment →
+
 </button>
 
 
@@ -661,25 +787,73 @@ Continue →
 
 
 
+
+
+
+<!-- STEP 4 -->
+
+
 <div class="step" id="step4">
+
 
 <h2>
 Review Payment
 </h2>
 
 
-<p style="color:#9696a7;margin-top:10px">
-Your payment summary will appear here.
-</p>
+<div id="summary"
+
+style="
+margin-top:20px;
+padding:20px;
+border-radius:15px;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.08);
+">
+
+</div>
 
 
-<button class="button">
-Continue To Payment →
-</button>
 
 
-<button class="button back" onclick="previousStep()">
+<button
+class="nav-button"
+style="width:100%;margin-top:20px"
+onclick="previousStep()">
+
 ← Back
+
+</button>
+
+
+
+
+<button
+class="nav-button"
+style="width:100%;margin-top:10px;background:linear-gradient(135deg,#8b5cf6,#6366f1)"
+onclick="openPayment()">
+
+Continue To Payment →
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<div style="text-align:center;margin-top:30px">
+
+
+<button
+class="nav-button"
+onclick="openSupport()">
+
+💬 Telegram Support
+
 </button>
 
 
@@ -687,101 +861,432 @@ Continue To Payment →
 
 
 
-</div>
+
+</section>
 
 
 </main>
 
 
 
-<footer>
 
-© 2026 ModdingXZ
+<footer style="
+text-align:center;
+padding:30px;
+color:#666;
+">
+
+© 2026 ModdingXZ · Official Payment Portal
 
 </footer>
-
-
 
 <script>
 
 
-let step = 1;
+let currentStep = 1;
+
+let selectedMethod = "";
+
+let selectedAccount = "";
 
 
 
-function render(){
+const accounts = {
 
-document.querySelectorAll(".step")
-.forEach(x=>x.classList.remove("active"));
+    "PayPal": {
+        name:"ModdingXZ PayPal",
+        address:"paypal.me/MrJasonDEX",
+        url:"https://paypal.me/MrJasonDEX"
+    },
+
+    "Revolut": {
+        name:"ModdingXZ Revolut",
+        address:"revolut.me/moddingxz",
+        url:"https://revolut.me/moddingxz"
+    },
+
+    "Cash App": {
+        name:"Cash App",
+        address:"$Crouse0612",
+        url:"https://cash.app/$Crouse0612"
+    }
+
+};
+
+
+
+
+
+function renderStep(){
 
 
 document
-.getElementById("step"+step)
+.querySelectorAll(".step")
+.forEach(step=>{
+
+    step.classList.remove("active");
+
+});
+
+
+document
+.getElementById(
+"step"+currentStep
+)
 .classList.add("active");
 
 
-document.querySelectorAll(".progress div")
-.forEach((x,i)=>{
 
-x.classList.toggle(
+document
+.querySelectorAll(".progress-item")
+.forEach((item,index)=>{
+
+
+item.classList.remove(
 "active",
-i+1===step
+"done"
 );
+
+
+if(index+1 === currentStep){
+
+    item.classList.add("active");
+
+}
+
+
+if(index+1 < currentStep){
+
+    item.classList.add("done");
+
+}
+
 
 });
 
 
 }
+
+
 
 
 
 function nextStep(){
 
-if(step < 4){
 
-step++;
+if(currentStep === 1){
 
-render();
+
+let amount =
+document.getElementById("amount").value;
+
+
+if(!amount || amount <= 0){
+
+alert(
+"Please enter a valid amount."
+);
+
+return;
 
 }
 
+
 }
+
+
+
+
+if(currentStep === 2 && !selectedMethod){
+
+
+alert(
+"Please select a payment method."
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+if(currentStep === 3 && !selectedAccount){
+
+
+alert(
+"Please select an account."
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+if(currentStep < 4){
+
+currentStep++;
+
+renderStep();
+
+}
+
+
+
+if(currentStep === 3){
+
+loadAccount();
+
+}
+
+
+if(currentStep === 4){
+
+loadSummary();
+
+}
+
+
+
+}
+
+
 
 
 
 function previousStep(){
 
-if(step > 1){
 
-step--;
+if(currentStep > 1){
 
-render();
+currentStep--;
+
+renderStep();
 
 }
 
+
 }
+
+
+
+
+
+function selectMethod(method){
+
+
+selectedMethod = method;
+
+
+selectedAccount =
+accounts[method];
+
+
+document.getElementById(
+"accountBox"
+).innerHTML = `
+
+<h3>${selectedAccount.name}</h3>
+
+<p style="color:#9696a7;margin-top:8px">
+
+${selectedAccount.address}
+
+</p>
+
+
+<button
+class="nav-button"
+style="margin-top:15px"
+onclick="copyAccount()">
+
+Copy
+
+</button>
+
+`;
+
+
+}
+
+
+
+
+
+function loadAccount(){
+
+
+if(!selectedAccount){
+
+return;
+
+}
+
+
+}
+
+
+
+
+
+function loadSummary(){
+
+
+let amount =
+document.getElementById(
+"amount"
+).value;
+
+
+
+document.getElementById(
+"summary"
+).innerHTML = `
+
+
+<p>
+<b>Amount:</b>
+£${amount}
+</p>
+
+
+<p style="margin-top:10px">
+<b>Method:</b>
+${selectedMethod}
+</p>
+
+
+<p style="margin-top:10px">
+<b>Account:</b>
+${selectedAccount.name}
+</p>
+
+
+<p style="margin-top:10px;color:#9696a7">
+
+You will be redirected to the official payment page.
+
+</p>
+
+
+`;
+
+}
+
+
+
+
+
+function openPayment(){
+
+
+if(!selectedAccount){
+
+return;
+
+}
+
+
+
+window.open(
+
+selectedAccount.url,
+
+"_blank",
+
+"noopener,noreferrer"
+
+);
+
+
+}
+
+
+
+
+
+function copyAccount(){
+
+
+navigator.clipboard.writeText(
+
+selectedAccount.address
+
+);
+
+
+alert(
+"Payment details copied!"
+);
+
+
+}
+
+
 
 
 
 function goHome(){
 
-window.location.href="index.html";
+
+window.location.href =
+"index.html";
+
 
 }
 
 
 
-window.addEventListener("load",()=>{
+
+
+function openSupport(){
+
+
+window.open(
+
+"https://t.me/ModdingXZ_Support_Bot",
+
+"_blank"
+
+);
+
+
+}
+
+
+
+
+
+
+window.addEventListener(
+"load",
+()=>{
+
 
 setTimeout(()=>{
+
 
 document
 .getElementById("loader")
 .classList.add("hide");
 
+
 },700);
 
-});
+
+
+}
+
+);
+
 
 
 </script>
