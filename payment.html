@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -9,297 +8,205 @@
 
 <title>ModdingXZ | Secure Payment Portal</title>
 
-<meta name="description" content="Official ModdingXZ secure payment portal.">
+<meta name="description" content="Official ModdingXZ payment portal">
 
 <meta name="theme-color" content="#07070b">
 
 
-<!-- Bootstrap 5 -->
-<link 
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
-<!-- Icons -->
-<link 
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" 
-rel="stylesheet">
-
-
-<!-- Font -->
-<link 
-href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" 
-rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 
 
 <style>
 
 :root {
-
-    --bg: #07070b;
-    --card: rgba(18,18,27,.92);
-    --border: rgba(255,255,255,.08);
-
-    --text: #ffffff;
-    --muted: #9696a7;
-
-    --purple: #8b5cf6;
-    --blue: #6366f1;
-
-    --green: #22c55e;
-
+    --bg:#07070b;
+    --card:#12121b;
+    --border:rgba(255,255,255,.08);
+    --purple:#8b5cf6;
+    --blue:#6366f1;
+    --text:#fff;
+    --muted:#9696a7;
 }
-
 
 
 * {
-
-    margin:0;
-    padding:0;
     box-sizing:border-box;
-
 }
-
 
 
 body {
 
+    margin:0;
     min-height:100vh;
-
-    font-family:"Rubik",sans-serif;
-
-    color:var(--text);
-
     background:
-
-    radial-gradient(
-        circle at top left,
-        rgba(139,92,246,.22),
-        transparent 35%
-    ),
-
-    radial-gradient(
-        circle at bottom right,
-        rgba(59,130,246,.15),
-        transparent 35%
-    ),
-
+    radial-gradient(circle at top left,
+    rgba(139,92,246,.25),
+    transparent 35%),
     var(--bg);
+
+    color:white;
+    font-family:"Rubik",sans-serif;
 
 }
 
 
+/* LOADING */
 
-/* ==========================
-   LOADING SCREEN
-========================== */
-
-
-#loadingScreen {
+#loader {
 
     position:fixed;
-
     inset:0;
-
+    background:#07070b;
     z-index:9999;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
+    flex-direction:column;
 
-    background:#07070b;
-
-}
-
-
-
-.loader-box {
-
-    width:320px;
-
-    text-align:center;
+    animation:fadeOut 1s ease 2.5s forwards;
 
 }
-
 
 
 .loader-logo {
 
-    width:75px;
-
-    height:75px;
-
-    margin:auto;
+    width:80px;
+    height:80px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
-    border-radius:22px;
+    border-radius:25px;
+
+    background:
+    linear-gradient(
+    135deg,
+    var(--purple),
+    var(--blue));
 
     font-size:35px;
 
-    background:
-
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
-
-    box-shadow:
-
-    0 0 50px rgba(139,92,246,.5);
+    animation:pulse 1s infinite;
 
 }
 
 
-
-.loader-box h2 {
+.loader-title {
 
     margin-top:20px;
-
+    font-size:28px;
     font-weight:900;
 
 }
 
 
-
-.loader-box p {
+.loader-text {
 
     color:var(--muted);
-
-    margin-bottom:20px;
+    margin-top:10px;
 
 }
 
 
 
-/* ==========================
- HEADER
-========================== */
+@keyframes pulse {
+
+    50% {
+        transform:scale(1.08);
+    }
+
+}
 
 
-.navbar {
+@keyframes fadeOut {
 
-    height:75px;
+    to {
+        opacity:0;
+        visibility:hidden;
+    }
 
-    border-bottom:
+}
 
-    1px solid var(--border);
+
+
+/* HEADER */
+
+
+header {
+
+    position:sticky;
+    top:0;
+    z-index:100;
 
     background:
-
-    rgba(7,7,11,.75);
+    rgba(7,7,11,.8);
 
     backdrop-filter:blur(20px);
 
+    border-bottom:1px solid var(--border);
+
 }
 
 
-
-.brand {
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    font-size:22px;
+.navbar-brand {
 
     font-weight:900;
+    color:white!important;
 
 }
-
 
 
 .brand-icon {
 
-    width:44px;
+    display:inline-flex;
 
-    height:44px;
-
-    display:flex;
+    width:40px;
+    height:40px;
 
     align-items:center;
-
     justify-content:center;
 
-    border-radius:14px;
+    border-radius:12px;
 
     background:
-
     linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
+    135deg,
+    var(--purple),
+    var(--blue));
 
 }
 
 
-
-.status {
-
-    color:var(--muted);
-
-    font-size:13px;
-
-}
+/* CONTAINER */
 
 
-
-.status span {
-
-    display:inline-block;
-
-    width:8px;
-
-    height:8px;
-
-    background:var(--green);
-
-    border-radius:50%;
-
-    margin-right:8px;
-
-}
-
-
-
-
-
-/* ==========================
- HERO
-========================== */
-
-
-.checkout-container {
+.container-box {
 
     max-width:850px;
+    margin:auto;
 
-    padding-top:60px;
+    padding:
+    60px 15px;
 
 }
 
+
+
+/* HERO */
 
 
 .hero {
 
     text-align:center;
 
-    margin-bottom:40px;
-
 }
 
 
-
-.badge {
+.badge-box {
 
     display:inline-block;
 
@@ -307,22 +214,17 @@ body {
 
     border-radius:50px;
 
-    color:#c4b5fd;
-
     background:
-
-    rgba(139,92,246,.1);
+    rgba(139,92,246,.15);
 
     border:
-
     1px solid rgba(139,92,246,.3);
 
-    font-size:12px;
+    color:#c4b5fd;
 
-    font-weight:800;
+    font-weight:700;
 
 }
-
 
 
 .hero h1 {
@@ -330,7 +232,6 @@ body {
     margin-top:20px;
 
     font-size:
-
     clamp(40px,7vw,65px);
 
     font-weight:900;
@@ -338,567 +239,179 @@ body {
 }
 
 
-
-.hero h1 span {
+.gradient {
 
     background:
-
     linear-gradient(
-        90deg,
-        #a78bfa,
-        #60a5fa
-    );
+    90deg,
+    #a78bfa,
+    #60a5fa);
 
     -webkit-background-clip:text;
-
     color:transparent;
 
 }
-
 
 
 .hero p {
 
     color:var(--muted);
 
-    max-width:600px;
+}
 
-    margin:auto;
+
+
+/* CARD */
+
+
+.card-box {
+
+    margin-top:40px;
+
+    background:
+    rgba(18,18,27,.9);
+
+    border:
+    1px solid var(--border);
+
+    border-radius:25px;
+
+    padding:30px;
 
 }
 
 
 
-
-
-/* ==========================
- STEPS
-========================== */
-
-
-.steps {
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    margin-bottom:35px;
-
-}
-
+/* STEPS */
 
 
 .step {
 
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:8px;
-
-    font-size:12px;
-
-    color:#777;
-
-}
-
-
-
-.step span {
-
-    width:35px;
-
-    height:35px;
-
-    border-radius:50%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border:
-
-    1px solid var(--border);
-
-}
-
-
-
-.step.active span {
-
-    background:var(--purple);
-
-    color:white;
-
-}
-
-
-
-.step.locked {
-
-    opacity:.35;
-
-}
-
-
-
-.line {
-
-    height:2px;
-
-    width:50px;
-
-    background:var(--border);
-
-}
-
-
-
-
-
-/* ==========================
- CARD
-========================== */
-
-
-.checkout-card {
-
-    padding:30px;
-
-    border-radius:25px;
-
-    background:var(--card);
-
-    border:
-
-    1px solid var(--border);
-
-    backdrop-filter:blur(20px);
-
-    box-shadow:
-
-    0 30px 80px rgba(0,0,0,.4);
-
-}
-
-
-
-.notice {
-
-    display:flex;
-
-    gap:15px;
-
-    padding:18px;
-
-    margin-bottom:30px;
-
-    border-radius:16px;
-
-    background:
-
-    rgba(139,92,246,.08);
-
-    border:
-
-    1px solid rgba(139,92,246,.25);
-
-}
-
-
-
-.notice-icon {
-
-    font-size:25px;
-
-}
-
-
-
-.notice p {
-
-    color:var(--muted);
-
-    font-size:13px;
-
-}
-
-
-
-
-
-/* ==========================
- STEPS CONTENT
-========================== */
-
-
-.checkout-step {
-
-    animation:
-
-    fade .35s ease;
-
-}
-
-
-
-.hidden {
-
     display:none;
 
-}
-
-
-
-@keyframes fade {
-
-from {
-
-opacity:0;
-
-transform:translateY(15px);
+    animation:slide .3s ease;
 
 }
 
 
-to {
-
-opacity:1;
-
-transform:translateY(0);
-
-}
-
-}
-
-
-
-
-
-.checkout-step h4 {
-
-    margin-bottom:25px;
-
-}
-
-
-
-
-
-/* ==========================
- INPUT
-========================== */
-
-
-.amount-box {
-
-    display:flex;
-
-    align-items:center;
-
-    height:65px;
-
-    border-radius:15px;
-
-    background:#090910;
-
-    border:
-
-    1px solid var(--border);
-
-    padding:0 20px;
-
-    margin-bottom:25px;
-
-}
-
-
-
-.amount-box span {
-
-    font-size:25px;
-
-    font-weight:800;
-
-}
-
-
-
-.amount-box input {
-
-    width:100%;
-
-    background:none;
-
-    border:0;
-
-    outline:none;
-
-    color:white;
-
-    font-size:25px;
-
-    padding-left:10px;
-
-}
-
-
-
-
-
-/* ==========================
- PAYMENT OPTIONS
-========================== */
-
-
-.payment-grid {
-
-    display:grid;
-
-    grid-template-columns:repeat(3,1fr);
-
-    gap:15px;
-
-}
-
-
-
-.payment-option {
-
-    min-height:150px;
-
-    border-radius:18px;
-
-    border:
-
-    1px solid var(--border);
-
-    background:
-
-    rgba(255,255,255,.03);
-
-    color:white;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-}
-
-
-
-.payment-option:hover {
-
-    transform:translateY(-5px);
-
-    border-color:var(--purple);
-
-}
-
-
-
-.payment-option strong {
+.step.active {
 
     display:block;
 
-    margin-top:10px;
+}
+
+
+@keyframes slide {
+
+    from {
+
+        opacity:0;
+        transform:translateY(15px);
+
+    }
+
+    to {
+
+        opacity:1;
+        transform:none;
+
+    }
 
 }
 
 
 
-.payment-option small {
+.form-control {
 
-    color:var(--muted);
+    background:#090910!important;
+
+    border:1px solid var(--border)!important;
+
+    color:white!important;
+
+    height:60px;
+
+}
+
+
+.form-control:focus {
+
+    box-shadow:
+    0 0 0 4px rgba(139,92,246,.2)!important;
 
 }
 
 
 
-
-/* ==========================
- BUTTON
-========================== */
+/* BUTTONS */
 
 
 .btn-main {
 
-    width:100%;
-
-    height:60px;
-
-    border:0;
-
-    border-radius:15px;
+    background:
+    linear-gradient(
+    135deg,
+    var(--purple),
+    var(--blue));
 
     color:white;
+
+    border:none;
+
+    height:55px;
+
+    border-radius:15px;
 
     font-weight:900;
 
-    background:
-
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
-
-    cursor:pointer;
-
-    font-size:15px;
-
 }
 
 
+.btn-back {
 
-
-
-/* ==========================
- ACCOUNT CARDS
-========================== */
-
-
-.account-card {
-
-    padding:18px;
-
-    border-radius:15px;
+    background:
+    transparent;
 
     border:
-
     1px solid var(--border);
 
-    background:
+    color:#aaa;
 
-    rgba(255,255,255,.03);
-
-    margin-bottom:12px;
-
-    cursor:pointer;
-
-    display:flex;
-
-    justify-content:space-between;
-
-}
-
-
-
-.account-card:hover {
-
-    border-color:var(--purple);
-
-}
-
-
-
-.account-card.active {
-
-    border-color:var(--purple);
-
-    background:
-
-    rgba(139,92,246,.12);
-
-}
-
-
-
-
-
-/* ==========================
- SUMMARY
-========================== */
-
-
-.summary {
-
-    padding:20px;
+    height:55px;
 
     border-radius:15px;
 
-    background:
-
-    rgba(255,255,255,.04);
-
-    margin-bottom:25px;
-
 }
 
 
 
-.summary p {
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:var(--muted);
-
-}
+/* FLOAT SUPPORT */
 
 
+.support {
 
-.summary strong {
+    position:fixed;
+
+    bottom:20px;
+
+    right:20px;
+
+    background:#229ed9;
 
     color:white;
 
-}
+    padding:14px 20px;
 
+    border-radius:50px;
 
+    font-weight:700;
 
-
-
-footer {
-
-    text-align:center;
-
-    padding:35px;
-
-    color:#666;
-
-    font-size:12px;
+    text-decoration:none;
 
 }
 
-
-
-
-
-@media(max-width:700px) {
-
-
-.payment-grid {
-
-    grid-template-columns:1fr;
-
-}
-
-
-.steps {
-
-    transform:scale(.85);
-
-}
-
-
-.checkout-card {
-
-    padding:20px;
-
-}
-
-
-}
 
 </style>
-
 
 </head>
 
@@ -906,75 +419,48 @@ footer {
 <body>
 
 
-<!-- ==========================
-     LOADING SCREEN
-=========================== -->
+<div id="loader">
 
-<div id="loadingScreen">
+    <div class="loader-logo">
+        ⚡
+    </div>
 
-    <div class="loader-box">
+    <div class="loader-title">
+        ModdingXZ
+    </div>
 
-        <div class="loader-logo">
-            ⚡
-        </div>
-
-        <h2>
-            ModdingXZ
-        </h2>
-
-        <p>
-            Preparing secure payment portal...
-        </p>
-
-
-        <div class="progress">
-
-            <div 
-            class="progress-bar progress-bar-striped progress-bar-animated"
-            style="width:100%">
-            </div>
-
-        </div>
-
+    <div class="loader-text">
+        Loading secure payment portal...
     </div>
 
 </div>
 
 
 
-<!-- ==========================
-     HEADER
-=========================== -->
-
-
 <header>
 
-<nav class="navbar">
+<nav class="navbar navbar-expand-lg">
 
 <div class="container">
 
 
-<div class="brand">
+<a class="navbar-brand" href="index.html">
 
-<div class="brand-icon">
+<span class="brand-icon">
 ⚡
-</div>
-
-
-<span>
-ModdingXZ
 </span>
 
-</div>
+ModdingXZ
+
+</a>
 
 
-<div class="status">
+<a href="index.html"
+class="btn btn-outline-light">
 
-<span></span>
+🏠 Home
 
-Official Payment Portal
-
-</div>
+</a>
 
 
 </div>
@@ -985,29 +471,24 @@ Official Payment Portal
 
 
 
-
-<!-- ==========================
-     MAIN
-=========================== -->
-
-
-<main class="container checkout-container">
+<div class="container-box">
 
 
 <section class="hero">
 
 
-<div class="badge">
+<div class="badge-box">
 
-🔐 SECURE CHECKOUT
+🔐 Official Payment Portal
 
 </div>
 
 
 <h1>
 
-Pay 
-<span>
+Pay
+
+<span class="gradient">
 ModdingXZ
 </span>
 
@@ -1015,10 +496,7 @@ ModdingXZ
 
 
 <p>
-
-Enter the amount provided by ModdingXZ Support
-and complete your payment using an official payment method.
-
+Complete your payment securely using our official payment methods.
 </p>
 
 
@@ -1026,156 +504,45 @@ and complete your payment using an official payment method.
 
 
 
-
-<!-- ==========================
-     PROGRESS
-=========================== -->
+<div class="card-box">
 
 
-<div class="steps">
+<!-- STEP 1 -->
 
-
-<div class="step active" id="stepIndicator1">
-
-<span>
-1
-</span>
-
-Amount
-
-</div>
-
-
-<div class="line"></div>
-
-
-<div class="step locked" id="stepIndicator2">
-
-<span>
-2
-</span>
-
-Payment
-
-</div>
-
-
-<div class="line"></div>
-
-
-<div class="step locked" id="stepIndicator3">
-
-<span>
-3
-</span>
-
-Account
-
-</div>
-
-
-<div class="line"></div>
-
-
-<div class="step locked" id="stepIndicator4">
-
-<span>
-4
-</span>
-
-Confirm
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- ==========================
-     CHECKOUT CARD
-=========================== -->
-
-
-<div class="checkout-card">
-
-
-
-<!-- NOTICE -->
-
-<div class="notice">
-
-<div class="notice-icon">
-🔒
-</div>
-
-
-<div>
-
-<h5>
-Official Payment Methods Only
-</h5>
-
-
-<p>
-
-ModdingXZ only accepts payments through
-the payment methods and accounts shown here.
-
-Never send money to different accounts.
-
-</p>
-
-
-</div>
-
-</div>
-
-
-
-
-
-<!-- ==========================
-     STEP 1
-=========================== -->
-
-
-<div class="checkout-step show" id="step1">
+<div class="step active" id="step1">
 
 
 <h4>
-Step 1 - Enter Amount
+Step 1 - Payment Details
 </h4>
 
 
-<label>
-Payment Amount
+<label class="mt-3">
+Amount
 </label>
 
 
-<div class="amount-box">
-
-<span>
-£
-</span>
-
-
-<input 
+<input
 id="amount"
 type="number"
-placeholder="0.00"
-min="0.01"
-step="0.01">
+class="form-control"
+placeholder="£0.00">
 
 
-</div>
+<label class="mt-3">
+Service Name (Optional)
+</label>
 
 
-<button 
-class="btn-main"
-onclick="completeAmount()">
+<input
+id="service"
+class="form-control"
+placeholder="Example: BO3 Ultimate">
+
+
+<button
+onclick="nextStep(2)"
+class="btn-main w-100 mt-4">
 
 Continue →
 
@@ -1184,105 +551,79 @@ Continue →
 
 </div>
 
+<!-- STEP 2 -->
 
-
-
-
-
-
-<!-- ==========================
-     STEP 2
-=========================== -->
-
-
-<div class="checkout-step hidden" id="step2">
-
+<div class="step" id="step2">
 
 <h4>
 Step 2 - Choose Payment Method
 </h4>
 
 
-
-<div class="payment-grid">
-
+<div class="row g-3 mt-3">
 
 
-<button 
-class="payment-option"
+<div class="col-md-4">
+
+<button
+class="w-100 btn-main"
 onclick="selectMethod('paypal')">
 
-💙
-
-<strong>
-PayPal
-</strong>
-
-<small>
-PayPal GBP Payments
-</small>
+💙 PayPal
 
 </button>
 
+</div>
 
 
+<div class="col-md-4">
 
-<button 
-class="payment-option"
+<button
+class="w-100 btn-main"
 onclick="selectMethod('revolut')">
 
-🟣
-
-<strong>
-Revolut
-</strong>
-
-<small>
-Revolut Payments
-</small>
+🟣 Revolut
 
 </button>
 
+</div>
 
 
+<div class="col-md-4">
 
-
-<button 
-class="payment-option"
+<button
+class="w-100 btn-main"
 onclick="selectMethod('cashapp')">
 
-💵
+💵 Cash App
 
-<strong>
-Cash App
-</strong>
+</button>
 
-<small>
-Cash App Payments
-</small>
+</div>
+
+
+</div>
+
+
+<button
+onclick="previousStep()"
+class="btn-back w-100 mt-4">
+
+← Back
 
 </button>
 
 
-
-</div>
-
-
 </div>
 
 
 
 
 
+<!-- STEP 3 -->
 
 
-
-<!-- ==========================
-     STEP 3
-=========================== -->
-
-
-<div class="checkout-step hidden" id="step3">
+<div class="step" id="step3">
 
 
 <h4>
@@ -1290,12 +631,29 @@ Step 3 - Select Official Account
 </h4>
 
 
+<p class="text-secondary mt-2">
 
-<div id="accounts">
+Only use the accounts shown below.
+
+</p>
+
+
+<div id="accountList"
+class="mt-3">
 
 </div>
 
 
+
+<button
+onclick="previousStep()"
+class="btn-back w-100 mt-4">
+
+← Back
+
+</button>
+
+
 </div>
 
 
@@ -1303,13 +661,10 @@ Step 3 - Select Official Account
 
 
 
-
-<!-- ==========================
-     STEP 4
-=========================== -->
+<!-- STEP 4 -->
 
 
-<div class="checkout-step hidden" id="step4">
+<div class="step" id="step4">
 
 
 <h4>
@@ -1317,31 +672,65 @@ Step 4 - Confirm Payment
 </h4>
 
 
-
-<div class="summary">
-
-
-<p>
-Order ID:
-<strong id="orderId"></strong>
-</p>
+<div class="mt-4 p-3 rounded"
+style="
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+">
 
 
 <p>
+
+<strong>
 Amount:
-<strong id="finalAmount"></strong>
+</strong>
+
+<span id="confirmAmount">
+£0.00
+</span>
+
 </p>
 
 
+
 <p>
-Method:
-<strong id="finalMethod"></strong>
+
+<strong>
+Service:
+</strong>
+
+<span id="confirmService">
+-
+</span>
+
 </p>
 
 
+
 <p>
+
+<strong>
+Payment Method:
+</strong>
+
+<span id="confirmMethod">
+-
+</span>
+
+</p>
+
+
+
+<p>
+
+<strong>
 Account:
-<strong id="finalAccount"></strong>
+</strong>
+
+<span id="confirmAccount">
+-
+</span>
+
 </p>
 
 
@@ -1349,12 +738,21 @@ Account:
 
 
 
-
-<button 
-class="btn-main"
-onclick="startPayment()">
+<button
+onclick="openPayment()"
+class="btn-main w-100 mt-3">
 
 Continue To Payment →
+
+</button>
+
+
+
+<button
+onclick="previousStep()"
+class="btn-back w-100 mt-3">
+
+← Back
 
 </button>
 
@@ -1368,35 +766,42 @@ Continue To Payment →
 </div>
 
 
-</main>
+</div>
 
 
 
 
+<footer
+class="text-center text-secondary pb-5">
 
-<footer>
-
-© 2026 
-<strong>
-ModdingXZ
-</strong>
-
-<br>
-
-Official Payment Portal
+© 2026 ModdingXZ · Official Payment Portal
 
 </footer>
 
 
 
+<a
+class="support"
+href="https://t.me/ModdingXZ_Support_Bot"
+target="_blank">
+
+💬 Support
+
+</a>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 <script>
 
 
-/* ==========================
-   PAYMENT ACCOUNTS
-========================== */
-
+/*
+    OFFICIAL PAYMENT ACCOUNTS
+*/
 
 const paymentAccounts = {
 
@@ -1409,7 +814,6 @@ const paymentAccounts = {
             url:"https://paypal.me/MrJasonDEX"
         },
 
-
         {
             name:"Gameralday2001",
             username:"paypal.me/ShawnCrouse357",
@@ -1420,7 +824,7 @@ const paymentAccounts = {
 
 
 
-    revolut: [
+    revolut:[
 
         {
             name:"ModdingXZ",
@@ -1439,7 +843,7 @@ const paymentAccounts = {
 
 
 
-    cashapp: [
+    cashapp:[
 
         {
             name:"Gameralday2001",
@@ -1449,159 +853,82 @@ const paymentAccounts = {
 
     ]
 
-
 };
 
 
 
-/* ==========================
-   VARIABLES
-========================== */
-
-
-let amount = 0;
+let currentStep = 1;
 
 let selectedMethod = null;
 
 let selectedAccount = null;
 
 
-let orderID = 
-"MXZ-" +
-Date.now().toString().slice(-8);
+
+/*
+    STEP SYSTEM
+*/
 
 
-
-/* ==========================
-   PAGE LOADING
-========================== */
+function showStep(step){
 
 
-window.addEventListener(
-"load",
-()=>{
+    document
+    .querySelectorAll(".step")
+    .forEach(
+        s =>
+        s.classList.remove("active")
+    );
 
 
-setTimeout(()=>{
+    document
+    .getElementById("step"+step)
+    .classList.add("active");
 
 
-document
-.getElementById("loadingScreen")
-.style.display="none";
-
-
-restoreData();
-
-
-},1200);
-
-
-
-});
-
-
-
-
-
-/* ==========================
-   STEP 1
-========================== */
-
-
-function completeAmount(){
-
-
-let input =
-document.getElementById("amount").value;
-
-
-
-amount =
-parseFloat(input);
-
-
-
-if(!amount || amount <=0){
-
-alert("Please enter a valid amount.");
-
-return;
-
-}
-
-
-
-localStorage.setItem(
-"mxz_amount",
-amount
-);
-
-
-
-unlockStep(2);
-
-
-
-showStep(2);
-
-
+    currentStep = step;
 
 }
 
 
 
 
-/* ==========================
-   STEP MANAGEMENT
-========================== */
+
+function nextStep(step){
 
 
-function unlockStep(number){
+    if(step === 2){
 
 
-document
-.getElementById(
-"stepIndicator"+number
-)
-.classList
-.remove("locked");
+        let amount =
+        document
+        .getElementById("amount")
+        .value;
 
 
-document
-.getElementById(
-"stepIndicator"+number
-)
-.classList
-.add("active");
+        if(!amount || amount <= 0){
 
+            alert(
+            "Please enter a valid payment amount."
+            );
 
-}
+            return;
 
+        }
 
-
-function showStep(number){
-
-
-document
-.querySelectorAll(".checkout-step")
-.forEach(
-step=>{
-
-step.classList.add("hidden");
-
-}
-
-);
+    }
 
 
 
-document
-.getElementById(
-"step"+number
-)
-.classList
-.remove("hidden");
+    if(step === 4){
 
+
+        updateConfirmation();
+
+    }
+
+
+    showStep(step);
 
 }
 
@@ -1609,33 +936,40 @@ document
 
 
 
-/* ==========================
-   PAYMENT METHOD
-========================== */
+function previousStep(){
+
+
+    if(currentStep > 1){
+
+        showStep(
+        currentStep - 1
+        );
+
+    }
+
+}
+
+
+
+
+
+/*
+    PAYMENT METHOD
+*/
 
 
 function selectMethod(method){
 
 
-selectedMethod = method;
+    selectedMethod = method;
+
+    selectedAccount = null;
 
 
-localStorage.setItem(
-"mxz_method",
-method
-);
+    renderAccounts();
 
 
-
-loadAccounts();
-
-
-
-unlockStep(3);
-
-
-showStep(3);
-
+    nextStep(3);
 
 
 }
@@ -1644,79 +978,92 @@ showStep(3);
 
 
 
-/* ==========================
-   LOAD ACCOUNTS
-========================== */
+function renderAccounts(){
 
 
-function loadAccounts(){
+    const box =
+    document.getElementById(
+    "accountList"
+    );
 
 
-let container =
-document.getElementById("accounts");
-
-
-container.innerHTML="";
+    box.innerHTML="";
 
 
 
-paymentAccounts[selectedMethod]
-.forEach(
-(account,index)=>{
+    paymentAccounts[selectedMethod]
+    .forEach(
+    (account,index)=>{
 
 
-let div =
-document.createElement("div");
+        let div =
+        document.createElement("div");
 
 
-
-div.className="account-card";
-
-
-
-div.innerHTML = `
+        div.className =
+        "p-3 mb-3 rounded";
 
 
-<div>
+        div.style = `
 
-<strong>
-${account.name}
-</strong>
+        cursor:pointer;
 
+        background:
+        rgba(255,255,255,.04);
 
-<br>
+        border:
+        1px solid rgba(255,255,255,.08);
 
-
-<small>
-${account.username}
-</small>
-
-
-</div>
-
-
-<div>
-◯
-</div>
-
-
-`;
+        `;
 
 
 
-div.onclick=()=>{
-
-selectAccount(index,div);
-
-};
+        div.innerHTML = `
 
 
+        <h5>
 
-container.appendChild(div);
+        ${account.name}
+
+        </h5>
+
+
+        <p class="text-secondary">
+
+        ${account.username}
+
+        </p>
+
+
+        <button
+        class="btn btn-sm btn-outline-light">
+
+        Select
+
+        </button>
+
+        `;
 
 
 
-});
+        div.onclick=function(){
+
+
+            selectedAccount=index;
+
+
+            nextStep(4);
+
+
+        };
+
+
+
+        box.appendChild(div);
+
+
+
+    });
 
 
 }
@@ -1725,82 +1072,49 @@ container.appendChild(div);
 
 
 
-/* ==========================
-   ACCOUNT SELECT
-========================== */
+/*
+    CONFIRMATION
+*/
 
 
-function selectAccount(index,element){
+function updateConfirmation(){
 
 
-selectedAccount =
-index;
-
-
+const amount =
 document
-.querySelectorAll(".account-card")
-.forEach(
-x=>x.classList.remove("active")
-);
+.getElementById("amount")
+.value;
 
 
-element.classList.add("active");
-
-
-
-localStorage.setItem(
-"mxz_account",
-index
-);
+const service =
+document
+.getElementById("service")
+.value || "Not provided";
 
 
 
-unlockStep(4);
-
-
-prepareSummary();
-
-
-showStep(4);
-
-
-
-}
-
-
-
-
-
-/* ==========================
-   SUMMARY
-========================== */
-
-
-function prepareSummary(){
-
-
-let account =
+const account =
 paymentAccounts[selectedMethod]
 [selectedAccount];
 
 
 
 document
-.getElementById("orderId")
+.getElementById("confirmAmount")
 .innerText =
-orderID;
+"£"+Number(amount).toFixed(2);
 
 
 
 document
-.getElementById("finalAmount")
+.getElementById("confirmService")
 .innerText =
-"£"+amount.toFixed(2);
+service;
 
 
 
 document
-.getElementById("finalMethod")
+.getElementById("confirmMethod")
 .innerText =
 selectedMethod
 .toUpperCase();
@@ -1808,17 +1122,9 @@ selectedMethod
 
 
 document
-.getElementById("finalAccount")
+.getElementById("confirmAccount")
 .innerText =
 account.name;
-
-
-
-localStorage.setItem(
-"mxz_order",
-orderID
-);
-
 
 
 }
@@ -1827,16 +1133,22 @@ orderID
 
 
 
-/* ==========================
-   START PAYMENT
-========================== */
+/*
+    OPEN PAYMENT
+*/
 
 
-function startPayment(){
+function openPayment(){
+
+
+const amount =
+document
+.getElementById("amount")
+.value;
 
 
 
-let account =
+const account =
 paymentAccounts[selectedMethod]
 [selectedAccount];
 
@@ -1849,44 +1161,18 @@ account.url;
 
 if(selectedMethod==="paypal"){
 
-url +=
-"/"+
-amount.toFixed(2);
+
+url =
+account.url
++
+"/"
++
+Number(amount)
+.toFixed(2);
+
 
 }
 
-
-
-
-let seconds = 3;
-
-
-
-document
-.querySelector(".btn-main")
-.innerText =
-"Opening payment in "+seconds;
-
-
-
-let timer =
-setInterval(()=>{
-
-
-seconds--;
-
-
-document
-.querySelector(".btn-main")
-.innerText =
-"Opening payment in "+seconds;
-
-
-
-if(seconds<=0){
-
-
-clearInterval(timer);
 
 
 window.location.href=url;
@@ -1897,61 +1183,33 @@ window.location.href=url;
 
 
 
-},1000);
 
 
 
-}
-
-
-
-
-
-/* ==========================
-   RESTORE SESSION
-========================== */
-
-
-function restoreData(){
-
-
-let savedAmount =
-localStorage.getItem(
-"mxz_amount"
-);
-
-
-
-if(savedAmount){
-
-
-document
-.getElementById("amount")
-.value =
-savedAmount;
-
-
-
-}
-
-
-
-}
-
-
-
-
-/* ==========================
-   CLEAR DATA AFTER EXIT
-========================== */
+/*
+    LOADER CLEANUP
+*/
 
 
 window.addEventListener(
-"beforeunload",
+"load",
 ()=>{
 
 
+setTimeout(
+()=>{
+
+document
+.getElementById("loader")
+.style.display="none";
+
+
+},
+2600);
+
+
 });
+
 
 
 </script>
