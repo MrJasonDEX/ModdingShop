@@ -1,1821 +1,2317 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ModdingXZ | Official Payment Portal</title>
 
-<meta name="description" content="Official ModdingXZ payment portal">
+<meta name="description"
+      content="Official ModdingXZ payment portal. Securely choose your payment method and complete your payment.">
 
-<meta name="theme-color" content="#08080d">
+<meta name="theme-color" content="#07070b">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
 
 <style>
 
+/* =========================================================
+   ROOT
+========================================================= */
+
 :root {
+    --bg: #07070b;
+    --bg2: #0b0b12;
+    --card: rgba(18,18,27,.92);
+    --card2: rgba(255,255,255,.035);
+    --border: rgba(255,255,255,.085);
 
-    --bg:#08080d;
-    --card:#11111a;
-    --border:rgba(255,255,255,.08);
-    --text:#ffffff;
-    --muted:#9999aa;
-    --purple:#8b5cf6;
-    --blue:#3b82f6;
-    --green:#22c55e;
+    --text: #fff;
+    --muted: #9696a7;
 
+    --purple: #8b5cf6;
+    --purple2: #6366f1;
+
+    --green: #22c55e;
+    --red: #ef4444;
+
+    --shadow:
+        0 30px 90px rgba(0,0,0,.45);
 }
 
+
+/* =========================================================
+   RESET
+========================================================= */
 
 * {
-
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
-
-    min-height:100vh;
-
-    background:
-    radial-gradient(
-        circle at top,
-        rgba(139,92,246,.18),
-        transparent 35%
-    ),
-    var(--bg);
-
-    color:var(--text);
+    min-height: 100vh;
 
     font-family:
-    "Rubik",
-    sans-serif;
+        "Rubik",
+        sans-serif;
 
-}
-
-
-
-a {
-
-    color:white;
-    text-decoration:none;
-
-}
-
-
-
-button {
-
-    font-family:inherit;
-    cursor:pointer;
-
-}
-
-
-
-/* =========================
-LOADING
-========================= */
-
-
-#loading {
-
-    position:fixed;
-
-    inset:0;
-
-    z-index:9999;
-
-    background:#08080d;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    transition:.5s;
-
-}
-
-
-#loading.hide {
-
-    opacity:0;
-
-    pointer-events:none;
-
-}
-
-
-
-.loader {
-
-    text-align:center;
-
-}
-
-
-.logo {
-
-    width:70px;
-
-    height:70px;
-
-    margin:auto;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-
-    border-radius:20px;
-
+    color: var(--text);
 
     background:
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
+        radial-gradient(
+            circle at 15% 5%,
+            rgba(139,92,246,.18),
+            transparent 30%
+        ),
 
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(59,130,246,.10),
+            transparent 30%
+        ),
 
-    font-size:30px;
+        var(--bg);
 
-    animation:pulse 1.5s infinite;
-
+    overflow-x: hidden;
 }
 
 
-.loader h2 {
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
 
-    margin-top:20px;
+#loader {
+    position: fixed;
+    inset: 0;
 
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #07070b;
+
+    transition:
+        opacity .5s ease,
+        visibility .5s ease;
 }
 
-
-
-.loader p {
-
-    color:var(--muted);
-
-    margin-top:8px;
-
+#loader.hide {
+    opacity: 0;
+    visibility: hidden;
 }
 
-
-
-.spinner {
-
-    width:35px;
-
-    height:35px;
-
-    border-radius:50%;
-
-    border:
-    3px solid rgba(255,255,255,.1);
-
-    border-top-color:
-    var(--purple);
-
-    margin:20px auto;
-
-    animation:spin .8s linear infinite;
-
+.loader-box {
+    text-align: center;
 }
 
+.loader-logo {
+    width: 65px;
+    height: 65px;
 
+    display: grid;
+    place-items: center;
 
-@keyframes spin {
+    margin: auto auto 20px;
 
-    to {
-
-        transform:rotate(360deg);
-
-    }
-
-}
-
-
-
-@keyframes pulse {
-
-    50% {
-
-        transform:scale(1.08);
-
-    }
-
-}
-
-
-
-
-
-/* =========================
-HEADER
-========================= */
-
-
-header {
-
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
+    border-radius: 18px;
 
     background:
-    rgba(8,8,13,.8);
-
-    backdrop-filter:
-    blur(15px);
-
-    border-bottom:
-    1px solid var(--border);
-
-}
-
-
-
-.nav {
-
-    max-width:1000px;
-
-    width:
-    calc(100% - 30px);
-
-    margin:auto;
-
-    height:75px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-}
-
-
-
-.brand {
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    font-size:20px;
-
-    font-weight:900;
-
-}
-
-
-
-.brand-icon {
-
-    width:42px;
-
-    height:42px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-
-    border-radius:13px;
-
-
-    background:
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
-
-}
-
-
-
-.nav-buttons {
-
-    display:flex;
-
-    gap:10px;
-
-}
-
-
-
-.nav-buttons a {
-
-    padding:
-    10px 14px;
-
-
-    border-radius:10px;
-
-
-    background:
-    rgba(255,255,255,.04);
-
-
-    border:
-    1px solid var(--border);
-
-
-    font-size:12px;
-
-    font-weight:700;
-
-}
-
-
-
-
-
-/* =========================
-MAIN
-========================= */
-
-
-main {
-
-    max-width:850px;
-
-    width:
-    calc(100% - 30px);
-
-    margin:auto;
-
-    padding:
-    60px 0;
-
-}
-
-
-
-.hero {
-
-    text-align:center;
-
-    margin-bottom:35px;
-
-}
-
-
-
-.badge {
-
-    display:inline-block;
-
-    padding:
-    8px 14px;
-
-
-    border-radius:999px;
-
-
-    background:
-    rgba(139,92,246,.12);
-
-
-    border:
-    1px solid rgba(139,92,246,.3);
-
-
-    color:#c4b5fd;
-
-    font-size:12px;
-
-    font-weight:800;
-
-}
-
-
-
-.hero h1 {
-
-    margin-top:20px;
-
-    font-size:
-    clamp(38px,7vw,60px);
-
-}
-
-
-
-.hero h1 span {
-
-    background:
-    linear-gradient(
-        90deg,
-        #a78bfa,
-        #60a5fa
-    );
-
-    -webkit-background-clip:text;
-
-    color:transparent;
-
-}
-
-
-
-.hero p {
-
-    color:var(--muted);
-
-    margin-top:15px;
-
-    line-height:1.6;
-
-}
-
-
-
-
-
-/* =========================
-CARD
-========================= */
-
-
-.card {
-
-    background:
-    rgba(17,17,26,.9);
-
-
-    border:
-    1px solid var(--border);
-
-
-    border-radius:25px;
-
-
-    padding:28px;
-
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple2)
+        );
+
+    font-size: 28px;
 
     box-shadow:
-    0 30px 90px rgba(0,0,0,.45);
-
-}
-
-
-
-
-
-/* =========================
-PROGRESS
-========================= */
-
-
-.progress {
-
-    margin-bottom:25px;
-
-}
-
-
-.progress > div:first-child {
-
-    display:flex;
-
-    justify-content:space-between;
-
-    color:var(--muted);
-
-    font-size:12px;
-
-}
-
-
-
-.bar {
-
-    height:7px;
-
-    background:
-    rgba(255,255,255,.08);
-
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    margin-top:10px;
-
-}
-
-
-
-#progressBar {
-
-    height:100%;
-
-    width:25%;
-
-
-    background:
-    linear-gradient(
-        90deg,
-        var(--purple),
-        var(--blue)
-    );
-
-    transition:.3s;
-
-}
-
-
-
-
-
-/* =========================
-STEPS
-========================= */
-
-
-.step {
-
-    display:none;
-
-}
-
-
-.step.active {
-
-    display:block;
+        0 15px 45px rgba(139,92,246,.35);
 
     animation:
-    slide .3s;
+        loaderPulse 1.4s infinite;
+}
 
+.loader-title {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.loader-text {
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+}
+
+.loader-bar {
+    width: 180px;
+    height: 3px;
+
+    margin: 20px auto 0;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.08);
+}
+
+.loader-progress {
+    width: 45%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            #60a5fa
+        );
+
+    animation:
+        loading 1.1s infinite;
+}
+
+@keyframes loading {
+    from {
+        transform: translateX(-150%);
+    }
+
+    to {
+        transform: translateX(350%);
+    }
+}
+
+@keyframes loaderPulse {
+    50% {
+        transform: scale(1.05);
+    }
 }
 
 
+/* =========================================================
+   HEADER
+========================================================= */
 
-@keyframes slide {
+header {
+    position: sticky;
+    top: 0;
 
+    z-index: 50;
+
+    border-bottom:
+        1px solid var(--border);
+
+    background:
+        rgba(7,7,11,.78);
+
+    backdrop-filter:
+        blur(18px);
+}
+
+.nav {
+    width:
+        min(
+            1050px,
+            calc(100% - 32px)
+        );
+
+    min-height: 74px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.brand-icon {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple2)
+        );
+
+    box-shadow:
+        0 10px 35px
+        rgba(139,92,246,.30);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-button {
+    height: 38px;
+
+    padding:
+        0 13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: #ccc;
+
+    font-family: inherit;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.nav-button:hover {
+    border-color:
+        rgba(139,92,246,.4);
+
+    background:
+        rgba(139,92,246,.08);
+}
+
+.online {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.online-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 12px
+        rgba(34,197,94,.8);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    width:
+        min(
+            820px,
+            calc(100% - 32px)
+        );
+
+    margin: auto;
+
+    padding:
+        55px 0 90px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        8px 14px;
+
+    margin-bottom: 18px;
+
+    border-radius: 999px;
+
+    color: #c4b5fd;
+
+    background:
+        rgba(139,92,246,.08);
+
+    border:
+        1px solid
+        rgba(139,92,246,.25);
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.hero h1 {
+    font-size:
+        clamp(
+            40px,
+            7vw,
+            64px
+        );
+
+    line-height: 1;
+
+    letter-spacing: -2.5px;
+
+    margin-bottom: 18px;
+}
+
+.gradient {
+    background:
+        linear-gradient(
+            90deg,
+            #a78bfa,
+            #60a5fa
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+}
+
+.hero p {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   CHECKOUT CARD
+========================================================= */
+
+.payment-card {
+    padding: 27px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 26px;
+
+    background:
+        var(--card);
+
+    box-shadow: var(--shadow);
+
+    backdrop-filter:
+        blur(20px);
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress {
+    display: flex;
+
+    align-items: center;
+
+    margin-bottom: 28px;
+}
+
+.progress-item {
+    display: flex;
+
+    align-items: center;
+
+    flex: 1;
+}
+
+.progress-item:last-child {
+    flex: 0;
+}
+
+.progress-circle {
+    width: 32px;
+    height: 32px;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border:
+        1px solid #383846;
+
+    border-radius: 50%;
+
+    color: #777784;
+
+    font-size: 11px;
+    font-weight: 900;
+
+    transition: .25s;
+}
+
+.progress-item.active
+.progress-circle {
+    border-color: var(--purple);
+
+    background:
+        var(--purple);
+
+    color: white;
+
+    box-shadow:
+        0 0 20px
+        rgba(139,92,246,.25);
+}
+
+.progress-item.completed
+.progress-circle {
+    border-color: var(--green);
+
+    background:
+        var(--green);
+
+    color: white;
+}
+
+.progress-line {
+    height: 2px;
+
+    flex: 1;
+
+    margin:
+        0 8px;
+
+    background:
+        #24242e;
+
+    transition: .25s;
+}
+
+.progress-item.completed
++ .progress-item
+.progress-line {
+    background: var(--green);
+}
+
+
+/* =========================================================
+   STEP
+========================================================= */
+
+.step {
+    display: none;
+
+    animation:
+        stepIn .3s ease;
+}
+
+.step.active {
+    display: block;
+}
+
+@keyframes stepIn {
     from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 
-        opacity:0;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        transform:translateY(15px);
+.step-header {
+    margin-bottom: 22px;
+}
 
+.step-number {
+    color:
+        #a78bfa;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+}
+
+.step-header h2 {
+    margin-top: 6px;
+
+    font-size: 25px;
+}
+
+.step-header p {
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   FORM LABEL
+========================================================= */
+
+.label {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #dddde7;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   CURRENCY SELECTOR
+========================================================= */
+
+.currency-row {
+    display: grid;
+
+    grid-template-columns:
+        1fr 150px;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.amount-wrapper {
+    position: relative;
+}
+
+.currency-symbol {
+    position: absolute;
+
+    left: 18px;
+    top: 50%;
+
+    transform:
+        translateY(-50%);
+
+    color: #aaaaba;
+
+    font-size: 20px;
+
+    font-weight: 800;
+
+    pointer-events: none;
+}
+
+.amount {
+    width: 100%;
+    height: 64px;
+
+    padding:
+        0 18px 0 43px;
+
+    outline: none;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 15px;
+
+    background:
+        #090910;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 23px;
+
+    font-weight: 800;
+}
+
+.select {
+    width: 100%;
+    height: 64px;
+
+    padding:
+        0 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 15px;
+
+    outline: none;
+
+    background:
+        #090910;
+
+    color: white;
+
+    font-family: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.amount:focus,
+.select:focus {
+    border-color:
+        var(--purple);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(139,92,246,.08);
+}
+
+
+/* =========================================================
+   CONVERSION
+========================================================= */
+
+.conversion {
+    display: none;
+
+    padding: 14px;
+
+    margin-bottom: 22px;
+
+    border:
+        1px solid
+        rgba(34,197,94,.15);
+
+    border-radius: 14px;
+
+    background:
+        rgba(34,197,94,.045);
+}
+
+.conversion.show {
+    display: block;
+}
+
+.conversion-main {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+}
+
+.conversion-title {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.conversion-value {
+    margin-top: 4px;
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+.conversion-rate {
+    color: #777784;
+
+    font-size: 9px;
+
+    text-align: right;
+}
+
+.conversion-loading {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   NOTICE
+========================================================= */
+
+.notice {
+    display: flex;
+
+    gap: 14px;
+
+    padding: 16px;
+
+    margin-bottom: 24px;
+
+    border:
+        1px solid
+        rgba(139,92,246,.20);
+
+    border-radius: 16px;
+
+    background:
+        rgba(139,92,246,.055);
+}
+
+.notice-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(139,92,246,.12);
+
+    font-size: 17px;
+}
+
+.notice h3 {
+    margin-bottom: 5px;
+
+    font-size: 13px;
+}
+
+.notice p {
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   METHODS
+========================================================= */
+
+.methods {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 12px;
+}
+
+.method {
+    position: relative;
+
+    min-height: 160px;
+
+    padding: 20px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 17px;
+
+    background:
+        var(--card2);
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.method:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(139,92,246,.35);
+}
+
+.method.selected {
+    border-color:
+        var(--purple);
+
+    background:
+        rgba(139,92,246,.10);
+
+    box-shadow:
+        0 0 0 1px
+        rgba(139,92,246,.12);
+}
+
+.method-check {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 21px;
+    height: 21px;
+
+    display: grid;
+    place-items: center;
+
+    border:
+        1px solid #484855;
+
+    border-radius: 50%;
+
+    color: transparent;
+
+    font-size: 11px;
+}
+
+.method.selected
+.method-check {
+    background:
+        var(--purple);
+
+    border-color:
+        var(--purple);
+
+    color: white;
+}
+
+.method-icon {
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 12px;
+
+    border-radius: 12px;
+
+    font-size: 21px;
+}
+
+.paypal-icon {
+    background:
+        rgba(0,112,186,.14);
+}
+
+.revolut-icon {
+    background:
+        rgba(255,255,255,.07);
+}
+
+.cashapp-icon {
+    background:
+        rgba(34,197,94,.12);
+}
+
+.method h3 {
+    font-size: 15px;
+
+    margin-bottom: 5px;
+}
+
+.method p {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ACCOUNTS
+========================================================= */
+
+.account-list {
+    display: grid;
+
+    gap: 10px;
+}
+
+.account {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.account:hover {
+    background:
+        rgba(255,255,255,.05);
+}
+
+.account.selected {
+    border-color:
+        var(--purple);
+
+    background:
+        rgba(139,92,246,.08);
+}
+
+.account-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #29293a,
+            #15151f
+        );
+
+    font-weight: 900;
+}
+
+.account-name {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.account-link {
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.account-action {
+    padding:
+        7px 10px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,.03);
+
+    color: #aaa;
+
+    font-family: inherit;
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.account-action:hover {
+    color: white;
+
+    border-color:
+        var(--purple);
+}
+
+
+/* =========================================================
+   PAYMENT INSTRUCTIONS
+========================================================= */
+
+.instructions {
+    padding: 16px;
+
+    margin-top: 15px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.instructions h3 {
+    font-size: 12px;
+
+    margin-bottom: 8px;
+}
+
+.instructions p {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary {
+    overflow: hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 17px;
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.summary-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    border-bottom:
+        1px solid var(--border);
+
+    font-size: 12px;
+}
+
+.summary-row:last-child {
+    border-bottom: 0;
+}
+
+.summary-row span {
+    color: var(--muted);
+}
+
+.summary-row strong {
+    text-align: right;
+}
+
+.total {
+    color: #c4b5fd;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.step-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+.continue {
+    width: 100%;
+    height: 56px;
+
+    border: 0;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--purple),
+            var(--purple2)
+        );
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    box-shadow:
+        0 15px 35px
+        rgba(109,40,217,.25);
+}
+
+.continue:hover:not(:disabled) {
+    transform:
+        translateY(-2px);
+}
+
+.continue:disabled {
+    opacity: .35;
+
+    cursor:
+        not-allowed;
+
+    box-shadow: none;
+}
+
+.back {
+    min-width: 130px;
+    height: 50px;
+
+    padding:
+        0 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color: #aaaab8;
+
+    font-family: inherit;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.back:hover {
+    color: white;
+
+    border-color:
+        rgba(255,255,255,.2);
+}
+
+.action-main {
+    flex: 1;
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.security {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+
+    color: #6f6f7d;
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   SUPPORT
+========================================================= */
+
+.support {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.support-button {
+    height: 46px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    color: #bbb;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.support-button:hover {
+    border-color:
+        rgba(139,92,246,.4);
+
+    color: white;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding:
+        0 20px 35px;
+
+    text-align: center;
+
+    color: #666674;
+
+    font-size: 10px;
+}
+
+footer strong {
+    color: #9292a0;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    z-index: 500;
+
+    transform:
+        translate(-50%,20px);
+
+    padding:
+        11px 16px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    background:
+        #15151f;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .25s;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:750px) {
+
+    .methods {
+        grid-template-columns: 1fr;
+    }
+
+    .currency-row {
+        grid-template-columns: 1fr;
     }
 
 }
 
-
-
-
-
-.step h2 {
-
-    margin-bottom:8px;
-
-}
-
-
-.step p {
-
-    color:var(--muted);
-
-    margin-bottom:20px;
-
-}
-
-
-
-
-
-/* =========================
-AMOUNT
-========================= */
-
-
-.quick-buttons {
-
-    display:flex;
-
-    gap:10px;
-
-    flex-wrap:wrap;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.quick-buttons button {
-
-    padding:
-    12px 18px;
-
-
-    border-radius:12px;
-
-
-    border:
-    1px solid var(--border);
-
-
-    background:
-    rgba(255,255,255,.04);
-
-
-    color:white;
-
-    font-weight:800;
-
-}
-
-
-
-.quick-buttons button.active {
-
-    background:
-    var(--purple);
-
-    border-color:
-    var(--purple);
-
-}
-
-
-
-.amount-box {
-
-    height:65px;
-
-    display:flex;
-
-    align-items:center;
-
-
-    background:#08080d;
-
-
-    border:
-    1px solid var(--border);
-
-
-    border-radius:15px;
-
-
-    padding:0 20px;
-
-}
-
-
-
-.amount-box span {
-
-    font-size:25px;
-
-    font-weight:900;
-
-}
-
-
-
-.amount-box input {
-
-    flex:1;
-
-    height:100%;
-
-    background:none;
-
-    border:0;
-
-    outline:none;
-
-    color:white;
-
-    font-size:25px;
-
-    font-weight:900;
-
-    padding-left:10px;
-
-}
-
-
-
-
-
-/* =========================
-CURRENCY
-========================= */
-
-
-.currency-box {
-
-    margin-top:15px;
-
-    padding:18px;
-
-
-    border-radius:15px;
-
-
-    background:
-    rgba(59,130,246,.08);
-
-
-    border:
-    1px solid rgba(59,130,246,.2);
-
-}
-
-
-
-.currency-box p {
-
-    font-size:12px;
-
-    margin:0;
-
-}
-
-
-.currency-box strong {
-
-    font-size:20px;
-
-}
-
-
-
-.currency-box select {
-
-    margin-top:15px;
-
-    width:100%;
-
-    height:40px;
-
-
-    background:#08080d;
-
-
-    color:white;
-
-
-    border:
-    1px solid var(--border);
-
-
-    border-radius:10px;
-
-
-    padding:0 10px;
-
-}
-
-
-
-
-
-
-/* =========================
-BUTTONS
-========================= */
-
-
-.continue {
-
-    width:100%;
-
-    height:58px;
-
-    margin-top:20px;
-
-
-    border:0;
-
-
-    border-radius:15px;
-
-
-    background:
-    linear-gradient(
-        135deg,
-        var(--purple),
-        var(--blue)
-    );
-
-
-    color:white;
-
-
-    font-size:15px;
-
-    font-weight:900;
-
-}
-
-
-
-.continue:disabled {
-
-    opacity:.4;
-
-}
-
-
-
-
-
-.navigation {
-
-    margin-top:15px;
-
-
-    display:flex;
-
-    justify-content:space-between;
-
-}
-
-
-
-.back {
-
-    padding:
-    12px 18px;
-
-
-    background:
-    rgba(255,255,255,.04);
-
-
-    color:white;
-
-
-    border:
-    1px solid var(--border);
-
-
-    border-radius:12px;
-
-}
-
-
-
-
-
-/* =========================
-METHODS
-========================= */
-
-
-.methods {
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(3,1fr);
-
-
-    gap:15px;
-
-}
-
-
-
-.method {
-
-    padding:25px;
-
-
-    border:
-    1px solid var(--border);
-
-
-    border-radius:18px;
-
-
-    background:
-    rgba(255,255,255,.03);
-
-
-    transition:.2s;
-
-}
-
-
-
-.method:hover,
-.method.selected {
-
-    border-color:
-    var(--purple);
-
-
-    background:
-    rgba(139,92,246,.1);
-
-}
-
-
-
-
-
-/* =========================
-ACCOUNTS
-========================= */
-
-
-.account {
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-
-    padding:18px;
-
-
-    margin-bottom:10px;
-
-
-    border:
-    1px solid var(--border);
-
-
-    border-radius:15px;
-
-
-    background:
-    rgba(255,255,255,.03);
-
-}
-
-
-
-.account.selected {
-
-    border-color:
-    var(--purple);
-
-}
-
-
-
-
-
-/* =========================
-SUMMARY
-========================= */
-
-
-.summary div {
-
-    display:flex;
-
-    justify-content:space-between;
-
-
-    padding:15px 0;
-
-
-    border-bottom:
-    1px solid var(--border);
-
-}
-
-
-
-.notice {
-
-    margin-top:20px;
-
-    padding:15px;
-
-
-    text-align:center;
-
-
-    color:var(--muted);
-
-
-    font-size:12px;
-
-}
-
-
-
-
-#toast {
-
-    position:fixed;
-
-    bottom:30px;
-
-    left:50%;
-
-    transform:
-    translateX(-50%);
-
-
-    background:#151520;
-
-
-    padding:
-    12px 20px;
-
-
-    border-radius:10px;
-
-
-    opacity:0;
-
-    transition:.3s;
-
-}
-
-
-
-#toast.show {
-
-    opacity:1;
-
-}
-
-
-
-
-
-
-@media(max-width:700px){
-
-
-.methods {
-
-    grid-template-columns:1fr;
-
-}
-
-
-
-.nav-buttons a {
-
-    padding:8px;
-
-}
-
-
-
-.card {
-
-    padding:20px;
-
-}
-
+@media(max-width:600px) {
+
+    .online {
+        display: none;
+    }
+
+    .nav-actions {
+        gap: 5px;
+    }
+
+    .nav-button {
+        padding:
+            0 9px;
+    }
+
+    main {
+        padding-top: 40px;
+    }
+
+    .payment-card {
+        padding: 19px;
+
+        border-radius: 20px;
+    }
+
+    .hero h1 {
+        letter-spacing: -1.5px;
+    }
+
+    .progress-circle {
+        width: 28px;
+        height: 28px;
+    }
+
+    .progress-line {
+        margin:
+            0 5px;
+    }
+
+    .step-actions {
+        flex-direction: column;
+    }
+
+    .back,
+    .action-main {
+        width: 100%;
+    }
+
+    .support {
+        grid-template-columns: 1fr;
+    }
 
 }
 
 </style>
-
-
 </head>
-
 
 <body>
 
 
-<!-- =========================
-     LOADING SCREEN
-========================= -->
+<!-- =====================================================
+     LOADER
+===================================================== -->
 
+<div id="loader">
 
-<div id="loading">
+    <div class="loader-box">
 
-    <div class="loader">
-
-        <div class="logo">
+        <div class="loader-logo">
             ⚡
         </div>
 
-        <h2>
+        <div class="loader-title">
             ModdingXZ
-        </h2>
+        </div>
 
-        <p>
+        <div class="loader-text">
             Loading secure payment portal...
-        </p>
+        </div>
 
-        <div class="spinner"></div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
 
     </div>
 
 </div>
 
 
-
-<!-- =========================
+<!-- =====================================================
      HEADER
-========================= -->
-
+===================================================== -->
 
 <header>
 
-<div class="nav">
+    <div class="nav">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ⚡
+            </div>
+
+            ModdingXZ
+
+        </div>
 
 
-<div class="brand">
+        <div class="nav-actions">
 
-<div class="brand-icon">
-⚡
-</div>
+            <button
+                class="nav-button"
+                onclick="goHome()"
+            >
+                🏠 Home
+            </button>
 
-ModdingXZ
+            <button
+                class="nav-button"
+                onclick="openSupport()"
+            >
+                💬 Support
+            </button>
 
-</div>
+            <div class="online">
 
+                <span class="online-dot"></span>
 
+                Official Payment Portal
 
-<div class="nav-buttons">
+            </div>
 
+        </div>
 
-<a href="index.html">
-🏠 Home
-</a>
-
-
-<a href="https://t.me/ModdingXZ_Support_Bot" target="_blank">
-💬 Support
-</a>
-
-
-</div>
-
-
-</div>
+    </div>
 
 </header>
 
 
-
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main>
 
 
+    <section class="hero">
 
-<section class="hero">
+        <div class="badge">
+            🔐 OFFICIAL PAYMENT PORTAL
+        </div>
 
+        <h1>
+            Pay
+            <span class="gradient">
+                ModdingXZ
+            </span>
+        </h1>
 
-<div class="badge">
-🔒 OFFICIAL PAYMENT PORTAL
-</div>
+        <p>
+            Follow the quick checkout process below
+            to choose your currency, payment method
+            and official payment account.
+        </p>
 
+    </section>
 
-<h1>
 
-Complete your
-<span>
-payment
-</span>
+    <section class="payment-card">
 
-</h1>
 
+        <!-- PROGRESS -->
 
-<p>
+        <div class="progress">
 
-Use the official ModdingXZ payment portal.
-Choose your payment method and follow the steps.
+            <div
+                class="progress-item active"
+                data-progress="1"
+            >
 
-</p>
+                <div class="progress-circle">
+                    1
+                </div>
 
+                <div class="progress-line"></div>
 
-</section>
+            </div>
 
 
+            <div
+                class="progress-item"
+                data-progress="2"
+            >
 
+                <div class="progress-circle">
+                    2
+                </div>
 
+                <div class="progress-line"></div>
 
-<section class="card">
+            </div>
 
 
+            <div
+                class="progress-item"
+                data-progress="3"
+            >
 
-<!-- =========================
-     PROGRESS
-========================= -->
+                <div class="progress-circle">
+                    3
+                </div>
 
+                <div class="progress-line"></div>
 
-<div class="progress">
+            </div>
 
 
-<div>
+            <div
+                class="progress-item"
+                data-progress="4"
+            >
 
-<span id="stepText">
-Step 1 of 4
-</span>
+                <div class="progress-circle">
+                    4
+                </div>
 
+            </div>
 
-<span id="percent">
-25%
-</span>
+        </div>
 
-</div>
 
+        <!-- =================================================
+             STEP 1
+        ================================================== -->
 
-<div class="bar">
+        <div
+            class="step active"
+            id="step1"
+        >
 
-<div id="progressBar"></div>
+            <div class="step-header">
 
-</div>
+                <div class="step-number">
+                    Step 01
+                </div>
 
+                <h2>
+                    Enter your payment amount
+                </h2>
 
-</div>
+                <p>
+                    Enter the amount provided by
+                    ModdingXZ Support.
+                </p>
 
+            </div>
 
 
+            <div class="notice">
 
+                <div class="notice-icon">
+                    💷
+                </div>
 
-<!-- =========================
-     STEP 1
-========================= -->
+                <div>
 
+                    <h3>
+                        Payments are processed in GBP
+                    </h3>
 
-<div class="step active" id="step1">
+                    <p>
+                        If you're paying from another
+                        country, enter your amount in
+                        your local currency and we'll
+                        calculate the approximate GBP
+                        equivalent.
+                    </p>
 
+                </div>
 
-<h2>
-Enter Amount
-</h2>
+            </div>
 
 
-<p>
-Enter the GBP amount provided by ModdingXZ.
-</p>
+            <label class="label">
+                Amount
+            </label>
 
 
+            <div class="currency-row">
 
+                <div class="amount-wrapper">
 
-<div class="quick-buttons">
+                    <span
+                        class="currency-symbol"
+                        id="currencySymbol"
+                    >
+                        £
+                    </span>
 
+                    <input
+                        id="amount"
+                        class="amount"
+                        type="number"
+                        inputmode="decimal"
+                        min="0.01"
+                        max="9999"
+                        step="0.01"
+                        placeholder="0.00"
+                        autocomplete="off"
+                    >
 
-<button data-price="5">
-£5
-</button>
+                </div>
 
 
-<button data-price="10">
-£10
-</button>
+                <select
+                    id="currency"
+                    class="select"
+                >
 
+                    <option value="GBP">
+                        🇬🇧 GBP
+                    </option>
 
-<button data-price="15">
-£15
-</button>
+                    <option value="USD">
+                        🇺🇸 USD
+                    </option>
 
+                    <option value="EUR">
+                        🇪🇺 EUR
+                    </option>
 
-<button data-price="20">
-£20
-</button>
+                    <option value="CAD">
+                        🇨🇦 CAD
+                    </option>
 
+                    <option value="AUD">
+                        🇦🇺 AUD
+                    </option>
 
-</div>
+                    <option value="NZD">
+                        🇳🇿 NZD
+                    </option>
 
+                    <option value="CHF">
+                        🇨🇭 CHF
+                    </option>
 
+                    <option value="SEK">
+                        🇸🇪 SEK
+                    </option>
 
+                    <option value="NOK">
+                        🇳🇴 NOK
+                    </option>
 
-<div class="amount-box">
+                    <option value="DKK">
+                        🇩🇰 DKK
+                    </option>
 
+                    <option value="PLN">
+                        🇵🇱 PLN
+                    </option>
 
-<span>
-£
-</span>
+                    <option value="JPY">
+                        🇯🇵 JPY
+                    </option>
 
+                </select>
 
-<input
-id="amount"
-type="number"
-placeholder="0.00"
->
+            </div>
 
 
-</div>
+            <div
+                class="conversion"
+                id="conversion"
+            >
 
+                <div class="conversion-main">
 
+                    <div>
 
+                        <div class="conversion-title">
+                            Approximate GBP amount
+                        </div>
 
+                        <div
+                            class="conversion-value"
+                            id="conversionValue"
+                        >
+                            £0.00
+                        </div>
 
-<div class="currency-box">
+                    </div>
 
 
-<div>
+                    <div
+                        class="conversion-rate"
+                        id="conversionRate"
+                    >
+                        Exchange rate loading...
+                    </div>
 
+                </div>
 
-<p>
-Local estimate
-</p>
+            </div>
 
 
-<strong id="currencyValue">
-Loading...
-</strong>
+            <div class="step-actions">
 
+                <div class="action-main">
 
-</div>
+                    <button
+                        class="continue"
+                        id="step1Continue"
+                        disabled
+                        onclick="nextStep()"
+                    >
+                        Continue →
+                    </button>
 
+                </div>
 
+            </div>
 
-<select id="currencySelect">
+        </div>
 
-<option value="AUTO">
-Auto Detect
-</option>
 
-<option value="USD">
-🇺🇸 USD
-</option>
+        <!-- =================================================
+             STEP 2
+        ================================================== -->
 
-<option value="EUR">
-🇪🇺 EUR
-</option>
+        <div
+            class="step"
+            id="step2"
+        >
 
-<option value="CAD">
-🇨🇦 CAD
-</option>
+            <div class="step-header">
 
-<option value="AUD">
-🇦🇺 AUD
-</option>
+                <div class="step-number">
+                    Step 02
+                </div>
 
-<option value="GBP">
-🇬🇧 GBP
-</option>
+                <h2>
+                    Choose payment method
+                </h2>
 
+                <p>
+                    Select one of the official payment
+                    methods available.
+                </p>
 
-</select>
+            </div>
 
 
-</div>
+            <div class="methods">
 
 
+                <div
+                    class="method"
+                    id="paypalMethod"
+                    onclick="selectMethod('paypal')"
+                    tabindex="0"
+                >
 
+                    <div class="method-check">
+                        ✓
+                    </div>
 
-<button
-class="continue"
-id="amountNext"
-disabled
->
+                    <div class="method-icon paypal-icon">
+                        💙
+                    </div>
 
-Continue →
+                    <h3>
+                        PayPal
+                    </h3>
 
-</button>
+                    <p>
+                        Pay through an official
+                        ModdingXZ PayPal account.
+                    </p>
 
+                </div>
 
 
-</div>
+                <div
+                    class="method"
+                    id="revolutMethod"
+                    onclick="selectMethod('revolut')"
+                    tabindex="0"
+                >
 
+                    <div class="method-check">
+                        ✓
+                    </div>
 
+                    <div class="method-icon revolut-icon">
+                        🟣
+                    </div>
 
+                    <h3>
+                        Revolut
+                    </h3>
 
+                    <p>
+                        Pay using an official
+                        Revolut payment link.
+                    </p>
 
+                </div>
 
 
+                <div
+                    class="method"
+                    id="cashappMethod"
+                    onclick="selectMethod('cashapp')"
+                    tabindex="0"
+                >
 
+                    <div class="method-check">
+                        ✓
+                    </div>
 
-<!-- =========================
-     STEP 2
-========================= -->
+                    <div class="method-icon cashapp-icon">
+                        💵
+                    </div>
 
+                    <h3>
+                        Cash App
+                    </h3>
 
-<div class="step" id="step2">
+                    <p>
+                        Pay using the official
+                        Cash App account.
+                    </p>
 
+                </div>
 
-<h2>
-Choose Payment Method
-</h2>
+            </div>
 
 
-<p>
-Select your preferred payment option.
-</p>
+            <div class="step-actions">
 
+                <button
+                    class="back"
+                    onclick="previousStep()"
+                >
+                    ← Back
+                </button>
 
+                <div class="action-main">
 
+                    <button
+                        class="continue"
+                        id="step2Continue"
+                        disabled
+                        onclick="nextStep()"
+                    >
+                        Continue →
+                    </button>
 
-<div class="methods">
+                </div>
 
+            </div>
 
+        </div>
 
-<div class="method" data-method="paypal">
 
-💙
+        <!-- =================================================
+             STEP 3
+        ================================================== -->
 
-<h3>
-PayPal
-</h3>
+        <div
+            class="step"
+            id="step3"
+        >
 
-<p>
-Pay securely through PayPal.
-</p>
+            <div class="step-header">
 
-</div>
+                <div class="step-number">
+                    Step 03
+                </div>
 
+                <h2>
+                    Choose payment account
+                </h2>
 
+                <p>
+                    Select the official account you
+                    want to send your payment to.
+                </p>
 
+            </div>
 
-<div class="method" data-method="revolut">
 
-🟣
+            <div
+                class="account-list"
+                id="accountList"
+            ></div>
 
-<h3>
-Revolut
-</h3>
 
-<p>
-Send payment through Revolut.
-</p>
+            <div
+                class="instructions"
+                id="instructions"
+            >
 
-</div>
+                <h3>
+                    Payment instructions
+                </h3>
 
+                <p id="instructionText">
+                    Select an account above to continue.
+                </p>
 
+            </div>
 
 
+            <div class="step-actions">
 
-<div class="method" data-method="cashapp">
+                <button
+                    class="back"
+                    onclick="previousStep()"
+                >
+                    ← Back
+                </button>
 
-💵
+                <div class="action-main">
 
-<h3>
-Cash App
-</h3>
+                    <button
+                        class="continue"
+                        id="step3Continue"
+                        disabled
+                        onclick="nextStep()"
+                    >
+                        Review Payment →
+                    </button>
 
-<p>
-Send payment through Cash App.
-</p>
+                </div>
 
-</div>
+            </div>
 
+        </div>
 
 
-</div>
+        <!-- =================================================
+             STEP 4
+        ================================================== -->
 
+        <div
+            class="step"
+            id="step4"
+        >
 
+            <div class="step-header">
 
+                <div class="step-number">
+                    Step 04
+                </div>
 
-<button
-class="continue"
-id="methodNext"
-disabled
->
+                <h2>
+                    Review & continue
+                </h2>
 
-Continue →
+                <p>
+                    Check your payment details before
+                    opening the payment provider.
+                </p>
 
-</button>
+            </div>
 
 
+            <div class="summary">
 
-<div class="navigation">
+                <div class="summary-row">
 
+                    <span>
+                        Amount entered
+                    </span>
 
-<button
-class="back"
-onclick="backStep()"
->
+                    <strong id="summaryOriginal">
+                        -
+                    </strong>
 
-← Back
+                </div>
 
-</button>
 
+                <div class="summary-row">
 
-</div>
+                    <span>
+                        Payment amount
+                    </span>
 
+                    <strong
+                        class="total"
+                        id="summaryGBP"
+                    >
+                        £0.00
+                    </strong>
 
+                </div>
 
-</div>
 
+                <div class="summary-row">
 
+                    <span>
+                        Payment method
+                    </span>
 
+                    <strong id="summaryMethod">
+                        -
+                    </strong>
 
+                </div>
 
 
+                <div class="summary-row">
 
+                    <span>
+                        Account
+                    </span>
 
+                    <strong id="summaryAccount">
+                        -
+                    </strong>
 
+                </div>
 
-<!-- =========================
-     STEP 3
-========================= -->
+            </div>
 
 
-<div class="step" id="step3">
+            <div class="notice">
 
+                <div class="notice-icon">
+                    🔗
+                </div>
 
-<h2>
-Select Account
-</h2>
+                <div>
 
+                    <h3>
+                        Ready to pay?
+                    </h3>
 
-<p>
-Choose the official payment account.
-</p>
+                    <p id="finalInstruction">
+                        You will now be taken to the
+                        selected payment provider.
+                    </p>
 
+                </div>
 
+            </div>
 
-<div id="accounts">
 
-</div>
+            <div class="step-actions">
 
+                <button
+                    class="back"
+                    onclick="previousStep()"
+                >
+                    ← Back
+                </button>
 
+                <div class="action-main">
 
+                    <button
+                        class="continue"
+                        id="payButton"
+                        onclick="openPayment()"
+                    >
+                        Continue to Payment →
+                    </button>
 
-<button
-class="continue"
-id="accountNext"
-disabled
->
+                </div>
 
-Review Payment →
+            </div>
 
-</button>
+        </div>
 
 
+        <!-- SECURITY -->
 
-<div class="navigation">
+        <div class="security">
 
+            <span>
+                🔒 Secure
+            </span>
 
-<button
-class="back"
-onclick="backStep()"
->
+            <span>
+                ⚡ Fast
+            </span>
 
-← Back
+            <span>
+                🌐 No card details stored
+            </span>
 
-</button>
+        </div>
 
 
+        <!-- SUPPORT -->
 
-</div>
+        <div class="support">
 
+            <button
+                class="support-button"
+                onclick="goHome()"
+            >
+                🏠 Return to ModdingXZ
+            </button>
 
+            <button
+                class="support-button"
+                onclick="openSupport()"
+            >
+                💬 Need help? Contact Support
+            </button>
 
-</div>
+        </div>
 
-
-
-
-
-
-
-
-
-<!-- =========================
-     STEP 4
-========================= -->
-
-
-<div class="step" id="step4">
-
-
-<h2>
-Payment Review
-</h2>
-
-
-
-<div class="summary">
-
-
-<div>
-
-Amount
-
-<strong id="summaryAmount">
-£0.00
-</strong>
-
-</div>
-
-
-
-<div>
-
-Method
-
-<strong id="summaryMethod">
--
-</strong>
-
-</div>
-
-
-
-<div>
-
-Account
-
-<strong id="summaryAccount">
--
-</strong>
-
-</div>
-
-
-
-<div>
-
-Address
-
-<strong id="summaryAddress">
--
-</strong>
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-<div id="qr">
-
-</div>
-
-
-
-
-<button
-class="continue"
-id="payButton"
->
-
-Continue To Payment →
-
-</button>
-
-
-
-
-
-<div class="navigation">
-
-
-<button
-class="back"
-onclick="backStep()"
->
-
-← Back
-
-</button>
-
-
-
-<a href="index.html">
-🏠 Home
-</a>
-
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-
-
-
-
-<div class="notice">
-
-⚠️
-
-<strong>
-Official payments only.
-</strong>
-
-<br>
-
-Only use payment accounts shown on this page.
-
-</div>
-
-
-
-
-</section>
-
-
+    </section>
 
 </main>
 
 
+<footer>
+
+    © 2026
+    <strong>ModdingXZ</strong>
+
+    · Official Payment Portal
+
+</footer>
 
 
-
-<div id="toast">
-
-Copied!
-
+<div
+    class="toast"
+    id="toast"
+>
+    Copied!
 </div>
-
-
 
 
 <script>
 
+/* =========================================================
+   OFFICIAL PAYMENT ACCOUNTS
+========================================================= */
 
-let currentStep = 1;
-
-let amount = 0;
-
-let selectedMethod = "";
-
-let selectedAccount = "";
-
-let selectedCurrency = "AUTO";
-
-let detectedCurrency = "GBP";
-
-let rates = {};
-
-
-
-const accounts = {
-
+const paymentAccounts = {
 
     paypal: [
 
         {
-            name:"ModdingXZ PayPal",
-            address:"paypal.me/MrJasonDEX",
-            link:"https://paypal.me/MrJasonDEX"
+            name: "ModdingX",
+            username: "paypal.me/MrJasonDEX",
+            url: "https://paypal.me/MrJasonDEX"
         },
 
         {
-            name:"Gameralday2001 PayPal",
-            address:"paypal.me/ShawnCrouse357",
-            link:"https://paypal.me/ShawnCrouse357"
+            name: "Gameralday2001",
+            username: "paypal.me/ShawnCrouse357",
+            url: "https://www.paypal.me/ShawnCrouse357"
         }
 
     ],
 
-
-
-    revolut:[
+    revolut: [
 
         {
-            name:"ModdingXZ Revolut",
-            address:"revolut.me/moddingxz",
-            link:"https://revolut.me/moddingxz"
+            name: "ModdingXZ",
+            username: "revolut.me/moddingxz",
+            url: "https://revolut.me/moddingxz"
         },
 
         {
-            name:"Gameralday2001 Revolut",
-            address:"revolut.me/s_crouse",
-            link:"https://revolut.me/s_crouse"
+            name: "Gameralday2001",
+            username: "revolut.me/s_crouse",
+            url: "https://revolut.me/s_crouse"
         }
 
     ],
 
-
-
-    cashapp:[
+    cashapp: [
 
         {
-            name:"Gameralday2001 Cash App",
-            address:"$Crouse0612",
-            link:"https://cash.app/$Crouse0612"
+            name: "Gameralday2001",
+            username: "$Crouse0612",
+            url: "https://cash.app/$Crouse0612"
         }
 
     ]
@@ -1823,788 +2319,948 @@ const accounts = {
 };
 
 
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentStep = 1;
+
+let selectedMethod = null;
+
+let selectedAccount = null;
+
+let gbpAmount = 0;
+
+let exchangeRate = 1;
 
 
-
-/* =========================
-LOAD
-========================= */
-
-
-window.addEventListener(
-"load",
-async()=>{
-
-
-    await loadRates();
-
-    detectCurrency();
-
-
-    setTimeout(()=>{
-
-        document
-        .getElementById("loading")
-        .classList
-        .add("hide");
-
-
-    },800);
-
-
-});
-
-
-
-
-
-
-/* =========================
-AMOUNT
-========================= */
-
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const amountInput =
-document.getElementById("amount");
+    document.getElementById("amount");
+
+const currencyInput =
+    document.getElementById("currency");
+
+const currencySymbol =
+    document.getElementById("currencySymbol");
+
+const conversion =
+    document.getElementById("conversion");
+
+const conversionValue =
+    document.getElementById("conversionValue");
+
+const conversionRate =
+    document.getElementById("conversionRate");
 
 
-const amountNext =
-document.getElementById("amountNext");
+/* =========================================================
+   CURRENCY SYMBOLS
+========================================================= */
+
+const symbols = {
+
+    GBP: "£",
+    USD: "$",
+    EUR: "€",
+    CAD: "C$",
+    AUD: "A$",
+    NZD: "NZ$",
+    CHF: "CHF",
+    SEK: "kr",
+    NOK: "kr",
+    DKK: "kr",
+    PLN: "zł",
+    JPY: "¥"
+
+};
 
 
+/* =========================================================
+   CURRENCY API
+========================================================= */
 
-document
-.querySelectorAll(".quick-buttons button")
-.forEach(btn=>{
+async function getExchangeRate(currency) {
+
+    if (currency === "GBP") {
+
+        exchangeRate = 1;
+
+        return 1;
+
+    }
 
 
-    btn.onclick=()=>{
+    try {
+
+        /*
+            Public exchange-rate API.
+
+            GBP is always the target currency.
+        */
+
+        const response =
+            await fetch(
+                `https://api.frankfurter.app/latest?from=${currency}&to=GBP`
+            );
 
 
-        document
-        .querySelectorAll(".quick-buttons button")
-        .forEach(x=>
-            x.classList.remove("active")
+        if (!response.ok) {
+            throw new Error(
+                "Exchange rate unavailable"
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const rate =
+            data.rates.GBP;
+
+
+        if (!rate) {
+            throw new Error(
+                "Invalid rate"
+            );
+        }
+
+
+        exchangeRate = rate;
+
+        return rate;
+
+    }
+
+    catch (error) {
+
+        conversionRate.textContent =
+            "Live rate unavailable";
+
+        return null;
+
+    }
+
+}
+
+
+/* =========================================================
+   UPDATE CURRENCY
+========================================================= */
+
+async function updateCurrency() {
+
+    const currency =
+        currencyInput.value;
+
+
+    currencySymbol.textContent =
+        symbols[currency] || "";
+
+
+    const amount =
+        parseFloat(
+            amountInput.value
         );
 
 
-        btn.classList.add("active");
+    if (!amount || amount <= 0) {
+
+        conversion.classList.remove("show");
+
+        gbpAmount = 0;
+
+        updateStep1();
+
+        return;
+
+    }
 
 
-        amountInput.value =
-        btn.dataset.price;
+    conversion.classList.add("show");
+
+    conversionRate.textContent =
+        "Getting live exchange rate...";
 
 
-        validateAmount();
+    const rate =
+        await getExchangeRate(currency);
 
 
-        updateCurrency();
+    if (!rate) {
 
+        conversionValue.textContent =
+            "Unable to calculate";
+
+        gbpAmount = 0;
+
+        updateStep1();
+
+        return;
+
+    }
+
+
+    gbpAmount =
+        amount * rate;
+
+
+    conversionValue.textContent =
+        `£${gbpAmount.toFixed(2)}`;
+
+
+    conversionRate.textContent =
+        `1 ${currency} = £${rate.toFixed(4)}`;
+
+
+    updateStep1();
+
+}
+
+
+/* =========================================================
+   STEP 1 VALIDATION
+========================================================= */
+
+function updateStep1() {
+
+    const amount =
+        parseFloat(
+            amountInput.value
+        );
+
+
+    document.getElementById(
+        "step1Continue"
+    ).disabled =
+
+        !amount ||
+
+        amount <= 0 ||
+
+        !gbpAmount ||
+
+        gbpAmount <= 0;
+
+}
+
+
+/* =========================================================
+   NEXT STEP
+========================================================= */
+
+function nextStep() {
+
+    if (currentStep === 1) {
+
+        if (
+            !gbpAmount ||
+            gbpAmount <= 0
+        ) {
+            return;
+        }
+
+    }
+
+
+    if (currentStep === 2) {
+
+        if (!selectedMethod) {
+            return;
+        }
+
+    }
+
+
+    if (currentStep === 3) {
+
+        if (selectedAccount === null) {
+            return;
+        }
+
+        buildSummary();
+
+    }
+
+
+    if (currentStep >= 4) {
+        return;
+    }
+
+
+    currentStep++;
+
+    renderStep();
+
+}
+
+
+/* =========================================================
+   PREVIOUS STEP
+========================================================= */
+
+function previousStep() {
+
+    if (currentStep <= 1) {
+        return;
+    }
+
+
+    currentStep--;
+
+    renderStep();
+
+}
+
+
+/* =========================================================
+   RENDER STEP
+========================================================= */
+
+function renderStep() {
+
+    document
+        .querySelectorAll(".step")
+        .forEach(
+            step =>
+                step.classList.remove("active")
+        );
+
+
+    const active =
+        document.getElementById(
+            `step${currentStep}`
+        );
+
+
+    if (active) {
+        active.classList.add("active");
+    }
+
+
+    document
+        .querySelectorAll(
+            ".progress-item"
+        )
+        .forEach(
+            item => {
+
+                const number =
+                    parseInt(
+                        item.dataset.progress
+                    );
+
+
+                item.classList.toggle(
+                    "active",
+                    number === currentStep
+                );
+
+
+                item.classList.toggle(
+                    "completed",
+                    number < currentStep
+                );
+
+            }
+        );
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   SELECT PAYMENT METHOD
+========================================================= */
+
+function selectMethod(method) {
+
+    selectedMethod = method;
+
+    selectedAccount = null;
+
+
+    document
+        .querySelectorAll(".method")
+        .forEach(
+            methodCard =>
+                methodCard.classList.remove(
+                    "selected"
+                )
+        );
+
+
+    document
+        .getElementById(
+            `${method}Method`
+        )
+        .classList.add("selected");
+
+
+    renderAccounts();
+
+
+    document.getElementById(
+        "step2Continue"
+    ).disabled = false;
+
+
+    document.getElementById(
+        "step3Continue"
+    ).disabled = true;
+
+}
+
+
+/* =========================================================
+   RENDER ACCOUNTS
+========================================================= */
+
+function renderAccounts() {
+
+    const list =
+        document.getElementById(
+            "accountList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    paymentAccounts[
+        selectedMethod
+    ].forEach(
+        (
+            account,
+            index
+        ) => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "account";
+
+
+            item.onclick =
+                () =>
+                    selectAccount(index);
+
+
+            const firstLetter =
+                account.name
+                    .charAt(0)
+                    .toUpperCase();
+
+
+            item.innerHTML = `
+
+                <div class="account-left">
+
+                    <div class="avatar">
+                        ${firstLetter}
+                    </div>
+
+                    <div>
+
+                        <div class="account-name">
+                            ${account.name}
+                        </div>
+
+                        <div class="account-link">
+                            ${account.username}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="account-action"
+                    type="button"
+                    onclick="event.stopPropagation(); copyText('${escapeForJS(account.username)}')"
+                >
+                    Copy
+                </button>
+
+            `;
+
+
+            list.appendChild(item);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SELECT ACCOUNT
+========================================================= */
+
+function selectAccount(index) {
+
+    selectedAccount = index;
+
+
+    document
+        .querySelectorAll(".account")
+        .forEach(
+            (
+                account,
+                i
+            ) => {
+
+                account.classList.toggle(
+                    "selected",
+                    i === index
+                );
+
+            }
+        );
+
+
+    const account =
+        paymentAccounts[
+            selectedMethod
+        ][
+            selectedAccount
+        ];
+
+
+    document.getElementById(
+        "step3Continue"
+    ).disabled = false;
+
+
+    updateInstructions(account);
+
+}
+
+
+/* =========================================================
+   INSTRUCTIONS
+========================================================= */
+
+function updateInstructions(account) {
+
+    const text =
+        document.getElementById(
+            "instructionText"
+        );
+
+
+    if (selectedMethod === "paypal") {
+
+        text.textContent =
+            `You will be redirected to ${account.username}. Pay the GBP amount shown on the next screen.`;
+
+    }
+
+    else if (
+        selectedMethod === "revolut"
+    ) {
+
+        text.textContent =
+            `You will be redirected to ${account.username}. Complete the payment using the GBP amount shown in your checkout.`;
+
+    }
+
+    else {
+
+        text.textContent =
+            `You will be redirected to ${account.username}. Complete the payment using the GBP amount shown in your checkout.`;
+
+    }
+
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+function buildSummary() {
+
+    const currency =
+        currencyInput.value;
+
+
+    const original =
+        parseFloat(
+            amountInput.value
+        );
+
+
+    const account =
+        paymentAccounts[
+            selectedMethod
+        ][
+            selectedAccount
+        ];
+
+
+    const methodNames = {
+
+        paypal: "PayPal",
+        revolut: "Revolut",
+        cashapp: "Cash App"
 
     };
 
 
-});
+    document.getElementById(
+        "summaryOriginal"
+    ).textContent =
+        `${symbols[currency]}${original.toFixed(2)} ${currency}`;
 
 
+    document.getElementById(
+        "summaryGBP"
+    ).textContent =
+        `£${gbpAmount.toFixed(2)}`;
 
 
-amountInput.oninput=()=>{
+    document.getElementById(
+        "summaryMethod"
+    ).textContent =
+        methodNames[
+            selectedMethod
+        ];
 
 
-    validateAmount();
-
-    updateCurrency();
-
-
-};
+    document.getElementById(
+        "summaryAccount"
+    ).textContent =
+        account.name;
 
 
-
-
-
-function validateAmount(){
-
-
-    amount =
-    Number(amountInput.value);
-
-
-    amountNext.disabled =
-    !(amount > 0);
-
+    document.getElementById(
+        "finalInstruction"
+    ).textContent =
+        `You will be redirected to ${account.username} to complete your £${gbpAmount.toFixed(2)} payment.`;
 
 }
 
 
+/* =========================================================
+   OPEN PAYMENT
+========================================================= */
+
+function openPayment() {
+
+    if (
+        !selectedMethod ||
+        selectedAccount === null ||
+        !gbpAmount
+    ) {
+        return;
+    }
 
 
-
-amountNext.onclick=()=>{
-
-
-    goStep(2);
-
-
-};
+    const account =
+        paymentAccounts[
+            selectedMethod
+        ][
+            selectedAccount
+        ];
 
 
+    let url =
+        account.url;
 
 
+    /*
+        PayPal.Me accepts the amount
+        at the end of the URL.
+    */
+
+    if (
+        selectedMethod === "paypal"
+    ) {
+
+        url =
+            account.url +
+            "/" +
+            gbpAmount.toFixed(2);
+
+    }
 
 
-/* =========================
-PAYMENT METHODS
-========================= */
+    const button =
+        document.getElementById(
+            "payButton"
+        );
 
 
+    button.disabled = true;
 
-document
-.querySelectorAll(".method")
-.forEach(method=>{
-
-
-method.onclick=()=>{
+    button.textContent =
+        "Opening payment...";
 
 
-    document
-    .querySelectorAll(".method")
-    .forEach(x=>
-        x.classList.remove("selected")
+    setTimeout(
+        () => {
+
+            window.location.href =
+                url;
+
+        },
+        500
+    );
+
+}
+
+
+/* =========================================================
+   COPY
+========================================================= */
+
+async function copyText(text) {
+
+    try {
+
+        await navigator.clipboard.writeText(
+            text
+        );
+
+        showToast(
+            "Payment address copied!"
+        );
+
+    }
+
+    catch {
+
+        showToast(
+            "Copy unavailable"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
     );
 
 
-    method.classList.add("selected");
+    setTimeout(
+        () => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        },
+        1800
+    );
+
+}
 
 
-    selectedMethod =
-    method.dataset.method;
+/* =========================================================
+   HOME
+========================================================= */
+
+function goHome() {
+
+    window.location.href =
+        "index.html";
+
+}
 
 
-    document
-    .getElementById("methodNext")
-    .disabled=false;
+/* =========================================================
+   TELEGRAM SUPPORT
+========================================================= */
+
+function openSupport() {
+
+    window.open(
+        "https://t.me/ModdingXZ_Support_Bot",
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
 
 
-};
+/* =========================================================
+   ESCAPE JS
+========================================================= */
+
+function escapeForJS(value) {
+
+    return value
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+
+}
 
 
-});
+/* =========================================================
+   EVENTS
+========================================================= */
 
+amountInput.addEventListener(
+    "input",
+    updateCurrency
+);
 
-
-
-
-
-document
-.getElementById("methodNext")
-.onclick=()=>{
-
-
-    loadAccounts();
-
-    goStep(3);
-
-
-};
-
-
-
-
-
-
-
-
-/* =========================
-ACCOUNTS
-========================= */
-
-
-function loadAccounts(){
-
-
-const box =
-document.getElementById("accounts");
-
-
-box.innerHTML="";
-
-
-
-accounts[selectedMethod]
-.forEach((account,index)=>{
-
-
-let div =
-document.createElement("div");
-
-
-div.className="account";
-
-
-
-div.innerHTML=`
-
-
-<div>
-
-<strong>
-${account.name}
-</strong>
-
-<br>
-
-<small>
-${account.address}
-</small>
-
-</div>
-
-
-<div>
-
-<button onclick="copyText('${account.address}')">
-
-Copy
-
-</button>
-
-</div>
-
-
-`;
-
-
-
-div.onclick=()=>{
-
-
-document
-.querySelectorAll(".account")
-.forEach(x=>
-x.classList.remove("selected")
+currencyInput.addEventListener(
+    "change",
+    updateCurrency
 );
 
 
-div.classList.add("selected");
-
-
-selectedAccount =
-index;
-
+/* Keyboard support */
 
 document
-.getElementById("accountNext")
-.disabled=false;
+    .querySelectorAll(".method")
+    .forEach(
+        method => {
 
+            method.addEventListener(
+                "keydown",
+                event => {
 
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
 
-};
+                        event.preventDefault();
 
+                        method.click();
 
+                    }
 
-box.appendChild(div);
+                }
+            );
 
+        }
+    );
 
 
-});
+/* =========================================================
+   LOAD
+========================================================= */
 
+window.addEventListener(
+    "load",
+    () => {
 
+        setTimeout(
+            () => {
 
-}
+                document
+                    .getElementById("loader")
+                    .classList.add("hide");
 
+            },
+            700
+        );
 
-
-
-
-
-
-document
-.getElementById("accountNext")
-.onclick=()=>{
-
-
-createSummary();
-
-
-goStep(4);
-
-
-};
-
-
-
-
-
-
-
-
-/* =========================
-SUMMARY
-========================= */
-
-
-function createSummary(){
-
-
-
-let account =
-accounts[selectedMethod][selectedAccount];
-
-
-
-let names={
-
-paypal:"PayPal",
-
-revolut:"Revolut",
-
-cashapp:"Cash App"
-
-};
-
-
-
-document
-.getElementById("summaryAmount")
-.innerText =
-"£"+amount.toFixed(2);
-
-
-
-document
-.getElementById("summaryMethod")
-.innerText =
-names[selectedMethod];
-
-
-
-document
-.getElementById("summaryAccount")
-.innerText =
-account.name;
-
-
-
-document
-.getElementById("summaryAddress")
-.innerText =
-account.address;
-
-
-
-createQR(account.link);
-
-
-
-}
-
-
-
-
-
-
-
-/* =========================
-PAY BUTTON
-========================= */
-
-
-document
-.getElementById("payButton")
-.onclick=()=>{
-
-
-let account =
-accounts[selectedMethod][selectedAccount];
-
-
-window.open(
-account.link,
-"_blank"
+    }
 );
 
 
-};
+/* =========================================================
+   SAVE BASIC CHECKOUT STATE
+========================================================= */
 
+window.addEventListener(
+    "beforeunload",
+    () => {
 
+        try {
 
+            sessionStorage.setItem(
+                "moddingxz_payment_state",
+                JSON.stringify({
 
+                    amount:
+                        amountInput.value,
 
+                    currency:
+                        currencyInput.value
 
+                })
+            );
 
-/* =========================
-STEPS
-========================= */
+        }
 
+        catch {}
 
-function goStep(step){
-
-
-currentStep=step;
-
-
-
-document
-.querySelectorAll(".step")
-.forEach(x=>
-x.classList.remove("active")
+    }
 );
 
 
+/* =========================================================
+   RESTORE BASIC STATE
+========================================================= */
 
-document
-.getElementById(
-"step"+step
-)
-.classList.add("active");
+try {
 
-
-
-document
-.getElementById("stepText")
-.innerText =
-`Step ${step} of 4`;
-
+    const saved =
+        JSON.parse(
+            sessionStorage.getItem(
+                "moddingxz_payment_state"
+            )
+        );
 
 
-document
-.getElementById("percent")
-.innerText =
-Math.round(
-(step/4)*100
-)+"%";
+    if (
+        saved &&
+        saved.amount
+    ) {
 
+        amountInput.value =
+            saved.amount;
 
+        currencyInput.value =
+            saved.currency ||
+            "GBP";
 
-document
-.getElementById("progressBar")
-.style.width =
-(step/4*100)+"%";
+        updateCurrency();
 
-
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-
+    }
 
 }
 
-
-
-
-
-
-function backStep(){
-
-
-if(currentStep>1){
-
-goStep(
-currentStep-1
-);
-
-}
-
-
-}
-
-
-
-
-
-
-
-/* =========================
-CURRENCY SYSTEM
-========================= */
-
-
-
-async function loadRates(){
-
-
-try{
-
-
-let response =
-await fetch(
-"https://open.er-api.com/v6/latest/GBP"
-);
-
-
-
-let data =
-await response.json();
-
-
-
-rates =
-data.rates;
-
-
-
-}
-
-catch{
-
-
-rates={
-
-USD:1.27,
-
-EUR:1.17,
-
-CAD:1.72,
-
-AUD:1.92
-
-};
-
-
-}
-
-
-
-}
-
-
-
-
-
-function detectCurrency(){
-
-
-let timezone =
-Intl.DateTimeFormat()
-.resolvedOptions()
-.timeZone;
-
-
-
-let map={
-
-
-"America/New_York":"USD",
-
-"America/Chicago":"USD",
-
-"America/Los_Angeles":"USD",
-
-"America/Toronto":"CAD",
-
-"Australia/Sydney":"AUD",
-
-"Europe/Paris":"EUR",
-
-"Europe/Berlin":"EUR",
-
-"Europe/London":"GBP"
-
-
-};
-
-
-
-detectedCurrency =
-map[timezone]
-|| "USD";
-
-
-
-updateCurrency();
-
-
-}
-
-
-
-
-
-
-
-document
-.getElementById("currencySelect")
-.onchange=e=>{
-
-
-selectedCurrency =
-e.target.value;
-
-
-updateCurrency();
-
-
-};
-
-
-
-
-
-
-function updateCurrency(){
-
-
-let currency =
-selectedCurrency==="AUTO"
-?
-detectedCurrency
-:
-selectedCurrency;
-
-
-
-if(!amount){
-
-return;
-
-}
-
-
-
-let value =
-amount;
-
-
-
-if(currency!=="GBP"){
-
-value =
-amount *
-(rates[currency]||1);
-
-}
-
-
-
-document
-.getElementById("currencyValue")
-.innerText =
-new Intl.NumberFormat(
-undefined,
-{
-
-style:"currency",
-
-currency:currency
-
-}
-)
-.format(value);
-
-
-
-}
-
-
-
-
-
-
-
-
-/* =========================
-COPY
-========================= */
-
-
-
-function copyText(text){
-
-
-navigator.clipboard
-.writeText(text);
-
-
-
-toast(
-"Copied!"
-);
-
-
-}
-
-
-
-
-
-
-function toast(msg){
-
-
-let box =
-document.getElementById("toast");
-
-
-box.innerText=msg;
-
-
-box.classList.add("show");
-
-
-
-setTimeout(()=>{
-
-
-box.classList.remove("show");
-
-
-},2000);
-
-
-
-}
-
-
-
-
-
-
-
-/* =========================
-QR CODE
-========================= */
-
-
-
-function createQR(text){
-
-
-let qr =
-document.getElementById("qr");
-
-
-
-qr.innerHTML=`
-
-
-<img
-
-src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(text)}"
-
-width="180"
-
-alt="Payment QR Code"
-
-/>
-
-
-`;
-
-
-}
-
+catch {}
 
 </script>
 
-
-
 </body>
-
 </html>
