@@ -1,2171 +1,625 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-      maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#07070d">
-<meta name="description"
-      content="ModdingXZ — Gaming, Modding, Jailbreak Information, Tools & Services. Join 1.8K+ members.">
+    <meta name="theme-color" content="#07070d">
 
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description"
+          content="ModdingXZ — Gaming, Modding, Jailbreak Information, Tools, Services & Community.">
 
-<title>ModdingXZ — Gaming • Modding • Services</title>
+    <title>ModdingXZ — Gaming • Modding • Services</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap"
-      rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap"
+          rel="stylesheet">
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      rel="stylesheet">
 
-<style>
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
 
-:root {
-    --bg:#050509;
-    --bg-secondary:#090912;
-    --surface:rgba(17,17,28,.78);
-    --surface-solid:#11111c;
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 
-    --border:rgba(255,255,255,.08);
-    --border-hover:rgba(139,92,246,.45);
 
-    --text:#ffffff;
-    --muted:#9696aa;
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
 
-    --purple:#8b5cf6;
-    --purple-light:#a78bfa;
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+          rel="stylesheet">
 
-    --blue:#3b82f6;
-    --cyan:#22d3ee;
-    --pink:#ec4899;
-    --green:#22c55e;
-    --yellow:#facc15;
-    --red:#ef4444;
 
-    --radius:22px;
+    <!-- =====================================================
+         AOS ANIMATIONS
+    ====================================================== -->
 
-    --shadow:0 20px 60px rgba(0,0,0,.45);
-    --glow:0 0 40px rgba(139,92,246,.15);
-}
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+          rel="stylesheet">
 
-* {
-    box-sizing:border-box;
-}
 
-html {
-    scroll-behavior:smooth;
-}
+    <!-- =====================================================
+         MODDINGXZ CSS
+    ====================================================== -->
 
-body {
-    margin:0;
-    min-height:100vh;
-
-    color:var(--text);
-
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        sans-serif;
-
-    background:
-        radial-gradient(
-            circle at 10% 0%,
-            rgba(139,92,246,.20),
-            transparent 28rem
-        ),
-        radial-gradient(
-            circle at 90% 10%,
-            rgba(34,211,238,.10),
-            transparent 26rem
-        ),
-        radial-gradient(
-            circle at 50% 70%,
-            rgba(236,72,153,.06),
-            transparent 30rem
-        ),
-        var(--bg);
-
-    padding-bottom:115px;
-    overflow-x:hidden;
-}
-
-body::before {
-    content:"";
-
-    position:fixed;
-    inset:0;
-
-    pointer-events:none;
-
-    opacity:.18;
-
-    background-image:
-        linear-gradient(
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,.025) 1px,
-            transparent 1px
-        );
-
-    background-size:40px 40px;
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            black,
-            transparent 80%
-        );
-
-    z-index:-5;
-}
-
-body::after {
-    content:"";
-
-    position:fixed;
-
-    width:500px;
-    height:500px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(139,92,246,.08),
-            transparent 70%
-        );
-
-    top:30%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    pointer-events:none;
-
-    z-index:-4;
-
-    animation:
-        ambientGlow 8s ease-in-out infinite alternate;
-}
-
-@keyframes ambientGlow {
-    from {
-        transform:
-            translate(-50%,-50%)
-            scale(.85);
-    }
-
-    to {
-        transform:
-            translate(-50%,-50%)
-            scale(1.15);
-    }
-}
-
-a {
-    color:inherit;
-    text-decoration:none;
-}
-
-button,
-a {
-    -webkit-tap-highlight-color:transparent;
-}
-
-.container-main {
-    max-width:1150px;
-    margin:auto;
-
-    padding:
-        18px
-        16px
-        30px;
-}
-
-.glass {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.018)
-        );
-
-    border:1px solid var(--border);
-
-    box-shadow:
-        var(--shadow),
-        var(--glow);
-
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-}
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-.navbar-xz {
-    position:sticky;
-    top:12px;
-    z-index:999;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:12px;
-
-    padding:10px;
-    margin-bottom:25px;
-
-    border-radius:18px;
-}
-
-.logo {
-    width:45px;
-    height:45px;
-
-    border-radius:14px;
-
-    display:grid;
-    place-items:center;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            var(--blue)
-        );
-
-    box-shadow:
-        0 0 30px
-        rgba(139,92,246,.35);
-
-    font-family:Orbitron;
-    font-size:.72rem;
-    font-weight:900;
-
-    flex-shrink:0;
-}
-
-.brand {
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.brand-title {
-    font-family:Orbitron;
-    font-weight:900;
-    letter-spacing:.4px;
-    font-size:.92rem;
-}
-
-.brand-title span {
-    color:var(--purple-light);
-}
-
-.brand-subtitle {
-    color:var(--muted);
-    font-size:.59rem;
-    margin-top:1px;
-}
-
-.nav-actions {
-    display:flex;
-    align-items:center;
-    gap:6px;
-}
-
-.icon-btn {
-    width:39px;
-    height:39px;
-
-    border-radius:12px;
-
-    display:grid;
-    place-items:center;
-
-    border:1px solid var(--border);
-
-    background:rgba(255,255,255,.04);
-
-    color:white;
-
-    transition:.2s;
-}
-
-.icon-btn:hover {
-    background:rgba(139,92,246,.15);
-    border-color:var(--border-hover);
-    transform:translateY(-1px);
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero {
-    position:relative;
-    overflow:hidden;
-
-    border-radius:30px;
-
-    padding:32px 22px;
-
-    margin-bottom:20px;
-}
-
-.hero::before {
-    content:"";
-
-    position:absolute;
-
-    width:360px;
-    height:360px;
-
-    right:-180px;
-    top:-180px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(139,92,246,.35),
-            transparent 68%
-        );
-
-    pointer-events:none;
-}
-
-.hero::after {
-    content:"";
-
-    position:absolute;
-
-    width:260px;
-    height:260px;
-
-    left:-180px;
-    bottom:-180px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(34,211,238,.15),
-            transparent 70%
-        );
-
-    pointer-events:none;
-}
-
-.hero-content {
-    position:relative;
-    z-index:2;
-}
-
-.live-badge {
-    display:inline-flex;
-    align-items:center;
-
-    gap:7px;
-
-    padding:7px 11px;
-
-    border-radius:999px;
-
-    background:
-        rgba(34,197,94,.08);
-
-    border:
-        1px solid
-        rgba(34,197,94,.22);
-
-    color:#86efac;
-
-    font-size:.65rem;
-    font-weight:900;
-
-    text-transform:uppercase;
-    letter-spacing:.09em;
-}
-
-.live-dot {
-    width:6px;
-    height:6px;
-
-    background:var(--green);
-
-    border-radius:50%;
-
-    box-shadow:
-        0 0 10px var(--green);
-
-    animation:pulse 1.7s infinite;
-}
-
-@keyframes pulse {
-    0%,100% {
-        opacity:1;
-        transform:scale(1);
-    }
-
-    50% {
-        opacity:.35;
-        transform:scale(.7);
-    }
-}
-
-.hero h1 {
-    font-family:Orbitron;
-
-    font-size:
-        clamp(
-            2.3rem,
-            9vw,
-            5rem
-        );
-
-    line-height:.95;
-
-    letter-spacing:-3px;
-
-    margin:
-        20px
-        0
-        15px;
-}
-
-.gradient {
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            var(--cyan),
-            var(--purple-light),
-            var(--pink)
-        );
-
-    -webkit-background-clip:text;
-    background-clip:text;
-
-    color:transparent;
-
-    background-size:250% auto;
-
-    animation:
-        gradientMove 6s linear infinite;
-}
-
-@keyframes gradientMove {
-    0% {
-        background-position:0% center;
-    }
-
-    100% {
-        background-position:250% center;
-    }
-}
-
-.hero-description {
-    color:var(--muted);
-
-    line-height:1.7;
-
-    font-size:.85rem;
-
-    max-width:690px;
-}
-
-.hero-buttons {
-    display:flex;
-    flex-wrap:wrap;
-
-    gap:8px;
-
-    margin-top:22px;
-}
-
-.btn-xz {
-    border:0;
-
-    border-radius:14px;
-
-    padding:12px 16px;
-
-    font-weight:900;
-    font-size:.73rem;
-
-    transition:.2s;
-}
-
-.btn-primary-xz {
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            var(--blue)
-        );
-
-    box-shadow:
-        0 12px 30px
-        rgba(99,102,241,.25);
-}
-
-.btn-primary-xz:hover {
-    color:white;
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 15px 40px
-        rgba(99,102,241,.35);
-}
-
-.btn-secondary-xz {
-    color:white;
-
-    background:
-        rgba(255,255,255,.05);
-
-    border:
-        1px solid var(--border);
-}
-
-.btn-secondary-xz:hover {
-    color:white;
-
-    background:
-        rgba(255,255,255,.09);
-}
-
-
-/* =========================================================
-   COMMUNITY MILESTONE
-========================================================= */
-
-.community-milestone {
-    position:relative;
-
-    display:flex;
-    align-items:center;
-
-    gap:10px;
-
-    margin-top:18px;
-
-    padding:12px 14px;
-
-    border-radius:17px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(139,92,246,.14),
-            rgba(34,211,238,.06)
-        );
-
-    border:
-        1px solid
-        rgba(139,92,246,.18);
-
-    overflow:hidden;
-}
-
-.community-milestone::after {
-    content:"";
-
-    position:absolute;
-
-    width:120px;
-    height:120px;
-
-    right:-50px;
-    top:-70px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(139,92,246,.18),
-            transparent 70%
-        );
-}
-
-.milestone-icon {
-    width:40px;
-    height:40px;
-
-    flex-shrink:0;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:12px;
-
-    background:
-        rgba(139,92,246,.15);
-
-    color:var(--purple-light);
-}
-
-.milestone-info {
-    position:relative;
-    z-index:2;
-}
-
-.milestone-info strong {
-    display:block;
-
-    font-size:.78rem;
-    font-weight:900;
-}
-
-.milestone-info span {
-    display:block;
-
-    color:var(--muted);
-
-    font-size:.58rem;
-
-    margin-top:2px;
-}
-
-.milestone-count {
-    margin-left:auto;
-
-    position:relative;
-    z-index:2;
-
-    font-family:Orbitron;
-
-    font-size:1rem;
-
-    font-weight:900;
-
-    color:white;
-}
-
-
-/* =========================================================
-   HERO STATS
-========================================================= */
-
-.hero-stats {
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:7px;
-
-    margin-top:18px;
-}
-
-.hero-stat {
-    text-align:center;
-
-    padding:12px 5px;
-
-    border-radius:15px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid
-        rgba(255,255,255,.06);
-}
-
-.hero-stat strong {
-    display:block;
-
-    font-size:.95rem;
-    font-weight:900;
-}
-
-.hero-stat span {
-    color:var(--muted);
-
-    font-size:.53rem;
-
-    text-transform:uppercase;
-    letter-spacing:.05em;
-}
-
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.section {
-    margin-top:28px;
-}
-
-.section-header {
-    display:flex;
-
-    align-items:end;
-    justify-content:space-between;
-
-    gap:12px;
-
-    margin-bottom:12px;
-}
-
-.section-title {
-    margin:0;
-
-    font-size:1rem;
-    font-weight:900;
-}
-
-.section-subtitle {
-    margin:4px 0 0;
-
-    color:var(--muted);
-
-    font-size:.66rem;
-}
-
-.section-link {
-    color:var(--purple-light);
-
-    font-size:.65rem;
-    font-weight:800;
-}
-
-
-/* =========================================================
-   FEATURED
-========================================================= */
-
-.featured {
-    position:relative;
-    overflow:hidden;
-
-    border-radius:25px;
-
-    padding:21px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(139,92,246,.20),
-            rgba(59,130,246,.08),
-            rgba(236,72,153,.06)
-        );
-
-    border:
-        1px solid
-        rgba(139,92,246,.30);
-}
-
-.featured::before {
-    content:"LIMITED";
-
-    position:absolute;
-
-    top:14px;
-    right:-35px;
-
-    padding:6px 45px;
-
-    transform:rotate(35deg);
-
-    background:var(--pink);
-
-    color:white;
-
-    font-size:.48rem;
-    font-weight:900;
-
-    letter-spacing:.12em;
-}
-
-.featured-label {
-    display:inline-block;
-
-    padding:5px 8px;
-
-    border-radius:999px;
-
-    background:
-        rgba(34,211,238,.08);
-
-    border:
-        1px solid
-        rgba(34,211,238,.15);
-
-    color:var(--cyan);
-
-    font-size:.55rem;
-    font-weight:900;
-}
-
-.featured-title {
-    font-size:1.15rem;
-    font-weight:900;
-
-    margin:12px 0 5px;
-}
-
-.featured-description {
-    color:var(--muted);
-
-    font-size:.68rem;
-
-    line-height:1.55;
-}
-
-.featured-price {
-    font-size:2rem;
-    font-weight:900;
-
-    color:white;
-
-    white-space:nowrap;
-}
-
-
-/* =========================================================
-   CHIPS
-========================================================= */
-
-.chips {
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:5px;
-
-    margin-top:12px;
-}
-
-.chip {
-    display:inline-flex;
-    align-items:center;
-
-    gap:5px;
-
-    padding:6px 9px;
-
-    border-radius:999px;
-
-    background:
-        rgba(255,255,255,.045);
-
-    border:
-        1px solid
-        rgba(255,255,255,.07);
-
-    color:#cfcfdb;
-
-    font-size:.55rem;
-    font-weight:700;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status-card {
-    border-radius:23px;
-    padding:18px;
-}
-
-.status-row {
-    display:flex;
-    align-items:center;
-
-    gap:11px;
-
-    padding:12px 0;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.06);
-}
-
-.status-row:last-child {
-    border-bottom:0;
-}
-
-.status-icon {
-    width:39px;
-    height:39px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:12px;
-
-    background:
-        rgba(255,255,255,.045);
-}
-
-.status-info {
-    flex:1;
-}
-
-.status-info strong {
-    display:block;
-    font-size:.72rem;
-}
-
-.status-info small {
-    color:var(--muted);
-    font-size:.57rem;
-}
-
-.status-badge {
-    padding:5px 8px;
-
-    border-radius:999px;
-
-    font-size:.5rem;
-    font-weight:900;
-
-    background:
-        rgba(34,197,94,.09);
-
-    color:#86efac;
-
-    border:
-        1px solid
-        rgba(34,197,94,.18);
-}
-
-
-/* =========================================================
-   FILTER
-========================================================= */
-
-.filter-bar {
-    display:flex;
-
-    gap:7px;
-
-    overflow-x:auto;
-
-    padding-bottom:4px;
-
-    scrollbar-width:none;
-}
-
-.filter-bar::-webkit-scrollbar {
-    display:none;
-}
-
-.filter {
-    flex-shrink:0;
-
-    padding:9px 13px;
-
-    border-radius:999px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid var(--border);
-
-    color:var(--muted);
-
-    font-size:.61rem;
-    font-weight:800;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.filter.active {
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(139,92,246,.32),
-            rgba(59,130,246,.18)
-        );
-
-    border-color:
-        rgba(139,92,246,.4);
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search-wrap {
-    position:relative;
-    margin-top:10px;
-}
-
-.search-wrap i {
-    position:absolute;
-
-    left:13px;
-    top:50%;
-
-    transform:translateY(-50%);
-
-    color:var(--muted);
-
-    font-size:.75rem;
-}
-
-.search {
-    width:100%;
-
-    background:
-        rgba(255,255,255,.035)!important;
-
-    border:
-        1px solid
-        var(--border)!important;
-
-    border-radius:
-        14px!important;
-
-    color:white!important;
-
-    padding:
-        11px
-        12px
-        11px
-        37px!important;
-
-    font-size:.7rem!important;
-}
-
-.search::placeholder {
-    color:#6c6c7d!important;
-}
-
-
-/* =========================================================
-   SERVICES
-========================================================= */
-
-.service-grid {
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-
-    margin-top:12px;
-}
-
-.service-card {
-    position:relative;
-    overflow:hidden;
-
-    border-radius:20px;
-
-    padding:16px;
-
-    transition:
-        transform .2s,
-        border-color .2s,
-        box-shadow .2s;
-
-    cursor:pointer;
-}
-
-.service-card:hover {
-    transform:translateY(-4px);
-
-    border-color:
-        var(--border-hover);
-
-    box-shadow:
-        0 20px 50px
-        rgba(0,0,0,.5);
-}
-
-.service-card::after {
-    content:"";
-
-    position:absolute;
-
-    width:100px;
-    height:100px;
-
-    right:-60px;
-    bottom:-60px;
-
-    border-radius:50%;
-
-    background:
-        rgba(139,92,246,.08);
-
-    pointer-events:none;
-}
-
-.service-icon {
-    width:41px;
-    height:41px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:12px;
-
-    background:
-        rgba(139,92,246,.11);
-
-    color:var(--purple-light);
-
-    margin-bottom:12px;
-}
-
-.service-title {
-    font-size:.78rem;
-    font-weight:900;
-
-    margin-bottom:5px;
-}
-
-.service-description {
-    color:var(--muted);
-
-    font-size:.61rem;
-
-    line-height:1.5;
-
-    min-height:42px;
-}
-
-.service-bottom {
-    display:flex;
-
-    align-items:center;
-    justify-content:space-between;
-
-    gap:7px;
-
-    margin-top:13px;
-}
-
-.service-price {
-    font-weight:900;
-    font-size:.95rem;
-}
-
-.service-price small {
-    color:var(--muted);
-
-    font-size:.53rem;
-    font-weight:600;
-}
-
-.view-btn {
-    border:
-        1px solid
-        rgba(139,92,246,.25);
-
-    background:
-        rgba(139,92,246,.09);
-
-    color:var(--purple-light);
-
-    border-radius:10px;
-
-    padding:7px 9px;
-
-    font-size:.55rem;
-    font-weight:900;
-
-    cursor:pointer;
-}
-
-
-/* =========================================================
-   TOOLS
-========================================================= */
-
-.tool {
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    padding:14px;
-
-    border-radius:17px;
-
-    margin-bottom:8px;
-
-    transition:.2s;
-}
-
-.tool:hover {
-    border-color:
-        rgba(34,211,238,.25);
-
-    transform:translateX(2px);
-}
-
-.tool-icon {
-    width:40px;
-    height:40px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:12px;
-
-    background:
-        rgba(34,211,238,.07);
-
-    color:var(--cyan);
-}
-
-.tool-info {
-    flex:1;
-}
-
-.tool-info strong {
-    display:block;
-    font-size:.72rem;
-}
-
-.tool-info small {
-    color:var(--muted);
-    font-size:.57rem;
-}
-
-.tool-arrow {
-    color:var(--muted);
-    font-size:.65rem;
-}
-
-
-/* =========================================================
-   COMMUNITY
-========================================================= */
-
-.community-grid {
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:10px;
-}
-
-.community {
-    border-radius:20px;
-
-    padding:18px;
-
-    transition:.2s;
-}
-
-.community:hover {
-    transform:translateY(-3px);
-
-    border-color:
-        var(--border-hover);
-}
-
-.community-icon {
-    width:42px;
-    height:42px;
-
-    display:grid;
-    place-items:center;
-
-    border-radius:13px;
-
-    margin-bottom:13px;
-
-    background:
-        rgba(139,92,246,.1);
-
-    color:var(--purple-light);
-}
-
-.community h3 {
-    font-size:.78rem;
-    font-weight:900;
-
-    margin-bottom:5px;
-}
-
-.community p {
-    color:var(--muted);
-
-    font-size:.61rem;
-
-    line-height:1.5;
-
-    margin:0;
-}
-
-
-/* =========================================================
-   PAYMENT
-========================================================= */
-
-.payment {
-    border-radius:23px;
-
-    padding:20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(34,197,94,.06),
-            rgba(139,92,246,.08)
-        );
-}
-
-.payment-grid {
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:7px;
-
-    margin-top:12px;
-}
-
-.payment-item {
-    padding:10px;
-
-    border-radius:13px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid
-        rgba(255,255,255,.05);
-
-    color:var(--muted);
-
-    font-size:.58rem;
-}
-
-.payment-item i {
-    color:var(--purple-light);
-    margin-right:5px;
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal-content {
-    background:#0f0f19;
-
-    color:white;
-
-    border:
-        1px solid var(--border);
-
-    border-radius:25px;
-
-    box-shadow:
-        0 30px 100px
-        rgba(0,0,0,.7);
-}
-
-.modal-header,
-.modal-footer {
-    border-color:var(--border);
-}
-
-.modal-body {
-    padding:20px;
-}
-
-.modal-price {
-    font-size:2rem;
-
-    font-weight:900;
-
-    color:var(--purple-light);
-}
-
-.modal-list {
-    padding:0;
-    list-style:none;
-}
-
-.modal-list li {
-    color:#c9c9d5;
-
-    font-size:.72rem;
-
-    padding:8px 0;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.05);
-}
-
-.modal-list li:last-child {
-    border-bottom:0;
-}
-
-.modal-list i {
-    color:var(--green);
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast-xz {
-    position:fixed;
-
-    right:15px;
-    bottom:95px;
-
-    z-index:5000;
-
-    padding:12px 15px;
-
-    border-radius:14px;
-
-    background:#151522;
-
-    border:
-        1px solid var(--border);
-
-    box-shadow:var(--shadow);
-
-    font-size:.65rem;
-
-    transform:translateY(20px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transition:.25s;
-}
-
-.toast-xz.show {
-    opacity:1;
-
-    transform:translateY(0);
-}
-
-
-/* =========================================================
-   BOTTOM BAR
-========================================================= */
-
-.bottom-bar {
-    position:fixed;
-
-    left:12px;
-    right:12px;
-    bottom:12px;
-
-    max-width:720px;
-
-    margin:auto;
-
-    z-index:2000;
-
-    padding:7px;
-
-    border-radius:20px;
-
-    display:flex;
-
-    gap:7px;
-}
-
-.bottom-btn {
-    flex:1;
-
-    text-align:center;
-
-    padding:11px 7px;
-
-    border-radius:14px;
-
-    font-size:.59rem;
-
-    font-weight:900;
-}
-
-.telegram {
-    background:#229ed9;
-    color:white;
-}
-
-.order {
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            var(--blue)
-        );
-
-    color:white;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer {
-    text-align:center;
-
-    color:#626275;
-
-    font-size:.57rem;
-
-    padding:
-        35px
-        10px
-        20px;
-}
-
-.footer-brand {
-    font-family:Orbitron;
-
-    font-size:.8rem;
-
-    color:white;
-
-    margin-bottom:5px;
-}
-
-.footer-brand span {
-    color:var(--purple-light);
-}
-
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-.loader {
-    position:fixed;
-
-    inset:0;
-
-    z-index:9999;
-
-    display:grid;
-    place-items:center;
-
-    background:var(--bg);
-
-    transition:
-        opacity .4s,
-        visibility .4s;
-}
-
-.loader.hide {
-    opacity:0;
-    visibility:hidden;
-}
-
-.loader-logo {
-    font-family:Orbitron;
-
-    font-size:2rem;
-
-    font-weight:900;
-
-    animation:
-        loaderPulse 1s infinite alternate;
-}
-
-.loader-logo span {
-    color:var(--purple);
-}
-
-@keyframes loaderPulse {
-    from {
-        opacity:.35;
-        transform:scale(.96);
-    }
-
-    to {
-        opacity:1;
-        transform:scale(1);
-    }
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media(min-width:700px) {
-
-    .container-main {
-        padding:
-            20px
-            24px
-            40px;
-    }
-
-    .hero {
-        padding:50px;
-    }
-
-    .service-grid {
-        grid-template-columns:
-            repeat(3,1fr);
-    }
-
-    .community-grid {
-        grid-template-columns:
-            repeat(4,1fr);
-    }
-
-}
-
-@media(max-width:500px) {
-
-    .hero-stats {
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .community-milestone {
-        padding:11px;
-    }
-
-}
-
-
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
-
-@media(prefers-reduced-motion:reduce) {
-
-    *,
-    *::before,
-    *::after {
-        animation-duration:.01ms!important;
-        animation-iteration-count:1!important;
-        scroll-behavior:auto!important;
-        transition-duration:.01ms!important;
-    }
-
-}
-
-</style>
+    <link rel="stylesheet"
+          href="css/style.css">
 </head>
+
 
 <body>
 
+<!-- =====================================================
+     BACKGROUND
+====================================================== -->
 
-<!-- =========================================================
+<div class="background-effects">
+
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-blue"></div>
+    <div class="orb orb-pink"></div>
+
+</div>
+
+
+<!-- =====================================================
      LOADER
-========================================================= -->
+====================================================== -->
 
-<div class="loader" id="loader">
+<div id="loader">
 
-    <div class="loader-logo">
-        MODDING<span>XZ</span>
+    <div class="loader-content">
+
+        <div class="loader-logo">
+            MODDING<span>XZ</span>
+        </div>
+
+        <div class="loader-bar">
+            <span></span>
+        </div>
+
+        <small>
+            INITIALISING MODDINGXZ...
+        </small>
+
     </div>
 
 </div>
 
 
-<div class="container-main">
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
 
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
 
-<!-- =========================================================
-     NAVIGATION
-========================================================= -->
+    <div class="container">
 
-<nav class="navbar-xz glass">
+        <a class="navbar-brand"
+           href="#home">
 
-    <a href="#" class="brand">
-
-        <div class="logo">
-            MZ
-        </div>
-
-        <div>
-
-            <div class="brand-title">
-                Modding<span>XZ</span>
+            <div class="brand-logo">
+                MZ
             </div>
 
-            <div class="brand-subtitle">
-                GAMING • MODDING • SERVICES
+            <div class="brand-text">
+
+                <strong>
+                    Modding<span>XZ</span>
+                </strong>
+
+                <small>
+                    GAMING • MODDING • SERVICES
+                </small>
+
             </div>
 
-        </div>
-
-    </a>
+        </a>
 
 
-    <div class="nav-actions">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNav">
 
-        <button
-            class="icon-btn"
-            onclick="scrollToSection('services')"
-            title="Services"
-            aria-label="Services">
-
-            <i class="fa-solid fa-store"></i>
+            <span class="navbar-toggler-icon"></span>
 
         </button>
 
 
-        <a
-            class="icon-btn"
-            href="https://t.me/ModdingXZ"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Telegram"
-            aria-label="Telegram">
+        <div class="collapse navbar-collapse"
+             id="mainNav">
 
-            <i class="fa-brands fa-telegram"></i>
+            <ul class="navbar-nav ms-auto align-items-lg-center">
 
-        </a>
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       href="#home">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="#services">
+                        Services
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="#tools">
+                        Tools
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="#community">
+                        Community
+                    </a>
+                </li>
+
+                <li class="nav-item ms-lg-2">
+
+                    <a class="nav-cta"
+                       href="https://t.me/ModdingXZ_Support_Bot"
+                       target="_blank"
+                       rel="noopener">
+
+                        <i class="fa-solid fa-headset"></i>
+
+                        Support
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
 
     </div>
 
 </nav>
 
 
-<!-- =========================================================
+<main id="home">
+
+
+<!-- =====================================================
      HERO
-========================================================= -->
+====================================================== -->
 
-<section class="hero glass">
+<section class="hero-section">
 
-    <div class="hero-content">
+    <div class="container">
 
-        <div class="live-badge">
+        <div class="hero-card">
 
-            <span class="live-dot"></span>
+            <div class="hero-content"
+                 data-aos="fade-up">
 
-            SERVICES ONLINE
+                <div class="status-pill">
 
-        </div>
+                    <span></span>
 
+                    MODDINGXZ IS ONLINE
 
-        <h1>
-            MODDING<span class="gradient">XZ</span>
-        </h1>
+                </div>
 
 
-        <p class="hero-description">
+                <h1>
 
-            Your all-in-one gaming hub for modded services,
-            PlayStation tools, jailbreak information,
-            trophy services and community updates.
+                    GAMING.
 
-            <strong style="color:white;">
-                Join over 1,800 members across the ModdingXZ community.
-            </strong>
+                    <span>
+                        MODDING.
+                    </span>
 
-        </p>
+                    <br>
 
+                    <strong>
+                        XZ.
+                    </strong>
 
-        <div class="hero-buttons">
+                </h1>
 
-            <a
-                href="https://t.me/ModdingXZ"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-xz btn-primary-xz">
 
-                <i class="fa-brands fa-telegram me-2"></i>
+                <p class="hero-description">
 
-                Join our Telegram
-
-            </a>
-
-
-            <a
-                href="#services"
-                class="btn-xz btn-primary-xz">
-
-                <i class="fa-solid fa-cart-shopping me-2"></i>
-
-                Browse Services
-
-            </a>
-
-
-            <a
-                href="https://t.me/ModdingXZ_Support_Bot"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-xz btn-secondary-xz">
-
-                <i class="fa-solid fa-headset me-2"></i>
-
-                Support
-
-            </a>
-
-        </div>
-
-
-        <!-- 1.8K MILESTONE -->
-
-        <div class="community-milestone">
-
-            <div class="milestone-icon">
-
-                <i class="fa-solid fa-users"></i>
-
-            </div>
-
-            <div class="milestone-info">
-
-                <strong>
-                    Community milestone reached 🎉
-                </strong>
-
-                <span>
-                    ModdingXZ is now home to a growing 1.8K+ member community.
-                </span>
-
-            </div>
-
-            <div class="milestone-count">
-                1.8K+
-            </div>
-
-        </div>
-
-
-        <!-- HERO STATS -->
-
-        <div class="hero-stats">
-
-            <div class="hero-stat">
-
-                <strong data-counter="15">
-                    0
-                </strong>
-
-                <span>
-                    Services
-                </span>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-                <strong>
-                    4
-                </strong>
-
-                <span>
-                    Platforms
-                </span>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-                <strong>
-                    1.8K+
-                </strong>
-
-                <span>
-                    Members
-                </span>
-
-            </div>
-
-
-            <div class="hero-stat">
-
-                <strong>
-                    £2+
-                </strong>
-
-                <span>
-                    Starting
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================================================
-     FEATURED SERVICE
-========================================================= -->
-
-<section class="section">
-
-    <div class="section-header">
-
-        <div>
-
-            <h2 class="section-title">
-                🔥 Featured Service
-            </h2>
-
-            <p class="section-subtitle">
-                Limited-time ModdingXZ package
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="featured glass">
-
-        <div class="d-flex justify-content-between gap-3 flex-wrap">
-
-            <div>
-
-                <span class="featured-label">
-                    🚀 CROSS-PLATFORM
-                </span>
-
-
-                <h2 class="featured-title">
-                    Full COD Max Pro Package
-                </h2>
-
-
-                <p class="featured-description">
-
-                    A complete progression package
-                    covering MW2019, Cold War and Vanguard.
+                    Your all-in-one gaming hub for
+                    modded services, PlayStation tools,
+                    jailbreak information, trophy services,
+                    gaming resources and community updates.
 
                 </p>
 
+
+                <div class="hero-buttons">
+
+                    <a href="#services"
+                       class="btn btn-xz-primary">
+
+                        <i class="fa-solid fa-store"></i>
+
+                        Browse Services
+
+                    </a>
+
+
+                    <a href="https://t.me/ModdingXZ"
+                       target="_blank"
+                       rel="noopener"
+                       class="btn btn-xz-secondary">
+
+                        <i class="fa-brands fa-telegram"></i>
+
+                        Join Telegram
+
+                    </a>
+
+                </div>
+
+
+                <!-- STATS -->
+
+                <div class="hero-stats">
+
+                    <div class="stat">
+
+                        <strong data-counter="1800">
+                            0
+                        </strong>
+
+                        <span>
+                            Community Members+
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <strong data-counter="15">
+                            0
+                        </strong>
+
+                        <span>
+                            Services
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <strong data-counter="4">
+                            0
+                        </strong>
+
+                        <span>
+                            Platforms
+                        </span>
+
+                    </div>
+
+
+                    <div class="stat">
+
+                        <strong>
+                            24/7
+                        </strong>
+
+                        <span>
+                            Community
+                        </span>
+
+                    </div>
+
+                </div>
+
             </div>
 
 
-            <div class="featured-price">
-                £15
+            <div class="hero-decoration">
+
+                <div class="floating-icon icon-one">
+                    <i class="fa-brands fa-playstation"></i>
+                </div>
+
+                <div class="floating-icon icon-two">
+                    <i class="fa-brands fa-xbox"></i>
+                </div>
+
+                <div class="floating-icon icon-three">
+                    <i class="fa-solid fa-gamepad"></i>
+                </div>
+
+                <div class="hero-circle"></div>
+
             </div>
 
         </div>
-
-
-        <div class="chips">
-
-            <span class="chip">
-                🟦 MW2019 Level 1000
-            </span>
-
-            <span class="chip">
-                🏆 All Trophies
-            </span>
-
-            <span class="chip">
-                🟩 Cold War Level 2500
-            </span>
-
-            <span class="chip">
-                🔓 DA Unlock All
-            </span>
-
-            <span class="chip">
-                🟥 Vanguard Max Rank
-            </span>
-
-        </div>
-
-
-        <div
-            class="mt-3 text-warning"
-            style="font-size:.6rem">
-
-            ⚠️ Must own MW2019 before purchase —
-            everything is hosted through it.
-
-        </div>
-
-
-        <button
-            class="btn-xz btn-primary-xz mt-3"
-            onclick="openOrder('Full COD Max Pro Package — £15')">
-
-            <i class="fa-solid fa-bag-shopping me-2"></i>
-
-            Order Package
-
-        </button>
 
     </div>
 
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
+     FEATURED
+====================================================== -->
+
+<section class="section-space">
+
+    <div class="container">
+
+        <div class="section-heading"
+             data-aos="fade-up">
+
+            <div>
+
+                <span class="eyebrow">
+                    FEATURED
+                </span>
+
+                <h2>
+                    Latest <span>Package</span>
+                </h2>
+
+            </div>
+
+            <p>
+                Our current featured service.
+            </p>
+
+        </div>
+
+
+        <div class="featured-card"
+             data-aos="zoom-in">
+
+            <div class="featured-glow"></div>
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-8">
+
+                    <div class="featured-badge">
+
+                        <i class="fa-solid fa-fire"></i>
+
+                        LIMITED / FEATURED
+
+                    </div>
+
+
+                    <h3>
+                        Full COD Max Pro Package
+                    </h3>
+
+
+                    <p>
+
+                        A complete progression package
+                        covering supported Call of Duty titles.
+
+                    </p>
+
+
+                    <div class="feature-tags">
+
+                        <span>
+                            MW2019 Level 1000
+                        </span>
+
+                        <span>
+                            All Trophies
+                        </span>
+
+                        <span>
+                            Cold War Level 2500
+                        </span>
+
+                        <span>
+                            DA Unlock All
+                        </span>
+
+                        <span>
+                            Vanguard Max Rank
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4 text-lg-end">
+
+                    <div class="featured-price">
+                        £15
+                    </div>
+
+                    <small>
+                        Featured Package
+                    </small>
+
+                    <br>
+
+                    <button class="btn btn-xz-primary mt-3"
+                            onclick="openOrder('Full COD Max Pro Package — £15')">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        Order Package
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
      PLATFORM STATUS
-========================================================= -->
+====================================================== -->
 
-<section class="section">
+<section class="section-space">
 
-    <div class="section-header">
+    <div class="container">
 
-        <div>
+        <div class="section-heading"
+             data-aos="fade-up">
 
-            <h2 class="section-title">
-                🔓 Platform Status
-            </h2>
+            <div>
 
-            <p class="section-subtitle">
-                ModdingXZ platform information
+                <span class="eyebrow">
+                    STATUS
+                </span>
+
+                <h2>
+                    Platform <span>Status</span>
+                </h2>
+
+            </div>
+
+            <p>
+                Current ModdingXZ support.
             </p>
 
         </div>
 
-    </div>
+
+        <div class="row g-3">
 
 
-    <div class="status-card glass">
+            <div class="col-md-6 col-lg-3"
+                 data-aos="fade-up">
 
+                <div class="status-card">
 
-        <div class="status-row">
+                    <div class="status-icon playstation">
+                        <i class="fa-brands fa-playstation"></i>
+                    </div>
 
-            <div class="status-icon">
-                <i class="fa-brands fa-playstation"></i>
-            </div>
+                    <h4>
+                        PS4
+                    </h4>
 
-            <div class="status-info">
+                    <p>
+                        Jailbreak & modding support.
+                    </p>
 
-                <strong>
-                    PS4
-                </strong>
+                    <span class="online">
+                        <i class="fa-solid fa-circle"></i>
+                        AVAILABLE
+                    </span>
 
-                <small>
-                    Jailbreak / modding support
-                </small>
-
-            </div>
-
-            <span class="status-badge">
-                AVAILABLE
-            </span>
-
-        </div>
-
-
-        <div class="status-row">
-
-            <div class="status-icon">
-                <i class="fa-brands fa-playstation"></i>
-            </div>
-
-            <div class="status-info">
-
-                <strong>
-                    PS5
-                </strong>
-
-                <small>
-                    Firmware-dependent support
-                </small>
+                </div>
 
             </div>
 
-            <span class="status-badge">
-                CHECK
-            </span>
 
-        </div>
+            <div class="col-md-6 col-lg-3"
+                 data-aos="fade-up"
+                 data-aos-delay="100">
 
+                <div class="status-card">
 
-        <div class="status-row">
+                    <div class="status-icon playstation">
+                        <i class="fa-brands fa-playstation"></i>
+                    </div>
 
-            <div class="status-icon">
-                <i class="fa-brands fa-xbox"></i>
-            </div>
+                    <h4>
+                        PS5
+                    </h4>
 
-            <div class="status-info">
+                    <p>
+                        Firmware-dependent support.
+                    </p>
 
-                <strong>
-                    Xbox
-                </strong>
+                    <span class="checking">
+                        <i class="fa-solid fa-circle"></i>
+                        CHECK
+                    </span>
 
-                <small>
-                    Cross-platform services
-                </small>
-
-            </div>
-
-            <span class="status-badge">
-                AVAILABLE
-            </span>
-
-        </div>
-
-
-        <div class="status-row">
-
-            <div class="status-icon">
-                <i class="fa-solid fa-desktop"></i>
-            </div>
-
-            <div class="status-info">
-
-                <strong>
-                    PC
-                </strong>
-
-                <small>
-                    Selected cross-platform services
-                </small>
+                </div>
 
             </div>
 
-            <span class="status-badge">
-                AVAILABLE
-            </span>
+
+            <div class="col-md-6 col-lg-3"
+                 data-aos="fade-up"
+                 data-aos-delay="200">
+
+                <div class="status-card">
+
+                    <div class="status-icon xbox">
+                        <i class="fa-brands fa-xbox"></i>
+                    </div>
+
+                    <h4>
+                        Xbox
+                    </h4>
+
+                    <p>
+                        Selected cross-platform services.
+                    </p>
+
+                    <span class="online">
+                        <i class="fa-solid fa-circle"></i>
+                        AVAILABLE
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3"
+                 data-aos="fade-up"
+                 data-aos-delay="300">
+
+                <div class="status-card">
+
+                    <div class="status-icon pc">
+                        <i class="fa-solid fa-desktop"></i>
+                    </div>
+
+                    <h4>
+                        PC
+                    </h4>
+
+                    <p>
+                        Selected gaming tools & services.
+                    </p>
+
+                    <span class="online">
+                        <i class="fa-solid fa-circle"></i>
+                        AVAILABLE
+                    </span>
+
+                </div>
+
+            </div>
+
 
         </div>
 
@@ -2174,1031 +628,1041 @@ a {
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SERVICES
-========================================================= -->
+====================================================== -->
 
-<section
-    class="section"
-    id="services">
+<section class="section-space"
+         id="services">
 
-    <div class="section-header">
+    <div class="container">
 
-        <div>
+        <div class="section-heading"
+             data-aos="fade-up">
 
-            <h2 class="section-title">
-                🎮 Service Catalogue
-            </h2>
+            <div>
 
-            <p class="section-subtitle">
-                Browse everything currently available
+                <span class="eyebrow">
+                    SHOP
+                </span>
+
+                <h2>
+                    Service <span>Catalogue</span>
+                </h2>
+
+            </div>
+
+            <p>
+                Browse our available services.
+            </p>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="service-controls"
+             data-aos="fade-up">
+
+            <div class="filter-buttons">
+
+                <button class="filter active"
+                        data-filter="all">
+                    All
+                </button>
+
+                <button class="filter"
+                        data-filter="cod">
+                    <i class="fa-solid fa-crosshairs"></i>
+                    COD
+                </button>
+
+                <button class="filter"
+                        data-filter="psn">
+                    <i class="fa-brands fa-playstation"></i>
+                    PSN
+                </button>
+
+                <button class="filter"
+                        data-filter="trophy">
+                    <i class="fa-solid fa-trophy"></i>
+                    Trophies
+                </button>
+
+                <button class="filter"
+                        data-filter="games">
+                    <i class="fa-solid fa-gamepad"></i>
+                    Games
+                </button>
+
+                <button class="filter"
+                        data-filter="iptv">
+                    <i class="fa-solid fa-tv"></i>
+                    IPTV
+                </button>
+
+            </div>
+
+
+            <div class="search-box">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input id="serviceSearch"
+                       type="text"
+                       placeholder="Search services...">
+
+            </div>
+
+        </div>
+
+
+        <!-- SERVICE GRID -->
+
+        <div class="row g-3"
+             id="serviceGrid">
+
+
+            <!-- BO3 -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="cod"
+                 data-search="black ops 3 bo3 ultimate prestige zombies">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-skull"></i>
+                        </div>
+
+                        <span class="service-category">
+                            COD
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Black Ops 3 Ultimate
+                    </h3>
+
+                    <p>
+                        Prestige 1000 MP,
+                        modded classes, unlock all,
+                        Zombies Prestige 12 and more.
+                    </p>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £15
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'Black Ops 3 Ultimate',
+                                '£15',
+                                [
+                                'Prestige 1000 MP',
+                                'Modded Classes',
+                                'Unlock All',
+                                'Custom Avatars',
+                                'Zombies Prestige 12',
+                                'All Easter Eggs',
+                                'Unlimited Death Machine',
+                                'Unreleased Camos',
+                                'Green Clan Tag'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BO3 MAX -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="cod"
+                 data-search="bo3 maxed prestige master zombies level 1000">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+
+                        <span class="service-category">
+                            COD
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        BO3 Maxed-Out
+                    </h3>
+
+                    <p>
+                        Prestige Master MP,
+                        Zombies Level 1000,
+                        Unlimited Death Machine
+                        and God Mode Classes.
+                    </p>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £10
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'BO3 Maxed-Out',
+                                '£10',
+                                [
+                                'Prestige Master MP',
+                                'Zombies Level 1000',
+                                'Unlimited Death Machine',
+                                'God Mode Classes'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- DIVINIUM -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="cod"
+                 data-search="liquid divinium crypto keys bo3">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-flask"></i>
+                        </div>
+
+                        <span class="service-category">
+                            COD
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Liquid Divinium
+                    </h3>
+
+                    <p>
+                        BO3 Liquid Divinium
+                        packages with multiple
+                        package sizes available.
+                    </p>
+
+                    <div class="mini-prices">
+
+                        <span>
+                            100K — £5
+                        </span>
+
+                        <span>
+                            500K — £10
+                        </span>
+
+                        <span>
+                            1M — £20
+                        </span>
+
+                    </div>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £5+
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="openOrder('BO3 Liquid Divinium')">
+
+                            ORDER
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- COLD WAR -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="cod"
+                 data-search="cold war classes da unlock all crystals currency">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-snowflake"></i>
+                        </div>
+
+                        <span class="service-category">
+                            COD
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Cold War Services
+                    </h3>
+
+                    <p>
+                        Custom classes,
+                        DA Unlock All,
+                        crystals, currency
+                        and trophies.
+                    </p>
+
+                    <div class="mini-prices">
+
+                        <span>
+                            Classes — £15
+                        </span>
+
+                        <span>
+                            DA — £10
+                        </span>
+
+                        <span>
+                            Crystals — £5
+                        </span>
+
+                    </div>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £5+
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'Cold War Services',
+                                'From £5',
+                                [
+                                'Custom Modded Classes — £15',
+                                'DA Unlock All — £10',
+                                'Crystals / Currency — £5',
+                                'Trophy Services Available'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OTHER COD -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="cod"
+                 data-search="ghosts advanced warfare bo4 call of duty">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-crosshairs"></i>
+                        </div>
+
+                        <span class="service-category">
+                            COD
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Other COD Games
+                    </h3>
+
+                    <p>
+                        Ghosts, Advanced Warfare
+                        and Black Ops 4 services.
+                    </p>
+
+                    <div class="mini-prices">
+
+                        <span>
+                            Ghosts — £15
+                        </span>
+
+                        <span>
+                            AW — £10
+                        </span>
+
+                        <span>
+                            BO4 — £10
+                        </span>
+
+                    </div>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £5+
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'Other Call of Duty Games',
+                                'From £5',
+                                [
+                                'COD Ghosts — £15',
+                                'COD Advanced Warfare — £10',
+                                'BO4 Modded Classes — £10',
+                                'BO4 All Trophies — £5'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PSN -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="psn"
+                 data-search="psn avatar profile about me colour">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-brands fa-playstation"></i>
+                        </div>
+
+                        <span class="service-category">
+                            PSN
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        PSN Profile Extras
+                    </h3>
+
+                    <p>
+                        Custom avatars,
+                        About Me sections
+                        and profile colours.
+                    </p>
+
+                    <div class="mini-prices">
+
+                        <span>
+                            Avatar — £2
+                        </span>
+
+                        <span>
+                            About Me — £2
+                        </span>
+
+                        <span>
+                            Colour — £2
+                        </span>
+
+                    </div>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £2+
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'PSN Profile Extras',
+                                '£2 Each',
+                                [
+                                'Custom Avatar — £2',
+                                'Modded About Me — £2',
+                                'Profile Colour — £2'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NFS -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="games"
+                 data-search="need for speed heat hot pursuit save reassign">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-car-side"></i>
+                        </div>
+
+                        <span class="service-category">
+                            GAMES
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Other Modded Games
+                    </h3>
+
+                    <p>
+                        Need for Speed and
+                        PS4 save services.
+                    </p>
+
+                    <div class="mini-prices">
+
+                        <span>
+                            NFS Heat — £10
+                        </span>
+
+                        <span>
+                            Hot Pursuit — £5
+                        </span>
+
+                        <span>
+                            Saves — £5
+                        </span>
+
+                    </div>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £5+
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'Other Modded Services',
+                                'From £5',
+                                [
+                                'Need for Speed Heat — £10',
+                                'Unlock All + Cars',
+                                'Need for Speed Hot Pursuit Remastered — £5',
+                                'PS4 Modded Save / Reassign — £5'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TROPHIES -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="trophy"
+                 data-search="playstation trophy level 999 platinum">
+
+                <div class="service-card featured-service">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+
+                        <span class="service-category">
+                            TROPHIES
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        Trophy Level 999
+                    </h3>
+
+                    <p>
+                        PlayStation Trophy Level 999
+                        packages with massive
+                        platinum counts.
+                    </p>
+
+                    <div class="mini-prices">
+
+                        <span>
+                            1,100+ Platinum — £30
+                        </span>
+
+                        <span>
+                            1,800+ Platinum — £40
+                        </span>
+
+                    </div>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £30+
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'PlayStation Trophy Level 999',
+                                '£30 / £40',
+                                [
+                                'Level 999 + 1,100+ Platinums — £30',
+                                'Level 999 + 1,800+ Platinums — £40',
+                                'Typical completion: 24–48 hours',
+                                'Account details required',
+                                'Full instructions provided after purchase'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- IPTV -->
+
+            <div class="col-md-6 col-lg-4 service-item"
+                 data-category="iptv"
+                 data-search="iptv firestick android subscription">
+
+                <div class="service-card">
+
+                    <div class="service-card-top">
+
+                        <div class="service-icon">
+                            <i class="fa-solid fa-tv"></i>
+                        </div>
+
+                        <span class="service-category">
+                            IPTV
+                        </span>
+
+                    </div>
+
+                    <h3>
+                        IPTV Subscription
+                    </h3>
+
+                    <p>
+                        One-year subscription
+                        for supported devices.
+                    </p>
+
+                    <div class="mini-prices">
+
+                        <span>
+                            Firestick
+                        </span>
+
+                        <span>
+                            Android
+                        </span>
+
+                        <span>
+                            1 Year
+                        </span>
+
+                    </div>
+
+                    <div class="service-footer">
+
+                        <strong>
+                            £50
+                        </strong>
+
+                        <button class="details-btn"
+                                onclick="showService(
+                                'IPTV Subscription',
+                                '£50 / Year',
+                                [
+                                '1-Year Subscription — £50',
+                                'Firestick support',
+                                'Android support',
+                                'Bulk pricing available'
+                                ])">
+
+                            DETAILS
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div id="noResults">
+
+            <i class="fa-solid fa-face-frown"></i>
+
+            <h4>
+                No services found
+            </h4>
+
+            <p>
+                Try another search or category.
             </p>
 
         </div>
 
     </div>
 
-
-    <div class="filter-bar">
-
-        <button
-            class="filter active"
-            onclick="filterServices('all',this)">
-
-            All
-
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterServices('cod',this)">
-
-            🎮 Call of Duty
-
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterServices('psn',this)">
-
-            👤 PSN
-
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterServices('trophy',this)">
-
-            🏆 Trophies
-
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterServices('games',this)">
-
-            🏎 Games
-
-        </button>
-
-        <button
-            class="filter"
-            onclick="filterServices('iptv',this)">
-
-            📺 IPTV
-
-        </button>
-
-    </div>
-
-
-    <div class="search-wrap">
-
-        <i class="fa-solid fa-magnifying-glass"></i>
-
-        <input
-            id="serviceSearch"
-            class="form-control search"
-            placeholder="Search services..."
-            autocomplete="off"
-            oninput="searchServices()">
-
-    </div>
-
-
-    <div
-        class="service-grid"
-        id="serviceGrid">
-
-
-        <!-- BO3 -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="cod"
-            data-search="bo3 black ops 3 ultimate prestige unlock all zombies">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-skull"></i>
-            </div>
-
-            <div class="service-title">
-                Black Ops 3 Ultimate
-            </div>
-
-            <div class="service-description">
-
-                Prestige 1000 MP,
-                modded classes,
-                unlock all, Zombies Prestige 12
-                and more.
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £15
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'Black Ops 3 Ultimate',
-                        '£15',
-                        [
-                            'Prestige 1000 MP',
-                            'Modded Classes',
-                            'Unlock All',
-                            'Custom Avatars + Cherry Fizz / Void',
-                            'Zombies Prestige 12',
-                            'All EE',
-                            'Unlimited Death Machine + Beast Mode',
-                            'Unreleased Camos',
-                            'Green Clan Tag'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- BO3 MAXED -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="cod"
-            data-search="bo3 black ops 3 maxed prestige master">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-bolt"></i>
-            </div>
-
-            <div class="service-title">
-                BO3 Maxed-Out
-            </div>
-
-            <div class="service-description">
-
-                Prestige Master MP +
-                Zombies Level 1000,
-                Unlimited Death Machine
-                and God Mode Classes.
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £10
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'BO3 Maxed-Out',
-                        '£10',
-                        [
-                            'Prestige Master MP',
-                            'Zombies Level 1000',
-                            'Unlimited Death Machine',
-                            'God Mode Classes'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- DIVINIUM -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="cod"
-            data-search="liquid divinium crypto keys bo3">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-flask"></i>
-            </div>
-
-            <div class="service-title">
-                Liquid Divinium
-            </div>
-
-            <div class="service-description">
-
-                BO3 Liquid Divinium
-                packages. Crypto keys
-                also available.
-
-            </div>
-
-            <div class="chips">
-
-                <span class="chip">
-                    100K £5
-                </span>
-
-                <span class="chip">
-                    500K £10
-                </span>
-
-                <span class="chip">
-                    1M £20
-                </span>
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £5+
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="openOrder('BO3 Liquid Divinium')">
-
-                    ORDER
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- COLD WAR -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="cod"
-            data-search="cold war classes da unlock all crystals currency">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-snowflake"></i>
-            </div>
-
-            <div class="service-title">
-                Cold War
-            </div>
-
-            <div class="service-description">
-
-                Custom classes,
-                DA Unlock All,
-                crystals/currency
-                and trophies.
-
-            </div>
-
-            <div class="chips">
-
-                <span class="chip">
-                    Classes £15
-                </span>
-
-                <span class="chip">
-                    DA £10
-                </span>
-
-                <span class="chip">
-                    Crystals £5
-                </span>
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £5+
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'Cold War Services',
-                        'From £5',
-                        [
-                            'Custom Modded Classes — £15',
-                            'DA Unlock All — £10',
-                            'Crystals / Currency — £5',
-                            'Trophies included'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- OTHER COD -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="cod"
-            data-search="ghosts advanced warfare bo4 call of duty">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-crosshairs"></i>
-            </div>
-
-            <div class="service-title">
-                Other COD Games
-            </div>
-
-            <div class="service-description">
-
-                Ghosts, Advanced Warfare
-                and Black Ops 4 services.
-
-            </div>
-
-            <div class="chips">
-
-                <span class="chip">
-                    Ghosts £15
-                </span>
-
-                <span class="chip">
-                    AW £10
-                </span>
-
-                <span class="chip">
-                    BO4 £10
-                </span>
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £5+
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'Other Call of Duty Games',
-                        'From £5',
-                        [
-                            'COD Ghosts — £15',
-                            'COD Advanced Warfare — £10',
-                            'BO4 Modded Classes — £10',
-                            'BO4 All Trophies — £5'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- PSN -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="psn"
-            data-search="psn avatar about me profile colour color">
-
-            <div class="service-icon">
-                <i class="fa-brands fa-playstation"></i>
-            </div>
-
-            <div class="service-title">
-                PSN Profile Extras
-            </div>
-
-            <div class="service-description">
-
-                Custom avatars,
-                About Me sections
-                and profile colours.
-
-            </div>
-
-            <div class="chips">
-
-                <span class="chip">
-                    Avatar £2
-                </span>
-
-                <span class="chip">
-                    About Me £2
-                </span>
-
-                <span class="chip">
-                    Colour £2
-                </span>
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £2
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'PSN Profile Extras',
-                        '£2 each',
-                        [
-                            'Custom Avatar — £2',
-                            'Modded About Me — £2',
-                            'Any Profile Colour — £2'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- NFS -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="games"
-            data-search="need for speed heat hot pursuit save reassign">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-car-side"></i>
-            </div>
-
-            <div class="service-title">
-                Other Modded Games
-            </div>
-
-            <div class="service-description">
-
-                Need for Speed
-                and PS4 save services.
-
-            </div>
-
-            <div class="chips">
-
-                <span class="chip">
-                    NFS Heat £10
-                </span>
-
-                <span class="chip">
-                    Hot Pursuit £5
-                </span>
-
-                <span class="chip">
-                    Saves £5
-                </span>
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £5+
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'Other Modded Services',
-                        'From £5',
-                        [
-                            'Need for Speed Heat — £10',
-                            'Unlock All + Cars',
-                            'Need for Speed Hot Pursuit Remastered — £5',
-                            'Any Modded Save / Reassign PS4 Game Save — £5'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- TROPHIES -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="trophy"
-            data-search="trophy level 999 platinum playstation">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-trophy"></i>
-            </div>
-
-            <div class="service-title">
-                Trophy Level 999
-            </div>
-
-            <div class="service-description">
-
-                PlayStation Trophy
-                Level 999 packages
-                with massive platinum counts.
-
-            </div>
-
-            <div class="chips">
-
-                <span class="chip">
-                    1,100+ £30
-                </span>
-
-                <span class="chip">
-                    1,800+ £40
-                </span>
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £30+
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'PlayStation Trophy Level 999',
-                        '£30 / £40',
-                        [
-                            'Level 999 + 1,100+ Platinum Trophies — £30',
-                            'Level 999 + 1,800+ Platinum Trophies — £40',
-                            'Typical completion: 24–48 hours',
-                            'Account email/password required',
-                            'Full instructions provided after purchase'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-
-        <!-- IPTV -->
-
-        <article
-            class="service-card glass service-item"
-            data-category="iptv"
-            data-search="iptv firestick android subscription">
-
-            <div class="service-icon">
-                <i class="fa-solid fa-tv"></i>
-            </div>
-
-            <div class="service-title">
-                IPTV Subscription
-            </div>
-
-            <div class="service-description">
-
-                One-year unlimited
-                subscription for
-                supported devices.
-
-            </div>
-
-            <div class="chips">
-
-                <span class="chip">
-                    Firestick
-                </span>
-
-                <span class="chip">
-                    Android
-                </span>
-
-            </div>
-
-            <div class="service-bottom">
-
-                <div class="service-price">
-                    £50
-                    <small>/ year</small>
-                </div>
-
-                <button
-                    class="view-btn"
-                    onclick="showService(
-                        'IPTV Subscription',
-                        '£50 / Year',
-                        [
-                            '1-Year Unlimited — £50',
-                            'Firestick support',
-                            'Android support',
-                            'Bulk pricing available'
-                        ]
-                    )">
-
-                    DETAILS
-
-                </button>
-
-            </div>
-
-        </article>
-
-    </div>
-
-
-    <div
-        id="noResults"
-        class="text-center text-secondary mt-4"
-        style="
-            display:none;
-            font-size:.7rem;
-        ">
-
-        <i
-            class="fa-solid fa-face-frown mb-2"
-            style="font-size:1.4rem">
-        </i>
-
-        <br>
-
-        No services found.
-
-    </div>
-
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      TOOLS
-========================================================= -->
+====================================================== -->
 
-<section class="section">
+<section class="section-space"
+         id="tools">
 
-    <div class="section-header">
+    <div class="container">
 
-        <div>
+        <div class="section-heading">
 
-            <h2 class="section-title">
-                🛠️ ModdingXZ Tools
-            </h2>
+            <div>
 
-            <p class="section-subtitle">
-                Projects and utilities
-            </p>
+                <span class="eyebrow">
+                    PROJECTS
+                </span>
+
+                <h2>
+                    ModdingXZ <span>Tools</span>
+                </h2>
+
+            </div>
+
+            <a href="https://github.com/MrJasonDEX"
+               target="_blank"
+               rel="noopener">
+
+                View GitHub
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+            </a>
 
         </div>
 
-        <a
-            href="https://github.com/MrJasonDEX"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="section-link">
 
-            GitHub
-
-        </a>
-
-    </div>
+        <div class="tools-wrapper">
 
 
-    <div
-        class="glass"
-        style="
-            border-radius:23px;
-            padding:9px;
-        ">
+            <a href="https://github.com/MrJasonDEX/PSN-Unfriender-Tool"
+               target="_blank"
+               rel="noopener"
+               class="tool-card"
+               data-aos="fade-up">
+
+                <div class="tool-icon">
+                    <i class="fa-solid fa-user-minus"></i>
+                </div>
+
+                <div>
+
+                    <h4>
+                        PSN Unfriender Tool
+                    </h4>
+
+                    <p>
+                        PSN management utility.
+                    </p>
+
+                </div>
+
+                <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
+
+            </a>
 
 
-        <a
-            class="tool glass"
-            href="https://github.com/MrJasonDEX/PSN-Unfriender-Tool"
-            target="_blank"
-            rel="noopener noreferrer">
+            <a href="https://github.com/MrJasonDEX/Cold-War-Mods"
+               target="_blank"
+               rel="noopener"
+               class="tool-card"
+               data-aos="fade-up"
+               data-aos-delay="100">
 
-            <div class="tool-icon">
-                <i class="fa-solid fa-user-minus"></i>
-            </div>
+                <div class="tool-icon">
+                    <i class="fa-brands fa-github"></i>
+                </div>
 
-            <div class="tool-info">
+                <div>
 
-                <strong>
-                    PSN Unfriender Tool
-                </strong>
+                    <h4>
+                        Cold War PC Mods
+                    </h4>
 
-                <small>
-                    GitHub project
-                </small>
+                    <p>
+                        Free PC mod menu + GSC injector.
+                    </p>
 
-            </div>
+                </div>
 
-            <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
+                <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
 
-        </a>
-
-
-        <a
-            class="tool glass"
-            href="https://github.com/MrJasonDEX/Cold-War-Mods"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <div class="tool-icon">
-                <i class="fa-brands fa-github"></i>
-            </div>
-
-            <div class="tool-info">
-
-                <strong>
-                    Cold War PC Mods
-                </strong>
-
-                <small>
-                    Free PC Cold War Mod Menu + GSC Injector
-                </small>
-
-            </div>
-
-            <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
-
-        </a>
+            </a>
 
 
-        <a
-            class="tool glass"
-            href="https://github.com/MrJasonDEX/Black-ops-3-Mod-Menu-"
-            target="_blank"
-            rel="noopener noreferrer">
+            <a href="https://github.com/MrJasonDEX/Black-ops-3-Mod-Menu-"
+               target="_blank"
+               rel="noopener"
+               class="tool-card"
+               data-aos="fade-up"
+               data-aos-delay="200">
 
-            <div class="tool-icon">
-                <i class="fa-brands fa-github"></i>
-            </div>
+                <div class="tool-icon">
+                    <i class="fa-brands fa-playstation"></i>
+                </div>
 
-            <div class="tool-info">
+                <div>
 
-                <strong>
-                    Black Ops 3 PS4 5.05–12.02 Mod Menu
-                </strong>
+                    <h4>
+                        Black Ops 3 Mod Menu
+                    </h4>
 
-                <small>
-                    PS4 Black Ops 3 Mod Menu + Injector
-                </small>
+                    <p>
+                        PS4 5.05–12.02 mod menu project.
+                    </p>
 
-            </div>
+                </div>
 
-            <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
+                <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
 
-        </a>
+            </a>
 
 
-        <a
-            class="tool glass"
-            href="https://t.me/ModdingXZ"
-            target="_blank"
-            rel="noopener noreferrer">
+            <a href="https://t.me/ModdingXZ"
+               target="_blank"
+               rel="noopener"
+               class="tool-card"
+               data-aos="fade-up"
+               data-aos-delay="300">
 
-            <div class="tool-icon">
-                <i class="fa-brands fa-telegram"></i>
-            </div>
+                <div class="tool-icon telegram-icon">
+                    <i class="fa-brands fa-telegram"></i>
+                </div>
 
-            <div class="tool-info">
+                <div>
 
-                <strong>
-                    More Tools & Resources
-                </strong>
+                    <h4>
+                        More Projects & Updates
+                    </h4>
 
-                <small>
-                    Find much more over at ModdingXZ Telegram
-                </small>
+                    <p>
+                        Join ModdingXZ Telegram.
+                    </p>
 
-            </div>
+                </div>
 
-            <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
+                <i class="fa-solid fa-arrow-up-right-from-square tool-arrow"></i>
 
-        </a>
+            </a>
+
+
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      COMMUNITY
-========================================================= -->
+====================================================== -->
 
-<section class="section">
+<section class="section-space"
+         id="community">
 
-    <div class="section-header">
+    <div class="container">
 
-        <div>
+        <div class="community-banner"
+             data-aos="zoom-in">
 
-            <h2 class="section-title">
-                💬 Join 1.8K+ Members
-            </h2>
+            <div class="community-content">
 
-            <p class="section-subtitle">
-                Community, updates and support
-            </p>
+                <span class="eyebrow">
+                    COMMUNITY
+                </span>
 
-        </div>
+                <h2>
+                    Join <span>1,800+</span> Members
+                </h2>
 
-    </div>
+                <p>
+
+                    Gaming discussions, modding news,
+                    jailbreak updates, tools, services
+                    and community support — all in one place.
+
+                </p>
 
 
-    <div class="community-grid">
+                <div class="community-buttons">
+
+                    <a href="https://t.me/ModdingXZ"
+                       target="_blank"
+                       rel="noopener"
+                       class="btn btn-xz-primary">
+
+                        <i class="fa-brands fa-telegram"></i>
+
+                        Join Telegram
+
+                    </a>
 
 
-        <a
-            class="community glass"
-            href="https://t.me/ModdingXZ"
-            target="_blank"
-            rel="noopener noreferrer">
+                    <a href="https://www.tiktok.com/@moddingx1"
+                       target="_blank"
+                       rel="noopener"
+                       class="btn btn-xz-secondary">
 
-            <div class="community-icon">
+                        <i class="fa-brands fa-tiktok"></i>
+
+                        TikTok
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="community-art">
+
                 <i class="fa-brands fa-telegram"></i>
+
             </div>
 
-            <h3>
-                Telegram
-            </h3>
-
-            <p>
-                Join 1.8K+ members for
-                gaming discussions,
-                updates and community news.
-            </p>
-
-        </a>
-
-
-        <a
-            class="community glass"
-            href="https://t.me/ModdingXZ_Support_Bot"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <div class="community-icon">
-                <i class="fa-solid fa-headset"></i>
-            </div>
-
-            <h3>
-                Support Bot
-            </h3>
-
-            <p>
-                Orders, service enquiries
-                and customer support.
-            </p>
-
-        </a>
-
-
-        <a
-            class="community glass"
-            href="https://www.tiktok.com/@moddingx1"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <div class="community-icon">
-                <i class="fa-brands fa-tiktok"></i>
-            </div>
-
-            <h3>
-                TikTok
-            </h3>
-
-            <p>
-                Modding content,
-                videos and updates.
-            </p>
-
-        </a>
-
-
-        <a
-            class="community glass"
-            href="https://github.com/MrJasonDEX"
-            target="_blank"
-            rel="noopener noreferrer">
-
-            <div class="community-icon">
-                <i class="fa-brands fa-github"></i>
-            </div>
-
-            <h3>
-                GitHub
-            </h3>
-
-            <p>
-                Projects and gaming tools.
-            </p>
-
-        </a>
+        </div>
 
     </div>
 
 </section>
 
 
-<!-- =========================================================
+<!-- =====================================================
      PAYMENT
-========================================================= -->
+====================================================== -->
 
-<section class="section">
+<section class="section-space">
 
-    <div class="payment glass">
+    <div class="container">
 
-        <h2 class="section-title">
-            💳 Payment & Delivery
-        </h2>
+        <div class="payment-card">
 
-        <p
-            class="section-subtitle"
-            style="margin-top:5px">
+            <div class="row align-items-center g-4">
 
-            Everything you need before ordering.
+                <div class="col-lg-7">
 
-        </p>
+                    <span class="eyebrow">
+                        BEFORE ORDERING
+                    </span>
+
+                    <h2>
+                        Payment & <span>Delivery</span>
+                    </h2>
+
+                    <p>
+
+                        Please use the official ModdingXZ
+                        support process for orders and
+                        service enquiries.
+
+                    </p>
+
+                </div>
 
 
-        <div class="payment-grid">
+                <div class="col-lg-5">
 
+                    <div class="payment-grid">
 
-            <div class="payment-item">
+                        <div>
+                            <i class="fa-solid fa-sterling-sign"></i>
+                            GBP Payments
+                        </div>
 
-                <i class="fa-brands fa-paypal"></i>
+                        <div>
+                            <i class="fa-solid fa-clock"></i>
+                            Fast Delivery
+                        </div>
 
-                PayPal — GBP Only
+                        <div>
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Secure Support
+                        </div>
+
+                        <div>
+                            <i class="fa-solid fa-headset"></i>
+                            Support Bot
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
-
-
-            <div class="payment-item">
-
-                <i class="fa-solid fa-clock"></i>
-
-                5–30 Minutes
-
-            </div>
-
-
-            <div class="payment-item">
-
-                <i class="fa-solid fa-ban"></i>
-
-                No Refunds Once Started
-
-            </div>
-
-
-            <div class="payment-item">
-
-                <i class="fa-solid fa-key"></i>
-
-                Some Services Require Login
-
-            </div>
-
-        </div>
-
-
-        <div
-            class="mt-3 text-secondary"
-            style="
-                font-size:.58rem;
-                line-height:1.6;
-            ">
-
-            ⚠️ Never post account credentials publicly.
-            Only provide information through the official
-            ModdingXZ support process when required.
 
         </div>
 
@@ -3207,81 +1671,120 @@ a {
 </section>
 
 
-<!-- =========================================================
+</main>
+
+
+<!-- =====================================================
      FOOTER
-========================================================= -->
+====================================================== -->
 
-<footer class="footer">
+<footer>
 
-    <div class="footer-brand">
-        Modding<span>XZ</span>
+    <div class="container">
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <div class="brand-logo">
+                    MZ
+                </div>
+
+                <div>
+
+                    <strong>
+                        Modding<span>XZ</span>
+                    </strong>
+
+                    <small>
+                        GAMING • MODDING • SERVICES
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#services">
+                    Services
+                </a>
+
+                <a href="#tools">
+                    Tools
+                </a>
+
+                <a href="https://t.me/ModdingXZ"
+                   target="_blank">
+                    Telegram
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 ModdingXZ. All rights reserved.
+            </span>
+
+            <span>
+                Gaming • Modding • Tools • Services
+            </span>
+
+        </div>
+
     </div>
-
-    Gaming • Modding • Tools • Services
-
-    <br><br>
-
-    <strong style="color:#88889b;">
-        1.8K+ members and growing 🚀
-    </strong>
-
-    <br><br>
-
-    © 2026 ModdingXZ.
-    All rights reserved.
 
 </footer>
 
 
-</div>
+<!-- =====================================================
+     BOTTOM MOBILE BAR
+====================================================== -->
 
+<div class="mobile-bottom-bar">
 
-<!-- =========================================================
-     BOTTOM BAR
-========================================================= -->
+    <a href="https://t.me/ModdingXZ"
+       target="_blank"
+       rel="noopener">
 
-<div class="bottom-bar glass">
+        <i class="fa-brands fa-telegram"></i>
 
-    <a
-        class="bottom-btn telegram"
-        href="https://t.me/ModdingXZ"
-        target="_blank"
-        rel="noopener noreferrer">
-
-        <i class="fa-brands fa-telegram me-1"></i>
-
-        COMMUNITY
+        Community
 
     </a>
 
 
-    <a
-        class="bottom-btn order"
-        href="https://t.me/ModdingXZ_Support_Bot"
-        target="_blank"
-        rel="noopener noreferrer">
+    <a href="https://t.me/ModdingXZ_Support_Bot"
+       target="_blank"
+       rel="noopener">
 
-        <i class="fa-solid fa-cart-shopping me-1"></i>
+        <i class="fa-solid fa-headset"></i>
 
-        ORDER / SUPPORT
+        Order / Support
 
     </a>
 
 </div>
 
 
-<!-- =========================================================
+<!-- =====================================================
      SERVICE MODAL
-========================================================= -->
+====================================================== -->
 
-<div
-    class="modal fade"
-    id="serviceModal"
-    tabindex="-1"
-    aria-hidden="true">
+<div class="modal fade"
+     id="serviceModal"
+     tabindex="-1">
 
-    <div
-        class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered">
 
         <div class="modal-content">
 
@@ -3289,30 +1792,19 @@ a {
 
                 <div>
 
-                    <div
-                        class="text-secondary"
-                        style="font-size:.55rem">
-
+                    <small>
                         MODDINGXZ SERVICE
+                    </small>
 
-                    </div>
-
-                    <h5
-                        class="modal-title fw-bold"
-                        id="modalTitle">
-
+                    <h5 id="modalTitle">
                         Service
-
                     </h5>
 
                 </div>
 
-
-                <button
-                    type="button"
-                    class="btn-close btn-close-white"
-                    data-bs-dismiss="modal"
-                    aria-label="Close">
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
                 </button>
 
             </div>
@@ -3320,18 +1812,14 @@ a {
 
             <div class="modal-body">
 
-                <div
-                    class="modal-price"
-                    id="modalPrice">
-
+                <div id="modalPrice"
+                     class="modal-price">
                     £0
-
                 </div>
 
 
-                <ul
-                    class="modal-list mt-3"
-                    id="modalList">
+                <ul id="modalList"
+                    class="modal-list">
                 </ul>
 
             </div>
@@ -3339,20 +1827,18 @@ a {
 
             <div class="modal-footer">
 
-                <button
-                    class="btn-xz btn-secondary-xz"
-                    data-bs-dismiss="modal">
+                <button class="btn btn-xz-secondary"
+                        data-bs-dismiss="modal">
 
                     Close
 
                 </button>
 
 
-                <button
-                    class="btn-xz btn-primary-xz"
-                    id="modalOrder">
+                <button id="modalOrder"
+                        class="btn btn-xz-primary">
 
-                    <i class="fa-solid fa-cart-shopping me-1"></i>
+                    <i class="fa-solid fa-cart-shopping"></i>
 
                     Order Now
 
@@ -3367,526 +1853,41 @@ a {
 </div>
 
 
-<!-- =========================================================
+<!-- =====================================================
      TOAST
-========================================================= -->
+====================================================== -->
 
-<div
-    class="toast-xz"
-    id="toast">
+<div id="toast"
+     class="xz-toast">
 
-    <i
-        class="fa-solid fa-circle-check text-success me-2">
-    </i>
+    <i class="fa-solid fa-circle-check"></i>
 
-    <span id="toastText">
-        Done
+    <span>
+        Opening ModdingXZ Support...
     </span>
 
 </div>
 
 
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
+<!-- =====================================================
+     BOOTSTRAP JS
+====================================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
 
-/* =========================================================
-   CONFIG
-========================================================= */
+<!-- =====================================================
+     AOS
+====================================================== -->
 
-const CONFIG = {
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-    supportBot:
-        "https://t.me/ModdingXZ_Support_Bot",
 
-    telegram:
-        "https://t.me/ModdingXZ",
+<!-- =====================================================
+     MODDINGXZ JS
+====================================================== -->
 
-    github:
-        "https://github.com/MrJasonDEX"
-
-};
-
-
-/* =========================================================
-   LOADING SCREEN
-========================================================= */
-
-window.addEventListener("load", () => {
-
-    setTimeout(() => {
-
-        const loader =
-            document.getElementById("loader");
-
-        if (loader) {
-            loader.classList.add("hide");
-        }
-
-    }, 600);
-
-});
-
-
-/* =========================================================
-   COUNTERS
-========================================================= */
-
-function animateCounters() {
-
-    const counters =
-        document.querySelectorAll(
-            "[data-counter]"
-        );
-
-    counters.forEach(counter => {
-
-        const target =
-            Number(counter.dataset.counter);
-
-        let current = 0;
-
-        const increment =
-            Math.max(
-                1,
-                Math.ceil(target / 30)
-            );
-
-        const timer =
-            setInterval(() => {
-
-                current += increment;
-
-                if (current >= target) {
-
-                    current = target;
-
-                    clearInterval(timer);
-
-                }
-
-                counter.textContent =
-                    current;
-
-            }, 35);
-
-    });
-
-}
-
-
-setTimeout(
-    animateCounters,
-    700
-);
-
-
-/* =========================================================
-   SCROLL
-========================================================= */
-
-function scrollToSection(id) {
-
-    const element =
-        document.getElementById(id);
-
-    if (!element) return;
-
-    element.scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-    });
-
-}
-
-
-/* =========================================================
-   FILTER SERVICES
-========================================================= */
-
-function filterServices(category, button) {
-
-    document
-        .querySelectorAll(".filter")
-        .forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-    button.classList.add("active");
-
-    const search =
-        document.getElementById(
-            "serviceSearch"
-        );
-
-    search.value = "";
-
-    let visible = 0;
-
-    document
-        .querySelectorAll(".service-item")
-        .forEach(card => {
-
-            const match =
-                category === "all" ||
-                card.dataset.category === category;
-
-            card.style.display =
-                match ? "" : "none";
-
-            if (match) {
-                visible++;
-            }
-
-        });
-
-    document
-        .getElementById("noResults")
-        .style.display =
-            visible ? "none" : "block";
-
-}
-
-
-/* =========================================================
-   SEARCH SERVICES
-========================================================= */
-
-function searchServices() {
-
-    const query =
-        document
-            .getElementById("serviceSearch")
-            .value
-            .toLowerCase()
-            .trim();
-
-    let visible = 0;
-
-    document
-        .querySelectorAll(".service-item")
-        .forEach(card => {
-
-            const searchable =
-                (
-                    (card.dataset.search || "") +
-                    " " +
-                    card.innerText
-                ).toLowerCase();
-
-            const match =
-                !query ||
-                searchable.includes(query);
-
-            card.style.display =
-                match ? "" : "none";
-
-            if (match) {
-                visible++;
-            }
-
-        });
-
-
-    document
-        .querySelectorAll(".filter")
-        .forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-
-    if (!query) {
-
-        document
-            .querySelector(".filter")
-            ?.classList.add("active");
-
-    }
-
-
-    document
-        .getElementById("noResults")
-        .style.display =
-            visible ? "none" : "block";
-
-}
-
-
-/* =========================================================
-   SERVICE MODAL
-========================================================= */
-
-let serviceModal = null;
-
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const modalElement =
-            document.getElementById(
-                "serviceModal"
-            );
-
-        if (modalElement) {
-
-            serviceModal =
-                new bootstrap.Modal(
-                    modalElement
-                );
-
-        }
-
-    }
-);
-
-
-function showService(title, price, items) {
-
-    document
-        .getElementById("modalTitle")
-        .textContent =
-            title;
-
-
-    document
-        .getElementById("modalPrice")
-        .textContent =
-            price;
-
-
-    const list =
-        document.getElementById(
-            "modalList"
-        );
-
-
-    list.innerHTML = "";
-
-
-    items.forEach(item => {
-
-        const li =
-            document.createElement("li");
-
-        li.innerHTML = `
-            <i class="fa-solid fa-check me-2"></i>
-            ${escapeHTML(item)}
-        `;
-
-        list.appendChild(li);
-
-    });
-
-
-    document
-        .getElementById("modalOrder")
-        .onclick =
-            () =>
-                openOrder(
-                    `${title} — ${price}`
-                );
-
-
-    if (serviceModal) {
-        serviceModal.show();
-    }
-
-}
-
-
-/* =========================================================
-   ORDER
-========================================================= */
-
-function openOrder(service) {
-
-    const url =
-        CONFIG.supportBot +
-        "?start=" +
-        encodeURIComponent(service);
-
-
-    window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-    );
-
-
-    showToast(
-        "Opening ModdingXZ Support..."
-    );
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer;
-
-
-function showToast(message) {
-
-    const toast =
-        document.getElementById(
-            "toast"
-        );
-
-
-    document
-        .getElementById("toastText")
-        .textContent =
-            message;
-
-
-    toast.classList.add("show");
-
-
-    clearTimeout(toastTimer);
-
-
-    toastTimer =
-        setTimeout(() => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 2800);
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHTML(value) {
-
-    return String(value)
-        .replace(
-            /[&<>"']/g,
-            char => {
-
-                const map = {
-
-                    "&":"&amp;",
-                    "<":"&lt;",
-                    ">":"&gt;",
-                    '"':"&quot;",
-                    "'":"&#039;"
-
-                };
-
-                return map[char];
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   KEYBOARD SEARCH
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        const active =
-            document.activeElement;
-
-        const typing =
-            active &&
-            (
-                active.tagName === "INPUT" ||
-                active.tagName === "TEXTAREA" ||
-                active.isContentEditable
-            );
-
-
-        if (
-            event.key === "/" &&
-            !typing
-        ) {
-
-            event.preventDefault();
-
-            document
-                .getElementById(
-                    "serviceSearch"
-                )
-                .focus();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   RANDOM AMBIENT CARD EFFECT
-========================================================= */
-
-setInterval(() => {
-
-    const cards =
-        document.querySelectorAll(
-            ".service-card"
-        );
-
-
-    if (!cards.length) return;
-
-
-    const random =
-        cards[
-            Math.floor(
-                Math.random() *
-                cards.length
-            )
-        ];
-
-
-    random.style.boxShadow =
-        "0 0 35px rgba(139,92,246,.12)";
-
-
-    setTimeout(() => {
-
-        random.style.boxShadow = "";
-
-    }, 700);
-
-}, 5000);
-
-
-/* =========================================================
-   EXTERNAL LINK SAFETY
-========================================================= */
-
-document
-    .querySelectorAll(
-        'a[target="_blank"]'
-    )
-    .forEach(link => {
-
-        link.setAttribute(
-            "rel",
-            "noopener noreferrer"
-        );
-
-    });
-
-</script>
+<script src="js/script.js"></script>
 
 </body>
 </html>
