@@ -1,3473 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>Football Team Fundraiser</title>
 
-    <meta
-        name="theme-color"
-        content="#050505"
-    >
+    <meta name="description"
+        content="Support our football team fundraiser. Pick your team for £2 and be in with a chance to win £40.">
 
-    <meta
-        name="description"
-        content="Football Card fundraiser. Pick a team for £2 and you could win £40."
-    >
-
-    <title>Football Card | £2 Entry | £40 Prize</title>
-
-
-    <!-- =====================================================
-         EXTERNAL CSS
-    ====================================================== -->
-
+    <!-- Bootstrap -->
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
 
+    <!-- Bootstrap Icons -->
     <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-    >
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
+    <!-- Google Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    >
-
-
-    <!-- =====================================================
-         CUSTOM CSS
-    ====================================================== -->
+        rel="stylesheet">
 
     <style>
-
         :root {
-
             --black: #050505;
-            --black-2: #101010;
-            --black-3: #181818;
-
+            --dark: #111111;
+            --grey: #6b6b6b;
+            --light: #f5f5f5;
+            --border: #e5e5e5;
             --white: #ffffff;
-
-            --green: #16a05a;
-            --green-dark: #08753e;
-            --green-light: #eaf8f0;
-
-            --gold: #f5bd3d;
-            --gold-light: #fff7df;
-
-            --grey-1: #f5f5f5;
-            --grey-2: #ededed;
-            --grey-3: #999999;
-            --grey-4: #666666;
-
-            --border: #e4e4e4;
-
-            --radius: 22px;
-
-            --shadow:
-                0 20px 60px rgba(0,0,0,.08);
-
-            --shadow-hover:
-                0 25px 65px rgba(0,0,0,.14);
-
         }
-
 
         * {
             box-sizing: border-box;
         }
 
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-
         body {
-
             margin: 0;
-
-            background:
-                #f7f7f7;
-
-            color:
-                var(--black);
-
-            font-family:
-                "Inter",
-                Arial,
-                sans-serif;
-
-            -webkit-font-smoothing:
-                antialiased;
-
+            background: #ffffff;
+            color: var(--black);
+            font-family: 'Inter', sans-serif;
         }
 
+        /* NAVBAR */
 
-        body.modal-open {
-            padding-right: 0 !important;
+        .navbar {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
         }
 
-
-        ::selection {
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-        }
-
-
-        a {
+        .brand {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: #000;
             text-decoration: none;
         }
 
-
-        button,
-        input {
-            font-family: inherit;
+        .brand span {
+            background: #000;
+            color: #fff;
+            padding: 5px 8px;
+            border-radius: 7px;
+            margin-right: 6px;
         }
 
-
-        /* =====================================================
-           NAVBAR
-        ====================================================== */
-
-        .site-nav {
-
-            position:
-                sticky;
-
-            top:
-                0;
-
-            z-index:
-                1000;
-
-            height:
-                74px;
-
-            background:
-                rgba(255,255,255,.92);
-
-            border-bottom:
-                1px solid rgba(0,0,0,.07);
-
-            backdrop-filter:
-                blur(20px);
-
-            -webkit-backdrop-filter:
-                blur(20px);
-
-        }
-
-
-        .nav-inner {
-
-            height:
-                74px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-        }
-
-
-        .brand {
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            gap:
-                11px;
-
-            color:
-                var(--black);
-
-            font-size:
-                .82rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                -.3px;
-
-        }
-
-
-        .brand:hover {
-            color:
-                var(--black);
-        }
-
-
-        .brand-icon {
-
-            width:
-                43px;
-
-            height:
-                43px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                13px;
-
-            font-size:
-                1.15rem;
-
-        }
-
-
-        .brand-text span {
-
-            display:
-                block;
-
-            color:
-                #999;
-
-            margin-top:
-                2px;
-
-            font-size:
-                .49rem;
-
-            font-weight:
-                700;
-
-            letter-spacing:
-                1px;
-
-        }
-
-
-        .nav-cta {
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            gap:
-                8px;
-
-            padding:
-                11px 17px;
-
-            border-radius:
-                100px;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            font-size:
-                .62rem;
-
-            font-weight:
-                900;
-
-            transition:
-                .2s ease;
-
-        }
-
-
-        .nav-cta:hover {
-
-            background:
-                var(--green);
-
-            color:
-                white;
-
-            transform:
-                translateY(-2px);
-
-        }
-
-
-        /* =====================================================
-           HERO
-        ====================================================== */
+        /* HERO */
 
         .hero {
-
-            position:
-                relative;
-
-            min-height:
-                610px;
-
-            overflow:
-                hidden;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
+            padding: 80px 0 55px;
             background:
-                var(--black);
-
-            color:
-                white;
-
+                radial-gradient(circle at top right, #eeeeee 0, transparent 35%),
+                #fff;
         }
 
-
-        .hero-grid {
-
-            position:
-                absolute;
-
-            inset:
-                0;
-
-            opacity:
-                .055;
-
-            background-image:
-
-                linear-gradient(
-                    rgba(255,255,255,.6) 1px,
-                    transparent 1px
-                ),
-
-                linear-gradient(
-                    90deg,
-                    rgba(255,255,255,.6) 1px,
-                    transparent 1px
-                );
-
-            background-size:
-                60px 60px;
-
+        .badge-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: #000;
+            color: #fff;
+            border-radius: 100px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
-
-
-        .hero-ball {
-
-            position:
-                absolute;
-
-            width:
-                600px;
-
-            height:
-                600px;
-
-            right:
-                -270px;
-
-            top:
-                -250px;
-
-            border:
-                1px solid rgba(255,255,255,.12);
-
-            border-radius:
-                50%;
-
-            box-shadow:
-
-                0 0 0 70px rgba(255,255,255,.018),
-
-                0 0 0 140px rgba(255,255,255,.018),
-
-                0 0 0 210px rgba(255,255,255,.018);
-
-        }
-
-
-        .hero-glow {
-
-            position:
-                absolute;
-
-            width:
-                500px;
-
-            height:
-                500px;
-
-            left:
-                -280px;
-
-            bottom:
-                -350px;
-
-            background:
-                rgba(22,160,90,.22);
-
-            border-radius:
-                50%;
-
-            filter:
-                blur(90px);
-
-        }
-
-
-        .hero-content {
-
-            position:
-                relative;
-
-            z-index:
-                2;
-
-            max-width:
-                850px;
-
-            padding:
-                100px 0 155px;
-
-        }
-
-
-        .eyebrow {
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            gap:
-                9px;
-
-            margin-bottom:
-                25px;
-
-            color:
-                rgba(255,255,255,.52);
-
-            font-size:
-                .57rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                2px;
-
-        }
-
-
-        .eyebrow-dot {
-
-            width:
-                7px;
-
-            height:
-                7px;
-
-            border-radius:
-                50%;
-
-            background:
-                #35d879;
-
-            box-shadow:
-                0 0 15px #35d879;
-
-        }
-
 
         .hero h1 {
-
-            margin:
-                0;
-
-            font-size:
-                clamp(3.3rem,8vw,7rem);
-
-            line-height:
-                .9;
-
-            letter-spacing:
-                -5px;
-
-            font-weight:
-                900;
-
+            font-size: clamp(42px, 7vw, 78px);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: .95;
+            max-width: 850px;
+            margin-bottom: 25px;
         }
-
 
         .hero h1 span {
-
-            display:
-                block;
-
-            color:
-                #40d67c;
-
+            color: #777;
         }
 
-
-        .hero-text {
-
-            max-width:
-                620px;
-
-            margin:
-                30px 0 0;
-
-            color:
-                rgba(255,255,255,.6);
-
-            font-size:
-                .82rem;
-
-            line-height:
-                1.9;
-
+        .hero p {
+            max-width: 650px;
+            color: #666;
+            font-size: 18px;
+            line-height: 1.7;
         }
 
+        /* PRIZE CARD */
 
-        .hero-text strong {
-            color:
-                white;
+        .prize-card {
+            background: #000;
+            color: #fff;
+            border-radius: 24px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 25px 60px rgba(0,0,0,.15);
         }
 
-
-        .hero-buttons {
-
-            display:
-                flex;
-
-            flex-wrap:
-                wrap;
-
-            gap:
-                10px;
-
-            margin-top:
-                31px;
-
+        .prize-label {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 12px;
+            font-weight: 800;
+            opacity: .65;
         }
 
-
-        .hero-button {
-
-            min-height:
-                52px;
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            gap:
-                9px;
-
-            padding:
-                0 22px;
-
-            border-radius:
-                100px;
-
-            font-size:
-                .65rem;
-
-            font-weight:
-                900;
-
-            transition:
-                .2s ease;
-
+        .prize {
+            font-size: 75px;
+            font-weight: 900;
+            letter-spacing: -5px;
+            margin: 5px 0;
         }
 
-
-        .hero-button-primary {
-
-            background:
-                white;
-
-            color:
-                var(--black);
-
+        .price-box {
+            margin-top: 25px;
+            padding: 18px;
+            background: #1c1c1c;
+            border-radius: 15px;
         }
 
-
-        .hero-button-primary:hover {
-
-            background:
-                #40d67c;
-
-            color:
-                var(--black);
-
-            transform:
-                translateY(-3px);
-
+        .price-box strong {
+            font-size: 28px;
         }
 
-
-        .hero-button-secondary {
-
-            border:
-                1px solid rgba(255,255,255,.18);
-
-            color:
-                white;
-
-        }
-
-
-        .hero-button-secondary:hover {
-
-            color:
-                white;
-
-            border-color:
-                white;
-
-            background:
-                rgba(255,255,255,.05);
-
-        }
-
-
-        .hero-footnote {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                8px;
-
-            margin-top:
-                23px;
-
-            color:
-                rgba(255,255,255,.35);
-
-            font-size:
-                .57rem;
-
-        }
-
-
-        .hero-footnote i {
-            color:
-                #ff5b75;
-        }
-
-
-        /* =====================================================
-           STAT BAR
-        ====================================================== */
-
-        .stats-wrap {
-
-            position:
-                relative;
-
-            z-index:
-                20;
-
-            margin-top:
-                -65px;
-
-        }
-
-
-        .stats {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(4,1fr);
-
-            overflow:
-                hidden;
-
-            background:
-                white;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                25px;
-
-            box-shadow:
-                var(--shadow);
-
-        }
-
-
-        .stat {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                13px;
-
-            padding:
-                25px;
-
-            border-right:
-                1px solid var(--border);
-
-        }
-
-
-        .stat:last-child {
-            border-right:
-                0;
-        }
-
-
-        .stat-icon {
-
-            width:
-                45px;
-
-            height:
-                45px;
-
-            flex:
-                0 0 45px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                13px;
-
-            font-size:
-                .9rem;
-
-        }
-
-
-        .stat-icon.green {
-
-            background:
-                var(--green-light);
-
-            color:
-                var(--green);
-
-        }
-
-
-        .stat-icon.gold {
-
-            background:
-                var(--gold-light);
-
-            color:
-                #9b7000;
-
-        }
-
-
-        .stat strong {
-
-            display:
-                block;
-
-            font-size:
-                1.15rem;
-
-            line-height:
-                1;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .stat small {
-
-            display:
-                block;
-
-            margin-top:
-                5px;
-
-            color:
-                var(--grey-3);
-
-            font-size:
-                .52rem;
-
-            font-weight:
-                700;
-
-        }
-
-
-        /* =====================================================
-           SECTIONS
-        ====================================================== */
+        /* SECTION */
 
         .section {
-
-            padding:
-                115px 0;
-
+            padding: 65px 0;
         }
 
-
-        .section-heading {
-
-            max-width:
-                650px;
-
-            margin:
-                0 auto 45px;
-
-            text-align:
-                center;
-
+        .section-title {
+            font-size: 35px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 8px;
         }
 
-
-        .section-kicker {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            gap:
-                9px;
-
-            color:
-                var(--green);
-
-            font-size:
-                .55rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                2px;
-
-            margin-bottom:
-                13px;
-
+        .section-subtitle {
+            color: #777;
+            margin-bottom: 30px;
         }
 
-
-        .section-kicker::before,
-        .section-kicker::after {
-
-            content:
-                "";
-
-            width:
-                22px;
-
-            height:
-                2px;
-
-            background:
-                var(--green);
-
-        }
-
-
-        .section-heading h2 {
-
-            margin:
-                0;
-
-            font-size:
-                clamp(2rem,5vw,3.3rem);
-
-            line-height:
-                1;
-
-            letter-spacing:
-                -2.5px;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .section-heading p {
-
-            max-width:
-                550px;
-
-            margin:
-                16px auto 0;
-
-            color:
-                var(--grey-3);
-
-            font-size:
-                .72rem;
-
-            line-height:
-                1.8;
-
-        }
-
-
-        /* =====================================================
-           PROGRESS
-        ====================================================== */
-
-        .progress-card {
-
-            max-width:
-                950px;
-
-            margin:
-                0 auto 15px;
-
-            padding:
-                23px;
-
-            background:
-                white;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                21px;
-
-            box-shadow:
-                var(--shadow);
-
-        }
-
-
-        .progress-header {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                20px;
-
-        }
-
-
-        .progress-title {
-
-            color:
-                #999;
-
-            font-size:
-                .5rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                1.5px;
-
-        }
-
-
-        .progress-count {
-
-            margin-top:
-                4px;
-
-            font-size:
-                .9rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .progress-count span {
-            color:
-                var(--green);
-        }
-
-
-        .raised {
-
-            font-size:
-                1.35rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .progress-track {
-
-            height:
-                8px;
-
-            margin-top:
-                16px;
-
-            overflow:
-                hidden;
-
-            background:
-                #ededed;
-
-            border-radius:
-                100px;
-
-        }
-
-
-        .progress-fill {
-
-            width:
-                0%;
-
-            height:
-                100%;
-
-            background:
-                var(--black);
-
-            border-radius:
-                100px;
-
-            transition:
-                width .5s ease;
-
-        }
-
-
-        .progress-footer {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                10px;
-
-            margin-top:
-                9px;
-
-            color:
-                #999;
-
-            font-size:
-                .51rem;
-
-            font-weight:
-                600;
-
-        }
-
-
-        .green-dot {
-
-            display:
-                inline-block;
-
-            width:
-                6px;
-
-            height:
-                6px;
-
-            margin-right:
-                4px;
-
-            border-radius:
-                50%;
-
-            background:
-                var(--green);
-
-        }
-
-
-        /* =====================================================
-           TEAM GRID
-        ====================================================== */
+        /* TEAM GRID */
 
         .team-grid {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(4,1fr);
-
-            gap:
-                13px;
-
-        }
-
-
-        .team-card {
-
-            position:
-                relative;
-
-            min-height:
-                175px;
-
-            padding:
-                23px 12px;
-
-            display:
-                flex;
-
-            flex-direction:
-                column;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            border:
-                1px solid var(--border);
-
-            background:
-                white;
-
-            color:
-                var(--black);
-
-            border-radius:
-                20px;
-
-            cursor:
-                pointer;
-
-            transition:
-                transform .25s ease,
-                box-shadow .25s ease,
-                border-color .25s ease;
-
-        }
-
-
-        .team-card:hover {
-
-            transform:
-                translateY(-6px);
-
-            border-color:
-                var(--black);
-
-            box-shadow:
-                var(--shadow-hover);
-
-        }
-
-
-        .team-card:focus-visible {
-
-            outline:
-                3px solid rgba(22,160,90,.25);
-
-            outline-offset:
-                3px;
-
-        }
-
-
-        .team-number {
-
-            position:
-                absolute;
-
-            top:
-                13px;
-
-            left:
-                13px;
-
-            color:
-                #c0c0c0;
-
-            font-size:
-                .48rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .team-icon {
-
-            width:
-                56px;
-
-            height:
-                56px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            margin-bottom:
-                13px;
-
-            background:
-                var(--grey-1);
-
-            border-radius:
-                16px;
-
-            font-size:
-                1.25rem;
-
-            transition:
-                .25s ease;
-
-        }
-
-
-        .team-card:hover .team-icon {
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-        }
-
-
-        .team-name {
-
-            text-align:
-                center;
-
-            font-size:
-                .72rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .team-status {
-
-            margin-top:
-                7px;
-
-            color:
-                var(--green);
-
-            font-size:
-                .48rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                .7px;
-
-        }
-
-
-        .team-card.selected {
-
-            background:
-                #f0f0f0;
-
-            opacity:
-                .45;
-
-            cursor:
-                not-allowed;
-
-        }
-
-
-        .team-card.selected:hover {
-
-            transform:
-                none;
-
-            border-color:
-                var(--border);
-
-            box-shadow:
-                none;
-
-        }
-
-
-        .team-card.selected .team-icon {
-
-            background:
-                #e1e1e1;
-
-            color:
-                #999;
-
-        }
-
-
-        .team-card.selected .team-status {
-
-            color:
-                #999;
-
-        }
-
-
-        .team-card.winner {
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-color:
-                var(--black);
-
-            opacity:
-                1;
-
-        }
-
-
-        .team-card.winner .team-icon {
-
-            background:
-                var(--gold);
-
-            color:
-                var(--black);
-
-        }
-
-
-        .team-card.winner .team-status {
-
-            color:
-                var(--gold);
-
-        }
-
-
-        /* =====================================================
-           WINNER
-        ====================================================== */
-
-        .winner-panel {
-
-            display:
-                none;
-
-            max-width:
-                950px;
-
-            margin:
-                0 auto 15px;
-
-            padding:
-                24px;
-
-            align-items:
-                center;
-
-            gap:
-                16px;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                21px;
-
-            box-shadow:
-                0 20px 60px rgba(0,0,0,.15);
-
-        }
-
-
-        .winner-icon {
-
-            width:
-                56px;
-
-            height:
-                56px;
-
-            flex:
-                0 0 56px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                var(--gold);
-
-            color:
-                var(--black);
-
-            border-radius:
-                16px;
-
-            font-size:
-                1.2rem;
-
-        }
-
-
-        .winner-label {
-
-            color:
-                #777;
-
-            font-size:
-                .5rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                1.5px;
-
-        }
-
-
-        .winner-name {
-
-            margin-top:
-                3px;
-
-            font-size:
-                1.3rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .winner-description {
-
-            margin:
-                2px 0 0;
-
-            color:
-                #999;
-
-            font-size:
-                .59rem;
-
-        }
-
-
-        /* =====================================================
-           COMPLETE
-        ====================================================== */
-
-        .complete-panel {
-
-            display:
-                none;
-
-            max-width:
-                950px;
-
-            margin:
-                0 auto 15px;
-
-            padding:
-                17px;
-
-            align-items:
-                center;
-
-            gap:
-                12px;
-
-            background:
-                var(--green-light);
-
-            border:
-                1px solid #c8e8d5;
-
-            border-radius:
-                19px;
-
-        }
-
-
-        .complete-icon {
-
-            width:
-                42px;
-
-            height:
-                42px;
-
-            flex:
-                0 0 42px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                var(--green);
-
-            color:
-                white;
-
-            border-radius:
-                12px;
-
-        }
-
-
-        .complete-title {
-
-            display:
-                block;
-
-            font-size:
-                .68rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .complete-text {
-
-            display:
-                block;
-
-            margin-top:
-                2px;
-
-            color:
-                #777;
-
-            font-size:
-                .55rem;
-
-        }
-
-
-        /* =====================================================
-           HOW IT WORKS
-        ====================================================== */
-
-        .how-section {
-
-            background:
-                white;
-
-        }
-
-
-        .steps {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(3,1fr);
-
-            gap:
-                15px;
-
-        }
-
-
-        .step {
-
-            position:
-                relative;
-
-            overflow:
-                hidden;
-
-            padding:
-                32px;
-
-            background:
-                #f7f7f7;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                21px;
-
-        }
-
-
-        .step-number {
-
-            position:
-                absolute;
-
-            right:
-                22px;
-
-            top:
-                15px;
-
-            color:
-                #dedede;
-
-            font-size:
-                2.6rem;
-
-            line-height:
-                1;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .step-icon {
-
-            width:
-                48px;
-
-            height:
-                48px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            margin-bottom:
-                23px;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                14px;
-
-        }
-
-
-        .step h3 {
-
-            margin:
-                0 0 8px;
-
-            font-size:
-                .88rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .step p {
-
-            margin:
-                0;
-
-            color:
-                #888;
-
-            font-size:
-                .62rem;
-
-            line-height:
-                1.8;
-
-        }
-
-
-        /* =====================================================
-           PAYMENT SECTION
-        ====================================================== */
-
-        .payment-section {
-
-            padding:
-                110px 0;
-
-            background:
-                var(--black);
-
-        }
-
-
-        .payment-card {
-
-            max-width:
-                760px;
-
-            margin:
-                0 auto;
-
-            padding:
-                42px;
-
-            background:
-                white;
-
-            border-radius:
-                28px;
-
-            box-shadow:
-                0 25px 80px rgba(0,0,0,.25);
-
-        }
-
-
-        .payment-top {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                14px;
-
-        }
-
-
-        .payment-icon {
-
-            width:
-                53px;
-
-            height:
-                53px;
-
-            flex:
-                0 0 53px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                15px;
-
-        }
-
-
-        .payment-kicker {
-
-            color:
-                var(--green);
-
-            font-size:
-                .51rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                1.5px;
-
-        }
-
-
-        .payment-title {
-
-            margin:
-                3px 0 0;
-
-            font-size:
-                1.45rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .payment-description {
-
-            margin:
-                19px 0;
-
-            color:
-                #888;
-
-            font-size:
-                .68rem;
-
-            line-height:
-                1.8;
-
-        }
-
-
-        /* =====================================================
-           SELECTED PAYMENT INFO
-        ====================================================== */
-
-        .payment-selection {
-
-            display:
-                none;
-
-            margin-bottom:
-                20px;
-
-            padding:
-                17px;
-
-            background:
-                var(--green-light);
-
-            border:
-                1px solid #ccebd9;
-
-            border-radius:
-                16px;
-
-        }
-
-
-        .payment-selection-label {
-
-            color:
-                var(--green);
-
-            font-size:
-                .49rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                1.3px;
-
-        }
-
-
-        .payment-selection-team {
-
-            margin-top:
-                3px;
-
-            font-size:
-                1rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .payment-selection-reference {
-
-            margin-top:
-                8px;
-
-            color:
-                #777;
-
-            font-size:
-                .58rem;
-
-        }
-
-
-        .payment-selection-reference strong {
-
-            color:
-                var(--black);
-
-        }
-
-
-        /* =====================================================
-           REVOLUT IFRAME
-        ====================================================== */
-
-        .revolut-wrapper {
-
-            position:
-                relative;
-
-            width:
-                100%;
-
-            height:
-                650px;
-
-            overflow:
-                hidden;
-
-            background:
-                #f5f5f5;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                18px;
-
-        }
-
-
-        .revolut-wrapper iframe {
-
-            width:
-                100%;
-
-            height:
-                100%;
-
-            display:
-                block;
-
-            border:
-                0;
-
-            background:
-                white;
-
-        }
-
-
-        .revolut-note {
-
-            display:
-                flex;
-
-            align-items:
-                flex-start;
-
-            gap:
-                8px;
-
-            margin-top:
-                12px;
-
-            color:
-                #888;
-
-            font-size:
-                .55rem;
-
-            line-height:
-                1.6;
-
-        }
-
-
-        .revolut-note i {
-
-            color:
-                var(--green);
-
-            margin-top:
-                2px;
-
-        }
-
-
-        /* =====================================================
-           PAYMENT FALLBACK
-        ====================================================== */
-
-        .payment-fallback {
-
-            margin-top:
-                15px;
-
-            text-align:
-                center;
-
-        }
-
-
-        .fallback-button {
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            gap:
-                8px;
-
-            min-height:
-                48px;
-
-            padding:
-                0 20px;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                12px;
-
-            font-size:
-                .62rem;
-
-            font-weight:
-                900;
-
-            transition:
-                .2s ease;
-
-        }
-
-
-        .fallback-button:hover {
-
-            background:
-                var(--green);
-
-            color:
-                white;
-
-        }
-
-
-        /* =====================================================
-           FOOTER
-        ====================================================== */
-
-        footer {
-
-            padding:
-                34px 0;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-        }
-
-
-        .footer-inner {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                20px;
-
-        }
-
-
-        .footer-brand {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                9px;
-
-            color:
-                white;
-
-            font-size:
-                .72rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .footer-icon {
-
-            width:
-                31px;
-
-            height:
-                31px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                white;
-
-            color:
-                var(--black);
-
-            border-radius:
-                9px;
-
-        }
-
-
-        .footer-text {
-
-            margin:
-                6px 0 0;
-
-            color:
-                #666;
-
-            font-size:
-                .51rem;
-
-        }
-
-
-        .footer-right {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                18px;
-
-        }
-
-
-        .footer-right span {
-
-            color:
-                #666;
-
-            font-size:
-                .53rem;
-
-            font-weight:
-                700;
-
-        }
-
-
-        .admin-button {
-
-            width:
-                32px;
-
-            height:
-                32px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            padding:
-                0;
-
-            border:
-                1px solid #292929;
-
-            background:
-                transparent;
-
-            color:
-                #555;
-
-            border-radius:
-                50%;
-
-        }
-
-
-        .admin-button:hover {
-
-            color:
-                white;
-
-            border-color:
-                #777;
-
-        }
-
-
-        /* =====================================================
-           MODALS
-        ====================================================== */
-
-        .custom-modal {
-
-            overflow:
-                hidden;
-
-            border:
-                0;
-
-            border-radius:
-                23px;
-
-        }
-
-
-        .modal-head {
-
-            padding:
-                23px;
-
-            border-bottom:
-                1px solid var(--border);
-
-        }
-
-
-        .modal-kicker {
-
-            color:
-                var(--green);
-
-            font-size:
-                .5rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                1.5px;
-
-        }
-
-
-        .modal-title {
-
-            margin-top:
-                3px;
-
-            font-size:
-                1rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .modal-body-custom {
-
-            padding:
-                23px;
-
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 12px;
+        }
+
+        .team-btn {
+            position: relative;
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px 15px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all .2s ease;
+            min-height: 70px;
+        }
+
+        .team-btn:hover {
+            background: #000;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,.12);
+        }
+
+        .team-btn.selected {
+            background: #eeeeee;
+            color: #999;
+            border-color: #ddd;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .team-btn.selected::after {
+            content: "SELECTED";
+            display: block;
+            font-size: 9px;
+            letter-spacing: 1px;
+            margin-top: 5px;
+            font-weight: 900;
+        }
+
+        /* CHECKOUT */
+
+        .checkout-card {
+            background: #f7f7f7;
+            border-radius: 25px;
+            padding: 35px;
+            border: 1px solid #eee;
         }
-
 
         .selected-team {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                13px;
-
-            margin-bottom:
-                20px;
-
-            padding:
-                15px;
-
-            background:
-                #f5f5f5;
-
-            border-radius:
-                15px;
-
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 5px;
         }
 
-
-        .selected-team-icon {
-
-            width:
-                49px;
-
-            height:
-                49px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                14px;
-
+        .selected-text {
+            color: #777;
+            margin-bottom: 25px;
         }
 
-
-        .selected-label {
-
-            display:
-                block;
-
-            color:
-                #999;
-
-            font-size:
-                .48rem;
-
-            font-weight:
-                900;
-
-            letter-spacing:
-                1px;
-
+        .btn-black {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 15px 22px;
+            border-radius: 12px;
+            font-weight: 800;
+            transition: .2s;
         }
 
-
-        .selected-name {
-
-            display:
-                block;
-
-            margin-top:
-                2px;
-
-            font-size:
-                .9rem;
-
-            font-weight:
-                900;
-
+        .btn-black:hover {
+            background: #222;
+            color: #fff;
+            transform: translateY(-2px);
         }
 
+        /* HOW IT WORKS */
 
-        .form-label-custom {
-
-            font-size:
-                .63rem;
-
-            font-weight:
-                800;
-
+        .step {
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            height: 100%;
         }
 
-
-        .form-control-custom {
-
-            min-height:
-                50px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                12px;
-
-            font-size:
-                .7rem;
-
+        .step-number {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            color: #fff;
+            border-radius: 50%;
+            font-weight: 900;
+            margin-bottom: 18px;
         }
 
-
-        .form-control-custom:focus {
-
-            border-color:
-                var(--black);
-
-            box-shadow:
-                0 0 0 3px rgba(0,0,0,.06);
-
+        .step h5 {
+            font-weight: 800;
         }
 
-
-        .modal-info {
-
-            display:
-                flex;
-
-            gap:
-                8px;
-
-            margin:
-                15px 0;
-
-            padding:
-                13px;
-
-            background:
-                var(--green-light);
-
-            color:
-                #527061;
-
-            border-radius:
-                12px;
-
-            font-size:
-                .55rem;
-
-            line-height:
-                1.65;
-
+        .step p {
+            color: #777;
+            margin-bottom: 0;
+            line-height: 1.6;
         }
 
+        /* INFO */
 
-        .modal-info i {
-            color:
-                var(--green);
+        .info-box {
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            background: #fff;
         }
 
-
-        .confirm-button {
-
-            width:
-                100%;
-
-            min-height:
-                50px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            gap:
-                8px;
-
-            border:
-                0;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                12px;
-
-            font-size:
-                .65rem;
-
-            font-weight:
-                900;
-
-            transition:
-                .2s ease;
-
+        .info-box i {
+            font-size: 28px;
         }
 
+        /* FOOTER */
 
-        .confirm-button:hover {
-
-            background:
-                var(--green);
-
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 35px 0;
+            color: #777;
+            font-size: 14px;
         }
 
+        /* MODAL */
 
-        /* =====================================================
-           ADMIN
-        ====================================================== */
-
-        .admin-stats {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                repeat(3,1fr);
-
-            gap:
-                9px;
-
-            margin-bottom:
-                22px;
-
+        .modal-content {
+            border: none;
+            border-radius: 24px;
+            overflow: hidden;
         }
 
-
-        .admin-stat {
-
-            padding:
-                15px;
-
-            background:
-                #f5f5f5;
-
-            border-radius:
-                13px;
-
+        .modal-header {
+            border: none;
+            padding: 25px 25px 10px;
         }
 
-
-        .admin-stat small {
-
-            display:
-                block;
-
-            color:
-                #999;
-
-            font-size:
-                .46rem;
-
-            font-weight:
-                900;
-
+        .modal-body {
+            padding: 15px 25px 30px;
         }
 
-
-        .admin-stat strong {
-
-            display:
-                block;
-
-            margin-top:
-                3px;
-
-            font-size:
-                1.15rem;
-
-            font-weight:
-                900;
-
+        .checkout-header {
+            background: #000;
+            color: #fff;
+            padding: 25px;
+            border-radius: 18px;
+            margin-bottom: 25px;
         }
 
-
-        .admin-list-title {
-
-            margin-bottom:
-                8px;
-
-            font-size:
-                .65rem;
-
-            font-weight:
-                900;
-
+        .checkout-team {
+            font-size: 30px;
+            font-weight: 900;
         }
 
-
-        .admin-list {
-
-            max-height:
-                300px;
-
-            overflow:
-                auto;
-
-            border-top:
-                1px solid var(--border);
-
+        .payment-button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 13px;
+            background: #000;
+            color: #fff;
+            border: none;
+            font-weight: 800;
+            font-size: 16px;
         }
 
-
-        .admin-entry {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                15px;
-
-            padding:
-                12px 4px;
-
-            border-bottom:
-                1px solid var(--border);
-
+        .payment-button:hover {
+            background: #222;
         }
 
-
-        .admin-team {
-
-            font-size:
-                .64rem;
-
-            font-weight:
-                900;
-
+        .payment-note {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            margin-top: 12px;
         }
 
-
-        .admin-person {
-
-            margin-top:
-                2px;
-
-            color:
-                #999;
-
-            font-size:
-                .52rem;
-
-        }
-
-
-        .admin-price {
-
-            font-size:
-                .62rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .admin-actions {
-
-            display:
-                grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap:
-                8px;
-
-            margin-top:
-                18px;
-
-        }
-
-
-        .admin-action {
-
-            min-height:
-                47px;
-
-            border:
-                0;
-
-            border-radius:
-                11px;
-
-            font-size:
-                .6rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .draw-button {
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-        }
-
-
-        .draw-button:hover {
-            background:
-                var(--green);
-        }
-
-
-        .reset-button {
-
-            background:
-                #f4f4f4;
-
-            color:
-                #c22;
-
-        }
-
-
-        .reset-button:hover {
-            background:
-                #ffeaea;
-        }
-
-
-        .admin-error {
-
-            display:
-                none;
-
-            margin-top:
-                7px;
-
-            color:
-                #c22;
-
-            font-size:
-                .55rem;
-
-        }
-
-
-        /* =====================================================
-           TOAST
-        ====================================================== */
-
-        .toast-box {
-
-            position:
-                fixed;
-
-            right:
-                20px;
-
-            bottom:
-                20px;
-
-            z-index:
-                9999;
-
-            width:
-                min(340px, calc(100vw - 40px));
-
-            padding:
-                15px 17px;
-
-            background:
-                var(--black);
-
-            color:
-                white;
-
-            border-radius:
-                14px;
-
-            box-shadow:
-                0 20px 60px rgba(0,0,0,.3);
-
-            transform:
-                translateY(130px);
-
-            opacity:
-                0;
-
-            pointer-events:
-                none;
-
-            transition:
-                .3s ease;
-
-        }
-
-
-        .toast-box.show {
-
-            transform:
-                translateY(0);
-
-            opacity:
-                1;
-
-        }
-
-
-        .toast-title {
-
-            display:
-                block;
-
-            font-size:
-                .65rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .toast-text {
-
-            display:
-                block;
-
-            margin-top:
-                3px;
-
-            color:
-                #aaa;
-
-            font-size:
-                .55rem;
-
-            line-height:
-                1.5;
-
-        }
-
-
-        /* =====================================================
-           MOBILE
-        ====================================================== */
-
-        @media (max-width: 991px) {
-
-            .team-grid {
-                grid-template-columns:
-                    repeat(3,1fr);
-            }
-
-        }
-
+        /* MOBILE */
 
         @media (max-width: 767px) {
 
-            .site-nav,
-            .nav-inner {
-                height:
-                    67px;
-            }
-
-
             .hero {
-                min-height:
-                    570px;
+                padding: 55px 0 35px;
             }
-
-
-            .hero-content {
-                padding:
-                    70px 0 130px;
-            }
-
 
             .hero h1 {
-
-                font-size:
-                    3.25rem;
-
-                letter-spacing:
-                    -3px;
-
+                letter-spacing: -2px;
             }
 
-
-            .hero-text {
-                font-size:
-                    .74rem;
+            .hero p {
+                font-size: 16px;
             }
 
-
-            .stats {
-
-                grid-template-columns:
-                    repeat(2,1fr);
-
+            .prize {
+                font-size: 60px;
             }
-
-
-            .stat {
-
-                padding:
-                    19px 15px;
-
-            }
-
-
-            .stat:nth-child(2) {
-                border-right:
-                    0;
-            }
-
-
-            .stat:nth-child(-n+2) {
-                border-bottom:
-                    1px solid var(--border);
-            }
-
-
-            .section {
-                padding:
-                    85px 0;
-            }
-
 
             .team-grid {
-                grid-template-columns:
-                    repeat(2,1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
 
-
-            .steps {
-                grid-template-columns:
-                    1fr;
+            .team-btn {
+                font-size: 13px;
+                min-height: 65px;
             }
 
-
-            .footer-inner {
-
-                align-items:
-                    flex-start;
-
-                flex-direction:
-                    column;
-
+            .checkout-card {
+                padding: 25px;
             }
-
-
-            .footer-right {
-
-                width:
-                    100%;
-
-                justify-content:
-                    space-between;
-
-            }
-
-
-            .payment-card {
-                padding:
-                    29px 18px;
-            }
-
-
-            .revolut-wrapper {
-                height:
-                    650px;
-            }
-
-
-            .admin-stats {
-                grid-template-columns:
-                    repeat(2,1fr);
-            }
-
-
-            .admin-stat:last-child {
-                grid-column:
-                    span 2;
-            }
-
         }
-
-
-        @media (max-width: 450px) {
-
-            .brand-text span {
-                display:
-                    none;
-            }
-
-
-            .brand {
-                font-size:
-                    .75rem;
-            }
-
-
-            .brand-icon {
-
-                width:
-                    37px;
-
-                height:
-                    37px;
-
-            }
-
-
-            .nav-cta {
-
-                padding:
-                    9px 12px;
-
-                font-size:
-                    .55rem;
-
-            }
-
-
-            .hero h1 {
-                font-size:
-                    2.95rem;
-            }
-
-
-            .hero-buttons {
-
-                flex-direction:
-                    column;
-
-            }
-
-
-            .hero-button {
-                width:
-                    100%;
-            }
-
-
-            .team-card {
-                min-height:
-                    155px;
-            }
-
-
-            .team-icon {
-
-                width:
-                    48px;
-
-                height:
-                    48px;
-
-                border-radius:
-                    14px;
-
-            }
-
-
-            .progress-card {
-                padding:
-                    18px;
-            }
-
-
-            .progress-footer {
-                font-size:
-                    .47rem;
-            }
-
-
-            .revolut-wrapper {
-                height:
-                    600px;
-            }
-
-
-            .admin-actions {
-                grid-template-columns:
-                    1fr;
-            }
-
-        }
-
     </style>
-
 </head>
-
 
 <body>
 
+<!-- NAVBAR -->
 
-<!-- =====================================================
-     NAVIGATION
-====================================================== -->
+<nav class="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="#" class="brand">
+            <span>⚽</span> Football Fundraiser
+        </a>
 
-<nav class="site-nav">
-
-    <div class="container">
-
-        <div class="nav-inner">
-
-            <a
-                href="#top"
-                class="brand"
-            >
-
-                <span class="brand-icon">
-                    <i class="bi bi-dribbble"></i>
-                </span>
-
-                <span class="brand-text">
-
-                    Football Card
-
-                    <span>
-                        TEAM STRIP FUNDRAISER
-                    </span>
-
-                </span>
-
-            </a>
-
-
-            <a
-                href="#teams"
-                class="nav-cta"
-            >
-
-                Pick a team
-
-                <i class="bi bi-arrow-right"></i>
-
-            </a>
-
+        <div class="small fw-bold text-secondary">
+            £2 PER SQUARE
         </div>
-
     </div>
-
 </nav>
 
 
-<!-- =====================================================
-     HERO
-====================================================== -->
+<!-- HERO -->
 
-<header
-    id="top"
-    class="hero"
->
-
-    <div class="hero-grid"></div>
-
-    <div class="hero-ball"></div>
-
-    <div class="hero-glow"></div>
-
+<section class="hero">
 
     <div class="container">
 
-        <div class="hero-content">
+        <div class="row align-items-center g-5">
 
-            <div class="eyebrow">
+            <div class="col-lg-7">
 
-                <span class="eyebrow-dot"></span>
+                <div class="badge-custom">
+                    <i class="bi bi-heart-fill"></i>
+                    Supporting the team
+                </div>
 
-                FOOTBALL STRIP FUNDRAISER
+                <h1>
+                    Help us get the team
+                    <span>new personalised strips.</span>
+                </h1>
 
-            </div>
+                <p>
+                    Pick your football team for just £2.
+                    If your selected team is the winning team,
+                    you'll win £40.
+                </p>
 
-
-            <h1>
-
-                Pick a team.
-
-                <span>Win £40.</span>
-
-            </h1>
-
-
-            <p class="hero-text">
-
-                Choose one of the available football teams
-                for just <strong>£2</strong>.
-
-                If your selected team is the winner,
-                you'll receive the <strong>£40 prize</strong>.
-
-            </p>
-
-
-            <div class="hero-buttons">
-
-                <a
-                    href="#teams"
-                    class="hero-button hero-button-primary"
-                >
-
-                    Choose your team
-
-                    <i class="bi bi-arrow-down"></i>
-
-                </a>
-
-
-                <a
-                    href="#how"
-                    class="hero-button hero-button-secondary"
-                >
-
-                    How it works
-
-                    <i class="bi bi-info-circle"></i>
-
+                <a href="#teams" class="btn btn-black mt-3">
+                    Pick your team
+                    <i class="bi bi-arrow-down ms-2"></i>
                 </a>
 
             </div>
 
+            <div class="col-lg-5">
 
-            <div class="hero-footnote">
+                <div class="prize-card">
 
-                <i class="bi bi-heart-fill"></i>
+                    <div class="prize-label">
+                        Potential prize
+                    </div>
 
-                Helping raise money for personalised
-                football strips for the team.
+                    <div class="prize">
+                        £40
+                    </div>
 
-            </div>
+                    <p class="mb-0 opacity-75">
+                        One lucky team selection will win
+                        £40 if it is the selected winner.
+                    </p>
 
-        </div>
+                    <div class="price-box">
+                        <small class="d-block opacity-50">
+                            ENTRY
+                        </small>
 
-    </div>
+                        <strong>£2</strong>
 
-</header>
-
-
-<!-- =====================================================
-     STATS
-====================================================== -->
-
-<section class="stats-wrap">
-
-    <div class="container">
-
-        <div class="stats">
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    £
-                </div>
-
-                <div>
-
-                    <strong>£2</strong>
-
-                    <small>
-                        Per entry
-                    </small>
+                        <span class="opacity-50">
+                            per team
+                        </span>
+                    </div>
 
                 </div>
 
             </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon green">
-                    <i class="bi bi-grid-3x3-gap-fill"></i>
-                </div>
-
-                <div>
-
-                    <strong id="availableStat">
-                        32
-                    </strong>
-
-                    <small>
-                        Teams available
-                    </small>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon gold">
-                    <i class="bi bi-trophy-fill"></i>
-                </div>
-
-                <div>
-
-                    <strong>£40</strong>
-
-                    <small>
-                        Winning prize
-                    </small>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    <i class="bi bi-person-hearts"></i>
-                </div>
-
-                <div>
-
-                    <strong>👕</strong>
-
-                    <small>
-                        Team strips
-                    </small>
-
-                </div>
-
-            </div>
-
 
         </div>
 
@@ -3476,310 +480,170 @@
 </section>
 
 
-<!-- =====================================================
-     TEAM SECTION
-====================================================== -->
+<!-- TEAMS -->
 
-<section
-    id="teams"
-    class="section"
->
+<section class="section" id="teams">
 
     <div class="container">
 
+        <div class="text-center">
 
-        <div class="section-heading">
-
-            <div class="section-kicker">
-                THE FOOTBALL CARD
-            </div>
-
-
-            <h2>
+            <h2 class="section-title">
                 Choose your team
             </h2>
 
-
-            <p>
-
-                Select one of the available teams below.
-                Once selected, that team is locked on this
-                browser and disappears from the available card.
-
+            <p class="section-subtitle">
+                Select one available football team below.
+                Once selected, it is locked and cannot be selected again.
             </p>
 
         </div>
 
-
-        <!-- Progress -->
-
-        <div class="progress-card">
-
-            <div class="progress-header">
-
-                <div>
-
-                    <div class="progress-title">
-                        CARD PROGRESS
-                    </div>
-
-                    <div class="progress-count">
-
-                        <span id="selectedCount">
-                            0
-                        </span>
-
-                        / 32 selected
-
-                    </div>
-
-                </div>
-
-
-                <div class="raised">
-
-                    £<span id="raisedAmount">0</span>
-
-                </div>
-
-            </div>
-
-
-            <div class="progress-track">
-
-                <div
-                    id="progressFill"
-                    class="progress-fill"
-                ></div>
-
-            </div>
-
-
-            <div class="progress-footer">
-
-                <span>
-
-                    <span class="green-dot"></span>
-
-                    <b id="remainingCount">
-                        32
-                    </b>
-
-                    teams available
-
-                </span>
-
-
-                <span>
-                    £64 when all teams are sold
-                </span>
-
-            </div>
-
+        <div id="teamGrid" class="team-grid">
+            <!-- JavaScript loads teams -->
         </div>
-
-
-        <!-- Winner -->
-
-        <div
-            id="winnerPanel"
-            class="winner-panel"
-        >
-
-            <div class="winner-icon">
-
-                <i class="bi bi-trophy-fill"></i>
-
-            </div>
-
-
-            <div>
-
-                <div class="winner-label">
-                    WINNING TEAM
-                </div>
-
-                <div
-                    id="winnerName"
-                    class="winner-name"
-                >
-                    -
-                </div>
-
-                <p class="winner-description">
-
-                    Congratulations — this team has won
-                    the £40 prize!
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- Complete -->
-
-        <div
-            id="completePanel"
-            class="complete-panel"
-        >
-
-            <div class="complete-icon">
-
-                <i class="bi bi-check-lg"></i>
-
-            </div>
-
-
-            <div>
-
-                <span class="complete-title">
-                    All teams have been selected!
-                </span>
-
-                <span class="complete-text">
-                    The football card is complete.
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- Teams -->
-
-        <div
-            id="teamGrid"
-            class="team-grid"
-        ></div>
-
 
     </div>
 
 </section>
 
 
-<!-- =====================================================
-     HOW IT WORKS
-====================================================== -->
+<!-- CHECKOUT PREVIEW -->
 
-<section
-    id="how"
-    class="section how-section"
->
+<section class="section bg-light">
 
     <div class="container">
 
+        <div class="row justify-content-center">
 
-        <div class="section-heading">
+            <div class="col-lg-7">
 
-            <div class="section-kicker">
-                HOW IT WORKS
+                <div class="checkout-card text-center">
+
+                    <div class="mb-3">
+                        <i class="bi bi-ticket-perforated fs-1"></i>
+                    </div>
+
+                    <h2 class="section-title">
+                        Your selection
+                    </h2>
+
+                    <p class="selected-text">
+                        Choose a team above to continue.
+                    </p>
+
+                    <div id="selectionArea">
+
+                        <div class="selected-team" id="selectedTeam">
+                            No team selected
+                        </div>
+
+                        <p class="text-secondary">
+                            £2 entry
+                        </p>
+
+                        <button
+                            id="continueBtn"
+                            class="btn-black w-100"
+                            disabled>
+                            Select a team first
+                        </button>
+
+                    </div>
+
+                </div>
+
             </div>
 
+        </div>
 
-            <h2>
-                Simple as 1, 2, 3.
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                How it works
             </h2>
 
-
-            <p>
-                Pick your team, pay your £2 and you're entered.
+            <p class="section-subtitle">
+                Three simple steps.
             </p>
 
         </div>
 
+        <div class="row g-3">
 
-        <div class="steps">
+            <div class="col-md-4">
 
+                <div class="step">
 
-            <div class="step">
+                    <div class="step-number">
+                        1
+                    </div>
 
-                <span class="step-number">
-                    01
-                </span>
+                    <h5>
+                        Pick a team
+                    </h5>
 
-
-                <div class="step-icon">
-
-                    <i class="bi bi-grid-3x3-gap-fill"></i>
-
-                </div>
-
-
-                <h3>
-                    Choose a team
-                </h3>
-
-
-                <p>
-
-                    Pick any available football team
-                    from the card for £2.
-
-                </p>
-
-            </div>
-
-
-            <div class="step">
-
-                <span class="step-number">
-                    02
-                </span>
-
-
-                <div class="step-icon">
-
-                    <i class="bi bi-person-check-fill"></i>
+                    <p>
+                        Choose one of the available football
+                        teams from the list.
+                    </p>
 
                 </div>
 
-
-                <h3>
-                    Enter your name
-                </h3>
-
-
-                <p>
-
-                    Enter your name so your selection
-                    can be recorded.
-
-                </p>
-
             </div>
 
+            <div class="col-md-4">
 
-            <div class="step">
+                <div class="step">
 
-                <span class="step-number">
-                    03
-                </span>
+                    <div class="step-number">
+                        2
+                    </div>
 
+                    <h5>
+                        Pay £2
+                    </h5>
 
-                <div class="step-icon">
-
-                    <i class="bi bi-credit-card-fill"></i>
+                    <p>
+                        Complete your £2 payment through
+                        Revolut.
+                    </p>
 
                 </div>
 
-
-                <h3>
-                    Pay £2
-                </h3>
-
-
-                <p>
-
-                    Pay through Revolut and use your
-                    selected team as the payment reference.
-
-                </p>
-
             </div>
 
+            <div class="col-md-4">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h5>
+                        Wait for the draw
+                    </h5>
+
+                    <p>
+                        If your team is selected as the
+                        winning team, you win £40.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -3788,131 +652,35 @@
 </section>
 
 
-<!-- =====================================================
-     PAYMENT
-====================================================== -->
+<!-- IMPORTANT INFO -->
 
-<section class="payment-section">
+<section class="section bg-light">
 
     <div class="container">
 
-        <div class="payment-card">
+        <div class="info-box">
 
+            <div class="row align-items-center g-4">
 
-            <div class="payment-top">
+                <div class="col-md-2 text-center">
 
-                <div class="payment-icon">
-
-                    <i class="bi bi-credit-card-fill"></i>
-
-                </div>
-
-
-                <div>
-
-                    <div class="payment-kicker">
-                        REVOLUT PAYMENT
-                    </div>
-
-                    <div class="payment-title">
-                        Pay your £2 entry
-                    </div>
+                    <i class="bi bi-info-circle-fill"></i>
 
                 </div>
 
-            </div>
+                <div class="col-md-10">
 
+                    <h4 class="fw-bold">
+                        Payment reference
+                    </h4>
 
-            <p class="payment-description">
-
-                Select a team above first.
-
-                Once you've selected your team,
-                the payment area below will show your
-                chosen team and payment reference.
-
-            </p>
-
-
-            <!-- Selected team -->
-
-            <div
-                id="paymentSelection"
-                class="payment-selection"
-            >
-
-                <div class="payment-selection-label">
-                    YOUR SELECTED TEAM
-                </div>
-
-
-                <div
-                    id="paymentTeam"
-                    class="payment-selection-team"
-                >
-                    -
-                </div>
-
-
-                <div class="payment-selection-reference">
-
-                    Payment reference:
-
-                    <strong id="paymentReference">
-                        -
-                    </strong>
+                    <p class="mb-0 text-secondary">
+                        When making your Revolut payment,
+                        please use the <strong>football team you selected</strong>
+                        as your payment reference.
+                    </p>
 
                 </div>
-
-            </div>
-
-
-            <!-- Revolut -->
-
-            <div class="revolut-wrapper">
-
-                <iframe
-                    id="revolutFrame"
-                    src="https://revolut.me/moddingxz?currency=GBP&amount=2"
-                    title="Revolut £2 Payment"
-                    loading="lazy"
-                    allow="payment"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                ></iframe>
-
-            </div>
-
-
-            <div class="revolut-note">
-
-                <i class="bi bi-info-circle-fill"></i>
-
-                <span>
-
-                    When making your payment, please use
-                    <strong>your selected football team</strong>
-                    as the payment reference.
-
-                </span>
-
-            </div>
-
-
-            <!-- Fallback -->
-
-            <div class="payment-fallback">
-
-                <a
-                    href="https://revolut.me/moddingxz?currency=GBP&amount=2"
-                    class="fallback-button"
-                    target="_self"
-                >
-
-                    <i class="bi bi-arrow-up-right-circle-fill"></i>
-
-                    Open Revolut here
-
-                </a>
 
             </div>
 
@@ -3923,67 +691,18 @@
 </section>
 
 
-<!-- =====================================================
-     FOOTER
-====================================================== -->
+<!-- FOOTER -->
 
 <footer>
 
-    <div class="container">
+    <div class="container text-center">
 
-        <div class="footer-inner">
+        <strong class="text-dark">
+            ⚽ Football Team Fundraiser
+        </strong>
 
-
-            <div>
-
-                <a
-                    href="#top"
-                    class="footer-brand"
-                >
-
-                    <span class="footer-icon">
-                        ⚽
-                    </span>
-
-                    Football Card
-
-                </a>
-
-
-                <p class="footer-text">
-
-                    Raising money towards personalised
-                    football strips for the team.
-
-                </p>
-
-            </div>
-
-
-            <div class="footer-right">
-
-                <span>
-                    £2 ENTRY
-                </span>
-
-                <span>
-                    £40 PRIZE
-                </span>
-
-
-                <button
-                    type="button"
-                    class="admin-button"
-                    id="adminButton"
-                    aria-label="Admin"
-                >
-
-                    <i class="bi bi-lock-fill"></i>
-
-                </button>
-
-            </div>
-
+        <div class="mt-2">
+            Thank you for supporting the team ❤️
         </div>
 
     </div>
@@ -3991,324 +710,77 @@
 </footer>
 
 
-<!-- =====================================================
-     TEAM MODAL
-====================================================== -->
+<!-- PAYMENT MODAL -->
 
-<div
-    class="modal fade"
-    id="teamModal"
-    tabindex="-1"
-    aria-hidden="true"
->
+<div class="modal fade" id="paymentModal" tabindex="-1">
 
     <div class="modal-dialog modal-dialog-centered">
 
-        <div class="modal-content custom-modal">
+        <div class="modal-content">
 
+            <div class="modal-header">
 
-            <div class="modal-head">
-
-                <div class="modal-kicker">
-                    YOUR SELECTION
-                </div>
-
-                <div class="modal-title">
-                    Confirm your team
-                </div>
-
-            </div>
-
-
-            <div class="modal-body-custom">
-
-
-                <div class="selected-team">
-
-                    <div class="selected-team-icon">
-
-                        <i class="bi bi-dribbble"></i>
-
-                    </div>
-
-
-                    <div>
-
-                        <span class="selected-label">
-                            SELECTED TEAM
-                        </span>
-
-                        <span
-                            id="modalTeam"
-                            class="selected-name"
-                        >
-                            -
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <form id="teamForm">
-
-                    <label
-                        for="nameInput"
-                        class="form-label-custom"
-                    >
-                        Your name
-                    </label>
-
-
-                    <input
-                        id="nameInput"
-                        type="text"
-                        class="form-control form-control-custom"
-                        maxlength="50"
-                        autocomplete="name"
-                        placeholder="Enter your name"
-                        required
-                    >
-
-
-                    <div class="modal-info">
-
-                        <i class="bi bi-info-circle-fill"></i>
-
-                        <span>
-
-                            Once confirmed, this team will be
-                            removed from the available teams
-                            on this browser.
-
-                            <br><br>
-
-                            Pay exactly <strong>£2</strong>
-                            and use
-                            <strong id="modalReference">
-                                your team
-                            </strong>
-                            as the payment reference.
-
-                        </span>
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="confirm-button"
-                    >
-
-                        Confirm team & pay £2
-
-                        <i class="bi bi-arrow-right"></i>
-
-                    </button>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================================
-     ADMIN LOGIN
-====================================================== -->
-
-<div
-    class="modal fade"
-    id="adminLoginModal"
-    tabindex="-1"
->
-
-    <div class="modal-dialog modal-dialog-centered">
-
-        <div class="modal-content custom-modal">
-
-
-            <div class="modal-head">
-
-                <div class="modal-kicker">
-                    PRIVATE AREA
-                </div>
-
-                <div class="modal-title">
-                    Admin access
-                </div>
-
-            </div>
-
-
-            <div class="modal-body-custom">
-
-
-                <label
-                    for="adminPassword"
-                    class="form-label-custom"
-                >
-                    Admin password
-                </label>
-
-
-                <input
-                    id="adminPassword"
-                    type="password"
-                    class="form-control form-control-custom"
-                    placeholder="Enter admin password"
-                >
-
-
-                <div
-                    id="adminError"
-                    class="admin-error"
-                >
-                    Incorrect password.
-                </div>
-
+                <h5 class="modal-title fw-bold">
+                    Complete your entry
+                </h5>
 
                 <button
-                    id="adminLogin"
                     type="button"
-                    class="confirm-button mt-3"
-                >
-
-                    Unlock admin
-
-                    <i class="bi bi-unlock-fill"></i>
-
+                    class="btn-close"
+                    data-bs-dismiss="modal">
                 </button>
 
             </div>
 
-        </div>
+            <div class="modal-body">
 
-    </div>
+                <div class="checkout-header">
 
-</div>
+                    <small class="opacity-50">
+                        YOUR TEAM
+                    </small>
 
-
-<!-- =====================================================
-     ADMIN PANEL
-====================================================== -->
-
-<div
-    class="modal fade"
-    id="adminModal"
-    tabindex="-1"
->
-
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-
-        <div class="modal-content custom-modal">
-
-
-            <div class="modal-head">
-
-                <div class="modal-kicker">
-                    CONTROL PANEL
-                </div>
-
-                <div class="modal-title">
-                    Football Card Admin
-                </div>
-
-            </div>
-
-
-            <div class="modal-body-custom">
-
-
-                <div class="admin-stats">
-
-
-                    <div class="admin-stat">
-
-                        <small>
-                            ENTRIES
-                        </small>
-
-                        <strong id="adminEntries">
-                            0
-                        </strong>
-
+                    <div
+                        class="checkout-team"
+                        id="modalTeam">
                     </div>
 
-
-                    <div class="admin-stat">
-
-                        <small>
-                            RAISED
-                        </small>
-
-                        <strong>
-                            £<span id="adminRaised">0</span>
-                        </strong>
-
+                    <div class="mt-2 opacity-75">
+                        Entry: £2
                     </div>
-
-
-                    <div class="admin-stat">
-
-                        <small>
-                            REMAINING
-                        </small>
-
-                        <strong id="adminRemaining">
-                            32
-                        </strong>
-
-                    </div>
-
 
                 </div>
 
+                <div class="mb-4">
 
-                <div class="admin-list-title">
-                    Selected teams
+                    <label class="form-label fw-bold">
+                        Payment reference
+                    </label>
+
+                    <input
+                        type="text"
+                        id="paymentReference"
+                        class="form-control form-control-lg"
+                        readonly>
+
+                    <div class="form-text">
+                        Use this team name as your Revolut payment reference.
+                    </div>
+
                 </div>
 
+                <button
+                    class="payment-button"
+                    onclick="openRevolut()">
 
-                <div
-                    id="adminList"
-                    class="admin-list"
-                ></div>
+                    <i class="bi bi-credit-card me-2"></i>
 
+                    Pay £2 with Revolut
 
-                <div class="admin-actions">
+                </button>
 
-
-                    <button
-                        type="button"
-                        id="drawWinner"
-                        class="admin-action draw-button"
-                    >
-
-                        <i class="bi bi-trophy-fill me-1"></i>
-
-                        Draw £40 winner
-
-                    </button>
-
-
-                    <button
-                        type="button"
-                        id="resetCard"
-                        class="admin-action reset-button"
-                    >
-
-                        <i class="bi bi-arrow-counterclockwise me-1"></i>
-
-                        Reset card
-
-                    </button>
-
-
+                <div class="payment-note">
+                    Revolut will open inside this checkout window.
                 </div>
 
             </div>
@@ -4320,59 +792,28 @@
 </div>
 
 
-<!-- =====================================================
-     TOAST
-====================================================== -->
-
-<div
-    id="toast"
-    class="toast-box"
->
-
-    <span
-        id="toastTitle"
-        class="toast-title"
-    >
-        Success
-    </span>
-
-
-    <span
-        id="toastText"
-        class="toast-text"
-    >
-        -
-    </span>
-
-</div>
-
-
-<!-- =====================================================
-     EXTERNAL JAVASCRIPT
-====================================================== -->
+<!-- BOOTSTRAP JS -->
 
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-></script>
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
-
-<!-- =====================================================
-     CUSTOM JAVASCRIPT
-====================================================== -->
 
 <script>
 
-    /* =====================================================
-       SETTINGS
-    ====================================================== */
+    /*
+    ========================================
+       FOOTBALL TEAMS
+    ========================================
+    */
 
-    const TEAMS = [
+    const teams = [
 
         "Newcastle UTD",
         "Aston Villa",
-        "Man UTD",
+        "Man Utd",
         "Liverpool",
-        "Leeds UTD",
+        "Leeds Utd",
         "Arsenal",
         "Middlesbrough",
         "Notts Forest",
@@ -4397,1118 +838,232 @@
         "Rangers",
         "Preston",
         "Crystal Palace",
-        "Sheffield UTD",
+        "Sheffield Utd",
         "Aberdeen",
         "Hibernian"
 
     ];
 
 
-    const ENTRY_PRICE = 2;
+    /*
+    ========================================
+       STORAGE
+    ========================================
+    */
 
-    const PRIZE = 40;
+    const STORAGE_KEY = "footballFundraiserSelectedTeams";
+
+    let selectedTeams =
+        JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
 
-    const STORAGE_KEY =
-        "football-card-v2";
-
-
-    const REVOLUT_URL =
-        "https://revolut.me/moddingxz?currency=GBP&amount=2";
+    let currentTeam = null;
 
 
     /*
-       CHANGE THIS PASSWORD.
-
-       NOTE:
-       GitHub Pages is static hosting.
-       Therefore this is NOT a secure server-side
-       authentication system.
+    ========================================
+       LOAD TEAMS
+    ========================================
     */
-
-    const ADMIN_PASSWORD =
-        "change-this-password";
-
-
-    /* =====================================================
-       STATE
-    ====================================================== */
-
-    let state =
-        loadState();
-
-
-    let selectedTeam =
-        null;
-
-
-    /* =====================================================
-       BOOTSTRAP MODALS
-    ====================================================== */
-
-    const teamModal =
-        new bootstrap.Modal(
-            document.getElementById(
-                "teamModal"
-            )
-        );
-
-
-    const adminLoginModal =
-        new bootstrap.Modal(
-            document.getElementById(
-                "adminLoginModal"
-            )
-        );
-
-
-    const adminModal =
-        new bootstrap.Modal(
-            document.getElementById(
-                "adminModal"
-            )
-        );
-
-
-    /* =====================================================
-       LOAD STATE
-    ====================================================== */
-
-    function loadState() {
-
-        try {
-
-            const saved =
-                localStorage.getItem(
-                    STORAGE_KEY
-                );
-
-
-            if (!saved) {
-
-                return {
-
-                    selections: {},
-
-                    winner: null
-
-                };
-
-            }
-
-
-            const data =
-                JSON.parse(saved);
-
-
-            return {
-
-                selections:
-                    data.selections || {},
-
-                winner:
-                    data.winner || null
-
-            };
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Storage error:",
-                error
-            );
-
-
-            return {
-
-                selections: {},
-
-                winner: null
-
-            };
-
-        }
-
-    }
-
-
-    /* =====================================================
-       SAVE STATE
-    ====================================================== */
-
-    function saveState() {
-
-        localStorage.setItem(
-
-            STORAGE_KEY,
-
-            JSON.stringify(state)
-
-        );
-
-    }
-
-
-    /* =====================================================
-       ESCAPE HTML
-    ====================================================== */
-
-    function escapeHTML(value) {
-
-        const element =
-            document.createElement(
-                "div"
-            );
-
-
-        element.textContent =
-            value;
-
-
-        return element.innerHTML;
-
-    }
-
-
-    /* =====================================================
-       RENDER TEAMS
-    ====================================================== */
 
     function renderTeams() {
 
-        const grid =
-            document.getElementById(
-                "teamGrid"
-            );
+        const grid = document.getElementById("teamGrid");
 
+        grid.innerHTML = "";
 
-        grid.innerHTML =
-            "";
+        teams.forEach(team => {
 
+            const button = document.createElement("button");
 
-        TEAMS.forEach(
-            (team,index) => {
+            button.className = "team-btn";
 
-                const button =
-                    document.createElement(
-                        "button"
-                    );
+            button.textContent = team;
 
+            /*
+            Check whether this team
+            has already been selected.
+            */
 
-                button.type =
-                    "button";
+            if (selectedTeams.includes(team)) {
 
+                button.classList.add("selected");
 
-                button.className =
-                    "team-card";
+                button.disabled = true;
 
+            } else {
 
-                const selection =
-                    state.selections[
-                        team
-                    ];
+                button.addEventListener("click", () => {
 
+                    selectTeam(team);
 
-                const selected =
-                    Boolean(
-                        selection
-                    );
-
-
-                const winner =
-                    state.winner ===
-                    team;
-
-
-                if (selected) {
-
-                    button.classList.add(
-                        "selected"
-                    );
-
-                }
-
-
-                if (winner) {
-
-                    button.classList.remove(
-                        "selected"
-                    );
-
-                    button.classList.add(
-                        "winner"
-                    );
-
-                }
-
-
-                if (
-                    selected ||
-                    state.winner
-                ) {
-
-                    button.disabled =
-                        true;
-
-                }
-
-
-                let icon =
-                    "⚽";
-
-
-                let status =
-                    "AVAILABLE";
-
-
-                if (selected) {
-
-                    icon =
-                        "🔒";
-
-                    status =
-                        "SELECTED";
-
-                }
-
-
-                if (winner) {
-
-                    icon =
-                        "🏆";
-
-                    status =
-                        "WINNER — £40";
-
-                }
-
-
-                button.innerHTML = `
-
-                    <span class="team-number">
-                        ${String(index + 1).padStart(2,"0")}
-                    </span>
-
-                    <span class="team-icon">
-                        ${icon}
-                    </span>
-
-                    <span class="team-name">
-                        ${escapeHTML(team)}
-                    </span>
-
-                    <span class="team-status">
-                        ${status}
-                    </span>
-
-                `;
-
-
-                if (
-                    !selected &&
-                    !state.winner
-                ) {
-
-                    button.addEventListener(
-                        "click",
-                        () => openTeam(team)
-                    );
-
-                }
-
-
-                grid.appendChild(
-                    button
-                );
+                });
 
             }
-        );
+
+            grid.appendChild(button);
+
+        });
 
     }
 
 
-    /* =====================================================
-       UPDATE STATS
-    ====================================================== */
+    /*
+    ========================================
+       SELECT TEAM
+    ========================================
+    */
 
-    function updateStats() {
+    function selectTeam(team) {
 
-        const selected =
-            Object.keys(
-                state.selections
-            ).length;
+        currentTeam = team;
 
+        document.getElementById("selectedTeam")
+            .textContent = team;
 
-        const remaining =
-            TEAMS.length -
-            selected;
+        const continueBtn =
+            document.getElementById("continueBtn");
 
+        continueBtn.disabled = false;
 
-        const raised =
-            selected *
-            ENTRY_PRICE;
+        continueBtn.textContent = "Continue to payment";
 
+        continueBtn.onclick = openCheckout;
 
-        const percentage =
-            (
-                selected /
-                TEAMS.length
-            ) * 100;
+        /*
+        Scroll down to checkout
+        */
 
-
-        document.getElementById(
-            "selectedCount"
-        ).textContent =
-            selected;
-
-
-        document.getElementById(
-            "remainingCount"
-        ).textContent =
-            remaining;
-
-
-        document.getElementById(
-            "raisedAmount"
-        ).textContent =
-            raised;
-
-
-        document.getElementById(
-            "availableStat"
-        ).textContent =
-            remaining;
-
-
-        document.getElementById(
-            "progressFill"
-        ).style.width =
-            percentage + "%";
-
-
-        const complete =
-            document.getElementById(
-                "completePanel"
-            );
-
-
-        complete.style.display =
-            selected === TEAMS.length
-                ? "flex"
-                : "none";
-
-
-        const winnerPanel =
-            document.getElementById(
-                "winnerPanel"
-            );
-
-
-        if (state.winner) {
-
-            winnerPanel.style.display =
-                "flex";
-
-
-            document.getElementById(
-                "winnerName"
-            ).textContent =
-                state.winner;
-
-        }
-
-        else {
-
-            winnerPanel.style.display =
-                "none";
-
-        }
+        document.getElementById("selectionArea")
+            .scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
 
     }
 
 
-    /* =====================================================
-       RENDER
-    ====================================================== */
+    /*
+    ========================================
+       OPEN CHECKOUT
+    ========================================
+    */
 
-    function render() {
+    function openCheckout() {
+
+        if (!currentTeam) {
+            return;
+        }
+
+        document.getElementById("modalTeam")
+            .textContent = currentTeam;
+
+        document.getElementById("paymentReference")
+            .value = currentTeam;
+
+        const modal =
+            new bootstrap.Modal(
+                document.getElementById("paymentModal")
+            );
+
+        modal.show();
+
+    }
+
+
+    /*
+    ========================================
+       REVOLUT
+    ========================================
+    */
+
+    function openRevolut() {
+
+        if (!currentTeam) {
+            return;
+        }
+
+        /*
+        IMPORTANT:
+
+        The Revolut link contains the £2 amount.
+
+        We open it inside an iframe-style
+        modal window rather than navigating
+        away from the fundraiser.
+
+        Some payment providers block iframe
+        embedding for security reasons.
+
+        If Revolut blocks embedding, the
+        fallback below opens the payment
+        page normally.
+        */
+
+        const revolutURL =
+            "https://revolut.me/moddingxz?currency=GBP&amount=200";
+
+
+        /*
+        Mark team as selected BEFORE payment.
+
+        This means once somebody starts the
+        checkout, that team is reserved.
+        */
+
+        if (!selectedTeams.includes(currentTeam)) {
+
+            selectedTeams.push(currentTeam);
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(selectedTeams)
+            );
+
+        }
 
         renderTeams();
 
-        updateStats();
+
+        /*
+        Open Revolut.
+
+        Attempt popup first.
+        */
+
+        const paymentWindow =
+            window.open(
+                revolutURL,
+                "_blank",
+                "width=500,height=800"
+            );
+
+
+        /*
+        If browser blocks popup,
+        give the user a clickable fallback.
+        */
+
+        if (!paymentWindow) {
+
+            alert(
+                "Please allow pop-ups to complete your Revolut payment."
+            );
+
+        }
 
     }
 
 
-    /* =====================================================
-       OPEN TEAM
-    ====================================================== */
-
-    function openTeam(team) {
-
-        if (
-            state.selections[team]
-        ) {
-
-            showToast(
-                "Team unavailable",
-                "That team has already been selected."
-            );
-
-            return;
-
-        }
-
-
-        if (state.winner) {
-            return;
-        }
-
-
-        selectedTeam =
-            team;
-
-
-        document.getElementById(
-            "modalTeam"
-        ).textContent =
-            team;
-
-
-        document.getElementById(
-            "modalReference"
-        ).textContent =
-            team;
-
-
-        document.getElementById(
-            "nameInput"
-        ).value =
-            "";
-
-
-        teamModal.show();
-
-
-        setTimeout(
-            () => {
-
-                document.getElementById(
-                    "nameInput"
-                ).focus();
-
-            },
-            350
-        );
-
-    }
-
-
-    /* =====================================================
-       CONFIRM TEAM
-    ====================================================== */
-
-    document
-        .getElementById(
-            "teamForm"
-        )
-        .addEventListener(
-            "submit",
-            function(event) {
-
-                event.preventDefault();
-
-
-                if (!selectedTeam) {
-                    return;
-                }
-
-
-                const name =
-                    document
-                        .getElementById(
-                            "nameInput"
-                        )
-                        .value
-                        .trim();
-
-
-                if (!name) {
-
-                    return;
-
-                }
-
-
-                /*
-                   Check again before saving.
-                */
-
-                if (
-                    state.selections[
-                        selectedTeam
-                    ]
-                ) {
-
-                    teamModal.hide();
-
-                    showToast(
-                        "Team unavailable",
-                        "That team has already been selected."
-                    );
-
-                    render();
-
-                    return;
-
-                }
-
-
-                /*
-                   Save selection.
-                */
-
-                state.selections[
-                    selectedTeam
-                ] = {
-
-                    name:
-                        name,
-
-                    timestamp:
-                        new Date()
-                            .toISOString()
-
-                };
-
-
-                saveState();
-
-
-                const chosen =
-                    selectedTeam;
-
-
-                render();
-
-
-                teamModal.hide();
-
-
-                /*
-                   Show payment details.
-                */
-
-                document.getElementById(
-                    "paymentSelection"
-                ).style.display =
-                    "block";
-
-
-                document.getElementById(
-                    "paymentTeam"
-                ).textContent =
-                    chosen;
-
-
-                document.getElementById(
-                    "paymentReference"
-                ).textContent =
-                    chosen;
-
-
-                /*
-                   Scroll to payment.
-                */
-
-                setTimeout(
-                    () => {
-
-                        document
-                            .querySelector(
-                                ".payment-section"
-                            )
-                            .scrollIntoView({
-                                behavior:
-                                    "smooth"
-                            });
-
-                    },
-                    450
-                );
-
-
-                showToast(
-                    "Team selected!",
-                    `${chosen} is now reserved on this browser.`
-                );
-
-
-                selectedTeam =
-                    null;
-
-            }
-        );
-
-
-    /* =====================================================
-       ADMIN BUTTON
-    ====================================================== */
-
-    document
-        .getElementById(
-            "adminButton"
-        )
-        .addEventListener(
-            "click",
-            function() {
-
-                document.getElementById(
-                    "adminPassword"
-                ).value =
-                    "";
-
-
-                document.getElementById(
-                    "adminError"
-                ).style.display =
-                    "none";
-
-
-                adminLoginModal.show();
-
-            }
-        );
-
-
-    /* =====================================================
-       ADMIN LOGIN
-    ====================================================== */
-
-    document
-        .getElementById(
-            "adminLogin"
-        )
-        .addEventListener(
-            "click",
-            loginAdmin
-        );
-
-
-    document
-        .getElementById(
-            "adminPassword"
-        )
-        .addEventListener(
-            "keydown",
-            function(event) {
-
-                if (
-                    event.key ===
-                    "Enter"
-                ) {
-
-                    loginAdmin();
-
-                }
-
-            }
-        );
-
-
-    function loginAdmin() {
-
-        const password =
-            document.getElementById(
-                "adminPassword"
-            ).value;
-
-
-        if (
-            password !==
-            ADMIN_PASSWORD
-        ) {
-
-            document.getElementById(
-                "adminError"
-            ).style.display =
-                "block";
-
-
-            return;
-
-        }
-
-
-        adminLoginModal.hide();
-
-
-        setTimeout(
-            () => {
-
-                updateAdmin();
-
-                adminModal.show();
-
-            },
-            300
-        );
-
-    }
-
-
-    /* =====================================================
-       ADMIN PANEL
-    ====================================================== */
-
-    function updateAdmin() {
-
-        const entries =
-            Object.entries(
-                state.selections
-            );
-
-
-        document.getElementById(
-            "adminEntries"
-        ).textContent =
-            entries.length;
-
-
-        document.getElementById(
-            "adminRaised"
-        ).textContent =
-            entries.length *
-            ENTRY_PRICE;
-
-
-        document.getElementById(
-            "adminRemaining"
-        ).textContent =
-            TEAMS.length -
-            entries.length;
-
-
-        const list =
-            document.getElementById(
-                "adminList"
-            );
-
-
-        list.innerHTML =
-            "";
-
-
-        if (!entries.length) {
-
-            list.innerHTML = `
-
-                <div class="text-center py-4 text-secondary">
-
-                    No teams selected yet.
-
-                </div>
-
-            `;
-
-
-            return;
-
-        }
-
-
-        entries
-            .sort(
-                (a,b) =>
-
-                    TEAMS.indexOf(a[0]) -
-                    TEAMS.indexOf(b[0])
-
-            )
-            .forEach(
-                ([team,data]) => {
-
-                    const row =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    row.className =
-                        "admin-entry";
-
-
-                    row.innerHTML = `
-
-                        <div>
-
-                            <div class="admin-team">
-                                ${escapeHTML(team)}
-                            </div>
-
-                            <div class="admin-person">
-                                ${escapeHTML(data.name)}
-                            </div>
-
-                        </div>
-
-                        <div class="admin-price">
-                            £2
-                        </div>
-
-                    `;
-
-
-                    list.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-    }
-
-
-    /* =====================================================
-       DRAW WINNER
-    ====================================================== */
-
-    document
-        .getElementById(
-            "drawWinner"
-        )
-        .addEventListener(
-            "click",
-            function() {
-
-                const selected =
-                    Object.keys(
-                        state.selections
-                    );
-
-
-                if (
-                    selected.length !==
-                    TEAMS.length
-                ) {
-
-                    showToast(
-                        "Card not complete",
-                        "All 32 teams must be selected before drawing."
-                    );
-
-                    return;
-
-                }
-
-
-                if (state.winner) {
-
-                    showToast(
-                        "Winner already drawn",
-                        `${state.winner} has already won.`
-                    );
-
-                    return;
-
-                }
-
-
-                const confirmed =
-                    confirm(
-                        "Draw the £40 winner?\n\nThis cannot be undone."
-                    );
-
-
-                if (!confirmed) {
-                    return;
-                }
-
-
-                const index =
-                    Math.floor(
-                        Math.random() *
-                        selected.length
-                    );
-
-
-                state.winner =
-                    selected[index];
-
-
-                saveState();
-
-                render();
-
-                updateAdmin();
-
-
-                showToast(
-                    "🏆 Winner drawn!",
-                    `${state.winner} has won the £40 prize!`
-                );
-
-            }
-        );
-
-
-    /* =====================================================
-       RESET CARD
-    ====================================================== */
-
-    document
-        .getElementById(
-            "resetCard"
-        )
-        .addEventListener(
-            "click",
-            function() {
-
-                const first =
-                    confirm(
-                        "Reset the football card?"
-                    );
-
-
-                if (!first) {
-                    return;
-                }
-
-
-                const second =
-                    confirm(
-                        "This will delete every selection and the winner from this browser."
-                    );
-
-
-                if (!second) {
-                    return;
-                }
-
-
-                state = {
-
-                    selections: {},
-
-                    winner: null
-
-                };
-
-
-                saveState();
-
-
-                document.getElementById(
-                    "paymentSelection"
-                ).style.display =
-                    "none";
-
-
-                render();
-
-                updateAdmin();
-
-
-                showToast(
-                    "Card reset",
-                    "All selections have been removed."
-                );
-
-            }
-        );
-
-
-    /* =====================================================
-       TOAST
-    ====================================================== */
-
-    let toastTimer;
-
-
-    function showToast(
-        title,
-        message
-    ) {
-
-        const toast =
-            document.getElementById(
-                "toast"
-            );
-
-
-        document.getElementById(
-            "toastTitle"
-        ).textContent =
-            title;
-
-
-        document.getElementById(
-            "toastText"
-        ).textContent =
-            message;
-
-
-        toast.classList.add(
-            "show"
-        );
-
-
-        clearTimeout(
-            toastTimer
-        );
-
-
-        toastTimer =
-            setTimeout(
-                () => {
-
-                    toast.classList.remove(
-                        "show"
-                    );
-
-                },
-                4000
-            );
-
-    }
-
-
-    /* =====================================================
-       CROSS-TAB SYNC
-    ====================================================== */
-
-    window.addEventListener(
-        "storage",
-        function(event) {
-
-            if (
-                event.key ===
-                STORAGE_KEY
-            ) {
-
-                state =
-                    loadState();
-
-
-                render();
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
+    /*
+    ========================================
        INITIAL LOAD
-    ====================================================== */
+    ========================================
+    */
 
-    render();
+    renderTeams();
 
 </script>
 
-
 </body>
-
 </html>
