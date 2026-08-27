@@ -1,52 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="theme-color" content="#050505">
-    <meta name="description" content="Football Card fundraiser — choose a team for £2 for your chance to win £40.">
+
+    <meta
+        name="description"
+        content="Football Card fundraiser. Pick a team for £2 and you could win £40."
+    >
 
     <title>Football Card | £2 Entry | £40 Prize</title>
 
-    <!-- Bootstrap -->
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
-    <!-- Bootstrap Icons -->
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
     >
 
-    <!-- Google Font -->
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet"
     >
 
+
     <style>
 
         :root {
             --black: #050505;
-            --black-soft: #111111;
+            --black-2: #101010;
+            --black-3: #181818;
+
             --white: #ffffff;
 
             --green: #16a05a;
-            --green-bright: #39d477;
+            --green-bright: #3cdb7d;
             --green-light: #eaf8f0;
 
-            --gold: #f4bd3d;
+            --gold: #f5bd3d;
             --gold-light: #fff7df;
 
-            --grey-bg: #f6f6f6;
-            --grey: #999999;
-            --grey-dark: #666666;
+            --grey-1: #f5f5f5;
+            --grey-2: #ededed;
+            --grey-3: #999;
+            --grey-4: #666;
 
             --border: #e5e5e5;
 
@@ -55,8 +77,8 @@
             --shadow:
                 0 20px 60px rgba(0,0,0,.08);
 
-            --shadow-large:
-                0 30px 80px rgba(0,0,0,.15);
+            --shadow-hover:
+                0 25px 70px rgba(0,0,0,.14);
         }
 
 
@@ -72,10 +94,15 @@
 
         body {
             margin: 0;
-            background: var(--grey-bg);
+            background: #f7f7f7;
             color: var(--black);
             font-family: "Inter", Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
+        }
+
+
+        body.modal-open {
+            padding-right: 0 !important;
         }
 
 
@@ -85,20 +112,20 @@
         }
 
 
+        a {
+            text-decoration: none;
+        }
+
+
         button,
         input {
             font-family: inherit;
         }
 
 
-        a {
-            text-decoration: none;
-        }
-
-
-        /* =========================================
+        /* =====================================================
            NAVIGATION
-        ========================================= */
+        ====================================================== */
 
         .site-nav {
             position: sticky;
@@ -108,10 +135,12 @@
             height: 74px;
 
             background: rgba(255,255,255,.94);
-            border-bottom: 1px solid rgba(0,0,0,.07);
 
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            border-bottom:
+                1px solid rgba(0,0,0,.07);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
 
@@ -131,7 +160,7 @@
 
             color: var(--black);
 
-            font-size: .8rem;
+            font-size: .82rem;
             font-weight: 900;
         }
 
@@ -154,7 +183,7 @@
 
             border-radius: 13px;
 
-            font-size: 1.1rem;
+            font-size: 1.15rem;
         }
 
 
@@ -165,51 +194,53 @@
 
             color: #999;
 
-            font-size: .47rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
+            font-size: .49rem;
+            font-weight: 700;
+
+            letter-spacing: 1px;
         }
 
 
-        .nav-button {
+        .nav-cta {
             display: inline-flex;
             align-items: center;
             gap: 8px;
 
             padding: 11px 17px;
 
+            border-radius: 100px;
+
             background: var(--black);
             color: white;
 
-            border-radius: 100px;
-
-            font-size: .6rem;
+            font-size: .62rem;
             font-weight: 900;
 
             transition: .2s ease;
         }
 
 
-        .nav-button:hover {
+        .nav-cta:hover {
             background: var(--green);
             color: white;
+
             transform: translateY(-2px);
         }
 
 
-        /* =========================================
+        /* =====================================================
            HERO
-        ========================================= */
+        ====================================================== */
 
         .hero {
             position: relative;
 
-            min-height: 620px;
+            min-height: 600px;
+
+            overflow: hidden;
 
             display: flex;
             align-items: center;
-
-            overflow: hidden;
 
             background: var(--black);
             color: white;
@@ -220,26 +251,34 @@
             position: absolute;
             inset: 0;
 
-            opacity: .05;
+            opacity: .055;
 
             background-image:
-                linear-gradient(rgba(255,255,255,.7) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.7) 1px, transparent 1px);
+                linear-gradient(
+                    rgba(255,255,255,.6) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.6) 1px,
+                    transparent 1px
+                );
 
             background-size: 60px 60px;
         }
 
 
-        .hero-circle {
+        .hero-ball {
             position: absolute;
 
-            width: 650px;
-            height: 650px;
+            width: 600px;
+            height: 600px;
 
-            right: -300px;
-            top: -280px;
+            right: -270px;
+            top: -250px;
 
             border: 1px solid rgba(255,255,255,.12);
+
             border-radius: 50%;
 
             box-shadow:
@@ -255,14 +294,14 @@
             width: 500px;
             height: 500px;
 
-            left: -300px;
+            left: -280px;
             bottom: -350px;
 
             background: rgba(22,160,90,.25);
 
             border-radius: 50%;
 
-            filter: blur(100px);
+            filter: blur(90px);
         }
 
 
@@ -272,7 +311,7 @@
 
             max-width: 850px;
 
-            padding: 100px 0 150px;
+            padding: 100px 0 155px;
         }
 
 
@@ -283,10 +322,11 @@
 
             margin-bottom: 25px;
 
-            color: rgba(255,255,255,.55);
+            color: rgba(255,255,255,.52);
 
-            font-size: .56rem;
+            font-size: .57rem;
             font-weight: 900;
+
             letter-spacing: 2px;
         }
 
@@ -295,9 +335,9 @@
             width: 7px;
             height: 7px;
 
-            background: var(--green-bright);
-
             border-radius: 50%;
+
+            background: var(--green-bright);
 
             box-shadow: 0 0 15px var(--green-bright);
         }
@@ -306,7 +346,8 @@
         .hero h1 {
             margin: 0;
 
-            font-size: clamp(3.4rem, 8vw, 7rem);
+            font-size: clamp(3.3rem,8vw,7rem);
+
             line-height: .9;
 
             letter-spacing: -5px;
@@ -317,37 +358,39 @@
 
         .hero h1 span {
             display: block;
+
             color: var(--green-bright);
         }
 
 
-        .hero-description {
-            max-width: 610px;
+        .hero-text {
+            max-width: 620px;
 
             margin: 30px 0 0;
 
             color: rgba(255,255,255,.6);
 
             font-size: .82rem;
+
             line-height: 1.9;
         }
 
 
-        .hero-description strong {
+        .hero-text strong {
             color: white;
         }
 
 
-        .hero-actions {
+        .hero-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
 
-            margin-top: 32px;
+            margin-top: 31px;
         }
 
 
-        .hero-action {
+        .hero-button {
             min-height: 52px;
 
             display: inline-flex;
@@ -355,24 +398,24 @@
             justify-content: center;
             gap: 9px;
 
-            padding: 0 23px;
+            padding: 0 22px;
 
             border-radius: 100px;
 
-            font-size: .63rem;
+            font-size: .65rem;
             font-weight: 900;
 
             transition: .2s ease;
         }
 
 
-        .hero-action-primary {
+        .hero-button-primary {
             background: white;
             color: var(--black);
         }
 
 
-        .hero-action-primary:hover {
+        .hero-button-primary:hover {
             background: var(--green-bright);
             color: var(--black);
 
@@ -380,19 +423,23 @@
         }
 
 
-        .hero-action-secondary {
+        .hero-button-secondary {
             border: 1px solid rgba(255,255,255,.18);
+
             color: white;
         }
 
 
-        .hero-action-secondary:hover {
+        .hero-button-secondary:hover {
             color: white;
+
             border-color: white;
+
+            background: rgba(255,255,255,.05);
         }
 
 
-        .hero-note {
+        .hero-footnote {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -401,18 +448,18 @@
 
             color: rgba(255,255,255,.35);
 
-            font-size: .56rem;
+            font-size: .57rem;
         }
 
 
-        .hero-note i {
-            color: #ff5570;
+        .hero-footnote i {
+            color: #ff5b75;
         }
 
 
-        /* =========================================
+        /* =====================================================
            STATS
-        ========================================= */
+        ====================================================== */
 
         .stats-wrap {
             position: relative;
@@ -431,6 +478,7 @@
             background: white;
 
             border: 1px solid var(--border);
+
             border-radius: 25px;
 
             box-shadow: var(--shadow);
@@ -468,7 +516,7 @@
 
             border-radius: 13px;
 
-            font-weight: 900;
+            font-size: .9rem;
         }
 
 
@@ -480,7 +528,7 @@
 
         .stat-icon.gold {
             background: var(--gold-light);
-            color: #9a7100;
+            color: #9b7000;
         }
 
 
@@ -488,6 +536,8 @@
             display: block;
 
             font-size: 1.15rem;
+            line-height: 1;
+
             font-weight: 900;
         }
 
@@ -495,18 +545,18 @@
         .stat small {
             display: block;
 
-            margin-top: 4px;
+            margin-top: 5px;
 
-            color: var(--grey);
+            color: var(--grey-3);
 
-            font-size: .51rem;
+            font-size: .52rem;
             font-weight: 700;
         }
 
 
-        /* =========================================
+        /* =====================================================
            GENERAL SECTIONS
-        ========================================= */
+        ====================================================== */
 
         .section {
             padding: 115px 0;
@@ -534,6 +584,7 @@
 
             font-size: .55rem;
             font-weight: 900;
+
             letter-spacing: 2px;
         }
 
@@ -553,6 +604,7 @@
             margin: 0;
 
             font-size: clamp(2rem,5vw,3.3rem);
+
             line-height: 1;
 
             letter-spacing: -2.5px;
@@ -562,20 +614,21 @@
 
 
         .section-heading p {
-            max-width: 560px;
+            max-width: 550px;
 
             margin: 16px auto 0;
 
-            color: var(--grey);
+            color: var(--grey-3);
 
-            font-size: .7rem;
+            font-size: .72rem;
+
             line-height: 1.8;
         }
 
 
-        /* =========================================
+        /* =====================================================
            PROGRESS
-        ========================================= */
+        ====================================================== */
 
         .progress-card {
             max-width: 950px;
@@ -587,6 +640,7 @@
             background: white;
 
             border: 1px solid var(--border);
+
             border-radius: 21px;
 
             box-shadow: var(--shadow);
@@ -597,15 +651,17 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             gap: 20px;
         }
 
 
-        .progress-label {
-            color: var(--grey);
+        .progress-title {
+            color: #999;
 
             font-size: .5rem;
             font-weight: 900;
+
             letter-spacing: 1.5px;
         }
 
@@ -643,7 +699,7 @@
 
 
         .progress-fill {
-            width: 0;
+            width: 0%;
             height: 100%;
 
             background: var(--black);
@@ -656,13 +712,16 @@
 
         .progress-footer {
             display: flex;
+            align-items: center;
             justify-content: space-between;
+
+            gap: 10px;
 
             margin-top: 9px;
 
-            color: var(--grey);
+            color: #999;
 
-            font-size: .5rem;
+            font-size: .51rem;
             font-weight: 600;
         }
 
@@ -675,15 +734,15 @@
 
             margin-right: 4px;
 
-            background: var(--green);
-
             border-radius: 50%;
+
+            background: var(--green);
         }
 
 
-        /* =========================================
-           TEAMS
-        ========================================= */
+        /* =====================================================
+           TEAM GRID
+        ====================================================== */
 
         .team-grid {
             display: grid;
@@ -699,17 +758,18 @@
 
             min-height: 175px;
 
-            padding: 22px 12px;
+            padding: 23px 12px;
 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
 
+            border: 1px solid var(--border);
+
             background: white;
             color: var(--black);
 
-            border: 1px solid var(--border);
             border-radius: 20px;
 
             cursor: pointer;
@@ -726,7 +786,7 @@
 
             border-color: var(--black);
 
-            box-shadow: var(--shadow-large);
+            box-shadow: var(--shadow-hover);
         }
 
 
@@ -742,7 +802,7 @@
             top: 13px;
             left: 13px;
 
-            color: #c3c3c3;
+            color: #c0c0c0;
 
             font-size: .48rem;
             font-weight: 900;
@@ -750,8 +810,8 @@
 
 
         .team-icon {
-            width: 57px;
-            height: 57px;
+            width: 56px;
+            height: 56px;
 
             display: flex;
             align-items: center;
@@ -759,11 +819,11 @@
 
             margin-bottom: 13px;
 
-            background: #f3f3f3;
+            background: var(--grey-1);
 
             border-radius: 16px;
 
-            font-size: 1.2rem;
+            font-size: 1.25rem;
 
             transition: .25s ease;
         }
@@ -778,7 +838,7 @@
         .team-name {
             text-align: center;
 
-            font-size: .71rem;
+            font-size: .72rem;
             font-weight: 900;
         }
 
@@ -788,14 +848,15 @@
 
             color: var(--green);
 
-            font-size: .47rem;
+            font-size: .48rem;
             font-weight: 900;
+
             letter-spacing: .7px;
         }
 
 
         .team-card.selected {
-            background: #eeeeee;
+            background: #f0f0f0;
 
             opacity: .45;
 
@@ -813,7 +874,7 @@
 
 
         .team-card.selected .team-icon {
-            background: #dedede;
+            background: #e1e1e1;
             color: #999;
         }
 
@@ -823,9 +884,101 @@
         }
 
 
-        /* =========================================
+        .team-card.winner {
+            background: var(--black);
+
+            color: white;
+
+            border-color: var(--black);
+
+            opacity: 1;
+        }
+
+
+        .team-card.winner .team-icon {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+
+        .team-card.winner .team-status {
+            color: var(--gold);
+        }
+
+
+        /* =====================================================
+           WINNER
+        ====================================================== */
+
+        .winner-panel {
+            display: none;
+
+            max-width: 950px;
+
+            margin: 0 auto 15px;
+
+            padding: 24px;
+
+            align-items: center;
+
+            gap: 16px;
+
+            background: var(--black);
+            color: white;
+
+            border-radius: 21px;
+
+            box-shadow: 0 20px 60px rgba(0,0,0,.15);
+        }
+
+
+        .winner-icon {
+            width: 56px;
+            height: 56px;
+
+            flex: 0 0 56px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--gold);
+            color: var(--black);
+
+            border-radius: 16px;
+        }
+
+
+        .winner-label {
+            color: #777;
+
+            font-size: .5rem;
+            font-weight: 900;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .winner-name {
+            margin-top: 3px;
+
+            font-size: 1.3rem;
+            font-weight: 900;
+        }
+
+
+        .winner-description {
+            margin: 2px 0 0;
+
+            color: #999;
+
+            font-size: .59rem;
+        }
+
+
+        /* =====================================================
            COMPLETE
-        ========================================= */
+        ====================================================== */
 
         .complete-panel {
             display: none;
@@ -837,11 +990,13 @@
             padding: 17px;
 
             align-items: center;
+
             gap: 12px;
 
             background: var(--green-light);
 
-            border: 1px solid #c9e8d5;
+            border: 1px solid #c8e8d5;
+
             border-radius: 19px;
         }
 
@@ -849,6 +1004,8 @@
         .complete-icon {
             width: 42px;
             height: 42px;
+
+            flex: 0 0 42px;
 
             display: flex;
             align-items: center;
@@ -880,9 +1037,9 @@
         }
 
 
-        /* =========================================
+        /* =====================================================
            HOW IT WORKS
-        ========================================= */
+        ====================================================== */
 
         .how-section {
             background: white;
@@ -908,6 +1065,7 @@
             background: #f7f7f7;
 
             border: 1px solid var(--border);
+
             border-radius: 21px;
         }
 
@@ -915,12 +1073,15 @@
         .step-number {
             position: absolute;
 
-            top: 15px;
             right: 22px;
+            top: 15px;
 
             color: #dedede;
 
             font-size: 2.6rem;
+
+            line-height: 1;
+
             font-weight: 900;
         }
 
@@ -956,13 +1117,14 @@
             color: #888;
 
             font-size: .62rem;
+
             line-height: 1.8;
         }
 
 
-        /* =========================================
+        /* =====================================================
            PAYMENT
-        ========================================= */
+        ====================================================== */
 
         .payment-section {
             padding: 110px 0;
@@ -974,21 +1136,22 @@
         .payment-card {
             max-width: 760px;
 
-            margin: auto;
+            margin: 0 auto;
 
-            padding: 43px;
+            padding: 42px;
 
             background: white;
 
             border-radius: 28px;
 
-            box-shadow: 0 30px 90px rgba(0,0,0,.3);
+            box-shadow: 0 25px 80px rgba(0,0,0,.25);
         }
 
 
         .payment-top {
             display: flex;
             align-items: center;
+
             gap: 14px;
         }
 
@@ -996,6 +1159,8 @@
         .payment-icon {
             width: 53px;
             height: 53px;
+
+            flex: 0 0 53px;
 
             display: flex;
             align-items: center;
@@ -1013,12 +1178,13 @@
 
             font-size: .51rem;
             font-weight: 900;
+
             letter-spacing: 1.5px;
         }
 
 
         .payment-title {
-            margin-top: 3px;
+            margin: 3px 0 0;
 
             font-size: 1.45rem;
             font-weight: 900;
@@ -1031,20 +1197,27 @@
             color: #888;
 
             font-size: .68rem;
+
             line-height: 1.8;
         }
 
+
+        /* =====================================================
+           PAYMENT SELECTION
+        ====================================================== */
 
         .payment-selection {
             display: none;
 
             margin-bottom: 20px;
-            padding: 17px;
+
+            padding: 20px;
 
             background: var(--green-light);
 
             border: 1px solid #ccebd9;
-            border-radius: 16px;
+
+            border-radius: 17px;
         }
 
 
@@ -1053,39 +1226,134 @@
 
             font-size: .49rem;
             font-weight: 900;
+
             letter-spacing: 1.3px;
         }
 
 
         .payment-selection-team {
-            margin-top: 3px;
+            margin-top: 4px;
 
-            font-size: 1rem;
+            font-size: 1.15rem;
             font-weight: 900;
         }
 
 
-        .payment-reference {
-            margin-top: 8px;
+        .payment-selection-reference {
+            margin-top: 9px;
 
             color: #777;
 
-            font-size: .58rem;
+            font-size: .59rem;
         }
 
 
-        .payment-reference strong {
+        .payment-selection-reference strong {
             color: var(--black);
         }
 
 
-        .revolut-button {
+        /* =====================================================
+           CHECKOUT BOX
+        ====================================================== */
+
+        .checkout-box {
+            padding: 25px;
+
+            background: #f7f7f7;
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+        }
+
+
+        .checkout-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding-bottom: 17px;
+
+            margin-bottom: 17px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .checkout-label {
+            color: #999;
+
+            font-size: .49rem;
+            font-weight: 900;
+
+            letter-spacing: 1.3px;
+        }
+
+
+        .checkout-team {
+            margin-top: 4px;
+
+            font-size: .95rem;
+            font-weight: 900;
+        }
+
+
+        .checkout-price {
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+
+        .reference-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+
+            margin-bottom: 17px;
+
+            padding: 14px;
+
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 13px;
+        }
+
+
+        .reference-icon {
+            color: var(--green);
+
+            font-size: 1rem;
+        }
+
+
+        .reference-text {
+            color: #777;
+
+            font-size: .58rem;
+
+            line-height: 1.6;
+        }
+
+
+        .reference-text strong {
+            color: var(--black);
+        }
+
+
+        .pay-button {
             width: 100%;
-            min-height: 58px;
+
+            min-height: 56px;
 
             display: flex;
             align-items: center;
             justify-content: center;
+
             gap: 10px;
 
             border: 0;
@@ -1095,91 +1363,94 @@
 
             border-radius: 14px;
 
-            font-size: .68rem;
+            font-size: .67rem;
             font-weight: 900;
 
             transition: .2s ease;
         }
 
 
-        .revolut-button:hover {
+        .pay-button:hover {
             background: var(--green);
 
-            transform: translateY(-2px);
-
             color: white;
+
+            transform: translateY(-2px);
         }
 
 
-        .revolut-button i {
+        .pay-button i {
             font-size: 1rem;
         }
 
 
-        .payment-warning {
+        .whatsapp-button {
+            width: 100%;
+
+            min-height: 48px;
+
             display: flex;
-            gap: 9px;
+            align-items: center;
+            justify-content: center;
 
-            margin-top: 13px;
+            gap: 8px;
 
-            color: #888;
+            margin-top: 10px;
 
-            font-size: .55rem;
+            border: 1px solid #dfe4e1;
+
+            background: white;
+            color: #222;
+
+            border-radius: 13px;
+
+            font-size: .61rem;
+            font-weight: 900;
+
+            transition: .2s ease;
+        }
+
+
+        .whatsapp-button:hover {
+            border-color: #25d366;
+
+            background: #f0fff5;
+
+            color: #128c4a;
+        }
+
+
+        .checkout-note {
+            margin-top: 15px;
+
+            text-align: center;
+
+            color: #999;
+
+            font-size: .51rem;
+
             line-height: 1.7;
         }
 
 
-        .payment-warning i {
-            color: var(--green);
-
-            margin-top: 2px;
-        }
-
-
-        .payment-steps {
-            display: grid;
-
-            grid-template-columns: repeat(3,1fr);
-
-            gap: 8px;
-
-            margin-top: 22px;
-        }
-
-
-        .payment-mini {
-            padding: 13px;
-
-            background: #f6f6f6;
-
-            border-radius: 12px;
+        .no-team-message {
+            padding: 25px;
 
             text-align: center;
-        }
 
+            background: #f7f7f7;
 
-        .payment-mini strong {
-            display: block;
-
-            font-size: .58rem;
-            font-weight: 900;
-        }
-
-
-        .payment-mini span {
-            display: block;
-
-            margin-top: 3px;
+            border-radius: 17px;
 
             color: #999;
 
-            font-size: .46rem;
+            font-size: .62rem;
         }
 
 
-        /* =========================================
+        /* =====================================================
            FOOTER
-        ========================================= */
+        ====================================================== */
 
         footer {
             padding: 34px 0;
@@ -1192,7 +1463,6 @@
 
         .footer-inner {
             display: flex;
-
             align-items: center;
             justify-content: space-between;
 
@@ -1203,12 +1473,18 @@
         .footer-brand {
             display: flex;
             align-items: center;
+
             gap: 9px;
 
             color: white;
 
             font-size: .72rem;
             font-weight: 900;
+        }
+
+
+        .footer-brand:hover {
+            color: white;
         }
 
 
@@ -1239,6 +1515,7 @@
         .footer-right {
             display: flex;
             align-items: center;
+
             gap: 18px;
         }
 
@@ -1246,14 +1523,39 @@
         .footer-right span {
             color: #666;
 
-            font-size: .52rem;
-            font-weight: 800;
+            font-size: .53rem;
+            font-weight: 700;
         }
 
 
-        /* =========================================
-           MODAL
-        ========================================= */
+        .admin-button {
+            width: 32px;
+            height: 32px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0;
+
+            border: 1px solid #292929;
+
+            background: transparent;
+            color: #555;
+
+            border-radius: 50%;
+        }
+
+
+        .admin-button:hover {
+            color: white;
+            border-color: #777;
+        }
+
+
+        /* =====================================================
+           MODALS
+        ====================================================== */
 
         .custom-modal {
             overflow: hidden;
@@ -1276,6 +1578,7 @@
 
             font-size: .5rem;
             font-weight: 900;
+
             letter-spacing: 1.5px;
         }
 
@@ -1296,9 +1599,11 @@
         .selected-team {
             display: flex;
             align-items: center;
+
             gap: 13px;
 
             margin-bottom: 20px;
+
             padding: 15px;
 
             background: #f5f5f5;
@@ -1329,6 +1634,7 @@
 
             font-size: .48rem;
             font-weight: 900;
+
             letter-spacing: 1px;
         }
 
@@ -1363,15 +1669,18 @@
         .form-control-custom:focus {
             border-color: var(--black);
 
-            box-shadow: 0 0 0 3px rgba(0,0,0,.06);
+            box-shadow:
+                0 0 0 3px rgba(0,0,0,.06);
         }
 
 
         .modal-info {
             display: flex;
+
             gap: 8px;
 
             margin: 15px 0;
+
             padding: 13px;
 
             background: var(--green-light);
@@ -1381,6 +1690,7 @@
             border-radius: 12px;
 
             font-size: .55rem;
+
             line-height: 1.65;
         }
 
@@ -1392,11 +1702,13 @@
 
         .confirm-button {
             width: 100%;
-            min-height: 52px;
+
+            min-height: 50px;
 
             display: flex;
             align-items: center;
             justify-content: center;
+
             gap: 8px;
 
             border: 0;
@@ -1418,9 +1730,160 @@
         }
 
 
-        /* =========================================
+        /* =====================================================
+           ADMIN
+        ====================================================== */
+
+        .admin-stats {
+            display: grid;
+
+            grid-template-columns: repeat(3,1fr);
+
+            gap: 9px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .admin-stat {
+            padding: 15px;
+
+            background: #f5f5f5;
+
+            border-radius: 13px;
+        }
+
+
+        .admin-stat small {
+            display: block;
+
+            color: #999;
+
+            font-size: .46rem;
+            font-weight: 900;
+        }
+
+
+        .admin-stat strong {
+            display: block;
+
+            margin-top: 3px;
+
+            font-size: 1.15rem;
+            font-weight: 900;
+        }
+
+
+        .admin-list-title {
+            margin-bottom: 8px;
+
+            font-size: .65rem;
+            font-weight: 900;
+        }
+
+
+        .admin-list {
+            max-height: 300px;
+
+            overflow: auto;
+
+            border-top: 1px solid var(--border);
+        }
+
+
+        .admin-entry {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 12px 4px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .admin-team {
+            font-size: .64rem;
+            font-weight: 900;
+        }
+
+
+        .admin-person {
+            margin-top: 2px;
+
+            color: #999;
+
+            font-size: .52rem;
+        }
+
+
+        .admin-price {
+            font-size: .62rem;
+            font-weight: 900;
+        }
+
+
+        .admin-actions {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 8px;
+
+            margin-top: 18px;
+        }
+
+
+        .admin-action {
+            min-height: 47px;
+
+            border: 0;
+
+            border-radius: 11px;
+
+            font-size: .6rem;
+            font-weight: 900;
+        }
+
+
+        .draw-button {
+            background: var(--black);
+            color: white;
+        }
+
+
+        .draw-button:hover {
+            background: var(--green);
+        }
+
+
+        .reset-button {
+            background: #f4f4f4;
+            color: #c22;
+        }
+
+
+        .reset-button:hover {
+            background: #ffeaea;
+        }
+
+
+        .admin-error {
+            display: none;
+
+            margin-top: 7px;
+
+            color: #c22;
+
+            font-size: .55rem;
+        }
+
+
+        /* =====================================================
            TOAST
-        ========================================= */
+        ====================================================== */
 
         .toast-box {
             position: fixed;
@@ -1442,6 +1905,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,.3);
 
             transform: translateY(130px);
+
             opacity: 0;
 
             pointer-events: none;
@@ -1452,6 +1916,7 @@
 
         .toast-box.show {
             transform: translateY(0);
+
             opacity: 1;
         }
 
@@ -1472,13 +1937,14 @@
             color: #aaa;
 
             font-size: .55rem;
+
             line-height: 1.5;
         }
 
 
-        /* =========================================
+        /* =====================================================
            MOBILE
-        ========================================= */
+        ====================================================== */
 
         @media (max-width: 991px) {
 
@@ -1509,7 +1975,13 @@
 
             .hero h1 {
                 font-size: 3.25rem;
+
                 letter-spacing: -3px;
+            }
+
+
+            .hero-text {
+                font-size: .74rem;
             }
 
 
@@ -1548,25 +2020,32 @@
             }
 
 
-            .payment-card {
-                padding: 29px 18px;
-            }
-
-
-            .payment-steps {
-                grid-template-columns: 1fr;
-            }
-
-
             .footer-inner {
                 align-items: flex-start;
+
                 flex-direction: column;
             }
 
 
             .footer-right {
                 width: 100%;
+
                 justify-content: space-between;
+            }
+
+
+            .payment-card {
+                padding: 29px 18px;
+            }
+
+
+            .admin-stats {
+                grid-template-columns: repeat(2,1fr);
+            }
+
+
+            .admin-stat:last-child {
+                grid-column: span 2;
             }
 
         }
@@ -1590,9 +2069,10 @@
             }
 
 
-            .nav-button {
+            .nav-cta {
                 padding: 9px 12px;
-                font-size: .54rem;
+
+                font-size: .55rem;
             }
 
 
@@ -1601,12 +2081,12 @@
             }
 
 
-            .hero-actions {
+            .hero-buttons {
                 flex-direction: column;
             }
 
 
-            .hero-action {
+            .hero-button {
                 width: 100%;
             }
 
@@ -1619,6 +2099,8 @@
             .team-icon {
                 width: 48px;
                 height: 48px;
+
+                border-radius: 14px;
             }
 
 
@@ -1628,21 +2110,27 @@
 
 
             .progress-footer {
-                font-size: .46rem;
+                font-size: .47rem;
+            }
+
+
+            .admin-actions {
+                grid-template-columns: 1fr;
             }
 
         }
 
     </style>
+
 </head>
 
 
 <body>
 
 
-<!-- =========================================
+<!-- =====================================================
      NAV
-========================================= -->
+====================================================== -->
 
 <nav class="site-nav">
 
@@ -1669,7 +2157,7 @@
             </a>
 
 
-            <a href="#teams" class="nav-button">
+            <a href="#teams" class="nav-cta">
 
                 Pick a team
 
@@ -1684,15 +2172,15 @@
 </nav>
 
 
-<!-- =========================================
+<!-- =====================================================
      HERO
-========================================= -->
+====================================================== -->
 
 <header id="top" class="hero">
 
     <div class="hero-grid"></div>
 
-    <div class="hero-circle"></div>
+    <div class="hero-ball"></div>
 
     <div class="hero-glow"></div>
 
@@ -1719,22 +2207,22 @@
             </h1>
 
 
-            <p class="hero-description">
+            <p class="hero-text">
 
                 Choose one of the available football teams
                 for just <strong>£2</strong>.
 
-                If your team is selected as the winner,
+                If your selected team is drawn as the winner,
                 you'll receive the <strong>£40 prize</strong>.
 
             </p>
 
 
-            <div class="hero-actions">
+            <div class="hero-buttons">
 
                 <a
                     href="#teams"
-                    class="hero-action hero-action-primary"
+                    class="hero-button hero-button-primary"
                 >
 
                     Choose your team
@@ -1746,7 +2234,7 @@
 
                 <a
                     href="#how"
-                    class="hero-action hero-action-secondary"
+                    class="hero-button hero-button-secondary"
                 >
 
                     How it works
@@ -1758,12 +2246,12 @@
             </div>
 
 
-            <div class="hero-note">
+            <div class="hero-footnote">
 
                 <i class="bi bi-heart-fill"></i>
 
                 Helping raise money towards personalised
-                football strips for the team.
+                football strips.
 
             </div>
 
@@ -1774,9 +2262,9 @@
 </header>
 
 
-<!-- =========================================
+<!-- =====================================================
      STATS
-========================================= -->
+====================================================== -->
 
 <section class="stats-wrap">
 
@@ -1795,7 +2283,9 @@
 
                     <strong>£2</strong>
 
-                    <small>Per entry</small>
+                    <small>
+                        Entry
+                    </small>
 
                 </div>
 
@@ -1816,7 +2306,9 @@
                         32
                     </strong>
 
-                    <small>Teams available</small>
+                    <small>
+                        Teams available
+                    </small>
 
                 </div>
 
@@ -1835,7 +2327,9 @@
 
                     <strong>£40</strong>
 
-                    <small>Winning prize</small>
+                    <small>
+                        Winning prize
+                    </small>
 
                 </div>
 
@@ -1846,7 +2340,7 @@
 
                 <div class="stat-icon">
 
-                    <i class="bi bi-person-hearts"></i>
+                    <i class="bi bi-shirt-fill"></i>
 
                 </div>
 
@@ -1854,11 +2348,14 @@
 
                     <strong>👕</strong>
 
-                    <small>Team strips</small>
+                    <small>
+                        Football strips
+                    </small>
 
                 </div>
 
             </div>
+
 
         </div>
 
@@ -1867,9 +2364,9 @@
 </section>
 
 
-<!-- =========================================
-     TEAM SECTION
-========================================= -->
+<!-- =====================================================
+     TEAMS
+====================================================== -->
 
 <section id="teams" class="section">
 
@@ -1890,11 +2387,9 @@
 
             <p>
 
-                Pick one available team below.
-
-                Once selected, it is locked on this
-                browser and can no longer be selected
-                from this device.
+                Select one of the available teams below.
+                Once selected, your team is locked on this
+                browser.
 
             </p>
 
@@ -1909,13 +2404,15 @@
 
                 <div>
 
-                    <div class="progress-label">
+                    <div class="progress-title">
                         CARD PROGRESS
                     </div>
 
                     <div class="progress-count">
 
-                        <span id="selectedCount">0</span>
+                        <span id="selectedCount">
+                            0
+                        </span>
 
                         / 32 selected
 
@@ -1949,15 +2446,52 @@
 
                     <span class="green-dot"></span>
 
-                    <b id="remainingCount">32</b>
+                    <b id="remainingCount">
+                        32
+                    </b>
+
                     teams available
 
                 </span>
 
 
                 <span>
-                    £64 when complete
+                    £64 total entries
                 </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Winner -->
+
+        <div id="winnerPanel" class="winner-panel">
+
+            <div class="winner-icon">
+
+                <i class="bi bi-trophy-fill"></i>
+
+            </div>
+
+
+            <div>
+
+                <div class="winner-label">
+                    WINNING TEAM
+                </div>
+
+                <div
+                    id="winnerName"
+                    class="winner-name"
+                >
+                    -
+                </div>
+
+                <p class="winner-description">
+                    Congratulations — this team has won
+                    the £40 prize!
+                </p>
 
             </div>
 
@@ -1993,7 +2527,7 @@
         </div>
 
 
-        <!-- Team grid -->
+        <!-- Team Grid -->
 
         <div
             id="teamGrid"
@@ -2006,9 +2540,9 @@
 </section>
 
 
-<!-- =========================================
+<!-- =====================================================
      HOW IT WORKS
-========================================= -->
+====================================================== -->
 
 <section id="how" class="section how-section">
 
@@ -2028,8 +2562,8 @@
 
 
             <p>
-                Choose your team, confirm your details
-                and make your £2 payment.
+                Pick your team, confirm your details,
+                then complete the £2 payment.
             </p>
 
         </div>
@@ -2117,13 +2651,13 @@
 
                 <p>
 
-                    Use the Revolut button and make sure
-                    your selected team is used as the
-                    payment reference.
+                    Complete the Revolut Checkout and use
+                    your selected team as the payment reference.
 
                 </p>
 
             </div>
+
 
         </div>
 
@@ -2132,9 +2666,9 @@
 </section>
 
 
-<!-- =========================================
+<!-- =====================================================
      PAYMENT
-========================================= -->
+====================================================== -->
 
 <section class="payment-section">
 
@@ -2155,11 +2689,11 @@
                 <div>
 
                     <div class="payment-kicker">
-                        REVOLUT PAYMENT
+                        SECURE CHECKOUT
                     </div>
 
                     <div class="payment-title">
-                        Pay your £2 entry
+                        Complete your entry
                     </div>
 
                 </div>
@@ -2169,17 +2703,16 @@
 
             <p class="payment-description">
 
-                Choose a team above first.
+                Select a team above first.
 
-                After confirming your selection,
-                your chosen team will appear here
-                along with the payment reference
-                you need to use.
+                Your selected team will appear below with
+                the exact payment reference you should use
+                when completing your Revolut payment.
 
             </p>
 
 
-            <!-- Selection -->
+            <!-- Payment selection -->
 
             <div
                 id="paymentSelection"
@@ -2199,7 +2732,7 @@
                 </div>
 
 
-                <div class="payment-reference">
+                <div class="payment-selection-reference">
 
                     Payment reference:
 
@@ -2212,73 +2745,24 @@
             </div>
 
 
-            <!-- Revolut button -->
+            <!-- Checkout -->
 
-            <button
-                type="button"
-                id="revolutButton"
-                class="revolut-button"
+            <div
+                id="checkoutBox"
+                class="checkout-box"
             >
 
-                <i class="bi bi-wallet2"></i>
+                <div class="no-team-message">
 
-                Pay £2 with Revolut
+                    <i class="bi bi-arrow-up-circle d-block fs-4 mb-2"></i>
 
-                <i class="bi bi-arrow-up-right"></i>
-
-            </button>
-
-
-            <div class="payment-warning">
-
-                <i class="bi bi-shield-check"></i>
-
-                <span>
-
-                    Please make sure you pay exactly
-                    <strong>£2</strong> and use your
-                    selected team as the payment reference.
-
-                </span>
-
-            </div>
-
-
-            <div class="payment-steps">
-
-                <div class="payment-mini">
-
-                    <strong>01 · Select</strong>
-
-                    <span>
-                        Choose your team
-                    </span>
-
-                </div>
-
-
-                <div class="payment-mini">
-
-                    <strong>02 · Confirm</strong>
-
-                    <span>
-                        Enter your name
-                    </span>
-
-                </div>
-
-
-                <div class="payment-mini">
-
-                    <strong>03 · Pay</strong>
-
-                    <span>
-                        Pay £2 on Revolut
-                    </span>
+                    Choose your football team above
+                    to continue to payment.
 
                 </div>
 
             </div>
+
 
         </div>
 
@@ -2287,9 +2771,9 @@
 </section>
 
 
-<!-- =========================================
+<!-- =====================================================
      FOOTER
-========================================= -->
+====================================================== -->
 
 <footer>
 
@@ -2314,7 +2798,7 @@
                 <p class="footer-text">
 
                     Raising money towards personalised
-                    football strips for the team.
+                    football strips.
 
                 </p>
 
@@ -2323,9 +2807,25 @@
 
             <div class="footer-right">
 
-                <span>£2 ENTRY</span>
+                <span>
+                    £2 ENTRY
+                </span>
 
-                <span>£40 PRIZE</span>
+                <span>
+                    £40 PRIZE
+                </span>
+
+
+                <button
+                    type="button"
+                    class="admin-button"
+                    id="adminButton"
+                    aria-label="Admin"
+                >
+
+                    <i class="bi bi-lock-fill"></i>
+
+                </button>
 
             </div>
 
@@ -2336,14 +2836,15 @@
 </footer>
 
 
-<!-- =========================================
+<!-- =====================================================
      TEAM MODAL
-========================================= -->
+====================================================== -->
 
 <div
     class="modal fade"
     id="teamModal"
     tabindex="-1"
+    aria-hidden="true"
 >
 
     <div class="modal-dialog modal-dialog-centered">
@@ -2423,17 +2924,19 @@
                         <span>
 
                             Once confirmed, this team will
-                            be marked as selected on this
-                            browser.
+                            be locked on this browser.
 
                             <br><br>
 
-                            Pay exactly <strong>£2</strong>
-                            and use
+                            Entry price:
+                            <strong>£2</strong>
+
+                            <br>
+
+                            Payment reference:
                             <strong id="modalReference">
                                 your team
                             </strong>
-                            as the payment reference.
 
                         </span>
 
@@ -2451,7 +2954,6 @@
 
                     </button>
 
-
                 </form>
 
             </div>
@@ -2463,9 +2965,212 @@
 </div>
 
 
-<!-- =========================================
+<!-- =====================================================
+     ADMIN LOGIN
+====================================================== -->
+
+<div
+    class="modal fade"
+    id="adminLoginModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content custom-modal">
+
+
+            <div class="modal-head">
+
+                <div class="modal-kicker">
+                    PRIVATE AREA
+                </div>
+
+                <div class="modal-title">
+                    Admin access
+                </div>
+
+            </div>
+
+
+            <div class="modal-body-custom">
+
+
+                <label
+                    for="adminPassword"
+                    class="form-label-custom"
+                >
+                    Admin password
+                </label>
+
+
+                <input
+                    id="adminPassword"
+                    type="password"
+                    class="form-control form-control-custom"
+                    placeholder="Enter admin password"
+                >
+
+
+                <div
+                    id="adminError"
+                    class="admin-error"
+                >
+                    Incorrect password.
+                </div>
+
+
+                <button
+                    id="adminLogin"
+                    type="button"
+                    class="confirm-button mt-3"
+                >
+
+                    Unlock admin
+
+                    <i class="bi bi-unlock-fill"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ADMIN PANEL
+====================================================== -->
+
+<div
+    class="modal fade"
+    id="adminModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content custom-modal">
+
+
+            <div class="modal-head">
+
+                <div class="modal-kicker">
+                    CONTROL PANEL
+                </div>
+
+                <div class="modal-title">
+                    Football Card Admin
+                </div>
+
+            </div>
+
+
+            <div class="modal-body-custom">
+
+
+                <div class="admin-stats">
+
+
+                    <div class="admin-stat">
+
+                        <small>
+                            ENTRIES
+                        </small>
+
+                        <strong id="adminEntries">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="admin-stat">
+
+                        <small>
+                            RECORDED
+                        </small>
+
+                        <strong>
+                            £<span id="adminRaised">0</span>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="admin-stat">
+
+                        <small>
+                            REMAINING
+                        </small>
+
+                        <strong id="adminRemaining">
+                            32
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="admin-list-title">
+                    Selected teams
+                </div>
+
+
+                <div
+                    id="adminList"
+                    class="admin-list"
+                ></div>
+
+
+                <div class="admin-actions">
+
+
+                    <button
+                        type="button"
+                        id="drawWinner"
+                        class="admin-action draw-button"
+                    >
+
+                        <i class="bi bi-trophy-fill me-1"></i>
+
+                        Draw £40 winner
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="resetCard"
+                        class="admin-action reset-button"
+                    >
+
+                        <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+                        Reset card
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
      TOAST
-========================================= -->
+====================================================== -->
 
 <div id="toast" class="toast-box">
 
@@ -2487,7 +3192,9 @@
 </div>
 
 
-<!-- Bootstrap JS -->
+<!-- =====================================================
+     BOOTSTRAP JS
+====================================================== -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -2496,9 +3203,9 @@
 
 <script>
 
-    /* =========================================
+    /* =====================================================
        SETTINGS
-    ========================================= */
+    ====================================================== */
 
     const TEAMS = [
 
@@ -2540,24 +3247,60 @@
 
     const ENTRY_PRICE = 2;
 
+    const PRIZE = 40;
+
+
+    /*
+       NEW REVOLUT CHECKOUT
+    */
 
     const REVOLUT_URL =
-        "https://revolut.me/moddingxz?currency=GBP&amount=2";
+        "https://checkout.revolut.com/pay/3af089ff-8130-4edb-b28f-bbde8c47a7b9";
 
+
+    /*
+       WHATSAPP SUPPORT
+    */
+
+    const WHATSAPP_URL =
+        "https://wa.me/qr/6FPHSGFTV3HCO1";
+
+
+    /*
+       LOCAL STORAGE
+
+       This only synchronises selections on the
+       same browser/device.
+    */
 
     const STORAGE_KEY =
         "football-card-v3";
 
 
-    let state = loadState();
+    /*
+       CHANGE THIS PASSWORD.
 
+       IMPORTANT:
+       GitHub Pages is static hosting.
+       This is NOT real server-side security.
+    */
+
+    const ADMIN_PASSWORD =
+        "change-this-password";
+
+
+    /* =====================================================
+       STATE
+    ====================================================== */
+
+    let state = loadState();
 
     let selectedTeam = null;
 
 
-    /* =========================================
-       MODAL
-    ========================================= */
+    /* =====================================================
+       MODALS
+    ====================================================== */
 
     const teamModal =
         new bootstrap.Modal(
@@ -2565,9 +3308,21 @@
         );
 
 
-    /* =========================================
+    const adminLoginModal =
+        new bootstrap.Modal(
+            document.getElementById("adminLoginModal")
+        );
+
+
+    const adminModal =
+        new bootstrap.Modal(
+            document.getElementById("adminModal")
+        );
+
+
+    /* =====================================================
        LOAD STATE
-    ========================================= */
+    ====================================================== */
 
     function loadState() {
 
@@ -2582,29 +3337,34 @@
             if (!saved) {
 
                 return {
-                    selections: {}
+                    selections: {},
+                    winner: null
                 };
 
             }
 
 
-            const parsed =
+            const data =
                 JSON.parse(saved);
 
 
             return {
 
                 selections:
-                    parsed.selections || {}
+                    data.selections || {},
+
+                winner:
+                    data.winner || null
 
             };
 
         }
 
-        catch {
+        catch (error) {
 
             return {
-                selections: {}
+                selections: {},
+                winner: null
             };
 
         }
@@ -2612,9 +3372,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        SAVE
-    ========================================= */
+    ====================================================== */
 
     function saveState() {
 
@@ -2626,9 +3386,9 @@
     }
 
 
-    /* =========================================
-       ESCAPE HTML
-    ========================================= */
+    /* =====================================================
+       ESCAPE
+    ====================================================== */
 
     function escapeHTML(value) {
 
@@ -2645,14 +3405,16 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        RENDER TEAMS
-    ========================================= */
+    ====================================================== */
 
     function renderTeams() {
 
         const grid =
-            document.getElementById("teamGrid");
+            document.getElementById(
+                "teamGrid"
+            );
 
 
         grid.innerHTML = "";
@@ -2662,11 +3424,12 @@
             (team,index) => {
 
                 const button =
-                    document.createElement("button");
+                    document.createElement(
+                        "button"
+                    );
 
 
                 button.type = "button";
-
 
                 button.className =
                     "team-card";
@@ -2678,13 +3441,61 @@
                     );
 
 
+                const winner =
+                    state.winner === team;
+
+
                 if (selected) {
 
                     button.classList.add(
                         "selected"
                     );
 
+                }
+
+
+                if (winner) {
+
+                    button.classList.remove(
+                        "selected"
+                    );
+
+                    button.classList.add(
+                        "winner"
+                    );
+
+                }
+
+
+                if (
+                    selected ||
+                    state.winner
+                ) {
+
                     button.disabled = true;
+
+                }
+
+
+                let icon = "⚽";
+
+                let status = "AVAILABLE";
+
+
+                if (selected) {
+
+                    icon = "🔒";
+
+                    status = "SELECTED";
+
+                }
+
+
+                if (winner) {
+
+                    icon = "🏆";
+
+                    status = "WINNER — £40";
 
                 }
 
@@ -2696,7 +3507,7 @@
                     </span>
 
                     <span class="team-icon">
-                        ${selected ? "🔒" : "⚽"}
+                        ${icon}
                     </span>
 
                     <span class="team-name">
@@ -2704,13 +3515,16 @@
                     </span>
 
                     <span class="team-status">
-                        ${selected ? "SELECTED" : "AVAILABLE"}
+                        ${status}
                     </span>
 
                 `;
 
 
-                if (!selected) {
+                if (
+                    !selected &&
+                    !state.winner
+                ) {
 
                     button.addEventListener(
                         "click",
@@ -2728,9 +3542,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        STATS
-    ========================================= */
+    ====================================================== */
 
     function updateStats() {
 
@@ -2749,27 +3563,34 @@
 
 
         const percentage =
-            (selected / TEAMS.length) * 100;
+            (
+                selected /
+                TEAMS.length
+            ) * 100;
 
 
         document.getElementById(
             "selectedCount"
-        ).textContent = selected;
+        ).textContent =
+            selected;
 
 
         document.getElementById(
             "remainingCount"
-        ).textContent = remaining;
-
-
-        document.getElementById(
-            "availableStat"
-        ).textContent = remaining;
+        ).textContent =
+            remaining;
 
 
         document.getElementById(
             "raisedAmount"
-        ).textContent = raised;
+        ).textContent =
+            raised;
+
+
+        document.getElementById(
+            "availableStat"
+        ).textContent =
+            remaining;
 
 
         document.getElementById(
@@ -2785,12 +3606,160 @@
                 ? "flex"
                 : "none";
 
+
+        const winnerPanel =
+            document.getElementById(
+                "winnerPanel"
+            );
+
+
+        if (state.winner) {
+
+            winnerPanel.style.display =
+                "flex";
+
+
+            document.getElementById(
+                "winnerName"
+            ).textContent =
+                state.winner;
+
+        }
+
+        else {
+
+            winnerPanel.style.display =
+                "none";
+
+        }
+
     }
 
 
-    /* =========================================
+    /* =====================================================
+       PAYMENT DISPLAY
+    ====================================================== */
+
+    function showPayment(team) {
+
+        document.getElementById(
+            "paymentSelection"
+        ).style.display =
+            "block";
+
+
+        document.getElementById(
+            "paymentTeam"
+        ).textContent =
+            team;
+
+
+        document.getElementById(
+            "paymentReference"
+        ).textContent =
+            team;
+
+
+        document.getElementById(
+            "checkoutBox"
+        ).innerHTML = `
+
+            <div class="checkout-row">
+
+                <div>
+
+                    <div class="checkout-label">
+                        YOUR TEAM
+                    </div>
+
+                    <div class="checkout-team">
+                        ${escapeHTML(team)}
+                    </div>
+
+                </div>
+
+
+                <div class="checkout-price">
+                    £2
+                </div>
+
+            </div>
+
+
+            <div class="reference-box">
+
+                <div class="reference-icon">
+
+                    <i class="bi bi-bookmark-fill"></i>
+
+                </div>
+
+
+                <div class="reference-text">
+
+                    <strong>Important payment instruction</strong>
+
+                    <br>
+
+                    When completing your Revolut payment,
+                    use
+
+                    <strong>
+                        ${escapeHTML(team)}
+                    </strong>
+
+                    as your payment reference.
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="${REVOLUT_URL}"
+                class="pay-button"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <i class="bi bi-credit-card-fill"></i>
+
+                Pay £2 securely with Revolut
+
+                <i class="bi bi-arrow-up-right"></i>
+
+            </a>
+
+
+            <a
+                href="${WHATSAPP_URL}"
+                class="whatsapp-button"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <i class="bi bi-whatsapp"></i>
+
+                Having trouble? Contact us
+
+            </a>
+
+
+            <div class="checkout-note">
+
+                After payment, please make sure your
+                payment reference matches your selected team.
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
        RENDER
-    ========================================= */
+    ====================================================== */
 
     function render() {
 
@@ -2801,9 +3770,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        OPEN TEAM
-    ========================================= */
+    ====================================================== */
 
     function openTeam(team) {
 
@@ -2821,22 +3790,30 @@
         }
 
 
+        if (state.winner) {
+            return;
+        }
+
+
         selectedTeam = team;
 
 
         document.getElementById(
             "modalTeam"
-        ).textContent = team;
+        ).textContent =
+            team;
 
 
         document.getElementById(
             "modalReference"
-        ).textContent = team;
+        ).textContent =
+            team;
 
 
         document.getElementById(
             "nameInput"
-        ).value = "";
+        ).value =
+            "";
 
 
         teamModal.show();
@@ -2856,9 +3833,9 @@
     }
 
 
-    /* =========================================
+    /* =====================================================
        CONFIRM TEAM
-    ========================================= */
+    ====================================================== */
 
     document
         .getElementById("teamForm")
@@ -2875,11 +3852,12 @@
 
 
                 const name =
-                    document.getElementById(
-                        "nameInput"
-                    )
-                    .value
-                    .trim();
+                    document
+                        .getElementById(
+                            "nameInput"
+                        )
+                        .value
+                        .trim();
 
 
                 if (!name) {
@@ -2932,24 +3910,8 @@
                 teamModal.hide();
 
 
-                /* Show payment information */
+                showPayment(chosen);
 
-                document.getElementById(
-                    "paymentSelection"
-                ).style.display = "block";
-
-
-                document.getElementById(
-                    "paymentTeam"
-                ).textContent = chosen;
-
-
-                document.getElementById(
-                    "paymentReference"
-                ).textContent = chosen;
-
-
-                /* Scroll to payment */
 
                 setTimeout(
                     () => {
@@ -2959,7 +3921,8 @@
                                 ".payment-section"
                             )
                             .scrollIntoView({
-                                behavior: "smooth"
+                                behavior:
+                                    "smooth"
                             });
 
                     },
@@ -2969,7 +3932,7 @@
 
                 showToast(
                     "Team selected!",
-                    `${chosen} has been selected. Use "${chosen}" as your payment reference.`
+                    `${chosen} has been reserved on this browser.`
                 );
 
 
@@ -2979,64 +3942,378 @@
         );
 
 
-    /* =========================================
-       REVOLUT BUTTON
-    ========================================= */
+    /* =====================================================
+       ADMIN BUTTON
+    ====================================================== */
 
     document
-        .getElementById("revolutButton")
+        .getElementById("adminButton")
         .addEventListener(
             "click",
             function() {
 
-                if (!selectedTeam) {
-
-                    const selection =
-                        document.getElementById(
-                            "paymentSelection"
-                        );
+                document.getElementById(
+                    "adminPassword"
+                ).value = "";
 
 
-                    if (
-                        selection.style.display !==
-                        "block"
-                    ) {
-
-                        showToast(
-                            "Choose a team first",
-                            "Select a football team before making your payment."
-                        );
+                document.getElementById(
+                    "adminError"
+                ).style.display =
+                    "none";
 
 
-                        document
-                            .getElementById("teams")
-                            .scrollIntoView({
-                                behavior: "smooth"
-                            });
-
-
-                        return;
-
-                    }
-
-                }
-
-
-                /*
-                   Open Revolut in the current tab.
-                   This avoids a popup/new tab.
-                */
-
-                window.location.href =
-                    REVOLUT_URL;
+                adminLoginModal.show();
 
             }
         );
 
 
-    /* =========================================
+    /* =====================================================
+       ADMIN LOGIN
+    ====================================================== */
+
+    document
+        .getElementById("adminLogin")
+        .addEventListener(
+            "click",
+            loginAdmin
+        );
+
+
+    document
+        .getElementById("adminPassword")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    loginAdmin();
+
+                }
+
+            }
+        );
+
+
+    function loginAdmin() {
+
+        const password =
+            document.getElementById(
+                "adminPassword"
+            ).value;
+
+
+        if (
+            password !==
+            ADMIN_PASSWORD
+        ) {
+
+            document.getElementById(
+                "adminError"
+            ).style.display =
+                "block";
+
+
+            return;
+
+        }
+
+
+        adminLoginModal.hide();
+
+
+        setTimeout(
+            () => {
+
+                updateAdmin();
+
+                adminModal.show();
+
+            },
+            300
+        );
+
+    }
+
+
+    /* =====================================================
+       ADMIN PANEL
+    ====================================================== */
+
+    function updateAdmin() {
+
+        const entries =
+            Object.entries(
+                state.selections
+            );
+
+
+        document.getElementById(
+            "adminEntries"
+        ).textContent =
+            entries.length;
+
+
+        document.getElementById(
+            "adminRaised"
+        ).textContent =
+            entries.length *
+            ENTRY_PRICE;
+
+
+        document.getElementById(
+            "adminRemaining"
+        ).textContent =
+            TEAMS.length -
+            entries.length;
+
+
+        const list =
+            document.getElementById(
+                "adminList"
+            );
+
+
+        list.innerHTML = "";
+
+
+        if (!entries.length) {
+
+            list.innerHTML = `
+
+                <div class="text-center py-4 text-secondary">
+
+                    No teams selected yet.
+
+                </div>
+
+            `;
+
+
+            return;
+
+        }
+
+
+        entries
+            .sort(
+                (a,b) =>
+
+                    TEAMS.indexOf(a[0]) -
+                    TEAMS.indexOf(b[0])
+
+            )
+            .forEach(
+                ([team,data]) => {
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    row.className =
+                        "admin-entry";
+
+
+                    row.innerHTML = `
+
+                        <div>
+
+                            <div class="admin-team">
+                                ${escapeHTML(team)}
+                            </div>
+
+                            <div class="admin-person">
+                                ${escapeHTML(data.name)}
+                            </div>
+
+                        </div>
+
+                        <div class="admin-price">
+                            £2
+                        </div>
+
+                    `;
+
+
+                    list.appendChild(row);
+
+                }
+            );
+
+    }
+
+
+    /* =====================================================
+       DRAW WINNER
+    ====================================================== */
+
+    document
+        .getElementById("drawWinner")
+        .addEventListener(
+            "click",
+            function() {
+
+                const selected =
+                    Object.keys(
+                        state.selections
+                    );
+
+
+                if (
+                    selected.length !==
+                    TEAMS.length
+                ) {
+
+                    showToast(
+                        "Card not complete",
+                        "All 32 teams must be selected before drawing."
+                    );
+
+                    return;
+
+                }
+
+
+                if (state.winner) {
+
+                    showToast(
+                        "Winner already drawn",
+                        `${state.winner} has already won.`
+                    );
+
+                    return;
+
+                }
+
+
+                const confirmed =
+                    confirm(
+                        "Draw the £40 winner?\n\nThis cannot be undone."
+                    );
+
+
+                if (!confirmed) {
+                    return;
+                }
+
+
+                const index =
+                    Math.floor(
+                        Math.random() *
+                        selected.length
+                    );
+
+
+                state.winner =
+                    selected[index];
+
+
+                saveState();
+
+
+                render();
+
+                updateAdmin();
+
+
+                showToast(
+                    "🏆 Winner drawn!",
+                    `${state.winner} has won the £40 prize!`
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       RESET
+    ====================================================== */
+
+    document
+        .getElementById("resetCard")
+        .addEventListener(
+            "click",
+            function() {
+
+                const first =
+                    confirm(
+                        "Reset the football card?"
+                    );
+
+
+                if (!first) {
+                    return;
+                }
+
+
+                const second =
+                    confirm(
+                        "This will delete every selection and winner from this browser."
+                    );
+
+
+                if (!second) {
+                    return;
+                }
+
+
+                state = {
+
+                    selections: {},
+
+                    winner: null
+
+                };
+
+
+                saveState();
+
+
+                document.getElementById(
+                    "paymentSelection"
+                ).style.display =
+                    "none";
+
+
+                document.getElementById(
+                    "checkoutBox"
+                ).innerHTML = `
+
+                    <div class="no-team-message">
+
+                        <i class="bi bi-arrow-up-circle d-block fs-4 mb-2"></i>
+
+                        Choose your football team above
+                        to continue to payment.
+
+                    </div>
+
+                `;
+
+
+                render();
+
+                updateAdmin();
+
+
+                showToast(
+                    "Card reset",
+                    "All selections have been removed."
+                );
+
+            }
+        );
+
+
+    /* =====================================================
        TOAST
-    ========================================= */
+    ====================================================== */
 
     let toastTimer;
 
@@ -3047,23 +4324,29 @@
     ) {
 
         const toast =
-            document.getElementById("toast");
+            document.getElementById(
+                "toast"
+            );
 
 
         document.getElementById(
             "toastTitle"
-        ).textContent = title;
+        ).textContent =
+            title;
 
 
         document.getElementById(
             "toastText"
-        ).textContent = message;
+        ).textContent =
+            message;
 
 
         toast.classList.add("show");
 
 
-        clearTimeout(toastTimer);
+        clearTimeout(
+            toastTimer
+        );
 
 
         toastTimer =
@@ -3075,15 +4358,15 @@
                     );
 
                 },
-                4500
+                4000
             );
 
     }
 
 
-    /* =========================================
+    /* =====================================================
        CROSS-TAB SYNC
-    ========================================= */
+    ====================================================== */
 
     window.addEventListener(
         "storage",
@@ -3106,9 +4389,9 @@
     );
 
 
-    /* =========================================
-       INITIALISE
-    ========================================= */
+    /* =====================================================
+       INITIAL LOAD
+    ====================================================== */
 
     render();
 
