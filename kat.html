@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Football Strip Fundraiser ⚽</title>
+
+    <meta
+        name="description"
+        content="Help us raise money for personalised football strips for the team. Choose a team for just £2!"
+    >
+
+    <!-- Bootstrap 5 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --primary: #198754;
+            --primary-dark: #116b43;
+            --dark: #101820;
+            --light: #f5f7f9;
+            --border: #e2e6ea;
+            --danger: #dc3545;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Rubik', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #101820;
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero-section {
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(25,135,84,0.35),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #101820,
+                    #163b2a
+                );
+
+            color: white;
+            padding: 75px 20px 90px;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .hero-section h1 {
+            font-size: clamp(2.3rem, 7vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .hero-section .lead {
+            max-width: 750px;
+            margin: auto;
+            opacity: 0.9;
+            font-size: 1.15rem;
+        }
+
+
+        /* =========================
+           INFO BOXES
+        ========================= */
+
+        .fundraiser-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .info-box {
+            min-width: 155px;
+            padding: 20px 25px;
+
+            background: rgba(255,255,255,0.1);
+
+            border: 1px solid rgba(255,255,255,0.15);
+
+            border-radius: 18px;
+
+            backdrop-filter: blur(10px);
+
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .info-box i {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .info-box strong {
+            font-size: 1.6rem;
+        }
+
+        .info-box span {
+            font-size: 0.85rem;
+            opacity: 0.75;
+        }
+
+
+        /* =========================
+           PROGRESS
+        ========================= */
+
+        .progress-section {
+            margin-top: -40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .fundraiser-card {
+            border: 0;
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.09);
+        }
+
+        .progress {
+            height: 28px;
+            border-radius: 50px;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(
+                90deg,
+                #198754,
+                #20c997
+            );
+
+            border-radius: 50px;
+
+            font-weight: 700;
+
+            transition:
+                width 0.5s ease;
+        }
+
+
+        /* =========================
+           TEAM SECTION
+        ========================= */
+
+        .teams-section {
+            padding: 85px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 45px;
+        }
+
+        .section-label {
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .section-heading h2 {
+            font-weight: 900;
+            font-size: 2.4rem;
+            margin-top: 8px;
+        }
+
+        .section-heading p {
+            color: #6c757d;
+        }
+
+
+        /* =========================
+           TEAM CARD
+        ========================= */
+
+        .team-card {
+            width: 100%;
+            min-height: 185px;
+
+            position: relative;
+
+            border: 2px solid var(--border);
+            border-radius: 20px;
+
+            background: white;
+
+            padding: 25px 15px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+
+            cursor: pointer;
+        }
+
+        .team-card.available:hover {
+            transform: translateY(-6px);
+
+            border-color: var(--primary);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .team-card.available:active {
+            transform: scale(0.97);
+        }
+
+        .team-card.taken {
+            background: #f1f3f5;
+            border-color: #d5d9dd;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .team-number {
+            position: absolute;
+
+            top: 10px;
+            left: 12px;
+
+            font-size: 0.75rem;
+
+            background: #eef1f3;
+
+            padding: 5px 9px;
+
+            border-radius: 50px;
+
+            color: #68727b;
+
+            font-weight: 700;
+        }
+
+        .team-ball {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+        }
+
+        .team-name {
+            font-size: 1rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .available-label,
+        .taken-label {
+            margin-top: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .available-label {
+            color: var(--primary);
+        }
+
+        .taken-label {
+            color: var(--danger);
+        }
+
+        .taken-by {
+            margin-top: 4px;
+            color: #6c757d;
+            font-size: 0.7rem;
+        }
+
+
+        /* =========================
+           PAYMENT SECTION
+        ========================= */
+
+        .payment-section {
+            padding: 90px 0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf6ef,
+                    #f8faf9
+                );
+        }
+
+        .payment-card {
+            max-width: 750px;
+
+            margin: auto;
+
+            background: white;
+
+            padding: 50px 30px;
+
+            text-align: center;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.08);
+        }
+
+        .payment-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .payment-card h2 {
+            font-weight: 900;
+        }
+
+        .reference-box {
+            background: #f0f8f3;
+
+            border: 2px dashed #8ac8a5;
+
+            padding: 22px;
+
+            border-radius: 15px;
+
+            margin: 25px 0;
+
+            color: #245b3d;
+        }
+
+        .reference-box .reference-title {
+            color: #116b43;
+            font-weight: 800;
+        }
+
+        .reference-example {
+            margin-top: 10px;
+            padding: 10px;
+
+            background: rgba(25,135,84,0.08);
+
+            border-radius: 10px;
+        }
+
+        .btn-revolut {
+            background: #198754;
+            color: white;
+
+            border: none;
+
+            padding: 15px 32px;
+
+            border-radius: 50px;
+
+            font-weight: 800;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .btn-revolut:hover {
+            background: #146c43;
+            color: white;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal-content {
+            border: 0;
+            border-radius: 22px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title {
+            font-weight: 800;
+        }
+
+        .selected-team {
+            background: #eef8f2;
+
+            color: var(--primary-dark);
+
+            border-radius: 12px;
+
+            padding: 17px;
+
+            text-align: center;
+
+            font-size: 1.2rem;
+
+            font-weight: 800;
+
+            margin-bottom: 22px;
+        }
+
+        .form-control {
+            padding: 13px 15px;
+            border-radius: 10px;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 0.2rem rgba(25,135,84,0.15);
+        }
+
+        .payment-reminder {
+            display: flex;
+            gap: 12px;
+
+            padding: 16px;
+
+            margin-bottom: 20px;
+
+            background: #fff8e5;
+
+            border-radius: 12px;
+
+            font-size: 0.85rem;
+
+            color: #765c16;
+        }
+
+        .payment-reminder i {
+            font-size: 1.3rem;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #101820;
+            color: white;
+
+            padding: 50px 20px;
+        }
+
+        footer h5 {
+            font-weight: 800;
+        }
+
+        footer p {
+            opacity: 0.75;
+            margin-bottom: 8px;
+        }
+
+        footer small {
+            opacity: 0.5;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 576px) {
+
+            .hero-section {
+                padding: 55px 15px 75px;
+            }
+
+            .hero-icon {
+                font-size: 3rem;
+            }
+
+            .hero-section h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero-section .lead {
+                font-size: 1rem;
+            }
+
+            .fundraiser-info {
+                gap: 8px;
+            }
+
+            .info-box {
+                min-width: 100px;
+                padding: 14px 12px;
+            }
+
+            .info-box strong {
+                font-size: 1.2rem;
+            }
+
+            .info-box span {
+                font-size: 0.7rem;
+            }
+
+            .teams-section {
+                padding: 65px 0;
+            }
+
+            .section-heading h2 {
+                font-size: 2rem;
+            }
+
+            .team-card {
+                min-height: 160px;
+                padding: 20px 10px;
+            }
+
+            .team-name {
+                font-size: 0.85rem;
+            }
+
+            .team-ball {
+                font-size: 2.3rem;
+            }
+
+            .payment-card {
+                padding: 40px 20px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar navbar-dark">
+
+    <div class="container">
+
+        <a
+            class="navbar-brand"
+            href="#"
+        >
+            ⚽ Football Fundraiser
+        </a>
+
+        <span class="text-white small">
+            Help the team 👕
+        </span>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero-section">
+
+    <div class="container text-center">
+
+        <div class="hero-icon">
+            ⚽
+        </div>
+
+        <h1>
+            Football Strip Fundraiser
+        </h1>
+
+        <p class="lead">
+            Help us raise money to get personalised football strips
+            made for the team! 👕⚽
+        </p>
+
+
+        <div class="fundraiser-info">
+
+            <div class="info-box">
+
+                <i class="bi bi-currency-pound"></i>
+
+                <strong>
+                    £2
+                </strong>
+
+                <span>
+                    Per Team
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <i class="bi bi-people-fill"></i>
+
+                <strong>
+                    32
+                </strong>
+
+                <span>
+                    Teams
+                </span>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <i class="bi bi-bullseye"></i>
+
+                <strong>
+                    £64
+                </strong>
+
+                <
