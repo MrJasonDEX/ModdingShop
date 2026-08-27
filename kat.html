@@ -4,32 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Football Team Fundraiser</title>
+    <title>Football Team Fundraiser | £2 Entry</title>
 
     <meta name="description"
-        content="Support our football team fundraiser. Pick your team for £2 and be in with a chance to win £40.">
+          content="Support our football team fundraiser. Pick a football team for £2 and be in with a chance to win £40.">
 
-    <!-- Bootstrap -->
+    <!-- =========================================================
+         EXTERNAL CSS
+    ========================================================== -->
+
+    <!-- Bootstrap 5 -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet">
 
     <!-- Bootstrap Icons -->
     <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
 
     <!-- Google Font -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
+
+    <!-- =========================================================
+         CUSTOM CSS
+    ========================================================== -->
+
     <style>
+
         :root {
             --black: #050505;
             --dark: #111111;
-            --grey: #6b6b6b;
-            --light: #f5f5f5;
+            --grey: #707070;
+            --light: #f6f6f6;
             --border: #e5e5e5;
             --white: #ffffff;
         }
@@ -38,64 +48,119 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            background: #ffffff;
+            font-family: "Inter", sans-serif;
             color: var(--black);
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* NAVBAR */
-
-        .navbar {
             background: #fff;
-            border-bottom: 1px solid var(--border);
-            padding: 18px 0;
         }
 
-        .brand {
-            font-size: 22px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            color: #000;
+        a {
             text-decoration: none;
         }
 
-        .brand span {
-            background: #000;
-            color: #fff;
-            padding: 5px 8px;
-            border-radius: 7px;
-            margin-right: 6px;
+
+        /* =====================================================
+           NAVBAR
+        ====================================================== */
+
+        .navbar {
+            background: rgba(255,255,255,.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* HERO */
-
-        .hero {
-            padding: 80px 0 55px;
-            background:
-                radial-gradient(circle at top right, #eeeeee 0, transparent 35%),
-                #fff;
+        .brand {
+            color: #000;
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: -1px;
         }
 
-        .badge-custom {
+        .brand-icon {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
             background: #000;
             color: #fff;
+            border-radius: 10px;
+            margin-right: 8px;
+        }
+
+        .nav-price {
+            background: #f1f1f1;
             border-radius: 100px;
-            padding: 8px 14px;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 20px;
+            padding: 8px 13px;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 90px 0 80px;
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    #e8e8e8 0,
+                    transparent 35%
+                ),
+                linear-gradient(
+                    180deg,
+                    #ffffff 0%,
+                    #f7f7f7 100%
+                );
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            right: -200px;
+            top: -200px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 100px;
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 22px;
         }
 
         .hero h1 {
-            font-size: clamp(42px, 7vw, 78px);
+            font-size: clamp(44px, 7vw, 78px);
+            line-height: .94;
+            letter-spacing: -5px;
             font-weight: 900;
-            letter-spacing: -4px;
-            line-height: .95;
             max-width: 850px;
             margin-bottom: 25px;
         }
@@ -104,162 +169,292 @@
             color: #777;
         }
 
-        .hero p {
+        .hero-description {
             max-width: 650px;
             color: #666;
             font-size: 18px;
             line-height: 1.7;
-        }
-
-        /* PRIZE CARD */
-
-        .prize-card {
-            background: #000;
-            color: #fff;
-            border-radius: 24px;
-            padding: 30px;
-            height: 100%;
-            box-shadow: 0 25px 60px rgba(0,0,0,.15);
-        }
-
-        .prize-label {
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 12px;
-            font-weight: 800;
-            opacity: .65;
-        }
-
-        .prize {
-            font-size: 75px;
-            font-weight: 900;
-            letter-spacing: -5px;
-            margin: 5px 0;
-        }
-
-        .price-box {
-            margin-top: 25px;
-            padding: 18px;
-            background: #1c1c1c;
-            border-radius: 15px;
-        }
-
-        .price-box strong {
-            font-size: 28px;
-        }
-
-        /* SECTION */
-
-        .section {
-            padding: 65px 0;
-        }
-
-        .section-title {
-            font-size: 35px;
-            font-weight: 900;
-            letter-spacing: -1.5px;
-            margin-bottom: 8px;
-        }
-
-        .section-subtitle {
-            color: #777;
             margin-bottom: 30px;
         }
 
-        /* TEAM GRID */
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-            gap: 12px;
-        }
-
-        .team-btn {
-            position: relative;
-            border: 1px solid var(--border);
-            background: #fff;
-            border-radius: 15px;
-            padding: 20px 15px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            transition: all .2s ease;
-            min-height: 70px;
-        }
-
-        .team-btn:hover {
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             background: #000;
             color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,.12);
-        }
-
-        .team-btn.selected {
-            background: #eeeeee;
-            color: #999;
-            border-color: #ddd;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .team-btn.selected::after {
-            content: "SELECTED";
-            display: block;
-            font-size: 9px;
-            letter-spacing: 1px;
-            margin-top: 5px;
-            font-weight: 900;
-        }
-
-        /* CHECKOUT */
-
-        .checkout-card {
-            background: #f7f7f7;
-            border-radius: 25px;
-            padding: 35px;
-            border: 1px solid #eee;
-        }
-
-        .selected-team {
-            font-size: 28px;
-            font-weight: 900;
-            margin-bottom: 5px;
-        }
-
-        .selected-text {
-            color: #777;
-            margin-bottom: 25px;
-        }
-
-        .btn-black {
-            background: #000;
-            color: #fff;
-            border: none;
+            border: 0;
+            border-radius: 13px;
             padding: 15px 22px;
-            border-radius: 12px;
             font-weight: 800;
             transition: .2s;
         }
 
-        .btn-black:hover {
+        .btn-main:hover {
             background: #222;
             color: #fff;
             transform: translateY(-2px);
         }
 
-        /* HOW IT WORKS */
 
-        .step {
-            padding: 25px;
+        /* =====================================================
+           PRIZE CARD
+        ====================================================== */
+
+        .prize-card {
+            position: relative;
+            background: #000;
+            color: #fff;
+            border-radius: 28px;
+            padding: 35px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0,0,0,.18);
+        }
+
+        .prize-card::after {
+            content: "£";
+            position: absolute;
+            font-size: 220px;
+            font-weight: 900;
+            color: rgba(255,255,255,.035);
+            right: -20px;
+            bottom: -80px;
+            line-height: 1;
+        }
+
+        .prize-label {
+            position: relative;
+            z-index: 2;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: .55;
+            font-weight: 800;
+        }
+
+        .prize-amount {
+            position: relative;
+            z-index: 2;
+            font-size: 82px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -6px;
+            margin: 8px 0 18px;
+        }
+
+        .prize-description {
+            position: relative;
+            z-index: 2;
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        .entry-box {
+            position: relative;
+            z-index: 2;
+            background: #1b1b1b;
+            border-radius: 15px;
+            padding: 18px;
+            margin-top: 25px;
+        }
+
+        .entry-box small {
+            display: block;
+            color: #777;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+        }
+
+        .entry-box strong {
+            font-size: 28px;
+        }
+
+
+        /* =====================================================
+           STATS
+        ====================================================== */
+
+        .stats {
+            margin-top: -35px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .stat-card {
+            background: #fff;
             border: 1px solid var(--border);
             border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.05);
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           SECTION
+        ====================================================== */
+
+        .section {
+            padding: 90px 0;
+        }
+
+        .section-title {
+            font-size: 42px;
+            line-height: 1;
+            font-weight: 900;
+            letter-spacing: -2.5px;
+        }
+
+        .section-subtitle {
+            color: #777;
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           TEAM GRID
+        ====================================================== */
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fill,
+                minmax(170px, 1fr)
+            );
+            gap: 12px;
+        }
+
+        .team-button {
+            position: relative;
+            border: 1px solid var(--border);
+            background: #fff;
+            color: #111;
+            border-radius: 16px;
+            min-height: 82px;
+            padding: 16px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s ease;
+            overflow: hidden;
+        }
+
+        .team-button::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
             height: 100%;
+            background: #000;
+            transform: scaleY(0);
+            transition: .2s;
+        }
+
+        .team-button:hover {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,.12);
+        }
+
+        .team-button:hover::before {
+            transform: scaleY(1);
+        }
+
+
+        /* =====================================================
+           SELECTED TEAM
+        ====================================================== */
+
+        .selection-wrapper {
+            background: #f5f5f5;
+            border-radius: 28px;
+            padding: 40px;
+            border: 1px solid #eee;
+        }
+
+        .selection-icon {
+            width: 60px;
+            height: 60px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            color: #fff;
+            border-radius: 16px;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .selected-team-name {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+        }
+
+        .selected-empty {
+            color: #888;
+        }
+
+        .continue-button {
+            width: 100%;
+            border: none;
+            background: #000;
+            color: #fff;
+            border-radius: 13px;
+            padding: 16px;
+            font-weight: 800;
+            transition: .2s;
+        }
+
+        .continue-button:hover:not(:disabled) {
+            background: #222;
+            transform: translateY(-2px);
+        }
+
+        .continue-button:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
+
+        /* =====================================================
+           HOW IT WORKS
+        ====================================================== */
+
+        .step-card {
+            height: 100%;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: #fff;
+            transition: .2s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0,0,0,.07);
         }
 
         .step-number {
-            width: 42px;
-            height: 42px;
+            width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -267,206 +462,349 @@
             color: #fff;
             border-radius: 50%;
             font-weight: 900;
-            margin-bottom: 18px;
+            margin-bottom: 22px;
         }
 
-        .step h5 {
-            font-weight: 800;
+        .step-card h4 {
+            font-weight: 900;
+            letter-spacing: -.5px;
         }
 
-        .step p {
+        .step-card p {
             color: #777;
+            line-height: 1.7;
             margin-bottom: 0;
-            line-height: 1.6;
         }
 
-        /* INFO */
 
-        .info-box {
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            background: #fff;
+        /* =====================================================
+           PAYMENT INFO
+        ====================================================== */
+
+        .payment-info {
+            background: #000;
+            color: #fff;
+            border-radius: 25px;
+            padding: 40px;
         }
 
-        .info-box i {
-            font-size: 28px;
+        .payment-info p {
+            color: #aaa;
+            line-height: 1.7;
         }
 
-        /* FOOTER */
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 35px 0;
-            color: #777;
-            font-size: 14px;
+        .reference-example {
+            background: #1a1a1a;
+            border-radius: 14px;
+            padding: 17px;
+            margin-top: 20px;
         }
 
-        /* MODAL */
+        .reference-example small {
+            display: block;
+            color: #666;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .reference-example strong {
+            font-size: 20px;
+        }
+
+
+        /* =====================================================
+           MODAL
+        ====================================================== */
 
         .modal-content {
-            border: none;
-            border-radius: 24px;
+            border: 0;
+            border-radius: 25px;
             overflow: hidden;
+            box-shadow: 0 30px 100px rgba(0,0,0,.25);
         }
 
         .modal-header {
-            border: none;
             padding: 25px 25px 10px;
+            border: 0;
         }
 
         .modal-body {
             padding: 15px 25px 30px;
         }
 
-        .checkout-header {
+        .checkout-summary {
             background: #000;
             color: #fff;
-            padding: 25px;
             border-radius: 18px;
+            padding: 25px;
             margin-bottom: 25px;
         }
 
-        .checkout-team {
-            font-size: 30px;
-            font-weight: 900;
+        .checkout-summary small {
+            display: block;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 10px;
+            font-weight: 800;
         }
 
-        .payment-button {
+        .checkout-team {
+            font-size: 29px;
+            font-weight: 900;
+            margin: 5px 0;
+        }
+
+        .checkout-price {
+            color: #aaa;
+        }
+
+        .reference-input {
+            font-weight: 800;
+            background: #f5f5f5;
+        }
+
+        .revolut-button {
+            display: flex;
             width: 100%;
-            padding: 16px;
-            border-radius: 13px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 0;
             background: #000;
             color: #fff;
-            border: none;
+            padding: 16px;
+            border-radius: 13px;
             font-weight: 800;
-            font-size: 16px;
+            transition: .2s;
         }
 
-        .payment-button:hover {
+        .revolut-button:hover {
             background: #222;
         }
 
-        .payment-note {
-            font-size: 12px;
-            color: #888;
+        .modal-note {
             text-align: center;
+            font-size: 11px;
+            color: #888;
             margin-top: 12px;
         }
 
-        /* MOBILE */
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        footer {
+            background: #050505;
+            color: #fff;
+            padding: 45px 0;
+        }
+
+        footer p {
+            color: #777;
+            margin: 5px 0 0;
+        }
+
+
+        /* =====================================================
+           TOAST
+        ====================================================== */
+
+        .toast-container {
+            z-index: 9999;
+        }
+
+        .custom-toast {
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.15);
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
 
         @media (max-width: 767px) {
 
+            .navbar {
+                padding: 14px 0;
+            }
+
+            .brand {
+                font-size: 17px;
+            }
+
+            .brand-icon {
+                width: 34px;
+                height: 34px;
+            }
+
+            .nav-price {
+                font-size: 10px;
+            }
+
             .hero {
-                padding: 55px 0 35px;
+                padding: 60px 0 70px;
             }
 
             .hero h1 {
-                letter-spacing: -2px;
+                font-size: 48px;
+                letter-spacing: -3px;
             }
 
-            .hero p {
+            .hero-description {
                 font-size: 16px;
             }
 
-            .prize {
-                font-size: 60px;
+            .prize-amount {
+                font-size: 65px;
+            }
+
+            .section {
+                padding: 65px 0;
+            }
+
+            .section-title {
+                font-size: 34px;
             }
 
             .team-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 9px;
             }
 
-            .team-btn {
-                font-size: 13px;
-                min-height: 65px;
+            .team-button {
+                min-height: 70px;
+                padding: 12px 8px;
+                font-size: 12px;
             }
 
-            .checkout-card {
+            .selection-wrapper,
+            .payment-info {
                 padding: 25px;
             }
+
         }
+
     </style>
 </head>
 
+
 <body>
 
-<!-- NAVBAR -->
+
+<!-- ============================================================
+     NAVIGATION
+============================================================= -->
 
 <nav class="navbar">
+
     <div class="container d-flex justify-content-between align-items-center">
+
         <a href="#" class="brand">
-            <span>⚽</span> Football Fundraiser
+
+            <span class="brand-icon">
+                <i class="bi bi-trophy-fill"></i>
+            </span>
+
+            Football Fundraiser
+
         </a>
 
-        <div class="small fw-bold text-secondary">
-            £2 PER SQUARE
+        <div class="nav-price">
+            £2 PER TEAM
         </div>
+
     </div>
+
 </nav>
 
 
-<!-- HERO -->
+<!-- ============================================================
+     HERO
+============================================================= -->
 
 <section class="hero">
 
-    <div class="container">
+    <div class="container hero-content">
 
         <div class="row align-items-center g-5">
 
             <div class="col-lg-7">
 
-                <div class="badge-custom">
+                <div class="hero-badge">
+
                     <i class="bi bi-heart-fill"></i>
-                    Supporting the team
+
+                    SUPPORT THE TEAM
+
                 </div>
 
                 <h1>
-                    Help us get the team
+
+                    Help us get
                     <span>new personalised strips.</span>
+
                 </h1>
 
-                <p>
-                    Pick your football team for just £2.
-                    If your selected team is the winning team,
-                    you'll win £40.
+                <p class="hero-description">
+
+                    Pick one of the available football teams
+                    for just <strong>£2</strong>.
+
+                    If your team is selected as the winner,
+                    you'll win <strong>£40</strong>.
+
                 </p>
 
-                <a href="#teams" class="btn btn-black mt-3">
-                    Pick your team
-                    <i class="bi bi-arrow-down ms-2"></i>
+                <a href="#teams" class="btn-main">
+
+                    Choose your team
+
+                    <i class="bi bi-arrow-down"></i>
+
                 </a>
 
             </div>
+
 
             <div class="col-lg-5">
 
                 <div class="prize-card">
 
                     <div class="prize-label">
-                        Potential prize
+                        Winning prize
                     </div>
 
-                    <div class="prize">
+                    <div class="prize-amount">
                         £40
                     </div>
 
-                    <p class="mb-0 opacity-75">
-                        One lucky team selection will win
-                        £40 if it is the selected winner.
-                    </p>
+                    <div class="prize-description">
 
-                    <div class="price-box">
-                        <small class="d-block opacity-50">
-                            ENTRY
+                        One selected team will win
+                        £40 when the fundraiser draw
+                        takes place.
+
+                    </div>
+
+                    <div class="entry-box">
+
+                        <small>
+                            Entry price
                         </small>
 
-                        <strong>£2</strong>
+                        <strong>
+                            £2
+                        </strong>
 
-                        <span class="opacity-50">
+                        <span class="text-secondary">
                             per team
                         </span>
+
                     </div>
 
                 </div>
@@ -480,27 +818,100 @@
 </section>
 
 
-<!-- TEAMS -->
+<!-- ============================================================
+     STATS
+============================================================= -->
+
+<div class="container stats">
+
+    <div class="row g-3">
+
+        <div class="col-4">
+
+            <div class="stat-card text-center">
+
+                <div
+                    class="stat-number"
+                    id="teamCount">
+                    32
+                </div>
+
+                <div class="stat-label">
+                    Teams available
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-4">
+
+            <div class="stat-card text-center">
+
+                <div class="stat-number">
+                    £2
+                </div>
+
+                <div class="stat-label">
+                    Entry
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-4">
+
+            <div class="stat-card text-center">
+
+                <div class="stat-number">
+                    £40
+                </div>
+
+                <div class="stat-label">
+                    Prize
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ============================================================
+     TEAM SELECTION
+============================================================= -->
 
 <section class="section" id="teams">
 
     <div class="container">
 
-        <div class="text-center">
+        <div class="text-center mb-5">
+
+            <div class="hero-badge">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+                PICK A TEAM
+            </div>
 
             <h2 class="section-title">
-                Choose your team
+                Choose your football team
             </h2>
 
-            <p class="section-subtitle">
-                Select one available football team below.
-                Once selected, it is locked and cannot be selected again.
+            <p class="section-subtitle mt-3">
+                Select one available team below to continue.
             </p>
 
         </div>
 
-        <div id="teamGrid" class="team-grid">
-            <!-- JavaScript loads teams -->
+
+        <!-- Team grid -->
+
+        <div
+            id="teamGrid"
+            class="team-grid">
         </div>
 
     </div>
@@ -508,7 +919,9 @@
 </section>
 
 
-<!-- CHECKOUT PREVIEW -->
+<!-- ============================================================
+     SELECTION
+============================================================= -->
 
 <section class="section bg-light">
 
@@ -518,38 +931,42 @@
 
             <div class="col-lg-7">
 
-                <div class="checkout-card text-center">
+                <div class="selection-wrapper text-center">
 
-                    <div class="mb-3">
-                        <i class="bi bi-ticket-perforated fs-1"></i>
+                    <div class="selection-icon">
+
+                        <i class="bi bi-ticket-perforated-fill"></i>
+
                     </div>
 
-                    <h2 class="section-title">
+                    <h2 class="section-title mb-3">
                         Your selection
                     </h2>
 
-                    <p class="selected-text">
-                        Choose a team above to continue.
-                    </p>
+                    <div
+                        id="selectedTeam"
+                        class="selected-team-name selected-empty">
 
-                    <div id="selectionArea">
-
-                        <div class="selected-team" id="selectedTeam">
-                            No team selected
-                        </div>
-
-                        <p class="text-secondary">
-                            £2 entry
-                        </p>
-
-                        <button
-                            id="continueBtn"
-                            class="btn-black w-100"
-                            disabled>
-                            Select a team first
-                        </button>
+                        No team selected
 
                     </div>
+
+                    <p
+                        id="selectionMessage"
+                        class="text-secondary mt-2 mb-4">
+
+                        Choose a team above to continue.
+
+                    </p>
+
+                    <button
+                        id="continueButton"
+                        class="continue-button"
+                        disabled>
+
+                        Select a team first
+
+                    </button>
 
                 </div>
 
@@ -562,7 +979,9 @@
 </section>
 
 
-<!-- HOW IT WORKS -->
+<!-- ============================================================
+     HOW IT WORKS
+============================================================= -->
 
 <section class="section">
 
@@ -570,75 +989,78 @@
 
         <div class="text-center mb-5">
 
-            <h2 class="section-title">
-                How it works
-            </h2>
+            <div class="hero-badge">
+                HOW IT WORKS
+            </div>
 
-            <p class="section-subtitle">
-                Three simple steps.
-            </p>
+            <h2 class="section-title">
+                Simple as 1, 2, 3.
+            </h2>
 
         </div>
 
-        <div class="row g-3">
+
+        <div class="row g-4">
 
             <div class="col-md-4">
 
-                <div class="step">
+                <div class="step-card">
 
                     <div class="step-number">
                         1
                     </div>
 
-                    <h5>
+                    <h4>
                         Pick a team
-                    </h5>
+                    </h4>
 
                     <p>
-                        Choose one of the available football
-                        teams from the list.
+                        Choose one of the football teams
+                        that is still available.
                     </p>
 
                 </div>
 
             </div>
 
+
             <div class="col-md-4">
 
-                <div class="step">
+                <div class="step-card">
 
                     <div class="step-number">
                         2
                     </div>
 
-                    <h5>
+                    <h4>
                         Pay £2
-                    </h5>
+                    </h4>
 
                     <p>
-                        Complete your £2 payment through
-                        Revolut.
+                        Use the Revolut checkout to
+                        send your £2 entry payment.
                     </p>
 
                 </div>
 
             </div>
 
+
             <div class="col-md-4">
 
-                <div class="step">
+                <div class="step-card">
 
                     <div class="step-number">
                         3
                     </div>
 
-                    <h5>
-                        Wait for the draw
-                    </h5>
+                    <h4>
+                        Your team could win
+                    </h4>
 
                     <p>
-                        If your team is selected as the
-                        winning team, you win £40.
+                        If your selected team is the
+                        winner, you'll receive £40.
                     </p>
 
                 </div>
@@ -652,33 +1074,54 @@
 </section>
 
 
-<!-- IMPORTANT INFO -->
+<!-- ============================================================
+     PAYMENT INFORMATION
+============================================================= -->
 
 <section class="section bg-light">
 
     <div class="container">
 
-        <div class="info-box">
+        <div class="payment-info">
 
             <div class="row align-items-center g-4">
 
-                <div class="col-md-2 text-center">
+                <div class="col-lg-7">
 
-                    <i class="bi bi-info-circle-fill"></i>
+                    <div class="hero-badge">
+                        <i class="bi bi-credit-card-fill"></i>
+                        PAYMENT
+                    </div>
+
+                    <h2 class="section-title text-white">
+                        Don't forget your reference.
+                    </h2>
+
+                    <p class="mt-3">
+
+                        When making your Revolut payment,
+                        please enter the <strong class="text-white">
+                        team you selected</strong> as your
+                        payment reference.
+
+                    </p>
 
                 </div>
 
-                <div class="col-md-10">
 
-                    <h4 class="fw-bold">
-                        Payment reference
-                    </h4>
+                <div class="col-lg-5">
 
-                    <p class="mb-0 text-secondary">
-                        When making your Revolut payment,
-                        please use the <strong>football team you selected</strong>
-                        as your payment reference.
-                    </p>
+                    <div class="reference-example">
+
+                        <small>
+                            Example
+                        </small>
+
+                        <strong>
+                            Arsenal
+                        </strong>
+
+                    </div>
 
                 </div>
 
@@ -691,32 +1134,42 @@
 </section>
 
 
-<!-- FOOTER -->
+<!-- ============================================================
+     FOOTER
+============================================================= -->
 
 <footer>
 
     <div class="container text-center">
 
-        <strong class="text-dark">
-            ⚽ Football Team Fundraiser
-        </strong>
-
-        <div class="mt-2">
-            Thank you for supporting the team ❤️
+        <div class="fw-bold fs-5">
+            <i class="bi bi-trophy-fill me-2"></i>
+            Football Fundraiser
         </div>
+
+        <p>
+            Thank you for supporting the team ❤️
+        </p>
 
     </div>
 
 </footer>
 
 
-<!-- PAYMENT MODAL -->
+<!-- ============================================================
+     PAYMENT MODAL
+============================================================= -->
 
-<div class="modal fade" id="paymentModal" tabindex="-1">
+<div
+    class="modal fade"
+    id="paymentModal"
+    tabindex="-1"
+    aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered">
 
         <div class="modal-content">
+
 
             <div class="modal-header">
 
@@ -732,56 +1185,85 @@
 
             </div>
 
+
             <div class="modal-body">
 
-                <div class="checkout-header">
 
-                    <small class="opacity-50">
-                        YOUR TEAM
+                <!-- Selected team -->
+
+                <div class="checkout-summary">
+
+                    <small>
+                        Selected team
                     </small>
 
                     <div
-                        class="checkout-team"
-                        id="modalTeam">
+                        id="modalTeam"
+                        class="checkout-team">
+
+                        -
+
                     </div>
 
-                    <div class="mt-2 opacity-75">
-                        Entry: £2
+                    <div class="checkout-price">
+
+                        Entry price: <strong class="text-white">
+                            £2
+                        </strong>
+
                     </div>
 
                 </div>
 
+
+                <!-- Reference -->
+
                 <div class="mb-4">
 
-                    <label class="form-label fw-bold">
+                    <label
+                        for="paymentReference"
+                        class="form-label fw-bold">
+
                         Payment reference
+
                     </label>
 
                     <input
                         type="text"
                         id="paymentReference"
-                        class="form-control form-control-lg"
+                        class="form-control form-control-lg reference-input"
                         readonly>
 
                     <div class="form-text">
-                        Use this team name as your Revolut payment reference.
+
+                        Use this exact team name as your
+                        Revolut payment reference.
+
                     </div>
 
                 </div>
 
+
+                <!-- Revolut -->
+
                 <button
-                    class="payment-button"
-                    onclick="openRevolut()">
+                    type="button"
+                    class="revolut-button"
+                    onclick="startPayment()">
 
-                    <i class="bi bi-credit-card me-2"></i>
+                    <i class="bi bi-arrow-right-circle-fill"></i>
 
-                    Pay £2 with Revolut
+                    Continue to Revolut
 
                 </button>
 
-                <div class="payment-note">
-                    Revolut will open inside this checkout window.
+                <div class="modal-note">
+
+                    You will be taken to Revolut to
+                    complete the £2 payment.
+
                 </div>
+
 
             </div>
 
@@ -792,19 +1274,67 @@
 </div>
 
 
-<!-- BOOTSTRAP JS -->
+<!-- ============================================================
+     TOAST
+============================================================= -->
+
+<div
+    class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <div
+        id="successToast"
+        class="toast custom-toast"
+        role="alert">
+
+        <div class="toast-body fw-bold">
+
+            <i class="bi bi-check-circle-fill me-2"></i>
+
+            Team selected successfully.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ============================================================
+     BOOTSTRAP JS
+============================================================= -->
 
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>
 
 
+<!-- ============================================================
+     CUSTOM JAVASCRIPT
+============================================================= -->
+
 <script>
 
     /*
-    ========================================
-       FOOTBALL TEAMS
-    ========================================
+    ============================================================
+       AVAILABLE TEAMS
+
+       IMPORTANT:
+
+       When somebody has paid, manually remove their team
+       from this list and upload the updated index.html
+       to GitHub Pages.
+
+       Example:
+
+       Someone buys Arsenal.
+
+       Change:
+
+       "Arsenal",
+
+       to remove that team completely.
+
+    ============================================================
     */
 
     const teams = [
@@ -846,62 +1376,127 @@
 
 
     /*
-    ========================================
-       STORAGE
-    ========================================
+    ============================================================
+       LOCAL STORAGE
+
+       This is NOT the main system for removing teams.
+
+       It simply remembers the visitor's last selection
+       on their own device.
+
+       You manually remove paid teams from the array above.
+    ============================================================
     */
 
-    const STORAGE_KEY = "footballFundraiserSelectedTeams";
-
-    let selectedTeams =
-        JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    const STORAGE_KEY =
+        "footballFundraiserLastSelection";
 
 
-    let currentTeam = null;
+    let selectedTeam = null;
 
 
     /*
-    ========================================
-       LOAD TEAMS
-    ========================================
+    ============================================================
+       DOM ELEMENTS
+    ============================================================
+    */
+
+    const teamGrid =
+        document.getElementById("teamGrid");
+
+    const teamCount =
+        document.getElementById("teamCount");
+
+    const selectedTeamElement =
+        document.getElementById("selectedTeam");
+
+    const selectionMessage =
+        document.getElementById("selectionMessage");
+
+    const continueButton =
+        document.getElementById("continueButton");
+
+    const modalTeam =
+        document.getElementById("modalTeam");
+
+    const paymentReference =
+        document.getElementById("paymentReference");
+
+
+    /*
+    ============================================================
+       RENDER TEAMS
+    ============================================================
     */
 
     function renderTeams() {
 
-        const grid = document.getElementById("teamGrid");
+        teamGrid.innerHTML = "";
 
-        grid.innerHTML = "";
+        teamCount.textContent = teams.length;
+
+
+        /*
+        If there are no teams left
+        */
+
+        if (teams.length === 0) {
+
+            teamGrid.innerHTML = `
+
+                <div class="text-center p-5 border rounded-4 w-100">
+
+                    <i class="bi bi-check-circle-fill fs-1"></i>
+
+                    <h3 class="fw-bold mt-3">
+                        All teams have been selected!
+                    </h3>
+
+                    <p class="text-secondary mb-0">
+                        Thank you for supporting the team.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        /*
+        Create each team button
+        */
 
         teams.forEach(team => {
 
-            const button = document.createElement("button");
+            const button =
+                document.createElement("button");
 
-            button.className = "team-btn";
 
-            button.textContent = team;
+            button.type = "button";
 
-            /*
-            Check whether this team
-            has already been selected.
-            */
+            button.className =
+                "team-button";
 
-            if (selectedTeams.includes(team)) {
 
-                button.classList.add("selected");
+            button.innerHTML = `
 
-                button.disabled = true;
+                <i class="bi bi-shield-fill me-2"></i>
 
-            } else {
+                ${team}
 
-                button.addEventListener("click", () => {
+            `;
 
-                    selectTeam(team);
 
-                });
+            button.addEventListener(
+                "click",
+                () => chooseTeam(team)
+            );
 
-            }
 
-            grid.appendChild(button);
+            teamGrid.appendChild(button);
 
         });
 
@@ -909,62 +1504,155 @@
 
 
     /*
-    ========================================
-       SELECT TEAM
-    ========================================
+    ============================================================
+       CHOOSE TEAM
+    ============================================================
     */
 
-    function selectTeam(team) {
-
-        currentTeam = team;
-
-        document.getElementById("selectedTeam")
-            .textContent = team;
-
-        const continueBtn =
-            document.getElementById("continueBtn");
-
-        continueBtn.disabled = false;
-
-        continueBtn.textContent = "Continue to payment";
-
-        continueBtn.onclick = openCheckout;
+    function chooseTeam(team) {
 
         /*
-        Scroll down to checkout
+        Make sure team still exists
         */
 
-        document.getElementById("selectionArea")
-            .scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
+        if (!teams.includes(team)) {
+            return;
+        }
+
+
+        selectedTeam = team;
+
+
+        /*
+        Update selection box
+        */
+
+        selectedTeamElement.textContent =
+            team;
+
+        selectedTeamElement.classList.remove(
+            "selected-empty"
+        );
+
+
+        selectionMessage.textContent =
+            "Your team is ready. Continue to payment when you're ready.";
+
+
+        continueButton.disabled = false;
+
+        continueButton.textContent =
+            "Continue to payment";
+
+
+        /*
+        Save locally
+
+        This does NOT remove the team
+        from the website.
+        */
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            team
+        );
+
+
+        /*
+        Show toast
+        */
+
+        const toast =
+            new bootstrap.Toast(
+                document.getElementById("successToast"),
+                {
+                    delay: 1800
+                }
+            );
+
+        toast.show();
+
+
+        /*
+        Scroll to selection
+        */
+
+        setTimeout(() => {
+
+            document
+                .querySelector(".selection-wrapper")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+        }, 150);
 
     }
 
 
     /*
-    ========================================
-       OPEN CHECKOUT
-    ========================================
+    ============================================================
+       OPEN PAYMENT MODAL
+    ============================================================
     */
 
-    function openCheckout() {
+    continueButton.addEventListener(
+        "click",
+        openPaymentModal
+    );
 
-        if (!currentTeam) {
+
+    function openPaymentModal() {
+
+        if (!selectedTeam) {
             return;
         }
 
-        document.getElementById("modalTeam")
-            .textContent = currentTeam;
 
-        document.getElementById("paymentReference")
-            .value = currentTeam;
+        /*
+        Make sure the team hasn't been removed
+        */
+
+        if (!teams.includes(selectedTeam)) {
+
+            alert(
+                "Sorry, this team is no longer available."
+            );
+
+            selectedTeam = null;
+
+            resetSelection();
+
+            renderTeams();
+
+            return;
+        }
+
+
+        /*
+        Update modal
+        */
+
+        modalTeam.textContent =
+            selectedTeam;
+
+
+        paymentReference.value =
+            selectedTeam;
+
+
+        /*
+        Open Bootstrap modal
+        */
 
         const modal =
             new bootstrap.Modal(
-                document.getElementById("paymentModal")
+                document.getElementById(
+                    "paymentModal"
+                )
             );
+
 
         modal.show();
 
@@ -972,32 +1660,36 @@
 
 
     /*
-    ========================================
-       REVOLUT
-    ========================================
+    ============================================================
+       PAYMENT
+    ============================================================
     */
 
-    function openRevolut() {
+    function startPayment() {
 
-        if (!currentTeam) {
+        if (!selectedTeam) {
             return;
         }
 
+
         /*
-        IMPORTANT:
+        Check the team is still available
+        */
 
-        The Revolut link contains the £2 amount.
+        if (!teams.includes(selectedTeam)) {
 
-        We open it inside an iframe-style
-        modal window rather than navigating
-        away from the fundraiser.
+            alert(
+                "Sorry, this team is no longer available."
+            );
 
-        Some payment providers block iframe
-        embedding for security reasons.
+            return;
+        }
 
-        If Revolut blocks embedding, the
-        fallback below opens the payment
-        page normally.
+
+        /*
+        Revolut payment URL
+
+        £2 = 200 pence
         */
 
         const revolutURL =
@@ -1005,65 +1697,82 @@
 
 
         /*
-        Mark team as selected BEFORE payment.
-
-        This means once somebody starts the
-        checkout, that team is reserved.
-        */
-
-        if (!selectedTeams.includes(currentTeam)) {
-
-            selectedTeams.push(currentTeam);
-
-            localStorage.setItem(
-                STORAGE_KEY,
-                JSON.stringify(selectedTeams)
-            );
-
-        }
-
-        renderTeams();
-
-
-        /*
         Open Revolut.
 
-        Attempt popup first.
+        The team is NOT removed here.
+
+        You manually remove the team after
+        you receive/confirm payment.
         */
 
-        const paymentWindow =
-            window.open(
-                revolutURL,
-                "_blank",
-                "width=500,height=800"
-            );
-
-
-        /*
-        If browser blocks popup,
-        give the user a clickable fallback.
-        */
-
-        if (!paymentWindow) {
-
-            alert(
-                "Please allow pop-ups to complete your Revolut payment."
-            );
-
-        }
+        window.location.href =
+            revolutURL;
 
     }
 
 
     /*
-    ========================================
-       INITIAL LOAD
-    ========================================
+    ============================================================
+       RESET SELECTION
+    ============================================================
+    */
+
+    function resetSelection() {
+
+        selectedTeam = null;
+
+        selectedTeamElement.textContent =
+            "No team selected";
+
+        selectedTeamElement.classList.add(
+            "selected-empty"
+        );
+
+        selectionMessage.textContent =
+            "Choose a team above to continue.";
+
+        continueButton.disabled = true;
+
+        continueButton.textContent =
+            "Select a team first";
+
+    }
+
+
+    /*
+    ============================================================
+       INITIALISE
+    ============================================================
     */
 
     renderTeams();
 
+
+    /*
+    ============================================================
+       RESTORE LAST LOCAL SELECTION
+
+       This only restores their own previous selection.
+
+       It does NOT hide the team globally.
+    ============================================================
+    */
+
+    const savedTeam =
+        localStorage.getItem(STORAGE_KEY);
+
+
+    if (
+        savedTeam &&
+        teams.includes(savedTeam)
+    ) {
+
+        chooseTeam(savedTeam);
+
+    }
+
 </script>
+
 
 </body>
 </html>
