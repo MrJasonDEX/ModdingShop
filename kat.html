@@ -4,105 +4,91 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Football Card | Strip Fundraiser</title>
+    <meta name="theme-color" content="#050505">
 
     <meta
         name="description"
-        content="Pick your football team for £2 and help us raise money for personalised football strips. £40 prize!"
+        content="Football Card fundraiser — pick a team for £2 for your chance to win £40."
     >
 
-    <!-- =====================================================
-         BOOTSTRAP
-    ====================================================== -->
+    <title>Football Card | £40 Prize</title>
+
+
+    <!-- ==================================================
+         EXTERNAL ONLINE RESOURCES
+         ================================================== -->
+
+    <!-- Bootstrap 5.3.8 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous"
+    >
+
+    <!-- Bootstrap Icons 1.13.1 -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet"
     >
 
-    <!-- =====================================================
-         BOOTSTRAP ICONS
-    ====================================================== -->
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        rel="stylesheet"
-    >
-
-    <!-- =====================================================
-         GOOGLE FONTS
-    ====================================================== -->
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Oswald:wght@500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
+    <!-- ==================================================
+         CUSTOM CSS
+         ================================================== -->
 
     <style>
 
-        /* =====================================================
-           VARIABLES
-        ====================================================== */
-
         :root {
 
-            --green:
-                #087f3f;
+            --black: #050505;
+            --black-soft: #101010;
 
-            --green-dark:
-                #045b2d;
+            --white: #ffffff;
 
-            --green-light:
-                #e9f8ef;
+            --green: #13a45a;
+            --green-dark: #08743d;
+            --green-light: #e9f8f0;
 
-            --green-soft:
-                #f2faf5;
+            --gold: #f4bd38;
+            --gold-light: #fff7df;
 
-            --black:
-                #07110c;
+            --grey-1: #f5f5f5;
+            --grey-2: #eeeeee;
+            --grey-3: #777777;
+            --grey-4: #aaaaaa;
 
-            --dark:
-                #101a15;
+            --border: #e5e5e5;
 
-            --white:
-                #ffffff;
-
-            --grey:
-                #69756f;
-
-            --light:
-                #f4f7f5;
-
-            --border:
-                #dfe8e2;
-
-            --red:
-                #dc3545;
-
-            --gold:
-                #f0b90b;
-
-            --gold-light:
-                #fff7d9;
+            --radius: 22px;
 
             --shadow:
-                0 15px 45px rgba(7, 17, 12, 0.09);
+                0 20px 60px rgba(0,0,0,.08);
 
-            --shadow-hover:
-                0 20px 50px rgba(7, 17, 12, 0.16);
+            --shadow-small:
+                0 8px 30px rgba(0,0,0,.06);
 
         }
 
-
-        /* =====================================================
-           GLOBAL
-        ====================================================== */
 
         * {
             box-sizing: border-box;
@@ -118,491 +104,525 @@
 
             margin: 0;
 
-            background:
-                var(--light);
+            background: #f7f7f7;
 
-            color:
-                var(--black);
+            color: var(--black);
 
             font-family:
                 'Inter',
+                Arial,
                 sans-serif;
 
-            overflow-x:
-                hidden;
+            -webkit-font-smoothing: antialiased;
 
+        }
+
+
+        body.modal-open {
+            padding-right: 0 !important;
+        }
+
+
+        a {
+            text-decoration: none;
         }
 
 
         button,
         input {
-
-            font-family:
-                inherit;
-
+            font-family: inherit;
         }
 
 
-        a {
-            text-decoration:
-                none;
+        ::selection {
+            background: var(--black);
+            color: white;
         }
 
 
-        /* =====================================================
-           NAVBAR
-        ====================================================== */
+        /* ================================================
+           NAVIGATION
+        ================================================ */
 
-        .navbar {
+        .navbar-custom {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            height: 76px;
 
             background:
-                rgba(7, 17, 12, 0.98);
+                rgba(255,255,255,.92);
 
-            padding:
-                14px 0;
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
 
             border-bottom:
-                1px solid rgba(255,255,255,0.08);
+                1px solid rgba(0,0,0,.07);
+
+        }
+
+
+        .nav-inner {
+
+            height: 76px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
 
         }
 
 
         .brand {
 
-            display:
-                flex;
+            display: inline-flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            gap:
-                10px;
+            gap: 11px;
 
-            color:
-                white;
+            color: var(--black);
 
-            font-weight:
-                900;
+            font-size: .95rem;
 
-            font-size:
-                1.05rem;
+            font-weight: 800;
+
+            letter-spacing: -.3px;
 
         }
 
 
-        .brand-ball {
+        .brand:hover {
+            color: var(--black);
+        }
 
-            width:
-                42px;
 
-            height:
-                42px;
+        .brand-logo {
 
-            display:
-                flex;
+            width: 42px;
 
-            align-items:
-                center;
+            height: 42px;
 
-            justify-content:
-                center;
+            display: flex;
 
-            background:
-                var(--green);
+            align-items: center;
 
-            border-radius:
-                13px;
+            justify-content: center;
 
-            font-size:
-                1.25rem;
+            background: var(--black);
 
+            color: white;
+
+            border-radius: 13px;
+
+            font-size: 1.2rem;
+
+        }
+
+
+        .brand strong {
+            font-weight: 900;
         }
 
 
         .nav-button {
 
-            display:
-                inline-flex;
+            display: inline-flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            gap:
-                6px;
+            gap: 8px;
 
-            padding:
-                9px 16px;
+            padding: 11px 17px;
 
-            border-radius:
-                50px;
+            background: var(--black);
 
-            background:
-                white;
+            color: white;
 
-            color:
-                var(--black);
+            border-radius: 100px;
 
-            font-size:
-                0.8rem;
+            font-size: .7rem;
 
-            font-weight:
-                800;
+            font-weight: 800;
 
-            transition:
-                0.2s;
+            transition: .2s ease;
 
         }
 
 
         .nav-button:hover {
 
-            transform:
-                translateY(-2px);
+            background: var(--green);
 
-            color:
-                var(--green-dark);
+            color: white;
 
-            background:
-                var(--green-light);
+            transform: translateY(-2px);
 
         }
 
 
-        /* =====================================================
+        /* ================================================
            HERO
-        ====================================================== */
+        ================================================ */
 
         .hero {
 
-            position:
-                relative;
+            position: relative;
 
-            overflow:
-                hidden;
+            min-height: 620px;
 
-            color:
-                white;
+            display: flex;
 
-            padding:
-                75px 20px 125px;
+            align-items: center;
 
-            background:
+            overflow: hidden;
 
-                radial-gradient(
-                    circle at 80% 15%,
-                    rgba(50, 210, 120, 0.35),
-                    transparent 28%
-                ),
+            background: var(--black);
 
-                radial-gradient(
-                    circle at 10% 90%,
-                    rgba(20, 140, 75, 0.3),
-                    transparent 30%
+            color: white;
+
+        }
+
+
+        .hero-background {
+
+            position: absolute;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+
+        }
+
+
+        .hero-background::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            opacity: .07;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(255,255,255,.5) 1px,
+                    transparent 1px
                 ),
 
                 linear-gradient(
-                    135deg,
-                    #06100b,
-                    #0a2818 55%,
-                    #087f3f
+                    90deg,
+                    rgba(255,255,255,.5) 1px,
+                    transparent 1px
                 );
 
-        }
-
-
-        .hero::before {
-
-            content:
-                "";
-
-            position:
-                absolute;
-
-            width:
-                600px;
-
-            height:
-                600px;
-
-            right:
-                -310px;
-
-            top:
-                -270px;
-
-            border:
-                2px solid rgba(255,255,255,0.07);
-
-            border-radius:
-                50%;
+            background-size: 65px 65px;
 
         }
 
 
-        .hero::after {
+        .hero-circle {
 
-            content:
-                "";
+            position: absolute;
 
-            position:
-                absolute;
+            width: 700px;
 
-            width:
-                300px;
+            height: 700px;
 
-            height:
-                300px;
+            right: -330px;
 
-            left:
-                -160px;
+            top: -300px;
 
-            bottom:
-                -170px;
+            border: 1px solid rgba(255,255,255,.12);
 
-            border:
-                2px solid rgba(255,255,255,0.06);
+            border-radius: 50%;
 
-            border-radius:
-                50%;
+            box-shadow:
+
+                0 0 0 80px rgba(255,255,255,.015),
+
+                0 0 0 160px rgba(255,255,255,.015),
+
+                0 0 0 240px rgba(255,255,255,.015);
+
+        }
+
+
+        .hero-glow {
+
+            position: absolute;
+
+            width: 500px;
+
+            height: 500px;
+
+            left: -300px;
+
+            bottom: -350px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(19,164,90,.2);
+
+            filter: blur(80px);
 
         }
 
 
         .hero-content {
 
-            position:
-                relative;
+            position: relative;
 
-            z-index:
-                2;
+            z-index: 2;
+
+            padding: 90px 0 150px;
+
+            max-width: 850px;
 
         }
 
 
-        .hero-badge {
+        .hero-eyebrow {
 
-            display:
-                inline-flex;
+            display: inline-flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            gap:
-                8px;
+            gap: 9px;
 
-            padding:
-                8px 14px;
+            margin-bottom: 25px;
 
-            margin-bottom:
-                22px;
+            color: rgba(255,255,255,.58);
 
-            background:
-                rgba(255,255,255,0.1);
+            font-size: .65rem;
 
-            border:
-                1px solid rgba(255,255,255,0.15);
+            font-weight: 900;
 
-            border-radius:
-                50px;
+            letter-spacing: 2px;
 
-            font-size:
-                0.75rem;
+        }
 
-            font-weight:
-                800;
+
+        .hero-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: #35d879;
+
+            box-shadow:
+                0 0 14px #35d879;
 
         }
 
 
         .hero h1 {
 
-            max-width:
-                900px;
-
-            margin:
-                0 auto 20px;
+            margin: 0;
 
             font-size:
-                clamp(2.7rem, 7vw, 5.5rem);
+                clamp(3.3rem, 8vw, 7rem);
 
-            line-height:
-                0.98;
+            line-height: .92;
 
-            letter-spacing:
-                -3px;
+            letter-spacing: -5px;
 
-            font-weight:
-                900;
+            font-weight: 900;
 
         }
 
 
         .hero h1 span {
 
-            color:
-                #55e58e;
+            display: block;
+
+            color: #43d97f;
 
         }
 
 
         .hero-description {
 
-            max-width:
-                720px;
+            max-width: 630px;
 
-            margin:
-                0 auto;
+            margin: 28px 0 0;
 
-            color:
-                rgba(255,255,255,0.8);
+            color: rgba(255,255,255,.63);
 
-            font-size:
-                clamp(1rem, 2vw, 1.15rem);
+            font-size: .95rem;
 
-            line-height:
-                1.7;
+            line-height: 1.8;
 
         }
 
 
-        .hero-buttons {
+        .hero-description strong {
+            color: white;
+        }
 
-            display:
-                flex;
 
-            justify-content:
-                center;
+        .hero-actions {
 
-            flex-wrap:
-                wrap;
+            display: flex;
 
-            gap:
-                12px;
+            flex-wrap: wrap;
 
-            margin-top:
-                32px;
+            gap: 11px;
+
+            margin-top: 32px;
 
         }
 
 
-        .hero-button {
+        .hero-primary,
+        .hero-secondary {
 
-            display:
-                inline-flex;
+            min-height: 52px;
 
-            align-items:
-                center;
+            display: inline-flex;
 
-            justify-content:
-                center;
+            align-items: center;
 
-            gap:
-                8px;
+            justify-content: center;
 
-            padding:
-                14px 23px;
+            gap: 9px;
 
-            border-radius:
-                50px;
+            padding: 0 23px;
 
-            font-weight:
-                900;
+            border-radius: 100px;
 
-            transition:
-                0.2s;
+            font-size: .72rem;
+
+            font-weight: 900;
+
+            transition: .2s ease;
 
         }
 
 
-        .hero-button.primary {
+        .hero-primary {
 
-            background:
-                white;
+            background: white;
 
-            color:
-                var(--green-dark);
+            color: var(--black);
 
         }
 
 
-        .hero-button.primary:hover {
+        .hero-primary:hover {
 
-            transform:
-                translateY(-3px);
+            background: #43d97f;
 
-            box-shadow:
-                0 12px 25px rgba(0,0,0,0.2);
+            color: var(--black);
 
-        }
-
-
-        .hero-button.secondary {
-
-            color:
-                white;
-
-            border:
-                1px solid rgba(255,255,255,0.25);
+            transform: translateY(-3px);
 
         }
 
 
-        .hero-button.secondary:hover {
+        .hero-secondary {
 
-            background:
-                rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,.2);
+
+            color: white;
 
         }
 
 
-        /* =====================================================
+        .hero-secondary:hover {
+
+            border-color: white;
+
+            color: white;
+
+            background: rgba(255,255,255,.06);
+
+        }
+
+
+        .hero-note {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            margin-top: 24px;
+
+            color: rgba(255,255,255,.4);
+
+            font-size: .65rem;
+
+        }
+
+
+        .hero-note i {
+            color: #ff5471;
+        }
+
+
+        /* ================================================
            STATS
-        ====================================================== */
+        ================================================ */
 
-        .stats-wrapper {
+        .stats-container {
 
-            position:
-                relative;
+            position: relative;
 
-            z-index:
-                5;
+            z-index: 20;
 
-            margin-top:
-                -65px;
+            margin-top: -65px;
 
         }
 
 
         .stats-card {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
                 repeat(4, 1fr);
 
-            padding:
-                8px;
+            overflow: hidden;
 
-            background:
-                white;
+            background: white;
 
-            border-radius:
-                24px;
+            border: 1px solid var(--border);
 
-            box-shadow:
-                var(--shadow);
+            border-radius: 25px;
+
+            box-shadow: var(--shadow);
 
         }
 
 
         .stat {
 
-            padding:
-                24px 15px;
+            display: flex;
 
-            text-align:
-                center;
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 26px;
 
             border-right:
                 1px solid var(--border);
@@ -611,1675 +631,1651 @@
 
 
         .stat:last-child {
-
-            border-right:
-                0;
-
+            border-right: 0;
         }
 
 
         .stat-icon {
 
-            width:
-                45px;
+            width: 46px;
 
-            height:
-                45px;
+            height: 46px;
 
-            display:
-                flex;
+            flex: 0 0 46px;
 
-            align-items:
-                center;
+            display: flex;
 
-            justify-content:
-                center;
+            align-items: center;
 
-            margin:
-                0 auto 10px;
+            justify-content: center;
 
-            background:
-                var(--green-light);
+            background: var(--black);
 
-            color:
-                var(--green);
+            color: white;
 
-            border-radius:
-                14px;
+            border-radius: 14px;
+
+            font-size: .95rem;
+
+        }
+
+
+        .stat-icon.green {
+
+            background: var(--green-light);
+
+            color: var(--green);
+
+        }
+
+
+        .stat-icon.gold {
+
+            background: var(--gold-light);
+
+            color: #a77700;
 
         }
 
 
         .stat strong {
 
-            display:
-                block;
+            display: block;
 
-            font-size:
-                1.5rem;
+            font-size: 1.2rem;
 
-            font-weight:
-                900;
+            line-height: 1;
 
-        }
-
-
-        .stat span {
-
-            color:
-                var(--grey);
-
-            font-size:
-                0.7rem;
-
-            font-weight:
-                700;
+            font-weight: 900;
 
         }
 
 
-        /* =====================================================
-           MAIN
-        ====================================================== */
+        .stat small {
 
-        .main-section {
+            display: block;
 
-            padding:
-                90px 0;
+            margin-top: 5px;
+
+            color: var(--grey-3);
+
+            font-size: .6rem;
+
+            font-weight: 600;
 
         }
 
 
-        /* =====================================================
-           HEADINGS
-        ====================================================== */
+        /* ================================================
+           GENERAL SECTIONS
+        ================================================ */
+
+        .section {
+            padding: 120px 0;
+        }
+
 
         .section-heading {
 
-            max-width:
-                700px;
+            max-width: 650px;
 
-            margin:
-                0 auto 40px;
+            margin: 0 auto 45px;
 
-            text-align:
-                center;
+            text-align: center;
 
         }
 
 
-        .section-tag {
+        .section-kicker {
 
-            display:
-                inline-block;
+            display: flex;
 
-            margin-bottom:
-                9px;
+            align-items: center;
 
-            color:
-                var(--green);
+            justify-content: center;
 
-            font-size:
-                0.72rem;
+            gap: 10px;
 
-            font-weight:
-                900;
+            margin-bottom: 12px;
 
-            letter-spacing:
-                1.5px;
+            color: var(--green);
+
+            font-size: .6rem;
+
+            font-weight: 900;
+
+            letter-spacing: 2px;
+
+        }
+
+
+        .section-kicker::before,
+        .section-kicker::after {
+
+            content: "";
+
+            width: 22px;
+
+            height: 2px;
+
+            background: var(--green);
 
         }
 
 
         .section-heading h2 {
 
-            margin:
-                0 0 12px;
+            margin: 0;
 
             font-size:
-                clamp(2rem, 5vw, 3.2rem);
+                clamp(2rem,5vw,3.3rem);
 
-            letter-spacing:
-                -1.5px;
+            line-height: 1;
 
-            font-weight:
-                900;
+            letter-spacing: -2px;
+
+            font-weight: 900;
 
         }
 
 
         .section-heading p {
 
-            margin:
-                0;
+            max-width: 550px;
 
-            color:
-                var(--grey);
+            margin: 15px auto 0;
 
-            line-height:
-                1.7;
+            color: var(--grey-3);
 
-        }
+            font-size: .78rem;
 
-
-        /* =====================================================
-           PRIZE BANNER
-        ====================================================== */
-
-        .prize-banner {
-
-            position:
-                relative;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                20px;
-
-            max-width:
-                900px;
-
-            margin:
-                0 auto 35px;
-
-            padding:
-                22px 25px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #fff8d9,
-                    #fffdf1
-                );
-
-            border:
-                1px solid #f0dc87;
-
-            border-radius:
-                20px;
-
-            overflow:
-                hidden;
+            line-height: 1.8;
 
         }
 
 
-        .prize-banner::after {
-
-            content:
-                "£40";
-
-            position:
-                absolute;
-
-            right:
-                -15px;
-
-            bottom:
-                -40px;
-
-            font-size:
-                7rem;
-
-            font-weight:
-                900;
-
-            color:
-                rgba(240,185,11,0.08);
-
-        }
-
-
-        .prize-left {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                15px;
-
-            z-index:
-                1;
-
-        }
-
-
-        .prize-icon {
-
-            width:
-                55px;
-
-            height:
-                55px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            background:
-                #fff0a8;
-
-            border-radius:
-                16px;
-
-            font-size:
-                1.7rem;
-
-        }
-
-
-        .prize-text strong {
-
-            display:
-                block;
-
-            color:
-                #705a0b;
-
-            font-size:
-                1rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        .prize-text span {
-
-            color:
-                #877528;
-
-            font-size:
-                0.75rem;
-
-        }
-
-
-        .prize-amount {
-
-            position:
-                relative;
-
-            z-index:
-                1;
-
-            color:
-                #8b6c00;
-
-            font-size:
-                2rem;
-
-            font-weight:
-                900;
-
-        }
-
-
-        /* =====================================================
+        /* ================================================
            PROGRESS
-        ====================================================== */
+        ================================================ */
 
-        .progress-card {
+        .progress-panel {
 
-            max-width:
-                900px;
+            max-width: 950px;
 
-            margin:
-                0 auto 40px;
+            margin: 0 auto 30px;
 
-            padding:
-                24px 28px;
+            padding: 24px;
 
-            background:
-                white;
+            background: white;
 
-            border:
-                1px solid var(--border);
+            border: 1px solid var(--border);
 
-            border-radius:
-                20px;
+            border-radius: var(--radius);
 
-            box-shadow:
-                0 8px 30px rgba(7,17,12,0.05);
+            box-shadow: var(--shadow-small);
 
         }
 
 
         .progress-top {
 
-            display:
-                flex;
+            display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                space-between;
+            justify-content: space-between;
 
-            gap:
-                15px;
-
-            margin-bottom:
-                13px;
+            gap: 20px;
 
         }
 
 
-        .progress-title {
+        .progress-label {
 
-            font-weight:
-                900;
+            color: var(--grey-3);
 
-        }
+            font-size: .55rem;
 
+            font-weight: 900;
 
-        .progress-money {
-
-            color:
-                var(--green);
-
-            font-weight:
-                900;
+            letter-spacing: 1.3px;
 
         }
 
 
-        .progress {
+        .progress-number {
 
-            height:
-                17px;
+            margin-top: 4px;
 
-            background:
-                #e8eee9;
+            font-size: .95rem;
 
-            border-radius:
-                50px;
-
-            overflow:
-                hidden;
+            font-weight: 900;
 
         }
 
 
-        .progress-bar {
+        .progress-number span {
+            color: var(--green);
+        }
 
-            background:
-                linear-gradient(
-                    90deg,
-                    #087f3f,
-                    #39ca7a
-                );
 
-            border-radius:
-                50px;
+        .money-raised {
 
-            transition:
-                width 0.5s ease;
+            font-size: 1.4rem;
+
+            font-weight: 900;
+
+        }
+
+
+        .progress-track {
+
+            height: 9px;
+
+            margin-top: 17px;
+
+            overflow: hidden;
+
+            background: #ededed;
+
+            border-radius: 100px;
+
+        }
+
+
+        .progress-bar-custom {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: var(--black);
+
+            border-radius: 100px;
+
+            transition: width .5s ease;
 
         }
 
 
         .progress-bottom {
 
-            display:
-                flex;
+            display: flex;
 
-            justify-content:
-                space-between;
+            justify-content: space-between;
 
-            margin-top:
-                9px;
+            gap: 15px;
 
-            color:
-                var(--grey);
+            margin-top: 9px;
 
-            font-size:
-                0.7rem;
+            color: var(--grey-3);
 
-            font-weight:
-                700;
+            font-size: .57rem;
+
+            font-weight: 600;
 
         }
 
 
-        /* =====================================================
+        .available-dot {
+
+            display: inline-block;
+
+            width: 6px;
+
+            height: 6px;
+
+            margin-right: 4px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+        }
+
+
+        /* ================================================
            TEAM GRID
-        ====================================================== */
+        ================================================ */
 
         .team-grid {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
                 repeat(4, 1fr);
 
-            gap:
-                16px;
+            gap: 14px;
 
         }
 
 
         .team-card {
 
-            position:
-                relative;
+            position: relative;
 
-            width:
-                100%;
+            min-height: 180px;
 
-            min-height:
-                205px;
+            display: flex;
 
-            padding:
-                25px 14px;
+            flex-direction: column;
 
-            border:
-                1px solid var(--border);
+            align-items: center;
 
-            border-radius:
-                21px;
+            justify-content: center;
 
-            background:
-                white;
+            padding: 25px 14px;
 
-            display:
-                flex;
+            background: white;
 
-            flex-direction:
-                column;
+            border: 1px solid var(--border);
 
-            align-items:
-                center;
+            border-radius: 20px;
 
-            justify-content:
-                center;
-
-            text-align:
-                center;
-
-            cursor:
-                pointer;
+            cursor: pointer;
 
             transition:
                 transform .25s ease,
                 box-shadow .25s ease,
                 border-color .25s ease;
 
-            overflow:
-                hidden;
-
         }
 
 
-        .team-card::before {
+        .team-card:hover {
 
-            content:
-                "";
+            transform: translateY(-6px);
 
-            position:
-                absolute;
-
-            top:
-                0;
-
-            left:
-                0;
-
-            width:
-                100%;
-
-            height:
-                4px;
-
-            background:
-                var(--green);
-
-            transform:
-                scaleX(0);
-
-            transform-origin:
-                left;
-
-            transition:
-                transform .25s ease;
-
-        }
-
-
-        .team-card.available:hover {
-
-            transform:
-                translateY(-7px);
-
-            border-color:
-                #a8d7b9;
+            border-color: var(--black);
 
             box-shadow:
-                var(--shadow-hover);
+                0 18px 45px rgba(0,0,0,.1);
 
         }
 
 
-        .team-card.available:hover::before {
+        .team-card:focus-visible {
 
-            transform:
-                scaleX(1);
+            outline: 3px solid
+                rgba(19,164,90,.25);
 
-        }
-
-
-        .team-card.taken {
-
-            background:
-                #eef1ef;
-
-            border-color:
-                #dce3de;
-
-            opacity:
-                .65;
-
-            cursor:
-                not-allowed;
-
-        }
-
-
-        .team-card.taken::before {
-
-            background:
-                var(--red);
-
-            transform:
-                scaleX(1);
+            outline-offset: 3px;
 
         }
 
 
         .team-number {
 
-            position:
-                absolute;
+            position: absolute;
 
-            top:
-                11px;
+            top: 13px;
 
-            left:
-                11px;
+            left: 13px;
 
-            min-width:
-                27px;
+            color: #b5b5b5;
 
-            padding:
-                4px 7px;
+            font-size: .5rem;
 
-            background:
-                #f0f3f1;
-
-            color:
-                var(--grey);
-
-            border-radius:
-                8px;
-
-            font-size:
-                .63rem;
-
-            font-weight:
-                900;
+            font-weight: 900;
 
         }
 
 
-        .team-icon {
+        .team-ball {
 
-            width:
-                58px;
+            width: 57px;
 
-            height:
-                58px;
+            height: 57px;
 
-            display:
-                flex;
+            display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                center;
+            justify-content: center;
 
-            margin-bottom:
-                13px;
+            margin-bottom: 13px;
 
-            background:
-                var(--green-light);
+            background: var(--grey-1);
 
-            border-radius:
-                17px;
+            color: var(--black);
 
-            font-size:
-                1.65rem;
+            border-radius: 17px;
+
+            font-size: 1.4rem;
+
+            transition: .25s ease;
 
         }
 
 
-        .team-card.taken .team-icon {
+        .team-card:hover .team-ball {
 
-            background:
-                #dfe5e1;
+            background: var(--black);
 
-        }
-
-
-        .team-card.winner {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #fff6c7,
-                    #fffdf0
-                );
-
-            border:
-                2px solid var(--gold);
-
-            opacity:
-                1;
-
-            transform:
-                none;
-
-        }
-
-
-        .team-card.winner .team-icon {
-
-            background:
-                #ffe991;
+            color: white;
 
         }
 
 
         .team-name {
 
-            font-size:
-                .94rem;
+            text-align: center;
 
-            font-weight:
-                900;
+            font-size: .78rem;
 
-            line-height:
-                1.25;
+            font-weight: 900;
 
         }
 
 
         .team-status {
 
-            margin-top:
-                9px;
+            margin-top: 8px;
 
-            font-size:
-                .65rem;
+            font-size: .52rem;
 
-            font-weight:
-                900;
+            font-weight: 900;
 
-        }
-
-
-        .available-status {
-
-            color:
-                var(--green);
+            letter-spacing: .6px;
 
         }
 
 
-        .taken-status {
+        .team-available {
+            color: var(--green);
+        }
 
-            color:
-                var(--red);
+
+        .team-selected {
+
+            background: #f1f1f1;
+
+            opacity: .48;
+
+            cursor: not-allowed;
 
         }
 
 
-        .winner-status {
+        .team-selected:hover {
 
-            color:
-                #8a6900;
+            transform: none;
 
-        }
+            border-color: var(--border);
 
-
-        .taken-person {
-
-            max-width:
-                90%;
-
-            margin-top:
-                3px;
-
-            overflow:
-                hidden;
-
-            text-overflow:
-                ellipsis;
-
-            white-space:
-                nowrap;
-
-            color:
-                var(--grey);
-
-            font-size:
-                .62rem;
+            box-shadow: none;
 
         }
 
 
-        /* =====================================================
-           COMPLETE
-        ====================================================== */
+        .team-selected .team-ball {
 
-        .complete-banner {
+            background: #e3e3e3;
 
-            display:
-                none;
-
-            max-width:
-                900px;
-
-            margin:
-                0 auto 30px;
-
-            padding:
-                25px;
-
-            background:
-                var(--green-light);
-
-            border:
-                1px solid #b8dfc7;
-
-            border-radius:
-                20px;
-
-            text-align:
-                center;
-
-            color:
-                var(--green-dark);
+            color: #999;
 
         }
 
 
-        .complete-banner h3 {
+        .team-selected .team-status {
 
-            margin:
-                0 0 7px;
-
-            font-weight:
-                900;
+            color: #999;
 
         }
 
 
-        .complete-banner p {
+        .team-winner {
 
-            margin:
-                0;
+            background: var(--black);
 
-            color:
-                #47705a;
+            border-color: var(--black);
 
-            font-size:
-                .85rem;
+            color: white;
+
+            opacity: 1;
 
         }
 
 
-        /* =====================================================
+        .team-winner .team-ball {
+
+            background: var(--gold);
+
+            color: #111;
+
+        }
+
+
+        .team-winner .team-number {
+            color: #777;
+        }
+
+
+        .team-winner .team-status {
+            color: var(--gold);
+        }
+
+
+        /* ================================================
+           WINNER PANEL
+        ================================================ */
+
+        .winner-panel {
+
+            display: none;
+
+            max-width: 950px;
+
+            margin: 0 auto 25px;
+
+            padding: 25px;
+
+            align-items: center;
+
+            gap: 17px;
+
+            background: var(--black);
+
+            color: white;
+
+            border-radius: var(--radius);
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,.15);
+
+        }
+
+
+        .winner-icon {
+
+            width: 58px;
+
+            height: 58px;
+
+            flex: 0 0 58px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: var(--gold);
+
+            color: #111;
+
+            border-radius: 17px;
+
+            font-size: 1.3rem;
+
+        }
+
+
+        .winner-label {
+
+            color: #888;
+
+            font-size: .55rem;
+
+            font-weight: 900;
+
+            letter-spacing: 1.3px;
+
+        }
+
+
+        .winner-team {
+
+            margin-top: 3px;
+
+            font-size: 1.35rem;
+
+            font-weight: 900;
+
+        }
+
+
+        .winner-message {
+
+            margin: 2px 0 0;
+
+            color: #999;
+
+            font-size: .65rem;
+
+        }
+
+
+        /* ================================================
+           COMPLETE PANEL
+        ================================================ */
+
+        .complete-panel {
+
+            display: none;
+
+            max-width: 950px;
+
+            margin: 0 auto 25px;
+
+            padding: 19px;
+
+            align-items: center;
+
+            gap: 13px;
+
+            background: var(--green-light);
+
+            border: 1px solid #c8e9d6;
+
+            border-radius: var(--radius);
+
+        }
+
+
+        .complete-icon {
+
+            width: 44px;
+
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex: 0 0 44px;
+
+            background: var(--green);
+
+            color: white;
+
+            border-radius: 13px;
+
+        }
+
+
+        .complete-title {
+
+            display: block;
+
+            font-size: .75rem;
+
+            font-weight: 900;
+
+        }
+
+
+        .complete-text {
+
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--grey-3);
+
+            font-size: .6rem;
+
+        }
+
+
+        /* ================================================
            HOW IT WORKS
-        ====================================================== */
+        ================================================ */
 
         .how-section {
 
-            padding:
-                90px 0;
-
-            background:
-                white;
+            background: white;
 
         }
 
 
         .steps {
 
-            display:
-                grid;
+            display: grid;
 
             grid-template-columns:
                 repeat(3,1fr);
 
-            gap:
-                20px;
+            gap: 17px;
 
         }
 
 
         .step {
 
-            padding:
-                30px;
+            position: relative;
 
-            background:
-                var(--light);
+            padding: 34px;
 
-            border:
-                1px solid var(--border);
+            overflow: hidden;
 
-            border-radius:
-                20px;
+            background: #f7f7f7;
+
+            border: 1px solid var(--border);
+
+            border-radius: 22px;
 
         }
 
 
         .step-number {
 
-            width:
-                45px;
+            position: absolute;
 
-            height:
-                45px;
+            top: 16px;
 
-            display:
-                flex;
+            right: 24px;
 
-            align-items:
-                center;
+            color: #ddd;
 
-            justify-content:
-                center;
+            font-size: 2.7rem;
 
-            margin-bottom:
-                17px;
+            line-height: 1;
 
-            background:
-                var(--green);
-
-            color:
-                white;
-
-            border-radius:
-                14px;
-
-            font-weight:
-                900;
+            font-weight: 900;
 
         }
 
 
-        .step h4 {
+        .step-icon {
 
-            margin:
-                0 0 8px;
+            width: 50px;
 
-            font-size:
-                1.05rem;
+            height: 50px;
 
-            font-weight:
-                900;
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 24px;
+
+            background: var(--black);
+
+            color: white;
+
+            border-radius: 15px;
+
+        }
+
+
+        .step h3 {
+
+            margin: 0 0 9px;
+
+            font-size: .95rem;
+
+            font-weight: 900;
 
         }
 
 
         .step p {
 
-            margin:
-                0;
+            margin: 0;
 
-            color:
-                var(--grey);
+            color: var(--grey-3);
 
-            font-size:
-                .82rem;
+            font-size: .68rem;
 
-            line-height:
-                1.7;
+            line-height: 1.75;
 
         }
 
 
-        /* =====================================================
+        /* ================================================
            PAYMENT
-        ====================================================== */
+        ================================================ */
 
         .payment-section {
 
-            padding:
-                90px 0;
+            padding: 110px 0;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #e9f8ef,
-                    #f6faf7
-                );
+            background: var(--black);
 
         }
 
 
         .payment-card {
 
-            max-width:
-                850px;
+            max-width: 720px;
 
-            margin:
-                auto;
+            margin: auto;
 
-            padding:
-                45px 35px;
+            padding: 45px;
 
-            background:
-                white;
+            background: white;
 
-            border:
-                1px solid var(--border);
+            border-radius: 28px;
 
-            border-radius:
-                28px;
+            text-align: center;
 
-            box-shadow:
-                var(--shadow);
+        }
 
-            text-align:
-                center;
+
+        .payment-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 14px;
 
         }
 
 
         .payment-icon {
 
-            width:
-                70px;
+            width: 55px;
 
-            height:
-                70px;
+            height: 55px;
 
-            display:
-                flex;
+            display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                center;
+            justify-content: center;
 
-            margin:
-                0 auto 20px;
+            background: var(--black);
 
-            background:
-                var(--green-light);
+            color: white;
 
-            color:
-                var(--green);
-
-            border-radius:
-                22px;
-
-            font-size:
-                2rem;
+            border-radius: 16px;
 
         }
 
 
-        .payment-card h2 {
+        .payment-heading small {
 
-            margin:
-                0 0 10px;
+            display: block;
 
-            font-size:
-                2.2rem;
+            color: var(--green);
 
-            font-weight:
-                900;
+            text-align: left;
 
-        }
+            font-size: .55rem;
 
+            font-weight: 900;
 
-        .payment-card > p {
-
-            color:
-                var(--grey);
+            letter-spacing: 1.5px;
 
         }
 
 
-        .reference {
+        .payment-heading h2 {
 
-            margin:
-                28px 0;
+            margin: 3px 0 0;
 
-            padding:
-                22px;
+            text-align: left;
 
-            background:
-                #fff9e5;
+            font-size: 1.65rem;
 
-            border:
-                2px dashed #e3c95f;
+            font-weight: 900;
 
-            border-radius:
-                18px;
+        }
 
-            color:
-                #67561d;
+
+        .payment-intro {
+
+            margin: 20px auto;
+
+            color: var(--grey-3);
+
+            font-size: .75rem;
+
+            line-height: 1.7;
+
+        }
+
+
+        .reference-box {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            margin: 24px 0;
+
+            padding: 17px;
+
+            background: #f6f6f6;
+
+            border-radius: 16px;
+
+            text-align: left;
+
+        }
+
+
+        .reference-icon {
+
+            color: var(--green);
+
+            font-size: 1rem;
 
         }
 
 
         .reference-title {
 
-            margin-bottom:
-                8px;
+            display: block;
 
-            color:
-                #665316;
+            margin-bottom: 3px;
 
-            font-weight:
-                900;
+            font-size: .7rem;
+
+            font-weight: 900;
 
         }
 
 
-        .reference-example {
+        .reference-text {
 
-            margin-top:
-                12px;
+            color: var(--grey-3);
 
-            padding:
-                12px;
+            font-size: .62rem;
 
-            background:
-                rgba(255,255,255,.7);
+            line-height: 1.6;
 
-            border-radius:
-                10px;
+        }
 
+
+        .reference-text strong {
+            color: var(--black);
         }
 
 
         .revolut-button {
 
-            display:
-                inline-flex;
+            width: 100%;
 
-            align-items:
-                center;
+            min-height: 55px;
 
-            justify-content:
-                center;
+            display: inline-flex;
 
-            gap:
-                9px;
+            align-items: center;
 
-            padding:
-                15px 30px;
+            justify-content: center;
 
-            background:
-                var(--green);
+            gap: 9px;
 
-            color:
-                white;
+            background: var(--black);
 
-            border-radius:
-                50px;
+            color: white;
 
-            font-weight:
-                900;
+            border-radius: 14px;
 
-            transition:
-                .2s;
+            font-size: .75rem;
+
+            font-weight: 900;
+
+            transition: .2s ease;
 
         }
 
 
         .revolut-button:hover {
 
-            color:
-                white;
+            background: var(--green);
 
-            background:
-                var(--green-dark);
+            color: white;
 
-            transform:
-                translateY(-3px);
-
-            box-shadow:
-                0 12px 25px rgba(8,127,63,.2);
+            transform: translateY(-2px);
 
         }
 
 
-        /* =====================================================
+        .payment-small {
+
+            display: block;
+
+            margin-top: 12px;
+
+            color: #aaa;
+
+            font-size: .55rem;
+
+        }
+
+
+        /* ================================================
            FOOTER
-        ====================================================== */
+        ================================================ */
 
         footer {
 
-            padding:
-                45px 0;
+            background: var(--black);
 
-            background:
-                var(--black);
+            color: white;
 
-            color:
-                white;
+            padding: 35px 0;
+
+        }
+
+
+        .footer-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
 
         }
 
 
         .footer-brand {
 
-            font-size:
-                1.1rem;
+            display: flex;
 
-            font-weight:
-                900;
+            align-items: center;
 
-        }
+            gap: 9px;
 
+            color: white;
 
-        footer p {
+            font-size: .8rem;
 
-            margin:
-                7px 0 0;
-
-            color:
-                rgba(255,255,255,.5);
-
-            font-size:
-                .78rem;
+            font-weight: 900;
 
         }
 
 
-        .admin-trigger {
+        .footer-ball {
 
-            display:
-                inline-flex;
+            width: 30px;
 
-            align-items:
-                center;
+            height: 30px;
 
-            justify-content:
-                center;
+            display: flex;
 
-            width:
-                30px;
+            align-items: center;
 
-            height:
-                30px;
+            justify-content: center;
 
-            margin-top:
-                18px;
+            background: white;
 
-            border:
-                0;
+            color: var(--black);
 
-            background:
-                transparent;
-
-            color:
-                rgba(255,255,255,.25);
-
-            cursor:
-                pointer;
-
-            border-radius:
-                50%;
+            border-radius: 9px;
 
         }
 
 
-        .admin-trigger:hover {
+        .footer-description {
 
-            color:
-                white;
+            margin: 7px 0 0;
 
-            background:
-                rgba(255,255,255,.08);
+            color: #666;
+
+            font-size: .57rem;
 
         }
 
 
-        /* =====================================================
+        .footer-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+
+        .footer-right span {
+
+            color: #666;
+
+            font-size: .57rem;
+
+            font-weight: 700;
+
+        }
+
+
+        .admin-button {
+
+            width: 31px;
+
+            height: 31px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 0;
+
+            border: 1px solid #242424;
+
+            background: transparent;
+
+            color: #555;
+
+            border-radius: 50%;
+
+            transition: .2s;
+
+        }
+
+
+        .admin-button:hover {
+
+            border-color: #666;
+
+            color: white;
+
+        }
+
+
+        /* ================================================
            MODALS
-        ====================================================== */
+        ================================================ */
 
-        .modal-content {
+        .modal-content-custom {
 
-            border:
-                0;
+            overflow: hidden;
 
-            border-radius:
-                24px;
+            border: 0;
 
-            overflow:
-                hidden;
+            border-radius: 24px;
 
         }
 
 
-        .modal-header {
+        .modal-header-custom {
 
-            padding:
-                20px 24px;
+            padding: 24px;
 
-            border-bottom:
-                1px solid var(--border);
+            border-bottom: 1px solid var(--border);
 
         }
 
 
-        .modal-title {
+        .modal-kicker {
 
-            font-weight:
-                900;
+            color: var(--green);
 
-        }
+            font-size: .53rem;
 
+            font-weight: 900;
 
-        .modal-body {
-
-            padding:
-                25px;
+            letter-spacing: 1.5px;
 
         }
 
 
-        .selected-team {
+        .modal-title-custom {
 
-            padding:
-                20px;
+            margin: 3px 0 0;
 
-            margin-bottom:
-                22px;
+            font-size: 1.05rem;
 
-            background:
-                var(--green-light);
+            font-weight: 900;
 
-            border-radius:
-                16px;
+        }
 
-            text-align:
-                center;
+
+        .modal-body-custom {
+
+            padding: 25px;
+
+        }
+
+
+        .selected-team-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 23px;
+
+            padding: 17px;
+
+            background: #f6f6f6;
+
+            border-radius: 16px;
 
         }
 
 
         .selected-team-icon {
 
-            display:
-                block;
+            width: 51px;
 
-            margin-bottom:
-                5px;
+            height: 51px;
 
-            font-size:
-                2rem;
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: var(--black);
+
+            color: white;
+
+            border-radius: 15px;
+
+        }
+
+
+        .selected-team-label {
+
+            display: block;
+
+            color: var(--grey-3);
+
+            font-size: .52rem;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
 
         }
 
 
         .selected-team-name {
 
-            color:
-                var(--green-dark);
+            display: block;
 
-            font-size:
-                1.25rem;
+            margin-top: 2px;
 
-            font-weight:
-                900;
+            font-size: .95rem;
 
-        }
-
-
-        .form-label {
-
-            font-size:
-                .8rem;
-
-            font-weight:
-                800;
+            font-weight: 900;
 
         }
 
 
-        .form-control {
+        .form-label-custom {
 
-            padding:
-                13px 15px;
+            font-size: .68rem;
 
-            border:
-                1px solid var(--border);
-
-            border-radius:
-                12px;
+            font-weight: 800;
 
         }
 
 
-        .form-control:focus {
+        .form-control-custom {
 
-            border-color:
-                var(--green);
+            min-height: 51px;
+
+            border-color: var(--border);
+
+            border-radius: 13px;
+
+            font-size: .75rem;
+
+        }
+
+
+        .form-control-custom:focus {
+
+            border-color: var(--black);
 
             box-shadow:
-                0 0 0 4px rgba(8,127,63,.1);
+                0 0 0 3px rgba(0,0,0,.07);
 
         }
 
 
-        .payment-note {
+        .modal-info {
 
-            display:
-                flex;
+            display: flex;
 
-            gap:
-                11px;
+            gap: 9px;
 
-            padding:
-                15px;
+            margin: 17px 0;
 
-            margin:
-                18px 0;
+            padding: 14px;
 
-            background:
-                #f4f7f5;
+            background: var(--green-light);
 
-            border-radius:
-                13px;
+            color: #496957;
 
-            color:
-                var(--grey);
+            border-radius: 13px;
 
-            font-size:
-                .75rem;
+            font-size: .6rem;
 
-            line-height:
-                1.6;
+            line-height: 1.65;
 
         }
 
 
-        .payment-note i {
-
-            color:
-                var(--green);
-
-            font-size:
-                1.1rem;
-
+        .modal-info i {
+            color: var(--green);
         }
 
 
         .confirm-button {
 
-            width:
-                100%;
+            width: 100%;
 
-            padding:
-                14px;
+            min-height: 51px;
 
-            border:
-                0;
+            display: flex;
 
-            border-radius:
-                13px;
+            align-items: center;
 
-            background:
-                var(--green);
+            justify-content: center;
 
-            color:
-                white;
+            gap: 9px;
 
-            font-weight:
-                900;
+            border: 0;
+
+            background: var(--black);
+
+            color: white;
+
+            border-radius: 13px;
+
+            font-size: .7rem;
+
+            font-weight: 900;
+
+            transition: .2s;
 
         }
 
 
         .confirm-button:hover {
+            background: var(--green);
+        }
 
-            background:
-                var(--green-dark);
+
+        /* ================================================
+           ADMIN
+        ================================================ */
+
+        .admin-stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap: 10px;
+
+            margin-bottom: 25px;
 
         }
 
 
-        /* =====================================================
-           ADMIN
-        ====================================================== */
+        .admin-stat {
 
-        .admin-warning {
+            padding: 17px;
 
-            padding:
-                14px;
+            background: #f6f6f6;
 
-            margin-bottom:
-                18px;
+            border-radius: 14px;
 
-            background:
-                #fff4f4;
+        }
 
-            border:
-                1px solid #f1c2c5;
 
-            border-radius:
-                12px;
+        .admin-stat small {
 
-            color:
-                #842029;
+            display: block;
 
-            font-size:
-                .75rem;
+            color: var(--grey-3);
+
+            font-size: .5rem;
+
+            font-weight: 900;
+
+        }
+
+
+        .admin-stat strong {
+
+            display: block;
+
+            margin-top: 4px;
+
+            font-size: 1.25rem;
+
+            font-weight: 900;
+
+        }
+
+
+        .admin-list-title {
+
+            margin-bottom: 9px;
+
+            font-size: .7rem;
+
+            font-weight: 900;
 
         }
 
 
         .admin-list {
 
-            max-height:
-                350px;
+            max-height: 300px;
 
-            overflow-y:
-                auto;
+            overflow-y: auto;
+
+            border-top: 1px solid var(--border);
 
         }
 
 
         .admin-entry {
 
-            display:
-                flex;
+            display: flex;
 
-            align-items:
-                center;
+            align-items: center;
 
-            justify-content:
-                space-between;
+            justify-content: space-between;
 
-            gap:
-                10px;
+            gap: 15px;
 
-            padding:
-                12px 0;
+            padding: 12px 5px;
 
-            border-bottom:
-                1px solid var(--border);
-
-        }
-
-
-        .admin-entry:last-child {
-
-            border-bottom:
-                0;
+            border-bottom: 1px solid var(--border);
 
         }
 
 
         .admin-team {
 
-            font-weight:
-                800;
+            font-size: .7rem;
 
-            font-size:
-                .8rem;
+            font-weight: 900;
 
         }
 
 
         .admin-person {
 
-            color:
-                var(--grey);
+            margin-top: 2px;
 
-            font-size:
-                .7rem;
+            color: var(--grey-3);
 
-        }
-
-
-        .admin-buttons {
-
-            display:
-                flex;
-
-            flex-wrap:
-                wrap;
-
-            gap:
-                8px;
-
-            margin-top:
-                20px;
+            font-size: .58rem;
 
         }
 
 
-        .admin-buttons button {
+        .admin-price {
 
-            flex:
-                1;
+            font-size: .65rem;
 
-            min-width:
-                130px;
+            font-weight: 900;
 
         }
 
 
-        /* =====================================================
-           WINNER
-        ====================================================== */
+        .admin-actions {
 
-        .winner-box {
+            display: grid;
 
-            display:
-                none;
+            grid-template-columns:
+                1fr 1fr;
 
-            padding:
-                30px;
+            gap: 9px;
 
-            margin-bottom:
-                30px;
+            margin-top: 20px;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #fff4b8,
-                    #fffdf0
-                );
+        }
 
-            border:
-                2px solid var(--gold);
 
-            border-radius:
-                24px;
+        .admin-action {
 
-            text-align:
-                center;
+            min-height: 48px;
+
+            border: 0;
+
+            border-radius: 12px;
+
+            font-size: .65rem;
+
+            font-weight: 900;
+
+        }
+
+
+        .draw-button {
+
+            background: var(--black);
+
+            color: white;
+
+        }
+
+
+        .draw-button:hover {
+            background: var(--green);
+        }
+
+
+        .reset-button {
+
+            background: #f4f4f4;
+
+            color: #c62828;
+
+        }
+
+
+        .reset-button:hover {
+            background: #ffeaea;
+        }
+
+
+        .admin-error {
+
+            display: none;
+
+            margin-top: 7px;
+
+            color: #d22;
+
+            font-size: .6rem;
+
+        }
+
+
+        /* ================================================
+           TOAST
+        ================================================ */
+
+        .custom-toast {
+
+            position: fixed;
+
+            right: 20px;
+
+            bottom: 20px;
+
+            z-index: 9999;
+
+            max-width: 340px;
+
+            padding: 15px 17px;
+
+            background: var(--black);
+
+            color: white;
+
+            border-radius: 14px;
 
             box-shadow:
-                0 10px 35px rgba(240,185,11,.12);
+                0 15px 50px rgba(0,0,0,.25);
+
+            transform:
+                translateY(120px);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: .3s ease;
 
         }
 
 
-        .winner-box .trophy {
+        .custom-toast.show {
 
-            font-size:
-                3rem;
+            transform:
+                translateY(0);
 
-        }
-
-
-        .winner-box h2 {
-
-            margin:
-                8px 0;
-
-            color:
-                #705800;
-
-            font-weight:
-                900;
+            opacity: 1;
 
         }
 
 
-        .winner-box p {
+        .toast-title {
 
-            margin:
-                0;
+            display: block;
 
-            color:
-                #806f2d;
+            font-size: .7rem;
+
+            font-weight: 900;
 
         }
 
 
-        /* =====================================================
-           RESPONSIVE
-        ====================================================== */
+        .toast-text {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: #aaa;
+
+            font-size: .6rem;
+
+            line-height: 1.5;
+
+        }
+
+
+        /* ================================================
+           MOBILE
+        ================================================ */
 
         @media (max-width: 991px) {
 
             .team-grid {
-
                 grid-template-columns:
                     repeat(3,1fr);
-
             }
 
         }
@@ -2287,19 +2283,34 @@
 
         @media (max-width: 767px) {
 
+            .navbar-custom,
+            .nav-inner {
+                height: 68px;
+            }
+
+
             .hero {
+                min-height: 570px;
+            }
 
+
+            .hero-content {
                 padding:
-                    65px 18px 105px;
-
+                    70px 0 125px;
             }
 
 
             .hero h1 {
 
-                letter-spacing:
-                    -1.5px;
+                font-size: 3.35rem;
 
+                letter-spacing: -3px;
+
+            }
+
+
+            .hero-description {
+                font-size: .82rem;
             }
 
 
@@ -2308,129 +2319,156 @@
                 grid-template-columns:
                     repeat(2,1fr);
 
-                padding:
-                    5px;
-
             }
 
 
             .stat {
 
-                border-right:
-                    0;
+                padding: 19px 15px;
 
+            }
+
+
+            .stat:nth-child(2) {
+                border-right: 0;
             }
 
 
             .stat:nth-child(-n+2) {
-
                 border-bottom:
                     1px solid var(--border);
+            }
 
+
+            .section {
+                padding: 90px 0;
             }
 
 
             .team-grid {
-
                 grid-template-columns:
                     repeat(2,1fr);
-
-                gap:
-                    12px;
-
-            }
-
-
-            .team-card {
-
-                min-height:
-                    170px;
-
             }
 
 
             .steps {
+                grid-template-columns: 1fr;
+            }
 
-                grid-template-columns:
-                    1fr;
+
+            .footer-inner {
+
+                align-items: flex-start;
+
+                flex-direction: column;
 
             }
 
 
-            .prize-banner {
+            .footer-right {
+                width: 100%;
 
-                align-items:
-                    flex-start;
-
-            }
-
-
-            .prize-amount {
-
-                font-size:
-                    1.6rem;
-
+                justify-content:
+                    space-between;
             }
 
 
             .payment-card {
+                padding: 30px 20px;
+            }
 
-                padding:
-                    35px 20px;
 
+            .admin-stats {
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+
+            .admin-stat:last-child {
+                grid-column:
+                    span 2;
             }
 
         }
 
 
-        @media (max-width: 400px) {
+        @media (max-width: 450px) {
 
-            .team-card {
+            .brand {
+                font-size: .8rem;
+            }
 
-                min-height:
-                    155px;
+
+            .brand-logo {
+
+                width: 36px;
+
+                height: 36px;
+
+                border-radius: 11px;
+
+            }
+
+
+            .nav-button {
 
                 padding:
-                    18px 8px;
+                    9px 12px;
+
+                font-size: .6rem;
 
             }
 
 
-            .team-icon {
+            .hero h1 {
+                font-size: 3rem;
+            }
 
-                width:
-                    50px;
 
-                height:
-                    50px;
+            .hero-actions {
+                flex-direction: column;
+            }
 
-                font-size:
-                    1.4rem;
+
+            .hero-primary,
+            .hero-secondary {
+                width: 100%;
+            }
+
+
+            .team-card {
+                min-height: 155px;
+            }
+
+
+            .team-ball {
+
+                width: 48px;
+
+                height: 48px;
+
+                font-size: 1.2rem;
 
             }
 
 
-            .team-name {
-
-                font-size:
-                    .8rem;
-
+            .progress-panel {
+                padding: 18px;
             }
 
 
-            .hero-buttons {
-
-                flex-direction:
-                    column;
-
+            .progress-bottom {
+                font-size: .52rem;
             }
 
 
-            .hero-button {
+            .payment-heading h2 {
+                font-size: 1.3rem;
+            }
 
-                width:
-                    100%;
 
+            .admin-actions {
+                grid-template-columns: 1fr;
             }
 
         }
@@ -2443,26 +2481,28 @@
 <body>
 
 
-<!-- =========================================================
-     NAVBAR
-========================================================== -->
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
-<nav class="navbar">
+<nav class="navbar-custom">
 
     <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center w-100">
+        <div class="nav-inner">
 
             <a
-                href="#"
+                href="#top"
                 class="brand"
             >
 
-                <span class="brand-ball">
-                    ⚽
+                <span class="brand-logo">
+                    <i class="bi bi-dribbble"></i>
                 </span>
 
-                Football Card
+                <span>
+                    Football <strong>Card</strong>
+                </span>
 
             </a>
 
@@ -2472,9 +2512,9 @@
                 class="nav-button"
             >
 
-                <i class="bi bi-grid-fill"></i>
+                Pick a team
 
-                Pick a Team
+                <i class="bi bi-arrow-right"></i>
 
             </a>
 
@@ -2485,71 +2525,89 @@
 </nav>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      HERO
-========================================================== -->
+===================================================== -->
 
-<header class="hero">
+<header
+    id="top"
+    class="hero"
+>
+
+    <div class="hero-background">
+
+        <div class="hero-circle"></div>
+
+        <div class="hero-glow"></div>
+
+    </div>
+
 
     <div class="container">
 
-        <div class="hero-content text-center">
+        <div class="hero-content">
 
-            <div class="hero-badge">
+            <div class="hero-eyebrow">
 
-                <i class="bi bi-heart-fill"></i>
+                <span class="hero-dot"></span>
 
-                Help Support The Team
+                FOOTBALL STRIP FUNDRAISER
 
             </div>
 
 
             <h1>
 
-                Pick Your Team.
+                Pick a team.
+
                 <span>Win £40.</span>
-                🏆
 
             </h1>
 
 
             <p class="hero-description">
 
-                Choose one of 32 football teams for just £2.
-                If your selected team is the winning team,
-                you'll win <strong>£40!</strong>
+                Choose one of the available football teams
+                for just <strong>£2</strong>.
 
-                Every entry helps us raise money towards
-                personalised football strips for the team. 👕⚽
+                If your team is selected as the winner,
+                you'll win <strong>£40</strong>.
 
             </p>
 
 
-            <div class="hero-buttons">
+            <div class="hero-actions">
 
                 <a
                     href="#teams"
-                    class="hero-button primary"
+                    class="hero-primary"
                 >
 
-                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                    Choose your team
 
-                    Choose Your Team
+                    <i class="bi bi-arrow-down"></i>
 
                 </a>
 
 
                 <a
-                    href="#payment"
-                    class="hero-button secondary"
+                    href="#how"
+                    class="hero-secondary"
                 >
 
-                    <i class="bi bi-credit-card"></i>
-
-                    Payment Details
+                    How it works
 
                 </a>
+
+            </div>
+
+
+            <div class="hero-note">
+
+                <i class="bi bi-heart-fill"></i>
+
+                Every entry helps towards personalised
+                football strips for the team.
 
             </div>
 
@@ -2560,70 +2618,78 @@
 </header>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      STATS
-========================================================== -->
+===================================================== -->
 
-<section class="stats-wrapper">
+<section class="stats-container">
 
     <div class="container">
 
         <div class="stats-card">
 
+
             <div class="stat">
 
                 <div class="stat-icon">
 
-                    <i class="bi bi-currency-pound"></i>
+                    £
 
                 </div>
 
-                <strong>
-                    £2
-                </strong>
+                <div>
 
-                <span>
-                    Entry Per Team
-                </span>
+                    <strong>£2</strong>
+
+                    <small>
+                        Per team
+                    </small>
+
+                </div>
 
             </div>
 
 
             <div class="stat">
 
-                <div class="stat-icon">
+                <div class="stat-icon green">
 
                     <i class="bi bi-grid-3x3-gap-fill"></i>
 
                 </div>
 
-                <strong>
-                    32
-                </strong>
+                <div>
 
-                <span>
-                    Teams
-                </span>
+                    <strong id="availableStat">
+                        32
+                    </strong>
+
+                    <small>
+                        Teams available
+                    </small>
+
+                </div>
 
             </div>
 
 
             <div class="stat">
 
-                <div class="stat-icon">
+                <div class="stat-icon gold">
 
                     <i class="bi bi-trophy-fill"></i>
 
                 </div>
 
-                <strong>
-                    £40
-                </strong>
+                <div>
 
-                <span>
-                    Prize
-                </span>
+                    <strong>£40</strong>
+
+                    <small>
+                        Winning prize
+                    </small>
+
+                </div>
 
             </div>
 
@@ -2632,19 +2698,22 @@
 
                 <div class="stat-icon">
 
-                    <i class="bi bi-shirt"></i>
+                    <i class="bi bi-person-hearts"></i>
 
                 </div>
 
-                <strong>
-                    👕
-                </strong>
+                <div>
 
-                <span>
-                    Personalised Strips
-                </span>
+                    <strong>👕</strong>
+
+                    <small>
+                        Team strips
+                    </small>
+
+                </div>
 
             </div>
+
 
         </div>
 
@@ -2653,14 +2722,13 @@
 </section>
 
 
+<!-- =====================================================
+     TEAMS
+===================================================== -->
 
-<!-- =========================================================
-     MAIN TEAM SECTION
-========================================================== -->
-
-<main
+<section
     id="teams"
-    class="main-section"
+    class="section"
 >
 
     <div class="container">
@@ -2668,95 +2736,67 @@
 
         <div class="section-heading">
 
-            <span class="section-tag">
-                ⚽ FOOTBALL CARD
-            </span>
+            <div class="section-kicker">
+                THE FOOTBALL CARD
+            </div>
+
 
             <h2>
-                Choose Your Team
+                Choose your team
             </h2>
+
 
             <p>
 
                 Pick an available team below.
-                Once selected, it is removed from the card
-                and cannot be selected again on this browser.
+                Once selected, that team is locked on this
+                browser and cannot be selected again here.
 
             </p>
 
         </div>
 
 
+        <!-- Progress -->
 
-        <!-- PRIZE -->
-
-        <div class="prize-banner">
-
-            <div class="prize-left">
-
-                <div class="prize-icon">
-                    🏆
-                </div>
-
-                <div class="prize-text">
-
-                    <strong>
-                        One Winning Team
-                    </strong>
-
-                    <span>
-                        If your team is selected, you win the £40 prize!
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="prize-amount">
-                £40
-            </div>
-
-        </div>
-
-
-
-        <!-- PROGRESS -->
-
-        <div class="progress-card">
+        <div class="progress-panel">
 
             <div class="progress-top">
 
-                <span class="progress-title">
+                <div>
 
-                    Entries Selected
+                    <div class="progress-label">
+                        CARD PROGRESS
+                    </div>
 
-                </span>
+                    <div class="progress-number">
+
+                        <span id="selectedCount">
+                            0
+                        </span>
+
+                        / 32 selected
+
+                    </div>
+
+                </div>
 
 
-                <span
-                    id="progressMoney"
-                    class="progress-money"
-                >
+                <div class="money-raised">
 
-                    £0 / £64
+                    £<span id="raisedAmount">0</span>
 
-                </span>
+                </div>
 
             </div>
 
 
-            <div class="progress">
+            <div class="progress-track">
 
                 <div
                     id="progressBar"
-                    class="progress-bar"
-                    style="width:0%"
-                >
-
-                    0%
-
-                </div>
+                    class="progress-bar-custom"
+                ></div>
 
             </div>
 
@@ -2765,23 +2805,19 @@
 
                 <span>
 
-                    <strong id="takenCount">
-                        0
-                    </strong>
+                    <span class="available-dot"></span>
 
-                    / 32 selected
+                    <b id="remainingCount">
+                        32
+                    </b>
+
+                    teams available
 
                 </span>
 
 
                 <span>
-
-                    <strong id="remainingCount">
-                        32
-                    </strong>
-
-                    teams remaining
-
+                    £64 total if all teams are sold
                 </span>
 
             </div>
@@ -2789,91 +2825,111 @@
         </div>
 
 
-
-        <!-- WINNER -->
+        <!-- Winner -->
 
         <div
-            id="winnerBox"
-            class="winner-box"
+            id="winnerPanel"
+            class="winner-panel"
         >
 
-            <div class="trophy">
-                🏆
+            <div class="winner-icon">
+
+                <i class="bi bi-trophy-fill"></i>
+
             </div>
 
-            <h2>
-                Winning Team
-            </h2>
 
-            <p>
+            <div>
 
-                <strong id="winnerTeam">
+                <div class="winner-label">
+                    WINNING TEAM
+                </div>
+
+                <div
+                    id="winnerTeam"
+                    class="winner-team"
+                >
                     -
-                </strong>
+                </div>
 
-                has won the £40 prize!
+                <p class="winner-message">
+                    Congratulations — this team has won the £40 prize!
+                </p>
 
-            </p>
+            </div>
 
         </div>
 
 
-
-        <!-- COMPLETE -->
+        <!-- Complete -->
 
         <div
-            id="completeBanner"
-            class="complete-banner"
+            id="completePanel"
+            class="complete-panel"
         >
 
-            <h3>
-                🎉 All 32 Teams Have Been Selected!
-            </h3>
+            <div class="complete-icon">
 
-            <p>
+                <i class="bi bi-check-lg"></i>
 
-                Thank you to everyone who entered.
-                The winning team can now be revealed! 🏆
+            </div>
 
-            </p>
+
+            <div>
+
+                <span class="complete-title">
+                    All teams have been selected!
+                </span>
+
+                <span class="complete-text">
+                    The card is complete and ready for the £40 winner to be drawn.
+                </span>
+
+            </div>
 
         </div>
 
 
-
-        <!-- TEAM GRID -->
+        <!-- Team grid -->
 
         <div
             id="teamGrid"
             class="team-grid"
         ></div>
 
+
     </div>
 
-</main>
+</section>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      HOW IT WORKS
-========================================================== -->
+===================================================== -->
 
-<section class="how-section">
+<section
+    id="how"
+    class="section how-section"
+>
 
     <div class="container">
 
+
         <div class="section-heading">
 
-            <span class="section-tag">
+            <div class="section-kicker">
                 HOW IT WORKS
-            </span>
+            </div>
+
 
             <h2>
-                Three Easy Steps
+                Three simple steps.
             </h2>
 
+
             <p>
-                Entering takes less than a minute.
+                Choose your team, make your payment,
+                and you're entered.
             </p>
 
         </div>
@@ -2884,18 +2940,27 @@
 
             <div class="step">
 
-                <div class="step-number">
-                    1
+                <span class="step-number">
+                    01
+                </span>
+
+
+                <div class="step-icon">
+
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+
                 </div>
 
-                <h4>
-                    Pick a Team
-                </h4>
+
+                <h3>
+                    Pick your team
+                </h3>
+
 
                 <p>
 
-                    Choose one of the available football
-                    teams from the card for £2.
+                    Choose any available football team
+                    from the card for just £2.
 
                 </p>
 
@@ -2904,18 +2969,27 @@
 
             <div class="step">
 
-                <div class="step-number">
-                    2
+                <span class="step-number">
+                    02
+                </span>
+
+
+                <div class="step-icon">
+
+                    <i class="bi bi-person-check-fill"></i>
+
                 </div>
 
-                <h4>
-                    Enter Your Name
-                </h4>
+
+                <h3>
+                    Enter your name
+                </h3>
+
 
                 <p>
 
-                    Enter your name so the selected team
-                    can be recorded.
+                    Enter your name so your selection can
+                    be recorded against your chosen team.
 
                 </p>
 
@@ -2924,18 +2998,27 @@
 
             <div class="step">
 
-                <div class="step-number">
-                    3
+                <span class="step-number">
+                    03
+                </span>
+
+
+                <div class="step-icon">
+
+                    <i class="bi bi-trophy-fill"></i>
+
                 </div>
 
-                <h4>
+
+                <h3>
                     Pay £2
-                </h4>
+                </h3>
+
 
                 <p>
 
-                    Send £2 through Revolut and use your
-                    selected football team as the payment reference.
+                    Pay through Revolut and use your selected
+                    football team as the payment reference.
 
                 </p>
 
@@ -2949,70 +3032,74 @@
 </section>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      PAYMENT
-========================================================== -->
+===================================================== -->
 
-<section
-    id="payment"
-    class="payment-section"
->
+<section class="payment-section">
 
     <div class="container">
 
         <div class="payment-card">
 
-            <div class="payment-icon">
 
-                <i class="bi bi-credit-card-fill"></i>
+            <div class="payment-heading">
 
-            </div>
+                <div class="payment-icon">
 
-
-            <h2>
-                Pay Your £2 Entry
-            </h2>
-
-
-            <p>
-
-                Once you've selected your team,
-                send <strong>£2</strong> through Revolut.
-
-            </p>
-
-
-            <div class="reference">
-
-                <div class="reference-title">
-
-                    <i class="bi bi-exclamation-triangle-fill"></i>
-
-                    IMPORTANT PAYMENT REFERENCE
+                    <i class="bi bi-credit-card-fill"></i>
 
                 </div>
 
 
                 <div>
 
-                    Your Revolut payment reference must be
-                    the <strong>football team you selected</strong>.
+                    <small>
+                        PAYMENT
+                    </small>
+
+                    <h2>
+                        Pay your £2 entry
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <p class="payment-intro">
+
+                Once you've chosen your team,
+                send exactly £2 through Revolut.
+
+            </p>
+
+
+            <div class="reference-box">
+
+                <div class="reference-icon">
+
+                    <i class="bi bi-tag-fill"></i>
 
                 </div>
 
 
-                <div class="reference-example">
+                <div>
 
-                    <strong>Example:</strong>
+                    <span class="reference-title">
+                        IMPORTANT — PAYMENT REFERENCE
+                    </span>
 
-                    You select
 
-                    <strong>Celtic</strong>
+                    <span class="reference-text">
 
-                    → payment reference:
+                        Your payment reference should be
+                        <strong>the football team you selected</strong>.
 
-                    <strong>Celtic</strong>
+                        For example:
+                        <strong>Arsenal</strong>.
+
+                    </span>
 
                 </div>
 
@@ -3028,20 +3115,16 @@
 
                 <i class="bi bi-arrow-up-right-circle-fill"></i>
 
-                Pay £2 via Revolut
+                Pay £2 with Revolut
 
             </a>
 
 
-            <div class="mt-3">
+            <small class="payment-small">
 
-                <small class="text-muted">
+                Please check your selected team before paying.
 
-                    Please check your selected team before paying.
-
-                </small>
-
-            </div>
+            </small>
 
         </div>
 
@@ -3050,95 +3133,139 @@
 </section>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      FOOTER
-========================================================== -->
+===================================================== -->
 
 <footer>
 
-    <div class="container text-center">
+    <div class="container">
 
-        <div class="footer-brand">
+        <div class="footer-inner">
 
-            ⚽ Football Strip Fundraiser
+
+            <div>
+
+                <a
+                    href="#top"
+                    class="footer-brand"
+                >
+
+                    <span class="footer-ball">
+                        ⚽
+                    </span>
+
+                    Football Card
+
+                </a>
+
+
+                <p class="footer-description">
+
+                    Raising money for personalised football strips.
+
+                </p>
+
+            </div>
+
+
+            <div class="footer-right">
+
+                <span>
+                    £2 entry
+                </span>
+
+                <span>
+                    £40 prize
+                </span>
+
+
+                <button
+                    type="button"
+                    id="adminButton"
+                    class="admin-button"
+                    aria-label="Admin"
+                >
+
+                    <i class="bi bi-lock-fill"></i>
+
+                </button>
+
+            </div>
+
 
         </div>
-
-
-        <p>
-
-            Every £2 helps towards personalised football strips. ❤️
-
-        </p>
-
-
-        <button
-            id="adminTrigger"
-            class="admin-trigger"
-            type="button"
-            aria-label="Admin"
-        >
-
-            <i class="bi bi-lock-fill"></i>
-
-        </button>
 
     </div>
 
 </footer>
 
 
-
-<!-- =========================================================
-     TEAM MODAL
-========================================================== -->
+<!-- =====================================================
+     TEAM SELECTION MODAL
+===================================================== -->
 
 <div
     class="modal fade"
     id="teamModal"
     tabindex="-1"
+    aria-hidden="true"
 >
 
     <div class="modal-dialog modal-dialog-centered">
 
-        <div class="modal-content">
+        <div class="modal-content modal-content-custom">
 
 
-            <div class="modal-header">
+            <div class="modal-header modal-header-custom">
 
-                <h5 class="modal-title">
+                <div>
 
-                    Choose This Team
+                    <div class="modal-kicker">
+                        YOUR SELECTION
+                    </div>
 
-                </h5>
+                    <div class="modal-title-custom">
+                        Confirm your team
+                    </div>
+
+                </div>
 
 
                 <button
                     type="button"
                     class="btn-close"
                     data-bs-dismiss="modal"
+                    aria-label="Close"
                 ></button>
 
             </div>
 
 
-            <div class="modal-body">
+            <div class="modal-body modal-body-custom">
 
 
-                <div class="selected-team">
+                <div class="selected-team-box">
 
-                    <span class="selected-team-icon">
-                        ⚽
-                    </span>
+                    <div class="selected-team-icon">
+
+                        <i class="bi bi-dribbble"></i>
+
+                    </div>
 
 
-                    <div
-                        id="selectedTeamName"
-                        class="selected-team-name"
-                    >
+                    <div>
 
-                        Team
+                        <span class="selected-team-label">
+                            SELECTED TEAM
+                        </span>
+
+                        <span
+                            id="selectedTeamName"
+                            class="selected-team-name"
+                        >
+                            -
+                        </span>
 
                     </div>
 
@@ -3148,51 +3275,46 @@
                 <form id="teamForm">
 
 
-                    <div class="mb-3">
-
-                        <label
-                            for="supporterName"
-                            class="form-label"
-                        >
-
-                            Your Name
-
-                        </label>
+                    <label
+                        for="nameInput"
+                        class="form-label-custom"
+                    >
+                        Your name
+                    </label>
 
 
-                        <input
-                            type="text"
-                            id="supporterName"
-                            class="form-control"
-                            placeholder="Enter your name"
-                            maxlength="50"
-                            autocomplete="name"
-                            required
-                        >
-
-                    </div>
+                    <input
+                        id="nameInput"
+                        class="form-control form-control-custom"
+                        type="text"
+                        maxlength="50"
+                        autocomplete="name"
+                        placeholder="Enter your name"
+                        required
+                    >
 
 
-                    <div class="payment-note">
+                    <div class="modal-info">
 
                         <i class="bi bi-info-circle-fill"></i>
 
-                        <div>
+                        <span>
 
-                            After confirming your team,
-                            you'll be taken to Revolut.
+                            Your selected team will be locked
+                            on this browser.
 
-                            <br>
+                            You'll then be taken to Revolut
+                            to pay £2.
 
-                            Pay <strong>£2</strong> and use
+                            <br><br>
 
+                            Use
                             <strong id="modalReference">
-                                Team Name
+                                your team
                             </strong>
+                            as the payment reference.
 
-                            as your payment reference.
-
-                        </div>
+                        </span>
 
                     </div>
 
@@ -3202,9 +3324,9 @@
                         class="confirm-button"
                     >
 
-                        <i class="bi bi-check-circle-fill me-2"></i>
+                        Confirm & pay £2
 
-                        Confirm Team & Pay £2
+                        <i class="bi bi-arrow-right"></i>
 
                     </button>
 
@@ -3220,10 +3342,9 @@
 </div>
 
 
-
-<!-- =========================================================
+<!-- =====================================================
      ADMIN LOGIN MODAL
-========================================================== -->
+===================================================== -->
 
 <div
     class="modal fade"
@@ -3233,13 +3354,23 @@
 
     <div class="modal-dialog modal-dialog-centered">
 
-        <div class="modal-content">
+        <div class="modal-content modal-content-custom">
 
-            <div class="modal-header">
 
-                <h5 class="modal-title">
-                    🔐 Admin
-                </h5>
+            <div class="modal-header modal-header-custom">
+
+                <div>
+
+                    <div class="modal-kicker">
+                        PRIVATE AREA
+                    </div>
+
+                    <div class="modal-title-custom">
+                        Admin access
+                    </div>
+
+                </div>
+
 
                 <button
                     type="button"
@@ -3250,45 +3381,45 @@
             </div>
 
 
-            <div class="modal-body">
+            <div class="modal-body modal-body-custom">
 
-                <p class="text-muted small">
 
-                    Enter the admin password to manage
-                    the football card.
-
-                </p>
+                <label
+                    for="adminPassword"
+                    class="form-label-custom"
+                >
+                    Admin password
+                </label>
 
 
                 <input
-                    type="password"
                     id="adminPassword"
-                    class="form-control mb-3"
-                    placeholder="Admin password"
+                    class="form-control form-control-custom"
+                    type="password"
+                    placeholder="Enter password"
                 >
-
-
-                <button
-                    id="adminLoginButton"
-                    type="button"
-                    class="confirm-button"
-                >
-
-                    <i class="bi bi-unlock-fill me-2"></i>
-
-                    Open Admin
-
-                </button>
 
 
                 <div
-                    id="adminLoginError"
-                    class="text-danger small mt-3 d-none"
+                    id="adminError"
+                    class="admin-error"
+                >
+                    Incorrect password.
+                </div>
+
+
+                <button
+                    id="adminLogin"
+                    type="button"
+                    class="confirm-button mt-3"
                 >
 
-                    Incorrect password.
+                    Unlock admin
 
-                </div>
+                    <i class="bi bi-unlock-fill"></i>
+
+                </button>
+
 
             </div>
 
@@ -3299,10 +3430,9 @@
 </div>
 
 
-
-<!-- =========================================================
-     ADMIN PANEL
-========================================================== -->
+<!-- =====================================================
+     ADMIN MODAL
+===================================================== -->
 
 <div
     class="modal fade"
@@ -3312,15 +3442,22 @@
 
     <div class="modal-dialog modal-lg modal-dialog-centered">
 
-        <div class="modal-content">
+        <div class="modal-content modal-content-custom">
 
-            <div class="modal-header">
 
-                <h5 class="modal-title">
+            <div class="modal-header modal-header-custom">
 
-                    🔐 Football Card Admin
+                <div>
 
-                </h5>
+                    <div class="modal-kicker">
+                        CONTROL PANEL
+                    </div>
+
+                    <div class="modal-title-custom">
+                        Football Card Admin
+                    </div>
+
+                </div>
 
 
                 <button
@@ -3332,70 +3469,57 @@
             </div>
 
 
-            <div class="modal-body">
+            <div class="modal-body modal-body-custom">
 
 
-                <div class="admin-warning">
-
-                    <strong>
-                        Admin controls
-                    </strong>
-
-                    <br>
-
-                    This is a local-storage website.
-                    Keep this page/device secure.
-
-                </div>
+                <div class="admin-stats">
 
 
-                <div class="row g-3 mb-3">
+                    <div class="admin-stat">
 
-                    <div class="col-6">
+                        <small>
+                            ENTRIES
+                        </small>
 
-                        <div class="p-3 bg-light rounded-3">
-
-                            <small class="text-muted">
-                                Selected
-                            </small>
-
-                            <div
-                                id="adminSelected"
-                                class="fs-4 fw-bold"
-                            >
-                                0
-                            </div>
-
-                        </div>
+                        <strong id="adminEntries">
+                            0
+                        </strong>
 
                     </div>
 
 
-                    <div class="col-6">
+                    <div class="admin-stat">
 
-                        <div class="p-3 bg-light rounded-3">
+                        <small>
+                            RAISED
+                        </small>
 
-                            <small class="text-muted">
-                                Money
-                            </small>
-
-                            <div
-                                id="adminMoney"
-                                class="fs-4 fw-bold"
-                            >
-                                £0
-                            </div>
-
-                        </div>
+                        <strong>
+                            £<span id="adminRaised">0</span>
+                        </strong>
 
                     </div>
+
+
+                    <div class="admin-stat">
+
+                        <small>
+                            REMAINING
+                        </small>
+
+                        <strong id="adminRemaining">
+                            32
+                        </strong>
+
+                    </div>
+
 
                 </div>
 
 
-                <h6 class="fw-bold mb-2">
-                    Selected Teams
-                </h6>
+                <div class="admin-list-title">
+                    Selected teams
+                </div>
 
 
                 <div
@@ -3404,34 +3528,37 @@
                 ></div>
 
 
-                <div class="admin-buttons">
+                <div class="admin-actions">
 
 
                     <button
-                        id="drawWinnerButton"
+                        id="drawWinner"
                         type="button"
-                        class="btn btn-warning fw-bold"
+                        class="admin-action draw-button"
                     >
 
-                        🏆 Draw Winner
+                        <i class="bi bi-trophy-fill me-1"></i>
+
+                        Draw £40 winner
 
                     </button>
 
 
                     <button
-                        id="resetCardButton"
+                        id="resetCard"
                         type="button"
-                        class="btn btn-outline-danger fw-bold"
+                        class="admin-action reset-button"
                     >
 
-                        <i class="bi bi-trash3"></i>
+                        <i class="bi bi-arrow-counterclockwise me-1"></i>
 
-                        Reset Card
+                        Reset card
 
                     </button>
 
 
                 </div>
+
 
             </div>
 
@@ -3442,23 +3569,53 @@
 </div>
 
 
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
-<!-- =========================================================
-     BOOTSTRAP JS
-========================================================== -->
+<div
+    id="toast"
+    class="custom-toast"
+>
+
+    <span
+        id="toastTitle"
+        class="toast-title"
+    >
+        Success
+    </span>
+
+
+    <span
+        id="toastText"
+        class="toast-text"
+    >
+        -
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     EXTERNAL BOOTSTRAP JAVASCRIPT
+===================================================== -->
 
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"
 ></script>
 
 
+<!-- =====================================================
+     CUSTOM JAVASCRIPT
+===================================================== -->
 
 <script>
 
-    /* =========================================================
+    /* ==================================================
        CONFIGURATION
-    ========================================================== */
-
+       ================================================== */
 
     const TEAMS = [
 
@@ -3469,7 +3626,7 @@
         "Leeds UTD",
         "Arsenal",
         "Middlesbrough",
-        "Nottingham Forest",
+        "Notts Forest",
         "Tottenham",
         "Wimbledon",
         "QPR",
@@ -3498,119 +3655,52 @@
     ];
 
 
-    const ENTRY_PRICE =
-        2;
+    const ENTRY_PRICE = 2;
+
+    const PRIZE = 40;
+
+    const STORAGE_KEY =
+        "football-card-v1";
 
 
-    const PRIZE =
-        40;
-
-
-    const TOTAL_TEAMS =
-        TEAMS.length;
-
-
-    const TOTAL_POT =
-        ENTRY_PRICE * TOTAL_TEAMS;
-
+    /*
+       Your Revolut payment link.
+    */
 
     const REVOLUT_URL =
         "https://revolut.me/moddingxz?currency=GBP&amount=2";
 
 
     /*
-     * Change this password.
-     *
-     * IMPORTANT:
-     * This is NOT a secure password system.
-     * It is only a hidden local admin panel because
-     * this website is intentionally using localStorage.
-     */
+       CHANGE THIS.
+
+       IMPORTANT:
+       Because this is a client-side website,
+       this is NOT a secure password system.
+
+       It is only intended to hide the admin controls
+       from normal visitors.
+    */
 
     const ADMIN_PASSWORD =
         "change-this-password";
 
 
-    const STORAGE_KEY =
-        "football_strip_card_v3";
+    /* ==================================================
+       STATE
+       ================================================== */
+
+    let state =
+        loadState();
 
 
-    /* =========================================================
-       ELEMENTS
-    ========================================================== */
+    let selectedTeam =
+        null;
 
 
-    const teamGrid =
-        document.getElementById(
-            "teamGrid"
-        );
-
-
-    const progressBar =
-        document.getElementById(
-            "progressBar"
-        );
-
-
-    const progressMoney =
-        document.getElementById(
-            "progressMoney"
-        );
-
-
-    const takenCount =
-        document.getElementById(
-            "takenCount"
-        );
-
-
-    const remainingCount =
-        document.getElementById(
-            "remainingCount"
-        );
-
-
-    const completeBanner =
-        document.getElementById(
-            "completeBanner"
-        );
-
-
-    const winnerBox =
-        document.getElementById(
-            "winnerBox"
-        );
-
-
-    const winnerTeam =
-        document.getElementById(
-            "winnerTeam"
-        );
-
-
-    const selectedTeamName =
-        document.getElementById(
-            "selectedTeamName"
-        );
-
-
-    const modalReference =
-        document.getElementById(
-            "modalReference"
-        );
-
-
-    const supporterName =
-        document.getElementById(
-            "supporterName"
-        );
-
-
-    const teamForm =
-        document.getElementById(
-            "teamForm"
-        );
-
+    /* ==================================================
+       BOOTSTRAP MODALS
+       ================================================== */
 
     const teamModal =
         new bootstrap.Modal(
@@ -3636,23 +3726,61 @@
         );
 
 
-    /* =========================================================
-       STATE
-    ========================================================== */
+    /* ==================================================
+       ELEMENTS
+       ================================================== */
+
+    const teamGrid =
+        document.getElementById(
+            "teamGrid"
+        );
 
 
-    let state =
-        loadState();
+    const selectedCount =
+        document.getElementById(
+            "selectedCount"
+        );
 
 
-    let selectedTeam =
-        "";
+    const remainingCount =
+        document.getElementById(
+            "remainingCount"
+        );
 
 
-    /* =========================================================
-       STORAGE
-    ========================================================== */
+    const raisedAmount =
+        document.getElementById(
+            "raisedAmount"
+        );
 
+
+    const progressBar =
+        document.getElementById(
+            "progressBar"
+        );
+
+
+    const availableStat =
+        document.getElementById(
+            "availableStat"
+        );
+
+
+    const completePanel =
+        document.getElementById(
+            "completePanel"
+        );
+
+
+    const winnerPanel =
+        document.getElementById(
+            "winnerPanel"
+        );
+
+
+    /* ==================================================
+       LOAD LOCAL STORAGE
+       ================================================== */
 
     function loadState() {
 
@@ -3696,7 +3824,7 @@
         catch (error) {
 
             console.error(
-                "Could not load saved data:",
+                "Could not load saved card:",
                 error
             );
 
@@ -3714,6 +3842,10 @@
     }
 
 
+    /* ==================================================
+       SAVE
+       ================================================== */
+
     function saveState() {
 
         localStorage.setItem(
@@ -3727,10 +3859,9 @@
     }
 
 
-    /* =========================================================
-       HTML ESCAPING
-    ========================================================== */
-
+    /* ==================================================
+       ESCAPE HTML
+       ================================================== */
 
     function escapeHTML(value) {
 
@@ -3749,23 +3880,17 @@
     }
 
 
-    /* =========================================================
-       RENDER TEAM CARD
-    ========================================================== */
-
+    /* ==================================================
+       RENDER TEAMS
+       ================================================== */
 
     function renderTeams() {
 
-        teamGrid.innerHTML =
-            "";
+        teamGrid.innerHTML = "";
 
 
         TEAMS.forEach(
             (team, index) => {
-
-                const selection =
-                    state.selections[team];
-
 
                 const card =
                     document.createElement(
@@ -3777,67 +3902,53 @@
                     "button";
 
 
-                let classes =
+                card.className =
                     "team-card";
 
 
-                if (selection) {
+                const selection =
+                    state.selections[
+                        team
+                    ];
 
-                    classes +=
-                        " taken";
+
+                const isSelected =
+                    Boolean(
+                        selection
+                    );
+
+
+                const isWinner =
+                    state.winner ===
+                    team;
+
+
+                if (isSelected) {
+
+                    card.classList.add(
+                        "team-selected"
+                    );
 
                 }
 
-                else {
 
-                    classes +=
-                        " available";
+                if (isWinner) {
+
+                    card.classList.remove(
+                        "team-selected"
+                    );
+
+                    card.classList.add(
+                        "team-winner"
+                    );
 
                 }
 
 
                 if (
-                    state.winner === team
+                    isSelected ||
+                    state.winner
                 ) {
-
-                    classes +=
-                        " winner";
-
-                }
-
-
-                card.className =
-                    classes;
-
-
-                /*
-                 * WINNER
-                 */
-
-                if (
-                    state.winner === team
-                ) {
-
-                    card.innerHTML = `
-
-                        <span class="team-number">
-                            ${index + 1}
-                        </span>
-
-                        <span class="team-icon">
-                            🏆
-                        </span>
-
-                        <span class="team-name">
-                            ${escapeHTML(team)}
-                        </span>
-
-                        <span class="team-status winner-status">
-                            <i class="bi bi-trophy-fill"></i>
-                            WINNER — £40
-                        </span>
-
-                    `;
 
                     card.disabled =
                         true;
@@ -3845,70 +3956,66 @@
                 }
 
 
-                /*
-                 * TAKEN
-                 */
+                let icon =
+                    "⚽";
 
-                else if (selection) {
 
-                    card.innerHTML = `
+                let status =
+                    "AVAILABLE";
 
-                        <span class="team-number">
-                            ${index + 1}
-                        </span>
 
-                        <span class="team-icon">
-                            🔒
-                        </span>
+                let statusClass =
+                    "team-available";
 
-                        <span class="team-name">
-                            ${escapeHTML(team)}
-                        </span>
 
-                        <span class="team-status taken-status">
-                            <i class="bi bi-check-circle-fill"></i>
-                            SELECTED
-                        </span>
+                if (isWinner) {
 
-                        <span class="taken-person">
-                            ${escapeHTML(selection.name)}
-                        </span>
+                    icon =
+                        "🏆";
 
-                    `;
+                    status =
+                        "WINNER — £40";
 
-                    card.disabled =
-                        true;
+                }
+
+                else if (isSelected) {
+
+                    icon =
+                        "🔒";
+
+                    status =
+                        "SELECTED";
+
+                    statusClass = "";
 
                 }
 
 
-                /*
-                 * AVAILABLE
-                 */
+                card.innerHTML = `
 
-                else {
+                    <span class="team-number">
+                        ${String(index + 1).padStart(2, "0")}
+                    </span>
 
-                    card.innerHTML = `
+                    <span class="team-ball">
+                        ${icon}
+                    </span>
 
-                        <span class="team-number">
-                            ${index + 1}
-                        </span>
+                    <span class="team-name">
+                        ${escapeHTML(team)}
+                    </span>
 
-                        <span class="team-icon">
-                            ⚽
-                        </span>
+                    <span class="team-status ${statusClass}">
+                        ${status}
+                    </span>
 
-                        <span class="team-name">
-                            ${escapeHTML(team)}
-                        </span>
+                `;
 
-                        <span class="team-status available-status">
-                            <i class="bi bi-circle-fill"></i>
-                            AVAILABLE
-                        </span>
 
-                    `;
-
+                if (
+                    !isSelected &&
+                    !state.winner
+                ) {
 
                     card.addEventListener(
                         "click",
@@ -3925,22 +4032,126 @@
             }
         );
 
+    }
 
-        updateProgress();
+
+    /* ==================================================
+       UPDATE STATS
+       ================================================== */
+
+    function updateStats() {
+
+        const selected =
+            Object.keys(
+                state.selections
+            ).length;
+
+
+        const remaining =
+            TEAMS.length -
+            selected;
+
+
+        const raised =
+            selected *
+            ENTRY_PRICE;
+
+
+        const percentage =
+            (
+                selected /
+                TEAMS.length
+            ) * 100;
+
+
+        selectedCount.textContent =
+            selected;
+
+
+        remainingCount.textContent =
+            remaining;
+
+
+        raisedAmount.textContent =
+            raised;
+
+
+        availableStat.textContent =
+            remaining;
+
+
+        progressBar.style.width =
+            percentage + "%";
+
+
+        if (
+            selected ===
+            TEAMS.length
+        ) {
+
+            completePanel.style.display =
+                "flex";
+
+        }
+
+        else {
+
+            completePanel.style.display =
+                "none";
+
+        }
+
+
+        if (state.winner) {
+
+            winnerPanel.style.display =
+                "flex";
+
+
+            document.getElementById(
+                "winnerTeam"
+            ).textContent =
+                state.winner;
+
+        }
+
+        else {
+
+            winnerPanel.style.display =
+                "none";
+
+        }
 
     }
 
 
-    /* =========================================================
-       OPEN TEAM
-    ========================================================== */
+    /* ==================================================
+       RENDER EVERYTHING
+       ================================================== */
 
+    function render() {
+
+        renderTeams();
+
+        updateStats();
+
+    }
+
+
+    /* ==================================================
+       OPEN TEAM MODAL
+       ================================================== */
 
     function openTeam(team) {
 
         if (
             state.selections[team]
         ) {
+
+            showToast(
+                "Team unavailable",
+                "That team has already been selected."
+            );
 
             return;
 
@@ -3950,10 +4161,6 @@
         if (
             state.winner
         ) {
-
-            alert(
-                "The winning team has already been drawn."
-            );
 
             return;
 
@@ -3964,15 +4171,21 @@
             team;
 
 
-        selectedTeamName.textContent =
+        document.getElementById(
+            "selectedTeamName"
+        ).textContent =
             team;
 
 
-        modalReference.textContent =
+        document.getElementById(
+            "modalReference"
+        ).textContent =
             team;
 
 
-        supporterName.value =
+        document.getElementById(
+            "nameInput"
+        ).value =
             "";
 
 
@@ -3982,247 +4195,160 @@
         setTimeout(
             () => {
 
-                supporterName.focus();
+                document.getElementById(
+                    "nameInput"
+                ).focus();
 
             },
-            400
+            350
         );
 
     }
 
 
-    /* =========================================================
-       SELECT TEAM
-    ========================================================== */
+    /* ==================================================
+       TEAM FORM
+       ================================================== */
+
+    document
+        .getElementById(
+            "teamForm"
+        )
+        .addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
 
 
-    teamForm.addEventListener(
-        "submit",
-        function(event) {
+                if (
+                    !selectedTeam
+                ) {
 
-            event.preventDefault();
+                    return;
 
-
-            const name =
-                supporterName.value.trim();
+                }
 
 
-            if (!name) {
-
-                supporterName.focus();
-
-                return;
-
-            }
-
-
-            if (!selectedTeam) {
-
-                return;
-
-            }
+                const name =
+                    document
+                        .getElementById(
+                            "nameInput"
+                        )
+                        .value
+                        .trim();
 
 
-            /*
-             * Check again before saving.
-             */
+                if (!name) {
 
-            if (
+                    document
+                        .getElementById(
+                            "nameInput"
+                        )
+                        .focus();
+
+                    return;
+
+                }
+
+
+                /*
+                   Double check before saving.
+                */
+
+                if (
+                    state.selections[
+                        selectedTeam
+                    ]
+                ) {
+
+                    teamModal.hide();
+
+
+                    showToast(
+                        "Too late!",
+                        "Someone has already selected that team."
+                    );
+
+
+                    render();
+
+                    return;
+
+                }
+
+
+                /*
+                   Lock the team locally.
+                */
+
                 state.selections[
                     selectedTeam
-                ]
-            ) {
+                ] = {
 
-                alert(
-                    "Sorry, this team has already been selected."
-                );
+                    name:
+                        name,
+
+                    timestamp:
+                        new Date()
+                            .toISOString()
+
+                };
+
+
+                saveState();
+
+                render();
+
+
+                const chosen =
+                    selectedTeam;
 
 
                 teamModal.hide();
 
 
-                renderTeams();
+                selectedTeam =
+                    null;
 
 
-                return;
+                showToast(
+                    "Team selected!",
+                    `${chosen} has been reserved. Opening Revolut...`
+                );
+
+
+                /*
+                   Open Revolut after a very short delay.
+                */
+
+                setTimeout(
+                    () => {
+
+                        window.open(
+                            REVOLUT_URL,
+                            "_blank"
+                        );
+
+                    },
+                    700
+                );
 
             }
+        );
 
 
-            /*
-             * Save the selection.
-             */
-
-            state.selections[
-                selectedTeam
-            ] = {
-
-                name:
-                    name,
-
-                date:
-                    new Date().toISOString()
-
-            };
-
-
-            saveState();
-
-
-            /*
-             * Refresh card.
-             */
-
-            renderTeams();
-
-
-            /*
-             * Close modal.
-             */
-
-            teamModal.hide();
-
-
-            /*
-             * Open Revolut.
-             */
-
-            setTimeout(
-                () => {
-
-                    window.open(
-                        REVOLUT_URL,
-                        "_blank"
-                    );
-
-                },
-                400
-            );
-
-
-            /*
-             * Reset selected team.
-             */
-
-            selectedTeam =
-                "";
-
-        }
-    );
-
-
-    /* =========================================================
-       PROGRESS
-    ========================================================== */
-
-
-    function updateProgress() {
-
-        const selected =
-            Object.keys(
-                state.selections
-            ).length;
-
-
-        const remaining =
-            Math.max(
-                TOTAL_TEAMS - selected,
-                0
-            );
-
-
-        const amount =
-            selected * ENTRY_PRICE;
-
-
-        const percentage =
-            Math.round(
-                (
-                    selected /
-                    TOTAL_TEAMS
-                ) * 100
-            );
-
-
-        takenCount.textContent =
-            selected;
-
-
-        remainingCount.textContent =
-            remaining;
-
-
-        progressMoney.textContent =
-            `£${amount} / £${TOTAL_POT}`;
-
-
-        progressBar.style.width =
-            `${percentage}%`;
-
-
-        progressBar.textContent =
-            `${percentage}%`;
-
-
-        /*
-         * Complete state.
-         */
-
-        if (
-            selected >= TOTAL_TEAMS
-        ) {
-
-            completeBanner.style.display =
-                "block";
-
-        }
-
-        else {
-
-            completeBanner.style.display =
-                "none";
-
-        }
-
-
-        /*
-         * Winner.
-         */
-
-        if (
-            state.winner
-        ) {
-
-            winnerBox.style.display =
-                "block";
-
-            winnerTeam.textContent =
-                state.winner;
-
-        }
-
-        else {
-
-            winnerBox.style.display =
-                "none";
-
-        }
-
-    }
-
-
-    /* =========================================================
+    /* ==================================================
        ADMIN BUTTON
-    ========================================================== */
-
+       ================================================== */
 
     document
         .getElementById(
-            "adminTrigger"
+            "adminButton"
         )
         .addEventListener(
             "click",
-            () => {
+            function() {
 
                 document
                     .getElementById(
@@ -4234,10 +4360,10 @@
 
                 document
                     .getElementById(
-                        "adminLoginError"
+                        "adminError"
                     )
-                    .classList
-                    .add("d-none");
+                    .style.display =
+                    "none";
 
 
                 adminLoginModal.show();
@@ -4246,65 +4372,18 @@
         );
 
 
-    /* =========================================================
+    /* ==================================================
        ADMIN LOGIN
-    ========================================================== */
-
+       ================================================== */
 
     document
         .getElementById(
-            "adminLoginButton"
+            "adminLogin"
         )
         .addEventListener(
             "click",
-            () => {
-
-                const password =
-                    document
-                        .getElementById(
-                            "adminPassword"
-                        )
-                        .value;
-
-
-                if (
-                    password ===
-                    ADMIN_PASSWORD
-                ) {
-
-                    adminLoginModal.hide();
-
-                    updateAdminPanel();
-
-                    setTimeout(
-                        () => {
-
-                            adminModal.show();
-
-                        },
-                        300
-                    );
-
-                }
-
-                else {
-
-                    document
-                        .getElementById(
-                            "adminLoginError"
-                        )
-                        .classList
-                        .remove("d-none");
-
-                }
-
-            }
+            loginAdmin
         );
-
-
-    /* =========================================================
-       ENTER KEY ADMIN LOGIN
-    ========================================================== */
 
 
     document
@@ -4313,18 +4392,14 @@
         )
         .addEventListener(
             "keydown",
-            event => {
+            function(event) {
 
                 if (
                     event.key ===
                     "Enter"
                 ) {
 
-                    document
-                        .getElementById(
-                            "adminLoginButton"
-                        )
-                        .click();
+                    loginAdmin();
 
                 }
 
@@ -4332,12 +4407,56 @@
         );
 
 
-    /* =========================================================
+    function loginAdmin() {
+
+        const password =
+            document
+                .getElementById(
+                    "adminPassword"
+                )
+                .value;
+
+
+        if (
+            password !==
+            ADMIN_PASSWORD
+        ) {
+
+            document
+                .getElementById(
+                    "adminError"
+                )
+                .style.display =
+                "block";
+
+
+            return;
+
+        }
+
+
+        adminLoginModal.hide();
+
+
+        setTimeout(
+            () => {
+
+                updateAdmin();
+
+                adminModal.show();
+
+            },
+            300
+        );
+
+    }
+
+
+    /* ==================================================
        ADMIN PANEL
-    ========================================================== */
+       ================================================== */
 
-
-    function updateAdminPanel() {
+    function updateAdmin() {
 
         const entries =
             Object.entries(
@@ -4345,20 +4464,24 @@
             );
 
 
-        document
-            .getElementById(
-                "adminSelected"
-            )
-            .textContent =
+        document.getElementById(
+            "adminEntries"
+        ).textContent =
             entries.length;
 
 
-        document
-            .getElementById(
-                "adminMoney"
-            )
-            .textContent =
-            `£${entries.length * ENTRY_PRICE}`;
+        document.getElementById(
+            "adminRaised"
+        ).textContent =
+            entries.length *
+            ENTRY_PRICE;
+
+
+        document.getElementById(
+            "adminRemaining"
+        ).textContent =
+            TEAMS.length -
+            entries.length;
 
 
         const list =
@@ -4372,18 +4495,20 @@
 
 
         if (
-            entries.length === 0
+            entries.length ===
+            0
         ) {
 
             list.innerHTML = `
 
-                <div class="text-muted small py-3">
+                <div class="text-center py-4 text-secondary">
 
-                    No teams have been selected yet.
+                    No teams selected yet.
 
                 </div>
 
             `;
+
 
             return;
 
@@ -4392,21 +4517,9 @@
 
         entries
             .sort(
-                (a,b) => {
-
-                    const aIndex =
-                        TEAMS.indexOf(
-                            a[0]
-                        );
-
-                    const bIndex =
-                        TEAMS.indexOf(
-                            b[0]
-                        );
-
-                    return aIndex - bIndex;
-
-                }
+                (a,b) =>
+                    TEAMS.indexOf(a[0]) -
+                    TEAMS.indexOf(b[0])
             )
             .forEach(
                 ([team, data]) => {
@@ -4435,9 +4548,9 @@
 
                         </div>
 
-                        <small class="text-muted">
+                        <div class="admin-price">
                             £2
-                        </small>
+                        </div>
 
                     `;
 
@@ -4452,18 +4565,17 @@
     }
 
 
-    /* =========================================================
+    /* ==================================================
        DRAW WINNER
-    ========================================================== */
-
+       ================================================== */
 
     document
         .getElementById(
-            "drawWinnerButton"
+            "drawWinner"
         )
         .addEventListener(
             "click",
-            () => {
+            function() {
 
                 const selected =
                     Object.keys(
@@ -4473,11 +4585,12 @@
 
                 if (
                     selected.length !==
-                    TOTAL_TEAMS
+                    TEAMS.length
                 ) {
 
-                    alert(
-                        `You need all ${TOTAL_TEAMS} teams selected before drawing the winner.`
+                    showToast(
+                        "Card isn't complete",
+                        `You need all ${TEAMS.length} teams selected before drawing the winner.`
                     );
 
                     return;
@@ -4489,8 +4602,10 @@
                     state.winner
                 ) {
 
-                    alert(
-                        `The winner has already been drawn: ${state.winner}`
+                    showToast(
+                        "Winner already drawn",
+                        state.winner +
+                        " has already been selected."
                     );
 
                     return;
@@ -4500,21 +4615,14 @@
 
                 const confirmed =
                     confirm(
-                        "Are you sure you want to draw the £40 winning team? This cannot be undone."
+                        "Draw the £40 winner now?\n\nThis cannot be undone."
                     );
 
 
                 if (!confirmed) {
-
                     return;
-
                 }
 
-
-                /*
-                 * Secure enough for a simple local
-                 * fundraiser UI — random team selection.
-                 */
 
                 const randomIndex =
                     Math.floor(
@@ -4531,57 +4639,51 @@
 
                 saveState();
 
+                render();
 
-                renderTeams();
-
-
-                updateAdminPanel();
+                updateAdmin();
 
 
-                alert(
-                    `🏆 WINNER: ${state.winner} — £40!`
+                showToast(
+                    "🏆 Winner!",
+                    `${state.winner} has won the £40 prize!`
                 );
 
             }
         );
 
 
-    /* =========================================================
-       RESET CARD
-    ========================================================== */
-
+    /* ==================================================
+       RESET
+       ================================================== */
 
     document
         .getElementById(
-            "resetCardButton"
+            "resetCard"
         )
         .addEventListener(
             "click",
-            () => {
+            function() {
 
-                const confirmed =
+                const first =
                     confirm(
-                        "WARNING: This will remove every selected team and the winner from this browser. Continue?"
+                        "Are you sure you want to reset the football card?"
                     );
 
 
-                if (!confirmed) {
-
+                if (!first) {
                     return;
-
                 }
 
 
-                const secondConfirm =
+                const second =
                     confirm(
-                        "Are you REALLY sure? This cannot be undone."
+                        "This will delete EVERY team selection and the winner from this browser."
                     );
 
 
-                if (!secondConfirm) {
-
+                if (!second) {
                     return;
-
                 }
 
 
@@ -4596,29 +4698,82 @@
 
                 saveState();
 
+                render();
 
-                renderTeams();
-
-
-                updateAdminPanel();
+                updateAdmin();
 
 
-                alert(
-                    "Football card has been reset."
+                showToast(
+                    "Card reset",
+                    "All selections have been removed."
                 );
 
             }
         );
 
 
-    /* =========================================================
-       STORAGE EVENT
-       Updates another tab on the same browser/origin.
-    ========================================================== */
+    /* ==================================================
+       TOAST
+       ================================================== */
+
+    let toastTimeout;
+
+
+    function showToast(
+        title,
+        text
+    ) {
+
+        const toast =
+            document.getElementById(
+                "toast"
+            );
+
+
+        document.getElementById(
+            "toastTitle"
+        ).textContent =
+            title;
+
+
+        document.getElementById(
+            "toastText"
+        ).textContent =
+            text;
+
+
+        toast.classList.add(
+            "show"
+        );
+
+
+        clearTimeout(
+            toastTimeout
+        );
+
+
+        toastTimeout =
+            setTimeout(
+                () => {
+
+                    toast.classList.remove(
+                        "show"
+                    );
+
+                },
+                4000
+            );
+
+    }
+
+
+    /* ==================================================
+       CROSS-TAB LOCAL STORAGE SYNC
+       ================================================== */
 
     window.addEventListener(
         "storage",
-        event => {
+        function(event) {
 
             if (
                 event.key ===
@@ -4629,7 +4784,7 @@
                     loadState();
 
 
-                renderTeams();
+                render();
 
             }
 
@@ -4637,11 +4792,11 @@
     );
 
 
-    /* =========================================================
+    /* ==================================================
        INITIALISE
-    ========================================================== */
+       ================================================== */
 
-    renderTeams();
+    render();
 
 </script>
 
