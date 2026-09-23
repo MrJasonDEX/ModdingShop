@@ -1,880 +1,817 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Modding X — Game Downloader</title>
-    <meta name="description" content="Modding X Game Downloader — simple installation, VIP access and support.">
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --purple: #8b5cf6;
-            --purple-dark: #6d28d9;
-            --purple-light: #a78bfa;
-            --bg: #07070a;
-            --bg-2: #0d0d12;
-            --card: #111118;
-            --border: rgba(255,255,255,.09);
-            --text: #f5f5f7;
-            --muted: #9999a8;
-        }
-
-        * {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        .navbar {
-            background: rgba(7,7,10,.78);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid rgba(255,255,255,.06);
-            transition: .3s ease;
-        }
-
-        .navbar.scrolled {
-            box-shadow: 0 10px 40px rgba(0,0,0,.4);
-        }
-
-        .navbar-brand {
-            color: white !important;
-            font-weight: 900;
-            letter-spacing: -.7px;
-            font-size: 1.35rem;
-        }
-
-        .brand-x {
-            color: var(--purple-light);
-        }
-
-        .nav-link {
-            color: #bdbdc9 !important;
-            font-weight: 500;
-            margin: 0 5px;
-            transition: .2s ease;
-        }
-
-        .nav-link:hover {
-            color: white !important;
-        }
-
-        .navbar-toggler {
-            border-color: rgba(255,255,255,.15);
-        }
-
-        .navbar-toggler-icon {
-            filter: invert(1);
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
-        .hero {
-            min-height: 92vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding: 120px 0 80px;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            width: 650px;
-            height: 650px;
-            background: rgba(124,58,237,.17);
-            filter: blur(120px);
-            border-radius: 50%;
-            top: -280px;
-            left: -220px;
-            pointer-events: none;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: rgba(139,92,246,.12);
-            filter: blur(130px);
-            border-radius: 50%;
-            right: -200px;
-            bottom: -250px;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .badge-custom {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 15px;
-            border: 1px solid rgba(167,139,250,.25);
-            background: rgba(139,92,246,.08);
-            color: #c4b5fd;
-            border-radius: 100px;
-            font-size: .82rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 7vw, 6rem);
-            line-height: .98;
-            font-weight: 900;
-            letter-spacing: -4px;
-            margin-bottom: 25px;
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #fff, #c4b5fd, #8b5cf6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            color: var(--muted);
-            max-width: 680px;
-            font-size: 1.08rem;
-            line-height: 1.8;
-        }
-
-        .hero-buttons {
-            margin-top: 32px;
-            display: flex;
-            gap: 13px;
-            flex-wrap: wrap;
-        }
-
-        .btn-purple {
-            background: linear-gradient(135deg, var(--purple), var(--purple-dark));
-            border: none;
-            color: white;
-            padding: 13px 22px;
-            border-radius: 12px;
-            font-weight: 700;
-            box-shadow: 0 10px 30px rgba(109,40,217,.22);
-            transition: .25s ease;
-        }
-
-        .btn-purple:hover {
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(109,40,217,.35);
-        }
-
-        .btn-outline-custom {
-            border: 1px solid rgba(255,255,255,.13);
-            color: white;
-            padding: 13px 22px;
-            border-radius: 12px;
-            font-weight: 700;
-            background: rgba(255,255,255,.03);
-            transition: .25s ease;
-        }
-
-        .btn-outline-custom:hover {
-            color: white;
-            border-color: rgba(167,139,250,.5);
-            background: rgba(139,92,246,.08);
-            transform: translateY(-3px);
-        }
-
-        /* =========================
-           STATS
-        ========================= */
-
-        .stats {
-            margin-top: 45px;
-            display: flex;
-            gap: 35px;
-            flex-wrap: wrap;
-        }
-
-        .stat strong {
-            display: block;
-            font-size: 1.45rem;
-            font-weight: 800;
-        }
-
-        .stat span {
-            color: var(--muted);
-            font-size: .82rem;
-        }
-
-        /* =========================
-           IMAGE SHOWCASE
-        ========================= */
-
-        .showcase {
-            position: relative;
-            z-index: 2;
-        }
-
-        .showcase-frame {
-            padding: 8px;
-            border-radius: 22px;
-            background: linear-gradient(
-                145deg,
-                rgba(167,139,250,.35),
-                rgba(255,255,255,.04),
-                rgba(109,40,217,.25)
-            );
-            box-shadow: 0 35px 100px rgba(0,0,0,.6);
-            transform: perspective(1200px) rotateY(-5deg) rotateX(2deg);
-            transition: .5s ease;
-        }
-
-        .showcase-frame:hover {
-            transform: perspective(1200px) rotateY(0) rotateX(0) translateY(-8px);
-        }
-
-        .showcase-frame img {
-            width: 100%;
-            display: block;
-            border-radius: 16px;
-            background: #0d0d12;
-        }
-
-        .floating-card {
-            position: absolute;
-            bottom: -25px;
-            left: -35px;
-            padding: 14px 17px;
-            background: rgba(17,17,24,.92);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,.5);
-        }
-
-        .floating-card i {
-            color: var(--purple-light);
-            font-size: 1.25rem;
-        }
-
-        .floating-card strong {
-            display: block;
-            font-size: .9rem;
-        }
-
-        .floating-card span {
-            color: var(--muted);
-            font-size: .72rem;
-        }
-
-        /* =========================
-           SECTIONS
-        ========================= */
-
-        section {
-            position: relative;
-        }
-
-        .section-padding {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            max-width: 750px;
-            margin: 0 auto 55px;
-        }
-
-        .section-title .eyebrow {
-            color: var(--purple-light);
-            text-transform: uppercase;
-            font-size: .75rem;
-            letter-spacing: 2px;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-
-        .section-title h2 {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 900;
-            letter-spacing: -2px;
-        }
-
-        .section-title p {
-            color: var(--muted);
-            line-height: 1.7;
-            margin-top: 15px;
-        }
-
-        /* =========================
-           TRIAL
-        ========================= */
-
-        .trial-box {
-            background:
-                radial-gradient(circle at 15% 50%, rgba(139,92,246,.15), transparent 35%),
-                #101016;
-            border: 1px solid rgba(167,139,250,.16);
-            border-radius: 24px;
-            padding: 45px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .trial-box::after {
-            content: "24";
-            position: absolute;
-            font-size: 16rem;
-            line-height: 1;
-            font-weight: 900;
-            color: rgba(255,255,255,.025);
-            right: 20px;
-            top: -35px;
-            pointer-events: none;
-        }
-
-        .trial-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(139,92,246,.12);
-            color: #c4b5fd;
-            font-size: 1.7rem;
-            margin-bottom: 20px;
-        }
-
-        .trial-box h3 {
-            font-weight: 900;
-        }
-
-        .trial-box p {
-            color: var(--muted);
-            max-width: 700px;
-        }
-
-        /* =========================
-           HOW IT WORKS
-        ========================= */
-
-        .step-card {
-            height: 100%;
-            padding: 30px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            transition: .3s ease;
-        }
-
-        .step-card:hover {
-            transform: translateY(-7px);
-            border-color: rgba(167,139,250,.25);
-        }
-
-        .step-number {
-            font-size: .75rem;
-            color: var(--purple-light);
-            font-weight: 800;
-            letter-spacing: 2px;
-        }
-
-        .step-icon {
-            width: 55px;
-            height: 55px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(139,92,246,.1);
-            color: #c4b5fd;
-            font-size: 1.4rem;
-            margin: 20px 0;
-        }
-
-        .step-card h4 {
-            font-weight: 800;
-        }
-
-        .step-card p {
-            color: var(--muted);
-            font-size: .9rem;
-            line-height: 1.7;
-            margin-bottom: 0;
-        }
-
-        /* =========================
-           INSTALL
-        ========================= */
-
-        .install-card {
-            background: #101016;
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            padding: 35px;
-            height: 100%;
-        }
-
-        .install-card h3 {
-            font-weight: 850;
-        }
-
-        .install-card p {
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .install-option {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 17px;
-            border-radius: 15px;
-            border: 1px solid rgba(255,255,255,.07);
-            background: rgba(255,255,255,.025);
-            margin-top: 15px;
-            color: white;
-            transition: .25s ease;
-        }
-
-        .install-option:hover {
-            background: rgba(139,92,246,.07);
-            border-color: rgba(167,139,250,.2);
-            color: white;
-            transform: translateX(4px);
-        }
-
-        .install-option i {
-            font-size: 1.4rem;
-            color: var(--purple-light);
-        }
-
-        .install-option strong {
-            display: block;
-            font-size: .92rem;
-        }
-
-        .install-option span {
-            color: var(--muted);
-            font-size: .75rem;
-        }
-
-        /* =========================
-           FEATURES
-        ========================= */
-
-        .feature-card {
-            height: 100%;
-            padding: 28px;
-            border-radius: 20px;
-            background: linear-gradient(145deg, #111118, #0c0c11);
-            border: 1px solid var(--border);
-            transition: .3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(167,139,250,.22);
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #c4b5fd;
-            background: rgba(139,92,246,.1);
-            font-size: 1.3rem;
-            margin-bottom: 18px;
-        }
-
-        .feature-card h5 {
-            font-weight: 800;
-        }
-
-        .feature-card p {
-            color: var(--muted);
-            font-size: .85rem;
-            line-height: 1.7;
-            margin: 0;
-        }
-
-        /* =========================
-           PRICING
-        ========================= */
-
-        .pricing-card {
-            height: 100%;
-            position: relative;
-            background: #101016;
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            padding: 32px 26px;
-            transition: .3s ease;
-            overflow: hidden;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(167,139,250,.28);
-        }
-
-        .pricing-card.popular {
-            border-color: rgba(139,92,246,.55);
-            box-shadow: 0 20px 60px rgba(109,40,217,.12);
-        }
-
-        .popular-label {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(139,92,246,.13);
-            color: #c4b5fd;
-            border: 1px solid rgba(167,139,250,.2);
-            padding: 6px 10px;
-            border-radius: 100px;
-            font-size: .65rem;
-            font-weight: 800;
-        }
-
-        .lifetime {
-            background:
-                radial-gradient(circle at 90% 0%, rgba(139,92,246,.17), transparent 40%),
-                #111118;
-            border-color: rgba(167,139,250,.35);
-        }
-
-        .plan-icon {
-            font-size: 1.35rem;
-            color: var(--purple-light);
-            margin-bottom: 18px;
-        }
-
-        .pricing-card h4 {
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .plan-duration {
-            color: var(--muted);
-            font-size: .8rem;
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin: 20px 0 3px;
-        }
-
-        .currency {
-            color: var(--muted);
-            font-size: .75rem;
-            font-weight: 700;
-        }
-
-        .pricing-list {
-            padding: 0;
-            list-style: none;
-            margin: 25px 0;
-        }
-
-        .pricing-list li {
-            padding: 8px 0;
-            color: #c8c8d2;
-            font-size: .82rem;
-        }
-
-        .pricing-list i {
-            color: #a78bfa;
-            margin-right: 8px;
-        }
-
-        .pricing-btn {
-            width: 100%;
-        }
-
-        /* =========================
-           PAYMENTS
-        ========================= */
-
-        .payment-card {
-            padding: 35px;
-            background: #101016;
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            height: 100%;
-            transition: .3s ease;
-        }
-
-        .payment-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(167,139,250,.25);
-        }
-
-        .payment-icon {
-            width: 58px;
-            height: 58px;
-            border-radius: 16px;
-            background: rgba(255,255,255,.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .payment-card h4 {
-            font-weight: 850;
-        }
-
-        .payment-card p {
-            color: var(--muted);
-            font-size: .85rem;
-        }
-
-        /* =========================
-           SUPPORT
-        ========================= */
-
-        .support-box {
-            padding: 55px;
-            border-radius: 25px;
-            background:
-                linear-gradient(135deg, rgba(139,92,246,.11), transparent 60%),
-                #101016;
-            border: 1px solid rgba(167,139,250,.18);
-            text-align: center;
-        }
-
-        .support-box h2 {
-            font-weight: 900;
-        }
-
-        .support-box p {
-            color: var(--muted);
-        }
-
-        /* =========================
-           FAQ
-        ========================= */
-
-        .accordion-item {
-            background: #101016 !important;
-            border: 1px solid var(--border) !important;
-            margin-bottom: 12px;
-            border-radius: 14px !important;
-            overflow: hidden;
-        }
-
-        .accordion-button {
-            background: #101016 !important;
-            color: white !important;
-            box-shadow: none !important;
-            font-weight: 700;
-            padding: 20px;
-        }
-
-        .accordion-button::after {
-            filter: invert(1);
-        }
-
-        .accordion-body {
-            color: var(--muted);
-            background: #101016;
-            line-height: 1.7;
-            font-size: .9rem;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 45px 0;
-            color: var(--muted);
-            font-size: .8rem;
-        }
-
-        .footer-brand {
-            color: white;
-            font-weight: 900;
-            font-size: 1.15rem;
-        }
-
-        .footer-links a {
-            color: var(--muted);
-            margin-left: 18px;
-            transition: .2s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        /* =========================
-           FLOATING SUPPORT
-        ========================= */
-
-        .telegram-float {
-            position: fixed;
-            z-index: 999;
-            right: 22px;
-            bottom: 22px;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #111118;
-            border: 1px solid rgba(167,139,250,.3);
-            color: #c4b5fd;
-            font-size: 1.5rem;
-            box-shadow: 0 15px 40px rgba(0,0,0,.5);
-            transition: .25s ease;
-        }
-
-        .telegram-float:hover {
-            color: white;
-            transform: translateY(-5px);
-            background: var(--purple-dark);
-        }
-
-        /* =========================
-           BACK TO TOP
-        ========================= */
-
-        #backTop {
-            position: fixed;
-            right: 22px;
-            bottom: 92px;
-            z-index: 998;
-            width: 45px;
-            height: 45px;
-            border-radius: 13px;
-            border: 1px solid var(--border);
-            background: #111118;
-            color: white;
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #backTop.show {
-            display: flex;
-        }
-
-        /* =========================
-           REVEAL ANIMATION
-        ========================= */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(25px);
-            transition: opacity .7s ease, transform .7s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 991px) {
-
-            .hero {
-                padding-top: 100px;
-            }
-
-            .hero h1 {
-                letter-spacing: -2px;
-            }
-
-            .showcase {
-                margin-top: 55px;
-            }
-
-            .showcase-frame {
-                transform: none;
-            }
-
-            .floating-card {
-                left: 10px;
-            }
-        }
-
-        @media (max-width: 767px) {
-
-            .section-padding {
-                padding: 75px 0;
-            }
-
-            .hero {
-                min-height: auto;
-                padding-bottom: 70px;
-            }
-
-            .stats {
-                gap: 22px;
-            }
-
-            .trial-box {
-                padding: 30px 25px;
-            }
-
-            .support-box {
-                padding: 40px 25px;
-            }
-
-            .price {
-                font-size: 2.6rem;
-            }
-
-            .footer-links {
-                margin-top: 15px;
-            }
-
-            .footer-links a {
-                margin-left: 0;
-                margin-right: 15px;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Modding X — Game Downloader</title>
+  <meta name="description" content="Modding X Game Downloader — easy game installation, VIP access and support.">
+  <meta name="theme-color" content="#07070a">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap 5.3.8 -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous"
+  >
+
+  <!-- Bootstrap Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+  >
+
+  <style>
+    :root {
+      --purple: #8b5cf6;
+      --purple-dark: #6d28d9;
+      --purple-light: #c4b5fd;
+
+      --bg: #050507;
+      --bg-2: #09090d;
+      --card: #0e0e14;
+      --card-2: #13131b;
+
+      --border: rgba(255,255,255,.08);
+
+      --text: #f7f7fa;
+      --muted: #9696a3;
+
+      --green: #4ade80;
+      --blue: #60a5fa;
+      --yellow: #facc15;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(139,92,246,.20), transparent 32%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--purple);
+      color: #fff;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .text-purple {
+      color: var(--purple-light) !important;
+    }
+
+    .text-muted-custom {
+      color: var(--muted) !important;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      background: rgba(5,5,7,.78);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .navbar-brand {
+      font-weight: 900;
+      letter-spacing: -.7px;
+      color: white !important;
+      font-size: 1.15rem;
+    }
+
+    .brand-x {
+      color: var(--purple-light);
+    }
+
+    .navbar .nav-link {
+      color: #a9a9b4;
+      font-size: .9rem;
+      font-weight: 600;
+      transition: .2s ease;
+    }
+
+    .navbar .nav-link:hover {
+      color: white;
+    }
+
+    .nav-support {
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      color: white !important;
+      border-radius: 10px;
+      padding: 9px 15px !important;
+      box-shadow: 0 10px 30px rgba(139,92,246,.18);
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 780px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 140px 0 80px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      background: rgba(139,92,246,.10);
+      filter: blur(100px);
+      border-radius: 50%;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(139,92,246,.30);
+      background: rgba(139,92,246,.09);
+      color: var(--purple-light);
+      border-radius: 100px;
+      font-size: .78rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(74,222,128,.7);
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 5.7rem);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: -4px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #fff 20%, #c4b5fd 55%, #8b5cf6 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-description {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .btn-main {
+      background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+      border: 0;
+      color: white;
+      padding: 13px 22px;
+      border-radius: 11px;
+      font-weight: 800;
+      box-shadow: 0 15px 40px rgba(109,40,217,.25);
+      transition: .25s ease;
+    }
+
+    .btn-main:hover {
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 20px 50px rgba(109,40,217,.38);
+    }
+
+    .btn-outline-custom {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+      color: white;
+      padding: 13px 22px;
+      border-radius: 11px;
+      font-weight: 700;
+      transition: .25s ease;
+    }
+
+    .btn-outline-custom:hover {
+      color: white;
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.15);
+    }
+
+    /* HERO IMAGE */
+
+    .hero-image-wrap {
+      position: relative;
+      margin-top: 65px;
+    }
+
+    .hero-image-wrap::before {
+      content: "";
+      position: absolute;
+      inset: -30px;
+      background: rgba(139,92,246,.18);
+      filter: blur(55px);
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .hero-image {
+      width: 100%;
+      display: block;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow:
+        0 35px 100px rgba(0,0,0,.7),
+        0 0 70px rgba(139,92,246,.12);
+    }
+
+    /* STATS */
+
+    .stats {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,.015);
+    }
+
+    .stat {
+      padding: 30px 15px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child {
+      border-right: 0;
+    }
+
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 900;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: .78rem;
+      margin-top: 3px;
+    }
+
+    /* GENERAL */
+
+    .section {
+      padding: 110px 0;
+      position: relative;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin: 0 auto 55px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      color: var(--purple-light);
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 5vw, 3.3rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* CARDS */
+
+    .glass-card {
+      height: 100%;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015)),
+        var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      transition: .3s ease;
+    }
+
+    .glass-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(139,92,246,.30);
+      box-shadow: 0 25px 70px rgba(0,0,0,.25);
+    }
+
+    .icon-box {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(139,92,246,.12);
+      color: var(--purple-light);
+      font-size: 1.35rem;
+      margin-bottom: 20px;
+    }
+
+    .glass-card h4 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .glass-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+      font-size: .9rem;
+    }
+
+    /* TRIAL */
+
+    .trial-box {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 85% 50%, rgba(139,92,246,.20), transparent 30%),
+        linear-gradient(135deg, #111019, #09090d);
+      border: 1px solid rgba(139,92,246,.22);
+      border-radius: 24px;
+      padding: 55px;
+    }
+
+    .trial-box::after {
+      content: "24H";
+      position: absolute;
+      right: -20px;
+      top: -50px;
+      font-size: 15rem;
+      font-weight: 900;
+      color: rgba(255,255,255,.025);
+      pointer-events: none;
+    }
+
+    .trial-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .trial-highlight {
+      color: var(--purple-light);
+    }
+
+    /* SHOWCASE */
+
+    .showcase {
+      overflow: hidden;
+      position: relative;
+      background: #09090d;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+    }
+
+    .showcase-content {
+      padding: 50px;
+    }
+
+    .showcase-image {
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 25px 0 0;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 13px;
+      color: #c7c7d0;
+      font-size: .92rem;
+    }
+
+    .check-list i {
+      color: var(--green);
+    }
+
+    /* STEPS */
+
+    .step {
+      position: relative;
+      padding: 30px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      height: 100%;
+    }
+
+    .step-number {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--purple);
+      color: white;
+      font-weight: 900;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(139,92,246,.25);
+    }
+
+    .step h4 {
+      font-weight: 800;
+    }
+
+    .step p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .9rem;
+      margin: 0;
+    }
+
+    /* INSTALL */
+
+    .install-card {
+      height: 100%;
+      border-radius: 22px;
+      padding: 35px;
+      background: linear-gradient(145deg, #111118, #09090d);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .install-card::before {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      background: rgba(139,92,246,.12);
+      border-radius: 50%;
+      filter: blur(45px);
+      right: -70px;
+      top: -70px;
+    }
+
+    .install-logo {
+      width: 55px;
+      height: 55px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: rgba(139,92,246,.13);
+      color: var(--purple-light);
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .install-card h3 {
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .install-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: .9rem;
+      min-height: 75px;
+    }
+
+    /* PRICING */
+
+    .pricing-card {
+      position: relative;
+      height: 100%;
+      padding: 30px;
+      border-radius: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      transition: .3s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(139,92,246,.35);
+    }
+
+    .pricing-card.popular {
+      border-color: rgba(139,92,246,.65);
+      box-shadow: 0 25px 70px rgba(109,40,217,.14);
+    }
+
+    .popular-label {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: var(--purple);
+      color: white;
+      font-size: .67rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .price-period {
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .price {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin: 15px 0 20px;
+    }
+
+    .price small {
+      font-size: .8rem;
+      color: var(--muted);
+      letter-spacing: 0;
+    }
+
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 25px;
+    }
+
+    .pricing-features li {
+      color: #b9b9c3;
+      font-size: .84rem;
+      margin-bottom: 11px;
+    }
+
+    .pricing-features i {
+      color: var(--green);
+      margin-right: 7px;
+    }
+
+    /* PAYMENT */
+
+    .payment-card {
+      height: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .payment-icon {
+      font-size: 2.5rem;
+      margin-bottom: 18px;
+    }
+
+    .payment-card h4 {
+      font-weight: 900;
+    }
+
+    .payment-card p {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.7;
+    }
+
+    /* FAQ */
+
+    .accordion-item {
+      background: var(--card);
+      border: 1px solid var(--border) !important;
+      margin-bottom: 10px;
+      border-radius: 13px !important;
+      overflow: hidden;
+    }
+
+    .accordion-button {
+      background: var(--card);
+      color: white;
+      font-weight: 700;
+      box-shadow: none !important;
+      padding: 20px;
+    }
+
+    .accordion-button:not(.collapsed) {
+      background: var(--card-2);
+      color: white;
+    }
+
+    .accordion-button::after {
+      filter: invert(1);
+    }
+
+    .accordion-body {
+      background: var(--card-2);
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: .9rem;
+    }
+
+    /* CTA */
+
+    .cta {
+      padding: 90px 0;
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 70px 30px;
+      border-radius: 25px;
+      border: 1px solid rgba(139,92,246,.25);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(139,92,246,.20), transparent 45%),
+        #0b0b10;
+    }
+
+    .cta-box h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .cta-box p {
+      max-width: 620px;
+      margin: 15px auto 30px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 45px 0;
+      background: #040405;
+    }
+
+    .footer-brand {
+      font-weight: 900;
+      color: white;
+    }
+
+    .footer-text {
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.7;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      margin-left: 18px;
+      font-size: .82rem;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* FLOATING SUPPORT */
+
+    .floating-support {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 999;
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #229ed9, #1687c0);
+      color: white;
+      font-size: 1.4rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,.45);
+      transition: .25s ease;
+    }
+
+    .floating-support:hover {
+      color: white;
+      transform: translateY(-4px) scale(1.04);
+    }
+
+    /* REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* NOTICE */
+
+    .legal-note {
+      color: #70707c;
+      font-size: .72rem;
+      line-height: 1.7;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 991px) {
+      .hero {
+        min-height: auto;
+        padding-top: 125px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .stat {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .showcase-content {
+        padding: 35px 25px;
+      }
+
+      .trial-box {
+        padding: 35px 25px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .section {
+        padding: 80px 0;
+      }
+
+      .hero {
+        padding: 115px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+      }
+
+      .hero-image-wrap {
+        margin-top: 45px;
+      }
+
+      .stat {
+        border-right: 0;
+      }
+
+      .footer-links {
+        margin-top: 15px;
+      }
+
+      .footer-links a {
+        margin-left: 0;
+        margin-right: 15px;
+      }
+
+      .trial-box::after {
+        font-size: 9rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -883,54 +820,60 @@
      NAVBAR
 ========================= -->
 
-<nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
-    <div class="container">
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
 
-        <a class="navbar-brand" href="#top">
-            Modding <span class="brand-x">X</span>
-        </a>
+    <a class="navbar-brand" href="#">
+      Modding <span class="brand-x">X</span>
+    </a>
 
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <button
+      class="navbar-toggler border-0 shadow-none"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="bi bi-list text-white fs-2"></i>
+    </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
-            <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link" href="#features">Features</a>
+        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#features">Features</a>
-                </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#how">How It Works</a>
+        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#install">Install</a>
-                </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#install">Install</a>
+        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#pricing">Pricing</a>
-                </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#pricing">Pricing</a>
+        </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#faq">FAQ</a>
-                </li>
+        <li class="nav-item ms-lg-2">
+          <a
+            class="nav-link nav-support"
+            href="https://t.me/ModdingXZ_Support_Bot"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="bi bi-telegram me-1"></i>
+            Support
+          </a>
+        </li>
 
-                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
-                    <a class="btn btn-purple btn-sm px-3"
-                       href="https://t.me/ModdingXZ_Support_Bot"
-                       target="_blank">
-                        <i class="bi bi-telegram me-1"></i>
-                        Support
-                    </a>
-                </li>
-
-            </ul>
-
-        </div>
+      </ul>
     </div>
+
+  </div>
 </nav>
 
 
@@ -938,328 +881,269 @@
      HERO
 ========================= -->
 
-<header class="hero" id="top">
+<header class="hero">
+  <div class="container position-relative">
 
-    <div class="container">
-        <div class="row align-items-center g-5">
+    <div class="row align-items-center">
 
-            <div class="col-lg-6 hero-content reveal">
+      <div class="col-lg-7">
 
-                <div class="badge-custom">
-                    <i class="bi bi-lightning-charge-fill"></i>
-                    GAME DOWNLOADER NOW AVAILABLE
-                </div>
+        <div class="badge-soft">
+          <span class="pulse-dot"></span>
+          GAME DOWNLOADER NOW AVAILABLE
+        </div>
 
-                <h1>
-                    Your Games.<br>
-                    <span class="gradient-text">Made Simple.</span>
-                </h1>
+        <h1>
+          Download.<br>
+          <span>Play. Enjoy.</span>
+        </h1>
 
-                <p>
-                    Modding X gives you a simple way to install and use
-                    our downloader service on compatible setups — without
-                    the usual hassle of FTP transfers and USB storage.
-                </p>
+        <p class="hero-description">
+          Say goodbye to the old way of installing games.
+          Modding X gives you a simple way to access your game downloader,
+          with flexible VIP subscriptions and dedicated support.
+        </p>
 
-                <div class="hero-buttons">
+        <div class="hero-buttons">
 
-                    <a href="#install" class="btn btn-purple">
-                        <i class="bi bi-download me-2"></i>
-                        Get Started
-                    </a>
+          <a href="#pricing" class="btn btn-main">
+            <i class="bi bi-lightning-charge-fill me-2"></i>
+            View VIP Plans
+          </a>
 
-                    <a href="#pricing" class="btn btn-outline-custom">
-                        <i class="bi bi-tag me-2"></i>
-                        View Plans
-                    </a>
-
-                </div>
-
-                <div class="stats">
-
-                    <div class="stat">
-                        <strong>24h</strong>
-                        <span>Free VIP Trial</span>
-                    </div>
-
-                    <div class="stat">
-                        <strong>5</strong>
-                        <span>Subscription Plans</span>
-                    </div>
-
-                    <div class="stat">
-                        <strong>£7</strong>
-                        <span>Starting Price</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-lg-6 showcase reveal">
-
-                <div class="showcase-frame">
-
-                    <img
-                        src="https://gamebatoapp.ir/home/en/images/home/home2-3.png"
-                        alt="GameBato running on PS4"
-                        loading="eager">
-
-                </div>
-
-                <div class="floating-card">
-
-                    <i class="bi bi-controller"></i>
-
-                    <strong>Console Ready</strong>
-
-                    <span>Game downloader interface</span>
-
-                </div>
-
-            </div>
+          <a href="#install" class="btn btn-outline-custom">
+            <i class="bi bi-download me-2"></i>
+            Get Started
+          </a>
 
         </div>
+
+        <div class="d-flex flex-wrap gap-4 mt-4 text-muted-custom small">
+
+          <span>
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            Easy setup
+          </span>
+
+          <span>
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            Regular updates
+          </span>
+
+          <span>
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            Support available
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-5">
+
+        <div class="hero-image-wrap">
+          <img
+            class="hero-image"
+            src="https://gamebatoapp.ir/home/en/images/home/home2-3.png"
+            alt="GameBato game browser interface"
+            loading="eager"
+          >
+        </div>
+
+      </div>
+
     </div>
 
+  </div>
 </header>
 
 
 <!-- =========================
-     TRIAL
+     STATS
 ========================= -->
 
-<section class="section-padding">
+<section class="stats">
+  <div class="container">
 
-    <div class="container">
+    <div class="row g-0">
 
-        <div class="trial-box reveal">
+      <div class="col-6 col-lg-3">
+        <div class="stat">
+          <div class="stat-number">2,000+</div>
+          <div class="stat-label">Games advertised by GameBato</div>
+        </div>
+      </div>
 
-            <div class="trial-icon">
-                <i class="bi bi-gift"></i>
-            </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat">
+          <div class="stat-number">24H</div>
+          <div class="stat-label">Free VIP trial</div>
+        </div>
+      </div>
 
-            <h3>Try VIP for 24 Hours — Free</h3>
+      <div class="col-6 col-lg-3">
+        <div class="stat">
+          <div class="stat-number">5</div>
+          <div class="stat-label">VIP plans</div>
+        </div>
+      </div>
 
-            <p>
-                Want to try it before paying? After installation,
-                eligible users can receive 24 hours of free VIP access.
-                Give it a proper test before choosing a subscription.
+      <div class="col-6 col-lg-3">
+        <div class="stat">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Support contact</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     FREE TRIAL
+========================= -->
+
+<section class="section">
+  <div class="container">
+
+    <div class="trial-box reveal">
+
+      <div class="row align-items-center">
+
+        <div class="col-lg-8">
+
+          <div class="eyebrow">Try before you buy</div>
+
+          <div class="trial-title">
+            Get <span class="trial-highlight">24 hours FREE VIP.</span>
+          </div>
+
+          <p class="text-muted-custom mt-3 mb-0" style="max-width:700px;line-height:1.8;">
+            Want to try it before paying?
+            Install the service and get free VIP access for 24 hours.
+            After the trial ends, choose one of the available VIP plans
+            if you want to continue.
+          </p>
+
+        </div>
+
+        <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+          <a
+            href="https://t.me/ModdingXZ_Support_Bot"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-main"
+          >
+            <i class="bi bi-telegram me-2"></i>
+            Contact Support
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     GAMEBATO SHOWCASE
+========================= -->
+
+<section class="section pt-0">
+
+  <div class="container">
+
+    <div class="showcase reveal">
+
+      <div class="row g-0 align-items-stretch">
+
+        <div class="col-lg-6">
+
+          <img
+            src="https://gamebatoapp.ir/home/en/images/home/home2-3.png"
+            alt="GameBato interface"
+            class="showcase-image"
+            loading="lazy"
+          >
+
+        </div>
+
+        <div class="col-lg-6">
+
+          <div class="showcase-content">
+
+            <div class="eyebrow">GameBato</div>
+
+            <h2 class="fw-black mb-3">
+              Your games.<br>
+              Directly on your console.
+            </h2>
+
+            <p class="text-muted-custom" style="line-height:1.8;">
+              GameBato describes its platform as an online game store
+              for compatible PS4 setups, offering game browsing,
+              categories, updates, DLC and one-click installation.
             </p>
 
-            <a href="#install" class="btn btn-purple mt-3">
-                <i class="bi bi-play-fill me-1"></i>
-                Start Your Trial
+            <ul class="check-list">
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                2,000+ games advertised
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Game categories and browsing
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Updates and DLC
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                One-click installation
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Screenshots and videos
+              </li>
+
+              <li>
+                <i class="bi bi-check-circle-fill"></i>
+                Resumable downloads
+              </li>
+
+            </ul>
+
+            <a
+              href="https://gamebatoapp.ir/home/en/"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-outline-custom mt-3"
+            >
+              Visit GameBato
+              <i class="bi bi-box-arrow-up-right ms-2"></i>
             </a>
 
+          </div>
+
         </div>
+
+      </div>
 
     </div>
 
-</section>
-
-
-<!-- =========================
-     HOW IT WORKS
-========================= -->
-
-<section class="section-padding pt-0">
-
-    <div class="container">
-
-        <div class="section-title reveal">
-
-            <div class="eyebrow">Simple Setup</div>
-
-            <h2>How It Works</h2>
-
-            <p>
-                Getting started is designed to be straightforward.
-            </p>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            <div class="col-md-4 reveal">
-
-                <div class="step-card">
-
-                    <div class="step-number">01 / INSTALL</div>
-
-                    <div class="step-icon">
-                        <i class="bi bi-download"></i>
-                    </div>
-
-                    <h4>Install</h4>
-
-                    <p>
-                        Download the Modding X package and install it
-                        on a compatible setup.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-4 reveal">
-
-                <div class="step-card">
-
-                    <div class="step-number">02 / ACTIVATE</div>
-
-                    <div class="step-icon">
-                        <i class="bi bi-key"></i>
-                    </div>
-
-                    <h4>Activate</h4>
-
-                    <p>
-                        Start your available 24-hour trial or purchase
-                        a subscription plan.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-4 reveal">
-
-                <div class="step-card">
-
-                    <div class="step-number">03 / DOWNLOAD</div>
-
-                    <div class="step-icon">
-                        <i class="bi bi-controller"></i>
-                    </div>
-
-                    <h4>Download</h4>
-
-                    <p>
-                        Browse the available library and use the
-                        downloader where supported.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     INSTALL
-========================= -->
-
-<section class="section-padding" id="install">
-
-    <div class="container">
-
-        <div class="section-title reveal">
-
-            <div class="eyebrow">Get Started</div>
-
-            <h2>Install Modding X</h2>
-
-            <p>
-                Choose the installation option that applies to your setup.
-            </p>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            <div class="col-lg-6 reveal">
-
-                <div class="install-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-box-seam"></i>
-                    </div>
-
-                    <h3>Download the PKG</h3>
-
-                    <p>
-                        Get the latest Modding X PKG from our Telegram
-                        channel and install it on your compatible console.
-                    </p>
-
-                    <a
-                        href="https://t.me/ModdingXZ/289/18164"
-                        target="_blank"
-                        class="install-option">
-
-                        <i class="bi bi-file-earmark-arrow-down"></i>
-
-                        <div>
-                            <strong>Download Modding X PKG</strong>
-                            <span>Open Telegram download</span>
-                        </div>
-
-                        <i class="bi bi-arrow-up-right ms-auto"></i>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-lg-6 reveal">
-
-                <div class="install-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-controller"></i>
-                    </div>
-
-                    <h3>PS4 13.00 or Lower</h3>
-
-                    <p>
-                        If your console is running PS4 firmware 13.00
-                        or lower, you can also check the available
-                        GameBato installation option.
-                    </p>
-
-                    <a
-                        href="https://gamebatoapp.ir/home/en/"
-                        target="_blank"
-                        class="install-option">
-
-                        <i class="bi bi-box-arrow-up-right"></i>
-
-                        <div>
-                            <strong>Open GameBato</strong>
-                            <span>Visit the GameBato website</span>
-                        </div>
-
-                        <i class="bi bi-arrow-up-right ms-auto"></i>
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="text-center mt-4">
-            <small class="text-secondary">
-                Only use software and content you are authorised to
-                install and access.
-            </small>
-        </div>
-
-    </div>
+  </div>
 
 </section>
 
@@ -1268,172 +1152,352 @@
      FEATURES
 ========================= -->
 
-<section class="section-padding" id="features">
+<section class="section pt-0" id="features">
 
-    <div class="container">
+  <div class="container">
 
-        <div class="section-title reveal">
+    <div class="section-heading reveal">
 
-            <div class="eyebrow">Why Modding X</div>
+      <div class="eyebrow">Why Modding X</div>
 
-            <h2>Less Hassle. More Gaming.</h2>
+      <h2>
+        Everything you need
+        <span class="text-purple">in one place.</span>
+      </h2>
 
-            <p>
-                Everything designed around making the installation
-                and downloader experience easier.
-            </p>
-
-        </div>
-
-
-        <div class="row g-4">
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-diagram-3"></i>
-                    </div>
-
-                    <h5>No FTP Required</h5>
-
-                    <p>
-                        No need to manually transfer packages
-                        through traditional FTP workflows.
-                    </p>
-
-                </div>
-            </div>
-
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-usb-drive"></i>
-                    </div>
-
-                    <h5>No USB Transfers</h5>
-
-                    <p>
-                        Avoid constantly moving files between
-                        your console and USB storage.
-                    </p>
-
-                </div>
-            </div>
-
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-collection"></i>
-                    </div>
-
-                    <h5>Large Library</h5>
-
-                    <p>
-                        Browse a large collection of available
-                        content in one place.
-                    </p>
-
-                </div>
-            </div>
-
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-arrow-repeat"></i>
-                    </div>
-
-                    <h5>Regular Updates</h5>
-
-                    <p>
-                        The service and available library can be
-                        updated over time.
-                    </p>
-
-                </div>
-            </div>
-
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-lightning"></i>
-                    </div>
-
-                    <h5>Fast Activation</h5>
-
-                    <p>
-                        Simple activation process through our
-                        support team.
-                    </p>
-
-                </div>
-            </div>
-
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-phone"></i>
-                    </div>
-
-                    <h5>Easy Access</h5>
-
-                    <p>
-                        Get information, installation links and
-                        support from one place.
-                    </p>
-
-                </div>
-            </div>
-
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-wallet2"></i>
-                    </div>
-
-                    <h5>Affordable Plans</h5>
-
-                    <p>
-                        Multiple subscription lengths depending
-                        on how long you need access.
-                    </p>
-
-                </div>
-            </div>
-
-
-            <div class="col-6 col-lg-3 reveal">
-                <div class="feature-card">
-
-                    <div class="feature-icon">
-                        <i class="bi bi-headset"></i>
-                    </div>
-
-                    <h5>Support</h5>
-
-                    <p>
-                        Contact the Modding X support team whenever
-                        you need assistance.
-                    </p>
-
-                </div>
-            </div>
-
-        </div>
+      <p>
+        A simple service built around easy installation,
+        flexible VIP access and support when you need it.
+      </p>
 
     </div>
+
+
+    <div class="row g-4">
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-controller"></i>
+          </div>
+
+          <h4>Huge Game Library</h4>
+
+          <p>
+            Access a large catalogue through supported downloader platforms.
+          </p>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-lightning-charge"></i>
+          </div>
+
+          <h4>Fast & Easy</h4>
+
+          <p>
+            Designed to keep the setup process simple and straightforward.
+          </p>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-arrow-repeat"></i>
+          </div>
+
+          <h4>Regular Updates</h4>
+
+          <p>
+            Keep your supported downloader and available catalogue up to date.
+          </p>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-headset"></i>
+          </div>
+
+          <h4>Support</h4>
+
+          <p>
+            Need help? Contact the Modding X support team directly.
+          </p>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-usb-drive"></i>
+          </div>
+
+          <h4>Less USB Hassle</h4>
+
+          <p>
+            Supported console-based options can reduce the need for USB transfers.
+          </p>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-search"></i>
+          </div>
+
+          <h4>Browse Games</h4>
+
+          <p>
+            Browse available content and find what you're looking for.
+          </p>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-wallet2"></i>
+          </div>
+
+          <h4>Affordable Plans</h4>
+
+          <p>
+            Choose a subscription based on how long you want access.
+          </p>
+
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-lg-3 reveal">
+        <div class="glass-card">
+
+          <div class="icon-box">
+            <i class="bi bi-shield-check"></i>
+          </div>
+
+          <h4>Simple Activation</h4>
+
+          <p>
+            Contact support after purchase for help with your VIP access.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     HOW IT WORKS
+========================= -->
+
+<section class="section bg-black" id="how">
+
+  <div class="container">
+
+    <div class="section-heading reveal">
+
+      <div class="eyebrow">Getting started</div>
+
+      <h2>
+        Three simple steps.
+      </h2>
+
+      <p>
+        Get your setup ready, choose your access and start using the supported service.
+      </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+      <div class="col-lg-4 reveal">
+
+        <div class="step">
+
+          <div class="step-number">01</div>
+
+          <h4>Install</h4>
+
+          <p>
+            Download the required package or use a supported installation option.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-4 reveal">
+
+        <div class="step">
+
+          <div class="step-number">02</div>
+
+          <h4>Try VIP</h4>
+
+          <p>
+            New users can try the service with the available 24-hour free VIP trial.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-lg-4 reveal">
+
+        <div class="step">
+
+          <div class="step-number">03</div>
+
+          <h4>Choose Your Plan</h4>
+
+          <p>
+            When your trial ends, choose the VIP subscription that suits you.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     INSTALLATION
+========================= -->
+
+<section class="section" id="install">
+
+  <div class="container">
+
+    <div class="section-heading reveal">
+
+      <div class="eyebrow">Installation</div>
+
+      <h2>
+        Ready to get started?
+      </h2>
+
+      <p>
+        Choose the installation option that applies to your setup.
+      </p>
+
+    </div>
+
+
+    <div class="row g-4">
+
+      <!-- PKG -->
+
+      <div class="col-lg-6 reveal">
+
+        <div class="install-card">
+
+          <div class="install-logo">
+            <i class="bi bi-box-seam"></i>
+          </div>
+
+          <h3>Modding X PKG</h3>
+
+          <p>
+            Download the Modding X package from our official Telegram post
+            and install it on a compatible setup.
+          </p>
+
+          <a
+            href="https://t.me/ModdingXZ/289/18164"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-main"
+          >
+            <i class="bi bi-download me-2"></i>
+            Download PKG
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- GAMEBATO -->
+
+      <div class="col-lg-6 reveal">
+
+        <div class="install-card">
+
+          <div class="install-logo">
+            <i class="bi bi-controller"></i>
+          </div>
+
+          <h3>GameBato</h3>
+
+          <p>
+            GameBato provides a console-based catalogue for compatible PS4
+            setups, with games, updates and DLC available through its platform.
+          </p>
+
+          <a
+            href="https://gamebatoapp.ir/home/en/"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-outline-custom"
+          >
+            <i class="bi bi-box-arrow-up-right me-2"></i>
+            Visit GameBato
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="text-center mt-4">
+      <p class="legal-note">
+        Compatibility depends on your console, firmware and the software being used.
+        Only install software and access content you are authorised to use.
+      </p>
+    </div>
+
+  </div>
 
 </section>
 
@@ -1442,424 +1506,355 @@
      PRICING
 ========================= -->
 
-<section class="section-padding" id="pricing">
+<section class="section bg-black" id="pricing">
 
-    <div class="container">
+  <div class="container">
 
-        <div class="section-title reveal">
+    <div class="section-heading reveal">
 
-            <div class="eyebrow">Subscriptions</div>
+      <div class="eyebrow">VIP Access</div>
 
-            <h2>Choose Your Plan</h2>
+      <h2>
+        Pick your plan.
+      </h2>
 
-            <p>
-                Simple pricing with plans from 30 days through
-                our 999-day Lifetime option.
-            </p>
-
-        </div>
-
-
-        <div class="row g-4">
-
-
-            <!-- 30 DAYS -->
-
-            <div class="col-md-6 col-xl">
-
-                <div class="pricing-card reveal">
-
-                    <div class="plan-icon">
-                        <i class="bi bi-calendar3"></i>
-                    </div>
-
-                    <h4>30 Days</h4>
-
-                    <div class="plan-duration">
-                        1 Month Plan
-                    </div>
-
-                    <div class="price">£7</div>
-
-                    <div class="currency">GBP</div>
-
-                    <ul class="pricing-list">
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            30 days access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            VIP access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Support included
-                        </li>
-
-                    </ul>
-
-                    <a href="#payments"
-                       class="btn btn-outline-custom pricing-btn">
-                        Choose Plan
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- 90 DAYS -->
-
-            <div class="col-md-6 col-xl">
-
-                <div class="pricing-card reveal">
-
-                    <div class="plan-icon">
-                        <i class="bi bi-calendar3"></i>
-                    </div>
-
-                    <h4>90 Days</h4>
-
-                    <div class="plan-duration">
-                        3 Month Plan
-                    </div>
-
-                    <div class="price">£21</div>
-
-                    <div class="currency">GBP</div>
-
-                    <ul class="pricing-list">
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            90 days access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            VIP access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Support included
-                        </li>
-
-                    </ul>
-
-                    <a href="#payments"
-                       class="btn btn-outline-custom pricing-btn">
-                        Choose Plan
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- 180 DAYS -->
-
-            <div class="col-md-6 col-xl">
-
-                <div class="pricing-card popular reveal">
-
-                    <div class="popular-label">
-                        POPULAR
-                    </div>
-
-                    <div class="plan-icon">
-                        <i class="bi bi-star-fill"></i>
-                    </div>
-
-                    <h4>180 Days</h4>
-
-                    <div class="plan-duration">
-                        6 Month Plan
-                    </div>
-
-                    <div class="price">£31</div>
-
-                    <div class="currency">GBP</div>
-
-                    <ul class="pricing-list">
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            180 days access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            VIP access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Support included
-                        </li>
-
-                    </ul>
-
-                    <a href="#payments"
-                       class="btn btn-purple pricing-btn">
-                        Choose Plan
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- 365 DAYS -->
-
-            <div class="col-md-6 col-xl">
-
-                <div class="pricing-card reveal">
-
-                    <div class="plan-icon">
-                        <i class="bi bi-fire"></i>
-                    </div>
-
-                    <h4>365 Days</h4>
-
-                    <div class="plan-duration">
-                        1 Year Plan
-                    </div>
-
-                    <div class="price">£50</div>
-
-                    <div class="currency">GBP</div>
-
-                    <ul class="pricing-list">
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            365 days access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            VIP access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Support included
-                        </li>
-
-                    </ul>
-
-                    <a href="#payments"
-                       class="btn btn-outline-custom pricing-btn">
-                        Choose Plan
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- LIFETIME -->
-
-            <div class="col-md-6 col-xl">
-
-                <div class="pricing-card lifetime reveal">
-
-                    <div class="popular-label">
-                        LIFETIME
-                    </div>
-
-                    <div class="plan-icon">
-                        <i class="bi bi-infinity"></i>
-                    </div>
-
-                    <h4>999 Days</h4>
-
-                    <div class="plan-duration">
-                        Lifetime Plan
-                    </div>
-
-                    <div class="price">£89</div>
-
-                    <div class="currency">GBP</div>
-
-                    <ul class="pricing-list">
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            999 days access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            VIP access
-                        </li>
-
-                        <li>
-                            <i class="bi bi-check-circle-fill"></i>
-                            Support included
-                        </li>
-
-                    </ul>
-
-                    <a href="#payments"
-                       class="btn btn-purple pricing-btn">
-                        Choose Plan
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
+      <p>
+        Flexible VIP access with plans starting from just £7.
+      </p>
 
     </div>
+
+
+    <div class="row g-4 justify-content-center">
+
+
+      <!-- 30 DAYS -->
+
+      <div class="col-md-6 col-lg">
+        <div class="pricing-card reveal">
+
+          <div class="price-period">30 DAYS</div>
+
+          <div class="price">
+            £7
+          </div>
+
+          <ul class="pricing-features">
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              VIP access
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              Support available
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              30 day access
+            </li>
+
+          </ul>
+
+          <a href="#payment" class="btn btn-outline-custom w-100">
+            Choose Plan
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- 90 DAYS -->
+
+      <div class="col-md-6 col-lg">
+        <div class="pricing-card reveal">
+
+          <div class="price-period">90 DAYS</div>
+
+          <div class="price">
+            £21
+          </div>
+
+          <ul class="pricing-features">
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              VIP access
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              Support available
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              90 day access
+            </li>
+
+          </ul>
+
+          <a href="#payment" class="btn btn-outline-custom w-100">
+            Choose Plan
+          </a>
+
+        </div>
+      </div>
+
+
+      <!-- 180 DAYS -->
+
+      <div class="col-md-6 col-lg">
+
+        <div class="pricing-card popular reveal">
+
+          <div class="popular-label">
+            Most Popular
+          </div>
+
+          <div class="price-period">180 DAYS</div>
+
+          <div class="price">
+            £31
+          </div>
+
+          <ul class="pricing-features">
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              VIP access
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              Support available
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              180 day access
+            </li>
+
+          </ul>
+
+          <a href="#payment" class="btn btn-main w-100">
+            Choose Plan
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- 365 DAYS -->
+
+      <div class="col-md-6 col-lg">
+
+        <div class="pricing-card reveal">
+
+          <div class="price-period">365 DAYS</div>
+
+          <div class="price">
+            £50
+          </div>
+
+          <ul class="pricing-features">
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              VIP access
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              Support available
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              1 year access
+            </li>
+
+          </ul>
+
+          <a href="#payment" class="btn btn-outline-custom w-100">
+            Choose Plan
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- 999 DAYS -->
+
+      <div class="col-md-6 col-lg">
+
+        <div class="pricing-card reveal">
+
+          <div class="price-period">999 DAYS</div>
+
+          <div class="price">
+            £89
+          </div>
+
+          <ul class="pricing-features">
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              VIP access
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              Support available
+            </li>
+
+            <li>
+              <i class="bi bi-check-circle-fill"></i>
+              999 day access
+            </li>
+
+          </ul>
+
+          <a href="#payment" class="btn btn-outline-custom w-100">
+            Choose Plan
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 
 <!-- =========================
-     PAYMENTS
+     PAYMENT
 ========================= -->
 
-<section class="section-padding pt-0" id="payments">
+<section class="section" id="payment">
 
-    <div class="container">
+  <div class="container">
 
-        <div class="section-title reveal">
+    <div class="section-heading reveal">
 
-            <div class="eyebrow">Payment</div>
+      <div class="eyebrow">Payment</div>
 
-            <h2>Choose Your Payment Method</h2>
+      <h2>
+        Pay your way.
+      </h2>
 
-            <p>
-                Select your preferred payment option, then contact
-                support to complete your activation.
-            </p>
-
-        </div>
-
-
-        <div class="row g-4 justify-content-center">
-
-            <div class="col-md-5 reveal">
-
-                <div class="payment-card">
-
-                    <div class="payment-icon">
-                        <i class="bi bi-paypal"></i>
-                    </div>
-
-                    <h4>PayPal</h4>
-
-                    <p>
-                        Pay securely through the Modding X PayPal link.
-                    </p>
-
-                    <a
-                        href="https://paypal.me/MrjasonDEX"
-                        target="_blank"
-                        class="btn btn-purple w-100">
-
-                        <i class="bi bi-paypal me-2"></i>
-                        Pay with PayPal
-
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <div class="col-md-5 reveal">
-
-                <div class="payment-card">
-
-                    <div class="payment-icon">
-                        <i class="bi bi-credit-card"></i>
-                    </div>
-
-                    <h4>Revolut</h4>
-
-                    <p>
-                        Use the Modding X Revolut payment page.
-                    </p>
-
-                    <a
-                        href="https://revolut.me/moddingxz"
-                        target="_blank"
-                        class="btn btn-outline-custom w-100">
-
-                        <i class="bi bi-arrow-up-right me-2"></i>
-                        Pay with Revolut
-
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="text-center mt-4">
-
-            <p class="text-secondary small mb-0">
-                After payment, contact
-                <a
-                    href="https://t.me/ModdingXZ_Support_Bot"
-                    target="_blank"
-                    class="text-light fw-semibold">
-                    @ModdingXZ_Support_Bot
-                </a>
-                with your payment details to arrange activation.
-            </p>
-
-        </div>
+      <p>
+        Once you've selected your plan, use one of the available payment methods
+        and contact support with your order.
+      </p>
 
     </div>
 
-</section>
 
+    <div class="row g-4 justify-content-center">
 
-<!-- =========================
-     SUPPORT
-========================= -->
+      <!-- PAYPAL -->
 
-<section class="section-padding pt-0">
+      <div class="col-md-6 col-lg-4 reveal">
 
-    <div class="container">
+        <div class="payment-card">
 
-        <div class="support-box reveal">
+          <div class="payment-icon">
+            <i class="bi bi-paypal"></i>
+          </div>
 
-            <div class="feature-icon mx-auto">
-                <i class="bi bi-telegram"></i>
-            </div>
+          <h4>PayPal</h4>
 
-            <h2>Need Help?</h2>
+          <p>
+            Pay securely through PayPal and then contact support with your order details.
+          </p>
 
-            <p>
-                Our support team can help with installation,
-                subscriptions and activation.
-            </p>
-
-            <a
-                href="https://t.me/ModdingXZ_Support_Bot"
-                target="_blank"
-                class="btn btn-purple mt-3">
-
-                <i class="bi bi-telegram me-2"></i>
-                Contact Support
-
-            </a>
+          <a
+            href="https://paypal.me/MrjasonDEX"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-outline-custom w-100"
+          >
+            Pay with PayPal
+            <i class="bi bi-arrow-up-right ms-2"></i>
+          </a>
 
         </div>
 
+      </div>
+
+
+      <!-- REVOLUT -->
+
+      <div class="col-md-6 col-lg-4 reveal">
+
+        <div class="payment-card">
+
+          <div class="payment-icon">
+            <i class="bi bi-credit-card-2-front"></i>
+          </div>
+
+          <h4>Revolut</h4>
+
+          <p>
+            Use the Revolut payment link and contact support once payment has been made.
+          </p>
+
+          <a
+            href="https://revolut.me/moddingxz"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-outline-custom w-100"
+          >
+            Pay with Revolut
+            <i class="bi bi-arrow-up-right ms-2"></i>
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- SUPPORT -->
+
+      <div class="col-md-6 col-lg-4 reveal">
+
+        <div class="payment-card">
+
+          <div class="payment-icon">
+            <i class="bi bi-telegram"></i>
+          </div>
+
+          <h4>Order Support</h4>
+
+          <p>
+            Contact the Modding X support bot for your order and VIP activation.
+          </p>
+
+          <a
+            href="https://t.me/ModdingXZ_Support_Bot"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-main w-100"
+          >
+            Open Support
+            <i class="bi bi-telegram ms-2"></i>
+          </a>
+
+        </div>
+
+      </div>
+
     </div>
+
+  </div>
 
 </section>
 
@@ -1868,236 +1863,275 @@
      FAQ
 ========================= -->
 
-<section class="section-padding" id="faq">
+<section class="section bg-black">
 
-    <div class="container">
+  <div class="container">
 
-        <div class="section-title reveal">
+    <div class="section-heading reveal">
 
-            <div class="eyebrow">Questions</div>
+      <div class="eyebrow">FAQ</div>
 
-            <h2>Frequently Asked Questions</h2>
+      <h2>
+        Got questions?
+      </h2>
 
-        </div>
+      <p>
+        Here are some of the most common questions.
+      </p>
 
+    </div>
 
-        <div class="row justify-content-center">
 
-            <div class="col-lg-9">
+    <div class="row justify-content-center">
 
-                <div class="accordion" id="faqAccordion">
+      <div class="col-lg-9">
 
+        <div class="accordion" id="faq">
 
-                    <div class="accordion-item reveal">
 
-                        <h2 class="accordion-header">
+          <div class="accordion-item reveal">
 
-                            <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq1">
+            <h2 class="accordion-header">
 
-                                How do I install Modding X?
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq1"
+              >
+                What is Modding X Game Downloader?
+              </button>
 
-                            </button>
+            </h2>
 
-                        </h2>
+            <div
+              id="faq1"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faq"
+            >
 
-                        <div
-                            id="faq1"
-                            class="accordion-collapse collapse"
-                            data-bs-parent="#faqAccordion">
-
-                            <div class="accordion-body">
-
-                                Download the Modding X PKG from the
-                                installation section and follow the
-                                installation instructions for your
-                                compatible setup.
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="accordion-item reveal">
-
-                        <h2 class="accordion-header">
-
-                            <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq2">
-
-                                Is there a free trial?
-
-                            </button>
-
-                        </h2>
-
-                        <div
-                            id="faq2"
-                            class="accordion-collapse collapse"
-                            data-bs-parent="#faqAccordion">
-
-                            <div class="accordion-body">
-
-                                Yes. Eligible users can receive 24 hours
-                                of free VIP access after installation.
-                                After the trial ends, a paid subscription
-                                is required to continue VIP access.
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="accordion-item reveal">
-
-                        <h2 class="accordion-header">
-
-                            <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq3">
-
-                                What payment methods are accepted?
-
-                            </button>
-
-                        </h2>
-
-                        <div
-                            id="faq3"
-                            class="accordion-collapse collapse"
-                            data-bs-parent="#faqAccordion">
-
-                            <div class="accordion-body">
-
-                                Modding X currently accepts payments
-                                through PayPal and Revolut.
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="accordion-item reveal">
-
-                        <h2 class="accordion-header">
-
-                            <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq4">
-
-                                What subscription plans are available?
-
-                            </button>
-
-                        </h2>
-
-                        <div
-                            id="faq4"
-                            class="accordion-collapse collapse"
-                            data-bs-parent="#faqAccordion">
-
-                            <div class="accordion-body">
-
-                                Plans are available for 30, 90, 180,
-                                365 and 999 days.
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="accordion-item reveal">
-
-                        <h2 class="accordion-header">
-
-                            <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq5">
-
-                                Where can I get support?
-
-                            </button>
-
-                        </h2>
-
-                        <div
-                            id="faq5"
-                            class="accordion-collapse collapse"
-                            data-bs-parent="#faqAccordion">
-
-                            <div class="accordion-body">
-
-                                Contact the Modding X support team through
-                                our Telegram support bot.
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="accordion-item reveal">
-
-                        <h2 class="accordion-header">
-
-                            <button
-                                class="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#faq6">
-
-                                Can I use GameBato?
-
-                            </button>
-
-                        </h2>
-
-                        <div
-                            id="faq6"
-                            class="accordion-collapse collapse"
-                            data-bs-parent="#faqAccordion">
-
-                            <div class="accordion-body">
-
-                                If your console is running PS4 firmware
-                                13.00 or lower, you can check the available
-                                GameBato option from the installation section.
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
+              <div class="accordion-body">
+                Modding X Game Downloader is our game-focused service providing
+                access to supported downloader options, VIP access and customer support.
+              </div>
 
             </div>
 
+          </div>
+
+
+          <div class="accordion-item reveal">
+
+            <h2 class="accordion-header">
+
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq2"
+              >
+                Do I get a free trial?
+              </button>
+
+            </h2>
+
+            <div
+              id="faq2"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faq"
+            >
+
+              <div class="accordion-body">
+                Yes. New users can receive 24 hours of free VIP after installing
+                the service. Once the trial ends, a paid VIP plan is required
+                to continue.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="accordion-item reveal">
+
+            <h2 class="accordion-header">
+
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq3"
+              >
+                What payment methods do you accept?
+              </button>
+
+            </h2>
+
+            <div
+              id="faq3"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faq"
+            >
+
+              <div class="accordion-body">
+                We currently accept PayPal and Revolut.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="accordion-item reveal">
+
+            <h2 class="accordion-header">
+
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq4"
+              >
+                How do I activate my VIP?
+              </button>
+
+            </h2>
+
+            <div
+              id="faq4"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faq"
+            >
+
+              <div class="accordion-body">
+                After payment, contact the Modding X support bot with your
+                order details so the team can assist with activation.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="accordion-item reveal">
+
+            <h2 class="accordion-header">
+
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq5"
+              >
+                Do I need USB or FTP?
+              </button>
+
+            </h2>
+
+            <div
+              id="faq5"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faq"
+            >
+
+              <div class="accordion-body">
+                The available installation method depends on your setup.
+                Supported console-based options can reduce the need for
+                traditional USB or FTP transfers.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="accordion-item reveal">
+
+            <h2 class="accordion-header">
+
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#faq6"
+              >
+                Where can I get help?
+              </button>
+
+            </h2>
+
+            <div
+              id="faq6"
+              class="accordion-collapse collapse"
+              data-bs-parent="#faq"
+            >
+
+              <div class="accordion-body">
+                You can contact the Modding X support team through
+                <strong>@ModdingXZ_Support_Bot</strong>.
+              </div>
+
+            </div>
+
+          </div>
+
+
         </div>
 
+      </div>
+
     </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     FINAL CTA
+========================= -->
+
+<section class="cta">
+
+  <div class="container">
+
+    <div class="cta-box reveal">
+
+      <div class="eyebrow">
+        Modding X
+      </div>
+
+      <h2>
+        Ready to get started?
+      </h2>
+
+      <p>
+        Try the service free for 24 hours, choose your VIP plan
+        and contact our support team when you're ready.
+      </p>
+
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+
+        <a href="#pricing" class="btn btn-main">
+          <i class="bi bi-lightning-charge-fill me-2"></i>
+          View VIP Plans
+        </a>
+
+        <a
+          href="https://t.me/ModdingXZ_Support_Bot"
+          target="_blank"
+          rel="noopener"
+          class="btn btn-outline-custom"
+        >
+          <i class="bi bi-telegram me-2"></i>
+          Contact Support
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
@@ -2108,250 +2142,158 @@
 
 <footer>
 
-    <div class="container">
+  <div class="container">
 
-        <div class="row align-items-center">
+    <div class="row align-items-center">
 
-            <div class="col-md-6">
+      <div class="col-lg-6">
 
-                <div class="footer-brand">
-                    Modding <span class="brand-x">X</span>
-                </div>
+        <div class="footer-brand">
+          Modding <span class="brand-x">X</span>
+        </div>
 
-                <div class="mt-2">
-                    Game Downloader & VIP Services
-                </div>
+        <p class="footer-text mt-2 mb-0">
+          Game Downloader · VIP Access · Support
+        </p>
 
-            </div>
+      </div>
 
 
-            <div class="col-md-6 text-md-end">
+      <div class="col-lg-6 text-lg-end">
 
-                <div class="footer-links">
+        <div class="footer-links">
 
-                    <a href="#features">Features</a>
+          <a href="#features">
+            Features
+          </a>
 
-                    <a href="#pricing">Pricing</a>
+          <a href="#pricing">
+            Pricing
+          </a>
 
-                    <a href="#faq">FAQ</a>
+          <a href="#faq">
+            FAQ
+          </a>
 
-                    <a
-                        href="https://t.me/ModdingXZ_Support_Bot"
-                        target="_blank">
-                        Support
-                    </a>
-
-                </div>
-
-            </div>
+          <a
+            href="https://t.me/ModdingXZ_Support_Bot"
+            target="_blank"
+            rel="noopener"
+          >
+            Support
+          </a>
 
         </div>
 
-
-        <hr class="border-secondary opacity-25 my-4">
-
-        <div class="d-flex flex-column flex-md-row justify-content-between gap-2">
-
-            <span>
-                © <span id="year"></span> Modding X. All rights reserved.
-            </span>
-
-            <span>
-                Use software and content only where you have the appropriate rights.
-            </span>
-
-        </div>
+      </div>
 
     </div>
+
+
+    <hr style="border-color:rgba(255,255,255,.06);margin:30px 0;">
+
+
+    <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+
+      <div class="footer-text">
+        © <span id="year"></span> Modding X. All rights reserved.
+      </div>
+
+      <div class="legal-note">
+        Only install software and access content you are authorised to use.
+      </div>
+
+    </div>
+
+  </div>
 
 </footer>
 
 
-<!-- =========================
-     FLOATING BUTTONS
-========================= -->
-
-<button id="backTop" aria-label="Back to top">
-    <i class="bi bi-arrow-up"></i>
-</button>
+<!-- FLOATING TELEGRAM -->
 
 <a
-    href="https://t.me/ModdingXZ_Support_Bot"
-    target="_blank"
-    class="telegram-float"
-    aria-label="Telegram Support">
-
-    <i class="bi bi-telegram"></i>
-
+  href="https://t.me/ModdingXZ_Support_Bot"
+  target="_blank"
+  rel="noopener"
+  class="floating-support"
+  aria-label="Contact Modding X Support"
+  title="Contact Support"
+>
+  <i class="bi bi-telegram"></i>
 </a>
 
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-FKyoEForCGlyvwxH9j09JcYn3nv7wiPVlz7YYJrWVcXK/BmnVDxM+D2scQbITxI"
+  crossorigin="anonymous"
+></script>
 
 <script>
 
-    /* =========================
-       CURRENT YEAR
-    ========================= */
-
-    document.getElementById("year").textContent =
-        new Date().getFullYear();
+  /* Current year */
+  document.getElementById("year").textContent = new Date().getFullYear();
 
 
-    /* =========================
-       NAVBAR SCROLL
-    ========================= */
+  /* Scroll reveal */
 
-    const navbar = document.getElementById("mainNav");
+  document.addEventListener("DOMContentLoaded", function () {
 
-    window.addEventListener("scroll", () => {
+    const revealElements = document.querySelectorAll(".reveal");
 
-        if (window.scrollY > 30) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
+    const observer = new IntersectionObserver(
+      function(entries) {
 
-    });
+        entries.forEach(function(entry) {
 
+          if (entry.isIntersecting) {
 
-    /* =========================
-       SCROLL REVEAL
-    ========================= */
+            entry.target.classList.add("visible");
 
-    const revealElements =
-        document.querySelectorAll(".reveal");
+            observer.unobserve(entry.target);
 
-    const revealObserver =
-        new IntersectionObserver((entries) => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add("active");
-
-                    revealObserver.unobserve(entry.target);
-
-                }
-
-            });
-
-        }, {
-            threshold: 0.12
-        });
-
-
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
-
-
-    /* =========================
-       BACK TO TOP
-    ========================= */
-
-    const backTop =
-        document.getElementById("backTop");
-
-    window.addEventListener("scroll", () => {
-
-        if (window.scrollY > 500) {
-            backTop.classList.add("show");
-        } else {
-            backTop.classList.remove("show");
-        }
-
-    });
-
-    backTop.addEventListener("click", () => {
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
-    });
-
-
-    /* =========================
-       CLOSE MOBILE NAV
-       AFTER CLICK
-    ========================= */
-
-    document.querySelectorAll(".navbar-nav .nav-link")
-        .forEach(link => {
-
-            link.addEventListener("click", () => {
-
-                const nav =
-                    document.getElementById("navbarNav");
-
-                if (nav.classList.contains("show")) {
-
-                    bootstrap.Collapse
-                        .getOrCreateInstance(nav)
-                        .hide();
-
-                }
-
-            });
+          }
 
         });
 
+      },
+      {
+        threshold: 0.12
+      }
+    );
 
-    /* =========================
-       BUTTON RIPPLE EFFECT
-    ========================= */
 
-    document.querySelectorAll(".btn").forEach(button => {
+    revealElements.forEach(function(element) {
+      observer.observe(element);
+    });
 
-        button.addEventListener("click", function(e) {
+  });
 
-            const ripple =
-                document.createElement("span");
 
-            ripple.style.position = "absolute";
-            ripple.style.borderRadius = "50%";
-            ripple.style.transform = "scale(0)";
-            ripple.style.background = "rgba(255,255,255,.18)";
-            ripple.style.width = "100px";
-            ripple.style.height = "100px";
-            ripple.style.left =
-                (e.offsetX - 50) + "px";
-            ripple.style.top =
-                (e.offsetY - 50) + "px";
-            ripple.style.pointerEvents = "none";
+  /* Close mobile navbar after clicking a link */
 
-            this.style.position = "relative";
-            this.style.overflow = "hidden";
+  document.querySelectorAll(".navbar .nav-link").forEach(function(link) {
 
-            this.appendChild(ripple);
+    link.addEventListener("click", function() {
 
-            ripple.animate(
-                [
-                    {
-                        transform: "scale(0)",
-                        opacity: 1
-                    },
-                    {
-                        transform: "scale(3)",
-                        opacity: 0
-                    }
-                ],
-                {
-                    duration: 500,
-                    easing: "ease-out"
-                }
-            ).onfinish = () => {
-                ripple.remove();
-            };
+      const menu = document.getElementById("mainNav");
 
-        });
+      if (menu.classList.contains("show")) {
+
+        bootstrap.Collapse
+          .getOrCreateInstance(menu)
+          .hide();
+
+      }
 
     });
+
+  });
 
 </script>
 
