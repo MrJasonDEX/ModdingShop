@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Modding X — Game Downloader</title>
+    <meta name="description" content="Modding X Game Downloader — Download. Play. Enjoy.">
+
+    <!-- Bootstrap 5.3.8 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --mx-purple: #8b5cf6;
+            --mx-purple-light: #a78bfa;
+            --mx-purple-dark: #6d28d9;
+            --mx-bg: #06060a;
+            --mx-card: #0d0d13;
+            --mx-card-2: #111119;
+            --mx-border: rgba(255,255,255,.08);
+            --mx-muted: #92929d;
+        }
+
+        * {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--mx-bg);
+            color: #fff;
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ::selection {
+            background: var(--mx-purple);
+            color: #fff;
+        }
+
+        /* =========================================
+           BACKGROUND
+        ========================================= */
+
+        .background-glow {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(130px);
+            opacity: .12;
+        }
+
+        .glow-one {
+            background: #7c3aed;
+            top: -250px;
+            left: -200px;
+        }
+
+        .glow-two {
+            background: #9333ea;
+            right: -250px;
+            top: 30%;
+        }
+
+        .glow-three {
+            background: #4f46e5;
+            bottom: -300px;
+            left: 30%;
+        }
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .navbar {
+            background: rgba(6,6,10,.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            transition: .3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(6,6,10,.95);
+            box-shadow: 0 10px 40px rgba(0,0,0,.25);
+        }
+
+        .brand {
+            font-weight: 900;
+            font-size: 1.35rem;
+            letter-spacing: -.7px;
+            color: #fff !important;
+        }
+
+        .brand-x {
+            color: var(--mx-purple-light);
+        }
+
+        .nav-link {
+            color: #999 !important;
+            font-size: .9rem;
+            font-weight: 600;
+            margin: 0 5px;
+            transition: .2s;
+        }
+
+        .nav-link:hover {
+            color: #fff !important;
+        }
+
+        .nav-cta {
+            background: var(--mx-purple);
+            color: white !important;
+            border-radius: 9px;
+            padding: 9px 17px !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--mx-purple-dark);
+        }
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            min-height: 820px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 140px 0 90px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 1px solid rgba(167,139,250,.25);
+            background: rgba(139,92,246,.08);
+            color: #c4b5fd;
+            font-size: .78rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            background: #8b5cf6;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #8b5cf6;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%,100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: .5;
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(3.3rem, 8vw, 6.7rem);
+            line-height: .92;
+            font-weight: 900;
+            letter-spacing: -5px;
+            margin-bottom: 28px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(
+                100deg,
+                #fff,
+                #c4b5fd,
+                #8b5cf6
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-description {
+            max-width: 690px;
+            color: #999;
+            font-size: 1.08rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            margin-top: 35px;
+        }
+
+        .btn-mx {
+            border: 0;
+            border-radius: 11px;
+            padding: 14px 22px;
+            font-weight: 800;
+            font-size: .9rem;
+            transition: .25s ease;
+        }
+
+        .btn-purple {
+            background: var(--mx-purple);
+            color: white;
+            box-shadow: 0 10px 35px rgba(139,92,246,.22);
+        }
+
+        .btn-purple:hover {
+            background: var(--mx-purple-dark);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139,92,246,.35);
+        }
+
+        .btn-outline-mx {
+            color: white;
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.035);
+        }
+
+        .btn-outline-mx:hover {
+            color: white;
+            background: rgba(255,255,255,.08);
+            transform: translateY(-3px);
+        }
+
+        /* HERO CARD */
+
+        .hero-card-wrapper {
+            position: relative;
+        }
+
+        .hero-card {
+            position: relative;
+            background: linear-gradient(
+                145deg,
+                rgba(139,92,246,.14),
+                rgba(255,255,255,.025)
+            );
+            border: 1px solid rgba(167,139,250,.16);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow:
+                0 40px 100px rgba(0,0,0,.4),
+                inset 0 1px rgba(255,255,255,.05);
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .window-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .window-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #444;
+        }
+
+        .download-status {
+            font-size: .7rem;
+            color: #a78bfa;
+            font-weight: 700;
+        }
+
+        .game-preview {
+            height: 240px;
+            border-radius: 17px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(139,92,246,.45),
+                    rgba(20,20,30,.8)
+                ),
+                radial-gradient(circle at 80% 20%, #8b5cf6, transparent 35%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-preview::before {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.12);
+            box-shadow:
+                0 0 0 35px rgba(255,255,255,.025),
+                0 0 0 70px rgba(255,255,255,.018);
+        }
+
+        .controller-icon {
+            position: relative;
+            font-size: 75px;
+            color: white;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,.4));
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .hero-stat {
+            padding: 13px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.035);
+            text-align: center;
+        }
+
+        .hero-stat strong {
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .hero-stat small {
+            color: #777;
+            font-size: .65rem;
+        }
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        section {
+            padding: 100px 0;
+        }
+
+        .section-label {
+            color: var(--mx-purple-light);
+            font-size: .72rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-weight: 900;
+            font-size: clamp(2rem,4vw,3.1rem);
+            letter-spacing: -1.8px;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            color: #888;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        /* =========================================
+           TRIAL
+        ========================================= */
+
+        .trial-section {
+            padding-top: 25px;
+        }
+
+        .trial-card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(139,92,246,.2);
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(139,92,246,.13),
+                    rgba(255,255,255,.025)
+                );
+            border-radius: 22px;
+            padding: 45px;
+        }
+
+        .trial-card::after {
+            content: "24";
+            position: absolute;
+            right: 30px;
+            top: -45px;
+            font-size: 190px;
+            font-weight: 900;
+            color: rgba(139,92,246,.035);
+            line-height: 1;
+        }
+
+        .trial-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(139,92,246,.14);
+            color: #c4b5fd;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        .trial-card h2 {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .trial-card p {
+            color: #92929d;
+            max-width: 650px;
+        }
+
+        /* =========================================
+           FEATURES
+        ========================================= */
+
+        .feature-card {
+            height: 100%;
+            padding: 28px;
+            border-radius: 17px;
+            border: 1px solid var(--mx-border);
+            background: rgba(255,255,255,.018);
+            transition: .3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(139,92,246,.3);
+            background: rgba(139,92,246,.045);
+            box-shadow: 0 20px 50px rgba(0,0,0,.2);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            background: rgba(139,92,246,.1);
+            color: #a78bfa;
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h5 {
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .feature-card p {
+            color: #777;
+            font-size: .85rem;
+            margin: 0;
+        }
+
+        /* =========================================
+           INSTALL
+        ========================================= */
+
+        .install-card {
+            height: 100%;
+            border: 1px solid var(--mx-border);
+            background: var(--mx-card);
+            border-radius: 20px;
+            padding: 32px;
+            transition: .3s;
+        }
+
+        .install-card:hover {
+            border-color: rgba(139,92,246,.25);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 13px;
+            background: var(--mx-purple);
+            font-weight: 900;
+            margin-bottom: 22px;
+            box-shadow: 0 10px 30px rgba(139,92,246,.2);
+        }
+
+        .install-card h4 {
+            font-weight: 900;
+        }
+
+        .install-card p {
+            color: #85858f;
+            font-size: .9rem;
+            min-height: 75px;
+        }
+
+        .compatibility {
+            padding: 12px 15px;
+            border-radius: 10px;
+            background: rgba(255,255,255,.035);
+            color: #888;
+            font-size: .75rem;
+            margin-top: 15px;
+        }
+
+        /* =========================================
+           PRICING
+        ========================================= */
+
+        .price-card {
+            height: 100%;
+            position: relative;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--mx-border);
+            background: var(--mx-card);
+            transition: .3s ease;
+        }
+
+        .price-card:hover {
+            transform: translateY(-7px);
+            border-color: rgba(139,92,246,.25);
+        }
+
+        .price-card.popular {
+            border-color: rgba(139,92,246,.55);
+            background:
+                linear-gradient(
+                    150deg,
+                    rgba(139,92,246,.12),
+                    rgba(13,13,19,.95)
+                );
+            box-shadow: 0 25px 70px rgba(0,0,0,.3);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--mx-purple);
+            color: #fff;
+            font-size: .63rem;
+            font-weight: 900;
+            padding: 6px 12px;
+            border-radius: 50px;
+            letter-spacing: .5px;
+        }
+
+        .price-name {
+            color: #888;
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin: 10px 0 25px;
+        }
+
+        .price-period {
+            color: #666;
+            font-size: .75rem;
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+
+        .price-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px;
+        }
+
+        .price-features li {
+            color: #8b8b95;
+            font-size: .82rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,.04);
+        }
+
+        .price-features i {
+            color: #a78bfa;
+            margin-right: 7px;
+        }
+
+        /* =========================================
+           PAYMENTS
+        ========================================= */
+
+        .payment-card {
+            height: 100%;
+            padding: 35px;
+            border: 1px solid var(--mx-border);
+            background: var(--mx-card);
+            border-radius: 20px;
+            text-align: center;
+            transition: .3s;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(139,92,246,.3);
+        }
+
+        .payment-logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+        }
+
+        .paypal-logo {
+            background: rgba(0,112,186,.1);
+            color: #4da3df;
+        }
+
+        .revolut-logo {
+            background: rgba(255,255,255,.07);
+            color: white;
+        }
+
+        .payment-name {
+            font-weight: 900;
+            font-size: 1.15rem;
+        }
+
+        .payment-handle {
+            color: #888;
+            font-size: .82rem;
+            margin: 10px 0 22px;
+            word-break: break-word;
+        }
+
+        /* =========================================
+           SUPPORT
+        ========================================= */
+
+        .support-box {
+            border-radius: 25px;
+            padding: 70px 30px;
+            text-align: center;
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(139,92,246,.16),
+                    transparent 55%
+                ),
+                var(--mx-card);
+            border: 1px solid rgba(139,92,246,.15);
+        }
+
+        .support-icon {
+            width: 75px;
+            height: 75px;
+            border-radius: 22px;
+            background: rgba(139,92,246,.12);
+            color: #c4b5fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 25px;
+        }
+
+        /* =========================================
+           FAQ
+        ========================================= */
+
+        .accordion-item {
+            background: var(--mx-card);
+            border: 1px solid var(--mx-border) !important;
+            border-radius: 12px !important;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-button {
+            background: var(--mx-card) !important;
+            color: #fff !important;
+            box-shadow: none !important;
+            font-weight: 700;
+            font-size: .9rem;
+            padding: 20px;
+        }
+
+        .accordion-button::after {
+            filter: invert(1);
+        }
+
+        .accordion-body {
+            color: #85858f;
+            font-size: .85rem;
+            background: var(--mx-card);
+            padding: 0 20px 20px;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        footer {
+            border-top: 1px solid rgba(255,255,255,.06);
+            padding: 45px 0;
+            color: #666;
+            font-size: .75rem;
+        }
+
+        .footer-brand {
+            color: white;
+            font-weight: 900;
+            font-size: 1rem;
+        }
+
+        /* =========================================
+           REVEAL ANIMATION
+        ========================================= */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================================
+           BACK TO TOP
+        ========================================= */
+
+        #backTop {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 43px;
+            height: 43px;
+            border: 0;
+            border-radius: 12px;
+            background: var(--mx-purple);
+            color: white;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: .3s;
+            box-shadow: 0 10px 30px rgba(139,92,246,.25);
+        }
+
+        #backTop.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media(max-width: 991px) {
+            .hero {
+                min-height: auto;
+                padding-top: 120px;
+            }
+
+            .hero-card-wrapper {
+                margin-top: 50px;
+            }
+        }
+
+        @media(max-width: 575px) {
+            .hero {
+                padding: 110px 0 60px;
+            }
+
+            .hero h1 {
+                letter-spacing: -3px;
+            }
+
+            .trial-card {
+                padding: 30px 25px;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="background-glow">
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
+    <div class="glow glow-three"></div>
+</div>
+
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand brand" href="#">
+            Modding <span class="brand-x">X</span>
+        </a>
+
+        <button
+            class="navbar-toggler border-0 shadow-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNav"
+            aria-label="Toggle navigation"
+        >
+            <i class="bi bi-list text-white fs-2"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#features">Features</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#install">Install</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#pricing">Pricing</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#payments">Payments</a>
+                </li>
+
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a
+                        class="nav-link nav-cta"
+                        href="https://t.me/ModdingXZ_Support_Bot"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <i class="bi bi-telegram me-1"></i>
+                        Support
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<header class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-7">
+
+                <div class="hero-badge">
+                    <span class="live-dot"></span>
+                    GAME DOWNLOADER NOW AVAILABLE
+                </div>
+
+                <h1>
+                    Download.<br>
+                    <span class="gradient-text">Play. Enjoy.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Say goodbye to the old way of installing games.
+                    No more constantly moving files around or relying
+                    on traditional transfer methods. Modding X gives
+                    you a simple way to access your game downloader
+                    platform.
+                </p>
+
+                <div class="hero-buttons d-flex flex-wrap gap-3">
+
+                    <a
+                        href="#install"
+                        class="btn btn-mx btn-purple"
+                    >
+                        <i class="bi bi-rocket-takeoff me-2"></i>
+                        Get Started
+                    </a>
+
+                    <a
+                        href="#pricing"
+                        class="btn btn-mx btn-outline-mx"
+                    >
+                        View Plans
+                        <i class="bi bi-arrow-down ms-2"></i>
+                    </a>
+
+                </div>
+
+                <div class="d-flex flex-wrap gap-4 mt-4 text-secondary small">
+
+                    <span>
+                        <i class="bi bi-check-circle-fill text-purple me-1"
+                           style="color:#a78bfa"></i>
+                        24hr Free Trial
+                    </span>
+
+                    <span>
+                        <i class="bi bi-check-circle-fill me-1"
+                           style="color:#a78bfa"></i>
+                        Fast Activation
+                    </span>
+
+                    <span>
+                        <i class="bi bi-check-circle-fill me-1"
+                           style="color:#a78bfa"></i>
+                        Telegram Support
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-5 hero-card-wrapper">
+
+                <div class="hero-card">
+
+                    <div class="hero-card-top">
+
+                        <div class="window-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="download-status">
+                            <i class="bi bi-circle-fill me-1"></i>
+                            ONLINE
+                        </div>
+
+                    </div>
+
+                    <div class="game-preview">
+
+                        <i class="bi bi-controller controller-icon"></i>
+
+                    </div>
+
+                    <div class="hero-stats">
+
+                        <div class="hero-stat">
+                            <strong>24h</strong>
+                            <small>FREE VIP</small>
+                        </div>
+
+                        <div class="hero-stat">
+                            <strong>4</strong>
+                            <small>PLANS</small>
+                        </div>
+
+                        <div class="hero-stat">
+                            <strong>24/7</strong>
+                            <small>SUPPORT</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- TRIAL -->
+
+<section class="trial-section">
+
+    <div class="container reveal">
+
+        <div class="trial-card">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <div class="trial-icon">
+                        <i class="bi bi-fire"></i>
+                    </div>
+
+                    <h2>
+                        Try VIP <span style="color:#a78bfa">FREE</span>
+                        for 24 Hours
+                    </h2>
+
+                    <p class="mb-0">
+                        Want to give it a go before you buy?
+                        Install the downloader and get
+                        <strong class="text-white">
+                            24 hours of free VIP access.
+                        </strong>
+                        Once the trial expires, simply choose a
+                        subscription plan to continue.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+
+                    <a
+                        href="#install"
+                        class="btn btn-mx btn-purple"
+                    >
+                        Start Your Trial
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section id="features">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="section-label">
+                WHY MODDING X
+            </div>
+
+            <h2 class="section-title">
+                Everything in one place.
+            </h2>
+
+            <p class="section-description">
+                Built to make the process simple, fast and convenient.
+            </p>
+
+        </div>
+
+
+        <div class="row g-3">
+
+            <div class="col-md-6 col-lg-4 reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <h5>Fast & Easy</h5>
+                    <p>
+                        Get set up quickly without a complicated process.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-usb-drive"></i>
+                    </div>
+                    <h5>No USB Transfers</h5>
+                    <p>
+                        Reduce the need for manually moving files between devices.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-hdd-network"></i>
+                    </div>
+                    <h5>No FTP Required</h5>
+                    <p>
+                        Enjoy a simpler alternative to traditional file transfers.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-collection-fill"></i>
+                    </div>
+                    <h5>Huge Library</h5>
+                    <p>
+                        Access a large and regularly updated game library.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                    <h5>Regular Updates</h5>
+                    <p>
+                        Keep up with new content and platform updates.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-lg-4 reveal">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="bi bi-headset"></i>
+                    </div>
+                    <h5>Trusted Support</h5>
+                    <p>
+                        Get assistance directly through the Modding X support bot.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INSTALLATION -->
+
+<section id="install">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="section-label">
+                GET STARTED
+            </div>
+
+            <h2 class="section-title">
+                Ready to install?
+            </h2>
+
+            <p class="section-description">
+                Choose the installation method that applies to your setup.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <!-- PKG -->
+
+            <div class="col-lg-6 reveal">
+
+                <div class="install-card">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h4>
+                        Download the PKG
+                    </h4>
+
+                    <p>
+                        Download the latest Modding X PKG from
+                        our official Telegram post and install it
+                        on your compatible console.
+                    </p>
+
+                    <a
+                        href="https://t.me/ModdingXZ/289/18164"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-purple"
+                    >
+                        <i class="bi bi-download me-2"></i>
+                        Download PKG
+                    </a>
+
+                    <div class="compatibility">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Download link opens Telegram.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- GAMEBATO -->
+
+            <div class="col-lg-6 reveal">
+
+                <div class="install-card">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h4>
+                        PS4 13.00 or Lower
+                    </h4>
+
+                    <p>
+                        If your console is running system software
+                        13.00 or lower, you can download and use
+                        GameBato directly on your console.
+                    </p>
+
+                    <a
+                        href="https://gamebatoapp.ir/home/en/"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-outline-mx"
+                    >
+                        <i class="bi bi-box-arrow-up-right me-2"></i>
+                        Open GameBato
+                    </a>
+
+                    <div class="compatibility">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Compatibility depends on your console setup.
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="text-center mt-4">
+
+            <small class="text-secondary">
+                Please only install software and access content
+                you are authorised to use.
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PRICING -->
+
+<section id="pricing">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="section-label">
+                SUBSCRIPTIONS
+            </div>
+
+            <h2 class="section-title">
+                Simple pricing.
+            </h2>
+
+            <p class="section-description">
+                Pick the amount of time you want and contact
+                support to place your order.
+            </p>
+
+        </div>
+
+
+        <div class="row g-3">
+
+
+            <!-- 30 DAYS -->
+
+            <div class="col-sm-6 col-lg-3 reveal">
+
+                <div class="price-card">
+
+                    <div class="price-name">
+                        30 DAYS
+                    </div>
+
+                    <div class="price">
+                        £8
+                        <span class="price-period">/ 30 days</span>
+                    </div>
+
+                    <ul class="price-features">
+                        <li>
+                            <i class="bi bi-check"></i>
+                            VIP access
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Regular updates
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Support available
+                        </li>
+                    </ul>
+
+                    <a
+                        href="https://t.me/ModdingXZ_Support_Bot"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-outline-mx w-100"
+                    >
+                        Order
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- 90 DAYS -->
+
+            <div class="col-sm-6 col-lg-3 reveal">
+
+                <div class="price-card">
+
+                    <div class="price-name">
+                        90 DAYS
+                    </div>
+
+                    <div class="price">
+                        £23
+                        <span class="price-period">/ 90 days</span>
+                    </div>
+
+                    <ul class="price-features">
+                        <li>
+                            <i class="bi bi-check"></i>
+                            VIP access
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Regular updates
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Support available
+                        </li>
+                    </ul>
+
+                    <a
+                        href="https://t.me/ModdingXZ_Support_Bot"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-outline-mx w-100"
+                    >
+                        Order
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- 180 DAYS -->
+
+            <div class="col-sm-6 col-lg-3 reveal">
+
+                <div class="price-card popular">
+
+                    <div class="popular-badge">
+                        POPULAR
+                    </div>
+
+                    <div class="price-name">
+                        180 DAYS
+                    </div>
+
+                    <div class="price">
+                        £35
+                        <span class="price-period">/ 180 days</span>
+                    </div>
+
+                    <ul class="price-features">
+                        <li>
+                            <i class="bi bi-check"></i>
+                            VIP access
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Regular updates
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Support available
+                        </li>
+                    </ul>
+
+                    <a
+                        href="https://t.me/ModdingXZ_Support_Bot"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-purple w-100"
+                    >
+                        Order
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- 365 DAYS -->
+
+            <div class="col-sm-6 col-lg-3 reveal">
+
+                <div class="price-card">
+
+                    <div class="price-name">
+                        365 DAYS
+                    </div>
+
+                    <div class="price">
+                        £55
+                        <span class="price-period">/ year</span>
+                    </div>
+
+                    <ul class="price-features">
+                        <li>
+                            <i class="bi bi-check"></i>
+                            VIP access
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Regular updates
+                        </li>
+                        <li>
+                            <i class="bi bi-check"></i>
+                            Support available
+                        </li>
+                    </ul>
+
+                    <a
+                        href="https://t.me/ModdingXZ_Support_Bot"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-outline-mx w-100"
+                    >
+                        Order
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PAYMENTS -->
+
+<section id="payments">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="section-label">
+                PAYMENTS
+            </div>
+
+            <h2 class="section-title">
+                Pay your way.
+            </h2>
+
+            <p class="section-description">
+                We currently accept PayPal and Revolut.
+                Contact support if you need help with an order.
+            </p>
+
+        </div>
+
+
+        <div class="row justify-content-center g-4">
+
+
+            <!-- PAYPAL -->
+
+            <div class="col-md-5 reveal">
+
+                <div class="payment-card">
+
+                    <div class="payment-logo paypal-logo">
+                        <i class="bi bi-paypal"></i>
+                    </div>
+
+                    <div class="payment-name">
+                        PayPal
+                    </div>
+
+                    <div class="payment-handle">
+                        PayPal.me/MrjasonDEX
+                    </div>
+
+                    <a
+                        href="https://paypal.me/MrjasonDEX"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-purple w-100"
+                    >
+                        <i class="bi bi-paypal me-2"></i>
+                        Pay with PayPal
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- REVOLUT -->
+
+            <div class="col-md-5 reveal">
+
+                <div class="payment-card">
+
+                    <div class="payment-logo revolut-logo">
+                        <i class="bi bi-currency-exchange"></i>
+                    </div>
+
+                    <div class="payment-name">
+                        Revolut
+                    </div>
+
+                    <div class="payment-handle">
+                        revolut.me/moddingxz
+                    </div>
+
+                    <a
+                        href="https://revolut.me/moddingxz"
+                        target="_blank"
+                        rel="noopener"
+                        class="btn btn-mx btn-outline-mx w-100"
+                    >
+                        <i class="bi bi-box-arrow-up-right me-2"></i>
+                        Pay with Revolut
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SUPPORT -->
+
+<section id="support">
+
+    <div class="container reveal">
+
+        <div class="support-box">
+
+            <div class="support-icon">
+                <i class="bi bi-telegram"></i>
+            </div>
+
+            <div class="section-label">
+                MODDING X SUPPORT
+            </div>
+
+            <h2 class="section-title">
+                Need help?
+            </h2>
+
+            <p class="section-description mb-4">
+                Orders, activation, subscriptions or general questions —
+                contact the Modding X support team through Telegram.
+            </p>
+
+            <a
+                href="https://t.me/ModdingXZ_Support_Bot"
+                target="_blank"
+                rel="noopener"
+                class="btn btn-mx btn-purple"
+            >
+                <i class="bi bi-telegram me-2"></i>
+                Open Support Bot
+            </a>
+
+            <div class="mt-3 text-secondary small">
+                @ModdingXZ_Support_Bot
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FAQ -->
+
+<section id="faq">
+
+    <div class="container">
+
+        <div class="text-center mb-5 reveal">
+
+            <div class="section-label">
+                FAQ
+            </div>
+
+            <h2 class="section-title">
+                Frequently asked questions.
+            </h2>
+
+        </div>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="accordion" id="faqAccordion">
+
+
+                    <div class="accordion-item reveal">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqOne"
+                            >
+                                How do I get started?
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqOne"
+                            class="accordion-collapse collapse show"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+                                Download the PKG from the official Telegram
+                                post, install it on your compatible setup,
+                                and follow the activation instructions.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item reveal">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqTwo"
+                            >
+                                Is there a free trial?
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqTwo"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+                                Yes. After installing the downloader,
+                                eligible users can get 24 hours of free
+                                VIP access before choosing a subscription.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item reveal">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqThree"
+                            >
+                                What payment methods are accepted?
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqThree"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+                                We currently accept PayPal and Revolut.
+                                Payment links are available in the
+                                Payments section above.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item reveal">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqFour"
+                            >
+                                How do I purchase VIP?
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqFour"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+                                Choose your preferred subscription plan
+                                and contact the Modding X Support Bot to
+                                arrange your order and activation.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="accordion-item reveal">
+
+                        <h2 class="accordion-header">
+
+                            <button
+                                class="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#faqFive"
+                            >
+                                What if I need help?
+                            </button>
+
+                        </h2>
+
+                        <div
+                            id="faqFive"
+                            class="accordion-collapse collapse"
+                            data-bs-parent="#faqAccordion"
+                        >
+
+                            <div class="accordion-body">
+                                Our support bot is the main place to get
+                                help with orders, activation and general
+                                questions.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row align-items-center gy-3">
+
+            <div class="col-md-6">
+
+                <div class="footer-brand">
+                    Modding <span class="brand-x">X</span>
+                </div>
+
+                <div class="mt-1">
+                    Download. Play. Enjoy.
+                </div>
+
+            </div>
+
+            <div class="col-md-6 text-md-end">
+
+                <a
+                    href="https://t.me/ModdingXZ_Support_Bot"
+                    target="_blank"
+                    rel="noopener"
+                    class="text-secondary me-3"
+                >
+                    Support
+                </a>
+
+                <a
+                    href="#pricing"
+                    class="text-secondary me-3"
+                >
+                    Pricing
+                </a>
+
+                <a
+                    href="#payments"
+                    class="text-secondary"
+                >
+                    Payments
+                </a>
+
+            </div>
+
+        </div>
+
+        <hr style="border-color:rgba(255,255,255,.06);margin:30px 0 20px;">
+
+        <div class="text-center">
+            © <span id="year"></span> Modding X. All rights reserved.
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- BACK TO TOP -->
+
+<button id="backTop" aria-label="Back to top">
+    <i class="bi bi-arrow-up"></i>
+</button>
+
+
+<!-- BOOTSTRAP JS -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+
+    /* =========================================
+       CURRENT YEAR
+    ========================================= */
+
+    document.getElementById("year").textContent =
+        new Date().getFullYear();
+
+
+    /* =========================================
+       NAVBAR SCROLL EFFECT
+    ========================================= */
+
+    const navbar = document.getElementById("navbar");
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+
+    });
+
+
+    /* =========================================
+       SCROLL REVEAL
+    ========================================= */
+
+    const revealElements =
+        document.querySelectorAll(".reveal");
+
+    const revealObserver =
+        new IntersectionObserver(
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (entry.isIntersecting) {
+
+                        entry.target.classList.add("show");
+
+                        observer.unobserve(entry.target);
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
+
+
+    /* =========================================
+       BACK TO TOP
+    ========================================= */
+
+    const backTop =
+        document.getElementById("backTop");
+
+    window.addEventListener("scroll", () => {
+
+        if (window.scrollY > 600) {
+            backTop.classList.add("show");
+        } else {
+            backTop.classList.remove("show");
+        }
+
+    });
+
+    backTop.addEventListener("click", () => {
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+
+    /* =========================================
+       CLOSE MOBILE NAV AFTER CLICK
+    ========================================= */
+
+    document
+        .querySelectorAll(".navbar .nav-link")
+        .forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                const nav =
+                    document.getElementById("mainNav");
+
+                if (
+                    nav.classList.contains("show")
+                ) {
+
+                    bootstrap
+                        .Collapse
+                        .getOrCreateInstance(nav)
+                        .hide();
+
+                }
+
+            });
+
+        });
+
+
+    /* =========================================
+       SMOOTH ANCHOR SCROLL
+    ========================================= */
+
+    document
+        .querySelectorAll('a[href^="#"]')
+        .forEach(anchor => {
+
+            anchor.addEventListener("click", function(e) {
+
+                const target =
+                    document.querySelector(
+                        this.getAttribute("href")
+                    );
+
+                if (!target) return;
+
+                e.preventDefault();
+
+                const navHeight =
+                    document.getElementById("navbar")
+                        .offsetHeight;
+
+                const targetPosition =
+                    target.getBoundingClientRect().top +
+                    window.scrollY -
+                    navHeight -
+                    15;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth"
+                });
+
+            });
+
+        });
+
+</script>
+
+</body>
+</html>
