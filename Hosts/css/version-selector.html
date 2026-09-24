@@ -4,281 +4,974 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PSPULSE // PS4 6.00-11.02 HOST / VERSION</title>
+
     <link rel="icon" type="image/png" href="../pspulse.png">
+
+    <title>MODDING XZ // PS4 6.00-11.02 HOST / VERSION</title>
+
+    <!-- Bootstrap 5.3.8 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
     <style>
         :root {
-            --bg: #151515;
-            --panel: #1c1c1c;
-            --panel-2: #242424;
-            --line: #2e2e2e;
-            --line-bright: #454545;
-            --text: #f5f5f5;
-            --muted: #b5b5b5;
-            --dim: #828282;
-            --accent: #a294ff;
+            --mx-bg: #09070f;
+            --mx-bg-2: #0f0b18;
+            --mx-panel: #12101b;
+            --mx-panel-hover: #1a1527;
+            --mx-border: #292039;
+            --mx-border-bright: #40305a;
+            --mx-purple: #9b5cff;
+            --mx-purple-light: #bd91ff;
+            --mx-text: #f5f3fa;
+            --mx-muted: #aaa3b8;
+            --mx-dim: #6f687c;
+            --mx-green: #63e6a5;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { background: var(--bg); }
-        html, body { min-height: 100%; }
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background: var(--mx-bg);
+            scroll-behavior: smooth;
+        }
+
+        html,
         body {
-            background-color: var(--bg);
-            background-image: linear-gradient(rgba(162, 148, 255, .05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(162, 148, 255, .05) 1px, transparent 1px);
-            background-size: 36px 36px;
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-            font: 17px/1.4 Consolas, "Liberation Mono", monospace;
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
             min-height: 100vh;
             overflow-x: hidden;
+
+            color: var(--mx-text);
+
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(155, 92, 255, .18),
+                    transparent 42%
+                ),
+                linear-gradient(
+                    rgba(155, 92, 255, .025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(155, 92, 255, .025) 1px,
+                    transparent 1px
+                ),
+                var(--mx-bg);
+
+            background-size:
+                auto,
+                38px 38px,
+                38px 38px;
+
+            color-scheme: dark;
+
+            font-family:
+                Consolas,
+                "Liberation Mono",
+                monospace;
         }
-        a { color: inherit; }
 
-        .app { display: flex; flex: 1 0 auto; flex-direction: column; margin: 0 auto; padding: 14px 26px 12px; width: min(100% - 52px, 1220px); }
+        a {
+            color: inherit;
+        }
 
-        /* Top status bar */
-        .bar {
-            align-items: center;
-            border: 1px solid var(--line-bright);
-            display: flex;
-            font-size: 14px;
-            justify-content: space-between;
+        .mx-container {
+            width: min(100% - 40px, 1220px);
+            margin: 0 auto;
+        }
+
+        /* ================================
+           TOP BAR
+        ================================= */
+
+        .mx-topbar {
+            border: 1px solid var(--mx-border-bright);
+
+            background: rgba(18, 16, 27, .86);
+
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, .25);
+
             letter-spacing: .1em;
-            padding: 10px 16px;
+            font-size: 12px;
             text-transform: uppercase;
         }
-        .bar b { color: var(--accent); font-weight: 400; }
-        .bar-fw { color: var(--dim); }
-        .bar-fw::before { color: var(--accent); content: "\25CF "; }
 
-        .layout { display: flex; flex: 1 0 auto; flex-direction: column; padding: 20px 0 0; }
-
-        /* Header */
-        .kicker { color: var(--accent); font-size: 14px; letter-spacing: .14em; margin: 0 0 12px; }
-        h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 400; letter-spacing: -.07em; line-height: 1; margin: 0; }
-        h1 em { color: var(--accent); font-style: normal; }
-        .sub { color: var(--muted); font-size: 17px; margin: 13px 0 0; max-width: 720px; }
-        .boot { color: var(--dim); font-size: 14px; list-style: none; margin: 12px 0 0; }
-        .boot li { margin: 3px 0; }
-        .boot b { color: var(--accent); font-weight: 400; }
-
-        /* Version selection */
-        .menu { border: 1px solid var(--line); margin-top: 22px; padding: 14px; }
-        .menu-top {
-            align-items: baseline;
-            border-bottom: 1px solid var(--line);
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 11px;
-            padding: 0 4px 10px;
+        .mx-brand {
+            color: var(--mx-purple-light);
         }
-        .menu-title { color: var(--text); font-size: 15px; letter-spacing: .12em; text-transform: uppercase; }
-        .menu-hint { color: var(--dim); font-size: 13px; }
-        .version-grid { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-        .version-card {
-            align-items: center;
-            background: var(--panel);
-            border: 1px solid var(--line);
+        .mx-brand strong {
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .mx-status {
+            color: var(--mx-green);
+            font-size: 11px;
+        }
+
+        .mx-status::before {
+            content: "●";
+            margin-right: 7px;
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+
+        .mx-kicker {
+            color: var(--mx-purple-light);
+            font-size: 12px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .mx-kicker::before {
+            content: ">";
+            margin-right: 8px;
+            color: var(--mx-purple);
+            font-weight: 900;
+        }
+
+        .mx-title {
+            margin-top: 12px;
+
+            color: var(--mx-text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: clamp(44px, 7vw, 72px);
+            line-height: .92;
+            letter-spacing: -.07em;
+            font-weight: 900;
+        }
+
+        .mx-title span {
+            color: var(--mx-purple);
+        }
+
+        .mx-subtitle {
+            max-width: 760px;
+            margin-top: 20px;
+
+            color: var(--mx-muted);
+
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ================================
+           BOOT STATUS
+        ================================= */
+
+        .mx-boot {
+            list-style: none;
+
+            margin: 20px 0 0;
+            padding: 0;
+
+            color: var(--mx-dim);
+            font-size: 11px;
+        }
+
+        .mx-boot li {
+            margin: 5px 0;
+        }
+
+        .mx-boot strong {
+            color: var(--mx-purple-light);
+            font-weight: 400;
+        }
+
+        /* ================================
+           VERSION PANEL
+        ================================= */
+
+        .mx-panel {
+            border: 1px solid var(--mx-border);
+            background: rgba(12, 10, 18, .82);
+        }
+
+        .mx-panel-header {
+            border-bottom: 1px solid var(--mx-border);
+        }
+
+        .mx-panel-title {
+            color: var(--mx-text);
+
+            font-size: 13px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .mx-panel-title span {
+            color: var(--mx-purple);
+        }
+
+        .mx-panel-hint {
+            color: var(--mx-dim);
+            font-size: 10px;
+        }
+
+        /* ================================
+           VERSION CARDS
+        ================================= */
+
+        .mx-version {
+            position: relative;
+
+            min-height: 132px;
+
+            border: 1px solid var(--mx-border);
+
+            background: var(--mx-panel);
+
             cursor: pointer;
-            display: flex;
-            min-height: 128px;
-            padding: 16px 18px;
-        }
-        .version-card:hover, .version-card:focus {
-            background: var(--panel-2);
-            border-color: var(--accent);
-            outline: 0;
-        }
-        .version-card:focus { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
-        .card-index { color: var(--dim); font-size: 15px; min-width: 44px; }
-        .version-card:hover .card-index, .version-card:focus .card-index { color: var(--accent); }
-        .version-badge { color: var(--dim); display: block; font-size: 12px; letter-spacing: .12em; margin-bottom: 6px; text-transform: uppercase; }
-        .version-card.latest .version-badge { color: var(--accent); }
-        .version-title { color: var(--text); font-size: 21px; line-height: 1.2; }
-        .version-number { color: var(--accent); font-size: 16px; }
-        .version-description { color: var(--muted); display: block; font-size: 13px; line-height: 1.5; margin-top: 7px; }
-        .card-action { color: var(--dim); font-size: 13px; margin-left: auto; padding-left: 12px; white-space: nowrap; }
-        .version-card:hover .card-action, .version-card:focus .card-action { color: var(--accent); }
 
-        /* NodePlay */
-        .nodeplay {
-            align-items: center;
-            background: var(--panel);
-            border: 1px solid var(--line-bright);
-            display: flex;
-            justify-content: space-between;
-            margin-top: 14px;
-            min-height: 68px;
-            padding: 10px 18px;
+            transition:
+                background .15s ease,
+                border-color .15s ease,
+                transform .15s ease;
+        }
+
+        .mx-version::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            width: 2px;
+
+            background: transparent;
+
+            transition: .15s ease;
+        }
+
+        .mx-version:hover,
+        .mx-version:focus {
+            background: var(--mx-panel-hover);
+            border-color: var(--mx-purple);
+
+            transform: translateY(-2px);
+
+            outline: none;
+        }
+
+        .mx-version:hover::before,
+        .mx-version:focus::before {
+            background: var(--mx-purple);
+        }
+
+        .mx-version:focus {
+            box-shadow:
+                0 0 0 2px var(--mx-bg),
+                0 0 0 4px var(--mx-purple);
+        }
+
+        .mx-version.latest {
+            border-color: var(--mx-border-bright);
+        }
+
+        .mx-card-number {
+            color: var(--mx-dim);
+            font-size: 12px;
+            min-width: 34px;
+        }
+
+        .mx-version:hover .mx-card-number,
+        .mx-version:focus .mx-card-number {
+            color: var(--mx-purple);
+        }
+
+        .mx-badge {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: var(--mx-dim);
+
+            font-size: 9px;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+        }
+
+        .mx-version.latest .mx-badge {
+            color: var(--mx-purple-light);
+        }
+
+        .mx-version-title {
+            display: block;
+
+            color: var(--mx-text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .mx-version-number {
+            color: var(--mx-purple);
+        }
+
+        .mx-version-description {
+            display: block;
+
+            max-width: 650px;
+
+            margin-top: 8px;
+
+            color: var(--mx-muted);
+
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .mx-card-action {
+            margin-left: auto;
+            padding-left: 15px;
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+
+            white-space: nowrap;
+
+            transition: .15s ease;
+        }
+
+        .mx-version:hover .mx-card-action,
+        .mx-version:focus .mx-card-action {
+            color: var(--mx-purple-light);
+        }
+
+        /* ================================
+           COMMUNITY
+        ================================= */
+
+        .mx-community {
+            border: 1px solid var(--mx-border);
+
+            background: rgba(18, 16, 27, .75);
+        }
+
+        .mx-community-title {
+            color: var(--mx-text);
+
+            font-size: 12px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .mx-community-title span {
+            color: var(--mx-purple);
+        }
+
+        .mx-community-card {
+            display: block;
+
+            height: 100%;
+
+            border: 1px solid var(--mx-border);
+
+            background: var(--mx-panel);
+
+            text-decoration: none;
+
+            transition: .15s ease;
+        }
+
+        .mx-community-card:hover,
+        .mx-community-card:focus {
+            color: inherit;
+
+            border-color: var(--mx-purple);
+            background: var(--mx-panel-hover);
+
+            transform: translateY(-1px);
+
+            outline: none;
+        }
+
+        .mx-community-label {
+            display: block;
+
+            color: var(--mx-dim);
+
+            font-size: 9px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .mx-community-name {
+            display: block;
+
+            margin-top: 5px;
+
+            color: var(--mx-text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .mx-community-name span {
+            color: var(--mx-purple);
+        }
+
+        .mx-community-open {
+            display: block;
+
+            margin-top: 6px;
+
+            color: var(--mx-purple-light);
+
+            font-size: 10px;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .mx-footer {
+            border-top: 1px solid var(--mx-border);
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+        }
+
+        .mx-footer a {
+            color: var(--mx-muted);
             text-decoration: none;
         }
-        .nodeplay:hover, .nodeplay:focus { background: var(--panel-2); border-color: var(--accent); outline: 0; }
-        .nodeplay:focus { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
-        .np-label { color: var(--dim); display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-        .np-name { color: var(--text); display: block; font-size: 24px; margin-top: 2px; }
-        .np-name b { color: var(--accent); font-weight: 400; }
-        .np-open { color: var(--accent); font-size: 14px; }
 
-        /* Footer */
-        .foot {
-            border-top: 1px solid var(--line);
-            color: var(--dim);
-            font-size: 13px;
-            margin-top: 16px;
-            padding: 12px 4px 2px;
-            text-align: center;
+        .mx-footer a:hover,
+        .mx-footer a:focus {
+            color: var(--mx-purple-light);
         }
-        .foot a { color: var(--muted); }
-        .foot a:hover, .foot a:focus { color: var(--accent); }
-        .foot div { margin: 2px 0; }
 
-        @media (max-width: 760px) {
-            body { overflow: auto; }
-            .app { padding: 8px 10px; width: min(100% - 20px, 560px); }
-            .bar { font-size: 12px; padding: 8px 12px; }
-            .layout { padding-top: 14px; }
-            h1 { font-size: 38px; }
-            .sub { font-size: 16px; }
-            .version-grid { grid-template-columns: 1fr; }
-            .version-card { min-height: 104px; }
-            .menu-hint { display: none; }
+        .mx-footer-brand {
+            color: var(--mx-purple-light);
+        }
+
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 767.98px) {
+
+            .mx-container {
+                width: min(100% - 20px, 560px);
+            }
+
+            .mx-title {
+                font-size: 48px;
+            }
+
+            .mx-subtitle {
+                font-size: 14px;
+            }
+
+            .mx-panel-hint {
+                display: none;
+            }
+
+            .mx-card-action {
+                display: none;
+            }
+
+            .mx-version {
+                min-height: 112px;
+            }
+
+            .mx-version-title {
+                font-size: 18px;
+            }
+
+            .mx-version-description {
+                font-size: 10px;
+            }
+
+            .mx-footer {
+                text-align: center;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="app">
-        <header class="bar">
-            <span><b>PSPULSE</b> // ps4 hosts</span>
-            <span class="bar-fw">fw 6.00-11.02 ready</span>
-        </header>
 
-        <main class="layout">
-            <p class="kicker">$ select --goldhen</p>
-            <h1>Choose <em>GoldHEN</em></h1>
-            <p class="sub">Select the GoldHEN version to cache and use. The CSSFontFace host supports PS4 firmware 6.00-11.02.</p>
-            <ul class="boot">
-                <li>[ <b>ok</b> ] cssfontface chain ready</li>
-                <li>[ <b>ok</b> ] 2 builds available</li>
+<div class="container mx-container py-3 py-md-4">
+
+    <!-- TOP BAR -->
+    <header class="mx-topbar d-flex align-items-center justify-content-between px-3 py-2">
+
+        <div class="mx-brand">
+            <strong>MODDING</strong> XZ
+            <span class="d-none d-sm-inline"> // PS4 HOST</span>
+        </div>
+
+        <div class="mx-status">
+            FW 6.00–11.02 READY
+        </div>
+
+    </header>
+
+
+    <!-- HERO -->
+    <main>
+
+        <section class="py-5 px-2">
+
+            <div class="mx-kicker">
+                MODDING XZ / CSSFONTFACE
+            </div>
+
+            <h1 class="mx-title mb-0">
+                CHOOSE <span>GOLDHEN</span>
+            </h1>
+
+            <p class="mx-subtitle mb-0">
+                Select the GoldHEN version you want to cache and use.
+                This host supports PS4 firmware 6.00–11.02.
+            </p>
+
+            <ul class="mx-boot">
+
+                <li>
+                    [ <strong>OK</strong> ] CSSFontFace chain ready
+                </li>
+
+                <li>
+                    [ <strong>OK</strong> ] 2 GoldHEN builds available
+                </li>
+
             </ul>
 
-            <section class="menu" aria-label="GoldHEN versions">
-                <div class="menu-top">
-                    <span class="menu-title">Available versions</span>
-                    <span class="menu-hint">&uarr; &darr; move &nbsp; X select</span>
+        </section>
+
+
+        <!-- VERSION SELECTOR -->
+        <section class="mx-panel p-2 p-md-3">
+
+            <div class="mx-panel-header d-flex align-items-center justify-content-between px-2 pb-3 mb-2">
+
+                <div class="mx-panel-title">
+                    <span>//</span> AVAILABLE VERSIONS
                 </div>
-                <div class="version-grid">
-                    <div class="version-card latest" onclick="selectVersion('v2.4b18.12')" tabindex="0"
-                        data-version="latest">
-                        <span class="card-index">01</span>
-                        <span>
-                            <span class="version-badge latest">Latest</span>
-                            <span class="version-title">GoldHEN <span class="version-number">v2.4b18.12</span></span>
-                            <span class="version-description">Latest release with improved stability, new features, and better compatibility. Recommended for most users.</span>
+
+                <div class="mx-panel-hint">
+                    ↑ ↓ MOVE &nbsp; X SELECT
+                </div>
+
+            </div>
+
+
+            <div class="row g-2">
+
+
+                <!-- LATEST -->
+                <div class="col-12 col-md-6">
+
+                    <div
+                        class="mx-version latest d-flex align-items-center gap-3 p-3 p-md-4 h-100"
+                        onclick="selectVersion('v2.4b18.12')"
+                        tabindex="0"
+                        data-version="latest"
+                        role="button"
+                        aria-label="Select GoldHEN v2.4b18.12"
+                    >
+
+                        <span class="mx-card-number">
+                            01
                         </span>
-                        <span class="card-action">[ SELECT ]</span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-badge">
+                                Latest
+                            </span>
+
+                            <span class="mx-version-title">
+                                GoldHEN
+                                <span class="mx-version-number">
+                                    v2.4b18.12
+                                </span>
+                            </span>
+
+                            <span class="mx-version-description">
+                                Latest release with improved stability,
+                                new features and compatibility.
+                                Select to use the latest build.
+                            </span>
+
+                        </span>
+
+                        <span class="mx-card-action">
+                            [ SELECT ]
+                        </span>
+
                     </div>
 
-                    <div class="version-card" onclick="selectVersion('v2.4b18.5')" tabindex="0" data-version="stable">
-                        <span class="card-index">02</span>
-                        <span>
-                            <span class="version-badge">Stable</span>
-                            <span class="version-title">GoldHEN <span class="version-number">v2.4b18.5</span></span>
-                            <span class="version-description">Previous stable release with proven reliability. Choose this if the latest version causes issues or you prefer maximum stability.</span>
-                        </span>
-                        <span class="card-action">[ SELECT ]</span>
-                    </div>
                 </div>
-            </section>
 
-            <a class="nodeplay" href="https://nodeplay.net/" target="_blank" rel="noopener">
-                <span><span class="np-label">Premium game servers</span><span class="np-name">Node<b>Play</b></span></span>
-                <span class="np-open">OPEN &#8599;</span>
-            </a>
 
-            <footer class="foot">
-                <div>Author: <a href="https://t.me/sudoBlackArch">BlackArch</a> // Telegram: <a href="https://t.me/PlayStation_Pulse">PlayStation Pulse</a></div>
-                <div>Upstream: <a href="https://github.com/itskenethb?tab=repositories">itskenethb</a></div>
-            </footer>
-        </main>
-    </div>
+                <!-- STABLE -->
+                <div class="col-12 col-md-6">
 
-    <script>
-        function selectVersion(version) {
-            // Store the selected version in localStorage
-            localStorage.setItem('selectedGoldHENVersion', version);
+                    <div
+                        class="mx-version d-flex align-items-center gap-3 p-3 p-md-4 h-100"
+                        onclick="selectVersion('v2.4b18.5')"
+                        tabindex="0"
+                        data-version="stable"
+                        role="button"
+                        aria-label="Select GoldHEN v2.4b18.5"
+                    >
 
-            // Redirect to appropriate cache page based on version
-            if (version === 'v2.4b18.12') {
-                window.location.href = 'latest/index.html';
-            } else if (version === 'v2.4b18.5') {
-                window.location.href = 'stable/index.html';
-            }
+                        <span class="mx-card-number">
+                            02
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-badge">
+                                Stable
+                            </span>
+
+                            <span class="mx-version-title">
+                                GoldHEN
+                                <span class="mx-version-number">
+                                    v2.4b18.5
+                                </span>
+                            </span>
+
+                            <span class="mx-version-description">
+                                Previous stable release with proven
+                                reliability. Select this build if you
+                                prefer the older GoldHEN version.
+                            </span>
+
+                        </span>
+
+                        <span class="mx-card-action">
+                            [ SELECT ]
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- COMMUNITY -->
+        <section class="mx-community p-2 p-md-3 mt-2">
+
+            <div class="mx-community-title px-2 pb-3">
+                <span>//</span> MODDING XZ COMMUNITY
+            </div>
+
+            <div class="row g-2">
+
+
+                <!-- TELEGRAM -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <a
+                        class="mx-community-card p-3"
+                        href="https://t.me/moddingxz"
+                        target="_blank"
+                        rel="noopener"
+                    >
+
+                        <span class="mx-community-label">
+                            Community
+                        </span>
+
+                        <span class="mx-community-name">
+                            Telegram
+                        </span>
+
+                        <span class="mx-community-open">
+                            JOIN ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- SUPPORT -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <a
+                        class="mx-community-card p-3"
+                        href="https://t.me/ModdingXZ_Support_Bot"
+                        target="_blank"
+                        rel="noopener"
+                    >
+
+                        <span class="mx-community-label">
+                            Support
+                        </span>
+
+                        <span class="mx-community-name">
+                            Support <span>Bot</span>
+                        </span>
+
+                        <span class="mx-community-open">
+                            OPEN ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- WEBSITE -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <a
+                        class="mx-community-card p-3"
+                        href="https://moddingxz.co.uk"
+                        target="_blank"
+                        rel="noopener"
+                    >
+
+                        <span class="mx-community-label">
+                            Website
+                        </span>
+
+                        <span class="mx-community-name">
+                            Modding <span>XZ</span>
+                        </span>
+
+                        <span class="mx-community-open">
+                            VISIT ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- TIKTOK -->
+                <div class="col-12 col-md-6 col-lg-3">
+
+                    <a
+                        class="mx-community-card p-3"
+                        href="https://www.tiktok.com/@moddingx1"
+                        target="_blank"
+                        rel="noopener"
+                    >
+
+                        <span class="mx-community-label">
+                            Social
+                        </span>
+
+                        <span class="mx-community-name">
+                            TikTok
+                        </span>
+
+                        <span class="mx-community-open">
+                            FOLLOW ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="mx-footer d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 mt-4 pt-3 pb-2">
+
+            <div>
+                <span class="mx-footer-brand">
+                    MODDING XZ
+                </span>
+                // PS4 HOST SYSTEM
+            </div>
+
+            <div>
+                Telegram:
+                <a
+                    href="https://t.me/moddingxz"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    @moddingxz
+                </a>
+            </div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    function selectVersion(version) {
+
+        // Store selected GoldHEN version
+        localStorage.setItem(
+            'selectedGoldHENVersion',
+            version
+        );
+
+        // Redirect to the matching host
+        if (version === 'v2.4b18.12') {
+
+            window.location.href = 'latest/index.html';
+
+        } else if (version === 'v2.4b18.5') {
+
+            window.location.href = 'stable/index.html';
+
+        }
+    }
+
+
+    /* ================================
+       GAMEPAD / KEYBOARD NAVIGATION
+    ================================= */
+
+    let currentFocus = 0;
+
+    const cards =
+        document.querySelectorAll('.mx-version');
+
+
+    document.addEventListener('keydown', function (event) {
+
+        switch (event.key) {
+
+            case 'ArrowLeft':
+            case 'ArrowUp':
+
+                event.preventDefault();
+
+                currentFocus =
+                    currentFocus > 0
+                        ? currentFocus - 1
+                        : cards.length - 1;
+
+                cards[currentFocus].focus();
+
+                break;
+
+
+            case 'ArrowRight':
+            case 'ArrowDown':
+
+                event.preventDefault();
+
+                currentFocus =
+                    currentFocus < cards.length - 1
+                        ? currentFocus + 1
+                        : 0;
+
+                cards[currentFocus].focus();
+
+                break;
+
+
+            case 'Enter':
+            case ' ':
+
+                event.preventDefault();
+
+                cards[currentFocus].click();
+
+                break;
+
         }
 
-        // Gamepad navigation
-        let currentFocus = 0;
-        const cards = document.querySelectorAll('.version-card');
+    });
 
-        // Handle keyboard navigation
-        document.addEventListener('keydown', function (event) {
-            switch (event.key) {
-                case 'ArrowLeft':
-                case 'ArrowUp':
-                    event.preventDefault();
-                    currentFocus = currentFocus > 0 ? currentFocus - 1 : cards.length - 1;
-                    cards[currentFocus].focus();
-                    break;
-                case 'ArrowRight':
-                case 'ArrowDown':
-                    event.preventDefault();
-                    currentFocus = currentFocus < cards.length - 1 ? currentFocus + 1 : 0;
-                    cards[currentFocus].focus();
-                    break;
-                case 'Enter':
-                case ' ':
-                    event.preventDefault();
-                    cards[currentFocus].click();
-                    break;
+
+    /* ================================
+       FOCUS TRACKING
+    ================================= */
+
+    cards.forEach(function (card, index) {
+
+        card.addEventListener('focus', function () {
+
+            currentFocus = index;
+
+        });
+
+
+        card.addEventListener('keydown', function (event) {
+
+            if (
+                event.key === 'Enter' ||
+                event.key === ' '
+            ) {
+
+                event.preventDefault();
+
+                this.click();
+
             }
+
         });
 
-        // Track focus changes
-        cards.forEach((card, index) => {
-            card.addEventListener('focus', function () {
-                currentFocus = index;
-            });
+    });
 
-            // Handle Enter key on focused element
-            card.addEventListener('keydown', function (event) {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    this.click();
-                }
-            });
-        });
 
-        // Add click animation effect
-        document.querySelectorAll('.version-card').forEach(card => {
-            card.addEventListener('mousedown', function () {
-                this.style.transform = 'translateY(-2px) scale(0.98)';
-            });
+    /* ================================
+       INITIAL FOCUS
+    ================================= */
 
-            card.addEventListener('mouseup', function () {
-                this.style.transform = 'translateY(-5px) scale(1)';
-            });
+    document.addEventListener('DOMContentLoaded', function () {
 
-            card.addEventListener('mouseleave', function () {
-                this.style.transform = 'translateY(0px) scale(1)';
-            });
+        if (cards.length > 0) {
+            cards[0].focus();
+        }
 
-            card.addEventListener('blur', function () {
-                this.style.transform = 'translateY(0px) scale(1)';
-            });
-        });
-    </script>
+    });
+
+</script>
+
 </body>
 </html>
