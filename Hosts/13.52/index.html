@@ -1,294 +1,1348 @@
 <!DOCTYPE html>
 <html lang="en" manifest="cache.manifest">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PSPULSE // PS4 13.02-13.52 HOST / GOLDHEN</title>
-<link rel="icon" type="image/png" href="../../pspulse.png">
-<style>
-    :root {
-        --bg: #151515;
-        --panel: #1c1c1c;
-        --panel-2: #242424;
-        --line: #2e2e2e;
-        --line-bright: #454545;
-        --text: #f5f5f5;
-        --muted: #b5b5b5;
-        --dim: #828282;
-        --accent: #a294ff;
-        --red: #ff9b9b;
-        --amber: #e1bd72;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { background: var(--bg); }
-    html, body { min-height: 100%; }
-    body {
-        background-color: var(--bg);
-        background-image: linear-gradient(rgba(162, 148, 255, .05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(162, 148, 255, .05) 1px, transparent 1px);
-        background-size: 36px 36px;
-        color: var(--text);
-        display: flex;
-        flex-direction: column;
-        font: 17px/1.4 Consolas, "Liberation Mono", monospace;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-    a { color: inherit; }
+    <title>MODDING XZ // PS4 13.02-13.52 HOST</title>
 
-    .app { display: flex; flex: 1 0 auto; flex-direction: column; margin: 0 auto; padding: 14px 26px 12px; width: min(100% - 52px, 1220px); }
+    <link rel="icon" type="image/png" href="../../pspulse.png">
 
-    /* Top status bar */
-    .bar {
-        align-items: center;
-        border: 1px solid var(--line-bright);
-        display: flex;
-        font-size: 14px;
-        justify-content: space-between;
-        letter-spacing: .1em;
-        padding: 10px 16px;
-        text-transform: uppercase;
-    }
-    .bar b { color: var(--accent); font-weight: 400; }
-    .bar-fw { color: var(--dim); }
-    .bar-fw::before { color: var(--accent); content: "\25CF "; }
+    <!-- Bootstrap 5.3.8 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-    .layout { display: flex; flex: 1 0 auto; flex-direction: column; padding: 20px 0 0; }
+    <style>
+        :root {
+            --mx-bg: #07050b;
+            --mx-bg2: #0d0914;
+            --mx-panel: #110d19;
+            --mx-panel2: #171020;
 
-    /* Header */
-    .kicker { color: var(--accent); font-size: 14px; letter-spacing: .14em; margin: 0 0 12px; }
-    h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 400; letter-spacing: -.07em; line-height: 1; margin: 0; }
-    h1 em { color: var(--accent); font-style: normal; }
-    .sub { color: var(--muted); font-size: 17px; margin: 13px 0 0; max-width: 720px; }
-    .boot { color: var(--dim); font-size: 14px; list-style: none; margin: 12px 0 0; }
-    .boot li { margin: 3px 0; }
-    .boot b { color: var(--accent); font-weight: 400; }
+            --mx-purple: #9147ff;
+            --mx-purple2: #b06cff;
+            --mx-purple3: #d0a8ff;
 
-    /* Router status */
-    .status {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        margin-top: 20px;
-        padding: 14px 16px;
-    }
-    #state { color: var(--accent); font-size: 22px; font-weight: 400; line-height: 1.25; margin: 0 0 10px; }
-    #det { color: var(--muted); font-size: 14px; margin: 0 0 6px; }
-    #det b { color: var(--text); font-weight: 400; }
-    #cache { color: var(--dim); font-size: 13px; margin: 0 0 10px; min-height: 16px; }
-    #cache.cacheok { color: var(--accent); }
-    .ok { color: var(--accent); }
-    .bad { color: var(--red); }
-    .warn { color: var(--amber); }
+            --mx-border: #2a1d3d;
+            --mx-border2: #392750;
 
-    /* NodePlay */
-    .nodeplay {
-        align-items: center;
-        background: var(--panel);
-        border: 1px solid var(--line-bright);
-        display: flex;
-        justify-content: space-between;
-        margin-top: 14px;
-        min-height: 68px;
-        padding: 10px 18px;
-        text-decoration: none;
-    }
-    .nodeplay:hover, .nodeplay:focus { background: var(--panel-2); border-color: var(--accent); outline: 0; }
-    .nodeplay:focus { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
-    .np-label { color: var(--dim); display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
-    .np-name { color: var(--text); display: block; font-size: 24px; margin-top: 2px; }
-    .np-name b { color: var(--accent); font-weight: 400; }
-    .np-open { color: var(--accent); font-size: 14px; }
+            --mx-text: #f8f5ff;
+            --mx-muted: #aaa0b8;
+            --mx-dim: #70667d;
 
-    /* Footer */
-    .foot {
-        border-top: 1px solid var(--line);
-        color: var(--dim);
-        font-size: 13px;
-        margin-top: 16px;
-        padding: 12px 4px 2px;
-        text-align: center;
-    }
-    .foot a { color: var(--muted); }
-    .foot a:hover, .foot a:focus { color: var(--accent); }
+            --mx-green: #55e6a5;
+            --mx-red: #ff7777;
+            --mx-amber: #e5b85c;
+        }
 
-    @media (max-width: 760px) {
-        body { overflow: auto; }
-        .app { padding: 8px 10px; width: min(100% - 20px, 560px); }
-        .bar { font-size: 12px; padding: 8px 12px; }
-        .layout { padding-top: 14px; }
-        h1 { font-size: 38px; }
-        .sub { font-size: 16px; }
-        #state { font-size: 19px; }
-    }
-</style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background: var(--mx-bg);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+
+            color: var(--mx-text);
+
+            background:
+                radial-gradient(
+                    circle at 50% -15%,
+                    rgba(145, 71, 255, .22),
+                    transparent 45%
+                ),
+                radial-gradient(
+                    circle at 100% 45%,
+                    rgba(145, 71, 255, .07),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    rgba(145, 71, 255, .025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(145, 71, 255, .025) 1px,
+                    transparent 1px
+                ),
+                var(--mx-bg);
+
+            background-size:
+                auto,
+                auto,
+                40px 40px,
+                40px 40px;
+
+            font-family:
+                Consolas,
+                "Liberation Mono",
+                monospace;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .mx-container {
+            max-width: 1240px;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .mx-navbar {
+            position: relative;
+
+            border: 1px solid var(--mx-border);
+            background: rgba(13, 9, 20, .93);
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, .35),
+                inset 0 -1px rgba(145, 71, 255, .08);
+        }
+
+        .mx-navbar::after {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+
+            height: 1px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--mx-purple),
+                transparent
+            );
+
+            opacity: .7;
+        }
+
+        .mx-logo {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: -.06em;
+        }
+
+        .mx-logo span {
+            color: var(--mx-purple);
+        }
+
+        .mx-logo small {
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--mx-dim);
+
+            font-family: Consolas, monospace;
+            font-size: 8px;
+            font-weight: 400;
+            letter-spacing: .16em;
+        }
+
+        .mx-fw-status {
+            color: var(--mx-green);
+
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .mx-fw-status::before {
+            content: "●";
+            margin-right: 7px;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .mx-hero {
+            position: relative;
+
+            padding: 65px 5px 30px;
+        }
+
+        .mx-hero::after {
+            content: "13.52";
+
+            position: absolute;
+            top: 25px;
+            right: 2%;
+
+            color: rgba(145, 71, 255, .025);
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(80px, 15vw, 180px);
+            font-weight: 900;
+            letter-spacing: -.09em;
+
+            pointer-events: none;
+        }
+
+        .mx-kicker {
+            position: relative;
+            z-index: 1;
+
+            color: var(--mx-purple3);
+
+            font-size: 11px;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+        }
+
+        .mx-kicker::before {
+            content: ">";
+            margin-right: 8px;
+
+            color: var(--mx-purple);
+            font-weight: 900;
+        }
+
+        .mx-title {
+            position: relative;
+            z-index: 1;
+
+            margin: 12px 0 0;
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(42px, 7vw, 76px);
+            font-weight: 900;
+            line-height: .9;
+
+            letter-spacing: -.07em;
+        }
+
+        .mx-title .purple {
+            color: var(--mx-purple);
+        }
+
+        .mx-title .white {
+            color: var(--mx-text);
+        }
+
+        .mx-subtitle {
+            position: relative;
+            z-index: 1;
+
+            max-width: 760px;
+
+            margin-top: 22px;
+
+            color: var(--mx-muted);
+
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .mx-terminal {
+            position: relative;
+            z-index: 1;
+
+            margin-top: 20px;
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        .mx-terminal b {
+            color: var(--mx-purple2);
+            font-weight: 400;
+        }
+
+
+        /* =====================================================
+           FIRMWARE BADGES
+        ===================================================== */
+
+        .mx-stat {
+            border: 1px solid var(--mx-border);
+            background: rgba(17, 13, 25, .8);
+
+            padding: 9px 12px;
+        }
+
+        .mx-stat-label {
+            display: block;
+
+            color: var(--mx-dim);
+
+            font-size: 8px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .mx-stat-value {
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--mx-purple3);
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           STATUS PANEL
+        ===================================================== */
+
+        .mx-status-panel {
+            position: relative;
+
+            margin-top: 10px;
+
+            border: 1px solid var(--mx-border);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .07),
+                    transparent 60%
+                ),
+                var(--mx-panel);
+
+            box-shadow:
+                0 20px 55px rgba(0, 0, 0, .2);
+        }
+
+        .mx-status-panel::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            width: 2px;
+
+            background: var(--mx-purple);
+        }
+
+        .mx-status-header {
+            color: var(--mx-dim);
+
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .mx-status-header span {
+            color: var(--mx-purple);
+        }
+
+        #state {
+            margin: 9px 0 7px;
+
+            color: var(--mx-purple3);
+
+            font-size: 22px;
+            line-height: 1.25;
+        }
+
+        #det {
+            color: var(--mx-muted);
+
+            font-size: 12px;
+        }
+
+        #det b {
+            color: var(--mx-text);
+            font-weight: 400;
+        }
+
+        #cache {
+            min-height: 17px;
+
+            margin-top: 7px;
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+        }
+
+        #cache.cacheok {
+            color: var(--mx-green);
+        }
+
+        .ok {
+            color: var(--mx-purple2);
+        }
+
+        .bad {
+            color: var(--mx-red);
+        }
+
+        .warn {
+            color: var(--mx-amber) !important;
+        }
+
+
+        /* =====================================================
+           COMMUNITY
+        ===================================================== */
+
+        .mx-community {
+            margin-top: 12px;
+
+            border: 1px solid var(--mx-border);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .09),
+                    transparent 55%
+                ),
+                var(--mx-panel);
+        }
+
+        .mx-community-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -.04em;
+        }
+
+        .mx-community-title span {
+            color: var(--mx-purple);
+        }
+
+        .mx-community-text {
+            max-width: 560px;
+
+            margin-top: 7px;
+
+            color: var(--mx-muted);
+
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .mx-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            min-height: 55px;
+
+            border: 1px solid var(--mx-border);
+            background: rgba(7, 5, 11, .55);
+
+            text-decoration: none;
+
+            transition: .15s ease;
+        }
+
+        .mx-link:hover,
+        .mx-link:focus {
+            color: inherit;
+
+            border-color: var(--mx-purple);
+            background: var(--mx-panel2);
+
+            outline: none;
+        }
+
+        .mx-link-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 31px;
+            height: 31px;
+
+            border: 1px solid var(--mx-border2);
+
+            color: var(--mx-purple2);
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .mx-link-name {
+            display: block;
+
+            color: var(--mx-text);
+
+            font-size: 11px;
+        }
+
+        .mx-link-meta {
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--mx-dim);
+
+            font-size: 8px;
+        }
+
+        .mx-link-arrow {
+            margin-left: auto;
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+        }
+
+        .mx-link:hover .mx-link-arrow {
+            color: var(--mx-purple2);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .mx-footer {
+            margin-top: 25px;
+            padding: 13px 5px 8px;
+
+            border-top: 1px solid var(--mx-border);
+
+            color: var(--mx-dim);
+
+            font-size: 9px;
+            text-align: center;
+        }
+
+        .mx-footer a {
+            color: var(--mx-muted);
+            text-decoration: none;
+        }
+
+        .mx-footer a:hover {
+            color: var(--mx-purple2);
+        }
+
+        .mx-footer-brand {
+            color: var(--mx-purple2);
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 767.98px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .mx-hero {
+                padding: 48px 3px 25px;
+            }
+
+            .mx-hero::after {
+                font-size: 85px;
+                top: 25px;
+            }
+
+            .mx-title {
+                font-size: 45px;
+            }
+
+            .mx-subtitle {
+                font-size: 12px;
+            }
+
+            .mx-terminal {
+                font-size: 9px;
+            }
+
+            #state {
+                font-size: 19px;
+            }
+
+            .mx-community-title {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
+
+
 <body>
-    <div class="app">
-        <header class="bar">
-            <span><b>PSPULSE</b> // ps4 hosts</span>
-            <span class="bar-fw">fw 13.02-13.52 ready</span>
-        </header>
 
-        <main class="layout">
-            <p class="kicker">$ ./launch --slopkit relapse</p>
-            <h1>SlopKit <em>13.02-13.52</em> host</h1>
-            <p class="sub">WebKit research host by PlayStation Pulse.</p>
-            <ul class="boot">
-                <li>[ <b>ok</b> ] slopkit chain ready</li>
-                <li>[ <b>ok</b> ] goldhen v2.4b18.12 staged</li>
-                <li>[ <b>ok</b> ] offline cache ready</li>
-            </ul>
+<div class="container mx-container py-3 py-md-4">
 
-            <section class="status" id="wrap">
-                <div id="state">detecting firmware...</div>
-                <div id="det"></div>
-                <div id="cache"></div>
-            </section>
 
-            <a class="nodeplay" href="https://nodeplay.net/" target="_blank" rel="noopener">
-                <span><span class="np-label">Premium game servers</span><span class="np-name">Node<b>Play</b></span></span>
-                <span class="np-open">OPEN &#8599;</span>
+    <!-- =====================================================
+         MODDING XZ HEADER
+    ====================================================== -->
+
+    <header class="mx-navbar px-3 py-3">
+
+        <div class="d-flex align-items-center justify-content-between gap-3">
+
+            <div class="mx-logo">
+                MODDING <span>X</span><span>Z</span>
+
+                <small>
+                    PLAYSTATION MODDING
+                </small>
+            </div>
+
+            <div class="mx-fw-status">
+                FW 13.02–13.52 READY
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <main>
+
+        <section class="mx-hero">
+
+            <div class="mx-kicker">
+                MODDING XZ // PS4 HOST SYSTEM
+            </div>
+
+            <h1 class="mx-title">
+                SLOPKIT <span class="purple">13.02–13.52</span><br>
+                <span class="white">HOST</span>
+            </h1>
+
+            <p class="mx-subtitle">
+                PlayStation 4 WebKit research host for supported
+                13.02–13.52 firmware. The host will automatically
+                detect your firmware before continuing.
+            </p>
+
+            <div class="mx-terminal">
+                <b>[ OK ]</b> slopkit chain ready<br>
+                <b>[ OK ]</b> GoldHEN v2.4b18.12 staged<br>
+                <b>[ OK ]</b> offline cache system ready
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="d-flex flex-wrap gap-2 mt-4">
+
+                <div class="mx-stat">
+                    <span class="mx-stat-label">
+                        Firmware
+                    </span>
+
+                    <span class="mx-stat-value">
+                        13.02–13.52
+                    </span>
+                </div>
+
+                <div class="mx-stat">
+                    <span class="mx-stat-label">
+                        Host
+                    </span>
+
+                    <span class="mx-stat-value">
+                        SLOPKIT
+                    </span>
+                </div>
+
+                <div class="mx-stat">
+                    <span class="mx-stat-label">
+                        Payload
+                    </span>
+
+                    <span class="mx-stat-value">
+                        GOLDHEN
+                    </span>
+                </div>
+
+                <div class="mx-stat">
+                    <span class="mx-stat-label">
+                        Cache
+                    </span>
+
+                    <span class="mx-stat-value">
+                        OFFLINE
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DETECTION / STATUS
+        ================================================== -->
+
+        <section class="mx-status-panel p-3 p-md-4" id="wrap">
+
+            <div class="mx-status-header">
+                <span>//</span> HOST STATUS / FIRMWARE DETECTION
+            </div>
+
+            <div id="state">
+                detecting firmware...
+            </div>
+
+            <div id="det"></div>
+
+            <div id="cache"></div>
+
+        </section>
+
+
+        <!-- =================================================
+             MODDING XZ COMMUNITY
+        ================================================== -->
+
+        <section class="mx-community p-3 p-md-4">
+
+            <div class="row g-4 align-items-center">
+
+                <div class="col-12 col-lg-5">
+
+                    <div class="mx-community-title">
+                        JOIN <span>MODDING XZ</span>
+                    </div>
+
+                    <p class="mx-community-text mb-0">
+                        Get the latest Modding XZ releases, updates,
+                        PlayStation modding news, tools and support.
+                        Follow the project and stay up to date.
+                    </p>
+
+                </div>
+
+
+                <div class="col-12 col-lg-7">
+
+                    <div class="row g-2">
+
+
+                        <!-- TELEGRAM -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://t.me/moddingxz"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    TG
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        Modding XZ
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        Official Telegram
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- SUPPORT -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://t.me/ModdingXZ_Support_Bot"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    ?
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        Support
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        Modding XZ Support
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- WEBSITE -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://moddingxz.co.uk"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    XZ
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        ModdingXZ.co.uk
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        Official Website
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+
+                        <!-- TIKTOK -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://www.tiktok.com/@moddingx1"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    TT
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        @moddingx1
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        TikTok
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="mx-footer">
+
+        <div>
+            <span class="mx-footer-brand">
+                MODDING XZ
+            </span>
+
+            // PLAYSTATION MODDING // PS4 HOST SYSTEM
+        </div>
+
+        <div class="mt-1">
+            Official community:
+            <a href="https://t.me/moddingxz">
+                Telegram
             </a>
 
-            <footer class="foot">
-                Author: <a href="https://t.me/sudoBlackArch">BlackArch</a> // Telegram: <a href="https://t.me/PlayStation_Pulse">PlayStation Pulse</a>
-            </footer>
-        </main>
-    </div>
+            //
+            
+            <a href="https://moddingxz.co.uk">
+                ModdingXZ.co.uk
+            </a>
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+</script>
+
 
 <script>
 (function () {
     var stateEl = document.getElementById("state");
     var detEl = document.getElementById("det");
     var cacheEl = document.getElementById("cache");
-    function setState(t, c) { stateEl.textContent = t; stateEl.className = c || ""; }
-    function setCache(t, ok) { cacheEl.textContent = t; cacheEl.className = ok ? "cacheok" : ""; }
+
+    function setState(t, c) {
+        stateEl.textContent = t;
+        stateEl.className = c || "";
+    }
+
+    function setCache(t, ok) {
+        cacheEl.textContent = t;
+        cacheEl.className = ok ? "cacheok" : "";
+    }
+
     // ES5 query parser (no URLSearchParams on old WebKit).
     function queryValue(name) {
         var match = new RegExp("[?&]" + name + "=([^&]*)").exec(location.search);
         return match ? decodeURIComponent(match[1]) : null;
     }
 
-    // Firmwares with measured kernel tables. KEEP IN SYNC with ps4_offsets.js.
-    // The PS4 reports its minor as two hex digits in the UA (13.52 -> 0x52).
-    var SUPPORTED = { 1302: 1, 1304: 1, 1350: 1, 1352: 1 };
 
-    var key = null, fwnum = null;
-    var m = /PlayStation\s+4[\/ ](\d+)\.(\d+)/.exec(navigator.userAgent);
+    // Firmwares with measured kernel tables.
+    // KEEP IN SYNC with ps4_offsets.js.
+    // The PS4 reports its minor as two hex digits in the UA
+    // (13.52 -> 0x52).
+
+    var SUPPORTED = {
+        1302: 1,
+        1304: 1,
+        1350: 1,
+        1352: 1
+    };
+
+
+    var key = null,
+        fwnum = null;
+
+
+    var m = /PlayStation\s+4[\/ ](\d+)\.(\d+)/.exec(
+        navigator.userAgent
+    );
+
+
     if (m) {
+
         var minor = parseInt(m[2], 16);
+
         var ms = minor.toString(16);
-        if (ms.length < 2) ms = "0" + ms;
+
+        if (ms.length < 2)
+            ms = "0" + ms;
+
         key = m[1] + "." + ms;
-        fwnum = parseInt(m[1], 10) * 100 + parseInt(ms, 10);
+
+        fwnum =
+            parseInt(m[1], 10) * 100 +
+            parseInt(ms, 10);
     }
 
-    var forced = queryValue("force") === "1";
-    var supported = forced || (fwnum !== null && SUPPORTED[fwnum] === 1);
 
-    detEl.innerHTML = "firmware <b>" + (key || "unknown") + "</b>"
-        + " &middot; <b>" + (supported ? "supported" : "unsupported") + "</b>";
+    var forced =
+        queryValue("force") === "1";
 
-    var target = "jb.html" + location.search;
-    // The chain renders its log only in log mode (?log=1); enforce it so the
-    // exploit output and the failure watchdog always have DOM to work with.
+
+    var supported =
+        forced ||
+        (fwnum !== null && SUPPORTED[fwnum] === 1);
+
+
+    detEl.innerHTML =
+        "firmware <b>" +
+        (key || "unknown") +
+        "</b>" +
+        " &middot; <b>" +
+        (supported ? "supported" : "unsupported") +
+        "</b>";
+
+
+    var target =
+        "jb.html" +
+        location.search;
+
+
+    /*
+     * The chain renders its log only in log mode (?log=1);
+     * enforce it so the exploit output and failure watchdog
+     * always have DOM to work with.
+     */
+
     if (location.search.indexOf("log=") === -1) {
-        target += (location.search ? "&" : "?") + "log=1";
+
+        target +=
+            (location.search ? "&" : "?") +
+            "log=1";
     }
+
+
     function go() {
-        setState("loading jailbreak...", "warn");
+
+        setState(
+            "loading jailbreak...",
+            "warn"
+        );
+
         location.replace(target);
     }
 
+
     function waitForTap(msg, action) {
+
         setState(msg, "warn");
+
         function fire() {
-            window.removeEventListener("click", fire);
-            window.removeEventListener("keydown", fire);
+
+            window.removeEventListener(
+                "click",
+                fire
+            );
+
+            window.removeEventListener(
+                "keydown",
+                fire
+            );
+
             action();
         }
-        window.addEventListener("click", fire);
-        window.addEventListener("keydown", fire);
+
+        window.addEventListener(
+            "click",
+            fire
+        );
+
+        window.addEventListener(
+            "keydown",
+            fire
+        );
     }
 
-    // A UA quirk on a real console must never lock it out: unsupported
-    // firmwares get a warning but can still proceed with a tap.
+
+    /*
+     * A UA quirk on a real console must never lock it out:
+     * unsupported firmwares get a warning but can still
+     * proceed with a tap.
+     */
+
     if (!supported) {
-        setState("UNSUPPORTED FIRMWARE", "bad");
-        waitForTap("UNSUPPORTED (" + (key || "unknown") + ") -- press X or tap to run anyway", go);
+
+        setState(
+            "UNSUPPORTED FIRMWARE",
+            "bad"
+        );
+
+        waitForTap(
+            "UNSUPPORTED (" +
+            (key || "unknown") +
+            ") -- press X or tap to run anyway",
+            go
+        );
+
         return;
     }
 
+
     function waitForDownload() {
-        setCache("checking cache...");
-        ac.addEventListener("downloading",
-            function () { setCache("caching for offline (first run)..."); }, false);
-        ac.addEventListener("progress", function (e) {
-            if (e && e.total)
-                setCache("caching " + Math.round((e.loaded / e.total) * 100) + "%");
-        }, false);
 
-        ac.addEventListener("cached", function () {
-            setCache("cached for offline use", true);
-            waitForTap("CACHED (first run) -- press X or tap to run", go);
-        }, false);
-        ac.addEventListener("updateready", function () {
-            try { ac.swapCache(); } catch (e) {}
-            setCache("update downloaded", true);
-            waitForTap("UPDATE READY -- press X or tap to reload & run",
-                       function () { location.reload(); });
-        }, false);
+        setCache(
+            "checking cache..."
+        );
 
-        ac.addEventListener("noupdate", function () {
-            setCache("cached -- offline ready", true);
-            go();
-        }, false);
-        ac.addEventListener("error", function () {
-            setCache("cache unavailable");
-            waitForTap("CACHE FAILED -- press X or tap to run anyway", go);
-        }, false);
-        ac.addEventListener("obsolete", function () {
-            setCache("cache obsolete");
-            waitForTap("CACHE OBSOLETE -- press X or tap to run", go);
-        }, false);
+
+        ac.addEventListener(
+            "downloading",
+            function () {
+
+                setCache(
+                    "caching for offline (first run)..."
+                );
+
+            },
+            false
+        );
+
+
+        ac.addEventListener(
+            "progress",
+            function (e) {
+
+                if (e && e.total)
+
+                    setCache(
+                        "caching " +
+                        Math.round(
+                            (e.loaded / e.total) * 100
+                        ) +
+                        "%"
+                    );
+
+            },
+            false
+        );
+
+
+        ac.addEventListener(
+            "cached",
+            function () {
+
+                setCache(
+                    "cached for offline use",
+                    true
+                );
+
+                waitForTap(
+                    "CACHED (first run) -- press X or tap to run",
+                    go
+                );
+
+            },
+            false
+        );
+
+
+        ac.addEventListener(
+            "updateready",
+            function () {
+
+                try {
+                    ac.swapCache();
+                } catch (e) {}
+
+                setCache(
+                    "update downloaded",
+                    true
+                );
+
+                waitForTap(
+                    "UPDATE READY -- press X or tap to reload & run",
+                    function () {
+                        location.reload();
+                    }
+                );
+
+            },
+            false
+        );
+
+
+        ac.addEventListener(
+            "noupdate",
+            function () {
+
+                setCache(
+                    "cached -- offline ready",
+                    true
+                );
+
+                go();
+
+            },
+            false
+        );
+
+
+        ac.addEventListener(
+            "error",
+            function () {
+
+                setCache(
+                    "cache unavailable"
+                );
+
+                waitForTap(
+                    "CACHE FAILED -- press X or tap to run anyway",
+                    go
+                );
+
+            },
+            false
+        );
+
+
+        ac.addEventListener(
+            "obsolete",
+            function () {
+
+                setCache(
+                    "cache obsolete"
+                );
+
+                waitForTap(
+                    "CACHE OBSOLETE -- press X or tap to run",
+                    go
+                );
+
+            },
+            false
+        );
     }
+
 
     var ac = window.applicationCache;
-    if (!ac || !document.documentElement.hasAttribute("manifest")) {
+
+
+    if (
+        !ac ||
+        !document.documentElement.hasAttribute("manifest")
+    ) {
+
         go();
+
     } else if (!navigator.onLine) {
-        setCache("offline -- from cache", true);
+
+        setCache(
+            "offline -- from cache",
+            true
+        );
+
         go();
+
     } else if (ac.status === ac.IDLE) {
-        // Manifest revalidation is async and usually has NOT finished when
-        // this inline script runs. Launching now would race a background
-        // re-download of the whole host on update days (-> OOM mid-exploit).
-        // Wait briefly, then re-evaluate the real status.
-        setCache("cached -- verifying up to date...");
-        setTimeout(function () {
-            if (ac.status === ac.CHECKING || ac.status === ac.DOWNLOADING) {
-                setCache("update found -- downloading...");
-                waitForDownload();
-            } else if (ac.status === ac.UPDATEREADY) {
-                try { ac.swapCache(); } catch (e) {}
-                setCache("update downloaded", true);
-                waitForTap("UPDATE READY -- press X or tap to reload & run",
-                           function () { location.reload(); });
-            } else {
-                setCache("cached", true);
-                go();
+
+        /*
+         * Manifest revalidation is async and usually has NOT
+         * finished when this inline script runs.
+         */
+
+        setCache(
+            "cached -- verifying up to date..."
+        );
+
+
+        setTimeout(
+            function () {
+
+                if (
+                    ac.status === ac.CHECKING ||
+                    ac.status === ac.DOWNLOADING
+                ) {
+
+                    setCache(
+                        "update found -- downloading..."
+                    );
+
+                    waitForDownload();
+
+                } else if (
+                    ac.status === ac.UPDATEREADY
+                ) {
+
+                    try {
+                        ac.swapCache();
+                    } catch (e) {}
+
+                    setCache(
+                        "update downloaded",
+                        true
+                    );
+
+                    waitForTap(
+                        "UPDATE READY -- press X or tap to reload & run",
+                        function () {
+                            location.reload();
+                        }
+                    );
+
+                } else {
+
+                    setCache(
+                        "cached",
+                        true
+                    );
+
+                    go();
+                }
+
+            },
+            3000
+        );
+
+    } else if (
+        ac.status === ac.UPDATEREADY
+    ) {
+
+        try {
+            ac.swapCache();
+        } catch (e) {}
+
+        setCache(
+            "update downloaded",
+            true
+        );
+
+        waitForTap(
+            "UPDATE READY -- press X or tap to reload & run",
+            function () {
+                location.reload();
             }
-        }, 3000);
-    } else if (ac.status === ac.UPDATEREADY) {
-        try { ac.swapCache(); } catch (e) {}
-        setCache("update downloaded", true);
-        waitForTap("UPDATE READY -- press X or tap to reload & run",
-                   function () { location.reload(); });
+        );
+
     } else {
+
         waitForDownload();
+
     }
+
 })();
 </script>
+
+
 </body>
 </html>
