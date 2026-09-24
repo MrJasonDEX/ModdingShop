@@ -1,662 +1,172 @@
-<!DOCTYPE html><html lang="en" manifest="PSPulse.manifest"><head>
+<!DOCTYPE html>
+<html lang="en" manifest="PSPulse.manifest">
+
+<head>
+    <link rel="icon" type="image/png" href="../pspulse.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MODDING XZ // PS4 9.00-9.60 HOST / CACHE</title>
-
-<link rel="icon" type="image/png" href="../pspulse.png">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<script>
-    history.replaceState(null, null, 'index.html');
-</script>
-
-<style>
-    :root {
-        --mx-bg: #07050b;
-        --mx-bg2: #0d0914;
-        --mx-panel: #110d19;
-        --mx-panel2: #171020;
-        --mx-border: #2a1d3d;
-        --mx-border2: #392750;
-        --mx-purple: #9147ff;
-        --mx-purple2: #b06cff;
-        --mx-purple3: #d0a8ff;
-        --mx-text: #f8f5ff;
-        --mx-muted: #aaa0b8;
-        --mx-dim: #70667d;
-        --mx-green: #55e6a5;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    html {
-        min-height: 100%;
-        background: var(--mx-bg);
-    }
-
-    html,
-    body {
-        min-height: 100%;
-    }
-
-    body {
-        min-height: 100vh;
-        overflow-x: hidden;
-        display: flex;
-        flex-direction: column;
-
-        background:
-            radial-gradient(
-                circle at 50% -10%,
-                rgba(145, 71, 255, .14),
-                transparent 38%
-            ),
-            linear-gradient(
-                rgba(145, 71, 255, .035) 1px,
-                transparent 1px
-            ),
-            linear-gradient(
-                90deg,
-                rgba(145, 71, 255, .035) 1px,
-                transparent 1px
-            ),
-            var(--mx-bg);
-
-        background-size:
-            auto,
-            36px 36px,
-            36px 36px,
-            auto;
-
-        color: var(--mx-text);
-        font: 16px/1.4 Consolas, "Liberation Mono", monospace;
-    }
-
-    a {
-        color: inherit;
-    }
-
-    /* MAIN APP */
-
-    .mx-app {
-        width: min(100% - 32px, 920px);
-        min-height: 100vh;
-        margin: 0 auto;
-        padding: 16px 0;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* TOP BAR */
-
-    .mx-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px;
-
-        padding: 11px 16px;
-
-        border: 1px solid var(--mx-border2);
-        background: rgba(17, 13, 25, .82);
-
-        box-shadow: 0 10px 35px rgba(0, 0, 0, .2);
-
-        font-size: 13px;
-        letter-spacing: .08em;
-        text-transform: uppercase;
-    }
-
-    .mx-brand {
-        color: var(--mx-purple2);
-    }
-
-    .mx-fw {
-        color: var(--mx-dim);
-    }
-
-    .mx-fw::before {
-        content: "● ";
-        color: var(--mx-purple2);
-    }
-
-    /* CONTENT */
-
-    .mx-layout {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 30px 0 20px;
-    }
-
-    .mx-kicker {
-        margin-bottom: 12px;
-        color: var(--mx-purple2);
-        font-size: 13px;
-        letter-spacing: .14em;
-    }
-
-    .mx-title {
-        margin: 0;
-        color: var(--mx-text);
-        font-size: clamp(36px, 6vw, 58px);
-        font-weight: 400;
-        letter-spacing: -.07em;
-        line-height: .98;
-    }
-
-    .mx-title span {
-        color: var(--mx-purple2);
-    }
-
-    .mx-subtitle {
-        max-width: 700px;
-        margin-top: 15px;
-        color: var(--mx-muted);
-        font-size: 16px;
-    }
-
-    /* BOOT STATUS */
-
-    .mx-boot {
-        margin: 17px 0 0;
-        padding: 0;
-        list-style: none;
-
-        color: var(--mx-dim);
-        font-size: 13px;
-    }
-
-    .mx-boot li {
-        margin: 4px 0;
-    }
-
-    .mx-boot b {
-        color: var(--mx-green);
-        font-weight: 400;
-    }
-
-    .mx-boot .waiting {
-        color: var(--mx-purple2);
-    }
-
-    /* CACHE PROGRESS */
-
-    .mx-cache {
-        width: 100%;
-        margin-top: 25px;
-    }
-
-    .mx-progress-label {
-        margin-bottom: 10px;
-        color: var(--mx-purple2);
-        font-size: 14px;
-    }
-
-    .mx-progress-wrapper {
-        padding: 6px;
-        border: 1px solid var(--mx-border2);
-        background: rgba(17, 13, 25, .9);
-    }
-
-    .mx-progress-bar {
-        position: relative;
-        height: 62px;
-        overflow: hidden;
-
-        border: 1px solid var(--mx-border);
-        background: var(--mx-panel);
-    }
-
-    .mx-progress-fill {
-        width: 0;
-        height: 100%;
-        background:
-            linear-gradient(
-                90deg,
-                var(--mx-purple),
-                var(--mx-purple2)
-            );
-
-        transition: width .08s linear;
-    }
-
-    .mx-progress-text {
-        position: absolute;
-        z-index: 3;
-
-        top: 50%;
-        left: 50%;
-
-        transform: translate(-50%, -50%);
-
-        color: var(--mx-text);
-        font-size: 20px;
-        font-weight: 400;
-
-        text-shadow: 0 1px 10px rgba(0, 0, 0, .9);
-    }
-
-    .mx-status-message {
-        margin-top: 12px;
-        color: var(--mx-dim);
-        font-size: 13px;
-    }
-
-    /* COMMUNITY */
-
-    .mx-community {
-        margin-top: 22px;
-    }
-
-    .mx-community-title {
-        margin-bottom: 9px;
-        color: var(--mx-dim);
-        font-size: 12px;
-        letter-spacing: .12em;
-        text-transform: uppercase;
-    }
-
-    .mx-community-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 8px;
-    }
-
-    .mx-community-card {
-        display: block;
-        min-height: 68px;
-        padding: 11px 13px;
-
-        border: 1px solid var(--mx-border);
-        background: rgba(17, 13, 25, .82);
-
-        text-decoration: none;
-        transition: .15s ease;
-    }
-
-    .mx-community-card:hover,
-    .mx-community-card:focus {
-        border-color: var(--mx-purple);
-        background: var(--mx-panel2);
-        outline: 0;
-        transform: translateY(-1px);
-    }
-
-    .mx-community-label {
-        display: block;
-        margin-bottom: 4px;
-        color: var(--mx-dim);
-        font-size: 10px;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    .mx-community-name {
-        display: block;
-        color: var(--mx-text);
-        font-size: 15px;
-    }
-
-    .mx-community-name span {
-        color: var(--mx-purple2);
-    }
-
-    /* FOOTER */
-
-    .mx-footer {
-        margin-top: 18px;
-        padding: 13px 4px 3px;
-
-        border-top: 1px solid var(--mx-border);
-
-        color: var(--mx-dim);
-        font-size: 12px;
-        text-align: center;
-    }
-
-    .mx-footer a {
-        color: var(--mx-muted);
-        text-decoration: none;
-    }
-
-    .mx-footer a:hover {
-        color: var(--mx-purple2);
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 700px) {
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSPULSE // PS4 9.00-9.60 HOST / CACHE</title>
+    <script>history.replaceState(null, null, 'index.html');</script>
+    <style>
+        :root {
+            --bg: #151515;
+            --panel: #1c1c1c;
+            --panel-2: #242424;
+            --line: #2e2e2e;
+            --line-bright: #454545;
+            --text: #f5f5f5;
+            --muted: #b5b5b5;
+            --dim: #828282;
+            --accent: #a294ff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { background: var(--bg); }
+        html, body { min-height: 100%; }
         body {
-            overflow: auto;
+            background-color: var(--bg);
+            background-image: linear-gradient(rgba(162, 148, 255, .05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(162, 148, 255, .05) 1px, transparent 1px);
+            background-size: 36px 36px;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            font: 17px/1.4 Consolas, "Liberation Mono", monospace;
+            min-height: 100vh;
+            overflow: hidden;
         }
+        a { color: inherit; }
 
-        .mx-app {
-            width: min(100% - 20px, 560px);
-            padding: 9px 0;
+        .app { display: flex; flex: 1 0 auto; flex-direction: column; margin: 0 auto; padding: 14px 26px 12px; width: min(100% - 52px, 920px); }
+
+        /* Top status bar */
+        .bar {
+            align-items: center;
+            border: 1px solid var(--line-bright);
+            display: flex;
+            font-size: 14px;
+            justify-content: space-between;
+            letter-spacing: .1em;
+            padding: 10px 16px;
+            text-transform: uppercase;
         }
+        .bar b { color: var(--accent); font-weight: 400; }
+        .bar-fw { color: var(--dim); }
+        .bar-fw::before { color: var(--accent); content: "\25CF "; }
 
-        .mx-bar {
-            font-size: 11px;
-            padding: 9px 11px;
+        .layout { display: flex; flex: 1 0 auto; flex-direction: column; justify-content: center; padding: 20px 0 0; }
+
+        .kicker { color: var(--accent); font-size: 14px; letter-spacing: .14em; margin: 0 0 12px; }
+        h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 400; letter-spacing: -.07em; line-height: 1; margin: 0; }
+        h1 em { color: var(--accent); font-style: normal; }
+        .sub { color: var(--muted); font-size: 17px; margin: 13px 0 0; }
+        .boot { color: var(--dim); font-size: 14px; list-style: none; margin: 12px 0 0; }
+        .boot li { margin: 3px 0; }
+        .boot b { color: var(--accent); font-weight: 400; }
+
+        .progress-container { margin-top: 20px; width: 100%; }
+        .progress-label { color: var(--accent); font-size: 15px; margin-bottom: 10px; }
+        .progress-wrapper { background: var(--panel); border: 1px solid var(--line-bright); padding: 6px; }
+        .progress-bar { background: var(--panel-2); border: 1px solid var(--line); height: 62px; overflow: hidden; position: relative; }
+        .progress-fill { background: var(--accent); height: 100%; width: 0; }
+        .progress-text { color: var(--text); font-size: 20px; font-weight: 400; left: 50%; position: absolute; text-shadow: 0 1px 8px rgba(0, 0, 0, .8); top: 50%; transform: translate(-50%, -50%); z-index: 3; }
+        .status-message { color: var(--muted); font-size: 15px; margin-top: 12px; }
+
+        .foot {
+            border-top: 1px solid var(--line);
+            color: var(--dim);
+            font-size: 13px;
+            margin-top: 16px;
+            padding: 12px 4px 2px;
+            text-align: center;
         }
+        .foot a { color: var(--muted); }
+        .foot a:hover, .foot a:focus { color: var(--accent); }
 
-        .mx-layout {
-            justify-content: flex-start;
-            padding-top: 25px;
+        @media (max-width: 700px) {
+            body { overflow: auto; }
+            .app { padding: 8px 10px; width: min(100% - 20px, 560px); }
+            .bar { font-size: 12px; padding: 8px 12px; }
+            .layout { padding-top: 14px; }
+            h1 { font-size: 40px; }
+            .progress-bar { height: 56px; }
         }
+    </style>
+</head>
 
-        .mx-title {
-            font-size: 40px;
-        }
+<body>
+    <div class="app">
+        <header class="bar">
+            <span><b>PSPULSE</b> // ps4 hosts</span>
+            <span class="bar-fw">cache update</span>
+        </header>
 
-        .mx-progress-bar {
-            height: 56px;
-        }
+        <main class="layout">
+            <p class="kicker">$ ./cache --install</p>
+            <h1>Loading <em>offline cache</em></h1>
+            <ul class="boot">
+                <li>[ <b>ok</b> ] psfree 1.7 chain ready</li>
+                <li>[ <b>..</b> ] downloading host files</li>
+            </ul>
 
-        .mx-community-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-
-    @media (max-width: 430px) {
-
-        .mx-title {
-            font-size: 35px;
-        }
-
-        .mx-community-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
-
-</head><body><div class="mx-app">
-
-    <!-- TOP BAR -->
-
-    <header class="mx-bar">
-        <span>
-            <b class="mx-brand">MODDING XZ</b> // PS4 HOSTS
-        </span>
-
-        <span class="mx-fw">
-            CACHE UPDATE
-        </span>
-    </header>
-
-    <!-- MAIN -->
-
-    <main class="mx-layout">
-
-        <div class="mx-kicker">
-            $ ./cache --install
-        </div>
-
-        <h1 class="mx-title">
-            Loading <span>offline cache</span>
-        </h1>
-
-        <p class="mx-subtitle">
-            ModdingXZ PS4 9.00–9.60 host cache installer.
-            Preparing the host files for offline use.
-        </p>
-
-        <ul class="mx-boot">
-
-            <li>
-                [ <b>OK</b> ] PSFree 1.7 chain ready
-            </li>
-
-            <li>
-                [ <b class="waiting">..</b> ] Downloading host files
-            </li>
-
-            <li>
-                [ <b class="waiting">..</b> ] Installing offline cache
-            </li>
-
-        </ul>
-
-        <!-- PROGRESS -->
-
-        <section class="mx-cache">
-
-            <div
-                class="mx-progress-label"
-                id="progress">
-                Loading.. Please Wait !!!
-            </div>
-
-            <div class="mx-progress-wrapper">
-
-                <div
-                    class="mx-progress-bar"
-                    id="myProgress">
-
-                    <div
-                        class="mx-progress-fill"
-                        id="myBar">
+            <section class="progress-container">
+                <div class="progress-label" id="progress">Loading.. Please Wait !!!</div>
+                <div class="progress-wrapper">
+                    <div class="progress-bar" id="myProgress">
+                        <div class="progress-fill" id="myBar"></div>
+                        <div class="progress-text" id="progressText">0%</div>
                     </div>
-
-                    <div
-                        class="mx-progress-text"
-                        id="progressText">
-                        0%
-                    </div>
-
                 </div>
-
-            </div>
-
-            <div class="mx-status-message">
-                Initializing cache system...
-            </div>
-
-        </section>
-
-        <!-- COMMUNITY -->
-
-        <section class="mx-community">
-
-            <div class="mx-community-title">
-                ModdingXZ Community
-            </div>
-
-            <div class="mx-community-grid">
-
-                <a
-                    class="mx-community-card"
-                    href="https://t.me/moddingxz"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        Telegram
-                    </span>
-
-                    <span class="mx-community-name">
-                        Modding <span>XZ</span>
-                    </span>
-
-                </a>
-
-                <a
-                    class="mx-community-card"
-                    href="https://t.me/ModdingXZ_Support_Bot"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        Support
-                    </span>
-
-                    <span class="mx-community-name">
-                        Support <span>Bot</span>
-                    </span>
-
-                </a>
-
-                <a
-                    class="mx-community-card"
-                    href="https://moddingxz.co.uk"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        Website
-                    </span>
-
-                    <span class="mx-community-name">
-                        Modding<span>XZ</span>.co.uk
-                    </span>
-
-                </a>
-
-                <a
-                    class="mx-community-card"
-                    href="https://www.tiktok.com/@moddingx1"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        TikTok
-                    </span>
-
-                    <span class="mx-community-name">
-                        @modding<span>x1</span>
-                    </span>
-
-                </a>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-
-    <footer class="mx-footer">
-        MODDING XZ // PS4 9.00-9.60 CACHE
-        <br>
-        Offline Host // GoldHEN v2.4b18.12
-    </footer>
-
-</div>
-
-<script>
-
-    if (window.applicationCache.status == 2) {
-        localStorage.is755BCached = true;
-    }
-
-    window.applicationCache.ondownloading = function () {
-
-        document.getElementById("progress").innerHTML =
-            "Page Caching Started!!";
-
-        localStorage.is755BCached = false;
-
-    };
-
-    window.applicationCache.onprogress = function (a) {
-
-        const progress =
-            Math.round(100 * (a.loaded / a.total));
-
-        document.getElementById("myBar").style.width =
-            progress + "%";
-
-        document.getElementById("progressText").innerHTML =
-            progress + "%";
-
-    };
-
-    window.applicationCache.oncached = function () {
-
-        document.getElementById("progress").innerHTML =
-            "Page Cached Successfully!!!";
-
-        localStorage.is755BCached = true;
-
-        setTimeout(function () {
-
-            window.location.reload("myBar");
-
-        }, 1500);
-
-    };
-
-    window.applicationCache.onupdateready = function () {
-
-        document.getElementById("progress").innerHTML =
-            "Update Cache Successfully!!!";
-
-        localStorage.is755BCached = true;
-
-        setTimeout(function () {
-
-            window.location.reload("myBar");
-
-        }, 1500);
-
-    };
-
-    window.applicationCache.onnoupdate = function () {
-
-        window.location.replace("index.html");
-
-    };
-
-    window.applicationCache.onerror = function () {
-
-        window.location.replace("index.html");
-
-    };
-
-
-    // Fallback progress animation
-
-    var width = 0;
-
-    function frame1() {
-
-        var elem =
-            document.getElementById("myBar");
-
-        var text =
-            document.getElementById("progressText");
-
-        var i = 0;
-
-        var id =
-            setInterval(fra, 10);
-
-        function fra() {
-
-            if (i < 10 && width < 100) {
-
-                width++;
-
-                elem.style.width =
-                    width + "%";
-
-                text.innerHTML =
-                    width + "%";
-
+                <div class="status-message">Initializing cache system...</div>
+            </section>
+        </main>
+
+        <footer class="foot">
+            Author: <a href="https://t.me/sudoBlackArch">BlackArch</a> // Telegram: <a href="https://t.me/PlayStation_Pulse">PlayStation Pulse</a>
+        </footer>
+    </div>
+
+    <script>
+if (window.applicationCache.status == 2) { localStorage.is755BCached = true; }
+        window.applicationCache.ondownloading = function () {
+            document.getElementById("progress").innerHTML = "Page Caching Started!!";
+            localStorage.is755BCached = false;
+        };
+        window.applicationCache.onprogress = function (a) {
+            const progress = Math.round(100 * (a.loaded / a.total));
+            document.getElementById("myBar").style.width = progress + "%";
+            document.getElementById("progressText").innerHTML = progress + "%";
+        };
+        window.applicationCache.oncached = function () {
+            document.getElementById("progress").innerHTML = "Page Cached Successfully!!!";
+            localStorage.is755BCached = true;
+            setTimeout(function () { window.location.reload("myBar"); }, 1500);
+        };
+        window.applicationCache.onupdateready = function () {
+            document.getElementById("progress").innerHTML = "Update Cache Successfully!!!";
+            localStorage.is755BCached = true;
+            setTimeout(function () { window.location.reload("myBar"); }, 1500);
+        };
+        window.applicationCache.onnoupdate = function () { window.location.replace("index.html"); };
+        window.applicationCache.onerror = function () { window.location.replace("index.html"); };
+
+        // Fallback progress animation
+        var width = 0;
+        function frame1() {
+            var elem = document.getElementById("myBar");
+            var text = document.getElementById("progressText");
+            var i = 0;
+            var id = setInterval(fra, 10);
+            function fra() {
+                if (i < 10 && width < 100) {
+                    width++;
+                    elem.style.width = width + "%";
+                    text.innerHTML = width + "%";
+                }
+                i++;
             }
-
-            i++;
-
         }
-    }
+    </script>
+</body>
 
-</script>
-
-</body></html>
+</html>

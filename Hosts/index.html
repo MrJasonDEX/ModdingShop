@@ -1,1239 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="pspulse.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="icon" type="image/png" href="pspulse.png">
-
-    <title>MODDING XZ // PS4 HOSTS</title>
-
-    <!-- Bootstrap 5.3.8 -->
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-
+    <title>PSPULSE // PS4 HOSTS</title>
     <style>
         :root {
-            --mx-bg: #07050b;
-            --mx-bg2: #0d0914;
-            --mx-panel: #110d19;
-            --mx-panel2: #171020;
-
-            --mx-purple: #9147ff;
-            --mx-purple2: #b06cff;
-            --mx-purple3: #d0a8ff;
-
-            --mx-border: #2a1d3d;
-            --mx-border2: #392750;
-
-            --mx-text: #f8f5ff;
-            --mx-muted: #aaa0b8;
-            --mx-dim: #70667d;
-
-            --mx-green: #55e6a5;
+            --bg: #151515;
+            --panel: #1c1c1c;
+            --panel-2: #242424;
+            --line: #2e2e2e;
+            --line-bright: #454545;
+            --text: #f5f5f5;
+            --muted: #b5b5b5;
+            --dim: #828282;
+            --accent: #a294ff;
+            --accent-dim: #6f63a8;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            background: var(--mx-bg);
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; }
+        html { background: var(--bg); }
+        html, body { margin: 0; min-height: 100%; }
         body {
-            min-height: 100vh;
-            margin: 0;
-
-            color: var(--mx-text);
-
-            background:
-                radial-gradient(
-                    circle at 50% -15%,
-                    rgba(145, 71, 255, .22),
-                    transparent 45%
-                ),
-                radial-gradient(
-                    circle at 100% 40%,
-                    rgba(145, 71, 255, .06),
-                    transparent 35%
-                ),
-                linear-gradient(
-                    rgba(145, 71, 255, .025) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(145, 71, 255, .025) 1px,
-                    transparent 1px
-                ),
-                var(--mx-bg);
-
-            background-size:
-                auto,
-                auto,
-                40px 40px,
-                40px 40px;
-
-            font-family:
-                Consolas,
-                "Liberation Mono",
-                monospace;
+            background-color: var(--bg);
+            background-image: linear-gradient(rgba(162, 148, 255, .05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(162, 148, 255, .05) 1px, transparent 1px);
+            background-size: 36px 36px;
+            color: var(--text);
+            font: 17px/1.4 Consolas, "Liberation Mono", monospace;
         }
+        a { color: inherit; }
 
-        a {
-            color: inherit;
-        }
+        .app { display: flex; flex-direction: column; margin: 0 auto; max-width: 1220px; min-height: 100vh; padding: 14px 26px 12px; }
 
-        .mx-container {
-            max-width: 1240px;
-        }
-
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
-
-        .mx-navbar {
-            position: relative;
-
-            border: 1px solid var(--mx-border);
-            background: rgba(13, 9, 20, .92);
-
-            box-shadow:
-                0 15px 50px rgba(0, 0, 0, .35),
-                inset 0 -1px rgba(145, 71, 255, .08);
-        }
-
-        .mx-navbar::after {
-            content: "";
-
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -1px;
-
-            height: 1px;
-
-            background: linear-gradient(
-                90deg,
-                transparent,
-                var(--mx-purple),
-                transparent
-            );
-
-            opacity: .65;
-        }
-
-        .mx-logo {
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: 900;
-            font-size: 21px;
-            letter-spacing: -.05em;
-        }
-
-        .mx-logo .x {
-            color: var(--mx-purple);
-        }
-
-        .mx-logo small {
-            color: var(--mx-dim);
-            font-family: Consolas, monospace;
-            font-size: 9px;
-            font-weight: 400;
-            letter-spacing: .13em;
-        }
-
-        .mx-status {
-            color: var(--mx-green);
-            font-size: 10px;
+        /* Top status bar */
+        .bar {
+            align-items: center;
+            border: 1px solid var(--line-bright);
+            display: flex;
+            font-size: 14px;
+            justify-content: space-between;
             letter-spacing: .1em;
-        }
-
-        .mx-status::before {
-            content: "●";
-            margin-right: 7px;
-        }
-
-
-        /* =====================================================
-           HERO
-        ===================================================== */
-
-        .mx-hero {
-            position: relative;
-
-            padding: 75px 5px 42px;
-        }
-
-        .mx-hero::before {
-            content: "XZ";
-
-            position: absolute;
-
-            right: 5%;
-            top: 25px;
-
-            color: rgba(145, 71, 255, .025);
-
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 180px;
-            font-weight: 900;
-            letter-spacing: -.15em;
-
-            pointer-events: none;
-        }
-
-        .mx-kicker {
-            color: var(--mx-purple3);
-
-            font-size: 11px;
-            letter-spacing: .18em;
+            padding: 10px 16px;
             text-transform: uppercase;
         }
+        .bar b { color: var(--accent); font-weight: 400; }
+        .bar-ready { color: var(--dim); }
+        .bar-ready::before { color: var(--accent); content: "\25CF "; }
 
-        .mx-kicker::before {
-            content: ">";
-            margin-right: 8px;
+        .layout { display: flex; flex: 1 0 auto; flex-direction: column; padding: 22px 0 0; }
 
-            color: var(--mx-purple);
-            font-weight: 900;
+        /* Header */
+        .kicker { color: var(--accent); font-size: 14px; letter-spacing: .14em; margin: 0 0 12px; }
+        h1 { font-size: clamp(38px, 5.4vw, 62px); font-weight: 400; letter-spacing: -.07em; line-height: 1; margin: 0; }
+        h1 em { color: var(--accent); font-style: normal; }
+        .sub { color: var(--muted); font-size: 18px; margin: 14px 0 0; max-width: 720px; }
+        .boot { color: var(--dim); font-size: 14px; list-style: none; margin: 14px 0 0; padding: 0; }
+        .boot li { margin: 3px 0; }
+        .boot b { color: var(--accent); font-weight: 400; }
+
+        /* Menu */
+        .menu { border: 1px solid var(--line); margin-top: 22px; padding: 14px; }
+        .menu-top {
+            align-items: baseline;
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 11px;
+            padding: 0 4px 10px;
         }
+        .menu-title { color: var(--text); font-size: 15px; letter-spacing: .12em; text-transform: uppercase; }
+        .menu-hint { color: var(--dim); font-size: 13px; }
+        .grid { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-        .mx-title {
-            position: relative;
-
-            margin: 12px 0 0;
-
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: clamp(48px, 8vw, 92px);
-            font-weight: 900;
-            line-height: .86;
-
-            letter-spacing: -.075em;
+        .row {
+            align-items: center;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            display: flex;
+            min-height: 74px;
+            padding: 12px 14px;
+            text-decoration: none;
         }
-
-        .mx-title span {
-            color: var(--mx-purple);
+        .row:hover, .row:focus {
+            background: var(--panel-2);
+            border-color: var(--accent);
+            outline: 0;
         }
+        .row:focus { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+        .num { color: var(--dim); font-size: 14px; min-width: 42px; }
+        .row:hover .num, .row:focus .num { color: var(--accent); }
+        .name { color: var(--text); display: block; font-size: 20px; line-height: 1.2; }
+        .meta { color: var(--muted); display: block; font-size: 13px; margin-top: 4px; }
+        .go { color: var(--dim); font-size: 13px; margin-left: auto; opacity: 0; padding-left: 12px; white-space: nowrap; }
+        .row:hover .go, .row:focus .go { opacity: 1; color: var(--accent); }
 
-        .mx-title .xz {
-            color: var(--mx-purple2);
+        /* NodePlay */
+        .nodeplay {
+            align-items: center;
+            background: var(--panel);
+            border: 1px solid var(--line-bright);
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            min-height: 68px;
+            padding: 10px 18px;
+            text-decoration: none;
         }
+        .nodeplay:hover, .nodeplay:focus { background: var(--panel-2); border-color: var(--accent); outline: 0; }
+        .nodeplay:focus { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+        .np-label { color: var(--dim); display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+        .np-name { color: var(--text); display: block; font-size: 24px; margin-top: 2px; }
+        .np-name b { color: var(--accent); font-weight: 400; }
+        .np-open { color: var(--accent); font-size: 14px; }
 
-        .mx-subtitle {
-            max-width: 780px;
-
-            margin-top: 25px;
-
-            color: var(--mx-muted);
-
-            font-size: 15px;
-            line-height: 1.7;
-        }
-
-        .mx-terminal {
-            margin-top: 22px;
-
-            color: var(--mx-dim);
-            font-size: 11px;
-        }
-
-        .mx-terminal b {
-            color: var(--mx-purple2);
-            font-weight: 400;
-        }
-
-
-        /* =====================================================
-           STATS
-        ===================================================== */
-
-        .mx-stat {
-            border: 1px solid var(--mx-border);
-            background: rgba(17, 13, 25, .75);
-
-            padding: 10px 13px;
-        }
-
-        .mx-stat-label {
-            display: block;
-
-            color: var(--mx-dim);
-            font-size: 8px;
-            letter-spacing: .13em;
-            text-transform: uppercase;
-        }
-
-        .mx-stat-value {
-            display: block;
-
-            margin-top: 3px;
-
-            color: var(--mx-purple3);
+        /* Footer */
+        .foot {
+            border-top: 1px solid var(--line);
+            color: var(--dim);
             font-size: 13px;
+            margin-top: 16px;
+            padding: 12px 4px 2px;
+            text-align: center;
         }
-
-
-        /* =====================================================
-           HOST PANEL
-        ===================================================== */
-
-        .mx-panel {
-            border: 1px solid var(--mx-border);
-            background: rgba(10, 7, 15, .88);
-
-            box-shadow:
-                0 20px 60px rgba(0, 0, 0, .2);
-        }
-
-        .mx-panel-header {
-            border-bottom: 1px solid var(--mx-border);
-        }
-
-        .mx-panel-title {
-            color: var(--mx-text);
-
-            font-size: 12px;
-            letter-spacing: .14em;
-            text-transform: uppercase;
-        }
-
-        .mx-panel-title span {
-            color: var(--mx-purple);
-        }
-
-        .mx-panel-count {
-            color: var(--mx-dim);
-            font-size: 9px;
-        }
-
-
-        /* =====================================================
-           HOST CARDS
-        ===================================================== */
-
-        .mx-host {
-            position: relative;
-
-            display: flex;
-            align-items: center;
-
-            min-height: 88px;
-
-            border: 1px solid var(--mx-border);
-            background: var(--mx-panel);
-
-            text-decoration: none;
-
-            overflow: hidden;
-
-            transition:
-                .16s ease;
-        }
-
-        .mx-host::before {
-            content: "";
-
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-
-            width: 2px;
-
-            background: transparent;
-
-            transition: .16s ease;
-        }
-
-        .mx-host::after {
-            content: "";
-
-            position: absolute;
-            right: -30px;
-            bottom: -45px;
-
-            width: 110px;
-            height: 110px;
-
-            border-radius: 50%;
-
-            background: rgba(145, 71, 255, .04);
-
-            transition: .2s ease;
-        }
-
-        .mx-host:hover,
-        .mx-host:focus {
-            color: inherit;
-
-            border-color: var(--mx-purple);
-
-            background: var(--mx-panel2);
-
-            transform: translateY(-2px);
-
-            outline: none;
-
-            box-shadow:
-                0 10px 30px rgba(0, 0, 0, .2),
-                0 0 25px rgba(145, 71, 255, .06);
-        }
-
-        .mx-host:hover::before,
-        .mx-host:focus::before {
-            background: var(--mx-purple);
-        }
-
-        .mx-host:hover::after,
-        .mx-host:focus::after {
-            background: rgba(145, 71, 255, .11);
-        }
-
-        .mx-host:focus {
-            box-shadow:
-                0 0 0 2px var(--mx-bg),
-                0 0 0 4px var(--mx-purple);
-        }
-
-        .mx-number {
-            min-width: 35px;
-
-            color: var(--mx-dim);
-            font-size: 11px;
-        }
-
-        .mx-host:hover .mx-number,
-        .mx-host:focus .mx-number {
-            color: var(--mx-purple2);
-        }
-
-        .mx-firmware {
-            display: block;
-
-            color: var(--mx-text);
-
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: -.025em;
-        }
-
-        .mx-description {
-            display: block;
-
-            margin-top: 5px;
-
-            color: var(--mx-muted);
-
-            font-size: 10px;
-        }
-
-        .mx-select {
-            position: relative;
-            z-index: 2;
-
-            color: var(--mx-dim);
-
-            font-size: 9px;
-
-            opacity: 0;
-
-            transform: translateX(-5px);
-
-            transition: .16s ease;
-        }
-
-        .mx-host:hover .mx-select,
-        .mx-host:focus .mx-select {
-            color: var(--mx-purple3);
-
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-
-        /* =====================================================
-           MODDING XZ COMMUNITY
-        ===================================================== */
-
-        .mx-community {
-            margin-top: 13px;
-
-            border: 1px solid var(--mx-border);
-
-            background:
-                linear-gradient(
-                    110deg,
-                    rgba(145, 71, 255, .1),
-                    transparent 55%
-                ),
-                var(--mx-panel);
-        }
-
-        .mx-community-title {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 23px;
-            font-weight: 900;
-            letter-spacing: -.04em;
-        }
-
-        .mx-community-title span {
-            color: var(--mx-purple);
-        }
-
-        .mx-community-text {
-            max-width: 620px;
-
-            margin-top: 7px;
-
-            color: var(--mx-muted);
-            font-size: 11px;
-            line-height: 1.6;
-        }
-
-        .mx-link {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-
-            min-height: 58px;
-
-            border: 1px solid var(--mx-border);
-            background: rgba(7, 5, 11, .55);
-
-            text-decoration: none;
-
-            transition: .15s ease;
-        }
-
-        .mx-link:hover,
-        .mx-link:focus {
-            color: inherit;
-
-            border-color: var(--mx-purple);
-
-            background: var(--mx-panel2);
-
-            outline: none;
-        }
-
-        .mx-link-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            width: 32px;
-            height: 32px;
-
-            border: 1px solid var(--mx-border2);
-
-            color: var(--mx-purple2);
-
-            font-size: 13px;
-        }
-
-        .mx-link-name {
-            display: block;
-
-            color: var(--mx-text);
-
-            font-size: 12px;
-        }
-
-        .mx-link-meta {
-            display: block;
-
-            margin-top: 2px;
-
-            color: var(--mx-dim);
-
-            font-size: 9px;
-        }
-
-        .mx-link-arrow {
-            margin-left: auto;
-
-            color: var(--mx-dim);
-            font-size: 11px;
-        }
-
-        .mx-link:hover .mx-link-arrow {
-            color: var(--mx-purple2);
-        }
-
-
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        .mx-footer {
-            border-top: 1px solid var(--mx-border);
-
-            color: var(--mx-dim);
-
-            font-size: 9px;
-        }
-
-        .mx-footer a {
-            color: var(--mx-muted);
-            text-decoration: none;
-        }
-
-        .mx-footer a:hover {
-            color: var(--mx-purple2);
-        }
-
-        .mx-footer-brand {
-            color: var(--mx-purple2);
-        }
-
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 767.98px) {
-
-            .mx-hero {
-                padding: 52px 4px 30px;
-            }
-
-            .mx-hero::before {
-                font-size: 100px;
-                right: 0;
-                top: 35px;
-            }
-
-            .mx-title {
-                font-size: 53px;
-            }
-
-            .mx-subtitle {
-                font-size: 13px;
-            }
-
-            .mx-panel-count {
-                display: none;
-            }
-
-            .mx-select {
-                display: none;
-            }
-
-            .mx-host {
-                min-height: 76px;
-            }
-
-            .mx-firmware {
-                font-size: 17px;
-            }
-
-            .mx-description {
-                font-size: 9px;
-            }
-
-            .mx-community-title {
-                font-size: 21px;
-            }
+        .foot a { color: var(--muted); }
+        .foot a:hover, .foot a:focus { color: var(--accent); }
+
+        @media (max-width: 760px) {
+            body { font-size: 16px; }
+            .app { padding: 8px 10px; }
+            .bar { font-size: 12px; padding: 8px 12px; }
+            .layout { padding-top: 16px; }
+            h1 { font-size: 40px; }
+            .sub { font-size: 16px; }
+            .grid { grid-template-columns: 1fr; }
+            .row { min-height: 64px; }
+            .menu-hint { display: none; }
+            .np-name { font-size: 20px; }
         }
     </style>
 </head>
-
-
 <body>
-
-<div class="container mx-container py-3 py-md-4">
-
-
-    <!-- =====================================================
-         MODDING XZ HEADER
-    ====================================================== -->
-
-    <header class="mx-navbar px-3 py-3">
-
-        <div class="d-flex align-items-center justify-content-between">
-
-            <div class="mx-logo">
-                MODDING <span class="x">X</span><span class="x">Z</span>
-
-                <small class="d-block">
-                    PLAYSTATION MODDING
-                </small>
-            </div>
-
-            <div class="mx-status">
-                HOST SYSTEM ONLINE
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
-
-    <section class="mx-hero">
-
-        <div class="mx-kicker">
-            MODDING XZ // PS4 HOST SYSTEM
-        </div>
-
-        <h1 class="mx-title">
-            PS4 <span>FIRMWARE</span><br>
-            <span class="xz">HOSTS</span>
-        </h1>
-
-        <p class="mx-subtitle">
-            Select the host matching your PlayStation 4 firmware.
-            Choose your firmware below to access the available
-            Modding XZ host.
-        </p>
-
-        <div class="mx-terminal">
-            <b>[ OK ]</b> Host database loaded &nbsp;//&nbsp;
-            <b>[ OK ]</b> Offline routes available &nbsp;//&nbsp;
-            <b>[ OK ]</b> Modding XZ system ready
-        </div>
-
-
-        <!-- STATS -->
-
-        <div class="d-flex flex-wrap gap-2 mt-4">
-
-            <div class="mx-stat">
-                <span class="mx-stat-label">
-                    Available Hosts
-                </span>
-
-                <span class="mx-stat-value">
-                    07
-                </span>
-            </div>
-
-            <div class="mx-stat">
-                <span class="mx-stat-label">
-                    Platform
-                </span>
-
-                <span class="mx-stat-value">
-                    PS4
-                </span>
-            </div>
-
-            <div class="mx-stat">
-                <span class="mx-stat-label">
-                    Network
-                </span>
-
-                <span class="mx-stat-value">
-                    MODDING XZ
-                </span>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         HOST SELECTOR
-    ====================================================== -->
-
-    <section class="mx-panel p-2 p-md-3">
-
-        <div class="mx-panel-header d-flex align-items-center justify-content-between px-2 pb-3 mb-2">
-
-            <div class="mx-panel-title">
-                <span>//</span> SELECT FIRMWARE
-            </div>
-
-            <div class="mx-panel-count">
-                7 HOST ROUTES DETECTED
-            </div>
-
-        </div>
-
-
-        <nav class="row g-2" aria-label="PS4 Firmware Hosts">
-
-
-            <!-- FW 13.02 - 13.52 -->
-
-            <div class="col-12 col-md-6">
-
-                <a
-                    class="mx-host gap-3 p-3 h-100"
-                    href="1352/index.html"
-                >
-
-                    <span class="mx-number">
-                        01
-                    </span>
-
-                    <span class="flex-grow-1">
-
-                        <span class="mx-firmware">
-                            FW 13.02 – 13.52
-                        </span>
-
-                        <span class="mx-description">
-                            SlopKit GoldHEN // Offline Host
-                        </span>
-
-                    </span>
-
-                    <span class="mx-select">
-                        [ SELECT ]
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- FW 11.00 - 13.00 -->
-
-            <div class="col-12 col-md-6">
-
-                <a
-                    class="mx-host gap-3 p-3 h-100"
-                    href="1300/version-selector.html"
-                >
-
-                    <span class="mx-number">
-                        02
-                    </span>
-
-                    <span class="flex-grow-1">
-
-                        <span class="mx-firmware">
-                            FW 11.00 – 13.00
-                        </span>
-
-                        <span class="mx-description">
-                            SlopKit WebKit // Offline Host
-                        </span>
-
-                    </span>
-
-                    <span class="mx-select">
-                        [ SELECT ]
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- FW 6.00 - 11.02 -->
-
-            <div class="col-12 col-md-6">
-
-                <a
-                    class="mx-host gap-3 p-3 h-100"
-                    href="css/version-selector.html"
-                >
-
-                    <span class="mx-number">
-                        03
-                    </span>
-
-                    <span class="flex-grow-1">
-
-                        <span class="mx-firmware">
-                            FW 6.00 – 11.02
-                        </span>
-
-                        <span class="mx-description">
-                            CSSFontFace // GoldHEN Host
-                        </span>
-
-                    </span>
-
-                    <span class="mx-select">
-                        [ SELECT ]
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- FW 9.00 - 9.60 -->
-
-            <div class="col-12 col-md-6">
-
-                <a
-                    class="mx-host gap-3 p-3 h-100"
-                    href="900/version-selector.html"
-                >
-
-                    <span class="mx-number">
-                        04
-                    </span>
-
-                    <span class="flex-grow-1">
-
-                        <span class="mx-firmware">
-                            FW 9.00 – 9.60
-                        </span>
-
-                        <span class="mx-description">
-                            PSFree / Lapse // GoldHEN Host
-                        </span>
-
-                    </span>
-
-                    <span class="mx-select">
-                        [ SELECT ]
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- FW 7.00 - 8.52 -->
-
-            <div class="col-12 col-md-6">
-
-                <a
-                    class="mx-host gap-3 p-3 h-100"
-                    href="700/version-selector.html"
-                >
-
-                    <span class="mx-number">
-                        05
-                    </span>
-
-                    <span class="flex-grow-1">
-
-                        <span class="mx-firmware">
-                            FW 7.00 – 8.52
-                        </span>
-
-                        <span class="mx-description">
-                            PSFree / Lapse // GoldHEN Host
-                        </span>
-
-                    </span>
-
-                    <span class="mx-select">
-                        [ SELECT ]
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- FW 6.72 -->
-
-            <div class="col-12 col-md-6">
-
-                <a
-                    class="mx-host gap-3 p-3 h-100"
-                    href="672/index.html"
-                >
-
-                    <span class="mx-number">
-                        06
-                    </span>
-
-                    <span class="flex-grow-1">
-
-                        <span class="mx-firmware">
-                            FW 6.72
-                        </span>
-
-                        <span class="mx-description">
-                            Dedicated Host // Utility Payloads
-                        </span>
-
-                    </span>
-
-                    <span class="mx-select">
-                        [ SELECT ]
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- FW 5.05 -->
-
-            <div class="col-12 col-md-6">
-
-                <a
-                    class="mx-host gap-3 p-3 h-100"
-                    href="505/index.html"
-                >
-
-                    <span class="mx-number">
-                        07
-                    </span>
-
-                    <span class="flex-grow-1">
-
-                        <span class="mx-firmware">
-                            FW 5.05
-                        </span>
-
-                        <span class="mx-description">
-                            Dedicated Host // Utility Payloads
-                        </span>
-
-                    </span>
-
-                    <span class="mx-select">
-                        [ SELECT ]
-                    </span>
-
-                </a>
-
-            </div>
-
-        </nav>
-
-    </section>
-
-
-    <!-- =====================================================
-         MODDING XZ COMMUNITY
-    ====================================================== -->
-
-    <section class="mx-community p-3 p-md-4">
-
-        <div class="row g-4 align-items-center">
-
-            <div class="col-12 col-lg-5">
-
-                <div class="mx-community-title">
-                    JOIN <span>MODDING XZ</span>
+    <div class="app">
+        <header class="bar">
+            <span><b>PSPULSE</b> // ps4 hosts</span>
+            <span class="bar-ready">ready</span>
+        </header>
+
+        <main class="layout">
+            <p class="kicker">$ ./launch --select-host</p>
+            <h1>Choose <em>firmware</em></h1>
+            <p class="sub">Pick the host matching the firmware installed on your PlayStation 4.</p>
+            <ul class="boot">
+                <li>[ <b>ok</b> ] 7 host routes detected</li>
+                <li>[ <b>ok</b> ] offline cache ready</li>
+            </ul>
+
+            <section class="menu" aria-label="Firmware host menu">
+                <div class="menu-top">
+                    <span class="menu-title">Available routes</span>
+                    <span class="menu-hint">&uarr; &darr; move &nbsp; X select</span>
                 </div>
-
-                <p class="mx-community-text mb-0">
-                    Keep up with the latest Modding XZ releases,
-                    updates, tools, support and PlayStation modding
-                    content.
-                </p>
-
-            </div>
-
-
-            <div class="col-12 col-lg-7">
-
-                <div class="row g-2">
-
-
-                    <!-- Telegram -->
-
-                    <div class="col-12 col-sm-6">
-
-                        <a
-                            class="mx-link p-2 px-3"
-                            href="https://t.me/moddingxz"
-                            target="_blank"
-                            rel="noopener"
-                        >
-
-                            <span class="mx-link-icon">
-                                TG
-                            </span>
-
-                            <span>
-
-                                <span class="mx-link-name">
-                                    Modding XZ
-                                </span>
-
-                                <span class="mx-link-meta">
-                                    Official Telegram
-                                </span>
-
-                            </span>
-
-                            <span class="mx-link-arrow">
-                                ↗
-                            </span>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- Support -->
-
-                    <div class="col-12 col-sm-6">
-
-                        <a
-                            class="mx-link p-2 px-3"
-                            href="https://t.me/ModdingXZ_Support_Bot"
-                            target="_blank"
-                            rel="noopener"
-                        >
-
-                            <span class="mx-link-icon">
-                                ?
-                            </span>
-
-                            <span>
-
-                                <span class="mx-link-name">
-                                    Support
-                                </span>
-
-                                <span class="mx-link-meta">
-                                    Modding XZ Support
-                                </span>
-
-                            </span>
-
-                            <span class="mx-link-arrow">
-                                ↗
-                            </span>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- Website -->
-
-                    <div class="col-12 col-sm-6">
-
-                        <a
-                            class="mx-link p-2 px-3"
-                            href="https://moddingxz.co.uk"
-                            target="_blank"
-                            rel="noopener"
-                        >
-
-                            <span class="mx-link-icon">
-                                XZ
-                            </span>
-
-                            <span>
-
-                                <span class="mx-link-name">
-                                    ModdingXZ.co.uk
-                                </span>
-
-                                <span class="mx-link-meta">
-                                    Official Website
-                                </span>
-
-                            </span>
-
-                            <span class="mx-link-arrow">
-                                ↗
-                            </span>
-
-                        </a>
-
-                    </div>
-
-
-                    <!-- TikTok -->
-
-                    <div class="col-12 col-sm-6">
-
-                        <a
-                            class="mx-link p-2 px-3"
-                            href="https://www.tiktok.com/@moddingx1"
-                            target="_blank"
-                            rel="noopener"
-                        >
-
-                            <span class="mx-link-icon">
-                                TT
-                            </span>
-
-                            <span>
-
-                                <span class="mx-link-name">
-                                    @moddingx1
-                                </span>
-
-                                <span class="mx-link-meta">
-                                    TikTok
-                                </span>
-
-                            </span>
-
-                            <span class="mx-link-arrow">
-                                ↗
-                            </span>
-
-                        </a>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer class="mx-footer d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 mt-4 pt-3 pb-3">
-
-        <div>
-            <span class="mx-footer-brand">
-                MODDING XZ
-            </span>
-
-            // PLAYSTATION MODDING
-        </div>
-
-        <div>
-            PS4 HOST SYSTEM // v1.0
-        </div>
-
-    </footer>
-
-</div>
-
-
-<!-- Bootstrap JS -->
-
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
-</script>
-
-
-<script>
-    /*
-     * PS4 browser spatial navigation:
-     * Do not intercept arrow keys.
-     * Focus the first firmware host automatically.
-     */
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-        const firstHost = document.querySelector(".mx-host");
-
-        if (firstHost) {
-            firstHost.focus();
-        }
-
-    });
-</script>
-
+                <nav class="grid">
+                    <a class="row" href="1352/index.html">
+                        <span class="num">01</span>
+                        <span><span class="name">FW 13.02–13.52</span><span class="meta">SlopKit GoldHEN // offline host</span></span>
+                        <span class="go">[ SELECT ]</span>
+                    </a>
+                    <a class="row" href="1300/version-selector.html">
+                        <span class="num">02</span>
+                        <span><span class="name">FW 11.00–13.00</span><span class="meta">SlopKit WebKit // offline host</span></span>
+                        <span class="go">[ SELECT ]</span>
+                    </a>
+                    <a class="row" href="css/version-selector.html">
+                        <span class="num">03</span>
+                        <span><span class="name">FW 6.00–11.02</span><span class="meta">CSSFontFace // GoldHEN host</span></span>
+                        <span class="go">[ SELECT ]</span>
+                    </a>
+                    <a class="row" href="900/version-selector.html">
+                        <span class="num">04</span>
+                        <span><span class="name">FW 9.00–9.60</span><span class="meta">PSFree / Lapse // GoldHEN host</span></span>
+                        <span class="go">[ SELECT ]</span>
+                    </a>
+                    <a class="row" href="700/version-selector.html">
+                        <span class="num">05</span>
+                        <span><span class="name">FW 7.00–8.52</span><span class="meta">PSFree / Lapse // GoldHEN host</span></span>
+                        <span class="go">[ SELECT ]</span>
+                    </a>
+                    <a class="row" href="672/index.html">
+                        <span class="num">06</span>
+                        <span><span class="name">FW 6.72</span><span class="meta">Dedicated host // utility payloads</span></span>
+                        <span class="go">[ SELECT ]</span>
+                    </a>
+                    <a class="row" href="505/index.html">
+                        <span class="num">07</span>
+                        <span><span class="name">FW 5.05</span><span class="meta">Dedicated host // utility payloads</span></span>
+                        <span class="go">[ SELECT ]</span>
+                    </a>
+                </nav>
+            </section>
+
+            <a class="nodeplay" href="https://nodeplay.net/" target="_blank" rel="noopener">
+                <span><span class="np-label">Premium game servers</span><span class="np-name">Node<b>Play</b></span></span>
+                <span class="np-open">OPEN &#8599;</span>
+            </a>
+
+            <footer class="foot">
+                Author: <a href="https://t.me/sudoBlackArch">BlackArch</a> // Telegram: <a href="https://t.me/PlayStation_Pulse">PlayStation Pulse</a>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        (function () {
+            // Do not intercept arrow keys: the PS4 browser moves its visible
+            // focus pointer natively (spatial navigation). This only places
+            // the initial focus so the cursor is visible right after load.
+            var first = document.querySelector('.row');
+            if (first) first.focus();
+        })();
+    </script>
 </body>
 </html>

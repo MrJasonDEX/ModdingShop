@@ -1,894 +1,276 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="../pspulse.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png" href="../pspulse.png">
-
-<title>MODDING XZ // PS4 9.00-9.60 HOST // GOLDHEN 2.4B18.5</title>
-
-<!-- Bootstrap 5.3.8 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-    :root {
-        --mx-bg: #07050b;
-        --mx-bg2: #0d0914;
-        --mx-panel: #110d19;
-        --mx-panel2: #171020;
-        --mx-purple: #9147ff;
-        --mx-purple2: #b06cff;
-        --mx-purple3: #d0a8ff;
-        --mx-border: #2a1d3d;
-        --mx-border2: #392750;
-        --mx-text: #f8f5ff;
-        --mx-muted: #aaa0b8;
-        --mx-dim: #70667d;
-        --mx-green: #55e6a5;
-        --mx-red: #ff7777;
-        --mx-amber: #e5b85c;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    html {
-        background: var(--mx-bg);
-    }
-
-    html,
-    body {
-        min-height: 100%;
-    }
-
-    body {
-        background:
-            linear-gradient(rgba(145, 71, 255, .035) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(145, 71, 255, .035) 1px, transparent 1px),
-            var(--mx-bg);
-        background-size: 36px 36px;
-        color: var(--mx-text);
-        font-family: Consolas, "Liberation Mono", monospace;
-        min-height: 100vh;
-        overflow-x: hidden;
-    }
-
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .mx-wrap {
-        max-width: 1220px;
-        margin: auto;
-        padding: 14px 18px 20px;
-    }
-
-    /* =========================
-       TOP BAR
-    ========================= */
-
-    .mx-topbar {
-        align-items: center;
-        background: rgba(17, 13, 25, .85);
-        border: 1px solid var(--mx-border2);
-        display: flex;
-        justify-content: space-between;
-        padding: 11px 16px;
-    }
-
-    .mx-brand {
-        color: var(--mx-text);
-        font-size: 14px;
-        font-weight: 700;
-        letter-spacing: .12em;
-    }
-
-    .mx-brand span {
-        color: var(--mx-purple2);
-    }
-
-    .mx-brand-sub {
-        color: var(--mx-dim);
-        font-weight: 400;
-    }
-
-    .mx-fw-status {
-        color: var(--mx-dim);
-        font-size: 12px;
-        letter-spacing: .08em;
-        text-transform: uppercase;
-    }
-
-    .mx-fw-status::before {
-        color: var(--mx-purple);
-        content: "● ";
-    }
-
-    /* =========================
-       HERO
-    ========================= */
-
-    .mx-hero {
-        padding: 36px 4px 20px;
-    }
-
-    .mx-kicker {
-        color: var(--mx-purple2);
-        font-size: 13px;
-        letter-spacing: .16em;
-        margin-bottom: 12px;
-        text-transform: uppercase;
-    }
-
-    .mx-hero h1 {
-        font-size: clamp(38px, 6vw, 64px);
-        font-weight: 400;
-        letter-spacing: -.07em;
-        line-height: .95;
-        margin: 0;
-    }
-
-    .mx-hero h1 span {
-        color: var(--mx-purple2);
-    }
-
-    .mx-sub {
-        color: var(--mx-muted);
-        font-size: 16px;
-        line-height: 1.6;
-        margin: 17px 0 0;
-        max-width: 760px;
-    }
-
-    .mx-boot {
-        color: var(--mx-dim);
-        font-size: 13px;
-        margin-top: 17px;
-    }
-
-    .mx-boot div {
-        margin: 4px 0;
-    }
-
-    .mx-boot b {
-        color: var(--mx-green);
-        font-weight: 400;
-    }
-
-    .mx-fw-display {
-        border-left: 2px solid var(--mx-purple);
-        color: var(--mx-text);
-        display: inline-block;
-        font-size: 14px;
-        margin-top: 15px;
-        padding: 5px 10px;
-    }
-
-    .mx-fw-display span {
-        color: var(--mx-purple2);
-    }
-
-    /* =========================
-       STATUS PANEL
-    ========================= */
-
-    .mx-status {
-        background: rgba(17, 13, 25, .75);
-        border: 1px solid var(--mx-border);
-        margin-top: 4px;
-        padding: 15px;
-    }
-
-    .mx-notification {
-        background: var(--mx-panel2);
-        border: 1px solid var(--mx-border2);
-        color: var(--mx-text);
-        min-height: 44px;
-        padding: 10px 14px;
-    }
-
-    #log {
-        color: var(--mx-text);
-        font-size: 15px;
-        line-height: 1.45;
-    }
-
-    #log h1 {
-        color: var(--mx-text) !important;
-        font-size: 15px;
-        font-weight: 400;
-        line-height: 1.45;
-        margin: 0;
-    }
-
-    #console {
-        display: none !important;
-    }
-
-    .mx-jailbreak-status {
-        border-left: 2px solid var(--mx-purple);
-        color: var(--mx-purple2);
-        font-size: 15px;
-        margin-top: 10px;
-        padding: 5px 10px;
-    }
-
-    .mx-status-meta {
-        align-items: center;
-        border-top: 1px solid var(--mx-border);
-        display: flex;
-        flex-wrap: wrap;
-        font-size: 12px;
-        gap: 10px 18px;
-        margin-top: 10px;
-        padding-top: 10px;
-    }
-
-    .mx-pass {
-        color: var(--mx-green);
-    }
-
-    .mx-fail {
-        color: var(--mx-red);
-    }
-
-    /* =========================
-       PAYLOADS
-    ========================= */
-
-    .mx-controls {
-        border: 1px solid var(--mx-border);
-        margin-top: 14px;
-        padding: 15px;
-    }
-
-    .mx-section-title {
-        border-bottom: 1px solid var(--mx-border);
-        color: var(--mx-muted);
-        font-size: 13px;
-        letter-spacing: .14em;
-        margin-bottom: 12px;
-        padding: 0 4px 10px;
-        text-transform: uppercase;
-    }
-
-    .mx-payload {
-        background: var(--mx-panel);
-        border: 1px solid var(--mx-border2);
-        color: var(--mx-text);
-        cursor: pointer;
-        font: inherit;
-        min-height: 50px;
-        padding: 10px 13px;
-        text-align: left;
-        transition: .12s ease;
-        width: 100%;
-    }
-
-    .mx-payload:hover,
-    .mx-payload:focus {
-        background: var(--mx-panel2);
-        border-color: var(--mx-purple);
-        color: var(--mx-purple2);
-        outline: none;
-    }
-
-    .mx-payload:focus {
-        box-shadow:
-            0 0 0 2px var(--mx-bg),
-            0 0 0 4px var(--mx-purple);
-    }
-
-    /* =========================
-       COMMUNITY
-    ========================= */
-
-    .mx-community {
-        margin-top: 18px;
-    }
-
-    .mx-community-card {
-        background: var(--mx-panel);
-        border: 1px solid var(--mx-border);
-        display: block;
-        height: 100%;
-        padding: 14px;
-        transition: .15s ease;
-    }
-
-    .mx-community-card:hover {
-        background: var(--mx-panel2);
-        border-color: var(--mx-purple);
-        transform: translateY(-1px);
-    }
-
-    .mx-community-label {
-        color: var(--mx-dim);
-        display: block;
-        font-size: 10px;
-        letter-spacing: .12em;
-        text-transform: uppercase;
-    }
-
-    .mx-community-name {
-        color: var(--mx-purple2);
-        display: block;
-        font-size: 16px;
-        margin-top: 4px;
-    }
-
-    .mx-community-desc {
-        color: var(--mx-muted);
-        display: block;
-        font-size: 11px;
-        margin-top: 4px;
-    }
-
-    /* =========================
-       FOOTER
-    ========================= */
-
-    .mx-footer {
-        border-top: 1px solid var(--mx-border);
-        color: var(--mx-dim);
-        font-size: 12px;
-        margin-top: 20px;
-        padding: 14px 4px 4px;
-        text-align: center;
-    }
-
-    .mx-footer a {
-        color: var(--mx-muted);
-    }
-
-    .mx-footer a:hover {
-        color: var(--mx-purple2);
-    }
-
-    /* =========================
-       MOBILE
-    ========================= */
-
-    @media (max-width: 820px) {
-
-        .mx-wrap {
-            padding: 8px 10px 15px;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PSPULSE // PS4 9.00-9.60 HOST / 2.4B18.5</title>
+    <style>
+        :root {
+            --bg: #151515;
+            --panel: #1c1c1c;
+            --panel-2: #242424;
+            --line: #2e2e2e;
+            --line-bright: #454545;
+            --text: #f5f5f5;
+            --muted: #b5b5b5;
+            --dim: #828282;
+            --accent: #a294ff;
+            --red: #ff9b9b;
         }
 
-        .mx-topbar {
-            padding: 9px 12px;
-        }
-
-        .mx-brand {
-            font-size: 12px;
-        }
-
-        .mx-fw-status {
-            font-size: 10px;
-        }
-
-        .mx-hero {
-            padding-top: 28px;
-        }
-
-        .mx-hero h1 {
-            font-size: 42px;
-        }
-
-        .mx-sub {
-            font-size: 14px;
-        }
-
-        .mx-payload {
-            min-height: 48px;
-        }
-    }
-
-    @media (max-width: 500px) {
-
-        .mx-brand-sub {
-            display: none;
-        }
-
-        .mx-hero h1 {
-            font-size: 36px;
-        }
-
-        .mx-status-meta {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { background: var(--bg); }
+        html, body { min-height: 100%; }
+        body {
+            background-color: var(--bg);
+            background-image: linear-gradient(rgba(162, 148, 255, .05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(162, 148, 255, .05) 1px, transparent 1px);
+            background-size: 36px 36px;
+            color: var(--text);
+            display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
+            font: 17px/1.4 Consolas, "Liberation Mono", monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-    }
-</style>
+        a { color: inherit; }
 
-<script>
-    if (window.applicationCache.status == '0') {
-        window.location.replace("cache5.html");
-    }
-</script>
+        .app { display: flex; flex: 1 0 auto; flex-direction: column; margin: 0 auto; padding: 14px 26px 12px; width: min(100% - 52px, 1220px); }
 
-<script defer src="payloads.js"></script>
-<script defer src="loader5.js"></script>
-<script type="module" src="alert5.js"></script>
+        /* Top status bar */
+        .bar {
+            align-items: center;
+            border: 1px solid var(--line-bright);
+            display: flex;
+            font-size: 14px;
+            justify-content: space-between;
+            letter-spacing: .1em;
+            padding: 10px 16px;
+            text-transform: uppercase;
+        }
+        .bar b { color: var(--accent); font-weight: 400; }
+        .bar-fw { color: var(--dim); }
+        .bar-fw::before { color: var(--accent); content: "\25CF "; }
 
-</head><body onload="if (window.ps4FirmwareSupported) load_exploit();"><div class="mx-wrap"><!-- TOP BAR -->
-<header class="mx-topbar">
+        .layout { display: flex; flex: 1 0 auto; flex-direction: column; padding: 20px 0 0; }
 
-    <span class="mx-brand">
-        MODDING <span>XZ</span>
-        <span class="mx-brand-sub">// PS4 HOSTS</span>
-    </span>
+        /* Header */
+        .kicker { color: var(--accent); font-size: 14px; letter-spacing: .14em; margin: 0 0 12px; }
+        h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 400; letter-spacing: -.07em; line-height: 1; margin: 0; }
+        h1 em { color: var(--accent); font-style: normal; }
+        .sub { color: var(--muted); font-size: 17px; margin: 13px 0 0; max-width: 720px; }
+        .boot { color: var(--dim); font-size: 14px; list-style: none; margin: 12px 0 0; }
+        .boot li { margin: 3px 0; }
+        .boot b { color: var(--accent); font-weight: 400; }
+        .fw-display { border-left: 2px solid var(--accent); color: var(--text); display: inline-block; font-size: 15px; margin-top: 12px; padding: 5px 10px; }
 
-    <span class="mx-fw-status">
-        FW 9.00-9.60 READY
-    </span>
+        /* Status */
+        .status {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            margin-top: 20px;
+            padding: 14px 16px;
+        }
+        /* loader.js toggles these two classes on #notify - keep both defined */
+        .notification, .notification2 {
+            background: var(--panel-2);
+            border: 1px solid var(--line-bright);
+            color: var(--text);
+            min-height: 42px;
+            padding: 10px 14px;
+        }
+        #log { color: var(--text); font-size: 16px; line-height: 1.45; }
+        #log h1 { color: var(--text) !important; font-size: 16px; font-weight: 400; line-height: 1.45; margin: 0; }
+        #console { display: none !important; }
+        .jailbreak-status {
+            border-left: 2px solid var(--accent);
+            color: var(--accent);
+            font-size: 17px;
+            margin-top: 10px;
+            padding: 4px 10px;
+        }
+        .status-meta {
+            align-items: center;
+            border-top: 1px solid var(--line);
+            color: var(--dim);
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 14px;
+            gap: 10px 16px;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+        .status-pass { color: var(--accent); }
+        .status-fail { color: var(--red); }
 
-</header>
+        /* Controls */
+        .controls { border: 1px solid var(--line); margin-top: 14px; padding: 14px; }
+        .section-title {
+            border-bottom: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 14px;
+            letter-spacing: .12em;
+            margin-bottom: 11px;
+            padding: 0 4px 10px;
+            text-transform: uppercase;
+        }
+        .grid { display: grid; gap: 8px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .grid button {
+            background: var(--panel);
+            border: 1px solid var(--line-bright);
+            color: var(--text);
+            cursor: pointer;
+            font: inherit;
+            min-height: 48px;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .grid button:hover, .grid button:focus {
+            background: var(--panel-2);
+            border-color: var(--accent);
+            color: var(--accent);
+            outline: 0;
+        }
+        .grid button:focus { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
 
-<main>
+        /* NodePlay */
+        .nodeplay {
+            align-items: center;
+            background: var(--panel);
+            border: 1px solid var(--line-bright);
+            display: flex;
+            justify-content: space-between;
+            margin-top: 14px;
+            min-height: 68px;
+            padding: 10px 18px;
+            text-decoration: none;
+        }
+        .nodeplay:hover, .nodeplay:focus { background: var(--panel-2); border-color: var(--accent); outline: 0; }
+        .nodeplay:focus { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent); }
+        .np-label { color: var(--dim); display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+        .np-name { color: var(--text); display: block; font-size: 24px; margin-top: 2px; }
+        .np-name b { color: var(--accent); font-weight: 400; }
+        .np-open { color: var(--accent); font-size: 14px; }
 
-    <!-- HERO -->
-    <section class="mx-hero">
+        /* Footer */
+        .foot {
+            border-top: 1px solid var(--line);
+            color: var(--dim);
+            font-size: 13px;
+            margin-top: 16px;
+            padding: 12px 4px 2px;
+            text-align: center;
+        }
+        .foot a { color: var(--muted); }
+        .foot a:hover, .foot a:focus { color: var(--accent); }
 
-        <div class="mx-kicker">
-            $ ./launch --psfree-9xx --goldhen-2.4b18.5
-        </div>
+        @media (max-width: 820px) {
+            body { overflow: auto; }
+            .app { padding: 8px 10px; width: min(100% - 20px, 560px); }
+            .bar { font-size: 12px; padding: 8px 12px; }
+            .layout { padding-top: 14px; }
+            h1 { font-size: 38px; }
+            .sub { font-size: 16px; }
+            .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
 
-        <h1>
-            PSFree <span>9.00-9.60</span>
-        </h1>
+        @media (max-width: 430px) {
+            .grid { grid-template-columns: 1fr; }
+            h1 { font-size: 34px; }
+        }
+    </style>
+    <script>
+        if (window.applicationCache.status == '0') {
+            window.location.replace("cache5.html");
+        }
+    </script>
+    <script defer src="payloads.js"></script>
+    <script defer src="loader5.js"></script>
+    <script type="module" src="alert5.js"></script>
+</head>
 
-        <p class="mx-sub">
-            ModdingXZ PS4 host with offline cache support,
-            PSFree 1.7 and GoldHEN v2.4b18.5.
-        </p>
+<body onload="if (window.ps4FirmwareSupported) load_exploit();">
+    <div class="app">
+        <header class="bar">
+            <span><b>PSPULSE</b> // ps4 hosts</span>
+            <span class="bar-fw">fw 9.00-9.60 ready</span>
+        </header>
 
-        <div class="mx-boot">
+        <main class="layout">
+            <p class="kicker">$ ./launch --psfree-9xx</p>
+            <h1>PSFree <em>9.00-9.60</em> host</h1>
+            <p class="sub">Online and offline Lapse auto GoldHEN by PlayStation Pulse.</p>
+            <ul class="boot">
+                <li>[ <b>ok</b> ] psfree 1.7 chain ready</li>
+                <li>[ <b>ok</b> ] goldhen v2.4b18.5 staged</li>
+                <li>[ <b>ok</b> ] offline cache ready</li>
+            </ul>
+            <p class="fw-display">FW - <span id="PS4fw"></span></p>
 
-            <div>
-                [ <b>OK</b> ] PSFree 1.7 chain ready
+            <div class="status">
+                <div id="notify" class="notification"><div id="log"></div></div>
+                <pre id="console" style="display:none" aria-hidden="true"></pre>
+                <div class="jailbreak-status" id="msgs2">Ready to Jailbreak</div>
+                <div class="status-meta">
+                    <span class="status-pass">Successful attempts: <span id="passCounter">0</span></span>
+                    <span class="status-fail">Unsuccessful attempts: <span id="failCounter">0</span></span>
+                </div>
             </div>
 
-            <div>
-                [ <b>OK</b> ] GoldHEN v2.4b18.5 staged
-            </div>
-
-            <div>
-                [ <b>OK</b> ] Offline cache ready
-            </div>
-
-        </div>
-
-        <div class="mx-fw-display">
-            FW - <span id="PS4fw"></span>
-        </div>
-
-    </section>
-
-
-    <!-- STATUS -->
-    <section class="mx-status">
-
-        <div id="notify" class="mx-notification notification">
-            <div id="log"></div>
-        </div>
-
-        <pre id="console" style="display:none" aria-hidden="true"></pre>
-
-        <div
-            class="mx-jailbreak-status"
-            id="msgs2">
-            Ready to Jailbreak
-        </div>
-
-        <div class="mx-status-meta">
-
-            <span class="mx-pass">
-                Successful attempts:
-                <span id="passCounter">0</span>
-            </span>
-
-            <span class="mx-fail">
-                Unsuccessful attempts:
-                <span id="failCounter">0</span>
-            </span>
-
-            <span style="color:var(--mx-dim);">
-                GoldHEN:
-                <span style="color:var(--mx-purple2);">
-                    v2.4b18.5
-                </span>
-            </span>
-
-        </div>
-
-    </section>
-
-
-    <!-- PAYLOADS -->
-    <section class="mx-controls">
-
-        <div class="mx-section-title">
-            Payloads
-        </div>
-
-        <div class="row g-2">
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_PSFreeFix()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='PSFree Fix - Fixes PS4 PSFree exploit issues'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    PSFree Fix
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_ftp()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='FTP Server - Start FTP server for file access'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    FTP Server
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_ps4debug()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='PS4Debug - Enable debugging features'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    PS4Debug
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_app2usb()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='App2USB - Transfer applications to USB storage'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    App2USB
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_backup()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='Backup - Backup system data to USB'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    Backup
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_restore()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='Restore - Restore system data from USB'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    Restore
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_disable_updates()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='Disable Updates - Block system updates'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    Disable Updates
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_enable_updates()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='Enable Updates - Allow system updates'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    Enable Updates
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_appcache_install()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='AppCache Install - Install application cache'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    AppCache Install
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_history_blocker()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='History Blocker - Block browser history tracking'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    History Blocker
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_pup_decrypt()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='PUP Decrypt - Decrypt PS4 update files'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    PUP Decrypt
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_rif_renamer()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='RIF Renamer - Manage license files'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    RIF Renamer
-                </button>
-
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-
-                <button
-                    class="mx-payload"
-                    onclick="load_webrte()"
-                    onmouseover="document.getElementById('msgs2').innerHTML='WebRTE - Real-time editing features'"
-                    onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">
-                    WebRTE
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- COMMUNITY -->
-    <section class="mx-community">
-
-        <div class="row g-2">
-
-            <div class="col-6 col-lg-3">
-
-                <a
-                    class="mx-community-card"
-                    href="https://t.me/moddingxz"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        Community
-                    </span>
-
-                    <span class="mx-community-name">
-                        Telegram
-                    </span>
-
-                    <span class="mx-community-desc">
-                        Join ModdingXZ
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <a
-                    class="mx-community-card"
-                    href="https://t.me/ModdingXZ_Support_Bot"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        Support
-                    </span>
-
-                    <span class="mx-community-name">
-                        Support Bot
-                    </span>
-
-                    <span class="mx-community-desc">
-                        ModdingXZ support
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <a
-                    class="mx-community-card"
-                    href="https://moddingxz.co.uk"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        Website
-                    </span>
-
-                    <span class="mx-community-name">
-                        ModdingXZ
-                    </span>
-
-                    <span class="mx-community-desc">
-                        Main website
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-lg-3">
-
-                <a
-                    class="mx-community-card"
-                    href="https://www.tiktok.com/@moddingx1"
-                    target="_blank"
-                    rel="noopener">
-
-                    <span class="mx-community-label">
-                        Social
-                    </span>
-
-                    <span class="mx-community-name">
-                        TikTok
-                    </span>
-
-                    <span class="mx-community-desc">
-                        @moddingx1
-                    </span>
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-    <footer class="mx-footer">
-
-        MODDING XZ // PS4 MODDING // GOLDHEN v2.4b18.5
-
-        <br>
-
-        <a
-            href="https://t.me/moddingxz"
-            target="_blank"
-            rel="noopener">
-            Telegram
-        </a>
-
-        &nbsp; // &nbsp;
-
-        <a
-            href="https://moddingxz.co.uk"
-            target="_blank"
-            rel="noopener">
-            moddingxz.co.uk
-        </a>
-
-    </footer>
-
-</main>
-
-</div><!-- Bootstrap JS --><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script><script>
-
-    // ==========================================
-    // FIRMWARE DETECTION
-    // ==========================================
-
-    UA = navigator.userAgent.substring(
-        navigator.userAgent.indexOf("6.72 (") + 28,
-        navigator.userAgent.indexOf(") Apple")
-    );
-
-    // 9.xx firmware
-
-    if (UA == "layStation 4/9.00") UA = "9.00";
-    if (UA == "layStation 4/9.03") UA = "9.03";
-    if (UA == "layStation 4/9.04") UA = "9.04";
-    if (UA == "layStation 4/9.50") UA = "9.50";
-    if (UA == "layStation 4/9.51") UA = "9.51";
-    if (UA == "layStation 4/9.60") UA = "9.60";
-    if (UA == "layStation 4/99.99") UA = "99.99";
-
-
-    var supportedFW = [
-        "9.00",
-        "9.03",
-        "9.04",
-        "9.50",
-        "9.51",
-        "9.60",
-        "99.99"
-    ];
-
-
-    window.ps4FirmwareSupported =
-        supportedFW.indexOf(UA) !== -1;
-
-
-    if (!window.ps4FirmwareSupported) {
-        alert("This Is For PS4 FW 9.xx Only!");
-    }
-
-
-    document.getElementById("PS4fw").innerHTML = UA;
-
-
-    // ==========================================
-    // STATISTICS
-    // ==========================================
-
-    if (
-        localStorage.passcount == null ||
-        localStorage.passcount == undefined
-    ) {
-        localStorage.passcount = 0;
-    }
-
-
-    if (
-        localStorage.failcount == null ||
-        localStorage.failcount == undefined
-    ) {
-        localStorage.failcount = 0;
-    }
-
-
-    if (document.getElementById("passCounter")) {
-
-        document.getElementById("passCounter").innerHTML =
-            localStorage.passcount;
-
-    }
-
-
-    if (document.getElementById("failCounter")) {
-
-        document.getElementById("failCounter").innerHTML =
-            localStorage.failcount;
-
-    }
-
-</script></body></html>
+            <section class="controls">
+                <div class="section-title">Payloads</div>
+                <div class="grid">
+                    <button onclick="load_PSFreeFix()" onMouseOver="document.getElementById('msgs2').innerHTML='PSFree Fix - Fixes PS4 PSFree exploit issues'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">PSFree Fix</button>
+                    <button onclick="load_ftp()" onMouseOver="document.getElementById('msgs2').innerHTML='FTP Server - Start FTP server for file access'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">FTP Server</button>
+                    <button onclick="load_ps4debug()" onMouseOver="document.getElementById('msgs2').innerHTML='PS4Debug - Enable debugging features'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">PS4Debug</button>
+                    <button onclick="load_app2usb()" onMouseOver="document.getElementById('msgs2').innerHTML='App2USB - Transfer applications to USB storage'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">App2USB</button>
+                    <button onclick="load_backup()" onMouseOver="document.getElementById('msgs2').innerHTML='Backup - Backup system data to USB'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">Backup</button>
+                    <button onclick="load_restore()" onMouseOver="document.getElementById('msgs2').innerHTML='Restore - Restore system data from USB'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">Restore</button>
+                    <button onclick="load_disable_updates()" onMouseOver="document.getElementById('msgs2').innerHTML='Disable Updates - Block system updates'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">Disable Updates</button>
+                    <button onclick="load_enable_updates()" onMouseOver="document.getElementById('msgs2').innerHTML='Enable Updates - Allow system updates'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">Enable Updates</button>
+                    <button onclick="load_appcache_install()" onMouseOver="document.getElementById('msgs2').innerHTML='AppCache Install - Install application cache'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">AppCache Install</button>
+                    <button onclick="load_history_blocker()" onMouseOver="document.getElementById('msgs2').innerHTML='History Blocker - Block browser history tracking'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">History Blocker</button>
+                    <button onclick="load_pup_decrypt()" onMouseOver="document.getElementById('msgs2').innerHTML='PUP Decrypt - Decrypt PS4 update files'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">PUP Decrypt</button>
+                    <button onclick="load_rif_renamer()" onMouseOver="document.getElementById('msgs2').innerHTML='RIF Renamer - Manage license files'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">RIF Renamer</button>
+                    <button onclick="load_webrte()" onMouseOver="document.getElementById('msgs2').innerHTML='WebRTE - Real-time editing features'" onmouseout="document.getElementById('msgs2').innerHTML='Ready to Jailbreak'">WebRTE</button>
+                </div>
+            </section>
+
+            <a class="nodeplay" href="https://nodeplay.net/" target="_blank" rel="noopener">
+                <span><span class="np-label">Premium game servers</span><span class="np-name">Node<b>Play</b></span></span>
+                <span class="np-open">OPEN &#8599;</span>
+            </a>
+
+            <footer class="foot">
+                Author: <a href="https://t.me/sudoBlackArch">BlackArch</a> // Telegram: <a href="https://t.me/PlayStation_Pulse">PlayStation Pulse</a>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Firmware detection
+        UA = navigator.userAgent.substring(navigator.userAgent.indexOf("6.72 (") + 28, navigator.userAgent.indexOf(") Apple"));
+        // 9.xx
+        if (UA == "layStation 4/9.00") UA = "9.00";
+        if (UA == "layStation 4/9.03") UA = "9.03";
+        if (UA == "layStation 4/9.04") UA = "9.04";
+        if (UA == "layStation 4/9.50") UA = "9.50";
+        if (UA == "layStation 4/9.51") UA = "9.51";
+        if (UA == "layStation 4/9.60") UA = "9.60";
+        if (UA == "layStation 4/99.99") UA = "99.99";
+        var supportedFW = ["9.00", "9.03", "9.04", "9.50", "9.51", "9.60", "99.99"];
+        window.ps4FirmwareSupported = supportedFW.indexOf(UA) !== -1;
+        if (!window.ps4FirmwareSupported) alert("This Is For PS4 FW 9.xx Only!");
+        document.getElementById("PS4fw").innerHTML = "" + UA + "";
+        // Statistics initialization
+        if (localStorage.passcount == null || localStorage.passcount == undefined) localStorage.passcount = 0;
+        if (localStorage.failcount == null || localStorage.failcount == undefined) localStorage.failcount = 0;
+        // Update counters on page load
+        if (document.getElementById("passCounter")) document.getElementById("passCounter").innerHTML = localStorage.passcount;
+        if (document.getElementById("failCounter")) document.getElementById("failCounter").innerHTML = localStorage.failcount;
+    </script>
+    </body>
+
+</html>
