@@ -3,583 +3,1015 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#07050d">
+<meta name="theme-color" content="#09070d">
+<meta name="description" content="ModdingXZ OS — Jailbreaks, Game Downloader, Modded Services and Support">
+<title>MODDINGXZ // OS</title>
 
-<title>MODDINGXZ // TERMINAL</title>
-
-<!-- External fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<!-- External animation library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* =========================================================
-   MODDINGXZ // ONE FILE TERMINAL
-   ========================================================= */
-
-:root {
-    --bg: #050308;
-    --panel: rgba(13, 8, 20, .94);
-    --panel2: rgba(20, 11, 31, .9);
-    --purple: #9b5cff;
-    --purple2: #c08aff;
-    --pink: #ff4fd8;
-    --green: #45ff9a;
-    --red: #ff5577;
-    --yellow: #ffd166;
-    --text: #eee7f8;
-    --muted: #8e829d;
-    --border: rgba(155, 92, 255, .28);
-    --shadow: 0 30px 100px rgba(0,0,0,.65);
+:root{
+    --bg:#07060a;
+    --panel:#0e0b13;
+    --panel2:#130e19;
+    --border:#2b1838;
+    --purple:#a855f7;
+    --purple2:#7c3aed;
+    --pink:#d946ef;
+    --text:#f5f3f7;
+    --muted:#91889b;
+    --green:#4ade80;
+    --yellow:#facc15;
+    --red:#fb7185;
+    --shadow:0 0 35px rgba(168,85,247,.08);
 }
 
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
-html,
-body {
-    margin: 0;
-    min-height: 100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "JetBrains Mono", monospace;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-/* MATRIX */
-
-#matrix {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    opacity: .13;
-    pointer-events: none;
-}
-
-/* VIGNETTE */
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
+body{
     background:
-        radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.55) 100%),
-        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px);
-    background-size: auto, 100% 4px;
+        radial-gradient(circle at 50% -10%,rgba(124,58,237,.18),transparent 35%),
+        radial-gradient(circle at 100% 50%,rgba(217,70,239,.06),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    font-family:Inter,Arial,sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
-/* MAIN */
-
-.wrapper {
-    position: relative;
-    z-index: 2;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.025;
+    background-image:
+        linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+    background-size:40px 40px;
 }
 
-.terminal {
-    width: min(940px, 100%);
-    min-height: 650px;
-    position: relative;
-    overflow: hidden;
-
-    background:
-        linear-gradient(145deg, rgba(22,12,34,.97), rgba(5,3,8,.98));
-
-    border: 1px solid var(--border);
-    border-radius: 20px;
-
-    box-shadow:
-        var(--shadow),
-        0 0 80px rgba(117,54,255,.12),
-        inset 0 1px 0 rgba(255,255,255,.04);
-
-    backdrop-filter: blur(15px);
+a{
+    color:inherit;
+    text-decoration:none;
 }
 
-/* TOP BAR */
-
-.topbar {
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-
-    border-bottom: 1px solid rgba(255,255,255,.06);
-    background: rgba(0,0,0,.22);
+button,
+input{
+    font:inherit;
 }
 
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: #fff;
+button{
+    cursor:pointer;
 }
 
-.logo {
-    width: 28px;
-    height: 28px;
-    display: grid;
-    place-items: center;
-    border-radius: 8px;
-
-    color: #050308;
-    background: linear-gradient(135deg, var(--purple2), var(--pink));
-
-    font-size: 13px;
-    font-weight: 900;
-
-    box-shadow: 0 0 25px rgba(192,138,255,.25);
-}
-
-.status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--muted);
-    font-size: 11px;
-}
-
-.status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 12px var(--green);
-}
-
-/* CONTENT */
-
-.content {
-    padding: 40px;
-}
-
-@media(max-width: 650px) {
-    .content {
-        padding: 25px 18px;
-    }
-
-    .terminal {
-        min-height: 600px;
-    }
+::selection{
+    background:var(--purple);
+    color:white;
 }
 
 /* BOOT */
 
-.boot {
-    min-height: 520px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#boot{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:#050407;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
 }
 
-.boot-inner {
-    width: 100%;
-    max-width: 650px;
+.boot-box{
+    width:min(700px,100%);
+    font-family:"JetBrains Mono",monospace;
+    color:#c084fc;
+    font-size:13px;
+    line-height:1.8;
 }
 
-.boot-logo {
-    color: var(--purple2);
-    font-size: clamp(28px, 7vw, 58px);
-    font-weight: 800;
-    letter-spacing: -3px;
-    margin-bottom: 30px;
-    text-shadow: 0 0 35px rgba(155,92,255,.4);
+.boot-title{
+    font-size:clamp(24px,6vw,48px);
+    font-weight:800;
+    color:#fff;
+    margin-bottom:15px;
+    letter-spacing:3px;
 }
 
-.boot-line {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 2;
+#bootText{
+    min-height:180px;
 }
 
-.boot-line span {
-    color: var(--green);
+.boot-bar{
+    height:3px;
+    background:#24172d;
+    overflow:hidden;
+    margin-top:15px;
 }
 
-.progress {
-    height: 8px;
-    width: 100%;
-    margin-top: 20px;
-    overflow: hidden;
-    border-radius: 20px;
-    background: rgba(255,255,255,.05);
+.boot-bar span{
+    display:block;
+    height:100%;
+    width:0;
+    background:linear-gradient(90deg,var(--purple2),var(--pink));
+    animation:bootbar 2.4s forwards;
 }
 
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, var(--purple), var(--pink));
-    box-shadow: 0 0 25px rgba(155,92,255,.7);
-    transition: width .25s ease;
+@keyframes bootbar{
+    to{width:100%}
 }
 
-/* SCREENS */
+/* HEADER */
 
-.screen {
-    animation: screenIn .35s ease both;
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(18px);
+    background:rgba(7,6,10,.82);
+    border-bottom:1px solid rgba(168,85,247,.13);
 }
 
-@keyframes screenIn {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
+.nav{
+    width:min(1250px,calc(100% - 30px));
+    margin:auto;
+    height:70px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    cursor:pointer;
+    user-select:none;
+}
+
+.logo-mark{
+    width:38px;
+    height:38px;
+    border:1px solid var(--purple);
+    border-radius:10px;
+    display:grid;
+    place-items:center;
+    color:#fff;
+    background:linear-gradient(145deg,#241137,#0d0912);
+    box-shadow:0 0 22px rgba(168,85,247,.15);
+    font-family:"JetBrains Mono",monospace;
+    font-weight:800;
+}
+
+.logo-text{
+    font-family:"JetBrains Mono",monospace;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.logo-text span{
+    color:var(--purple);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.nav-links button{
+    border:1px solid transparent;
+    color:var(--muted);
+    background:none;
+    padding:9px 12px;
+    border-radius:8px;
+    font-size:13px;
+    transition:.2s;
+}
+
+.nav-links button:hover{
+    color:#fff;
+    border-color:var(--border);
+    background:rgba(168,85,247,.07);
+}
+
+.mobile-menu{
+    display:none;
+    background:none;
+    border:1px solid var(--border);
+    color:#fff;
+    border-radius:8px;
+    padding:8px 11px;
+}
+
+/* LAYOUT */
+
+.container{
+    width:min(1250px,calc(100% - 30px));
+    margin:auto;
+}
+
+main{
+    padding:55px 0 90px;
+}
+
+.view{
+    display:none;
+    animation:fadeUp .3s ease;
+}
+
+.view.active{
+    display:block;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(8px);
     }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    to{
+        opacity:1;
+        transform:none;
     }
 }
 
-.kicker {
-    color: var(--purple2);
-    font-size: 11px;
-    letter-spacing: 2px;
-    margin-bottom: 14px;
+/* HERO */
+
+.hero{
+    text-align:center;
+    padding:45px 0 35px;
 }
 
-.question {
-    font-size: clamp(24px, 5vw, 43px);
-    line-height: 1.12;
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    margin: 0 0 15px;
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    border:1px solid rgba(74,222,128,.18);
+    background:rgba(74,222,128,.05);
+    color:#86efac;
+    border-radius:999px;
+    padding:7px 12px;
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+    margin-bottom:22px;
 }
 
-.description {
-    max-width: 700px;
-    color: var(--muted);
-    line-height: 1.7;
-    font-size: 13px;
-    margin-bottom: 30px;
+.status-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 10px var(--green);
+}
+
+.hero h1{
+    font-family:"JetBrains Mono",monospace;
+    font-size:clamp(36px,7vw,75px);
+    line-height:1;
+    letter-spacing:-4px;
+    margin-bottom:18px;
+}
+
+.hero h1 span{
+    color:var(--purple);
+}
+
+.hero p{
+    max-width:700px;
+    margin:auto;
+    color:var(--muted);
+    line-height:1.7;
+    font-size:15px;
+}
+
+.hero-actions{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:28px;
 }
 
 /* BUTTONS */
 
-.buttons {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+.btn{
+    border:1px solid var(--border);
+    background:#100b16;
+    color:#fff;
+    padding:12px 17px;
+    border-radius:9px;
+    font-weight:700;
+    font-size:13px;
+    transition:.2s;
 }
 
-@media(max-width: 600px) {
-    .buttons {
-        grid-template-columns: 1fr;
-    }
+.btn:hover{
+    transform:translateY(-2px);
+    border-color:var(--purple);
+    box-shadow:0 8px 25px rgba(168,85,247,.12);
 }
 
-.btn {
-    appearance: none;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,.025);
-    color: var(--text);
-
-    padding: 18px;
-    border-radius: 12px;
-
-    text-align: left;
-    font: inherit;
-    font-size: 12px;
-    font-weight: 700;
-
-    cursor: pointer;
-    transition: .2s ease;
-
-    position: relative;
-    overflow: hidden;
+.btn-primary{
+    background:linear-gradient(135deg,var(--purple2),#9333ea);
+    border-color:#a855f7;
 }
 
-.btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(155,92,255,.12), transparent);
-    transform: translateX(-100%);
-    transition: .4s ease;
+.btn-green{
+    border-color:rgba(74,222,128,.3);
+    color:#86efac;
 }
 
-.btn:hover::before {
-    transform: translateX(100%);
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin:20px 0 30px;
 }
 
-.btn:hover {
-    border-color: rgba(192,138,255,.7);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+.stat{
+    background:rgba(14,11,19,.8);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:17px;
 }
 
-.btn:focus-visible {
-    outline: 2px solid var(--purple2);
-    outline-offset: 3px;
+.stat small{
+    display:block;
+    color:var(--muted);
+    font-family:"JetBrains Mono",monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    margin-bottom:8px;
 }
 
-.btn .arrow {
-    float: right;
-    color: var(--purple2);
+.stat strong{
+    font-size:18px;
 }
 
-.btn.green:hover {
-    border-color: rgba(69,255,154,.7);
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
 }
 
-.btn.danger:hover {
-    border-color: rgba(255,85,119,.7);
+.card{
+    background:linear-gradient(145deg,rgba(19,14,25,.94),rgba(10,8,13,.94));
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px;
+    box-shadow:var(--shadow);
+    transition:.22s;
 }
 
-.btn.full {
-    grid-column: 1 / -1;
+.card:hover{
+    border-color:rgba(168,85,247,.55);
+    transform:translateY(-3px);
 }
 
-/* INFO BOX */
-
-.info {
-    border: 1px solid rgba(255,255,255,.07);
-    background: rgba(255,255,255,.025);
-    border-radius: 12px;
-    padding: 18px;
-    margin: 25px 0;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.7;
+.card-icon{
+    font-size:25px;
+    margin-bottom:13px;
 }
 
-.info strong {
-    color: var(--text);
+.card h3{
+    font-size:16px;
+    margin-bottom:7px;
 }
 
-.success {
-    color: var(--green);
+.card p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
 }
 
-.warning {
-    color: var(--yellow);
+.card .card-footer{
+    margin-top:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
 }
 
-.error {
-    color: var(--red);
+.tag{
+    display:inline-flex;
+    padding:5px 8px;
+    border-radius:6px;
+    background:rgba(168,85,247,.09);
+    border:1px solid rgba(168,85,247,.18);
+    color:#d8b4fe;
+    font-family:"JetBrains Mono",monospace;
+    font-size:10px;
 }
 
-/* RESULT */
-
-.result-icon {
-    width: 70px;
-    height: 70px;
-    display: grid;
-    place-items: center;
-
-    margin-bottom: 22px;
-
-    border-radius: 18px;
-    background: rgba(69,255,154,.08);
-    border: 1px solid rgba(69,255,154,.25);
-
-    color: var(--green);
-    font-size: 30px;
-
-    box-shadow: 0 0 40px rgba(69,255,154,.08);
+.price{
+    color:#fff;
+    font-weight:800;
 }
 
-.result-icon.purple {
-    background: rgba(155,92,255,.08);
-    border-color: rgba(155,92,255,.25);
-    color: var(--purple2);
+/* SECTION */
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:20px;
+    margin:45px 0 16px;
+}
+
+.section-title h2{
+    font-family:"JetBrains Mono",monospace;
+    font-size:20px;
+}
+
+.section-title p{
+    color:var(--muted);
+    font-size:12px;
+}
+
+/* FEATURE */
+
+.feature{
+    border:1px solid rgba(168,85,247,.32);
+    background:
+        radial-gradient(circle at 90% 0%,rgba(168,85,247,.15),transparent 35%),
+        linear-gradient(135deg,#140c1d,#0b0810);
+    border-radius:16px;
+    padding:25px;
+    margin-bottom:14px;
+}
+
+.feature-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.feature h2{
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.feature p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:13px;
+}
+
+.feature-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin:18px 0;
+}
+
+.feature-list div{
+    color:#c9c1d1;
+    font-size:12px;
+}
+
+.feature-list div::before{
+    content:"✓";
+    color:var(--green);
+    margin-right:7px;
+}
+
+/* DOWNLOAD */
+
+.download-hero{
+    border:1px solid rgba(168,85,247,.3);
+    background:
+        radial-gradient(circle at 100% 0%,rgba(217,70,239,.14),transparent 30%),
+        radial-gradient(circle at 0% 100%,rgba(124,58,237,.12),transparent 30%),
+        #0d0912;
+    border-radius:18px;
+    padding:30px;
+    margin-bottom:15px;
+}
+
+.download-hero h2{
+    font-family:"JetBrains Mono",monospace;
+    font-size:clamp(24px,4vw,38px);
+    margin:10px 0;
+}
+
+.download-hero p{
+    color:var(--muted);
+    line-height:1.7;
+    max-width:800px;
+}
+
+.pulse{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:#86efac;
+    font-family:"JetBrains Mono",monospace;
+    font-size:11px;
+}
+
+.vip-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:9px;
+    margin-top:18px;
+}
+
+.vip{
+    border:1px solid var(--border);
+    background:#0c0910;
+    border-radius:11px;
+    padding:16px 10px;
+    text-align:center;
+}
+
+.vip strong{
+    display:block;
+    font-size:19px;
+    margin-bottom:5px;
+}
+
+.vip span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+.vip.featured{
+    border-color:rgba(168,85,247,.55);
+    background:rgba(168,85,247,.08);
+}
+
+/* SERVICES */
+
+.service-tools{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    background:#0d0911;
+    border:1px solid var(--border);
+    border-radius:9px;
+    padding:12px 14px;
+    color:#fff;
+    outline:none;
+}
+
+.search:focus{
+    border-color:var(--purple);
+}
+
+.filters{
+    display:flex;
+    gap:6px;
+    overflow:auto;
+    padding-bottom:5px;
+}
+
+.filter{
+    white-space:nowrap;
+    border:1px solid var(--border);
+    background:#0d0911;
+    color:var(--muted);
+    border-radius:7px;
+    padding:8px 10px;
+    font-size:11px;
+}
+
+.filter.active{
+    background:rgba(168,85,247,.13);
+    color:#d8b4fe;
+    border-color:rgba(168,85,247,.45);
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.service{
+    background:#0d0911;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:17px;
+}
+
+.service-top{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+}
+
+.service h3{
+    font-size:14px;
+}
+
+.service-category{
+    color:#a78bfa;
+    font-size:10px;
+    font-family:"JetBrains Mono",monospace;
+    margin-top:4px;
+}
+
+.service-price{
+    white-space:nowrap;
+    font-weight:800;
+    color:#fff;
+}
+
+.service p{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+    margin-top:10px;
+}
+
+.service.hidden{
+    display:none;
+}
+
+/* JAILBREAK */
+
+.firmware{
+    max-width:850px;
+    margin:auto;
+}
+
+.firmware-box{
+    text-align:center;
+    padding:30px;
+    border:1px solid var(--border);
+    background:#0d0911;
+    border-radius:15px;
+}
+
+.firmware-box h2{
+    font-family:"JetBrains Mono",monospace;
+    margin-bottom:10px;
+}
+
+.firmware-box p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.6;
+}
+
+.fw-input{
+    width:100%;
+    margin:20px 0 10px;
+    background:#08070a;
+    border:1px solid var(--border);
+    border-radius:9px;
+    color:#fff;
+    padding:14px;
+    text-align:center;
+    outline:none;
+    font-family:"JetBrains Mono",monospace;
+}
+
+.console-select{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    margin-top:15px;
+}
+
+.console-select button{
+    border:1px solid var(--border);
+    background:#0b0810;
+    color:var(--muted);
+    border-radius:8px;
+    padding:10px 15px;
+}
+
+.console-select button.active{
+    color:#fff;
+    border-color:var(--purple);
+    background:rgba(168,85,247,.1);
+}
+
+.result{
+    display:none;
+    margin-top:16px;
+    padding:16px;
+    border-radius:10px;
+    font-family:"JetBrains Mono",monospace;
+    font-size:12px;
+    text-align:left;
+}
+
+.result.good{
+    display:block;
+    background:rgba(74,222,128,.05);
+    border:1px solid rgba(74,222,128,.25);
+    color:#86efac;
+}
+
+.result.bad{
+    display:block;
+    background:rgba(251,113,133,.05);
+    border:1px solid rgba(251,113,133,.25);
+    color:#fda4af;
+}
+
+.result.unknown{
+    display:block;
+    background:rgba(250,204,21,.05);
+    border:1px solid rgba(250,204,21,.25);
+    color:#fde68a;
+}
+
+/* TELEGRAM */
+
+.telegram{
+    display:grid;
+    grid-template-columns:1.4fr .6fr;
+    gap:12px;
+}
+
+.telegram-main{
+    padding:28px;
+    border-radius:15px;
+    border:1px solid rgba(168,85,247,.3);
+    background:linear-gradient(135deg,#140d1c,#0c0910);
+}
+
+.telegram-main h2{
+    font-size:25px;
+    margin:8px 0;
+}
+
+.telegram-main p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:13px;
+}
+
+.telegram-link{
+    margin-top:18px;
+    font-family:"JetBrains Mono",monospace;
+    color:#d8b4fe;
+    font-size:13px;
+}
+
+.telegram-side{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.link-card{
+    flex:1;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:18px;
+    background:#0d0911;
+}
+
+.link-card small{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:7px;
+}
+
+.link-card strong{
+    font-size:13px;
 }
 
 /* TERMINAL */
 
-.hacker {
-    border: 1px solid rgba(255,79,216,.28);
-    background: rgba(0,0,0,.45);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: inset 0 0 60px rgba(255,0,180,.025);
+.terminal{
+    background:#050407;
+    border:1px solid #281631;
+    border-radius:13px;
+    overflow:hidden;
+    box-shadow:0 0 50px rgba(0,0,0,.3);
 }
 
-.hacker-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 13px 16px;
-
-    border-bottom: 1px solid rgba(255,255,255,.06);
-    background: rgba(255,255,255,.025);
-
-    font-size: 10px;
-    color: var(--muted);
+.terminal-head{
+    padding:10px 13px;
+    border-bottom:1px solid #1e1325;
+    display:flex;
+    align-items:center;
+    gap:6px;
 }
 
-.hacker-body {
-    padding: 20px;
-    font-size: 12px;
-    line-height: 2;
-    min-height: 300px;
+.terminal-head i{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#44304d;
 }
 
-.prompt {
-    color: var(--green);
+.terminal-head span{
+    margin-left:8px;
+    color:#6e6275;
+    font:10px "JetBrains Mono",monospace;
 }
 
-.value {
-    color: var(--purple2);
+.terminal-body{
+    padding:17px;
+    min-height:250px;
+    font:12px/1.8 "JetBrains Mono",monospace;
+    color:#bca9c6;
+    white-space:pre-wrap;
+    overflow:auto;
 }
 
-.fake-danger {
-    color: var(--red);
+.prompt{
+    color:#c084fc;
 }
 
-.cursor {
-    display: inline-block;
-    width: 7px;
-    height: 15px;
-    background: var(--purple2);
-    vertical-align: middle;
-    animation: blink .8s infinite;
+.command-input{
+    border:0;
+    outline:0;
+    background:none;
+    color:#fff;
+    width:80%;
+    font:12px "JetBrains Mono",monospace;
 }
 
-@keyframes blink {
-    50% { opacity: 0; }
+/* INFO */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
 }
 
-/* VISITOR DATA */
-
-.visitor-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 18px;
+.info-box{
+    background:#0d0911;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:17px;
 }
 
-@media(max-width: 600px) {
-    .visitor-grid {
-        grid-template-columns: 1fr;
-    }
+.info-box h3{
+    font-size:13px;
+    margin-bottom:10px;
 }
 
-.visitor-card {
-    padding: 12px;
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 9px;
-    background: rgba(255,255,255,.02);
+.info-box p,
+.info-box li{
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
 }
 
-.visitor-card small {
-    display: block;
-    color: var(--muted);
-    margin-bottom: 5px;
-    font-size: 9px;
-}
-
-.visitor-card span {
-    display: block;
-    color: var(--purple2);
-    font-size: 11px;
-    word-break: break-word;
+.info-box ul{
+    padding-left:17px;
 }
 
 /* FOOTER */
 
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    padding: 16px 20px;
-
-    border-top: 1px solid rgba(255,255,255,.06);
-
-    color: var(--muted);
-    font-size: 10px;
+footer{
+    border-top:1px solid rgba(168,85,247,.1);
+    padding:25px 0;
+    color:#645b6b;
+    font-size:11px;
+    font-family:"JetBrains Mono",monospace;
 }
 
-.footer a {
-    color: var(--purple2);
-    text-decoration: none;
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
 }
 
-.footer a:hover {
-    color: #fff;
+/* MATRIX */
+
+#matrix{
+    position:fixed;
+    inset:0;
+    z-index:5000;
+    display:none;
+    background:#000;
 }
 
-/* BACK */
-
-.back {
-    margin-top: 25px;
-    display: inline-block;
-
-    border: 0;
-    background: transparent;
-    color: var(--muted);
-
-    font: inherit;
-    font-size: 10px;
-
-    cursor: pointer;
+#matrix canvas{
+    width:100%;
+    height:100%;
 }
 
-.back:hover {
-    color: #fff;
+/* TOAST */
+
+#toast{
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,20px);
+    opacity:0;
+    pointer-events:none;
+    z-index:9000;
+    background:#17101d;
+    border:1px solid var(--border);
+    color:#fff;
+    padding:11px 15px;
+    border-radius:8px;
+    font-size:12px;
+    transition:.25s;
 }
 
-/* CLOCK */
-
-.clock {
-    position: absolute;
-    right: 20px;
-    bottom: 15px;
-
-    font-size: 9px;
-    color: rgba(255,255,255,.25);
+#toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
-@media(max-width: 500px) {
-    .topbar {
-        padding: 0 14px;
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .brand {
-        font-size: 11px;
+    .vip-grid{
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .status {
-        font-size: 9px;
-    }
-
-    .content {
-        padding-bottom: 55px;
+    .telegram{
+        grid-template-columns:1fr;
     }
 }
 
-/* REDUCED MOTION */
+@media(max-width:700px){
+    .nav-links{
+        display:none;
+        position:absolute;
+        top:70px;
+        left:15px;
+        right:15px;
+        padding:10px;
+        background:#0c0910;
+        border:1px solid var(--border);
+        border-radius:10px;
+        flex-direction:column;
+        align-items:stretch;
+    }
 
-@media(prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
+    .nav-links.open{
+        display:flex;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid,
+    .service-grid,
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .feature-list{
+        grid-template-columns:1fr;
+    }
+
+    .vip-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .feature-top{
+        flex-direction:column;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+    }
+}
+
+@media(max-width:420px){
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .vip-grid{
+        grid-template-columns:1fr 1fr;
     }
 }
 </style>
@@ -587,1152 +1019,1940 @@ body::after {
 
 <body>
 
-<canvas id="matrix"></canvas>
+<!-- BOOT SCREEN -->
+<div id="boot">
+    <div class="boot-box">
+        <div class="boot-title">MODDING<span style="color:#a855f7">XZ</span></div>
+        <div id="bootText"></div>
+        <div class="boot-bar"><span></span></div>
+    </div>
+</div>
 
-<div class="wrapper">
+<!-- MATRIX -->
+<div id="matrix">
+    <canvas id="matrixCanvas"></canvas>
+</div>
 
-    <main class="terminal" id="terminal">
+<!-- TOAST -->
+<div id="toast"></div>
 
-        <header class="topbar">
+<header>
+    <div class="nav">
 
-            <div class="brand">
-                <div class="logo">XZ</div>
-                MODDINGXZ // TERMINAL
-            </div>
-
-            <div class="status">
-                <span class="status-dot"></span>
-                SYSTEM ONLINE
-            </div>
-
-        </header>
-
-        <section class="content" id="app">
-
-            <!-- BOOT SCREEN -->
-
-            <div class="boot">
-
-                <div class="boot-inner">
-
-                    <div class="boot-logo">
-                        MODDINGXZ
-                    </div>
-
-                    <div id="boot-lines"></div>
-
-                    <div class="progress">
-                        <div class="progress-bar" id="progress-bar"></div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <footer class="footer">
-
-            <span>
-                MODDINGXZ // PLAYSTATION TERMINAL
-            </span>
-
-            <span>
-                <a href="https://moddingxz.co.uk" target="_blank">
-                    moddingxz.co.uk
-                </a>
-            </span>
-
-        </footer>
-
-        <div class="clock" id="clock">
-            --:--:--
+        <div class="logo" onclick="logoEasterEgg()">
+            <div class="logo-mark">M</div>
+            <div class="logo-text">MODDING<span>XZ</span></div>
         </div>
 
-    </main>
+        <button class="mobile-menu" onclick="toggleMenu()">☰</button>
 
-</div>
+        <nav class="nav-links" id="navLinks">
+            <button onclick="showView('home')">HOME</button>
+            <button onclick="showView('downloader')">🎮 DOWNLOADER</button>
+            <button onclick="showView('jailbreak')">🔓 JAILBREAK</button>
+            <button onclick="showView('services')">🛠 SERVICES</button>
+            <button onclick="showView('telegram')">📢 TELEGRAM</button>
+            <button onclick="showView('terminal')">⌨ TERMINAL</button>
+        </nav>
+
+    </div>
+</header>
+
+<main class="container">
+
+<!-- HOME -->
+<section id="home" class="view active">
+
+    <div class="hero">
+
+        <div class="status">
+            <span class="status-dot"></span>
+            ALL SYSTEMS OPERATIONAL
+        </div>
+
+        <h1>MODDING<span>XZ</span></h1>
+
+        <p>
+            Your central hub for jailbreak information, game downloads,
+            modded services, updates and community support.
+        </p>
+
+        <div class="hero-actions">
+            <button class="btn btn-primary" onclick="showView('downloader')">
+                🎮 GAME DOWNLOADER
+            </button>
+
+            <button class="btn" onclick="showView('jailbreak')">
+                🔓 CHECK JAILBREAK
+            </button>
+
+            <button class="btn" onclick="showView('services')">
+                🛠 BROWSE SERVICES
+            </button>
+
+            <a class="btn" href="https://moddingxz.co.uk/t.html">
+                📢 TELEGRAM
+            </a>
+        </div>
+
+    </div>
+
+    <div class="stats">
+        <div class="stat">
+            <small>Downloader</small>
+            <strong style="color:#86efac">ONLINE</strong>
+        </div>
+
+        <div class="stat">
+            <small>Services</small>
+            <strong id="serviceCount">0</strong>
+        </div>
+
+        <div class="stat">
+            <small>VIP Trial</small>
+            <strong>24 HOURS</strong>
+        </div>
+
+        <div class="stat">
+            <small>Support</small>
+            <strong style="color:#c084fc">ONLINE</strong>
+        </div>
+    </div>
+
+    <div class="feature">
+
+        <div class="feature-top">
+            <div>
+                <div class="tag">🔥 FEATURED UPDATE</div>
+                <h2>GAME DOWNLOADER IS NOW LIVE!</h2>
+
+                <p>
+                    Server upgrade complete. Higher speeds, better performance
+                    and a smoother Game Downloader experience.
+                </p>
+            </div>
+
+            <div class="pulse">
+                <span class="status-dot"></span>
+                SERVER UPGRADE COMPLETE
+            </div>
+        </div>
+
+        <div class="feature-list">
+            <div>Huge game catalogue</div>
+            <div>Fast & easy installation</div>
+            <div>Regular updates</div>
+            <div>Updates & DLC support</div>
+            <div>Easy game browsing</div>
+            <div>Resumable downloads</div>
+            <div>VIP access</div>
+            <div>Dedicated ModdingXZ support</div>
+        </div>
+
+        <button class="btn btn-primary" onclick="showView('downloader')">
+            OPEN GAME DOWNLOADER →
+        </button>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>WHAT ARE YOU LOOKING FOR?</h2>
+            <p>Select a section to continue.</p>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card" onclick="showView('downloader')" style="cursor:pointer">
+            <div class="card-icon">🎮</div>
+            <h3>Game Downloader</h3>
+            <p>
+                Game browsing, installation information, VIP access,
+                updates and DLC support.
+            </p>
+            <div class="card-footer">
+                <span class="tag">24H FREE VIP</span>
+                <span class="price">→</span>
+            </div>
+        </div>
+
+        <div class="card" onclick="showView('jailbreak')" style="cursor:pointer">
+            <div class="card-icon">🔓</div>
+            <h3>Jailbreak Checker</h3>
+            <p>
+                Check your PS4 or PS5 firmware and see which route
+                applies to your console.
+            </p>
+            <div class="card-footer">
+                <span class="tag">PS4 / PS5</span>
+                <span class="price">→</span>
+            </div>
+        </div>
+
+        <div class="card" onclick="showView('services')" style="cursor:pointer">
+            <div class="card-icon">🛠️</div>
+            <h3>Modded Services</h3>
+            <p>
+                COD services, trophies, PSN extras, NFS services
+                and more.
+            </p>
+            <div class="card-footer">
+                <span class="tag">SERVICES</span>
+                <span class="price">→</span>
+            </div>
+        </div>
+
+        <div class="card" onclick="showView('telegram')" style="cursor:pointer">
+            <div class="card-icon">📢</div>
+            <h3>Telegram</h3>
+            <p>
+                Keep up with ModdingXZ announcements, releases,
+                updates and community news.
+            </p>
+            <div class="card-footer">
+                <span class="tag">UPDATES</span>
+                <span class="price">→</span>
+            </div>
+        </div>
+
+        <div class="card" onclick="showView('terminal')" style="cursor:pointer">
+            <div class="card-icon">⌨️</div>
+            <h3>Terminal</h3>
+            <p>
+                Use the ModdingXZ terminal to browse the site,
+                scan your session and discover commands.
+            </p>
+            <div class="card-footer">
+                <span class="tag">SYSTEM</span>
+                <span class="price">→</span>
+            </div>
+        </div>
+
+        <a class="card" href="https://moddingxz.co.uk/" target="_blank">
+            <div class="card-icon">🌐</div>
+            <h3>Official Website</h3>
+            <p>
+                Visit the main ModdingXZ website for the latest
+                information and available services.
+            </p>
+            <div class="card-footer">
+                <span class="tag">MODDINGXZ.CO.UK</span>
+                <span class="price">↗</span>
+            </div>
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- DOWNLOADER -->
+<section id="downloader" class="view">
+
+    <div class="section-title">
+        <div>
+            <h2>🎮 GAME DOWNLOADER</h2>
+            <p>Downloads • VIP • Updates • Installation</p>
+        </div>
+
+        <button class="btn" onclick="showView('home')">← HOME</button>
+    </div>
+
+    <div class="download-hero">
+
+        <div class="tag">🚀 SERVER UPGRADE COMPLETE</div>
+
+        <h2>GAME DOWNLOADER IS NOW LIVE!</h2>
+
+        <p>
+            We've completed a major server upgrade to bring you higher speeds,
+            better performance and a smoother Game Downloader experience.
+        </p>
+
+        <br>
+
+        <p>
+            If you noticed connection issues or interruptions during the
+            upgrade process, everything is now fully upgraded and back up
+            and running.
+        </p>
+
+        <div class="hero-actions" style="justify-content:flex-start">
+            <a class="btn btn-primary"
+               href="https://t.me/ModdingXZ/289/18164"
+               target="_blank">
+                📦 GET MODDING XZ PKG
+            </a>
+
+            <a class="btn"
+               href="https://gamebatoapp.ir/home/en/"
+               target="_blank">
+                🎮 GAMEBATO
+            </a>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>🎁 24 HOURS FREE VIP</h2>
+            <p>Try the service before paying.</p>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-icon">🎁</div>
+            <h3>FREE TRIAL</h3>
+            <p>
+                Get 24 hours of VIP after installing the Game Downloader.
+                No payment is needed for the trial.
+            </p>
+            <div class="card-footer">
+                <span class="tag">24 HOURS</span>
+                <span class="price">FREE</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>FAST DOWNLOADS</h3>
+            <p>
+                Faster servers, easy browsing, resumable downloads and
+                support for updates and DLC.
+            </p>
+            <div class="card-footer">
+                <span class="tag">UPGRADED</span>
+                <span class="price">ONLINE</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">💜</div>
+            <h3>VIP ACCESS</h3>
+            <p>
+                Continue using VIP features after your 24-hour free trial
+                with one of the plans below.
+            </p>
+            <div class="card-footer">
+                <span class="tag">SUBSCRIPTIONS</span>
+                <span class="price">£7+</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>💷 VIP SUBSCRIPTIONS</h2>
+            <p>Choose the plan that suits you.</p>
+        </div>
+    </div>
+
+    <div class="vip-grid">
+
+        <div class="vip">
+            <strong>£7</strong>
+            <span>30 DAYS</span>
+        </div>
+
+        <div class="vip">
+            <strong>£21</strong>
+            <span>90 DAYS</span>
+        </div>
+
+        <div class="vip featured">
+            <strong>£31</strong>
+            <span>180 DAYS ⭐</span>
+        </div>
+
+        <div class="vip">
+            <strong>£50</strong>
+            <span>365 DAYS</span>
+        </div>
+
+        <div class="vip">
+            <strong>£89</strong>
+            <span>999 DAYS</span>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>⚡ HOW VIP ACTIVATION WORKS</h2>
+            <p>Simple five-step activation.</p>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-icon">1️⃣</div>
+            <h3>Choose Your Plan</h3>
+            <p>Select the VIP subscription you want.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">2️⃣</div>
+            <h3>Make Payment</h3>
+            <p>Pay using the available payment method.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">3️⃣</div>
+            <h3>Find Your User ID</h3>
+            <p>
+                Open Game Downloader and go to your 👤 Profile.
+                Your unique User ID will be displayed there.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">4️⃣</div>
+            <h3>Send Your Details</h3>
+            <p>
+                Send your User ID and payment confirmation to
+                ModdingXZ support.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">5️⃣</div>
+            <h3>VIP Activated</h3>
+            <p>
+                Once payment is confirmed, VIP will be added to
+                your account.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔒</div>
+            <h3>No Password Needed</h3>
+            <p>
+                You do not need to send your password or account login.
+                Only your User ID and payment confirmation are required.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>📦 HOW TO GET STARTED</h2>
+            <p>Choose your installation method.</p>
+        </div>
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-box">
+            <h3>OPTION 1 — MODDING XZ PKG</h3>
+            <p>
+                Download the ModdingXZ package from the official
+                ModdingXZ Telegram.
+            </p>
+            <br>
+            <a class="btn btn-primary"
+               href="https://t.me/ModdingXZ/289/18164"
+               target="_blank">
+                OPEN DOWNLOAD
+            </a>
+        </div>
+
+        <div class="info-box">
+            <h3>OPTION 2 — GAMEBATO</h3>
+            <p>
+                GameBato provides a game-browsing and installation platform
+                for compatible PS4 setups.
+            </p>
+            <br>
+            <a class="btn"
+               href="https://gamebatoapp.ir/home/en/"
+               target="_blank">
+                OPEN GAMEBATO
+            </a>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>💳 PAYMENT & DELIVERY</h2>
+            <p>Important information before ordering.</p>
+        </div>
+    </div>
+
+    <div class="info-grid">
+
+        <div class="info-box">
+            <h3>PAYMENT</h3>
+            <ul>
+                <li>PayPal — GBP only</li>
+                <li>Revolut</li>
+                <li>Payment confirmation required</li>
+                <li>Game Downloader User ID required</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>IMPORTANT</h3>
+            <ul>
+                <li>Activation is normally completed after payment confirmation.</li>
+                <li>Do not send your password.</li>
+                <li>No refunds once a service has started.</li>
+                <li>Contact support if you need help.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="hero-actions">
+        <a class="btn btn-primary"
+           href="https://moddingxz.co.uk/games.html"
+           target="_blank">
+            🌐 FULL GAME DOWNLOADER WEBSITE
+        </a>
+
+        <a class="btn"
+           href="https://moddingxz.co.uk/t.html"
+           target="_blank">
+            📢 TELEGRAM
+        </a>
+
+        <a class="btn"
+           href="https://t.me/ModdingXZ_Support_Bot"
+           target="_blank">
+            🤖 SUPPORT
+        </a>
+    </div>
+
+</section>
+
+
+<!-- JAILBREAK -->
+<section id="jailbreak" class="view">
+
+    <div class="section-title">
+        <div>
+            <h2>🔓 JAILBREAK CHECKER</h2>
+            <p>Check your console firmware.</p>
+        </div>
+
+        <button class="btn" onclick="showView('home')">← HOME</button>
+    </div>
+
+    <div class="firmware">
+
+        <div class="firmware-box">
+
+            <div class="tag">MODDINGXZ FIRMWARE ROUTER</div>
+
+            <h2 style="margin-top:15px">WHAT CONSOLE DO YOU HAVE?</h2>
+
+            <p>
+                Select your console and enter the firmware version shown
+                in your system settings.
+            </p>
+
+            <div class="console-select">
+                <button id="ps4Btn" class="active" onclick="selectConsole('ps4')">
+                    PS4
+                </button>
+
+                <button id="ps5Btn" onclick="selectConsole('ps5')">
+                    PS5
+                </button>
+            </div>
+
+            <input
+                id="firmwareInput"
+                class="fw-input"
+                placeholder="Example: 13.50"
+                inputmode="decimal"
+            >
+
+            <button class="btn btn-primary" onclick="checkFirmware()">
+                CHECK FIRMWARE
+            </button>
+
+            <div id="firmwareResult" class="result"></div>
+
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>📌 CURRENT ROUTING</h2>
+            <p>Use the correct firmware information for your console.</p>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <div class="card-icon">🎮</div>
+            <h3>PS4</h3>
+            <p>
+                PS4 firmware below 13.52 is routed to the ModdingXZ
+                hosts section.
+            </p>
+            <div class="card-footer">
+                <span class="tag">&lt; 13.52</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎮</div>
+            <h3>PS5</h3>
+            <p>
+                PS5 firmware 13.60 is routed to the ModdingXZ
+                hosts section.
+            </p>
+            <div class="card-footer">
+                <span class="tag">13.60</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">❓</div>
+            <h3>Not Sure?</h3>
+            <p>
+                Check Settings → System → System Information on your
+                PlayStation to find the firmware version.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SERVICES -->
+<section id="services" class="view">
+
+    <div class="section-title">
+        <div>
+            <h2>🛠 MODDINGXZ SERVICES</h2>
+            <p>Browse the current service catalogue.</p>
+        </div>
+
+        <button class="btn" onclick="showView('home')">← HOME</button>
+    </div>
+
+    <div class="feature">
+
+        <div class="tag">⭐ FEATURED</div>
+
+        <h2 style="margin:12px 0 8px">
+            FULL COD MAX PROGRESSION — £15
+        </h2>
+
+        <p>
+            Full COD Max Progression bundle across PS4 / PS5 / Xbox / PC.
+        </p>
+
+        <div class="feature-list">
+            <div>MW2019 Level 1000</div>
+            <div>MW2019 All Trophies</div>
+            <div>Cold War Level 2500</div>
+            <div>Cold War DMU MP Unlock All</div>
+            <div>Cold War DA Unlock All</div>
+            <div>Cold War Calling Cards</div>
+            <div>Cold War All Trophies</div>
+            <div>Vanguard Max Rank</div>
+        </div>
+
+        <p>
+            <strong>Requirement:</strong> MW2019 must be owned.
+            Everything is hosted through MW2019.
+        </p>
+
+    </div>
+
+    <div class="service-tools">
+
+        <input
+            id="serviceSearch"
+            class="search"
+            placeholder="🔎 Search services..."
+            oninput="filterServices()"
+        >
+
+    </div>
+
+    <div class="filters" id="filters">
+        <button class="filter active" data-category="all" onclick="setFilter('all',this)">
+            ALL
+        </button>
+        <button class="filter" data-category="bo3" onclick="setFilter('bo3',this)">
+            BO3
+        </button>
+        <button class="filter" data-category="coldwar" onclick="setFilter('coldwar',this)">
+            COLD WAR
+        </button>
+        <button class="filter" data-category="cod" onclick="setFilter('cod',this)">
+            OTHER COD
+        </button>
+        <button class="filter" data-category="psn" onclick="setFilter('psn',this)">
+            PSN
+        </button>
+        <button class="filter" data-category="trophies" onclick="setFilter('trophies',this)">
+            TROPHIES
+        </button>
+        <button class="filter" data-category="other" onclick="setFilter('other',this)">
+            OTHER
+        </button>
+        <button class="filter" data-category="iptv" onclick="setFilter('iptv',this)">
+            IPTV
+        </button>
+    </div>
+
+    <br>
+
+    <div class="service-grid" id="serviceGrid"></div>
+
+    <div class="info-box" style="margin-top:15px">
+        <h3>💳 PAYMENT & DELIVERY</h3>
+        <p>
+            PayPal — GBP only. Most services are normally completed within
+            5–30 minutes once started. Some services require a login or
+            PSN App Code. No refunds once a service has started.
+        </p>
+        <br>
+        <p>
+            Need to know if a particular game is supported?
+            Contact ModdingXZ support before ordering.
+        </p>
+    </div>
+
+</section>
+
+
+<!-- TELEGRAM -->
+<section id="telegram" class="view">
+
+    <div class="section-title">
+        <div>
+            <h2>📢 MODDINGXZ TELEGRAM</h2>
+            <p>Updates • Releases • Services • Community</p>
+        </div>
+
+        <button class="btn" onclick="showView('home')">← HOME</button>
+    </div>
+
+    <div class="telegram">
+
+        <div class="telegram-main">
+
+            <div class="tag">📢 OFFICIAL HUB</div>
+
+            <h2>KEEP UP WITH MODDINGXZ</h2>
+
+            <p>
+                We'll be updating the Telegram hub with announcements,
+                new tools, services, Game Downloader updates, releases
+                and other ModdingXZ news.
+            </p>
+
+            <div class="telegram-link">
+                moddingxz.co.uk/t.html
+            </div>
+
+            <div class="hero-actions" style="justify-content:flex-start">
+                <a class="btn btn-primary"
+                   href="https://moddingxz.co.uk/t.html"
+                   target="_blank">
+                    OPEN TELEGRAM HUB →
+                </a>
+
+                <a class="btn"
+                   href="https://t.me/ModdingXZ_Support_Bot"
+                   target="_blank">
+                    🤖 SUPPORT BOT
+                </a>
+            </div>
+
+        </div>
+
+        <div class="telegram-side">
+
+            <div class="link-card">
+                <small>ANNOUNCEMENTS</small>
+                <strong>New releases & updates</strong>
+            </div>
+
+            <div class="link-card">
+                <small>GAME DOWNLOADER</small>
+                <strong>VIP & server updates</strong>
+            </div>
+
+            <div class="link-card">
+                <small>SERVICES</small>
+                <strong>New services & availability</strong>
+            </div>
+
+            <div class="link-card">
+                <small>SUPPORT</small>
+                <strong>Get help from ModdingXZ</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TERMINAL -->
+<section id="terminal" class="view">
+
+    <div class="section-title">
+        <div>
+            <h2>⌨ MODDINGXZ TERMINAL</h2>
+            <p>Interactive site terminal.</p>
+        </div>
+
+        <button class="btn" onclick="showView('home')">← HOME</button>
+    </div>
+
+    <div class="terminal">
+
+        <div class="terminal-head">
+            <i></i>
+            <i></i>
+            <i></i>
+            <span>moddingxz@os:~</span>
+        </div>
+
+        <div class="terminal-body" id="terminalOutput">
+            <span class="prompt">root@moddingxz:~$</span> system ready
+            <br>
+            Type <span style="color:#c084fc">help</span> to see available commands.
+            <br><br>
+
+            <span class="prompt">root@moddingxz:~$</span>
+            <input
+                id="terminalInput"
+                class="command-input"
+                autocomplete="off"
+                spellcheck="false"
+                onkeydown="terminalKey(event)"
+            >
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <div>
+            <h2>AVAILABLE COMMANDS</h2>
+            <p>Try them in the terminal above.</p>
+        </div>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>help</h3>
+            <p>Show all terminal commands.</p>
+        </div>
+
+        <div class="card">
+            <h3>services</h3>
+            <p>Open the ModdingXZ service catalogue.</p>
+        </div>
+
+        <div class="card">
+            <h3>services bo3</h3>
+            <p>Search Black Ops 3 services.</p>
+        </div>
+
+        <div class="card">
+            <h3>downloader</h3>
+            <p>Open the Game Downloader section.</p>
+        </div>
+
+        <div class="card">
+            <h3>hosts</h3>
+            <p>Open the jailbreak host selector.</p>
+        </div>
+
+        <div class="card">
+            <h3>scan</h3>
+            <p>Run a harmless browser/session scan.</p>
+        </div>
+
+        <div class="card">
+            <h3>matrix</h3>
+            <p>Activate the Matrix Easter egg.</p>
+        </div>
+
+        <div class="card">
+            <h3>whoami</h3>
+            <p>Display your browser/session information.</p>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<footer>
+    <div class="container footer-inner">
+        <span>MODDINGXZ // OS</span>
+        <span id="clock">--:--:--</span>
+        <span>© 2026 MODDINGXZ</span>
+    </div>
+</footer>
+
 
 <script>
 /* =========================================================
-   MODDINGXZ // TERMINAL ENGINE
-   ========================================================= */
+   MODDINGXZ SERVICE DATABASE
+========================================================= */
 
-const app = document.getElementById("app");
-const progressBar = document.getElementById("progress-bar");
-const bootLines = document.getElementById("boot-lines");
-const clock = document.getElementById("clock");
+const services = [
 
-const HOST_URL = "https://moddingxz.co.uk/Hosts/index.html";
-const SERVICES_URL = "https://moddingxz.co.uk/";
-const TELEGRAM_URL = "https://t.me/ModdingXZ";
+    {
+        name:"BO3 Ultimate",
+        price:"£15",
+        category:"bo3",
+        description:"Prestige 1000 MP, Modded Classes, Unlock All, Custom Avatars, Cherry Fizz / Void & more. Extra classes required. Zombies Prestige 12, All Easter Eggs, Unlimited Death Machine, Beast Mode, Unreleased Camos and Green Clan Tag."
+    },
+
+    {
+        name:"BO3 Maxed-Out",
+        price:"£10",
+        category:"bo3",
+        description:"Prestige Master Multiplayer, Zombies Level 1000 and Unlimited Death Machine."
+    },
+
+    {
+        name:"BO3 Liquid Divinium — 100K",
+        price:"£5",
+        category:"bo3",
+        description:"100,000 Liquid Divinium. Trophies included."
+    },
+
+    {
+        name:"BO3 Liquid Divinium — 500K",
+        price:"£10",
+        category:"bo3",
+        description:"500,000 Liquid Divinium. Trophies included."
+    },
+
+    {
+        name:"BO3 Liquid Divinium — 1M",
+        price:"£20",
+        category:"bo3",
+        description:"1,000,000 Liquid Divinium. Trophies included."
+    },
+
+    {
+        name:"BO3 Crypto Keys",
+        price:"Available",
+        category:"bo3",
+        description:"Crypto Keys service available. Contact ModdingXZ for current options."
+    },
+
+    {
+        name:"BO3 Unlimited DM / Beast Classes",
+        price:"£3",
+        category:"bo3",
+        description:"Unlimited Death Machine / Beast Mode classes."
+    },
+
+    {
+        name:"Cold War Custom Modded Classes",
+        price:"£15",
+        category:"coldwar",
+        description:"Custom modded class service."
+    },
+
+    {
+        name:"Cold War DA Unlock All",
+        price:"£10",
+        category:"coldwar",
+        description:"Dark Aether unlock service."
+    },
+
+    {
+        name:"Cold War Crystals / Currency",
+        price:"£5",
+        category:"coldwar",
+        description:"Crystals / currency service. Trophies included."
+    },
+
+    {
+        name:"COD Ghosts",
+        price:"£15",
+        category:"cod",
+        description:"Call of Duty Ghosts service."
+    },
+
+    {
+        name:"COD Advanced Warfare",
+        price:"£10",
+        category:"cod",
+        description:"Call of Duty Advanced Warfare service."
+    },
+
+    {
+        name:"BO4 Modded Classes",
+        price:"£10",
+        category:"cod",
+        description:"Black Ops 4 modded classes."
+    },
+
+    {
+        name:"BO4 All Trophies",
+        price:"£5",
+        category:"trophies",
+        description:"Black Ops 4 trophy service."
+    },
+
+    {
+        name:"Custom PSN Avatar",
+        price:"£2",
+        category:"psn",
+        description:"Custom PlayStation Network profile avatar."
+    },
+
+    {
+        name:"Modded About Me",
+        price:"£2",
+        category:"psn",
+        description:"Modded PSN About Me profile service."
+    },
+
+    {
+        name:"PSN Profile Colour",
+        price:"£2",
+        category:"psn",
+        description:"PSN profile colour service."
+    },
+
+    {
+        name:"PlayStation Trophy Level 999 — 1,100+ Platinum",
+        price:"£30",
+        category:"trophies",
+        description:"PlayStation Trophy Level 999 with 1,100+ Platinum trophies."
+    },
+
+    {
+        name:"PlayStation Trophy Level 999 — 1,800+ Platinum",
+        price:"£40",
+        category:"trophies",
+        description:"PlayStation Trophy Level 999 with 1,800+ Platinum trophies."
+    },
+
+    {
+        name:"Need for Speed Heat",
+        price:"£10",
+        category:"other",
+        description:"Unlock All + Cars."
+    },
+
+    {
+        name:"Need for Speed Hot Pursuit Remastered",
+        price:"£5",
+        category:"other",
+        description:"Need for Speed Hot Pursuit Remastered service."
+    },
+
+    {
+        name:"PS4 Modded Save / Reassignment",
+        price:"£5",
+        category:"other",
+        description:"PS4 modded save / reassignment. Ask if your game is supported."
+    },
+
+    {
+        name:"IPTV — 1 Year Unlimited",
+        price:"£50",
+        category:"iptv",
+        description:"1 year unlimited IPTV. Firestick, Android and bulk pricing available."
+    }
+
+];
+
 
 /* =========================================================
-   AUDIO
-   ========================================================= */
+   BASIC STATE
+========================================================= */
 
-let audioContext = null;
+let selectedConsole = "ps4";
+let activeServiceFilter = "all";
 
-function beep(type = "click") {
+const sessionId =
+    "MXZ-" +
+    Math.random().toString(36).substring(2,8).toUpperCase();
 
-    try {
-
-        if (!audioContext) {
-            audioContext = new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
-        }
-
-        const oscillator = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-
-        oscillator.connect(gain);
-        gain.connect(audioContext.destination);
-
-        if (type === "success") {
-            oscillator.frequency.value = 660;
-        } else if (type === "error") {
-            oscillator.frequency.value = 140;
-        } else {
-            oscillator.frequency.value = 330;
-        }
-
-        gain.gain.setValueAtTime(.035, audioContext.currentTime);
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            audioContext.currentTime + .09
-        );
-
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + .09);
-
-    } catch(e) {}
-}
 
 /* =========================================================
    BOOT
-   ========================================================= */
+========================================================= */
 
-const bootMessages = [
-    "BIOS ................. <span>OK</span>",
-    "HOST DATABASE ........ <span>OK</span>",
-    "PLAYSTATION MODULE ... <span>OK</span>",
-    "SECURITY LAYER ....... <span>OK</span>",
-    "TERMINAL ............. <span>READY</span>"
+const bootLines = [
+    "[ OK ] Initialising MODDINGXZ OS",
+    "[ OK ] Loading service database",
+    "[ OK ] Connecting to downloader systems",
+    "[ OK ] Loading jailbreak router",
+    "[ OK ] Checking Telegram hub",
+    "[ OK ] Session created: " + sessionId,
+    "[ OK ] All systems operational"
 ];
 
 let bootIndex = 0;
 
-function bootSequence() {
+function boot(){
+    const box = document.getElementById("bootText");
 
-    if (bootIndex < bootMessages.length) {
+    const timer = setInterval(() => {
 
-        const line = document.createElement("div");
+        if(bootIndex >= bootLines.length){
+            clearInterval(timer);
 
-        line.className = "boot-line";
-        line.innerHTML = "> " + bootMessages[bootIndex];
+            setTimeout(() => {
+                document.getElementById("boot").style.opacity = "0";
+                document.getElementById("boot").style.transition = ".5s";
 
-        bootLines.appendChild(line);
+                setTimeout(() => {
+                    document.getElementById("boot").style.display = "none";
+                },500);
 
+            },500);
+
+            return;
+        }
+
+        box.innerHTML += bootLines[bootIndex] + "<br>";
         bootIndex++;
 
-        progressBar.style.width =
-            ((bootIndex / bootMessages.length) * 100) + "%";
-
-        setTimeout(bootSequence, 400);
-
-    } else {
-
-        setTimeout(() => {
-            showConsole();
-        }, 700);
-    }
+    },260);
 }
 
-bootSequence();
+boot();
+
 
 /* =========================================================
-   SCREEN ENGINE
-   ========================================================= */
+   VIEW ROUTING
+========================================================= */
 
-function showScreen(html) {
+function showView(id){
 
-    app.innerHTML = `
-        <div class="screen">
-            ${html}
-        </div>
-    `;
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+    document.querySelectorAll(".view").forEach(view => {
+        view.classList.remove("active");
     });
 
-    if (window.VanillaTilt) {
+    const target = document.getElementById(id);
 
-        VanillaTilt.init(
-            document.querySelectorAll("[data-tilt]"),
-            {
-                max: 2,
-                speed: 500,
-                glare: true,
-                "max-glare": .05
-            }
+    if(target){
+        target.classList.add("active");
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+    }
+
+    document.getElementById("navLinks").classList.remove("open");
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMenu(){
+    document.getElementById("navLinks").classList.toggle("open");
+}
+
+
+/* =========================================================
+   SERVICE RENDERING
+========================================================= */
+
+function renderServices(){
+
+    const grid = document.getElementById("serviceGrid");
+
+    grid.innerHTML = "";
+
+    services.forEach((service,index) => {
+
+        const card = document.createElement("div");
+
+        card.className = "service";
+        card.dataset.category = service.category;
+        card.dataset.search = (
+            service.name + " " +
+            service.description + " " +
+            service.category
+        ).toLowerCase();
+
+        card.innerHTML = `
+            <div class="service-top">
+                <div>
+                    <h3>${escapeHtml(service.name)}</h3>
+                    <div class="service-category">
+                        ${escapeHtml(service.category.toUpperCase())}
+                    </div>
+                </div>
+
+                <div class="service-price">
+                    ${escapeHtml(service.price)}
+                </div>
+            </div>
+
+            <p>${escapeHtml(service.description)}</p>
+
+            <div style="margin-top:13px">
+                <button
+                    class="btn"
+                    style="padding:8px 10px;font-size:10px"
+                    onclick="contactService('${encodeURIComponent(service.name)}')"
+                >
+                    ASK ABOUT THIS →
+                </button>
+            </div>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+    document.getElementById("serviceCount").textContent = services.length;
+    filterServices();
+}
+
+
+function escapeHtml(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
+function contactService(encodedName){
+
+    const name = decodeURIComponent(encodedName);
+
+    showToast("Opening ModdingXZ support...");
+
+    setTimeout(() => {
+
+        window.open(
+            "https://t.me/ModdingXZ_Support_Bot",
+            "_blank"
+        );
+
+    },400);
+}
+
+
+function setFilter(category,button){
+
+    activeServiceFilter = category;
+
+    document.querySelectorAll(".filter").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    filterServices();
+}
+
+
+function filterServices(){
+
+    const query = (
+        document.getElementById("serviceSearch")?.value || ""
+    ).toLowerCase().trim();
+
+    document.querySelectorAll(".service").forEach(service => {
+
+        const category = service.dataset.category;
+        const searchable = service.dataset.search;
+
+        const categoryMatch =
+            activeServiceFilter === "all" ||
+            category === activeServiceFilter;
+
+        const searchMatch =
+            !query ||
+            searchable.includes(query);
+
+        service.classList.toggle(
+            "hidden",
+            !(categoryMatch && searchMatch)
+        );
+
+    });
+}
+
+renderServices();
+
+
+/* =========================================================
+   JAILBREAK CHECKER
+========================================================= */
+
+function selectConsole(consoleName){
+
+    selectedConsole = consoleName;
+
+    document.getElementById("ps4Btn").classList.toggle(
+        "active",
+        consoleName === "ps4"
+    );
+
+    document.getElementById("ps5Btn").classList.toggle(
+        "active",
+        consoleName === "ps5"
+    );
+
+    document.getElementById("firmwareInput").placeholder =
+        consoleName === "ps4" ? "Example: 13.50" : "Example: 13.60";
+
+    document.getElementById("firmwareResult").className = "result";
+    document.getElementById("firmwareResult").innerHTML = "";
+}
+
+
+function checkFirmware(){
+
+    const input =
+        document.getElementById("firmwareInput").value.trim();
+
+    const result =
+        document.getElementById("firmwareResult");
+
+    const firmware = parseFloat(input);
+
+    if(!input || Number.isNaN(firmware)){
+
+        result.className = "result unknown";
+        result.innerHTML =
+            "⚠ Please enter a valid firmware version.";
+
+        return;
+    }
+
+    if(selectedConsole === "ps4"){
+
+        if(firmware < 13.52){
+
+            result.className = "result good";
+
+            result.innerHTML = `
+                ✓ PS4 FIRMWARE CHECKED<br><br>
+                Firmware: ${escapeHtml(input)}<br>
+                Status: COMPATIBLE ROUTE<br><br>
+                → Opening ModdingXZ Hosts...
+            `;
+
+            setTimeout(() => {
+                window.location.href =
+                    "https://moddingxz.co.uk/Hosts/index.html";
+            },1200);
+
+        }else{
+
+            result.className = "result bad";
+
+            result.innerHTML = `
+                ✕ PS4 firmware is outside the current
+                ModdingXZ route.<br><br>
+                Detected: ${escapeHtml(input)}<br>
+                Required: BELOW 13.52
+            `;
+
+        }
+
+    }else{
+
+        if(Math.abs(firmware - 13.60) < 0.001){
+
+            result.className = "result good";
+
+            result.innerHTML = `
+                ✓ PS5 FIRMWARE CHECKED<br><br>
+                Firmware: ${escapeHtml(input)}<br>
+                Status: COMPATIBLE ROUTE<br><br>
+                → Opening ModdingXZ Hosts...
+            `;
+
+            setTimeout(() => {
+                window.location.href =
+                    "https://moddingxz.co.uk/Hosts/index.html";
+            },1200);
+
+        }else{
+
+            result.className = "result bad";
+
+            result.innerHTML = `
+                ✕ PS5 firmware is outside the current
+                ModdingXZ route.<br><br>
+                Detected: ${escapeHtml(input)}<br>
+                Required: 13.60
+            `;
+
+        }
+
+    }
+}
+
+
+/* =========================================================
+   TERMINAL
+========================================================= */
+
+function terminalKey(event){
+
+    if(event.key !== "Enter") return;
+
+    const input = event.target;
+    const command = input.value.trim();
+
+    if(!command) return;
+
+    executeCommand(command);
+
+    input.value = "";
+}
+
+
+function terminalPrint(text){
+
+    const output =
+        document.getElementById("terminalOutput");
+
+    const currentInput =
+        output.querySelector(".command-input");
+
+    const line = document.createElement("div");
+
+    line.innerHTML = text;
+
+    output.insertBefore(
+        line,
+        currentInput.parentElement
+    );
+
+    output.scrollTop = output.scrollHeight;
+}
+
+
+function executeCommand(raw){
+
+    const command = raw.toLowerCase().trim();
+
+    terminalPrint(
+        `<span class="prompt">root@moddingxz:~$</span> ${escapeHtml(raw)}`
+    );
+
+    if(command === "help"){
+
+        terminalPrint(`
+            <span style="color:#c084fc">AVAILABLE COMMANDS</span><br>
+            help — show commands<br>
+            services — open service catalogue<br>
+            services bo3 — BO3 services<br>
+            services trophies — trophy services<br>
+            services ghosts — Ghosts service<br>
+            services nfs — Need for Speed services<br>
+            downloader — open Game Downloader<br>
+            hosts — open jailbreak hosts<br>
+            jailbreak — firmware checker<br>
+            telegram — Telegram hub<br>
+            scan — browser/session scan<br>
+            whoami — session information<br>
+            matrix — Matrix mode<br>
+            clear — clear terminal<br>
+            about — about ModdingXZ
+        `);
+
+    }
+
+    else if(command === "services"){
+        showView("services");
+    }
+
+    else if(command === "services bo3"){
+        showView("services");
+        setTimeout(() => {
+            document.getElementById("serviceSearch").value = "BO3";
+            filterServices();
+        },100);
+    }
+
+    else if(command === "services trophies"){
+        showView("services");
+        setTimeout(() => {
+            document.getElementById("serviceSearch").value = "trophy";
+            filterServices();
+        },100);
+    }
+
+    else if(command === "services ghosts"){
+        showView("services");
+        setTimeout(() => {
+            document.getElementById("serviceSearch").value = "Ghosts";
+            filterServices();
+        },100);
+    }
+
+    else if(command === "services nfs"){
+        showView("services");
+        setTimeout(() => {
+            document.getElementById("serviceSearch").value = "Need for Speed";
+            filterServices();
+        },100);
+    }
+
+    else if(command === "downloader"){
+        showView("downloader");
+    }
+
+    else if(command === "hosts"){
+        terminalPrint("Opening ModdingXZ Hosts...");
+        setTimeout(() => {
+            window.location.href =
+                "https://moddingxz.co.uk/Hosts/index.html";
+        },600);
+    }
+
+    else if(command === "jailbreak"){
+        showView("jailbreak");
+    }
+
+    else if(command === "telegram"){
+        window.open(
+            "https://moddingxz.co.uk/t.html",
+            "_blank"
         );
     }
-}
 
-/* =========================================================
-   CONSOLE SELECT
-   ========================================================= */
-
-function showConsole() {
-
-    showScreen(`
-
-        <div class="kicker">// INITIAL SETUP</div>
-
-        <h1 class="question">
-            WHAT CONSOLE DO YOU HAVE?
-        </h1>
-
-        <p class="description">
-            Select your PlayStation and we'll check the firmware
-            path for you. No bullshit, just pick the console.
-        </p>
-
-        <div class="buttons">
-
-            <button class="btn green" onclick="selectConsole('ps4')">
-                PLAYSTATION 4
-                <span class="arrow">→</span>
-            </button>
-
-            <button class="btn" onclick="selectConsole('ps5')">
-                PLAYSTATION 5
-                <span class="arrow">→</span>
-            </button>
-
-        </div>
-
-    `);
-}
-
-function selectConsole(consoleType) {
-
-    beep();
-
-    if (consoleType === "ps4") {
-        showPS4();
-    } else {
-        showPS5();
+    else if(command === "scan"){
+        runScan();
     }
-}
 
-/* =========================================================
-   PS4
-   ========================================================= */
-
-function showPS4() {
-
-    showScreen(`
-
-        <div class="kicker">// PLAYSTATION 4</div>
-
-        <h1 class="question">
-            WHAT FIRMWARE ARE YOU ON?
-        </h1>
-
-        <p class="description">
-            We need your PS4 firmware to see which route you
-            should take.
-        </p>
-
-        <div class="buttons">
-
-            <button class="btn green" onclick="ps4Firmware('compatible')">
-                BELOW 13.52
-                <span class="arrow">→</span>
-            </button>
-
-            <button class="btn" onclick="ps4Firmware('new')">
-                13.52 OR HIGHER
-                <span class="arrow">→</span>
-            </button>
-
-            <button class="btn full" onclick="unknownFirmware('ps4')">
-                I DON'T KNOW
-                <span class="arrow">?</span>
-            </button>
-
-        </div>
-
-        <button class="back" onclick="showConsole()">
-            ← BACK
-        </button>
-
-    `);
-}
-
-function ps4Firmware(type) {
-
-    beep(type === "compatible" ? "success" : "click");
-
-    if (type === "compatible") {
-        jailbreakResult("PS4");
-    } else {
-        servicesQuestion("PS4");
+    else if(command === "whoami"){
+        showWhoAmI();
     }
-}
 
-/* =========================================================
-   PS5
-   ========================================================= */
-
-function showPS5() {
-
-    showScreen(`
-
-        <div class="kicker">// PLAYSTATION 5</div>
-
-        <h1 class="question">
-            WHAT FIRMWARE ARE YOU ON?
-        </h1>
-
-        <p class="description">
-            PS5 compatibility currently depends on the firmware
-            you're running.
-        </p>
-
-        <div class="buttons">
-
-            <button class="btn green" onclick="ps5Firmware('compatible')">
-                13.60
-                <span class="arrow">→</span>
-            </button>
-
-            <button class="btn" onclick="ps5Firmware('new')">
-                ABOVE 13.60
-                <span class="arrow">→</span>
-            </button>
-
-            <button class="btn full" onclick="unknownFirmware('ps5')">
-                I DON'T KNOW
-                <span class="arrow">?</span>
-            </button>
-
-        </div>
-
-        <button class="back" onclick="showConsole()">
-            ← BACK
-        </button>
-
-    `);
-}
-
-function ps5Firmware(type) {
-
-    beep(type === "compatible" ? "success" : "click");
-
-    if (type === "compatible") {
-        jailbreakResult("PS5");
-    } else {
-        servicesQuestion("PS5");
+    else if(command === "matrix"){
+        matrixMode();
     }
-}
 
-/* =========================================================
-   UNKNOWN FIRMWARE
-   ========================================================= */
+    else if(command === "about"){
 
-function unknownFirmware(consoleType) {
-
-    beep();
-
-    showScreen(`
-
-        <div class="kicker">// FIRMWARE DETECTOR</div>
-
-        <h1 class="question">
-            NO PROBLEM.
-        </h1>
-
-        <p class="description">
-            You can find your firmware directly on your
-            ${consoleType.toUpperCase()}.
-        </p>
-
-        <div class="info">
-
-            <strong>Go to:</strong><br><br>
-
-            Settings → System → System Information
-            <br><br>
-
-            Look for <strong>System Software</strong>.
-
-            <br><br>
-
-            <span class="warning">
-                Don't guess it. Check it properly 😂
-            </span>
-
-        </div>
-
-        <div class="buttons">
-
-            <button class="btn green" onclick="${consoleType === "ps4" ? "showPS4()" : "showPS5()"}">
-                I'LL CHECK IT
-                <span class="arrow">→</span>
-            </button>
-
-        </div>
-
-        <button class="back" onclick="showConsole()">
-            ← BACK
-        </button>
-
-    `);
-}
-
-/* =========================================================
-   JAILBREAK RESULT
-   ========================================================= */
-
-function jailbreakResult(consoleType) {
-
-    showScreen(`
-
-        <div class="result-icon">
-            ✓
-        </div>
-
-        <div class="kicker">// COMPATIBLE PATH FOUND</div>
-
-        <h1 class="question">
-            ${consoleType} ROUTE FOUND.
-        </h1>
-
-        <p class="description">
-            Your selected firmware falls into the route we're
-            checking for. Continue to the ModdingXZ host page.
-        </p>
-
-        <div class="info">
-
-            <span class="success">
-                ● COMPATIBILITY CHECK COMPLETE
-            </span>
-
-            <br><br>
-
-            Console:
-            <strong>${consoleType}</strong>
-
-            <br>
-
-            ModdingXZ Host:
-            <strong>READY</strong>
-
-        </div>
-
-        <div class="buttons">
-
-            <button class="btn green full" onclick="window.location.href='${HOST_URL}'">
-                OPEN MODDINGXZ HOSTS
-                <span class="arrow">→</span>
-            </button>
-
-        </div>
-
-        <button class="back" onclick="showConsole()">
-            ← START AGAIN
-        </button>
-
-    `);
-}
-
-/* =========================================================
-   SERVICES
-   ========================================================= */
-
-let noCount = 0;
-
-function servicesQuestion(consoleType) {
-
-    showScreen(`
-
-        <div class="kicker">// COMPATIBILITY RESULT</div>
-
-        <h1 class="question">
-            THAT FIRMWARE ISN'T ON THE HOST ROUTE.
-        </h1>
-
-        <p class="description">
-            Are you looking for ModdingXZ services instead?
-        </p>
-
-        <div class="buttons">
-
-            <button class="btn green" onclick="servicesResult()">
-                YES
-                <span class="arrow">→</span>
-            </button>
-
-            <button class="btn danger" onclick="noServices()">
-                NO
-                <span class="arrow">×</span>
-            </button>
-
-        </div>
-
-        <button class="back" onclick="${consoleType === "PS4" ? "showPS4()" : "showPS5()"}">
-            ← BACK
-        </button>
-
-    `);
-}
-
-/* =========================================================
-   NO ROUTE
-   ========================================================= */
-
-function noServices() {
-
-    noCount++;
-    beep("error");
-
-    if (noCount === 1) {
-
-        showScreen(`
-
-            <div class="kicker">// OKAY THEN...</div>
-
-            <h1 class="question">
-                RIGHT... THEN WHY ARE YOU HERE? 😂
-            </h1>
-
-            <p class="description">
-                You don't want a jailbreak and you don't want
-                services. Interesting.
-            </p>
-
-            <div class="buttons">
-
-                <button class="btn danger full" onclick="noServices()">
-                    I'M JUST LOOKING
-                    <span class="arrow">→</span>
-                </button>
-
-            </div>
-
+        terminalPrint(`
+            <span style="color:#c084fc">MODDINGXZ OS</span><br>
+            Game Downloader • Jailbreak Information • Services<br>
+            Session: ${sessionId}<br>
+            Year: 2026
         `);
 
-        return;
     }
 
-    if (noCount === 2) {
+    else if(command === "clear"){
 
-        showScreen(`
+        document.getElementById("terminalOutput").innerHTML = `
+            <span class="prompt">root@moddingxz:~$</span>
+            <input
+                id="terminalInput"
+                class="command-input"
+                autocomplete="off"
+                spellcheck="false"
+                onkeydown="terminalKey(event)"
+            >
+        `;
 
-            <div class="kicker">// TERMINAL CONFUSED</div>
+        document.getElementById("terminalInput").focus();
 
-            <h1 class="question">
-                BRO WHAT DO YOU ACTUALLY WANT? 💀
-            </h1>
+    }
 
-            <p class="description">
-                The website has run out of normal questions.
-            </p>
+    else if(command === "sudo"){
 
-            <div class="buttons">
-
-                <button class="btn danger" onclick="noServices()">
-                    NOTHING
-                    <span class="arrow">→</span>
-                </button>
-
-                <button class="btn" onclick="hackerScreen()">
-                    IDK LOL
-                    <span class="arrow">→</span>
-                </button>
-
-            </div>
-
+        terminalPrint(`
+            <span style="color:#fb7185">
+            Nice try 😂<br>
+            MODDINGXZ ROOT ACCESS: DENIED
+            </span>
         `);
 
-        return;
     }
 
-    hackerScreen();
+    else{
+
+        terminalPrint(
+            `Command not found: ${escapeHtml(raw)}<br>
+             Type <span style="color:#c084fc">help</span> for available commands.`
+        );
+
+    }
 }
 
-/* =========================================================
-   SERVICES RESULT
-   ========================================================= */
 
-function servicesResult() {
+function showWhoAmI(){
 
-    noCount = 0;
-    beep("success");
-
-    showScreen(`
-
-        <div class="result-icon purple">
-            XZ
-        </div>
-
-        <div class="kicker">// MODDINGXZ SERVICES</div>
-
-        <h1 class="question">
-            YOU'RE IN THE RIGHT PLACE.
-        </h1>
-
-        <p class="description">
-            Head over to the main ModdingXZ website for the
-            current services and information.
-        </p>
-
-        <div class="info">
-
-            <span class="success">
-                ● SERVICES PORTAL READY
-            </span>
-
-            <br><br>
-
-            Open the main ModdingXZ website to continue.
-
-        </div>
-
-        <div class="buttons">
-
-            <button class="btn green full" onclick="window.location.href='${SERVICES_URL}'">
-                OPEN MODDINGXZ
-                <span class="arrow">→</span>
-            </button>
-
-        </div>
-
-        <button class="back" onclick="showConsole()">
-            ← START AGAIN
-        </button>
-
+    terminalPrint(`
+        <span style="color:#c084fc">SESSION INFORMATION</span><br>
+        Session ID: ${sessionId}<br>
+        Browser: ${escapeHtml(navigator.userAgent)}<br>
+        Platform: ${escapeHtml(navigator.platform || "Unknown")}<br>
+        Language: ${escapeHtml(navigator.language)}<br>
+        Screen: ${screen.width}x${screen.height}
     `);
 }
 
-/* =========================================================
-   HACKER SCREEN
-   ========================================================= */
-
-async function hackerScreen() {
-
-    showScreen(`
-
-        <div class="kicker">// SECURITY TERMINAL</div>
-
-        <h1 class="question">
-            WTF U WANT THEN? 😂
-        </h1>
-
-        <div class="hacker" data-tilt>
-
-            <div class="hacker-head">
-
-                <span>
-                    MODDINGXZ_SECURITY.exe
-                </span>
-
-                <span>
-                    DEMO MODE
-                </span>
-
-            </div>
-
-            <div class="hacker-body" id="hacker-body">
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    Initialising visitor scan...
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    Connecting to IP intelligence...
-                </div>
-
-                <br>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    PUBLIC IP:
-                    <span class="value" id="visitor-ip">
-                        SCANNING...
-                    </span>
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    LOCATION:
-                    <span class="value" id="visitor-location">
-                        SCANNING...
-                    </span>
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    ISP:
-                    <span class="value" id="visitor-isp">
-                        SCANNING...
-                    </span>
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    COUNTRY:
-                    <span class="value" id="visitor-country">
-                        SCANNING...
-                    </span>
-                </div>
-
-                <br>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    THREAT LEVEL:
-                    <span class="fake-danger">
-                        0%
-                    </span>
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    BRAIN CELLS:
-                    <span class="fake-danger">
-                        404
-                    </span>
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    REASON FOR VISIT:
-                    <span class="value">
-                        UNKNOWN
-                    </span>
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    FILES FOUND:
-                    <span class="value">
-                        0
-                    </span>
-                </div>
-
-                <br>
-
-                <div class="fake-danger">
-                    ⚠ SYSTEM HAS DECIDED YOU ARE CONFUSED.
-                </div>
-
-                <div>
-                    <span class="prompt">&gt;</span>
-                    <span class="cursor"></span>
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="visitor-grid">
-
-            <div class="visitor-card">
-                <small>STATUS</small>
-                <span>CONFUSED</span>
-            </div>
-
-            <div class="visitor-card">
-                <small>HACK LEVEL</small>
-                <span>0.0001%</span>
-            </div>
-
-            <div class="visitor-card">
-                <small>DEVICE</small>
-                <span id="visitor-device">UNKNOWN</span>
-            </div>
-
-        </div>
-
-        <div class="info">
-
-            <strong>😂 Don't worry.</strong>
-            <br>
-            This is just a joke terminal. No files, cameras or
-            devices are being accessed.
-
-        </div>
-
-        <div class="buttons">
-
-            <button class="btn full" onclick="showConsole()">
-                FINE, TAKE ME BACK
-                <span class="arrow">↩</span>
-            </button>
-
-        </div>
-
-    `);
-
-    await lookupVisitor();
-}
 
 /* =========================================================
-   IP API
-   ========================================================= */
+   PUBLIC IP / GEO SCAN
+========================================================= */
 
-async function lookupVisitor() {
+async function runScan(){
 
-    const ip = document.getElementById("visitor-ip");
-    const location = document.getElementById("visitor-location");
-    const isp = document.getElementById("visitor-isp");
-    const country = document.getElementById("visitor-country");
-    const device = document.getElementById("visitor-device");
+    terminalPrint(
+        `<span style="color:#c084fc">[SCAN]</span> Initialising browser scan...`
+    );
 
-    try {
+    terminalPrint(
+        `[SCAN] Session: ${sessionId}`
+    );
 
-        /*
-         * ipapi.co is used over HTTPS.
-         * It returns the visitor's public IP and approximate
-         * network/geographic information.
-         */
+    terminalPrint(
+        `[SCAN] Platform: ${escapeHtml(navigator.platform || "Unknown")}`
+    );
+
+    terminalPrint(
+        `[SCAN] Browser language: ${escapeHtml(navigator.language)}`
+    );
+
+    /*
+       ip-api.com is attempted first as requested.
+       A fallback is included because some browsers/hosting setups
+       may block the public ip-api endpoint.
+    */
+
+    try{
 
         const response = await fetch(
-            "https://ipapi.co/json/",
-            {
-                method: "GET",
-                cache: "no-store"
-            }
+            "https://ip-api.com/json/?fields=status,message,country,countryCode,regionName,city,isp,org,as,query"
         );
 
-        if (!response.ok) {
-            throw new Error("Lookup failed");
-        }
+        if(!response.ok) throw new Error("IP API failed");
 
         const data = await response.json();
 
-        ip.textContent =
-            data.ip || "CLASSIFIED";
-
-        location.textContent =
-            [
-                data.city,
-                data.region
-            ]
-            .filter(Boolean)
-            .join(", ") || "UNKNOWN";
-
-        isp.textContent =
-            data.org || "UNKNOWN";
-
-        country.textContent =
-            data.country_name || "UNKNOWN";
-
-    } catch (error) {
-
-        /*
-         * Fallback.
-         */
-
-        ip.textContent = "CLASSIFIED";
-        location.textContent = "UNKNOWN";
-        isp.textContent = "CLASSIFIED";
-        country.textContent = "UNKNOWN";
-
-    }
-
-    device.textContent = detectDevice();
-}
-
-/* =========================================================
-   DEVICE DETECTION
-   ========================================================= */
-
-function detectDevice() {
-
-    const ua = navigator.userAgent.toLowerCase();
-
-    if (ua.includes("android")) {
-        return "ANDROID";
-    }
-
-    if (ua.includes("iphone")) {
-        return "IPHONE";
-    }
-
-    if (ua.includes("ipad")) {
-        return "IPAD";
-    }
-
-    if (ua.includes("windows")) {
-        return "WINDOWS";
-    }
-
-    if (ua.includes("mac")) {
-        return "MAC";
-    }
-
-    if (ua.includes("linux")) {
-        return "LINUX";
-    }
-
-    return "UNKNOWN";
-}
-
-/* =========================================================
-   CLOCK
-   ========================================================= */
-
-function updateClock() {
-
-    const now = new Date();
-
-    clock.textContent =
-        now.toLocaleTimeString(
-            [],
-            {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit"
-            }
-        );
-}
-
-setInterval(updateClock, 1000);
-updateClock();
-
-/* =========================================================
-   MATRIX
-   ========================================================= */
-
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
-
-let matrixWidth;
-let matrixHeight;
-let columns;
-let drops;
-
-const characters =
-    "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&<>[]{}";
-
-function resizeMatrix() {
-
-    matrixWidth = canvas.width = window.innerWidth;
-    matrixHeight = canvas.height = window.innerHeight;
-
-    columns = Math.floor(matrixWidth / 15);
-
-    drops = [];
-
-    for (let i = 0; i < columns; i++) {
-        drops[i] =
-            Math.random() * matrixHeight / 15;
-    }
-}
-
-function drawMatrix() {
-
-    ctx.fillStyle = "rgba(5,3,8,.075)";
-    ctx.fillRect(0, 0, matrixWidth, matrixHeight);
-
-    ctx.font = "12px JetBrains Mono";
-
-    for (let i = 0; i < drops.length; i++) {
-
-        const char =
-            characters[
-                Math.floor(
-                    Math.random() *
-                    characters.length
-                )
-            ];
-
-        /*
-         * Deliberately subtle rather than bright neon.
-         */
-
-        ctx.fillStyle = "rgba(155,92,255,.75)";
-
-        ctx.fillText(
-            char,
-            i * 15,
-            drops[i] * 15
-        );
-
-        if (
-            drops[i] * 15 > matrixHeight &&
-            Math.random() > .975
-        ) {
-            drops[i] = 0;
+        if(data.status !== "success"){
+            throw new Error(data.message || "IP lookup failed");
         }
 
-        drops[i] += .65;
+        terminalPrint(`
+            <span style="color:#86efac">[IP-API]</span> PUBLIC IP: ${escapeHtml(data.query)}<br>
+            Country: ${escapeHtml(data.country || "Unknown")} (${escapeHtml(data.countryCode || "")})<br>
+            Region: ${escapeHtml(data.regionName || "Unknown")}<br>
+            City: ${escapeHtml(data.city || "Unknown")}<br>
+            ISP: ${escapeHtml(data.isp || "Unknown")}<br>
+            Organisation: ${escapeHtml(data.org || "Unknown")}
+        `);
+
+    }catch(error){
+
+        terminalPrint(
+            `<span style="color:#facc15">[IP-API]</span> Primary lookup unavailable.`
+        );
+
+        try{
+
+            const response = await fetch(
+                "https://ipapi.co/json/"
+            );
+
+            const data = await response.json();
+
+            terminalPrint(`
+                <span style="color:#86efac">[FALLBACK]</span> PUBLIC IP: ${escapeHtml(data.ip || "Unknown")}<br>
+                Country: ${escapeHtml(data.country_name || "Unknown")}<br>
+                Region: ${escapeHtml(data.region || "Unknown")}<br>
+                City: ${escapeHtml(data.city || "Unknown")}<br>
+                ISP: ${escapeHtml(data.org || "Unknown")}
+            `);
+
+        }catch{
+
+            terminalPrint(
+                `<span style="color:#fb7185">[SCAN]</span> Public IP lookup unavailable.`
+            );
+
+        }
+
     }
+
+    terminalPrint(
+        `<span style="color:#86efac">[SCAN COMPLETE]</span>`
+    );
 }
 
-resizeMatrix();
 
-window.addEventListener(
-    "resize",
-    resizeMatrix
-);
+/* =========================================================
+   MATRIX EASTER EGG
+========================================================= */
 
-setInterval(
-    drawMatrix,
-    55
-);
+let matrixRunning = false;
+let matrixAnimation;
+
+function matrixMode(){
+
+    const wrapper = document.getElementById("matrix");
+
+    wrapper.style.display = "block";
+
+    const canvas =
+        document.getElementById("matrixCanvas");
+
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars =
+        "MODDINGXZ01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%";
+
+    const fontSize = 14;
+    const columns =
+        Math.floor(canvas.width / fontSize);
+
+    const drops =
+        new Array(columns).fill(1);
+
+    matrixRunning = true;
+
+    function draw(){
+
+        if(!matrixRunning) return;
+
+        ctx.fillStyle = "rgba(0,0,0,.08)";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        ctx.fillStyle = "#a855f7";
+        ctx.font = fontSize + "px monospace";
+
+        for(let i=0;i<drops.length;i++){
+
+            const char =
+                chars[Math.floor(Math.random()*chars.length)];
+
+            ctx.fillText(
+                char,
+                i*fontSize,
+                drops[i]*fontSize
+            );
+
+            if(
+                drops[i]*fontSize > canvas.height &&
+                Math.random() > .975
+            ){
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+
+        matrixAnimation =
+            requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    setTimeout(closeMatrix,7000);
+}
+
+
+function closeMatrix(){
+
+    matrixRunning = false;
+
+    if(matrixAnimation){
+        cancelAnimationFrame(matrixAnimation);
+    }
+
+    document.getElementById("matrix").style.display = "none";
+}
+
 
 /* =========================================================
    EASTER EGGS
-   ========================================================= */
+========================================================= */
 
 let logoClicks = 0;
 
-document.querySelector(".logo").addEventListener(
-    "click",
-    () => {
+function logoEasterEgg(){
 
-        logoClicks++;
+    logoClicks++;
 
-        beep();
+    if(logoClicks >= 5){
 
-        if (logoClicks >= 5) {
+        logoClicks = 0;
 
-            logoClicks = 0;
+        showToast("🟣 MODDINGXZ MATRIX MODE");
 
-            showScreen(`
-
-                <div class="kicker">// DEVELOPER MODE</div>
-
-                <h1 class="question">
-                    YOU FOUND IT. 👀
-                </h1>
-
-                <p class="description">
-                    There wasn't supposed to be a secret menu here.
-                </p>
-
-                <div class="info">
-
-                    <span class="success">
-                        root@moddingxz:~$
-                    </span>
-
-                    <br><br>
-
-                    type one of the following:
-
-                    <br><br>
-
-                    <strong>
-                    hosts
-                    </strong>
-                    —
-                    open the host portal
-
-                    <br>
-
-                    <strong>
-                    services
-                    </strong>
-                    —
-                    open ModdingXZ
-
-                    <br>
-
-                    <strong>
-                    matrix
-                    </strong>
-                    —
-                    absolutely pointless
-
-                </div>
-
-                <div class="buttons">
-
-                    <button class="btn green" onclick="window.location.href='${HOST_URL}'">
-                        HOSTS
-                    </button>
-
-                    <button class="btn" onclick="window.location.href='${SERVICES_URL}'">
-                        SERVICES
-                    </button>
-
-                    <button class="btn full" onclick="showConsole()">
-                        EXIT DEVELOPER MODE
-                    </button>
-
-                </div>
-
-            `);
-        }
+        setTimeout(matrixMode,500);
     }
-);
+}
+
+
+/* Konami Code */
+
+const konami = [
+    "ArrowUp",
+    "ArrowUp",
+    "ArrowDown",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowRight",
+    "b",
+    "a"
+];
+
+let konamiIndex = 0;
+
+document.addEventListener("keydown",event => {
+
+    if(
+        event.key === konami[konamiIndex]
+    ){
+
+        konamiIndex++;
+
+        if(konamiIndex === konami.length){
+
+            konamiIndex = 0;
+
+            showToast(
+                "🔥 KONAMI CODE ACCEPTED — MODDINGXZ"
+            );
+
+            matrixMode();
+        }
+
+    }else{
+
+        konamiIndex = 0;
+    }
+
+});
+
 
 /* =========================================================
-   KEYBOARD EASTER EGGS
-   ========================================================= */
+   CLOCK
+========================================================= */
 
-let keyBuffer = "";
+function updateClock(){
 
-document.addEventListener(
-    "keydown",
-    event => {
+    const now = new Date();
 
-        keyBuffer += event.key.toLowerCase();
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString(
+            "en-GB",
+            {
+                hour12:false
+            }
+        );
 
-        if (keyBuffer.length > 30) {
-            keyBuffer = keyBuffer.slice(-30);
-        }
+}
 
-        if (keyBuffer.includes("sudo")) {
+setInterval(updateClock,1000);
+updateClock();
 
-            keyBuffer = "";
-
-            hackerScreen();
-
-        }
-
-        if (keyBuffer.includes("1337")) {
-
-            keyBuffer = "";
-
-            document.body.style.filter =
-                "hue-rotate(35deg)";
-
-            setTimeout(() => {
-                document.body.style.filter = "";
-            }, 2000);
-        }
-
-    }
-);
 
 /* =========================================================
-   FIRST USER INTERACTION
-   ========================================================= */
+   TOAST
+========================================================= */
 
-document.addEventListener(
-    "click",
-    () => {
-        beep();
-    },
-    {
-        once: true
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    },2500);
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener("keydown",event => {
+
+    if(
+        event.key === "/" &&
+        document.activeElement.tagName !== "INPUT"
+    ){
+
+        event.preventDefault();
+
+        showView("terminal");
+
+        setTimeout(() => {
+
+            const input =
+                document.getElementById("terminalInput");
+
+            if(input) input.focus();
+
+        },100);
+
     }
+
+    if(event.key === "Escape"){
+        closeMatrix();
+    }
+
+});
+
+
+/* =========================================================
+   CONSOLE LOG
+========================================================= */
+
+console.log(
+    "%cMODDINGXZ OS",
+    "color:#a855f7;font-size:25px;font-weight:bold"
 );
 
+console.log(
+    "%cWelcome to ModdingXZ.",
+    "color:#c084fc;font-size:14px"
+);
+
+console.log(
+    "Session:",
+    sessionId
+);
 </script>
 
 </body>
