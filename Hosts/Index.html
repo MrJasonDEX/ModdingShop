@@ -1,1198 +1,855 @@
-<!DOCTYPE html><html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" type="image/png" href="pspulse.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="pspulse.png">
+
+    <title>MODDING XZ // PS4 & PS5 HOSTS</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --bg: #08070b;
+            --panel: #0f0d14;
+            --panel-2: #131019;
+            --border: #292232;
+            --purple: #9b5cff;
+            --purple-dark: #6f35c5;
+            --text: #f4f1f8;
+            --muted: #9992a5;
+            --green: #62d99a;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(155, 92, 255, 0.10),
+                    transparent 38%
+                ),
+                var(--bg);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .mx-page {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 18px 50px;
+        }
+
+        /* TOP BAR */
+
+        .mx-topbar {
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
+            margin-bottom: 55px;
+        }
+
+        .mx-topbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .mx-brand {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .mx-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mx-status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 10px rgba(98, 217, 154, 0.5);
+        }
 
-<title>MODDING XZ // PS4 HOSTS</title>
-
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet"
->
-
-<style>
-    :root {
-        --mx-bg: #07050b;
-        --mx-bg-2: #0d0914;
-        --mx-panel: #100c18;
-        --mx-panel-2: #151020;
-        --mx-hover: #1b1429;
-
-        --mx-border: #282035;
-        --mx-border-light: #3a2d4d;
-
-        --mx-purple: #9147ff;
-        --mx-purple-light: #b875ff;
-        --mx-purple-soft: rgba(145, 71, 255, .12);
-
-        --mx-text: #f5f2f9;
-        --mx-muted: #aaa1b5;
-        --mx-dim: #6e6579;
-
-        --mx-green: #63e6a5;
-        --mx-red: #ff7d91;
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    html {
-        background: var(--mx-bg);
-        scroll-behavior: smooth;
-    }
-
-    body {
-        min-height: 100vh;
-        margin: 0;
-
-        color: var(--mx-text);
-
-        background:
-            radial-gradient(
-                circle at 50% -15%,
-                rgba(145, 71, 255, .19),
-                transparent 42%
-            ),
-            linear-gradient(
-                rgba(145, 71, 255, .025) 1px,
-                transparent 1px
-            ),
-            linear-gradient(
-                90deg,
-                rgba(145, 71, 255, .025) 1px,
-                transparent 1px
-            ),
-            var(--mx-bg);
-
-        background-size:
-            auto,
-            38px 38px,
-            38px 38px;
-
-        font-family:
-            Consolas,
-            "Liberation Mono",
-            monospace;
-
-        overflow-x: hidden;
-    }
-
-    a {
-        color: inherit;
-    }
-
-    .mx-container {
-        max-width: 1180px;
-    }
-
-    /* ================================
-       TOP BAR
-    ================================= */
-
-    .mx-topbar {
-        border: 1px solid var(--mx-border);
-        background: rgba(13, 9, 20, .92);
-
-        box-shadow:
-            0 15px 45px rgba(0, 0, 0, .3);
-
-        letter-spacing: .1em;
-        font-size: 12px;
-        text-transform: uppercase;
-    }
-
-    .mx-brand {
-        color: var(--mx-purple-light);
-    }
-
-    .mx-brand strong {
-        color: #fff;
-        font-weight: 800;
-    }
-
-    .mx-version {
-        color: var(--mx-dim);
-        font-size: 10px;
-        letter-spacing: .08em;
-    }
-
-    .mx-online {
-        display: flex;
-        align-items: center;
-
-        color: var(--mx-green);
-
-        font-size: 10px;
-        letter-spacing: .08em;
-    }
-
-    .mx-online::before {
-        content: "";
-        width: 7px;
-        height: 7px;
-
-        margin-right: 7px;
-
-        border-radius: 50%;
-
-        background: var(--mx-green);
-
-        box-shadow:
-            0 0 10px rgba(99, 230, 165, .7);
-    }
-
-    /* ================================
-       HERO
-    ================================= */
-
-    .mx-hero {
-        padding: 68px 10px 48px;
-    }
-
-    .mx-kicker {
-        color: var(--mx-purple-light);
-
-        font-size: 12px;
-        letter-spacing: .16em;
-
-        text-transform: uppercase;
-    }
-
-    .mx-kicker::before {
-        content: ">";
-        margin-right: 8px;
-
-        color: var(--mx-purple);
-
-        font-weight: 900;
-    }
-
-    .mx-title {
-        margin-top: 14px;
-        margin-bottom: 0;
-
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
-
-        font-size: clamp(48px, 8vw, 88px);
-
-        line-height: .88;
-        letter-spacing: -.075em;
-
-        font-weight: 900;
-    }
-
-    .mx-title span {
-        color: var(--mx-purple);
-    }
-
-    .mx-subtitle {
-        max-width: 720px;
-
-        margin-top: 24px;
-
-        color: var(--mx-muted);
-
-        font-size: 15px;
-        line-height: 1.75;
-    }
-
-    /* ================================
-       STATUS BADGES
-    ================================= */
-
-    .mx-badge {
-        border: 1px solid var(--mx-border);
-
-        background: rgba(16, 12, 24, .8);
-
-        color: var(--mx-dim);
-
-        font-size: 10px;
-        letter-spacing: .08em;
-
-        text-transform: uppercase;
-    }
-
-    .mx-badge strong {
-        color: var(--mx-purple-light);
-        font-weight: 400;
-    }
-
-    /* ================================
-       HOST PANEL
-    ================================= */
-
-    .mx-panel {
-        border: 1px solid var(--mx-border);
-        background: rgba(10, 7, 15, .86);
-
-        box-shadow:
-            0 15px 50px rgba(0, 0, 0, .2);
-    }
-
-    .mx-panel-header {
-        border-bottom: 1px solid var(--mx-border);
-    }
-
-    .mx-panel-title {
-        color: var(--mx-text);
-
-        font-size: 12px;
-        letter-spacing: .13em;
-
-        text-transform: uppercase;
-    }
-
-    .mx-panel-title span {
-        color: var(--mx-purple);
-    }
-
-    .mx-panel-hint {
-        color: var(--mx-dim);
-        font-size: 10px;
-    }
-
-    /* ================================
-       HOST CARDS
-    ================================= */
-
-    .mx-host {
-        position: relative;
-
-        min-height: 104px;
-
-        border: 1px solid var(--mx-border);
-
-        background:
-            linear-gradient(
-                135deg,
-                rgba(255,255,255,.018),
-                transparent
-            ),
-            var(--mx-panel);
-
-        text-decoration: none;
-
-        overflow: hidden;
-
-        transition:
-            border-color .15s ease,
-            background .15s ease,
-            transform .15s ease;
-    }
-
-    .mx-host::before {
-        content: "";
-
-        position: absolute;
-
-        top: 0;
-        bottom: 0;
-        left: 0;
-
-        width: 2px;
-
-        background: transparent;
-
-        transition: background .15s ease;
-    }
-
-    .mx-host:hover,
-    .mx-host:focus {
-        color: inherit;
-
-        background: var(--mx-hover);
-
-        border-color: var(--mx-purple);
-
-        transform: translateY(-2px);
-
-        outline: none;
-    }
-
-    .mx-host:hover::before,
-    .mx-host:focus::before {
-        background: var(--mx-purple);
-    }
-
-    .mx-host:focus {
-        box-shadow:
-            0 0 0 2px var(--mx-bg),
-            0 0 0 4px var(--mx-purple);
-    }
-
-    .mx-number {
-        min-width: 28px;
-
-        color: var(--mx-dim);
-
-        font-size: 11px;
-    }
-
-    .mx-host:hover .mx-number,
-    .mx-host:focus .mx-number {
-        color: var(--mx-purple);
-    }
-
-    .mx-firmware {
-        display: block;
-
-        color: var(--mx-text);
-
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
-
-        font-size: 19px;
-        font-weight: 800;
-    }
-
-    .mx-firmware span {
-        color: var(--mx-purple-light);
-    }
-
-    .mx-description {
-        display: block;
-
-        margin-top: 6px;
-
-        color: var(--mx-muted);
-
-        font-size: 10px;
-        line-height: 1.5;
-    }
-
-    .mx-method {
-        display: inline-block;
-
-        margin-top: 9px;
-        padding: 3px 6px;
-
-        border: 1px solid var(--mx-border);
-
-        color: var(--mx-dim);
-
-        font-size: 8px;
-        letter-spacing: .08em;
-
-        text-transform: uppercase;
-    }
-
-    .mx-host:hover .mx-method,
-    .mx-host:focus .mx-method {
-        border-color: rgba(145, 71, 255, .45);
-        color: var(--mx-purple-light);
-    }
-
-    .mx-select {
-        color: var(--mx-dim);
-
-        font-size: 9px;
-
-        opacity: 0;
-
-        transform: translateX(-6px);
-
-        transition: .15s ease;
-    }
-
-    .mx-host:hover .mx-select,
-    .mx-host:focus .mx-select {
-        color: var(--mx-purple-light);
-
-        opacity: 1;
-
-        transform: translateX(0);
-    }
-
-    /* ================================
-       FEATURE STRIP
-    ================================= */
-
-    .mx-info {
-        border: 1px solid var(--mx-border);
-        background: rgba(16, 12, 24, .72);
-    }
-
-    .mx-info-item {
-        min-height: 62px;
-
-        border-right: 1px solid var(--mx-border);
-    }
-
-    .mx-info-item:last-child {
-        border-right: 0;
-    }
-
-    .mx-info-label {
-        display: block;
-
-        color: var(--mx-dim);
-
-        font-size: 8px;
-        letter-spacing: .12em;
-
-        text-transform: uppercase;
-    }
-
-    .mx-info-value {
-        display: block;
-
-        margin-top: 4px;
-
-        color: var(--mx-text);
-
-        font-size: 11px;
-    }
-
-    .mx-info-value span {
-        color: var(--mx-purple-light);
-    }
-
-    /* ================================
-       COMMUNITY
-    ================================= */
-
-    .mx-community {
-        border: 1px solid var(--mx-border);
-        background: rgba(16, 12, 24, .72);
-    }
-
-    .mx-community-title {
-        color: var(--mx-text);
-
-        font-size: 11px;
-        letter-spacing: .12em;
-
-        text-transform: uppercase;
-    }
-
-    .mx-community-title span {
-        color: var(--mx-purple);
-    }
-
-    .mx-community-card {
-        display: block;
-
-        border: 1px solid var(--mx-border);
-
-        background: var(--mx-panel);
-
-        text-decoration: none;
-
-        transition: .15s ease;
-    }
-
-    .mx-community-card:hover,
-    .mx-community-card:focus {
-        color: inherit;
-
-        border-color: var(--mx-purple);
-        background: var(--mx-hover);
-
-        transform: translateY(-2px);
-
-        outline: none;
-    }
-
-    .mx-community-label {
-        display: block;
-
-        color: var(--mx-dim);
-
-        font-size: 8px;
-        letter-spacing: .12em;
-
-        text-transform: uppercase;
-    }
-
-    .mx-community-name {
-        display: block;
-
-        margin-top: 5px;
-
-        color: var(--mx-text);
-
-        font-family:
-            Arial,
-            Helvetica,
-            sans-serif;
-
-        font-size: 17px;
-        font-weight: 800;
-    }
-
-    .mx-community-name span {
-        color: var(--mx-purple);
-    }
-
-    .mx-community-open {
-        display: block;
-
-        margin-top: 7px;
-
-        color: var(--mx-purple-light);
-
-        font-size: 9px;
-    }
-
-    /* ================================
-       FOOTER
-    ================================= */
-
-    .mx-footer {
-        border-top: 1px solid var(--mx-border);
-
-        color: var(--mx-dim);
-
-        font-size: 9px;
-    }
-
-    .mx-footer a {
-        color: var(--mx-muted);
-        text-decoration: none;
-    }
-
-    .mx-footer a:hover {
-        color: var(--mx-purple-light);
-    }
-
-    .mx-footer-brand {
-        color: var(--mx-purple-light);
-    }
-
-    /* ================================
-       MOBILE
-    ================================= */
-
-    @media (max-width: 767.98px) {
+        /* HERO */
 
         .mx-hero {
-            padding: 48px 4px 34px;
+            margin-bottom: 38px;
+        }
+
+        .mx-kicker {
+            color: var(--purple);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
         }
 
         .mx-title {
-            font-size: 52px;
+            margin: 0;
+            font-size: clamp(34px, 6vw, 62px);
+            line-height: 0.98;
+            font-weight: 800;
+            letter-spacing: -2.5px;
         }
 
         .mx-subtitle {
+            max-width: 650px;
+            margin: 18px 0 0;
+            color: var(--muted);
             font-size: 14px;
+            line-height: 1.7;
         }
 
-        .mx-panel-hint {
-            display: none;
+        /* BADGES */
+
+        .mx-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 25px;
         }
 
-        .mx-select {
-            display: none;
+        .mx-badge {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--muted);
+            padding: 8px 11px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
+
+        .mx-badge strong {
+            color: var(--text);
+            margin-left: 5px;
+        }
+
+        /* HOST PANEL */
+
+        .mx-panel {
+            border: 1px solid var(--border);
+            background: rgba(15, 13, 20, 0.88);
+        }
+
+        .mx-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 17px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mx-panel-title {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .mx-panel-count {
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        .mx-host-grid {
+            padding: 15px;
+        }
+
+        /* HOST CARD */
 
         .mx-host {
-            min-height: 92px;
+            position: relative;
+            min-height: 118px;
+            border: 1px solid var(--border);
+            background: var(--panel-2);
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .mx-host:hover {
+            border-color: var(--purple);
+            background: #17121f;
+            transform: translateY(-2px);
+        }
+
+        .mx-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
+            height: 45px;
+            border: 1px solid var(--border);
+            color: var(--purple);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
         }
 
         .mx-firmware {
-            font-size: 17px;
+            display: block;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mx-firmware span {
+            color: var(--text);
         }
 
         .mx-description {
+            display: block;
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.45;
+        }
+
+        .mx-method {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--purple);
             font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .mx-select {
+            color: var(--muted);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .mx-host:hover .mx-select {
+            color: var(--purple);
+        }
+
+        /* PS5 FEATURE */
+
+        .mx-ps5 {
+            border-color: rgba(155, 92, 255, 0.45);
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(155, 92, 255, 0.08),
+                    transparent 65%
+                ),
+                var(--panel-2);
+        }
+
+        .mx-ps5 .mx-number {
+            border-color: rgba(155, 92, 255, 0.45);
+            background: rgba(155, 92, 255, 0.08);
+        }
+
+        .mx-ps5 .mx-firmware span {
+            color: var(--purple);
+        }
+
+        /* INFO */
+
+        .mx-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 25px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.015);
         }
 
         .mx-info-item {
-            border-right: 0;
-            border-bottom: 1px solid var(--mx-border);
+            flex: 1 1 220px;
         }
 
-        .mx-info-item:last-child {
-            border-bottom: 0;
+        .mx-info-label {
+            color: var(--purple);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
+
+        .mx-info-text {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
 
         .mx-footer {
-            text-align: center;
-        }
-    }
-</style>
-
-</head><body><div class="container mx-container py-3 py-md-4"><!-- TOP BAR -->
-<header class="mx-topbar d-flex align-items-center justify-content-between px-3 py-2">
-
-    <div class="mx-brand">
-        <strong>MODDING</strong> XZ
-        <span class="d-none d-sm-inline"> // PS4 HOSTS</span>
-
-        <span class="mx-version d-none d-lg-inline ms-2">
-            // HOST SYSTEM
-        </span>
-    </div>
-
-    <div class="mx-online">
-        ONLINE
-    </div>
-
-</header>
-
-
-<!-- HERO -->
-<section class="mx-hero">
-
-    <div class="mx-kicker">
-        MODDING XZ / PLAYSTATION 4
-    </div>
-
-    <h1 class="mx-title">
-        SELECT <span>FIRMWARE</span>
-    </h1>
-
-    <p class="mx-subtitle mb-0">
-        Choose the host matching the firmware installed on your PS4.
-        Each host is maintained as part of the ModdingXZ host system,
-        with offline cache support where available.
-    </p>
-
-    <div class="d-flex flex-wrap gap-2 mt-4">
-
-        <span class="mx-badge px-2 py-2">
-            HOSTS: <strong>07</strong>
-        </span>
-
-        <span class="mx-badge px-2 py-2">
-            STATUS: <strong>READY</strong>
-        </span>
-
-        <span class="mx-badge px-2 py-2">
-            CACHE: <strong>SUPPORTED</strong>
-        </span>
-
-        <span class="mx-badge px-2 py-2">
-            GOLDHEN: <strong>UPDATED</strong>
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- HOST PANEL -->
-<section class="mx-panel p-2 p-md-3">
-
-    <div class="mx-panel-header d-flex align-items-center justify-content-between px-2 pb-3 mb-2">
-
-        <div class="mx-panel-title">
-            <span>//</span> PS4 HOSTS
-        </div>
-
-        <div class="mx-panel-hint">
-            ↑ ↓ MOVE &nbsp; X SELECT
-        </div>
-
-    </div>
-
-
-    <nav class="row g-2" aria-label="PS4 Firmware Host Menu">
-
-
-        <!--PS5 HOSTS-->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="https://moddingxz.co.uk/Hosts/ps5.html"
-            >
-
-                <span class="mx-number">
-                    01
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>13.60 PS5 EXPLOIT</span>
-                    </span>
-
-                    <span class="mx-description">
-                        // PS5 Offline Host
-                    </span>
-
-                    <span class="mx-method">
-                        WEBKIT
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-        <!-- 01 -->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="https://moddingxz.co.uk/Hosts/13.52/index.html"
-            >
-
-                <span class="mx-number">
-                    01
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>13.02 – 13.52</span>
-                    </span>
-
-                    <span class="mx-description">
-                        SlopKit // GoldHEN // Offline Host
-                    </span>
-
-                    <span class="mx-method">
-                        WEBKIT
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- 02 -->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="1300/version-selector.html"
-            >
-
-                <span class="mx-number">
-                    02
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>11.00 – 13.00</span>
-                    </span>
-
-                    <span class="mx-description">
-                        SlopKit // WebKit // Offline Host
-                    </span>
-
-                    <span class="mx-method">
-                        WEBKIT
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- 03 -->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="css/version-selector.html"
-            >
-
-                <span class="mx-number">
-                    03
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>6.00 – 11.02</span>
-                    </span>
-
-                    <span class="mx-description">
-                        CSSFontFace // GoldHEN Host
-                    </span>
-
-                    <span class="mx-method">
-                        CSSFONTFACE
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- 04 -->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="900/version-selector.html"
-            >
-
-                <span class="mx-number">
-                    04
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>9.00 – 9.60</span>
-                    </span>
-
-                    <span class="mx-description">
-                        PSFree / Lapse // GoldHEN Host
-                    </span>
-
-                    <span class="mx-method">
-                        PSFREE
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- 05 -->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="700/version-selector.html"
-            >
-
-                <span class="mx-number">
-                    05
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>7.00 – 8.52</span>
-                    </span>
-
-                    <span class="mx-description">
-                        PSFree / Lapse // GoldHEN Host
-                    </span>
-
-                    <span class="mx-method">
-                        PSFREE
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- 06 -->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="672/index.html"
-            >
-
-                <span class="mx-number">
-                    06
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>6.72</span>
-                    </span>
-
-                    <span class="mx-description">
-                        Dedicated Host // Utility Payloads
-                    </span>
-
-                    <span class="mx-method">
-                        PSFREE
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- 07 -->
-        <div class="col-12 col-md-6">
-
-            <a
-                class="mx-host d-flex align-items-center gap-3 p-3 h-100"
-                href="505/index.html"
-            >
-
-                <span class="mx-number">
-                    07
-                </span>
-
-                <span class="flex-grow-1">
-
-                    <span class="mx-firmware">
-                        FW <span>5.05</span>
-                    </span>
-
-                    <span class="mx-description">
-                        Dedicated Host // Utility Payloads
-                    </span>
-
-                    <span class="mx-method">
-                        EXPLOIT
-                    </span>
-
-                </span>
-
-                <span class="mx-select">
-                    [ SELECT ]
-                </span>
-
-            </a>
-
-        </div>
-
-    </nav>
-
-</section>
-
-
-<!-- SYSTEM INFO -->
-<section class="mx-info row g-0 mt-2">
-
-    <div class="mx-info-item col-12 col-md-4 p-3">
-
-        <span class="mx-info-label">
-            Host Status
-        </span>
-
-        <span class="mx-info-value">
-            <span>●</span> Online / Ready
-        </span>
-
-    </div>
-
-    <div class="mx-info-item col-12 col-md-4 p-3">
-
-        <span class="mx-info-label">
-            GoldHEN
-        </span>
-
-        <span class="mx-info-value">
-            Builds maintained by <span>ModdingXZ</span>
-        </span>
-
-    </div>
-
-    <div class="mx-info-item col-12 col-md-4 p-3">
-
-        <span class="mx-info-label">
-            Offline Mode
-        </span>
-
-        <span class="mx-info-value">
-            Cached hosts <span>supported</span>
-        </span>
-
-    </div>
-
-</section>
-
-
-<!-- COMMUNITY -->
-<section class="mx-community p-2 p-md-3 mt-2">
-
-    <div class="mx-community-title px-2 pb-3">
-        <span>//</span> MODDING XZ COMMUNITY
-    </div>
-
-    <div class="row g-2">
-
-        <!-- TELEGRAM -->
-        <div class="col-12 col-md-6 col-lg-3">
-
-            <a
-                class="mx-community-card p-3 h-100"
-                href="https://t.me/moddingxz"
-                target="_blank"
-                rel="noopener"
-            >
-
-                <span class="mx-community-label">
-                    Community
-                </span>
-
-                <span class="mx-community-name">
-                    Telegram
-                </span>
-
-                <span class="mx-community-open">
-                    JOIN ↗
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- SUPPORT -->
-        <div class="col-12 col-md-6 col-lg-3">
-
-            <a
-                class="mx-community-card p-3 h-100"
-                href="https://t.me/ModdingXZ_Support_Bot"
-                target="_blank"
-                rel="noopener"
-            >
-
-                <span class="mx-community-label">
-                    Support
-                </span>
-
-                <span class="mx-community-name">
-                    Support <span>Bot</span>
-                </span>
-
-                <span class="mx-community-open">
-                    OPEN ↗
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- WEBSITE -->
-        <div class="col-12 col-md-6 col-lg-3">
-
-            <a
-                class="mx-community-card p-3 h-100"
-                href="https://moddingxz.co.uk"
-                target="_blank"
-                rel="noopener"
-            >
-
-                <span class="mx-community-label">
-                    Website
-                </span>
-
-                <span class="mx-community-name">
-                    Modding <span>XZ</span>
-                </span>
-
-                <span class="mx-community-open">
-                    VISIT ↗
-                </span>
-
-            </a>
-
-        </div>
-
-
-        <!-- TIKTOK -->
-        <div class="col-12 col-md-6 col-lg-3">
-
-            <a
-                class="mx-community-card p-3 h-100"
-                href="https://www.tiktok.com/@moddingx1"
-                target="_blank"
-                rel="noopener"
-            >
-
-                <span class="mx-community-label">
-                    Social
-                </span>
-
-                <span class="mx-community-name">
-                    TikTok
-                </span>
-
-                <span class="mx-community-open">
-                    FOLLOW ↗
-                </span>
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FOOTER -->
-<footer class="mx-footer d-flex flex-column flex-md-row align-items-center justify-content-between gap-2 mt-4 pt-3 pb-2">
-
-    <div>
-        <span class="mx-footer-brand">
-            MODDING XZ
-        </span>
-        // PS4 HOST SYSTEM
-    </div>
-
-    <div>
-        Telegram:
-        <a
-            href="https://t.me/moddingxz"
-            target="_blank"
-            rel="noopener"
-        >
-            @moddingxz
-        </a>
-    </div>
-
-</footer>
-
-</div><script>
-    /*
-     * Keep the first host available for PS4 controller/keyboard focus.
-     */
-    document.addEventListener("DOMContentLoaded", function () {
-
-        var firstHost = document.querySelector(".mx-host");
-
-        if (firstHost) {
-            firstHost.focus();
+            margin-top: 35px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-    });
-</script></body>
+        .mx-footer strong {
+            color: var(--text);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 575px) {
+            .mx-page {
+                padding: 0 12px 35px;
+            }
+
+            .mx-topbar {
+                margin-bottom: 40px;
+            }
+
+            .mx-topbar-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .mx-title {
+                font-size: 40px;
+            }
+
+            .mx-panel-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .mx-host {
+                min-height: 105px;
+            }
+
+            .mx-select {
+                display: none;
+            }
+
+            .mx-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="mx-page">
+
+    <!-- TOP BAR -->
+
+    <header class="mx-topbar">
+        <div class="mx-topbar-inner">
+
+            <div class="mx-brand">
+                // MODDING XZ
+            </div>
+
+            <div class="mx-status">
+                <span class="mx-status-dot"></span>
+                HOST SYSTEM ONLINE
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="mx-hero">
+
+        <div class="mx-kicker">
+            MODDING XZ / PLAYSTATION
+        </div>
+
+        <h1 class="mx-title">
+            SELECT FIRMWARE
+        </h1>
+
+        <p class="mx-subtitle">
+            Select the host matching your PlayStation firmware.
+            Use the correct host for your console and firmware version.
+        </p>
+
+        <div class="mx-badges">
+
+            <div class="mx-badge">
+                HOSTS <strong>08</strong>
+            </div>
+
+            <div class="mx-badge">
+                STATUS <strong>READY</strong>
+            </div>
+
+            <div class="mx-badge">
+                CACHE <strong>SUPPORTED</strong>
+            </div>
+
+            <div class="mx-badge">
+                GOLDHEN <strong>UPDATED</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOST PANEL -->
+
+    <section class="mx-panel">
+
+        <div class="mx-panel-header">
+
+            <div class="mx-panel-title">
+                // PS4 & PS5 HOSTS
+            </div>
+
+            <div class="mx-panel-count">
+                08 AVAILABLE HOSTS
+            </div>
+
+        </div>
+
+
+        <div class="mx-host-grid">
+
+            <div
+                class="row g-3"
+                aria-label="PlayStation Firmware Host Menu"
+            >
+
+                <!-- PS5 13.60 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host mx-ps5 d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/ps5.html"
+                        aria-label="PS5 13.60 Host"
+                    >
+
+                        <span class="mx-number">
+                            PS5
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>13.60 PS5</span>
+                            </span>
+
+                            <span class="mx-description">
+                                Relapse // ELF Loader // kstuff // etaHEN
+                            </span>
+
+                            <span class="mx-method">
+                                PS5 EXPLOIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- PS4 13.02 - 13.52 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/13.52/index.html"
+                        aria-label="PS4 firmware 13.02 to 13.52 Host"
+                    >
+
+                        <span class="mx-number">
+                            02
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>13.02 – 13.52</span>
+                            </span>
+
+                            <span class="mx-description">
+                                SlopKit // GoldHEN // Offline Host
+                            </span>
+
+                            <span class="mx-method">
+                                WEBKIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- PS4 11.00 - 13.00 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/1300/version-selector.html"
+                        aria-label="PS4 firmware 11.00 to 13.00 Host"
+                    >
+
+                        <span class="mx-number">
+                            03
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>11.00 – 13.00</span>
+                            </span>
+
+                            <span class="mx-description">
+                                Firmware Host // Offline
+                            </span>
+
+                            <span class="mx-method">
+                                WEBKIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- PS4 6.00 - 11.02 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/css/version-selector.html"
+                        aria-label="PS4 firmware 6.00 to 11.02 Host"
+                    >
+
+                        <span class="mx-number">
+                            04
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>6.00 – 11.02</span>
+                            </span>
+
+                            <span class="mx-description">
+                                Firmware Host // Offline
+                            </span>
+
+                            <span class="mx-method">
+                                WEBKIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- PS4 9.00 - 9.60 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/900/version-selector.html"
+                        aria-label="PS4 firmware 9.00 to 9.60 Host"
+                    >
+
+                        <span class="mx-number">
+                            05
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>9.00 – 9.60</span>
+                            </span>
+
+                            <span class="mx-description">
+                                Firmware Host // Offline
+                            </span>
+
+                            <span class="mx-method">
+                                WEBKIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- PS4 7.00 - 8.52 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/700/version-selector.html"
+                        aria-label="PS4 firmware 7.00 to 8.52 Host"
+                    >
+
+                        <span class="mx-number">
+                            06
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>7.00 – 8.52</span>
+                            </span>
+
+                            <span class="mx-description">
+                                Firmware Host // Offline
+                            </span>
+
+                            <span class="mx-method">
+                                WEBKIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- PS4 6.72 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/672/index.html"
+                        aria-label="PS4 firmware 6.72 Host"
+                    >
+
+                        <span class="mx-number">
+                            07
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>6.72</span>
+                            </span>
+
+                            <span class="mx-description">
+                                Firmware Host // Offline
+                            </span>
+
+                            <span class="mx-method">
+                                WEBKIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- PS4 5.05 -->
+
+                <div class="col-12 col-md-6">
+
+                    <a
+                        class="mx-host d-flex align-items-center gap-3 p-3 h-100"
+                        href="https://moddingxz.co.uk/Hosts/505/index.html"
+                        aria-label="PS4 firmware 5.05 Host"
+                    >
+
+                        <span class="mx-number">
+                            08
+                        </span>
+
+                        <span class="flex-grow-1">
+
+                            <span class="mx-firmware">
+                                FW <span>5.05</span>
+                            </span>
+
+                            <span class="mx-description">
+                                Firmware Host // Offline
+                            </span>
+
+                            <span class="mx-method">
+                                WEBKIT
+                            </span>
+
+                        </span>
+
+                        <span class="mx-select">
+                            [ SELECT ]
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INFO -->
+
+    <section class="mx-info">
+
+        <div class="mx-info-item">
+
+            <div class="mx-info-label">
+                PS5
+            </div>
+
+            <div class="mx-info-text">
+                PS5 13.60 host is available through the dedicated
+                PS5 host page.
+            </div>
+
+        </div>
+
+
+        <div class="mx-info-item">
+
+            <div class="mx-info-label">
+                PS4
+            </div>
+
+            <div class="mx-info-text">
+                Select the host that matches your PS4 firmware
+                version before continuing.
+            </div>
+
+        </div>
+
+
+        <div class="mx-info-item">
+
+            <div class="mx-info-label">
+                Support
+            </div>
+
+            <div class="mx-info-text">
+                If you are unsure which host to use, check your
+                console firmware version first.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="mx-footer">
+
+        <span>
+            // PS4 & PS5 HOST SYSTEM
+        </span>
+
+        <span>
+            <strong>MODDING XZ</strong> // ONLINE
+        </span>
+
+    </footer>
+
+</div>
+
+</body>
 </html>
