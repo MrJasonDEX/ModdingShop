@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07050b">
+
+    <link rel="icon" type="image/png" href="pspulse.png">
+
+    <title>MODDINGXZ // ACCESS TERMINAL</title>
+
+    <!-- External font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- VanillaTilt -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"
+        defer
+    ></script>
+
+    <style>
+
+        :root {
+            --bg: #050409;
+            --bg-soft: #09070e;
+
+            --panel: #0d0a12;
+            --panel-2: #130e1b;
+
+            --line: #24182f;
+            --line-bright: #432958;
+
+            --text: #f8f4fb;
+            --muted: #a99caf;
+            --dim: #665b6d;
+
+            --purple: #a855f7;
+            --purple-light: #d19aff;
+            --purple-dark: #6d28d9;
+
+            --green: #6ee7a8;
+            --red: #ff5c75;
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            overflow-x: hidden;
+
+            color: var(--text);
+
+            background:
+                radial-gradient(
+                    circle at 50% -20%,
+                    rgba(168, 85, 247, .18),
+                    transparent 45%
+                ),
+                linear-gradient(
+                    rgba(168, 85, 247, .025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(168, 85, 247, .025) 1px,
+                    transparent 1px
+                ),
+                var(--bg);
+
+            background-size:
+                auto,
+                40px 40px,
+                40px 40px;
+
+            font-family:
+                "JetBrains Mono",
+                Consolas,
+                monospace;
+        }
+
+
+        /* =========================
+           CRT SCANLINES
+        ========================= */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 999;
+
+            opacity: .12;
+
+            background:
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0,
+                    transparent 3px,
+                    rgba(255,255,255,.035) 4px
+                );
+        }
+
+
+        /* =========================
+           TERMINAL
+        ========================= */
+
+        .terminal {
+            width: 100%;
+            max-width: 780px;
+
+            position: relative;
+
+            border: 1px solid var(--line-bright);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(16, 12, 24, .97),
+                    rgba(5, 4, 9, .98)
+                );
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,.65);
+
+            transform-style: preserve-3d;
+        }
+
+
+        /* =========================
+           TOP BAR
+        ========================= */
+
+        .topbar {
+            min-height: 48px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 10px 15px;
+
+            border-bottom: 1px solid var(--line);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(168,85,247,.07),
+                    transparent
+                );
+
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .brand {
+            color: var(--purple-light);
+        }
+
+        .brand span {
+            color: var(--dim);
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px rgba(110,231,168,.75);
+
+            animation:
+                pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+
+            50% {
+                opacity: .4;
+                transform: scale(.75);
+            }
+
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .content {
+            min-height: 520px;
+
+            padding: 45px 40px;
+
+            position: relative;
+        }
+
+
+        /* =========================
+           STEP
+        ========================= */
+
+        .step {
+            animation:
+                stepIn .35s ease both;
+        }
+
+        @keyframes stepIn {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateY(12px)
+                    scale(.985);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+
+        }
+
+
+        /* =========================
+           PROMPT
+        ========================= */
+
+        .prompt {
+            margin-bottom: 10px;
+
+            color: var(--purple);
+
+            font-size: 10px;
+
+            letter-spacing: .13em;
+        }
+
+        .prompt::before {
+            content: ">";
+            margin-right: 7px;
+        }
+
+
+        /* =========================
+           HEADING
+        ========================= */
+
+        h1 {
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            font-size:
+                clamp(36px, 6vw, 62px);
+
+            font-weight: 900;
+
+            line-height: .94;
+
+            letter-spacing: -.065em;
+        }
+
+        h1 span {
+            color: var(--purple);
+        }
+
+
+        /* =========================
+           DESCRIPTION
+        ========================= */
+
+        .description {
+            max-width: 620px;
+
+            margin: 20px 0 0;
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================
+           QUESTION
+        ========================= */
+
+        .question {
+            margin-top: 32px;
+        }
+
+        .question-title {
+            margin-bottom: 13px;
+
+            color: var(--text);
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+        .question-title::before {
+            content: ">";
+            margin-right: 8px;
+
+            color: var(--purple);
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .buttons {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0,1fr));
+
+            gap: 10px;
+        }
+
+        .choice {
+            min-height: 62px;
+
+            padding: 12px;
+
+            border: 1px solid var(--line);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(168,85,247,.025),
+                    rgba(10,7,14,.9)
+                );
+
+            color: var(--text);
+
+            font-family: inherit;
+
+            font-size: 10px;
+
+            letter-spacing: .05em;
+
+            cursor: pointer;
+
+            transition:
+                .16s ease;
+        }
+
+        .choice:hover {
+            border-color: var(--purple);
+
+            background:
+                rgba(168,85,247,.08);
+
+            color: var(--purple-light);
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 14px 30px rgba(0,0,0,.3);
+        }
+
+        .choice:active {
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        .result-box {
+            margin-top: 28px;
+
+            padding: 18px;
+
+            border: 1px solid var(--line);
+
+            background:
+                rgba(10,7,14,.85);
+        }
+
+        .result-title {
+            color: var(--purple-light);
+
+            font-size: 11px;
+
+            letter-spacing: .12em;
+
+            text-transform: uppercase;
+        }
+
+        .result-text {
+            margin-top: 10px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            line-height: 1.8;
+        }
+
+        .open-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 45px;
+
+            margin-top: 17px;
+
+            padding:
+                0 18px;
+
+            border: 1px solid var(--purple);
+
+            background:
+                rgba(168,85,247,.09);
+
+            color: var(--purple-light);
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            letter-spacing: .08em;
+
+            transition: .15s ease;
+        }
+
+        .open-button:hover {
+            background:
+                var(--purple);
+
+            color: white;
+
+            box-shadow:
+                0 0 25px
+                rgba(168,85,247,.3);
+        }
+
+
+        /* =========================
+           HACKER SCREEN
+        ========================= */
+
+        .hacker {
+            margin-top: 5px;
+
+            border: 1px solid
+                rgba(255,92,117,.45);
+
+            background:
+                #030304;
+
+            box-shadow:
+                0 0 40px
+                rgba(255,92,117,.08);
+
+            overflow: hidden;
+        }
+
+        .hacker-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 10px 13px;
+
+            border-bottom:
+                1px solid
+                rgba(255,92,117,.25);
+
+            color: var(--red);
+
+            font-size: 9px;
+
+            letter-spacing: .12em;
+        }
+
+        .hacker-body {
+            padding: 20px;
+
+            min-height: 330px;
+
+            font-size: 11px;
+
+            line-height: 1.9;
+        }
+
+        .terminal-line {
+            display: block;
+
+            opacity: 0;
+
+            animation:
+                terminalLine .3s forwards;
+        }
+
+        .terminal-line:nth-child(1) {
+            animation-delay: .2s;
+        }
+
+        .terminal-line:nth-child(2) {
+            animation-delay: .6s;
+        }
+
+        .terminal-line:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .terminal-line:nth-child(4) {
+            animation-delay: 1.4s;
+        }
+
+        .terminal-line:nth-child(5) {
+            animation-delay: 1.8s;
+        }
+
+        .terminal-line:nth-child(6) {
+            animation-delay: 2.2s;
+        }
+
+        .terminal-line:nth-child(7) {
+            animation-delay: 2.6s;
+        }
+
+        .terminal-line:nth-child(8) {
+            animation-delay: 3s;
+        }
+
+        .terminal-line:nth-child(9) {
+            animation-delay: 3.4s;
+        }
+
+        .terminal-line:nth-child(10) {
+            animation-delay: 3.8s;
+        }
+
+        @keyframes terminalLine {
+
+            from {
+                opacity: 0;
+                transform:
+                    translateX(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform:
+                    translateX(0);
+            }
+
+        }
+
+        .green {
+            color: var(--green);
+        }
+
+        .purple {
+            color: var(--purple-light);
+        }
+
+        .red {
+            color: var(--red);
+        }
+
+        .grey {
+            color: var(--dim);
+        }
+
+        .fake-ip {
+            color: var(--red);
+        }
+
+        .cursor {
+            display: inline-block;
+
+            width: 7px;
+            height: 13px;
+
+            margin-left: 3px;
+
+            vertical-align: -2px;
+
+            background:
+                var(--purple);
+
+            animation:
+                blink .8s infinite;
+        }
+
+        @keyframes blink {
+
+            50% {
+                opacity: 0;
+            }
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            padding: 13px 15px;
+
+            border-top: 1px solid var(--line);
+
+            color: var(--dim);
+
+            font-size: 8px;
+
+            text-align: center;
+
+            letter-spacing: .04em;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 9px;
+            }
+
+            .content {
+                min-height: 500px;
+
+                padding:
+                    32px 20px;
+            }
+
+            .buttons {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 40px;
+            }
+
+            .description {
+                font-size: 12px;
+            }
+
+            .hacker-body {
+                min-height: 360px;
+
+                padding: 15px;
+
+                font-size: 9px;
+            }
+
+            .topbar {
+                font-size: 8px;
+            }
+
+            .brand span {
+                display: none;
+            }
+
+        }
+
+
+        /* =========================
+           REDUCED MOTION
+        ========================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div
+    class="terminal"
+    data-tilt
+    data-tilt-max="4"
+    data-tilt-speed="700"
+    data-tilt-glare="true"
+    data-tilt-max-glare=".08"
+>
+
+
+    <!-- =========================
+         TOP BAR
+    ========================= -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            MODDINGXZ
+
+            <span>
+                // ACCESS TERMINAL
+            </span>
+
+        </div>
+
+        <div class="status">
+
+            <span class="dot"></span>
+
+            ONLINE
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENT
+    ========================= -->
+
+    <main
+        class="content"
+        id="app"
+    >
+
+        <!-- QUESTION 1 -->
+
+        <section
+            class="step"
+            id="stepOne"
+        >
+
+            <div class="prompt">
+                moddingxz --identify-user
+            </div>
+
+            <h1>
+                WHAT ARE YOU<br>
+                <span>LOOKING FOR?</span>
+            </h1>
+
+            <p class="description">
+
+                Before we send you somewhere random,
+                let's figure out what you're actually
+                doing here.
+
+            </p>
+
+
+            <div class="question">
+
+                <div class="question-title">
+
+                    Do you have a PS4 lower than 13.52
+                    or a PS5 on 13.60 and want to jailbreak it?
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <button
+                        class="choice"
+                        onclick="showJailbreak()"
+                    >
+                        YES — I WANT TO JAILBREAK
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="showServicesQuestion()"
+                    >
+                        NO — NOT LOOKING FOR THAT
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        MODDINGXZ // ACCESS TERMINAL //
+        CONNECTION ESTABLISHED
+
+    </footer>
+
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+    /*
+     * ModdingXZ Access Terminal
+     *
+     * Every question replaces the previous
+     * screen completely.
+     *
+     * No real IP address is collected.
+     * The hacker screen uses fictional data.
+     */
+
+
+    const app = document.getElementById("app");
+
+
+    /* =========================
+       SCREEN SWITCHER
+    ========================= */
+
+    function showScreen(html) {
+
+        app.innerHTML = "";
+
+        const wrapper =
+            document.createElement("section");
+
+        wrapper.className = "step";
+
+        wrapper.innerHTML = html;
+
+        app.appendChild(wrapper);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================
+       JAILBREAK
+    ========================= */
+
+    function showJailbreak() {
+
+        showScreen(`
+
+            <div class="prompt">
+                moddingxz --jailbreak
+            </div>
+
+            <h1>
+                JAILBREAK<br>
+                <span>DETECTED.</span>
+            </h1>
+
+            <p class="description">
+
+                Nice. You actually came to the right place 😂
+                Choose your firmware from the ModdingXZ host
+                selector.
+
+            </p>
+
+
+            <div class="result-box">
+
+                <div class="result-title">
+                    // HOST SYSTEM READY
+                </div>
+
+                <div class="result-text">
+
+                    PS4 below 13.52 or PS5 13.60 detected.
+                    Continue to the ModdingXZ host system.
+
+                </div>
+
+
+                <a
+                    class="open-button"
+                    href="https://moddingxz.co.uk/Hosts/index.html"
+                >
+                    OPEN JAILBREAK HOSTS →
+                </a>
+
+            </div>
+
+        `);
+
+    }
+
+
+    /* =========================
+       SERVICES QUESTION
+    ========================= */
+
+    function showServicesQuestion() {
+
+        showScreen(`
+
+            <div class="prompt">
+                moddingxz --next-question
+            </div>
+
+            <h1>
+                LOOKING FOR<br>
+                <span>SERVICES?</span>
+            </h1>
+
+            <p class="description">
+
+                Alright then... if you're not here for
+                the jailbreak hosts, are you looking for
+                ModdingXZ services?
+
+            </p>
+
+
+            <div class="question">
+
+                <div class="question-title">
+                    Are you looking for ModdingXZ services?
+                </div>
+
+
+                <div class="buttons">
+
+                    <button
+                        class="choice"
+                        onclick="showServices()"
+                    >
+                        YES — SHOW ME SERVICES
+                    </button>
+
+
+                    <button
+                        class="choice"
+                        onclick="showHacker()"
+                    >
+                        NO — I'M JUST HERE
+                    </button>
+
+                </div>
+
+            </div>
+
+        `);
+
+    }
+
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    function showServices() {
+
+        showScreen(`
+
+            <div class="prompt">
+                moddingxz --services
+            </div>
+
+            <h1>
+                SERVICES<br>
+                <span>FOUND.</span>
+            </h1>
+
+            <p class="description">
+
+                There we go 😂
+                Now we're getting somewhere.
+
+            </p>
+
+
+            <div class="result-box">
+
+                <div class="result-title">
+                    // MODDINGXZ SERVICES
+                </div>
+
+                <div class="result-text">
+
+                    Head over to the main ModdingXZ website
+                    for the current services and information.
+
+                </div>
+
+
+                <a
+                    class="open-button"
+                    href="https://moddingxz.co.uk/"
+                >
+                    OPEN MODDINGXZ →
+                </a>
+
+            </div>
+
+        `);
+
+    }
+
+
+    /* =========================
+       HACKER JOKE
+    ========================= */
+
+    function showHacker() {
+
+        showScreen(`
+
+            <div class="hacker">
+
+                <div class="hacker-header">
+
+                    <span>
+                        ⚠ SECURITY TERMINAL
+                    </span>
+
+                    <span>
+                        SESSION: 0x1337
+                    </span>
+
+                </div>
+
+
+                <div class="hacker-body">
+
+                    <span class="terminal-line green">
+                        [ OK ] Initialising ModdingXZ security system...
+                    </span>
+
+                    <span class="terminal-line purple">
+                        [ OK ] Analysing visitor...
+                    </span>
+
+                    <span class="terminal-line green">
+                        [ OK ] Connection established.
+                    </span>
+
+                    <span class="terminal-line">
+                        IP:
+                        <span class="fake-ip">
+                            127.0.0.1
+                        </span>
+                    </span>
+
+                    <span class="terminal-line">
+                        LOCATION:
+                        <span class="purple">
+                            CLASSIFIED
+                        </span>
+                    </span>
+
+                    <span class="terminal-line">
+                        DEVICE:
+                        <span class="purple">
+                            UNKNOWN
+                        </span>
+                    </span>
+
+                    <span class="terminal-line">
+                        SECURITY LEVEL:
+                        <span class="green">
+                            DEFINITELY NOT A HACKER
+                        </span>
+                    </span>
+
+                    <br>
+
+                    <span class="terminal-line red">
+                        [!] WAIT...
+                    </span>
+
+                    <span class="terminal-line red">
+                        [!] YOU DON'T WANT A JAILBREAK.
+                    </span>
+
+                    <span class="terminal-line red">
+                        [!] YOU DON'T WANT SERVICES.
+                    </span>
+
+                    <span class="terminal-line purple">
+                        [!] SO WHAT EXACTLY ARE YOU DOING HERE?
+                    </span>
+
+                    <br>
+
+                    <span class="terminal-line">
+
+                        <strong>
+                            WTF U WANT THEN? 😂
+                        </strong>
+
+                    </span>
+
+                    <span class="terminal-line grey">
+                        Closing highly sophisticated investigation...
+                    </span>
+
+                    <span class="terminal-line grey">
+                        Investigation result: absolutely nothing.
+                    </span>
+
+                    <span class="terminal-line">
+
+                        moddingxz@terminal:~$
+
+                        <span class="cursor"></span>
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        `);
+
+    }
+
+
+    /* =========================
+       TILT INITIALISATION
+    ========================= */
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            if (
+                typeof VanillaTilt !== "undefined" &&
+                !window.matchMedia(
+                    "(prefers-reduced-motion: reduce)"
+                ).matches
+            ) {
+
+                VanillaTilt.init(
+                    document.querySelector(".terminal")
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+
+</body>
+</html>
