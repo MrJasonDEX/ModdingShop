@@ -1,847 +1,629 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#07050b">
-
-    <link rel="icon" type="image/png" href="pspulse.png">
-
-    <title>MODDINGXZ // ACCESS TERMINAL</title>
-
-    <!-- External font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- VanillaTilt -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"
-        defer
-    ></script>
-
-    <style>
-
-        :root {
-            --bg: #050409;
-            --bg-soft: #09070e;
-
-            --panel: #0d0a12;
-            --panel-2: #130e1b;
-
-            --line: #24182f;
-            --line-bright: #432958;
-
-            --text: #f8f4fb;
-            --muted: #a99caf;
-            --dim: #665b6d;
-
-            --purple: #a855f7;
-            --purple-light: #d19aff;
-            --purple-dark: #6d28d9;
-
-            --green: #6ee7a8;
-            --red: #ff5c75;
-        }
-
-
-        /* =========================
-           RESET
-        ========================= */
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 20px;
-
-            overflow-x: hidden;
-
-            color: var(--text);
-
-            background:
-                radial-gradient(
-                    circle at 50% -20%,
-                    rgba(168, 85, 247, .18),
-                    transparent 45%
-                ),
-                linear-gradient(
-                    rgba(168, 85, 247, .025) 1px,
-                    transparent 1px
-                ),
-                linear-gradient(
-                    90deg,
-                    rgba(168, 85, 247, .025) 1px,
-                    transparent 1px
-                ),
-                var(--bg);
-
-            background-size:
-                auto,
-                40px 40px,
-                40px 40px;
-
-            font-family:
-                "JetBrains Mono",
-                Consolas,
-                monospace;
-        }
-
-
-        /* =========================
-           CRT SCANLINES
-        ========================= */
-
-        body::before {
-            content: "";
-
-            position: fixed;
-            inset: 0;
-
-            pointer-events: none;
-
-            z-index: 999;
-
-            opacity: .12;
-
-            background:
-                repeating-linear-gradient(
-                    to bottom,
-                    transparent 0,
-                    transparent 3px,
-                    rgba(255,255,255,.035) 4px
-                );
-        }
-
-
-        /* =========================
-           TERMINAL
-        ========================= */
-
-        .terminal {
-            width: 100%;
-            max-width: 780px;
-
-            position: relative;
-
-            border: 1px solid var(--line-bright);
-
-            background:
-                linear-gradient(
-                    180deg,
-                    rgba(16, 12, 24, .97),
-                    rgba(5, 4, 9, .98)
-                );
-
-            box-shadow:
-                0 30px 100px rgba(0,0,0,.65);
-
-            transform-style: preserve-3d;
-        }
-
-
-        /* =========================
-           TOP BAR
-        ========================= */
-
-        .topbar {
-            min-height: 48px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 10px 15px;
-
-            border-bottom: 1px solid var(--line);
-
-            background:
-                linear-gradient(
-                    90deg,
-                    rgba(168,85,247,.07),
-                    transparent
-                );
-
-            font-size: 10px;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-        }
-
-        .brand {
-            color: var(--purple-light);
-        }
-
-        .brand span {
-            color: var(--dim);
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-
-            gap: 7px;
-
-            color: var(--muted);
-
-            font-size: 9px;
-        }
-
-        .dot {
-            width: 7px;
-            height: 7px;
-
-            border-radius: 50%;
-
-            background: var(--green);
-
-            box-shadow:
-                0 0 12px rgba(110,231,168,.75);
-
-            animation:
-                pulse 1.8s infinite;
-        }
-
-        @keyframes pulse {
-
-            50% {
-                opacity: .4;
-                transform: scale(.75);
-            }
-
-        }
-
-
-        /* =========================
-           CONTENT
-        ========================= */
-
-        .content {
-            min-height: 520px;
-
-            padding: 45px 40px;
-
-            position: relative;
-        }
-
-
-        /* =========================
-           STEP
-        ========================= */
-
-        .step {
-            animation:
-                stepIn .35s ease both;
-        }
-
-        @keyframes stepIn {
-
-            from {
-                opacity: 0;
-                transform:
-                    translateY(12px)
-                    scale(.985);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translateY(0)
-                    scale(1);
-            }
-
-        }
-
-
-        /* =========================
-           PROMPT
-        ========================= */
-
-        .prompt {
-            margin-bottom: 10px;
-
-            color: var(--purple);
-
-            font-size: 10px;
-
-            letter-spacing: .13em;
-        }
-
-        .prompt::before {
-            content: ">";
-            margin-right: 7px;
-        }
-
-
-        /* =========================
-           HEADING
-        ========================= */
-
-        h1 {
-            margin: 0;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
-            font-size:
-                clamp(36px, 6vw, 62px);
-
-            font-weight: 900;
-
-            line-height: .94;
-
-            letter-spacing: -.065em;
-        }
-
-        h1 span {
-            color: var(--purple);
-        }
-
-
-        /* =========================
-           DESCRIPTION
-        ========================= */
-
-        .description {
-            max-width: 620px;
-
-            margin: 20px 0 0;
-
-            color: var(--muted);
-
-            font-size: 13px;
-
-            line-height: 1.8;
-        }
-
-
-        /* =========================
-           QUESTION
-        ========================= */
-
-        .question {
-            margin-top: 32px;
-        }
-
-        .question-title {
-            margin-bottom: 13px;
-
-            color: var(--text);
-
-            font-size: 13px;
-
-            line-height: 1.6;
-        }
-
-        .question-title::before {
-            content: ">";
-            margin-right: 8px;
-
-            color: var(--purple);
-        }
-
-
-        /* =========================
-           BUTTONS
-        ========================= */
-
-        .buttons {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, minmax(0,1fr));
-
-            gap: 10px;
-        }
-
-        .choice {
-            min-height: 62px;
-
-            padding: 12px;
-
-            border: 1px solid var(--line);
-
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(168,85,247,.025),
-                    rgba(10,7,14,.9)
-                );
-
-            color: var(--text);
-
-            font-family: inherit;
-
-            font-size: 10px;
-
-            letter-spacing: .05em;
-
-            cursor: pointer;
-
-            transition:
-                .16s ease;
-        }
-
-        .choice:hover {
-            border-color: var(--purple);
-
-            background:
-                rgba(168,85,247,.08);
-
-            color: var(--purple-light);
-
-            transform:
-                translateY(-3px);
-
-            box-shadow:
-                0 14px 30px rgba(0,0,0,.3);
-        }
-
-        .choice:active {
-            transform:
-                translateY(-1px);
-        }
-
-
-        /* =========================
-           RESULT
-        ========================= */
-
-        .result-box {
-            margin-top: 28px;
-
-            padding: 18px;
-
-            border: 1px solid var(--line);
-
-            background:
-                rgba(10,7,14,.85);
-        }
-
-        .result-title {
-            color: var(--purple-light);
-
-            font-size: 11px;
-
-            letter-spacing: .12em;
-
-            text-transform: uppercase;
-        }
-
-        .result-text {
-            margin-top: 10px;
-
-            color: var(--muted);
-
-            font-size: 11px;
-
-            line-height: 1.8;
-        }
-
-        .open-button {
-            display: inline-flex;
-
-            align-items: center;
-            justify-content: center;
-
-            min-height: 45px;
-
-            margin-top: 17px;
-
-            padding:
-                0 18px;
-
-            border: 1px solid var(--purple);
-
-            background:
-                rgba(168,85,247,.09);
-
-            color: var(--purple-light);
-
-            text-decoration: none;
-
-            font-size: 10px;
-
-            letter-spacing: .08em;
-
-            transition: .15s ease;
-        }
-
-        .open-button:hover {
-            background:
-                var(--purple);
-
-            color: white;
-
-            box-shadow:
-                0 0 25px
-                rgba(168,85,247,.3);
-        }
-
-
-        /* =========================
-           HACKER SCREEN
-        ========================= */
-
-        .hacker {
-            margin-top: 5px;
-
-            border: 1px solid
-                rgba(255,92,117,.45);
-
-            background:
-                #030304;
-
-            box-shadow:
-                0 0 40px
-                rgba(255,92,117,.08);
-
-            overflow: hidden;
-        }
-
-        .hacker-header {
-            display: flex;
-
-            justify-content: space-between;
-
-            padding: 10px 13px;
-
-            border-bottom:
-                1px solid
-                rgba(255,92,117,.25);
-
-            color: var(--red);
-
-            font-size: 9px;
-
-            letter-spacing: .12em;
-        }
-
-        .hacker-body {
-            padding: 20px;
-
-            min-height: 330px;
-
-            font-size: 11px;
-
-            line-height: 1.9;
-        }
-
-        .terminal-line {
-            display: block;
-
-            opacity: 0;
-
-            animation:
-                terminalLine .3s forwards;
-        }
-
-        .terminal-line:nth-child(1) {
-            animation-delay: .2s;
-        }
-
-        .terminal-line:nth-child(2) {
-            animation-delay: .6s;
-        }
-
-        .terminal-line:nth-child(3) {
-            animation-delay: 1s;
-        }
-
-        .terminal-line:nth-child(4) {
-            animation-delay: 1.4s;
-        }
-
-        .terminal-line:nth-child(5) {
-            animation-delay: 1.8s;
-        }
-
-        .terminal-line:nth-child(6) {
-            animation-delay: 2.2s;
-        }
-
-        .terminal-line:nth-child(7) {
-            animation-delay: 2.6s;
-        }
-
-        .terminal-line:nth-child(8) {
-            animation-delay: 3s;
-        }
-
-        .terminal-line:nth-child(9) {
-            animation-delay: 3.4s;
-        }
-
-        .terminal-line:nth-child(10) {
-            animation-delay: 3.8s;
-        }
-
-        @keyframes terminalLine {
-
-            from {
-                opacity: 0;
-                transform:
-                    translateX(-5px);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    translateX(0);
-            }
-
-        }
-
-        .green {
-            color: var(--green);
-        }
-
-        .purple {
-            color: var(--purple-light);
-        }
-
-        .red {
-            color: var(--red);
-        }
-
-        .grey {
-            color: var(--dim);
-        }
-
-        .fake-ip {
-            color: var(--red);
-        }
-
-        .cursor {
-            display: inline-block;
-
-            width: 7px;
-            height: 13px;
-
-            margin-left: 3px;
-
-            vertical-align: -2px;
-
-            background:
-                var(--purple);
-
-            animation:
-                blink .8s infinite;
-        }
-
-        @keyframes blink {
-
-            50% {
-                opacity: 0;
-            }
-
-        }
-
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        .footer {
-            padding: 13px 15px;
-
-            border-top: 1px solid var(--line);
-
-            color: var(--dim);
-
-            font-size: 8px;
-
-            text-align: center;
-
-            letter-spacing: .04em;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 600px) {
-
-            body {
-                padding: 9px;
-            }
-
-            .content {
-                min-height: 500px;
-
-                padding:
-                    32px 20px;
-            }
-
-            .buttons {
-                grid-template-columns: 1fr;
-            }
-
-            h1 {
-                font-size: 40px;
-            }
-
-            .description {
-                font-size: 12px;
-            }
-
-            .hacker-body {
-                min-height: 360px;
-
-                padding: 15px;
-
-                font-size: 9px;
-            }
-
-            .topbar {
-                font-size: 8px;
-            }
-
-            .brand span {
-                display: none;
-            }
-
-        }
-
-
-        /* =========================
-           REDUCED MOTION
-        ========================= */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                animation: none !important;
-                transition: none !important;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07050d">
+
+<title>MODDINGXZ // TERMINAL</title>
+
+<!-- External fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- External animation library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js" defer></script>
+
+<style>
+/* =========================================================
+   MODDINGXZ // ONE FILE TERMINAL
+   ========================================================= */
+
+:root {
+    --bg: #050308;
+    --panel: rgba(13, 8, 20, .94);
+    --panel2: rgba(20, 11, 31, .9);
+    --purple: #9b5cff;
+    --purple2: #c08aff;
+    --pink: #ff4fd8;
+    --green: #45ff9a;
+    --red: #ff5577;
+    --yellow: #ffd166;
+    --text: #eee7f8;
+    --muted: #8e829d;
+    --border: rgba(155, 92, 255, .28);
+    --shadow: 0 30px 100px rgba(0,0,0,.65);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "JetBrains Mono", monospace;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* MATRIX */
+
+#matrix {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: .13;
+    pointer-events: none;
+}
+
+/* VIGNETTE */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background:
+        radial-gradient(circle at center, transparent 20%, rgba(0,0,0,.55) 100%),
+        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px);
+    background-size: auto, 100% 4px;
+}
+
+/* MAIN */
+
+.wrapper {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.terminal {
+    width: min(940px, 100%);
+    min-height: 650px;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(145deg, rgba(22,12,34,.97), rgba(5,3,8,.98));
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    box-shadow:
+        var(--shadow),
+        0 0 80px rgba(117,54,255,.12),
+        inset 0 1px 0 rgba(255,255,255,.04);
+
+    backdrop-filter: blur(15px);
+}
+
+/* TOP BAR */
+
+.topbar {
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    background: rgba(0,0,0,.22);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.logo {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+
+    color: #050308;
+    background: linear-gradient(135deg, var(--purple2), var(--pink));
+
+    font-size: 13px;
+    font-weight: 900;
+
+    box-shadow: 0 0 25px rgba(192,138,255,.25);
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px var(--green);
+}
+
+/* CONTENT */
+
+.content {
+    padding: 40px;
+}
+
+@media(max-width: 650px) {
+    .content {
+        padding: 25px 18px;
+    }
+
+    .terminal {
+        min-height: 600px;
+    }
+}
+
+/* BOOT */
+
+.boot {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boot-inner {
+    width: 100%;
+    max-width: 650px;
+}
+
+.boot-logo {
+    color: var(--purple2);
+    font-size: clamp(28px, 7vw, 58px);
+    font-weight: 800;
+    letter-spacing: -3px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 35px rgba(155,92,255,.4);
+}
+
+.boot-line {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 2;
+}
+
+.boot-line span {
+    color: var(--green);
+}
+
+.progress {
+    height: 8px;
+    width: 100%;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: rgba(255,255,255,.05);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--purple), var(--pink));
+    box-shadow: 0 0 25px rgba(155,92,255,.7);
+    transition: width .25s ease;
+}
+
+/* SCREENS */
+
+.screen {
+    animation: screenIn .35s ease both;
+}
+
+@keyframes screenIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.kicker {
+    color: var(--purple2);
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+}
+
+.question {
+    font-size: clamp(24px, 5vw, 43px);
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    margin: 0 0 15px;
+}
+
+.description {
+    max-width: 700px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+@media(max-width: 600px) {
+    .buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+.btn {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.025);
+    color: var(--text);
+
+    padding: 18px;
+    border-radius: 12px;
+
+    text-align: left;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: .2s ease;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(155,92,255,.12), transparent);
+    transform: translateX(-100%);
+    transition: .4s ease;
+}
+
+.btn:hover::before {
+    transform: translateX(100%);
+}
+
+.btn:hover {
+    border-color: rgba(192,138,255,.7);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--purple2);
+    outline-offset: 3px;
+}
+
+.btn .arrow {
+    float: right;
+    color: var(--purple2);
+}
+
+.btn.green:hover {
+    border-color: rgba(69,255,154,.7);
+}
+
+.btn.danger:hover {
+    border-color: rgba(255,85,119,.7);
+}
+
+.btn.full {
+    grid-column: 1 / -1;
+}
+
+/* INFO BOX */
+
+.info {
+    border: 1px solid rgba(255,255,255,.07);
+    background: rgba(255,255,255,.025);
+    border-radius: 12px;
+    padding: 18px;
+    margin: 25px 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.info strong {
+    color: var(--text);
+}
+
+.success {
+    color: var(--green);
+}
+
+.warning {
+    color: var(--yellow);
+}
+
+.error {
+    color: var(--red);
+}
+
+/* RESULT */
+
+.result-icon {
+    width: 70px;
+    height: 70px;
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 22px;
+
+    border-radius: 18px;
+    background: rgba(69,255,154,.08);
+    border: 1px solid rgba(69,255,154,.25);
+
+    color: var(--green);
+    font-size: 30px;
+
+    box-shadow: 0 0 40px rgba(69,255,154,.08);
+}
+
+.result-icon.purple {
+    background: rgba(155,92,255,.08);
+    border-color: rgba(155,92,255,.25);
+    color: var(--purple2);
+}
+
+/* TERMINAL */
+
+.hacker {
+    border: 1px solid rgba(255,79,216,.28);
+    background: rgba(0,0,0,.45);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: inset 0 0 60px rgba(255,0,180,.025);
+}
+
+.hacker-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 13px 16px;
+
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    background: rgba(255,255,255,.025);
+
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.hacker-body {
+    padding: 20px;
+    font-size: 12px;
+    line-height: 2;
+    min-height: 300px;
+}
+
+.prompt {
+    color: var(--green);
+}
+
+.value {
+    color: var(--purple2);
+}
+
+.fake-danger {
+    color: var(--red);
+}
+
+.cursor {
+    display: inline-block;
+    width: 7px;
+    height: 15px;
+    background: var(--purple2);
+    vertical-align: middle;
+    animation: blink .8s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* VISITOR DATA */
+
+.visitor-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 18px;
+}
+
+@media(max-width: 600px) {
+    .visitor-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.visitor-card {
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 9px;
+    background: rgba(255,255,255,.02);
+}
+
+.visitor-card small {
+    display: block;
+    color: var(--muted);
+    margin-bottom: 5px;
+    font-size: 9px;
+}
+
+.visitor-card span {
+    display: block;
+    color: var(--purple2);
+    font-size: 11px;
+    word-break: break-word;
+}
+
+/* FOOTER */
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 16px 20px;
+
+    border-top: 1px solid rgba(255,255,255,.06);
+
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.footer a {
+    color: var(--purple2);
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #fff;
+}
+
+/* BACK */
+
+.back {
+    margin-top: 25px;
+    display: inline-block;
+
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+
+    font: inherit;
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+.back:hover {
+    color: #fff;
+}
+
+/* CLOCK */
+
+.clock {
+    position: absolute;
+    right: 20px;
+    bottom: 15px;
+
+    font-size: 9px;
+    color: rgba(255,255,255,.25);
+}
+
+/* MOBILE */
+
+@media(max-width: 500px) {
+    .topbar {
+        padding: 0 14px;
+    }
+
+    .brand {
+        font-size: 11px;
+    }
+
+    .status {
+        font-size: 9px;
+    }
+
+    .content {
+        padding-bottom: 55px;
+    }
+}
+
+/* REDUCED MOTION */
+
+@media(prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
+<canvas id="matrix"></canvas>
 
-<div
-    class="terminal"
-    data-tilt
-    data-tilt-max="4"
-    data-tilt-speed="700"
-    data-tilt-glare="true"
-    data-tilt-max-glare=".08"
->
+<div class="wrapper">
 
+    <main class="terminal" id="terminal">
 
-    <!-- =========================
-         TOP BAR
-    ========================= -->
+        <header class="topbar">
 
-    <header class="topbar">
-
-        <div class="brand">
-
-            MODDINGXZ
-
-            <span>
-                // ACCESS TERMINAL
-            </span>
-
-        </div>
-
-        <div class="status">
-
-            <span class="dot"></span>
-
-            ONLINE
-
-        </div>
-
-    </header>
-
-
-    <!-- =========================
-         CONTENT
-    ========================= -->
-
-    <main
-        class="content"
-        id="app"
-    >
-
-        <!-- QUESTION 1 -->
-
-        <section
-            class="step"
-            id="stepOne"
-        >
-
-            <div class="prompt">
-                moddingxz --identify-user
+            <div class="brand">
+                <div class="logo">XZ</div>
+                MODDINGXZ // TERMINAL
             </div>
 
-            <h1>
-                WHAT ARE YOU<br>
-                <span>LOOKING FOR?</span>
-            </h1>
+            <div class="status">
+                <span class="status-dot"></span>
+                SYSTEM ONLINE
+            </div>
 
-            <p class="description">
+        </header>
 
-                Before we send you somewhere random,
-                let's figure out what you're actually
-                doing here.
+        <section class="content" id="app">
 
-            </p>
+            <!-- BOOT SCREEN -->
 
+            <div class="boot">
 
-            <div class="question">
+                <div class="boot-inner">
 
-                <div class="question-title">
+                    <div class="boot-logo">
+                        MODDINGXZ
+                    </div>
 
-                    Do you have a PS4 lower than 13.52
-                    or a PS5 on 13.60 and want to jailbreak it?
+                    <div id="boot-lines"></div>
 
-                </div>
-
-
-                <div class="buttons">
-
-                    <button
-                        class="choice"
-                        onclick="showJailbreak()"
-                    >
-                        YES — I WANT TO JAILBREAK
-                    </button>
-
-
-                    <button
-                        class="choice"
-                        onclick="showServicesQuestion()"
-                    >
-                        NO — NOT LOOKING FOR THAT
-                    </button>
+                    <div class="progress">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
 
                 </div>
 
@@ -849,378 +631,1109 @@
 
         </section>
 
+        <footer class="footer">
+
+            <span>
+                MODDINGXZ // PLAYSTATION TERMINAL
+            </span>
+
+            <span>
+                <a href="https://moddingxz.co.uk" target="_blank">
+                    moddingxz.co.uk
+                </a>
+            </span>
+
+        </footer>
+
+        <div class="clock" id="clock">
+            --:--:--
+        </div>
 
     </main>
 
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
-
-        MODDINGXZ // ACCESS TERMINAL //
-        CONNECTION ESTABLISHED
-
-    </footer>
-
-
 </div>
 
-
-<!-- =========================
-     JAVASCRIPT
-========================= -->
-
 <script>
+/* =========================================================
+   MODDINGXZ // TERMINAL ENGINE
+   ========================================================= */
 
-    /*
-     * ModdingXZ Access Terminal
-     *
-     * Every question replaces the previous
-     * screen completely.
-     *
-     * No real IP address is collected.
-     * The hacker screen uses fictional data.
-     */
+const app = document.getElementById("app");
+const progressBar = document.getElementById("progress-bar");
+const bootLines = document.getElementById("boot-lines");
+const clock = document.getElementById("clock");
 
+const HOST_URL = "https://moddingxz.co.uk/Hosts/index.html";
+const SERVICES_URL = "https://moddingxz.co.uk/";
+const TELEGRAM_URL = "https://t.me/ModdingXZ";
 
-    const app = document.getElementById("app");
+/* =========================================================
+   AUDIO
+   ========================================================= */
 
+let audioContext = null;
 
-    /* =========================
-       SCREEN SWITCHER
-    ========================= */
+function beep(type = "click") {
 
-    function showScreen(html) {
+    try {
 
-        app.innerHTML = "";
+        if (!audioContext) {
+            audioContext = new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+        }
 
-        const wrapper =
-            document.createElement("section");
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
 
-        wrapper.className = "step";
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
 
-        wrapper.innerHTML = html;
+        if (type === "success") {
+            oscillator.frequency.value = 660;
+        } else if (type === "error") {
+            oscillator.frequency.value = 140;
+        } else {
+            oscillator.frequency.value = 330;
+        }
 
-        app.appendChild(wrapper);
+        gain.gain.setValueAtTime(.035, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            audioContext.currentTime + .09
+        );
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + .09);
 
+    } catch(e) {}
+}
+
+/* =========================================================
+   BOOT
+   ========================================================= */
+
+const bootMessages = [
+    "BIOS ................. <span>OK</span>",
+    "HOST DATABASE ........ <span>OK</span>",
+    "PLAYSTATION MODULE ... <span>OK</span>",
+    "SECURITY LAYER ....... <span>OK</span>",
+    "TERMINAL ............. <span>READY</span>"
+];
+
+let bootIndex = 0;
+
+function bootSequence() {
+
+    if (bootIndex < bootMessages.length) {
+
+        const line = document.createElement("div");
+
+        line.className = "boot-line";
+        line.innerHTML = "> " + bootMessages[bootIndex];
+
+        bootLines.appendChild(line);
+
+        bootIndex++;
+
+        progressBar.style.width =
+            ((bootIndex / bootMessages.length) * 100) + "%";
+
+        setTimeout(bootSequence, 400);
+
+    } else {
+
+        setTimeout(() => {
+            showConsole();
+        }, 700);
     }
+}
 
+bootSequence();
 
-    /* =========================
-       JAILBREAK
-    ========================= */
+/* =========================================================
+   SCREEN ENGINE
+   ========================================================= */
 
-    function showJailbreak() {
+function showScreen(html) {
+
+    app.innerHTML = `
+        <div class="screen">
+            ${html}
+        </div>
+    `;
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    if (window.VanillaTilt) {
+
+        VanillaTilt.init(
+            document.querySelectorAll("[data-tilt]"),
+            {
+                max: 2,
+                speed: 500,
+                glare: true,
+                "max-glare": .05
+            }
+        );
+    }
+}
+
+/* =========================================================
+   CONSOLE SELECT
+   ========================================================= */
+
+function showConsole() {
+
+    showScreen(`
+
+        <div class="kicker">// INITIAL SETUP</div>
+
+        <h1 class="question">
+            WHAT CONSOLE DO YOU HAVE?
+        </h1>
+
+        <p class="description">
+            Select your PlayStation and we'll check the firmware
+            path for you. No bullshit, just pick the console.
+        </p>
+
+        <div class="buttons">
+
+            <button class="btn green" onclick="selectConsole('ps4')">
+                PLAYSTATION 4
+                <span class="arrow">→</span>
+            </button>
+
+            <button class="btn" onclick="selectConsole('ps5')">
+                PLAYSTATION 5
+                <span class="arrow">→</span>
+            </button>
+
+        </div>
+
+    `);
+}
+
+function selectConsole(consoleType) {
+
+    beep();
+
+    if (consoleType === "ps4") {
+        showPS4();
+    } else {
+        showPS5();
+    }
+}
+
+/* =========================================================
+   PS4
+   ========================================================= */
+
+function showPS4() {
+
+    showScreen(`
+
+        <div class="kicker">// PLAYSTATION 4</div>
+
+        <h1 class="question">
+            WHAT FIRMWARE ARE YOU ON?
+        </h1>
+
+        <p class="description">
+            We need your PS4 firmware to see which route you
+            should take.
+        </p>
+
+        <div class="buttons">
+
+            <button class="btn green" onclick="ps4Firmware('compatible')">
+                BELOW 13.52
+                <span class="arrow">→</span>
+            </button>
+
+            <button class="btn" onclick="ps4Firmware('new')">
+                13.52 OR HIGHER
+                <span class="arrow">→</span>
+            </button>
+
+            <button class="btn full" onclick="unknownFirmware('ps4')">
+                I DON'T KNOW
+                <span class="arrow">?</span>
+            </button>
+
+        </div>
+
+        <button class="back" onclick="showConsole()">
+            ← BACK
+        </button>
+
+    `);
+}
+
+function ps4Firmware(type) {
+
+    beep(type === "compatible" ? "success" : "click");
+
+    if (type === "compatible") {
+        jailbreakResult("PS4");
+    } else {
+        servicesQuestion("PS4");
+    }
+}
+
+/* =========================================================
+   PS5
+   ========================================================= */
+
+function showPS5() {
+
+    showScreen(`
+
+        <div class="kicker">// PLAYSTATION 5</div>
+
+        <h1 class="question">
+            WHAT FIRMWARE ARE YOU ON?
+        </h1>
+
+        <p class="description">
+            PS5 compatibility currently depends on the firmware
+            you're running.
+        </p>
+
+        <div class="buttons">
+
+            <button class="btn green" onclick="ps5Firmware('compatible')">
+                13.60
+                <span class="arrow">→</span>
+            </button>
+
+            <button class="btn" onclick="ps5Firmware('new')">
+                ABOVE 13.60
+                <span class="arrow">→</span>
+            </button>
+
+            <button class="btn full" onclick="unknownFirmware('ps5')">
+                I DON'T KNOW
+                <span class="arrow">?</span>
+            </button>
+
+        </div>
+
+        <button class="back" onclick="showConsole()">
+            ← BACK
+        </button>
+
+    `);
+}
+
+function ps5Firmware(type) {
+
+    beep(type === "compatible" ? "success" : "click");
+
+    if (type === "compatible") {
+        jailbreakResult("PS5");
+    } else {
+        servicesQuestion("PS5");
+    }
+}
+
+/* =========================================================
+   UNKNOWN FIRMWARE
+   ========================================================= */
+
+function unknownFirmware(consoleType) {
+
+    beep();
+
+    showScreen(`
+
+        <div class="kicker">// FIRMWARE DETECTOR</div>
+
+        <h1 class="question">
+            NO PROBLEM.
+        </h1>
+
+        <p class="description">
+            You can find your firmware directly on your
+            ${consoleType.toUpperCase()}.
+        </p>
+
+        <div class="info">
+
+            <strong>Go to:</strong><br><br>
+
+            Settings → System → System Information
+            <br><br>
+
+            Look for <strong>System Software</strong>.
+
+            <br><br>
+
+            <span class="warning">
+                Don't guess it. Check it properly 😂
+            </span>
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="btn green" onclick="${consoleType === "ps4" ? "showPS4()" : "showPS5()"}">
+                I'LL CHECK IT
+                <span class="arrow">→</span>
+            </button>
+
+        </div>
+
+        <button class="back" onclick="showConsole()">
+            ← BACK
+        </button>
+
+    `);
+}
+
+/* =========================================================
+   JAILBREAK RESULT
+   ========================================================= */
+
+function jailbreakResult(consoleType) {
+
+    showScreen(`
+
+        <div class="result-icon">
+            ✓
+        </div>
+
+        <div class="kicker">// COMPATIBLE PATH FOUND</div>
+
+        <h1 class="question">
+            ${consoleType} ROUTE FOUND.
+        </h1>
+
+        <p class="description">
+            Your selected firmware falls into the route we're
+            checking for. Continue to the ModdingXZ host page.
+        </p>
+
+        <div class="info">
+
+            <span class="success">
+                ● COMPATIBILITY CHECK COMPLETE
+            </span>
+
+            <br><br>
+
+            Console:
+            <strong>${consoleType}</strong>
+
+            <br>
+
+            ModdingXZ Host:
+            <strong>READY</strong>
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="btn green full" onclick="window.location.href='${HOST_URL}'">
+                OPEN MODDINGXZ HOSTS
+                <span class="arrow">→</span>
+            </button>
+
+        </div>
+
+        <button class="back" onclick="showConsole()">
+            ← START AGAIN
+        </button>
+
+    `);
+}
+
+/* =========================================================
+   SERVICES
+   ========================================================= */
+
+let noCount = 0;
+
+function servicesQuestion(consoleType) {
+
+    showScreen(`
+
+        <div class="kicker">// COMPATIBILITY RESULT</div>
+
+        <h1 class="question">
+            THAT FIRMWARE ISN'T ON THE HOST ROUTE.
+        </h1>
+
+        <p class="description">
+            Are you looking for ModdingXZ services instead?
+        </p>
+
+        <div class="buttons">
+
+            <button class="btn green" onclick="servicesResult()">
+                YES
+                <span class="arrow">→</span>
+            </button>
+
+            <button class="btn danger" onclick="noServices()">
+                NO
+                <span class="arrow">×</span>
+            </button>
+
+        </div>
+
+        <button class="back" onclick="${consoleType === "PS4" ? "showPS4()" : "showPS5()"}">
+            ← BACK
+        </button>
+
+    `);
+}
+
+/* =========================================================
+   NO ROUTE
+   ========================================================= */
+
+function noServices() {
+
+    noCount++;
+    beep("error");
+
+    if (noCount === 1) {
 
         showScreen(`
 
-            <div class="prompt">
-                moddingxz --jailbreak
-            </div>
+            <div class="kicker">// OKAY THEN...</div>
 
-            <h1>
-                JAILBREAK<br>
-                <span>DETECTED.</span>
+            <h1 class="question">
+                RIGHT... THEN WHY ARE YOU HERE? 😂
             </h1>
 
             <p class="description">
-
-                Nice. You actually came to the right place 😂
-                Choose your firmware from the ModdingXZ host
-                selector.
-
+                You don't want a jailbreak and you don't want
+                services. Interesting.
             </p>
 
+            <div class="buttons">
 
-            <div class="result-box">
-
-                <div class="result-title">
-                    // HOST SYSTEM READY
-                </div>
-
-                <div class="result-text">
-
-                    PS4 below 13.52 or PS5 13.60 detected.
-                    Continue to the ModdingXZ host system.
-
-                </div>
-
-
-                <a
-                    class="open-button"
-                    href="https://moddingxz.co.uk/Hosts/index.html"
-                >
-                    OPEN JAILBREAK HOSTS →
-                </a>
+                <button class="btn danger full" onclick="noServices()">
+                    I'M JUST LOOKING
+                    <span class="arrow">→</span>
+                </button>
 
             </div>
 
         `);
 
+        return;
     }
 
-
-    /* =========================
-       SERVICES QUESTION
-    ========================= */
-
-    function showServicesQuestion() {
+    if (noCount === 2) {
 
         showScreen(`
 
-            <div class="prompt">
-                moddingxz --next-question
-            </div>
+            <div class="kicker">// TERMINAL CONFUSED</div>
 
-            <h1>
-                LOOKING FOR<br>
-                <span>SERVICES?</span>
+            <h1 class="question">
+                BRO WHAT DO YOU ACTUALLY WANT? 💀
             </h1>
 
             <p class="description">
-
-                Alright then... if you're not here for
-                the jailbreak hosts, are you looking for
-                ModdingXZ services?
-
+                The website has run out of normal questions.
             </p>
 
+            <div class="buttons">
 
-            <div class="question">
+                <button class="btn danger" onclick="noServices()">
+                    NOTHING
+                    <span class="arrow">→</span>
+                </button>
 
-                <div class="question-title">
-                    Are you looking for ModdingXZ services?
+                <button class="btn" onclick="hackerScreen()">
+                    IDK LOL
+                    <span class="arrow">→</span>
+                </button>
+
+            </div>
+
+        `);
+
+        return;
+    }
+
+    hackerScreen();
+}
+
+/* =========================================================
+   SERVICES RESULT
+   ========================================================= */
+
+function servicesResult() {
+
+    noCount = 0;
+    beep("success");
+
+    showScreen(`
+
+        <div class="result-icon purple">
+            XZ
+        </div>
+
+        <div class="kicker">// MODDINGXZ SERVICES</div>
+
+        <h1 class="question">
+            YOU'RE IN THE RIGHT PLACE.
+        </h1>
+
+        <p class="description">
+            Head over to the main ModdingXZ website for the
+            current services and information.
+        </p>
+
+        <div class="info">
+
+            <span class="success">
+                ● SERVICES PORTAL READY
+            </span>
+
+            <br><br>
+
+            Open the main ModdingXZ website to continue.
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="btn green full" onclick="window.location.href='${SERVICES_URL}'">
+                OPEN MODDINGXZ
+                <span class="arrow">→</span>
+            </button>
+
+        </div>
+
+        <button class="back" onclick="showConsole()">
+            ← START AGAIN
+        </button>
+
+    `);
+}
+
+/* =========================================================
+   HACKER SCREEN
+   ========================================================= */
+
+async function hackerScreen() {
+
+    showScreen(`
+
+        <div class="kicker">// SECURITY TERMINAL</div>
+
+        <h1 class="question">
+            WTF U WANT THEN? 😂
+        </h1>
+
+        <div class="hacker" data-tilt>
+
+            <div class="hacker-head">
+
+                <span>
+                    MODDINGXZ_SECURITY.exe
+                </span>
+
+                <span>
+                    DEMO MODE
+                </span>
+
+            </div>
+
+            <div class="hacker-body" id="hacker-body">
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    Initialising visitor scan...
                 </div>
 
+                <div>
+                    <span class="prompt">&gt;</span>
+                    Connecting to IP intelligence...
+                </div>
+
+                <br>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    PUBLIC IP:
+                    <span class="value" id="visitor-ip">
+                        SCANNING...
+                    </span>
+                </div>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    LOCATION:
+                    <span class="value" id="visitor-location">
+                        SCANNING...
+                    </span>
+                </div>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    ISP:
+                    <span class="value" id="visitor-isp">
+                        SCANNING...
+                    </span>
+                </div>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    COUNTRY:
+                    <span class="value" id="visitor-country">
+                        SCANNING...
+                    </span>
+                </div>
+
+                <br>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    THREAT LEVEL:
+                    <span class="fake-danger">
+                        0%
+                    </span>
+                </div>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    BRAIN CELLS:
+                    <span class="fake-danger">
+                        404
+                    </span>
+                </div>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    REASON FOR VISIT:
+                    <span class="value">
+                        UNKNOWN
+                    </span>
+                </div>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    FILES FOUND:
+                    <span class="value">
+                        0
+                    </span>
+                </div>
+
+                <br>
+
+                <div class="fake-danger">
+                    ⚠ SYSTEM HAS DECIDED YOU ARE CONFUSED.
+                </div>
+
+                <div>
+                    <span class="prompt">&gt;</span>
+                    <span class="cursor"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="visitor-grid">
+
+            <div class="visitor-card">
+                <small>STATUS</small>
+                <span>CONFUSED</span>
+            </div>
+
+            <div class="visitor-card">
+                <small>HACK LEVEL</small>
+                <span>0.0001%</span>
+            </div>
+
+            <div class="visitor-card">
+                <small>DEVICE</small>
+                <span id="visitor-device">UNKNOWN</span>
+            </div>
+
+        </div>
+
+        <div class="info">
+
+            <strong>😂 Don't worry.</strong>
+            <br>
+            This is just a joke terminal. No files, cameras or
+            devices are being accessed.
+
+        </div>
+
+        <div class="buttons">
+
+            <button class="btn full" onclick="showConsole()">
+                FINE, TAKE ME BACK
+                <span class="arrow">↩</span>
+            </button>
+
+        </div>
+
+    `);
+
+    await lookupVisitor();
+}
+
+/* =========================================================
+   IP API
+   ========================================================= */
+
+async function lookupVisitor() {
+
+    const ip = document.getElementById("visitor-ip");
+    const location = document.getElementById("visitor-location");
+    const isp = document.getElementById("visitor-isp");
+    const country = document.getElementById("visitor-country");
+    const device = document.getElementById("visitor-device");
+
+    try {
+
+        /*
+         * ipapi.co is used over HTTPS.
+         * It returns the visitor's public IP and approximate
+         * network/geographic information.
+         */
+
+        const response = await fetch(
+            "https://ipapi.co/json/",
+            {
+                method: "GET",
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Lookup failed");
+        }
+
+        const data = await response.json();
+
+        ip.textContent =
+            data.ip || "CLASSIFIED";
+
+        location.textContent =
+            [
+                data.city,
+                data.region
+            ]
+            .filter(Boolean)
+            .join(", ") || "UNKNOWN";
+
+        isp.textContent =
+            data.org || "UNKNOWN";
+
+        country.textContent =
+            data.country_name || "UNKNOWN";
+
+    } catch (error) {
+
+        /*
+         * Fallback.
+         */
+
+        ip.textContent = "CLASSIFIED";
+        location.textContent = "UNKNOWN";
+        isp.textContent = "CLASSIFIED";
+        country.textContent = "UNKNOWN";
+
+    }
+
+    device.textContent = detectDevice();
+}
+
+/* =========================================================
+   DEVICE DETECTION
+   ========================================================= */
+
+function detectDevice() {
+
+    const ua = navigator.userAgent.toLowerCase();
+
+    if (ua.includes("android")) {
+        return "ANDROID";
+    }
+
+    if (ua.includes("iphone")) {
+        return "IPHONE";
+    }
+
+    if (ua.includes("ipad")) {
+        return "IPAD";
+    }
+
+    if (ua.includes("windows")) {
+        return "WINDOWS";
+    }
+
+    if (ua.includes("mac")) {
+        return "MAC";
+    }
+
+    if (ua.includes("linux")) {
+        return "LINUX";
+    }
+
+    return "UNKNOWN";
+}
+
+/* =========================================================
+   CLOCK
+   ========================================================= */
+
+function updateClock() {
+
+    const now = new Date();
+
+    clock.textContent =
+        now.toLocaleTimeString(
+            [],
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+/* =========================================================
+   MATRIX
+   ========================================================= */
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+let matrixWidth;
+let matrixHeight;
+let columns;
+let drops;
+
+const characters =
+    "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&<>[]{}";
+
+function resizeMatrix() {
+
+    matrixWidth = canvas.width = window.innerWidth;
+    matrixHeight = canvas.height = window.innerHeight;
+
+    columns = Math.floor(matrixWidth / 15);
+
+    drops = [];
+
+    for (let i = 0; i < columns; i++) {
+        drops[i] =
+            Math.random() * matrixHeight / 15;
+    }
+}
+
+function drawMatrix() {
+
+    ctx.fillStyle = "rgba(5,3,8,.075)";
+    ctx.fillRect(0, 0, matrixWidth, matrixHeight);
+
+    ctx.font = "12px JetBrains Mono";
+
+    for (let i = 0; i < drops.length; i++) {
+
+        const char =
+            characters[
+                Math.floor(
+                    Math.random() *
+                    characters.length
+                )
+            ];
+
+        /*
+         * Deliberately subtle rather than bright neon.
+         */
+
+        ctx.fillStyle = "rgba(155,92,255,.75)";
+
+        ctx.fillText(
+            char,
+            i * 15,
+            drops[i] * 15
+        );
+
+        if (
+            drops[i] * 15 > matrixHeight &&
+            Math.random() > .975
+        ) {
+            drops[i] = 0;
+        }
+
+        drops[i] += .65;
+    }
+}
+
+resizeMatrix();
+
+window.addEventListener(
+    "resize",
+    resizeMatrix
+);
+
+setInterval(
+    drawMatrix,
+    55
+);
+
+/* =========================================================
+   EASTER EGGS
+   ========================================================= */
+
+let logoClicks = 0;
+
+document.querySelector(".logo").addEventListener(
+    "click",
+    () => {
+
+        logoClicks++;
+
+        beep();
+
+        if (logoClicks >= 5) {
+
+            logoClicks = 0;
+
+            showScreen(`
+
+                <div class="kicker">// DEVELOPER MODE</div>
+
+                <h1 class="question">
+                    YOU FOUND IT. 👀
+                </h1>
+
+                <p class="description">
+                    There wasn't supposed to be a secret menu here.
+                </p>
+
+                <div class="info">
+
+                    <span class="success">
+                        root@moddingxz:~$
+                    </span>
+
+                    <br><br>
+
+                    type one of the following:
+
+                    <br><br>
+
+                    <strong>
+                    hosts
+                    </strong>
+                    —
+                    open the host portal
+
+                    <br>
+
+                    <strong>
+                    services
+                    </strong>
+                    —
+                    open ModdingXZ
+
+                    <br>
+
+                    <strong>
+                    matrix
+                    </strong>
+                    —
+                    absolutely pointless
+
+                </div>
 
                 <div class="buttons">
 
-                    <button
-                        class="choice"
-                        onclick="showServices()"
-                    >
-                        YES — SHOW ME SERVICES
+                    <button class="btn green" onclick="window.location.href='${HOST_URL}'">
+                        HOSTS
                     </button>
 
+                    <button class="btn" onclick="window.location.href='${SERVICES_URL}'">
+                        SERVICES
+                    </button>
 
-                    <button
-                        class="choice"
-                        onclick="showHacker()"
-                    >
-                        NO — I'M JUST HERE
+                    <button class="btn full" onclick="showConsole()">
+                        EXIT DEVELOPER MODE
                     </button>
 
                 </div>
 
-            </div>
-
-        `);
-
+            `);
+        }
     }
+);
 
+/* =========================================================
+   KEYBOARD EASTER EGGS
+   ========================================================= */
 
-    /* =========================
-       SERVICES
-    ========================= */
+let keyBuffer = "";
 
-    function showServices() {
+document.addEventListener(
+    "keydown",
+    event => {
 
-        showScreen(`
+        keyBuffer += event.key.toLowerCase();
 
-            <div class="prompt">
-                moddingxz --services
-            </div>
+        if (keyBuffer.length > 30) {
+            keyBuffer = keyBuffer.slice(-30);
+        }
 
-            <h1>
-                SERVICES<br>
-                <span>FOUND.</span>
-            </h1>
+        if (keyBuffer.includes("sudo")) {
 
-            <p class="description">
+            keyBuffer = "";
 
-                There we go 😂
-                Now we're getting somewhere.
-
-            </p>
-
-
-            <div class="result-box">
-
-                <div class="result-title">
-                    // MODDINGXZ SERVICES
-                </div>
-
-                <div class="result-text">
-
-                    Head over to the main ModdingXZ website
-                    for the current services and information.
-
-                </div>
-
-
-                <a
-                    class="open-button"
-                    href="https://moddingxz.co.uk/"
-                >
-                    OPEN MODDINGXZ →
-                </a>
-
-            </div>
-
-        `);
-
-    }
-
-
-    /* =========================
-       HACKER JOKE
-    ========================= */
-
-    function showHacker() {
-
-        showScreen(`
-
-            <div class="hacker">
-
-                <div class="hacker-header">
-
-                    <span>
-                        ⚠ SECURITY TERMINAL
-                    </span>
-
-                    <span>
-                        SESSION: 0x1337
-                    </span>
-
-                </div>
-
-
-                <div class="hacker-body">
-
-                    <span class="terminal-line green">
-                        [ OK ] Initialising ModdingXZ security system...
-                    </span>
-
-                    <span class="terminal-line purple">
-                        [ OK ] Analysing visitor...
-                    </span>
-
-                    <span class="terminal-line green">
-                        [ OK ] Connection established.
-                    </span>
-
-                    <span class="terminal-line">
-                        IP:
-                        <span class="fake-ip">
-                            127.0.0.1
-                        </span>
-                    </span>
-
-                    <span class="terminal-line">
-                        LOCATION:
-                        <span class="purple">
-                            CLASSIFIED
-                        </span>
-                    </span>
-
-                    <span class="terminal-line">
-                        DEVICE:
-                        <span class="purple">
-                            UNKNOWN
-                        </span>
-                    </span>
-
-                    <span class="terminal-line">
-                        SECURITY LEVEL:
-                        <span class="green">
-                            DEFINITELY NOT A HACKER
-                        </span>
-                    </span>
-
-                    <br>
-
-                    <span class="terminal-line red">
-                        [!] WAIT...
-                    </span>
-
-                    <span class="terminal-line red">
-                        [!] YOU DON'T WANT A JAILBREAK.
-                    </span>
-
-                    <span class="terminal-line red">
-                        [!] YOU DON'T WANT SERVICES.
-                    </span>
-
-                    <span class="terminal-line purple">
-                        [!] SO WHAT EXACTLY ARE YOU DOING HERE?
-                    </span>
-
-                    <br>
-
-                    <span class="terminal-line">
-
-                        <strong>
-                            WTF U WANT THEN? 😂
-                        </strong>
-
-                    </span>
-
-                    <span class="terminal-line grey">
-                        Closing highly sophisticated investigation...
-                    </span>
-
-                    <span class="terminal-line grey">
-                        Investigation result: absolutely nothing.
-                    </span>
-
-                    <span class="terminal-line">
-
-                        moddingxz@terminal:~$
-
-                        <span class="cursor"></span>
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        `);
-
-    }
-
-
-    /* =========================
-       TILT INITIALISATION
-    ========================= */
-
-    window.addEventListener(
-        "load",
-        function () {
-
-            if (
-                typeof VanillaTilt !== "undefined" &&
-                !window.matchMedia(
-                    "(prefers-reduced-motion: reduce)"
-                ).matches
-            ) {
-
-                VanillaTilt.init(
-                    document.querySelector(".terminal")
-                );
-
-            }
+            hackerScreen();
 
         }
-    );
+
+        if (keyBuffer.includes("1337")) {
+
+            keyBuffer = "";
+
+            document.body.style.filter =
+                "hue-rotate(35deg)";
+
+            setTimeout(() => {
+                document.body.style.filter = "";
+            }, 2000);
+        }
+
+    }
+);
+
+/* =========================================================
+   FIRST USER INTERACTION
+   ========================================================= */
+
+document.addEventListener(
+    "click",
+    () => {
+        beep();
+    },
+    {
+        once: true
+    }
+);
 
 </script>
-
 
 </body>
 </html>
