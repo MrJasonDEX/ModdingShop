@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>ModdingXZ | Gaming Mods, Tools & Community</title>
 
-<meta name="description" content="ModdingXZ — Gaming mods, tools, releases, jailbreak news, tutorials and community support. Join our growing gaming community.">
-
+<meta name="description" content="ModdingXZ — Gaming mods, tools, releases, jailbreak resources, Game Downloader, services and community support.">
 <meta name="theme-color" content="#030712">
-
 <meta name="author" content="ModdingXZ">
 
 <meta property="og:title" content="ModdingXZ | Gaming Modding Community">
-<meta property="og:description" content="Gaming mods, tools, releases, jailbreak news and community support.">
+<meta property="og:description" content="Gaming mods, tools, Game Downloader, releases, jailbreak resources and community support.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap"
-rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     margin:0;
     padding:0;
@@ -47,414 +33,245 @@ html{
     scroll-behavior:smooth;
 }
 
-body{
-    min-height:100vh;
-
-    background:
-        radial-gradient(
-            circle at 15% 10%,
-            rgba(34,158,217,.18),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 20%,
-            rgba(59,130,246,.12),
-            transparent 28%
-        ),
-        radial-gradient(
-            circle at 50% 100%,
-            rgba(14,165,233,.08),
-            transparent 35%
-        ),
-        #030712;
-
-    color:#fff;
-
-    font-family:'Inter',sans-serif;
-
-    overflow-x:hidden;
+:root{
+    --blue:#229ed9;
+    --cyan:#38bdf8;
+    --sky:#7dd3fc;
+    --bg:#030712;
+    --panel:rgba(15,23,42,.62);
+    --border:rgba(255,255,255,.09);
+    --muted:#94a3b8;
+    --dim:#64748b;
+    --green:#22c55e;
 }
 
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%,rgba(34,158,217,.18),transparent 30%),
+        radial-gradient(circle at 85% 20%,rgba(59,130,246,.12),transparent 28%),
+        radial-gradient(circle at 50% 100%,rgba(14,165,233,.08),transparent 35%),
+        #030712;
+}
 
-/* =========================================================
-   BACKGROUND
-========================================================= */
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:999;
+    opacity:.22;
+    background:repeating-linear-gradient(
+        0deg,
+        rgba(255,255,255,.018) 0,
+        rgba(255,255,255,.018) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+}
+
+a{
+    color:inherit;
+}
 
 #particles{
     position:fixed;
-
     inset:0;
-
     width:100%;
     height:100%;
-
     z-index:-5;
 }
 
 .background-grid{
     position:fixed;
-
     inset:0;
-
     z-index:-4;
-
     pointer-events:none;
-
     background-image:
-        linear-gradient(
-            rgba(56,189,248,.035) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(56,189,248,.035) 1px,
-            transparent 1px
-        );
-
+        linear-gradient(rgba(56,189,248,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(56,189,248,.035) 1px,transparent 1px);
     background-size:50px 50px;
-
-    mask-image:
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.9),
-            transparent 90%
-        );
+    mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent 90%);
 }
 
 .background-glow{
     position:fixed;
-
-    width:500px;
-    height:500px;
-
+    width:520px;
+    height:520px;
     border-radius:50%;
-
     background:#229ed9;
-
     filter:blur(180px);
-
     opacity:.07;
-
     pointer-events:none;
-
     z-index:-3;
-
-    top:-200px;
-
+    top:-220px;
     left:50%;
-
     transform:translateX(-50%);
 }
 
-
-/* =========================================================
-   SCANLINES
-========================================================= */
-
-body::after{
-    content:"";
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(255,255,255,.015) 0px,
-            rgba(255,255,255,.015) 1px,
-            transparent 1px,
-            transparent 4px
-        );
-
-    pointer-events:none;
-
-    z-index:999;
-
-    opacity:.3;
-}
-
-
-/* =========================================================
-   MAIN CONTAINER
-========================================================= */
-
 .container{
-    width:min(1180px,100%);
-
+    width:min(1200px,100%);
     margin:auto;
-
-    padding:
-        25px 22px 60px;
+    padding:22px 20px 60px;
 }
 
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
+/* NAV */
 
 .navbar{
+    position:sticky;
+    top:15px;
+    z-index:100;
     width:100%;
-
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
-    padding:14px 18px;
-
-    background:
-        rgba(15,23,42,.55);
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
+    padding:12px 15px;
+    margin-bottom:65px;
+    background:rgba(3,7,18,.72);
+    border:1px solid var(--border);
     border-radius:18px;
-
-    backdrop-filter:blur(18px);
-
-    -webkit-backdrop-filter:blur(18px);
-
-    margin-bottom:70px;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.25);
+    backdrop-filter:blur(20px);
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
 }
 
 .nav-brand{
     display:flex;
-
     align-items:center;
-
-    gap:12px;
-
+    gap:11px;
     font-weight:900;
-
-    letter-spacing:.5px;
 }
 
 .nav-logo{
-    width:40px;
-    height:40px;
-
+    width:42px;
+    height:42px;
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #229ed9,
-            #38bdf8
-        );
-
-    box-shadow:
-        0 0 25px rgba(34,158,217,.45);
-
+    background:linear-gradient(135deg,var(--blue),var(--cyan));
+    box-shadow:0 0 25px rgba(34,158,217,.4);
     font-weight:900;
+}
 
-    font-size:14px;
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#94a3b8;
+    padding:10px 12px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:#fff;
+    background:rgba(56,189,248,.08);
 }
 
 .nav-status{
     display:flex;
-
     align-items:center;
-
     gap:8px;
-
     color:#94a3b8;
-
-    font-size:13px;
+    font-size:12px;
 }
 
 .status-dot{
     width:8px;
     height:8px;
-
     border-radius:50%;
-
     background:#22c55e;
-
-    box-shadow:
-        0 0 12px #22c55e;
-
-    animation:
-        pulse 2s infinite;
+    box-shadow:0 0 12px #22c55e;
+    animation:pulse 2s infinite;
 }
 
 @keyframes pulse{
-
-    0%,100%{
-        opacity:1;
-        transform:scale(1);
-    }
-
-    50%{
-        opacity:.5;
-        transform:scale(.75);
-    }
-
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.5;transform:scale(.75)}
 }
 
-
-/* =========================================================
-   HERO
-========================================================= */
+/* HERO */
 
 .hero{
     text-align:center;
-
-    max-width:900px;
-
+    max-width:950px;
     margin:auto;
 }
 
 .logo{
     width:145px;
     height:145px;
-
     margin:auto;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     position:relative;
-
     border-radius:42px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #229ed9,
-            #0ea5e9
-        );
-
+    background:linear-gradient(145deg,#229ed9,#0ea5e9);
     font-family:'Poppins',sans-serif;
-
     font-size:58px;
-
     font-weight:900;
-
     letter-spacing:-5px;
-
     box-shadow:
         0 0 25px rgba(34,158,217,.6),
         0 0 90px rgba(34,158,217,.25);
-
     transform:rotate(-3deg);
-
-    animation:
-        logoFloat 4s ease-in-out infinite;
+    animation:logoFloat 4s ease-in-out infinite;
 }
 
 .logo::before{
     content:"";
-
     position:absolute;
-
     inset:-9px;
-
     border-radius:48px;
-
-    border:
-        1px solid rgba(56,189,248,.6);
-
-    animation:
-        spin 8s linear infinite;
+    border:1px solid rgba(56,189,248,.6);
+    animation:spin 8s linear infinite;
 }
 
 .logo::after{
     content:"";
-
     position:absolute;
-
     inset:-18px;
-
     border-radius:55px;
-
-    border:
-        1px dashed rgba(56,189,248,.18);
+    border:1px dashed rgba(56,189,248,.18);
 }
 
 @keyframes logoFloat{
-
-    0%,100%{
-        transform:
-            translateY(0)
-            rotate(-3deg);
-    }
-
-    50%{
-        transform:
-            translateY(-12px)
-            rotate(3deg);
-    }
-
+    0%,100%{transform:translateY(0) rotate(-3deg)}
+    50%{transform:translateY(-12px) rotate(3deg)}
 }
 
 @keyframes spin{
-
-    from{
-        transform:rotate(0deg);
-    }
-
-    to{
-        transform:rotate(360deg);
-    }
-
+    from{transform:rotate(0)}
+    to{transform:rotate(360deg)}
 }
-
-
-/* =========================================================
-   HERO TEXT
-========================================================= */
 
 .hero h1{
     margin-top:42px;
-
     font-family:'Poppins',sans-serif;
-
-    font-size:
-        clamp(3rem,8vw,6rem);
-
+    font-size:clamp(3rem,8vw,6rem);
     line-height:.95;
-
     font-weight:900;
-
     letter-spacing:-4px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff 20%,
-            #38bdf8 55%,
-            #229ed9 100%
-        );
-
+    background:linear-gradient(135deg,#fff 20%,#38bdf8 55%,#229ed9 100%);
     -webkit-background-clip:text;
-
     background-clip:text;
-
     color:transparent;
 }
 
 .hero-subtitle{
     margin-top:25px;
-
     color:#94a3b8;
-
-    font-size:
-        clamp(1rem,2vw,1.25rem);
-
+    font-size:clamp(1rem,2vw,1.2rem);
     line-height:1.7;
 }
 
@@ -462,304 +279,224 @@ body::after{
     color:#e2e8f0;
 }
 
-
-/* =========================================================
-   HERO BADGES
-========================================================= */
-
 .hero-badges{
     display:flex;
-
     justify-content:center;
-
     flex-wrap:wrap;
-
     gap:10px;
-
-    margin-top:30px;
+    margin-top:28px;
 }
 
 .hero-badge{
     display:inline-flex;
-
     align-items:center;
-
     gap:8px;
-
-    padding:
-        10px 17px;
-
+    padding:10px 16px;
     border-radius:999px;
-
-    background:
-        rgba(34,158,217,.08);
-
-    border:
-        1px solid rgba(56,189,248,.22);
-
+    background:rgba(34,158,217,.08);
+    border:1px solid rgba(56,189,248,.22);
     color:#bae6fd;
-
-    font-size:13px;
-
-    font-weight:700;
-
+    font-size:12px;
+    font-weight:800;
     backdrop-filter:blur(10px);
 }
 
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
 .hero-buttons{
     display:flex;
-
     justify-content:center;
-
     flex-wrap:wrap;
-
-    gap:14px;
-
-    margin-top:35px;
+    gap:12px;
+    margin-top:32px;
 }
 
 .btn{
     display:inline-flex;
-
     align-items:center;
-
     justify-content:center;
-
-    gap:10px;
-
-    min-height:56px;
-
-    padding:
-        0 28px;
-
-    border-radius:15px;
-
+    gap:9px;
+    min-height:54px;
+    padding:0 25px;
+    border-radius:14px;
     text-decoration:none;
-
     font-weight:800;
-
-    transition:.3s ease;
-
-    border:
-        1px solid transparent;
-
+    font-size:14px;
+    border:1px solid transparent;
     cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-4px);
 }
 
 .btn-primary{
-    background:
-        linear-gradient(
-            135deg,
-            #229ed9,
-            #0ea5e9
-        );
-
-    color:white;
-
-    box-shadow:
-        0 12px 35px rgba(34,158,217,.3);
+    color:#fff;
+    background:linear-gradient(135deg,#229ed9,#0ea5e9);
+    box-shadow:0 12px 35px rgba(34,158,217,.3);
 }
 
 .btn-primary:hover{
-    transform:translateY(-4px);
-
-    box-shadow:
-        0 18px 45px rgba(34,158,217,.5);
+    box-shadow:0 18px 45px rgba(34,158,217,.5);
 }
 
 .btn-secondary{
-    background:
-        rgba(255,255,255,.04);
-
-    border-color:
-        rgba(255,255,255,.12);
-
     color:#e2e8f0;
+    background:rgba(255,255,255,.04);
+    border-color:rgba(255,255,255,.12);
 }
 
 .btn-secondary:hover{
-    transform:translateY(-4px);
-
-    background:
-        rgba(255,255,255,.08);
-
-    border-color:
-        rgba(56,189,248,.3);
+    background:rgba(255,255,255,.08);
+    border-color:rgba(56,189,248,.3);
 }
 
+/* QUICK ACCESS */
 
-/* =========================================================
-   GLASS BOX
-========================================================= */
+.quick-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-top:55px;
+}
+
+.quick-card{
+    position:relative;
+    overflow:hidden;
+    min-height:150px;
+    padding:22px;
+    border-radius:20px;
+    text-decoration:none;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    border:1px solid rgba(255,255,255,.08);
+    transition:.3s;
+}
+
+.quick-card:hover{
+    transform:translateY(-7px);
+    border-color:rgba(56,189,248,.35);
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+.quick-icon{
+    width:45px;
+    height:45px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:13px;
+    background:rgba(34,158,217,.1);
+    color:#38bdf8;
+    margin-bottom:17px;
+    font-size:19px;
+}
+
+.quick-card h3{
+    font-family:'Poppins',sans-serif;
+    font-size:15px;
+}
+
+.quick-card p{
+    margin-top:6px;
+    color:#64748b;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.quick-arrow{
+    position:absolute;
+    right:18px;
+    top:20px;
+    color:#475569;
+}
+
+/* BOX */
 
 .box{
     margin-top:30px;
-
     padding:30px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.065),
-            rgba(255,255,255,.025)
-        );
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
+    background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));
+    border:1px solid rgba(255,255,255,.1);
     border-radius:24px;
-
     backdrop-filter:blur(18px);
-
-    -webkit-backdrop-filter:blur(18px);
-
-    box-shadow:
-        0 25px 80px rgba(0,0,0,.25);
-
+    box-shadow:0 25px 80px rgba(0,0,0,.25);
     position:relative;
-
     overflow:hidden;
 }
 
 .box::before{
     content:"";
-
     position:absolute;
-
     top:0;
-
     left:10%;
-
     right:10%;
-
     height:1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(56,189,248,.6),
-            transparent
-        );
-}
-
-
-/* =========================================================
-   COMMUNITY
-========================================================= */
-
-.community-box{
-    margin-top:65px;
+    background:linear-gradient(90deg,transparent,rgba(56,189,248,.6),transparent);
 }
 
 .section-heading{
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
     gap:20px;
-
     margin-bottom:25px;
 }
 
 .section-title{
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
     font-family:'Poppins',sans-serif;
-
     font-size:20px;
-
     font-weight:800;
 }
 
 .section-icon{
     width:42px;
     height:42px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     border-radius:12px;
-
-    background:
-        rgba(34,158,217,.12);
-
+    background:rgba(34,158,217,.12);
     color:#38bdf8;
 }
 
 .live-badge{
     display:flex;
-
     align-items:center;
-
     gap:7px;
-
-    padding:
-        7px 11px;
-
+    padding:7px 11px;
     border-radius:999px;
-
-    background:
-        rgba(34,197,94,.08);
-
-    border:
-        1px solid rgba(34,197,94,.2);
-
+    background:rgba(34,197,94,.08);
+    border:1px solid rgba(34,197,94,.2);
     color:#86efac;
-
-    font-size:11px;
-
+    font-size:10px;
     font-weight:800;
-
     text-transform:uppercase;
-
     letter-spacing:1px;
+}
+
+/* COMMUNITY */
+
+.community-box{
+    margin-top:65px;
 }
 
 .community-number{
     font-family:'Poppins',sans-serif;
-
-    font-size:
-        clamp(2.8rem,7vw,4.8rem);
-
+    font-size:clamp(2.8rem,7vw,4.8rem);
     font-weight:900;
-
     letter-spacing:-3px;
-
-    margin:
-        5px 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff,
-            #38bdf8
-        );
-
+    margin:5px 0;
+    background:linear-gradient(135deg,#fff,#38bdf8);
     -webkit-background-clip:text;
-
     background-clip:text;
-
     color:transparent;
 }
 
 .community-subtitle{
     color:#64748b;
-
     font-size:14px;
 }
 
@@ -769,50 +506,26 @@ body::after{
 
 .progress{
     width:100%;
-
     height:18px;
-
     background:#020617;
-
     border-radius:999px;
-
     overflow:hidden;
-
-    border:
-        1px solid rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.07);
 }
 
 .progress-bar{
-    width:36%;
-
     height:100%;
-
     border-radius:999px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #229ed9,
-            #38bdf8,
-            #7dd3fc
-        );
-
-    box-shadow:
-        0 0 25px rgba(56,189,248,.55);
-
-    transition:
-        width 1.8s cubic-bezier(.2,.8,.2,1);
+    background:linear-gradient(90deg,#229ed9,#38bdf8,#7dd3fc);
+    box-shadow:0 0 25px rgba(56,189,248,.55);
+    transition:width 1.8s cubic-bezier(.2,.8,.2,1);
 }
 
 .progress-info{
     display:flex;
-
     justify-content:space-between;
-
     margin-top:12px;
-
     color:#64748b;
-
     font-size:12px;
 }
 
@@ -820,188 +533,183 @@ body::after{
     color:#cbd5e1;
 }
 
-
-/* =========================================================
-   STATS
-========================================================= */
-
 .stats{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:12px;
-
     margin-top:25px;
 }
 
 .stat{
     padding:18px;
-
     border-radius:16px;
-
-    background:
-        rgba(255,255,255,.025);
-
-    border:
-        1px solid rgba(255,255,255,.06);
-
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.06);
     text-align:center;
 }
 
 .stat-value{
     font-size:20px;
-
     font-weight:900;
-
     color:#e0f2fe;
 }
 
 .stat-label{
     margin-top:4px;
-
     font-size:11px;
-
     color:#64748b;
 }
 
+/* ANNOUNCEMENT */
 
-/* =========================================================
-   FEATURE CARDS
-========================================================= */
+.announcement{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:25px;
+    padding:25px;
+    border-radius:20px;
+    background:
+        radial-gradient(circle at right,rgba(34,158,217,.14),transparent 45%),
+        rgba(34,158,217,.04);
+    border:1px solid rgba(56,189,248,.16);
+}
+
+.announcement-label{
+    color:#38bdf8;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:7px;
+}
+
+.announcement h3{
+    font-family:'Poppins',sans-serif;
+    font-size:22px;
+}
+
+.announcement p{
+    margin-top:8px;
+    color:#94a3b8;
+    line-height:1.6;
+    font-size:13px;
+}
+
+.announcement .btn{
+    min-width:170px;
+}
+
+/* FEATURES */
 
 .cards{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:16px;
-
     margin-top:30px;
 }
 
 .card{
-    padding:
-        28px 22px;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.055),
-            rgba(255,255,255,.018)
-        );
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
+    padding:28px 22px;
+    background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    border:1px solid rgba(255,255,255,.08);
     border-radius:22px;
-
-    transition:
-        transform .35s ease,
-        border-color .35s ease,
-        box-shadow .35s ease;
-
+    transition:.35s;
     position:relative;
-
     overflow:hidden;
-}
-
-.card::after{
-    content:"";
-
-    position:absolute;
-
-    width:100px;
-    height:100px;
-
-    top:-50px;
-    right:-50px;
-
-    border-radius:50%;
-
-    background:#38bdf8;
-
-    filter:blur(50px);
-
-    opacity:.08;
 }
 
 .card:hover{
     transform:translateY(-8px);
-
-    border-color:
-        rgba(56,189,248,.3);
-
-    box-shadow:
-        0 20px 50px rgba(0,0,0,.3),
-        0 0 35px rgba(34,158,217,.08);
+    border-color:rgba(56,189,248,.3);
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
 }
 
 .card-icon{
     width:52px;
     height:52px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     border-radius:15px;
-
-    background:
-        rgba(34,158,217,.1);
-
+    background:rgba(34,158,217,.1);
     color:#38bdf8;
-
     font-size:22px;
-
     margin-bottom:20px;
 }
 
 .card h3{
     font-family:'Poppins',sans-serif;
-
     font-size:17px;
-
     margin-bottom:10px;
 }
 
 .card p{
     color:#94a3b8;
-
     font-size:13px;
-
     line-height:1.7;
 }
 
+/* SERVICES */
 
-/* =========================================================
-   UPDATES
-========================================================= */
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.service{
+    padding:20px;
+    border-radius:17px;
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.07);
+    transition:.3s;
+}
+
+.service:hover{
+    transform:translateY(-4px);
+    border-color:rgba(56,189,248,.25);
+}
+
+.service-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.service h3{
+    font-size:14px;
+    font-weight:800;
+}
+
+.price{
+    color:#7dd3fc;
+    font-size:14px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+.service p{
+    margin-top:9px;
+    color:#64748b;
+    font-size:11px;
+    line-height:1.6;
+}
+
+/* UPDATES */
 
 .update-list{
     list-style:none;
-
-    margin-top:20px;
 }
 
 .update-list li{
     display:flex;
-
     align-items:center;
-
     gap:14px;
-
     padding:15px 0;
-
     color:#cbd5e1;
-
-    border-bottom:
-        1px solid rgba(255,255,255,.06);
-
+    border-bottom:1px solid rgba(255,255,255,.06);
     font-size:14px;
 }
 
@@ -1012,55 +720,30 @@ body::after{
 .update-icon{
     width:36px;
     height:36px;
-
     min-width:36px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     border-radius:11px;
-
-    background:
-        rgba(34,158,217,.1);
-
+    background:rgba(34,158,217,.1);
     color:#38bdf8;
-
     font-size:13px;
 }
 
-
-/* =========================================================
-   MILESTONES
-========================================================= */
+/* MILESTONES */
 
 .timeline{
     display:grid;
-
-    grid-template-columns:
-        repeat(7,1fr);
-
+    grid-template-columns:repeat(7,1fr);
     gap:10px;
-
-    margin-top:25px;
 }
 
 .mile{
-    padding:
-        20px 8px;
-
+    padding:20px 8px;
     text-align:center;
-
     border-radius:18px;
-
-    background:
-        rgba(255,255,255,.025);
-
-    border:
-        1px solid rgba(255,255,255,.07);
-
+    background:rgba(255,255,255,.025);
+    border:1px solid rgba(255,255,255,.07);
     transition:.3s;
 }
 
@@ -1070,77 +753,47 @@ body::after{
 
 .mile-icon{
     font-size:22px;
-
     margin-bottom:10px;
 }
 
 .mile-number{
     font-weight:900;
-
     font-size:15px;
 }
 
 .mile-status{
     margin-top:6px;
-
     font-size:9px;
-
     text-transform:uppercase;
-
     letter-spacing:.8px;
-
     color:#64748b;
 }
 
 .mile.done{
-    border-color:
-        rgba(34,197,94,.25);
-
-    background:
-        rgba(34,197,94,.04);
+    border-color:rgba(34,197,94,.25);
+    background:rgba(34,197,94,.04);
 }
 
 .mile.done .mile-status{
     color:#4ade80;
 }
 
-.mile.future{
-    border-color:
-        rgba(56,189,248,.15);
-}
-
-
-/* =========================================================
-   WHY JOIN
-========================================================= */
+/* WHY */
 
 .why-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:12px;
-
-    margin-top:22px;
 }
 
 .why-item{
     display:flex;
-
     align-items:center;
-
     gap:12px;
-
     padding:15px;
-
     border-radius:15px;
-
-    background:
-        rgba(255,255,255,.025);
-
+    background:rgba(255,255,255,.025);
     color:#cbd5e1;
-
     font-size:13px;
 }
 
@@ -1148,222 +801,149 @@ body::after{
     color:#38bdf8;
 }
 
-
-/* =========================================================
-   CTA
-========================================================= */
+/* CTA */
 
 .cta{
     margin-top:55px;
-
-    padding:
-        50px 25px;
-
+    padding:50px 25px;
     text-align:center;
-
     position:relative;
-
     overflow:hidden;
-
     border-radius:28px;
-
-    border:
-        1px solid rgba(56,189,248,.18);
-
-    background:
-        radial-gradient(
-            circle at center,
-            rgba(34,158,217,.15),
-            rgba(255,255,255,.025) 65%
-        );
-}
-
-.cta::before{
-    content:"";
-
-    position:absolute;
-
-    width:300px;
-    height:300px;
-
-    top:-200px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    border-radius:50%;
-
-    background:#229ed9;
-
-    filter:blur(100px);
-
-    opacity:.1;
+    border:1px solid rgba(56,189,248,.18);
+    background:radial-gradient(circle at center,rgba(34,158,217,.15),rgba(255,255,255,.025) 65%);
 }
 
 .cta h2{
-    position:relative;
-
     font-family:'Poppins',sans-serif;
-
-    font-size:
-        clamp(1.8rem,4vw,2.7rem);
-
+    font-size:clamp(1.8rem,4vw,2.7rem);
     font-weight:900;
 }
 
 .cta p{
-    position:relative;
-
-    margin:
-        12px auto 25px;
-
-    max-width:600px;
-
+    margin:12px auto 25px;
+    max-width:650px;
     color:#94a3b8;
-
     line-height:1.7;
-
     font-size:14px;
 }
 
-
-/* =========================================================
-   SOCIALS
-========================================================= */
-
 .socials{
     display:flex;
-
     justify-content:center;
-
     gap:12px;
-
     margin-top:30px;
 }
 
 .social{
     width:48px;
     height:48px;
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     border-radius:15px;
-
     color:#94a3b8;
-
     text-decoration:none;
-
-    background:
-        rgba(255,255,255,.04);
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
     transition:.3s;
 }
 
 .social:hover{
     color:#38bdf8;
-
-    border-color:
-        rgba(56,189,248,.3);
-
+    border-color:rgba(56,189,248,.3);
     transform:translateY(-4px);
-
-    background:
-        rgba(56,189,248,.06);
 }
 
-
-/* =========================================================
-   FOOTER
-========================================================= */
+/* FOOTER */
 
 footer{
     text-align:center;
-
     margin-top:45px;
-
     color:#475569;
-
     font-size:12px;
-
-    line-height:1.8;
+    line-height:1.9;
 }
 
 footer strong{
     color:#64748b;
 }
 
+.footer-links{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:10px;
+}
 
-/* =========================================================
-   REVEAL
-========================================================= */
+.footer-links a{
+    color:#64748b;
+    text-decoration:none;
+}
+
+.footer-links a:hover{
+    color:#38bdf8;
+}
+
+/* REVEAL */
 
 .reveal{
     opacity:0;
-
-    transform:
-        translateY(25px);
-
-    transition:
-        opacity .8s ease,
-        transform .8s ease;
+    transform:translateY(25px);
+    transition:opacity .8s ease,transform .8s ease;
 }
 
 .reveal.visible{
     opacity:1;
-
-    transform:
-        translateY(0);
+    transform:translateY(0);
 }
 
-
-/* =========================================================
-   MOBILE
-========================================================= */
+/* MOBILE */
 
 @media(max-width:1000px){
+    .quick-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
     .cards{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .service-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
     .timeline{
-        grid-template-columns:
-            repeat(4,1fr);
+        grid-template-columns:repeat(4,1fr);
     }
 
+    .nav-links{
+        display:none;
+    }
 }
 
 @media(max-width:700px){
+    .why-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
 
     .timeline{
-        grid-template-columns:
-            repeat(3,1fr);
+        grid-template-columns:repeat(3,1fr);
     }
 
-    .why-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+    .announcement{
+        grid-template-columns:1fr;
     }
-
 }
 
 @media(max-width:600px){
-
     .container{
-        padding:
-            20px 15px 40px;
+        padding:18px 14px 40px;
     }
 
     .navbar{
-        margin-bottom:50px;
+        margin-bottom:45px;
     }
 
     .nav-status{
@@ -1373,13 +953,11 @@ footer strong{
     .logo{
         width:115px;
         height:115px;
-
         font-size:45px;
     }
 
     .hero h1{
         letter-spacing:-2px;
-
         margin-top:32px;
     }
 
@@ -1395,14 +973,21 @@ footer strong{
         width:100%;
     }
 
+    .quick-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .quick-card{
+        min-height:135px;
+        padding:17px;
+    }
+
     .community-box{
         margin-top:45px;
     }
 
     .box{
-        padding:
-            22px 18px;
-
+        padding:22px 18px;
         border-radius:20px;
     }
 
@@ -1411,13 +996,11 @@ footer strong{
     }
 
     .stats{
-        grid-template-columns:
-            1fr 1fr 1fr;
+        grid-template-columns:repeat(3,1fr);
     }
 
     .stat{
-        padding:
-            13px 5px;
+        padding:13px 5px;
     }
 
     .stat-value{
@@ -1428,13 +1011,13 @@ footer strong{
         font-size:9px;
     }
 
-    .cards{
+    .cards,
+    .service-grid{
         grid-template-columns:1fr;
     }
 
     .timeline{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .why-grid{
@@ -1442,319 +1025,284 @@ footer strong{
     }
 
     .cta{
-        padding:
-            38px 20px;
+        padding:38px 20px;
     }
-
 }
 
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
 @media(prefers-reduced-motion:reduce){
-
     *,
     *::before,
     *::after{
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        scroll-behavior:auto !important;
-
-        transition-duration:.01ms !important;
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+        transition-duration:.01ms!important;
     }
-
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
 <canvas id="particles"></canvas>
-
 <div class="background-grid"></div>
-
 <div class="background-glow"></div>
-
 
 <div class="container">
 
-
-<!-- =======================================================
-     NAVBAR
-======================================================= -->
+<!-- NAVBAR -->
 
 <nav class="navbar">
 
     <div class="nav-brand">
-
-        <div class="nav-logo">
-            MX
-        </div>
-
-        <span>
-            ModdingXZ
-        </span>
-
+        <div class="nav-logo">MX</div>
+        <span>ModdingXZ</span>
     </div>
 
+    <div class="nav-links">
+        <a href="#community">Community</a>
+        <a href="#services">Services</a>
+        <a href="#updates">Updates</a>
+        <a href="https://moddingxz.co.uk/games.html">Downloader</a>
+    </div>
 
     <div class="nav-status">
-
         <span class="status-dot"></span>
-
         Community Online
-
     </div>
 
 </nav>
 
 
-<!-- =======================================================
-     HERO
-======================================================= -->
+<!-- HERO -->
 
 <header class="hero">
 
+    <div class="logo">MX</div>
 
-    <div class="logo">
-        MX
-    </div>
-
-
-    <h1>
-        MODDINGXZ
-    </h1>
-
+    <h1>MODDINGXZ</h1>
 
     <p class="hero-subtitle">
-
-        The home of
-
-        <strong>
-            gaming mods, tools, releases & community.
-        </strong>
-
+        Gaming mods, tools, releases, services and community.
         <br>
-
-        Join a growing community of gamers, modders
-        and creators.
-
+        <strong>Everything ModdingXZ — all in one place.</strong>
     </p>
-
 
     <div class="hero-badges">
 
-
         <div class="hero-badge">
-
             <i class="fa-solid fa-gamepad"></i>
-
             Gaming
-
         </div>
 
-
         <div class="hero-badge">
-
             <i class="fa-solid fa-code"></i>
-
             Tools
-
         </div>
 
-
         <div class="hero-badge">
-
-            <i class="fa-solid fa-bolt"></i>
-
-            Releases
-
+            <i class="fa-solid fa-download"></i>
+            Game Downloader
         </div>
 
-
         <div class="hero-badge">
-
             <i class="fa-solid fa-users"></i>
-
-            1.8K+ Community
-
+            2.5K+ Users
         </div>
-
 
     </div>
 
-
     <div class="hero-buttons">
 
-
-        <a
-            class="btn btn-primary"
-            href="https://t.me/moddingxz"
-            target="_blank"
-            rel="noopener"
-        >
+        <a class="btn btn-primary"
+           href="https://t.me/moddingxz"
+           target="_blank"
+           rel="noopener">
 
             <i class="fa-brands fa-telegram"></i>
-
             Join Telegram
 
         </a>
 
+        <a class="btn btn-secondary"
+           href="#portal">
 
-        <a
-            class="btn btn-secondary"
-            href="#community"
-        >
-
-            <i class="fa-solid fa-chart-line"></i>
-
-            View Community
+            <i class="fa-solid fa-terminal"></i>
+            Explore ModdingXZ
 
         </a>
 
-
     </div>
-
 
 </header>
 
 
-<!-- =======================================================
-     COMMUNITY GROWTH
-======================================================= -->
+<!-- QUICK ACCESS -->
 
-<section
-    id="community"
-    class="box community-box reveal"
->
+<section id="portal" class="quick-grid reveal">
 
+    <a class="quick-card"
+       href="https://moddingxz.co.uk/games.html">
+
+        <span class="quick-arrow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+        <div class="quick-icon">
+            <i class="fa-solid fa-download"></i>
+        </div>
+
+        <h3>Game Downloader</h3>
+
+        <p>
+            Browse games, updates and DLC with ModdingXZ.
+        </p>
+
+    </a>
+
+
+    <a class="quick-card"
+       href="https://moddingxz.co.uk/Hosts/index.html">
+
+        <span class="quick-arrow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+        <div class="quick-icon">
+            <i class="fa-solid fa-unlock-keyhole"></i>
+        </div>
+
+        <h3>Hosts & Jailbreak</h3>
+
+        <p>
+            PS4 and PS5 host resources and jailbreak information.
+        </p>
+
+    </a>
+
+
+    <a class="quick-card"
+       href="https://moddingxz.co.uk/">
+
+        <span class="quick-arrow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+        <div class="quick-icon">
+            <i class="fa-solid fa-wrench"></i>
+        </div>
+
+        <h3>Services</h3>
+
+        <p>
+            Modding services, account services and more.
+        </p>
+
+    </a>
+
+
+    <a class="quick-card"
+       href="https://moddingxz.co.uk/t.html">
+
+        <span class="quick-arrow">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+        <div class="quick-icon">
+            <i class="fa-brands fa-telegram"></i>
+        </div>
+
+        <h3>Telegram Updates</h3>
+
+        <p>
+            Our Telegram updates and community information.
+        </p>
+
+    </a>
+
+</section>
+
+
+<!-- COMMUNITY -->
+
+<section id="community" class="box community-box reveal">
 
     <div class="section-heading">
-
 
         <h2 class="section-title">
 
             <span class="section-icon">
-
                 <i class="fa-solid fa-users"></i>
-
             </span>
 
-            Community Growth
+            ModdingXZ Community
 
         </h2>
 
-
         <span class="live-badge">
-
             <span class="status-dot"></span>
-
-            1.8K STRONG
-
+            2.5K+ USERS
         </span>
 
-
     </div>
 
-
-    <div
-        id="members"
-        class="community-number"
-    >
-        1,800 Members
+    <div id="members" class="community-number">
+        2,500+ Users
     </div>
-
 
     <p class="community-subtitle">
-
-        and growing every day 🚀
-
+        More than 2.5K people have now joined the ModdingXZ community. 🚀
     </p>
-
 
     <div class="progress-wrapper">
 
-
         <div class="progress">
 
-
-            <div
-                id="progressBar"
-                class="progress-bar"
-                style="width:36%"
-            ></div>
-
+            <div id="progressBar"
+                 class="progress-bar"
+                 style="width:50%">
+            </div>
 
         </div>
-
 
         <div class="progress-info">
 
-
-            <span id="percentage">
-
-                <strong>
-                    36.0%
-                </strong>
-
+            <span>
+                <strong>50.0%</strong>
                 towards 5K 🚀
-
             </span>
 
-
-            <strong>
-                Goal: 5,000
-            </strong>
-
+            <strong>Goal: 5,000</strong>
 
         </div>
-
 
     </div>
 
-
     <div class="stats">
 
-
         <div class="stat">
 
-            <div
-                id="remaining"
-                class="stat-value"
-            >
-                3,200
+            <div class="stat-value">
+                2.5K+
             </div>
 
             <div class="stat-label">
-                Members To Goal
+                Users
             </div>
 
         </div>
 
-
         <div class="stat">
 
-            <div
-                id="progressPercent"
-                class="stat-value"
-            >
-                36.0%
+            <div class="stat-value">
+                50%
             </div>
 
             <div class="stat-label">
-                Progress
+                To 5K
             </div>
 
         </div>
-
 
         <div class="stat">
 
@@ -1768,559 +1316,664 @@ footer strong{
 
         </div>
 
-
     </div>
-
 
 </section>
 
 
-<!-- =======================================================
-     FEATURES
-======================================================= -->
+<!-- ANNOUNCEMENT -->
+
+<section class="box reveal">
+
+    <div class="announcement">
+
+        <div>
+
+            <div class="announcement-label">
+                <i class="fa-solid fa-bolt"></i>
+                Latest ModdingXZ
+            </div>
+
+            <h3>
+                Game Downloader is now live! 🎮
+            </h3>
+
+            <p>
+                Servers have been upgraded for higher speeds,
+                better performance and a smoother Game Downloader
+                experience. 24 hours of free VIP is available after
+                installation.
+            </p>
+
+        </div>
+
+        <a class="btn btn-primary"
+           href="https://moddingxz.co.uk/games.html">
+
+            <i class="fa-solid fa-download"></i>
+            Game Downloader
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURES -->
 
 <section class="cards reveal">
 
-
     <div class="card">
 
-
         <div class="card-icon">
-
             <i class="fa-solid fa-gamepad"></i>
-
         </div>
 
-
-        <h3>
-            Gaming Mods
-        </h3>
-
+        <h3>Gaming Mods</h3>
 
         <p>
-
-            Console modding, gaming tools,
-            custom content, tutorials and
-            community projects.
-
+            Console modding, gaming tools, custom content,
+            tutorials and community projects.
         </p>
-
 
     </div>
 
 
     <div class="card">
 
-
         <div class="card-icon">
-
-            <i class="fa-solid fa-bolt"></i>
-
+            <i class="fa-solid fa-download"></i>
         </div>
 
-
-        <h3>
-            Latest Releases
-        </h3>
-
+        <h3>Game Downloader</h3>
 
         <p>
-
-            Keep up with new releases,
-            discoveries, updates and
-            developments from the scene.
-
+            Browse supported games, updates and DLC through
+            the ModdingXZ Game Downloader.
         </p>
-
 
     </div>
 
 
     <div class="card">
 
-
         <div class="card-icon">
-
-            <i class="fa-solid fa-code"></i>
-
+            <i class="fa-solid fa-wrench"></i>
         </div>
 
-
-        <h3>
-            Tools & Projects
-        </h3>
-
+        <h3>Services</h3>
 
         <p>
-
-            Discover useful gaming tools,
-            projects, utilities and resources
-            from the community.
-
+            Modded classes, unlocks, trophies, saves and
+            other supported gaming services.
         </p>
-
 
     </div>
 
 
     <div class="card">
 
-
         <div class="card-icon">
-
             <i class="fa-solid fa-users"></i>
-
         </div>
 
-
-        <h3>
-            Community
-        </h3>
-
+        <h3>Community</h3>
 
         <p>
-
-            Connect with gamers, modders
-            and developers and get help
-            when you need it.
-
+            Connect with gamers, modders and developers
+            and get help when you need it.
         </p>
 
-
     </div>
-
 
 </section>
 
 
-<!-- =======================================================
-     LATEST UPDATES
-======================================================= -->
+<!-- SERVICES -->
 
-<section class="box reveal">
-
+<section id="services" class="box reveal">
 
     <div class="section-heading">
 
+        <h2 class="section-title">
+
+            <span class="section-icon">
+                <i class="fa-solid fa-wrench"></i>
+            </span>
+
+            Featured Services
+
+        </h2>
+
+        <span class="live-badge">
+            UPDATED 2026
+        </span>
+
+    </div>
+
+    <div class="service-grid">
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>COD Max Progression</h3>
+                <span class="price">£15</span>
+            </div>
+
+            <p>
+                MW2019, Cold War and Vanguard progression bundle
+                across supported platforms.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>Black Ops 3 Ultimate</h3>
+                <span class="price">£15</span>
+            </div>
+
+            <p>
+                Prestige, modded classes, unlocks, Zombies
+                progression and additional features.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>BO3 Maxed-Out</h3>
+                <span class="price">£10</span>
+            </div>
+
+            <p>
+                Prestige Master MP, Zombies Level 1000 and
+                supported modded features.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>Cold War Modded Classes</h3>
+                <span class="price">£15</span>
+            </div>
+
+            <p>
+                Custom modded classes with supported unlock
+                and trophy options.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>COD Ghosts</h3>
+                <span class="price">£15</span>
+            </div>
+
+            <p>
+                Supported Ghosts modding service.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>Advanced Warfare</h3>
+                <span class="price">£10</span>
+            </div>
+
+            <p>
+                Supported Advanced Warfare modding service.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>PSN Profile Extras</h3>
+                <span class="price">£2+</span>
+            </div>
+
+            <p>
+                Custom avatar, About Me and profile colour
+                options.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>PlayStation Level 999</h3>
+                <span class="price">£30+</span>
+            </div>
+
+            <p>
+                Trophy-level services with multiple package
+                options.
+            </p>
+
+        </div>
+
+
+        <div class="service">
+
+            <div class="service-top">
+                <h3>NFS Heat</h3>
+                <span class="price">£10</span>
+            </div>
+
+            <p>
+                Unlock All and supported car services.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:22px;">
+
+        <a class="btn btn-secondary"
+           href="https://moddingxz.co.uk/">
+
+            <i class="fa-solid fa-list"></i>
+            View Full Services
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- GAME DOWNLOADER -->
+
+<section class="box reveal">
+
+    <div class="section-heading">
 
         <h2 class="section-title">
 
-
             <span class="section-icon">
-
-                <i class="fa-solid fa-bolt"></i>
-
+                <i class="fa-solid fa-download"></i>
             </span>
 
+            ModdingXZ Game Downloader
+
+        </h2>
+
+        <span class="live-badge">
+            LIVE
+        </span>
+
+    </div>
+
+    <div class="cards" style="margin-top:0;">
+
+        <div class="card">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-gamepad"></i>
+            </div>
+
+            <h3>Huge Catalogue</h3>
+
+            <p>
+                Browse a large catalogue of supported games
+                through the downloader platform.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+
+            <h3>Fast Downloads</h3>
+
+            <p>
+                Upgraded servers provide a smoother download
+                and installation experience.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-rotate"></i>
+            </div>
+
+            <h3>Updates & DLC</h3>
+
+            <p>
+                Browse available game updates and DLC where
+                supported.
+            </p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="card-icon">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <h3>24H Free VIP</h3>
+
+            <p>
+                Install the downloader and receive 24 hours
+                of VIP access before choosing a subscription.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div style="text-align:center;margin-top:25px;">
+
+        <a class="btn btn-primary"
+           href="https://moddingxz.co.uk/games.html">
+
+            <i class="fa-solid fa-download"></i>
+            Open Game Downloader
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- LATEST UPDATES -->
+
+<section id="updates" class="box reveal">
+
+    <div class="section-heading">
+
+        <h2 class="section-title">
+
+            <span class="section-icon">
+                <i class="fa-solid fa-bolt"></i>
+            </span>
 
             Latest Updates
 
-
         </h2>
 
-
     </div>
-
 
     <ul class="update-list">
 
-
         <li>
 
             <span class="update-icon">
-
-                <i class="fa-solid fa-fire"></i>
-
+                <i class="fa-solid fa-server"></i>
             </span>
 
-            Black Ops content, gaming mods
-            and community projects
+            Game Downloader server upgrade completed
 
         </li>
 
-
         <li>
 
             <span class="update-icon">
-
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-
+                <i class="fa-solid fa-download"></i>
             </span>
 
-            New tools, releases and resources
-            added regularly
+            ModdingXZ Game Downloader is now live
 
         </li>
 
-
         <li>
 
             <span class="update-icon">
-
-                <i class="fa-solid fa-comments"></i>
-
+                <i class="fa-solid fa-gamepad"></i>
             </span>
 
-            Gaming discussions, support
-            and community help
+            New gaming tools, releases and projects added regularly
 
         </li>
 
+        <li>
+
+            <span class="update-icon">
+                <i class="fa-solid fa-users"></i>
+            </span>
+
+            ModdingXZ community has passed 2.5K+ users
+
+        </li>
 
         <li>
 
             <span class="update-icon">
-
                 <i class="fa-solid fa-rocket"></i>
-
             </span>
 
-            Road to 2,000 members is officially on
+            Road to 5,000 is officially underway
 
         </li>
-
 
     </ul>
 
+    <div style="text-align:center;margin-top:20px;">
+
+        <a class="btn btn-secondary"
+           href="https://moddingxz.co.uk/t.html">
+
+            <i class="fa-solid fa-newspaper"></i>
+            Telegram Updates
+
+        </a>
+
+    </div>
 
 </section>
 
 
-<!-- =======================================================
-     MILESTONES
-======================================================= -->
+<!-- MILESTONES -->
 
 <section class="box reveal">
 
-
     <div class="section-heading">
-
 
         <h2 class="section-title">
 
-
             <span class="section-icon">
-
                 <i class="fa-solid fa-trophy"></i>
-
             </span>
-
 
             Community Milestones
 
-
         </h2>
 
-
     </div>
-
 
     <div class="timeline">
 
+        <div class="mile done">
+            <div class="mile-icon">🟢</div>
+            <div class="mile-number">100</div>
+            <div class="mile-status">Completed</div>
+        </div>
 
         <div class="mile done">
-
-            <div class="mile-icon">
-                🟢
-            </div>
-
-            <div class="mile-number">
-                100
-            </div>
-
-            <div class="mile-status">
-                Completed
-            </div>
-
+            <div class="mile-icon">🟢</div>
+            <div class="mile-number">500</div>
+            <div class="mile-status">Completed</div>
         </div>
-
 
         <div class="mile done">
-
-            <div class="mile-icon">
-                🟢
-            </div>
-
-            <div class="mile-number">
-                500
-            </div>
-
-            <div class="mile-status">
-                Completed
-            </div>
-
+            <div class="mile-icon">🟢</div>
+            <div class="mile-number">1,000</div>
+            <div class="mile-status">Completed</div>
         </div>
-
 
         <div class="mile done">
-
-            <div class="mile-icon">
-                🟢
-            </div>
-
-            <div class="mile-number">
-                1,000
-            </div>
-
-            <div class="mile-status">
-                Completed
-            </div>
-
+            <div class="mile-icon">🔥</div>
+            <div class="mile-number">1,800</div>
+            <div class="mile-status">Completed</div>
         </div>
-
 
         <div class="mile done">
-
-            <div class="mile-icon">
-                🔥
-            </div>
-
-            <div class="mile-number">
-                1,800
-            </div>
-
-            <div class="mile-status">
-                Current
-            </div>
-
+            <div class="mile-icon">⚡</div>
+            <div class="mile-number">2,500+</div>
+            <div class="mile-status">Current</div>
         </div>
 
-
-        <div class="mile future">
-
-            <div class="mile-icon">
-                🚀
-            </div>
-
-            <div class="mile-number">
-                2,000
-            </div>
-
-            <div class="mile-status">
-                Next Goal
-            </div>
-
+        <div class="mile">
+            <div class="mile-icon">🚀</div>
+            <div class="mile-number">2,500</div>
+            <div class="mile-status">Reached</div>
         </div>
 
-
-        <div class="mile future">
-
-            <div class="mile-icon">
-                ⚡
-            </div>
-
-            <div class="mile-number">
-                2,500
-            </div>
-
-            <div class="mile-status">
-                Upcoming
-            </div>
-
+        <div class="mile">
+            <div class="mile-icon">👑</div>
+            <div class="mile-number">5,000</div>
+            <div class="mile-status">Ultimate Goal</div>
         </div>
-
-
-        <div class="mile future">
-
-            <div class="mile-icon">
-                👑
-            </div>
-
-            <div class="mile-number">
-                5,000
-            </div>
-
-            <div class="mile-status">
-                Ultimate Goal
-            </div>
-
-        </div>
-
 
     </div>
-
 
 </section>
 
 
-<!-- =======================================================
-     WHY JOIN
-======================================================= -->
+<!-- WHY JOIN -->
 
 <section class="box reveal">
 
-
     <div class="section-heading">
-
 
         <h2 class="section-title">
 
-
             <span class="section-icon">
-
                 <i class="fa-solid fa-star"></i>
-
             </span>
-
 
             Why Join ModdingXZ?
 
-
         </h2>
 
-
     </div>
-
 
     <div class="why-grid">
 
-
         <div class="why-item">
-
             <i class="fa-solid fa-circle-check"></i>
-
             Community Support
-
         </div>
 
-
         <div class="why-item">
-
             <i class="fa-solid fa-circle-check"></i>
-
             Gaming Discussions
-
         </div>
 
-
         <div class="why-item">
-
             <i class="fa-solid fa-circle-check"></i>
-
             Modding Projects
-
         </div>
 
-
         <div class="why-item">
-
             <i class="fa-solid fa-circle-check"></i>
-
             Latest Scene Updates
-
         </div>
 
-
         <div class="why-item">
-
             <i class="fa-solid fa-circle-check"></i>
-
             Gaming Tools & Resources
-
         </div>
-
 
         <div class="why-item">
-
             <i class="fa-solid fa-circle-check"></i>
-
             Gamers & Modders
-
         </div>
-
 
     </div>
-
 
 </section>
 
 
-<!-- =======================================================
-     CALL TO ACTION
-======================================================= -->
+<!-- CTA -->
 
 <section class="cta reveal">
 
-
     <h2>
-        Ready to join 1,800+ members?
+        2.5K+ users. Next stop: 5K. 🚀
     </h2>
 
-
     <p>
-
-        Join ModdingXZ on Telegram and stay connected
-        with the latest gaming content, tools, releases,
-        discussions and community updates.
-
+        Join ModdingXZ on Telegram and stay connected with
+        gaming content, tools, releases, Game Downloader updates,
+        services and community news.
     </p>
 
-
-    <a
-        class="btn btn-primary"
-        href="https://t.me/moddingxz"
-        target="_blank"
-        rel="noopener"
-    >
+    <a class="btn btn-primary"
+       href="https://t.me/moddingxz"
+       target="_blank"
+       rel="noopener">
 
         <i class="fa-brands fa-telegram"></i>
-
         Join ModdingXZ
 
     </a>
 
-
     <div class="socials">
 
-
-        <a
-            class="social"
-            href="https://t.me/moddingxz"
-            target="_blank"
-            rel="noopener"
-            aria-label="Telegram"
-        >
+        <a class="social"
+           href="https://t.me/moddingxz"
+           target="_blank"
+           rel="noopener"
+           aria-label="Telegram">
 
             <i class="fa-brands fa-telegram"></i>
 
         </a>
 
-
-        <a
-            class="social"
-            href="https://www.tiktok.com/@moddingx1"
-            target="_blank"
-            rel="noopener"
-            aria-label="TikTok"
-        >
+        <a class="social"
+           href="https://www.tiktok.com/@moddingx1"
+           target="_blank"
+           rel="noopener"
+           aria-label="TikTok">
 
             <i class="fa-brands fa-tiktok"></i>
 
         </a>
 
-
-        <a
-            class="social"
-            href="https://github.com/MrJasonDEX"
-            target="_blank"
-            rel="noopener"
-            aria-label="GitHub"
-        >
+        <a class="social"
+           href="https://github.com/MrJasonDEX"
+           target="_blank"
+           rel="noopener"
+           aria-label="GitHub">
 
             <i class="fa-brands fa-github"></i>
 
         </a>
 
-
     </div>
-
 
 </section>
 
 
-<!-- =======================================================
-     FOOTER
-======================================================= -->
+<!-- FOOTER -->
 
 <footer>
 
@@ -2328,10 +1981,33 @@ footer strong{
 
     <br>
 
-    Gaming • Mods • Tools • Releases • Community
+    Gaming • Mods • Tools • Releases • Game Downloader • Community
+
+    <div class="footer-links">
+
+        <a href="https://moddingxz.co.uk/">
+            Services
+        </a>
+
+        <a href="https://moddingxz.co.uk/games.html">
+            Game Downloader
+        </a>
+
+        <a href="https://moddingxz.co.uk/Hosts/index.html">
+            Hosts
+        </a>
+
+        <a href="https://moddingxz.co.uk/t.html">
+            Telegram Updates
+        </a>
+
+        <a href="https://t.me/ModdingXZ_Support_Bot">
+            Support
+        </a>
+
+    </div>
 
 </footer>
-
 
 </div>
 
@@ -2339,237 +2015,57 @@ footer strong{
 <script>
 
 /* =========================================================
-   SETTINGS
+   MODDINGXZ COMMUNITY
 ========================================================= */
 
+const COMMUNITY = 2500;
 const GOAL = 5000;
 
-/*
-    Current known ModdingXZ member count.
-
-    If Telegram cannot be queried, the website
-    will fall back to this number.
-*/
-
-const FALLBACK_MEMBERS = 1800;
-
-
-/* =========================================================
-   TELEGRAM MEMBER COUNTER
-========================================================= */
-
-async function updateMembers(){
-
-    try{
-
-        const telegramURL =
-            "https://t.me/moddingxz";
-
-        const proxy =
-            "https://api.allorigins.win/raw?url=";
-
-
-        const response =
-            await fetch(
-                proxy +
-                encodeURIComponent(
-                    telegramURL
-                ),
-                {
-                    cache:"no-store"
-                }
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Telegram request failed"
-            );
-
-        }
-
-
-        const html =
-            await response.text();
-
-
-        const patterns = [
-
-            /([\d,]+)\s+members/i,
-
-            /([\d,]+)\s+Members/i,
-
-            /members[^0-9]*([\d,]+)/i
-
-        ];
-
-
-        let members = null;
-
-
-        for(
-            const pattern of patterns
-        ){
-
-            const match =
-                html.match(pattern);
-
-
-            if(match){
-
-                members =
-                    parseInt(
-                        match[1]
-                            .replace(/,/g,""),
-                        10
-                    );
-
-                break;
-
-            }
-
-        }
-
-
-        if(
-            !members ||
-            isNaN(members)
-        ){
-
-            members =
-                FALLBACK_MEMBERS;
-
-        }
-
-
-        showMembers(
-            members
-        );
-
-
-    }
-    catch(error){
-
-        console.log(
-            "Telegram counter fallback:",
-            error
-        );
-
-
-        showMembers(
-            FALLBACK_MEMBERS
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   DISPLAY MEMBER DATA
-========================================================= */
-
-function showMembers(
-    members
-){
+function updateCommunity(){
 
     const percentage =
-        (members / GOAL) * 100;
-
-
-    const safePercentage =
-        Math.min(
-            percentage,
-            100
-        );
-
+        (COMMUNITY / GOAL) * 100;
 
     const remaining =
-        Math.max(
-            GOAL - members,
-            0
-        );
+        Math.max(GOAL - COMMUNITY,0);
 
+    document.getElementById("members")
+        .textContent =
+        COMMUNITY.toLocaleString() + "+ Users";
 
-    document.getElementById(
-        "members"
-    ).textContent =
-        members.toLocaleString() +
-        " Members";
+    document.getElementById("progressBar")
+        .style.width =
+        Math.min(percentage,100) + "%";
 
+    const info =
+        document.querySelector(".progress-info span");
 
-    document.getElementById(
-        "percentage"
-    ).innerHTML =
+    if(info){
 
-        `<strong>
-            ${percentage.toFixed(1)}%
-        </strong>
-        towards 5K 🚀`;
+        info.innerHTML =
+            `<strong>${percentage.toFixed(1)}%</strong>
+             towards 5K 🚀`;
 
-
-    document.getElementById(
-        "progressPercent"
-    ).textContent =
-        percentage.toFixed(1) +
-        "%";
-
-
-    document.getElementById(
-        "remaining"
-    ).textContent =
-        remaining.toLocaleString();
-
-
-    requestAnimationFrame(
-        () => {
-
-            document.getElementById(
-                "progressBar"
-            ).style.width =
-                safePercentage +
-                "%";
-
-        }
-    );
+    }
 
 }
 
-
-/*
-    Load immediately.
-*/
-
-updateMembers();
+updateCommunity();
 
 
 /* =========================================================
-   PARTICLE BACKGROUND
+   PARTICLES
 ========================================================= */
 
 const canvas =
-    document.getElementById(
-        "particles"
-    );
-
+    document.getElementById("particles");
 
 const ctx =
-    canvas.getContext(
-        "2d"
-    );
-
+    canvas.getContext("2d");
 
 let particles = [];
-
-let width;
-
-let height;
-
-
-/* =========================================================
-   CANVAS RESIZE
-========================================================= */
+let width = 0;
+let height = 0;
 
 function resizeCanvas(){
 
@@ -2577,86 +2073,46 @@ function resizeCanvas(){
         canvas.width =
         window.innerWidth;
 
-
     height =
         canvas.height =
         window.innerHeight;
 
 }
 
-
-/* =========================================================
-   CREATE PARTICLES
-========================================================= */
-
 function createParticles(){
 
     particles = [];
 
-
     const amount =
         window.innerWidth < 600
-        ? 45
-        : 100;
+        ? 40
+        : 95;
 
-
-    for(
-        let i = 0;
-        i < amount;
-        i++
-    ){
+    for(let i=0;i<amount;i++){
 
         particles.push({
 
-            x:
-                Math.random() *
-                width,
+            x:Math.random()*width,
 
-            y:
-                Math.random() *
-                height,
+            y:Math.random()*height,
 
             size:
-                Math.random() *
-                1.7 +
-                .4,
+                Math.random()*1.7+.4,
 
             speedX:
-                (
-                    Math.random() -
-                    .5
-                ) * .35,
+                (Math.random()-.5)*.35,
 
             speedY:
-                (
-                    Math.random() -
-                    .5
-                ) * .35,
+                (Math.random()-.5)*.35,
 
             opacity:
-                Math.random() *
-                .6 +
-                .1
+                Math.random()*.6+.1
 
         });
 
     }
 
 }
-
-
-/* =========================================================
-   INITIALISE PARTICLES
-========================================================= */
-
-resizeCanvas();
-
-createParticles();
-
-
-/* =========================================================
-   PARTICLE ANIMATION
-========================================================= */
 
 function animateParticles(){
 
@@ -2667,57 +2123,33 @@ function animateParticles(){
         height
     );
 
+    particles.forEach(p=>{
 
-    particles.forEach(
-        p => {
+        p.x += p.speedX;
+        p.y += p.speedY;
 
-            p.x += p.speedX;
+        if(p.x<0) p.x=width;
+        if(p.x>width) p.x=0;
 
-            p.y += p.speedY;
+        if(p.y<0) p.y=height;
+        if(p.y>height) p.y=0;
 
+        ctx.beginPath();
 
-            if(p.x < 0)
-                p.x = width;
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI*2
+        );
 
+        ctx.fillStyle =
+            `rgba(56,189,248,${p.opacity})`;
 
-            if(p.x > width)
-                p.x = 0;
+        ctx.fill();
 
-
-            if(p.y < 0)
-                p.y = height;
-
-
-            if(p.y > height)
-                p.y = 0;
-
-
-            ctx.beginPath();
-
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.size,
-                0,
-                Math.PI * 2
-            );
-
-
-            ctx.fillStyle =
-                `rgba(
-                    56,
-                    189,
-                    248,
-                    ${p.opacity}
-                )`;
-
-
-            ctx.fill();
-
-        }
-    );
-
+    });
 
     requestAnimationFrame(
         animateParticles
@@ -2725,22 +2157,15 @@ function animateParticles(){
 
 }
 
-
+resizeCanvas();
+createParticles();
 animateParticles();
-
-
-/* =========================================================
-   WINDOW RESIZE
-========================================================= */
 
 window.addEventListener(
     "resize",
-    () => {
-
+    ()=>{
         resizeCanvas();
-
         createParticles();
-
     }
 );
 
@@ -2750,76 +2175,87 @@ window.addEventListener(
 ========================================================= */
 
 const revealElements =
-    document.querySelectorAll(
-        ".reveal"
-    );
-
+    document.querySelectorAll(".reveal");
 
 const observer =
     new IntersectionObserver(
+        entries=>{
 
-        entries => {
+            entries.forEach(entry=>{
 
-            entries.forEach(
-                entry => {
+                if(entry.isIntersecting){
 
-                    if(
-                        entry.isIntersecting
-                    ){
+                    entry.target.classList.add(
+                        "visible"
+                    );
 
+                    observer.unobserve(
                         entry.target
-                            .classList
-                            .add(
-                                "visible"
-                            );
-
-
-                        observer.unobserve(
-                            entry.target
-                        );
-
-                    }
+                    );
 
                 }
-            );
+
+            });
 
         },
-
         {
-            threshold:.12
+            threshold:.1
         }
-
     );
 
-
 revealElements.forEach(
-    element => {
-
-        observer.observe(
-            element
-        );
-
+    element=>{
+        observer.observe(element);
     }
 );
 
 
 /* =========================================================
-   MEMBER COUNTER REFRESH
+   RANDOM TAB TITLE
 ========================================================= */
 
-/*
-    Attempt to refresh the counter
-    every 5 minutes.
-*/
+const titles = [
+    "ModdingXZ | Gaming Mods",
+    "ModdingXZ | 2.5K+ Users",
+    "ModdingXZ | Game Downloader",
+    "ModdingXZ | Community",
+    "ModdingXZ | Mods & Tools"
+];
 
-setInterval(
-    updateMembers,
-    5 * 60 * 1000
+let titleIndex = 0;
+
+setInterval(()=>{
+
+    titleIndex =
+        (titleIndex+1)%titles.length;
+
+    document.title =
+        titles[titleIndex];
+
+},5000);
+
+
+/* =========================================================
+   CONSOLE EASTER EGG
+========================================================= */
+
+console.log(
+`
+╔══════════════════════════════════╗
+║          MODDINGXZ OS            ║
+╠══════════════════════════════════╣
+║ Community: 2.5K+                 ║
+║ Goal:       5,000                ║
+║ Game Downloader: ONLINE          ║
+║ Services:          ONLINE        ║
+║ Telegram:          ONLINE        ║
+╚══════════════════════════════════╝
+
+Welcome to ModdingXZ 👀
+`
 );
 
 </script>
 
-
 </body>
-
 </html>
