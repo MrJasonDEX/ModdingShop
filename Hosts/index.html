@@ -3,13 +3,13 @@
 
 <head>
 
-    <link rel="icon" type="image/png" href="pspulse.png">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#08060d">
 
-    <title>MODDINGXZ // PS4 & PS5 HOST SYSTEM</title>
+    <link rel="icon" type="image/png" href="pspulse.png">
+
+    <title>MODDINGXZ // PLAYSTATION HOST SYSTEM</title>
 
     <style>
 
@@ -34,6 +34,11 @@
 
             --green: #6ee7a8;
         }
+
+
+        /* =========================
+           RESET
+        ========================= */
 
         * {
             box-sizing: border-box;
@@ -62,12 +67,12 @@
                     transparent 42%
                 ),
                 linear-gradient(
-                    rgba(168, 85, 247, .028) 1px,
+                    rgba(168, 85, 247, .025) 1px,
                     transparent 1px
                 ),
                 linear-gradient(
                     90deg,
-                    rgba(168, 85, 247, .028) 1px,
+                    rgba(168, 85, 247, .025) 1px,
                     transparent 1px
                 ),
                 var(--bg);
@@ -99,7 +104,7 @@
             min-height: 100vh;
 
             margin: 0 auto;
-            padding: 14px 24px 16px;
+            padding: 14px 24px 18px;
 
             display: flex;
             flex-direction: column;
@@ -156,7 +161,7 @@
 
             color: var(--muted);
 
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: .12em;
         }
 
@@ -179,13 +184,18 @@
 
         .main {
             flex: 1;
-            padding-top: 28px;
+
+            padding-top: 30px;
         }
 
 
         /* =========================
            HERO
         ========================= */
+
+        .hero {
+            max-width: 850px;
+        }
 
         .kicker {
             margin: 0 0 12px;
@@ -203,6 +213,7 @@
             margin-right: 8px;
 
             color: var(--purple);
+
             font-weight: 700;
         }
 
@@ -232,7 +243,7 @@
 
             color: var(--muted);
 
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.7;
         }
 
@@ -262,14 +273,28 @@
 
             color: var(--dim);
 
-            font-size: 10px;
+            font-size: 9px;
             letter-spacing: .08em;
             text-transform: uppercase;
         }
 
         .info strong {
             color: var(--purple-light);
+
             font-weight: 400;
+        }
+
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .host-section {
+            margin-top: 26px;
+        }
+
+        .host-section + .host-section {
+            margin-top: 14px;
         }
 
 
@@ -278,8 +303,6 @@
         ========================= */
 
         .host-panel {
-            margin-top: 24px;
-
             padding: 13px;
 
             border: 1px solid var(--line);
@@ -287,18 +310,36 @@
             background:
                 linear-gradient(
                     180deg,
-                    rgba(16, 12, 24, .88),
-                    rgba(10, 7, 14, .88)
+                    rgba(16, 12, 24, .90),
+                    rgba(10, 7, 14, .90)
                 );
 
             box-shadow:
                 0 20px 60px rgba(0, 0, 0, .18);
         }
 
+        .host-panel.ps5-panel {
+            border-color: var(--line-bright);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(109, 40, 217, .09),
+                    rgba(10, 7, 14, .92)
+                );
+        }
+
+
+        /* =========================
+           PANEL HEADER
+        ========================= */
+
         .panel-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            gap: 15px;
 
             padding: 3px 5px 12px;
 
@@ -319,11 +360,12 @@
             color: var(--purple);
         }
 
-        .panel-hint {
+        .panel-count {
             color: var(--dim);
 
-            font-size: 10px;
-            letter-spacing: .06em;
+            font-size: 9px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
         }
 
 
@@ -383,11 +425,12 @@
 
             background: transparent;
 
-            transition: background .16s ease;
+            transition:
+                background .16s ease;
         }
 
         .host:hover,
-        .host:focus {
+        .host:focus-visible {
             background: var(--panel-2);
 
             border-color: var(--purple);
@@ -401,11 +444,11 @@
         }
 
         .host:hover::before,
-        .host:focus::before {
+        .host:focus-visible::before {
             background: var(--purple);
         }
 
-        .host:focus {
+        .host:focus-visible {
             box-shadow:
                 0 0 0 2px var(--bg),
                 0 0 0 4px var(--purple);
@@ -423,7 +466,7 @@
                 linear-gradient(
                     105deg,
                     rgba(109, 40, 217, .14),
-                    rgba(16, 12, 24, .95) 55%
+                    rgba(16, 12, 24, .95) 58%
                 );
         }
 
@@ -433,7 +476,7 @@
 
 
         /* =========================
-           NUMBER
+           HOST NUMBER
         ========================= */
 
         .host-number {
@@ -446,17 +489,18 @@
         }
 
         .host:hover .host-number,
-        .host:focus .host-number {
+        .host:focus-visible .host-number {
             color: var(--purple-light);
         }
 
 
         /* =========================
-           CONTENT
+           HOST CONTENT
         ========================= */
 
         .host-content {
             min-width: 0;
+
             flex: 1;
         }
 
@@ -498,6 +542,7 @@
         .host-tags {
             display: flex;
             flex-wrap: wrap;
+
             gap: 5px;
 
             margin-top: 8px;
@@ -516,20 +561,32 @@
         }
 
         .tag.latest {
-            border-color: rgba(168, 85, 247, .4);
+            border-color:
+                rgba(168, 85, 247, .4);
 
             color: var(--purple-light);
 
-            background: rgba(168, 85, 247, .08);
+            background:
+                rgba(168, 85, 247, .08);
         }
 
         .tag.cache {
             color: var(--green);
         }
 
+        .tag.ps5 {
+            border-color:
+                rgba(168, 85, 247, .5);
+
+            color: var(--purple-light);
+
+            background:
+                rgba(168, 85, 247, .12);
+        }
+
 
         /* =========================
-           ARROW
+           HOST ARROW
         ========================= */
 
         .host-arrow {
@@ -545,10 +602,27 @@
         }
 
         .host:hover .host-arrow,
-        .host:focus .host-arrow {
+        .host:focus-visible .host-arrow {
             color: var(--purple-light);
 
             transform: translateX(3px);
+        }
+
+
+        /* =========================
+           PS5 SPECIAL
+        ========================= */
+
+        .ps5-host {
+            min-height: 105px;
+        }
+
+        .ps5-host .host-name {
+            font-size: 20px;
+        }
+
+        .ps5-host .host-meta {
+            color: var(--muted);
         }
 
 
@@ -557,11 +631,13 @@
         ========================= */
 
         .community {
-            margin-top: 12px;
+            margin-top: 14px;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            gap: 20px;
 
             min-height: 78px;
 
@@ -585,7 +661,7 @@
         }
 
         .community:hover,
-        .community:focus {
+        .community:focus-visible {
             background:
                 linear-gradient(
                     90deg,
@@ -600,7 +676,7 @@
             transform: translateY(-1px);
         }
 
-        .community:focus {
+        .community:focus-visible {
             box-shadow:
                 0 0 0 2px var(--bg),
                 0 0 0 4px var(--purple);
@@ -682,7 +758,9 @@
         .footer-links {
             display: flex;
             flex-wrap: wrap;
+
             justify-content: flex-end;
+
             gap: 8px;
         }
 
@@ -691,12 +769,14 @@
 
             text-decoration: none;
 
-            transition: color .15s ease;
+            transition:
+                color .15s ease;
         }
 
         .footer a:hover,
-        .footer a:focus {
+        .footer a:focus-visible {
             color: var(--purple-light);
+
             outline: none;
         }
 
@@ -728,7 +808,7 @@
             }
 
             .main {
-                padding-top: 20px;
+                padding-top: 21px;
             }
 
             .kicker {
@@ -755,9 +835,11 @@
                 font-size: 8px;
             }
 
-            .host-panel {
-                margin-top: 18px;
+            .host-section {
+                margin-top: 19px;
+            }
 
+            .host-panel {
                 padding: 9px;
             }
 
@@ -769,8 +851,8 @@
                 font-size: 10px;
             }
 
-            .panel-hint {
-                display: none;
+            .panel-count {
+                font-size: 8px;
             }
 
             .host-grid {
@@ -783,6 +865,10 @@
                 padding: 12px;
             }
 
+            .ps5-host {
+                min-height: 90px;
+            }
+
             .host-number {
                 min-width: 35px;
 
@@ -791,6 +877,10 @@
 
             .host-name {
                 font-size: 17px;
+            }
+
+            .ps5-host .host-name {
+                font-size: 18px;
             }
 
             .host-meta {
@@ -856,12 +946,15 @@
 
 </head>
 
+
 <body>
 
 <div class="app">
 
 
-    <!-- TOP BAR -->
+    <!-- =========================
+         TOP BAR
+    ========================= -->
 
     <header class="bar">
 
@@ -870,7 +963,7 @@
             <strong>MODDINGXZ</strong>
 
             <span>
-                // PS4 & PS5 HOST SYSTEM
+                // PLAYSTATION HOST SYSTEM
             </span>
 
         </div>
@@ -889,9 +982,11 @@
     <main class="main">
 
 
-        <!-- HERO -->
+        <!-- =========================
+             HERO
+        ========================= -->
 
-        <section>
+        <section class="hero">
 
             <p class="kicker">
                 ./moddingxz --select-host
@@ -902,19 +997,19 @@
             </h1>
 
             <p class="subtitle">
-                Choose the host matching the firmware installed on
-                your PlayStation. Select your firmware below to continue.
+                Choose the host matching your PlayStation firmware.
+                Select your console and firmware below to continue.
             </p>
 
 
             <div class="system-info">
 
                 <span class="info">
-                    HOSTS <strong>08</strong>
+                    PS4 HOSTS <strong>07</strong>
                 </span>
 
                 <span class="info">
-                    SYSTEM <strong>PS4 + PS5</strong>
+                    PS5 HOSTS <strong>01</strong>
                 </span>
 
                 <span class="info">
@@ -930,388 +1025,443 @@
         </section>
 
 
-        <!-- HOST MENU -->
+        <!-- =========================
+             PS4 HOST SYSTEM
+        ========================= -->
 
         <section
-            class="host-panel"
-            aria-label="PlayStation Firmware Host Menu"
+            class="host-section"
+            aria-label="PS4 Host System"
         >
 
-            <div class="panel-header">
+            <div class="host-panel">
 
-                <div class="panel-title">
+                <div class="panel-header">
 
-                    <span>//</span>
-                    AVAILABLE HOSTS
+                    <div class="panel-title">
+
+                        <span>//</span>
+                        PS4 HOST SYSTEM
+
+                    </div>
+
+                    <div class="panel-count">
+                        07 AVAILABLE HOSTS
+                    </div>
 
                 </div>
 
-                <div class="panel-hint">
-                    SELECT A FIRMWARE TO CONTINUE
-                </div>
+
+                <nav
+                    class="host-grid"
+                    aria-label="PS4 Firmware Hosts"
+                >
+
+
+                    <!-- PS4 13.02 - 13.52 -->
+
+                    <a
+                        class="host featured"
+                        href="1352/index.html"
+                        aria-label="PS4 firmware 13.02 to 13.52"
+                    >
+
+                        <span class="host-number">
+                            01
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                FW 13.02–13.52
+                            </span>
+
+                            <span class="host-meta">
+                                SlopKit GoldHEN // offline host
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag latest">
+                                    Latest
+                                </span>
+
+                                <span class="tag cache">
+                                    Cache
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PS4 11.00 - 13.00 -->
+
+                    <a
+                        class="host"
+                        href="1300/version-selector.html"
+                        aria-label="PS4 firmware 11.00 to 13.00"
+                    >
+
+                        <span class="host-number">
+                            02
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                FW 11.00–13.00
+                            </span>
+
+                            <span class="host-meta">
+                                SlopKit WebKit // offline host
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag">
+                                    Version Selector
+                                </span>
+
+                                <span class="tag cache">
+                                    Cache
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PS4 6.00 - 11.02 -->
+
+                    <a
+                        class="host"
+                        href="css/version-selector.html"
+                        aria-label="PS4 firmware 6.00 to 11.02"
+                    >
+
+                        <span class="host-number">
+                            03
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                FW 6.00–11.02
+                            </span>
+
+                            <span class="host-meta">
+                                CSSFontFace // GoldHEN host
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag">
+                                    GoldHEN
+                                </span>
+
+                                <span class="tag cache">
+                                    Cache
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PS4 9.00 - 9.60 -->
+
+                    <a
+                        class="host"
+                        href="900/version-selector.html"
+                        aria-label="PS4 firmware 9.00 to 9.60"
+                    >
+
+                        <span class="host-number">
+                            04
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                FW 9.00–9.60
+                            </span>
+
+                            <span class="host-meta">
+                                PSFree / Lapse // GoldHEN host
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag">
+                                    PSFree
+                                </span>
+
+                                <span class="tag">
+                                    Lapse
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PS4 7.00 - 8.52 -->
+
+                    <a
+                        class="host"
+                        href="700/version-selector.html"
+                        aria-label="PS4 firmware 7.00 to 8.52"
+                    >
+
+                        <span class="host-number">
+                            05
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                FW 7.00–8.52
+                            </span>
+
+                            <span class="host-meta">
+                                PSFree / Lapse // GoldHEN host
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag">
+                                    PSFree
+                                </span>
+
+                                <span class="tag">
+                                    Lapse
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PS4 6.72 -->
+
+                    <a
+                        class="host"
+                        href="672/index.html"
+                        aria-label="PS4 firmware 6.72"
+                    >
+
+                        <span class="host-number">
+                            06
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                FW 6.72
+                            </span>
+
+                            <span class="host-meta">
+                                Dedicated host // utility payloads
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag">
+                                    Dedicated
+                                </span>
+
+                                <span class="tag">
+                                    Payloads
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <!-- PS4 5.05 -->
+
+                    <a
+                        class="host"
+                        href="505/index.html"
+                        aria-label="PS4 firmware 5.05"
+                    >
+
+                        <span class="host-number">
+                            07
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                FW 5.05
+                            </span>
+
+                            <span class="host-meta">
+                                Dedicated host // utility payloads
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag">
+                                    Dedicated
+                                </span>
+
+                                <span class="tag">
+                                    Payloads
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </nav>
 
             </div>
-
-
-            <nav class="host-grid">
-
-
-                <!-- PS5 13.60 -->
-
-                <a
-                    class="host featured"
-                    href="https://moddingxz.co.uk/Hosts/ps5.html"
-                    aria-label="PS5 firmware 13.60 host"
-                >
-
-                    <span class="host-number">
-                        01
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            PS5 FW 13.60
-                        </span>
-
-                        <span class="host-meta">
-                            PS5 13.60 exploit // dedicated host
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag latest">
-                                PS5
-                            </span>
-
-                            <span class="tag cache">
-                                HOST
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <!-- PS4 13.02 - 13.52 -->
-
-                <a
-                    class="host"
-                    href="1352/index.html"
-                    aria-label="PS4 firmware 13.02 to 13.52"
-                >
-
-                    <span class="host-number">
-                        02
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            FW 13.02–13.52
-                        </span>
-
-                        <span class="host-meta">
-                            SlopKit GoldHEN // offline host
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag latest">
-                                Latest
-                            </span>
-
-                            <span class="tag cache">
-                                Cache
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <!-- PS4 11.00 - 13.00 -->
-
-                <a
-                    class="host"
-                    href="1300/version-selector.html"
-                    aria-label="PS4 firmware 11.00 to 13.00"
-                >
-
-                    <span class="host-number">
-                        03
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            FW 11.00–13.00
-                        </span>
-
-                        <span class="host-meta">
-                            SlopKit WebKit // offline host
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag">
-                                Version Selector
-                            </span>
-
-                            <span class="tag cache">
-                                Cache
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <!-- PS4 6.00 - 11.02 -->
-
-                <a
-                    class="host"
-                    href="css/version-selector.html"
-                    aria-label="PS4 firmware 6.00 to 11.02"
-                >
-
-                    <span class="host-number">
-                        04
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            FW 6.00–11.02
-                        </span>
-
-                        <span class="host-meta">
-                            CSSFontFace // GoldHEN host
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag">
-                                GoldHEN
-                            </span>
-
-                            <span class="tag cache">
-                                Cache
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <!-- PS4 9.00 - 9.60 -->
-
-                <a
-                    class="host"
-                    href="900/version-selector.html"
-                    aria-label="PS4 firmware 9.00 to 9.60"
-                >
-
-                    <span class="host-number">
-                        05
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            FW 9.00–9.60
-                        </span>
-
-                        <span class="host-meta">
-                            PSFree / Lapse // GoldHEN host
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag">
-                                PSFree
-                            </span>
-
-                            <span class="tag">
-                                Lapse
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <!-- PS4 7.00 - 8.52 -->
-
-                <a
-                    class="host"
-                    href="700/version-selector.html"
-                    aria-label="PS4 firmware 7.00 to 8.52"
-                >
-
-                    <span class="host-number">
-                        06
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            FW 7.00–8.52
-                        </span>
-
-                        <span class="host-meta">
-                            PSFree / Lapse // GoldHEN host
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag">
-                                PSFree
-                            </span>
-
-                            <span class="tag">
-                                Lapse
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <!-- PS4 6.72 -->
-
-                <a
-                    class="host"
-                    href="672/index.html"
-                    aria-label="PS4 firmware 6.72"
-                >
-
-                    <span class="host-number">
-                        07
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            FW 6.72
-                        </span>
-
-                        <span class="host-meta">
-                            Dedicated host // utility payloads
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag">
-                                Dedicated
-                            </span>
-
-                            <span class="tag">
-                                Payloads
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-                <!-- PS4 5.05 -->
-
-                <a
-                    class="host"
-                    href="505/index.html"
-                    aria-label="PS4 firmware 5.05"
-                >
-
-                    <span class="host-number">
-                        08
-                    </span>
-
-                    <span class="host-content">
-
-                        <span class="host-name">
-                            FW 5.05
-                        </span>
-
-                        <span class="host-meta">
-                            Dedicated host // utility payloads
-                        </span>
-
-                        <span class="host-tags">
-
-                            <span class="tag">
-                                Dedicated
-                            </span>
-
-                            <span class="tag">
-                                Payloads
-                            </span>
-
-                        </span>
-
-                    </span>
-
-                    <span class="host-arrow">
-                        →
-                    </span>
-
-                </a>
-
-
-            </nav>
 
         </section>
 
 
-        <!-- COMMUNITY -->
+        <!-- =========================
+             PS5 HOST SYSTEM
+        ========================= -->
+
+        <section
+            class="host-section"
+            aria-label="PS5 Host System"
+        >
+
+            <div class="host-panel ps5-panel">
+
+                <div class="panel-header">
+
+                    <div class="panel-title">
+
+                        <span>//</span>
+                        PS5 HOST SYSTEM
+
+                    </div>
+
+                    <div class="panel-count">
+                        01 AVAILABLE HOST
+                    </div>
+
+                </div>
+
+
+                <nav
+                    class="host-grid"
+                    aria-label="PS5 Firmware Hosts"
+                >
+
+
+                    <!-- PS5 13.60 -->
+
+                    <a
+                        class="host featured ps5-host"
+                        href="https://moddingxz.co.uk/Hosts/ps5.html"
+                        aria-label="PS5 firmware 13.60"
+                    >
+
+                        <span class="host-number">
+                            01
+                        </span>
+
+                        <span class="host-content">
+
+                            <span class="host-name">
+                                PS5 FW 13.60
+                            </span>
+
+                            <span class="host-meta">
+                                PS5 13.60 exploit // dedicated ModdingXZ host
+                            </span>
+
+                            <span class="host-tags">
+
+                                <span class="tag ps5">
+                                    PS5
+                                </span>
+
+                                <span class="tag latest">
+                                    13.60
+                                </span>
+
+                                <span class="tag cache">
+                                    HOST
+                                </span>
+
+                            </span>
+
+                        </span>
+
+                        <span class="host-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </nav>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COMMUNITY
+        ========================= -->
 
         <a
             class="community"
             href="https://t.me/moddingxz"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
         >
 
             <span>
@@ -1337,7 +1487,9 @@
         </a>
 
 
-        <!-- FOOTER -->
+        <!-- =========================
+             FOOTER
+        ========================= -->
 
         <footer class="footer">
 
@@ -1347,7 +1499,7 @@
                     MODDINGXZ
                 </span>
 
-                // PS4 & PS5 HOST SYSTEM
+                // PLAYSTATION HOST SYSTEM
 
             </div>
 
@@ -1357,7 +1509,7 @@
                 <a
                     href="https://moddingxz.co.uk/"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                 >
                     Website
                 </a>
@@ -1367,7 +1519,7 @@
                 <a
                     href="https://t.me/moddingxz"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                 >
                     Telegram
                 </a>
@@ -1377,7 +1529,7 @@
                 <a
                     href="https://t.me/ModdingXZ_Support_Bot"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                 >
                     Support
                 </a>
@@ -1387,7 +1539,7 @@
                 <a
                     href="https://www.tiktok.com/@moddingx1"
                     target="_blank"
-                    rel="noopener"
+                    rel="noopener noreferrer"
                 >
                     TikTok
                 </a>
@@ -1405,8 +1557,8 @@
 <script>
 
     /*
-     * Focus the first available host.
-     * Normal browser/controller navigation remains untouched.
+     * Keep normal browser/controller navigation.
+     * No custom key interception is required.
      */
 
     (function () {
@@ -1414,7 +1566,7 @@
         var firstHost = document.querySelector(".host");
 
         if (firstHost) {
-            firstHost.focus();
+            firstHost.setAttribute("tabindex", "0");
         }
 
     })();
@@ -1422,4 +1574,5 @@
 </script>
 
 </body>
+
 </html>
