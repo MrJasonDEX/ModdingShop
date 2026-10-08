@@ -2,32 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#07040d">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Modding XZ // BO2 Relay Utility</title>
+<title>Modding XZ // BO2 Console Bridge</title>
+
+<meta name="description" content="Modding XZ BO2 Console Bridge setup guide.">
+<meta name="theme-color" content="#7c3aed">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
 :root{
-    --bg:#06040b;
-    --bg2:#0b0711;
-    --panel:#100a18;
-    --panel2:#150d20;
-    --purple:#9b5cff;
-    --purple2:#c084fc;
-    --pink:#ec4899;
+    --bg:#07070b;
+    --panel:#101016;
+    --panel2:#15151d;
+    --border:#292936;
+    --purple:#8b5cf6;
+    --purple2:#6d28d9;
+    --text:#f5f5f7;
+    --muted:#9b9ba8;
     --green:#22c55e;
-    --yellow:#facc15;
     --red:#ef4444;
-    --text:#f8f7fb;
-    --muted:#aaa2b4;
-    --line:rgba(168,85,247,.19);
+    --yellow:#f59e0b;
+    --blue:#3b82f6;
 }
 
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 html{
     scroll-behavior:smooth;
@@ -36,692 +39,608 @@ html{
 body{
     margin:0;
     background:
-        radial-gradient(circle at 10% 0%,rgba(124,58,237,.16),transparent 28%),
-        radial-gradient(circle at 90% 10%,rgba(236,72,153,.09),transparent 25%),
-        linear-gradient(180deg,#06040b,#090511 45%,#06040b);
+        radial-gradient(circle at 15% 0%,rgba(124,58,237,.16),transparent 35%),
+        radial-gradient(circle at 90% 10%,rgba(109,40,217,.10),transparent 30%),
+        var(--bg);
     color:var(--text);
-    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    min-height:100vh;
+    font-family:Inter,Segoe UI,Arial,sans-serif;
 }
 
 a{
-    color:inherit;
     text-decoration:none;
 }
 
-::-webkit-scrollbar{
-    width:8px;
+a:hover{
+    text-decoration:none;
 }
 
-::-webkit-scrollbar-track{
-    background:#08050c;
+::selection{
+    background:#7c3aed;
+    color:#fff;
 }
 
-::-webkit-scrollbar-thumb{
-    background:#3b2455;
-    border-radius:99px;
-}
+/* NAV */
 
 .navbar{
-    background:rgba(6,4,11,.78)!important;
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid var(--line);
+    background:rgba(7,7,11,.92)!important;
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
 }
 
-.brand{
-    font-weight:950;
-    letter-spacing:.5px;
-}
-
-.brand i{
-    color:var(--purple2);
-}
-
-.brand span{
-    color:var(--purple2);
+.navbar-brand{
+    color:#fff!important;
+    font-weight:900;
+    letter-spacing:1px;
 }
 
 .nav-link{
-    color:#aaa2b4!important;
-    font-weight:650;
+    color:#aaa!important;
+    font-weight:600;
 }
 
 .nav-link:hover{
     color:#fff!important;
 }
 
+/* HERO */
+
 .hero{
-    min-height:700px;
-    display:flex;
-    align-items:center;
+    padding:90px 0 60px;
     position:relative;
     overflow:hidden;
-    padding-top:70px;
 }
 
-.glow{
+.hero:before{
+    content:"";
     position:absolute;
+    width:600px;
+    height:600px;
     border-radius:50%;
-    filter:blur(100px);
-    pointer-events:none;
+    background:rgba(124,58,237,.08);
+    filter:blur(90px);
+    top:-300px;
+    left:-150px;
 }
 
-.glow.one{
-    width:550px;
-    height:550px;
-    background:rgba(124,58,237,.15);
-    left:-220px;
-    top:-220px;
-}
-
-.glow.two{
-    width:500px;
-    height:500px;
-    background:rgba(236,72,153,.08);
-    right:-250px;
-    bottom:-250px;
-}
-
-.hero-grid{
-    position:absolute;
-    inset:0;
-    opacity:.06;
-    background-image:
-        linear-gradient(rgba(255,255,255,.4) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.4) 1px,transparent 1px);
-    background-size:45px 45px;
-    mask-image:linear-gradient(to bottom,black,transparent);
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-}
-
-.eyebrow{
+.hero-badge{
     display:inline-flex;
-    align-items:center;
     gap:8px;
-    border:1px solid var(--line);
-    background:rgba(139,92,246,.07);
-    padding:8px 13px;
+    align-items:center;
+    padding:7px 13px;
+    border:1px solid #39246a;
     border-radius:999px;
-    color:#d8b4fe;
-    font-size:.78rem;
-    font-weight:850;
-    letter-spacing:.4px;
+    background:rgba(124,58,237,.08);
+    color:#c4b5fd;
+    font-size:.8rem;
+    font-weight:800;
+    margin-bottom:18px;
 }
 
 .hero h1{
-    font-size:clamp(3.2rem,8vw,7rem);
-    line-height:.87;
-    letter-spacing:-6px;
-    font-weight:1000;
-    margin:25px 0;
+    font-size:clamp(2.6rem,7vw,5.5rem);
+    line-height:.93;
+    font-weight:950;
+    letter-spacing:-4px;
+    margin-bottom:24px;
 }
 
-.gradient{
-    background:linear-gradient(90deg,#fff,#c084fc,#ec4899);
-    -webkit-background-clip:text;
-    color:transparent;
+.hero h1 span{
+    color:#a78bfa;
 }
 
-.hero-copy{
+.hero p{
+    max-width:820px;
     color:var(--muted);
     font-size:1.08rem;
-    max-width:720px;
-    line-height:1.7;
 }
 
+/* BUTTONS */
+
 .btn-xz{
-    color:#fff;
+    background:linear-gradient(135deg,#8b5cf6,#6d28d9);
     border:0;
-    border-radius:13px;
-    padding:13px 20px;
-    font-weight:850;
-    background:linear-gradient(135deg,#6d28d9,#a855f7,#db2777);
-    box-shadow:0 12px 40px rgba(139,92,246,.22);
-    transition:.2s;
+    color:#fff;
+    font-weight:800;
+    padding:12px 18px;
+    border-radius:11px;
 }
 
 .btn-xz:hover{
     color:#fff;
-    transform:translateY(-2px);
-    box-shadow:0 18px 50px rgba(139,92,246,.35);
+    transform:translateY(-1px);
 }
 
-.btn-outline-xz{
-    color:#ddd;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.025);
-    border-radius:13px;
-    padding:12px 19px;
-    font-weight:750;
-}
-
-.btn-outline-xz:hover{
+.btn-dark-xz{
+    background:#15151d;
+    border:1px solid var(--border);
     color:#fff;
-    border-color:rgba(168,85,247,.5);
-    background:rgba(139,92,246,.08);
+    font-weight:700;
+    padding:12px 18px;
+    border-radius:11px;
 }
 
-.hero-console{
-    background:rgba(10,6,15,.82);
-    border:1px solid var(--line);
-    border-radius:22px;
-    overflow:hidden;
-    box-shadow:0 30px 100px rgba(0,0,0,.45);
-    transform:perspective(1000px) rotateY(-4deg) rotateX(2deg);
+.btn-dark-xz:hover{
+    color:#fff;
+    border-color:#5b3c91;
 }
 
-.console-head{
-    padding:12px 15px;
-    background:#130b1d;
-    border-bottom:1px solid var(--line);
-    font-family:monospace;
-    font-size:.78rem;
-    color:#aaa2b4;
-}
-
-.console-body{
-    padding:22px;
-    min-height:350px;
-    font-family:monospace;
-    font-size:.82rem;
-    line-height:2;
-}
-
-.console-line{
-    opacity:0;
-    animation:consoleLine .5s forwards;
-}
-
-@keyframes consoleLine{
-    to{
-        opacity:1;
-    }
-}
-
-.green-text{color:#86efac}
-.purple-text{color:#d8b4fe}
-.yellow-text{color:#fde68a}
-.muted-text{color:#777080}
-
-.dot{
-    width:9px;
-    height:9px;
-    display:inline-block;
-    border-radius:50%;
-    margin-right:5px;
-}
-
-.dot.red{background:#ef4444}
-.dot.yellow{background:#facc15}
-.dot.green{background:#22c55e}
+/* SECTIONS */
 
 .section{
-    padding:95px 0;
+    padding:60px 0;
 }
 
 .section-title{
-    font-weight:950;
-    letter-spacing:-2px;
+    font-weight:900;
+    letter-spacing:-1px;
 }
 
-.muted{
+.section-subtitle{
     color:var(--muted);
 }
 
-.panel{
-    background:linear-gradient(145deg,rgba(21,13,32,.96),rgba(10,6,15,.96));
-    border:1px solid var(--line);
-    border-radius:22px;
-    box-shadow:0 25px 90px rgba(0,0,0,.2);
-}
+/* STATS */
 
-.panel-pad{
-    padding:27px;
-}
-
-.setup-shell{
-    overflow:hidden;
-}
-
-.setup-head{
-    padding:25px 28px;
-    border-bottom:1px solid var(--line);
-    background:rgba(139,92,246,.035);
-}
-
-.progress{
-    height:7px;
-    background:#08050c;
-}
-
-.progress-bar{
-    background:linear-gradient(90deg,#7c3aed,#db2777);
-}
-
-.setup-body{
-    padding:35px;
-}
-
-.wizard-step{
-    display:none;
-}
-
-.wizard-step.active{
-    display:block;
-    animation:slideIn .3s ease;
-}
-
-@keyframes slideIn{
-    from{
-        opacity:0;
-        transform:translateX(15px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-.setup-footer{
-    border-top:1px solid var(--line);
-    padding:20px 28px;
-    display:flex;
-    justify-content:space-between;
-}
-
-.form-control,
-.form-select{
-    background:#08050d;
-    color:#fff;
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:12px 14px;
-}
-
-.form-control:focus,
-.form-select:focus{
-    background:#08050d;
-    color:#fff;
-    border-color:var(--purple);
-    box-shadow:0 0 0 .2rem rgba(139,92,246,.1);
-}
-
-.form-label{
-    color:#ddd6e5;
-    font-weight:750;
-    font-size:.88rem;
-}
-
-.input-status{
-    font-size:.76rem;
-    margin-top:7px;
-}
-
-.valid{
-    color:#86efac;
-}
-
-.invalid{
-    color:#fca5a5;
-}
-
-.requirement{
-    display:flex;
-    gap:15px;
-    padding:16px;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.015);
-    border-radius:14px;
-    margin-bottom:10px;
-    cursor:pointer;
+.stat-card{
+    height:100%;
+    padding:21px;
+    border:1px solid var(--border);
+    background:rgba(16,16,22,.86);
+    border-radius:16px;
     transition:.2s;
 }
 
-.requirement:hover{
-    border-color:rgba(168,85,247,.45);
-    transform:translateX(2px);
+.stat-card:hover{
+    border-color:#513b7a;
+    transform:translateY(-2px);
 }
 
-.requirement.done{
-    border-color:rgba(34,197,94,.3);
-    background:rgba(34,197,94,.045);
-}
-
-.requirement input{
-    width:20px;
-    height:20px;
-    accent-color:#a855f7;
-    margin-top:2px;
-}
-
-.requirement small{
-    display:block;
-    color:var(--muted);
-    margin-top:3px;
-}
-
-.icon{
-    width:48px;
-    height:48px;
-    border-radius:14px;
+.stat-icon{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    background:rgba(124,58,237,.13);
+    color:#a78bfa;
     display:flex;
+    align-items:center;
     justify-content:center;
-    align-items:center;
-    background:rgba(139,92,246,.09);
-    border:1px solid var(--line);
-    color:#c084fc;
-    font-size:1.3rem;
+    font-size:21px;
+    margin-bottom:13px;
 }
 
-.code{
-    background:#030204;
-    border:1px solid var(--line);
-    border-radius:14px;
-    padding:18px;
-    font-family:monospace;
-    color:#d8b4fe;
-    position:relative;
-    overflow:auto;
-}
-
-.copy{
-    position:absolute;
-    right:10px;
-    top:10px;
-}
-
-.port-table{
-    overflow:hidden;
-    border-radius:15px;
-    border:1px solid var(--line);
-}
-
-.port-table table{
-    margin:0;
-}
-
-.port-table th{
-    background:#180d25;
-    color:#d8b4fe;
-    border-color:var(--line);
-}
-
-.port-table td{
-    background:#0c0712;
-    color:#ddd;
-    border-color:rgba(255,255,255,.05);
-}
-
-.port{
-    display:inline-block;
-    font-family:monospace;
+.stat-number{
+    font-size:1.45rem;
     font-weight:900;
-    background:rgba(139,92,246,.1);
-    color:#d8b4fe;
-    padding:4px 8px;
-    border-radius:8px;
 }
 
-.config-card{
-    position:relative;
-    overflow:hidden;
-}
-
-.config-card:after{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    background:rgba(139,92,246,.09);
-    filter:blur(50px);
-    right:-80px;
-    top:-80px;
-}
-
-.config-item{
-    padding:14px 0;
-    border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.config-item:last-child{
-    border-bottom:0;
-}
-
-.config-label{
+.stat-label{
     color:var(--muted);
-    font-size:.76rem;
-    text-transform:uppercase;
-    letter-spacing:.5px;
+    font-size:.84rem;
 }
 
-.config-value{
-    color:#d8b4fe;
-    font-family:monospace;
-    font-weight:800;
-    margin-top:3px;
+/* PANELS */
+
+.panel{
+    height:100%;
+    padding:25px;
+    border:1px solid var(--border);
+    background:rgba(16,16,22,.86);
+    border-radius:18px;
 }
 
-.badge-status{
-    display:inline-flex;
-    align-items:center;
-    gap:7px;
-    padding:6px 10px;
-    border-radius:999px;
-    font-size:.73rem;
-    font-weight:850;
+.panel-title{
+    font-size:1.1rem;
+    font-weight:900;
 }
 
-.badge-green{
-    color:#86efac;
-    background:rgba(34,197,94,.08);
-    border:1px solid rgba(34,197,94,.2);
+.panel-text{
+    color:var(--muted);
 }
 
-.badge-yellow{
-    color:#fde68a;
-    background:rgba(250,204,21,.08);
-    border:1px solid rgba(250,204,21,.2);
-}
-
-.terminal{
-    border-radius:17px;
-    overflow:hidden;
-    border:1px solid var(--line);
-    background:#030204;
-}
-
-.terminal-head{
-    padding:11px 15px;
-    background:#130b1d;
-    border-bottom:1px solid var(--line);
-    font-family:monospace;
-    font-size:.78rem;
-    color:#918897;
-}
-
-.terminal-body{
-    padding:20px;
-    min-height:245px;
-    font-family:monospace;
-    color:#a7f3d0;
-    font-size:.81rem;
-    line-height:1.9;
-}
-
-.terminal-cursor{
-    display:inline-block;
-    width:7px;
-    height:15px;
-    background:#a7f3d0;
-    animation:blink 1s infinite;
-    vertical-align:middle;
-}
-
-@keyframes blink{
-    50%{opacity:0}
-}
+/* FLOW */
 
 .flow{
     display:flex;
     align-items:center;
-    gap:10px;
+    justify-content:center;
     flex-wrap:wrap;
+    gap:10px;
 }
 
 .flow-box{
-    flex:1;
-    min-width:130px;
-    padding:20px 15px;
+    min-width:155px;
+    padding:18px;
     text-align:center;
-    border:1px solid var(--line);
-    background:rgba(139,92,246,.035);
-    border-radius:15px;
+    border:1px solid var(--border);
+    background:#111118;
+    border-radius:14px;
 }
 
 .flow-box i{
-    font-size:1.6rem;
-    color:#c084fc;
+    display:block;
+    font-size:28px;
+    color:#a78bfa;
+    margin-bottom:8px;
+}
+
+.flow-box strong{
+    display:block;
+}
+
+.flow-box small{
+    color:var(--muted);
 }
 
 .flow-arrow{
-    color:#76578f;
-    font-size:1.2rem;
+    color:#666675;
+    font-size:22px;
 }
 
-.trouble-card{
+/* ALERTS */
+
+.alert-xz{
+    border-radius:14px;
+    padding:17px 18px;
+    border:1px solid;
+}
+
+.alert-info-xz{
+    background:rgba(59,130,246,.06);
+    border-color:rgba(59,130,246,.28);
+}
+
+.alert-warning-xz{
+    background:rgba(245,158,11,.06);
+    border-color:rgba(245,158,11,.28);
+}
+
+.alert-danger-xz{
+    background:rgba(239,68,68,.06);
+    border-color:rgba(239,68,68,.30);
+}
+
+.alert-success-xz{
+    background:rgba(34,197,94,.06);
+    border-color:rgba(34,197,94,.30);
+}
+
+/* WIZARD */
+
+.wizard{
+    background:#0d0d13;
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.wizard-head{
+    padding:20px 24px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.step-count{
+    color:#a78bfa;
+    font-size:.84rem;
+    font-weight:800;
+}
+
+.progress{
+    height:5px;
+    background:#20202a;
+}
+
+.progress-bar{
+    background:linear-gradient(90deg,#6d28d9,#a78bfa);
+}
+
+.wizard-body{
+    padding:30px;
+}
+
+.step{
+    display:none;
+}
+
+.step.active{
+    display:block;
+}
+
+.step h3{
+    font-weight:900;
+}
+
+.step p{
+    color:var(--muted);
+}
+
+/* FORMS */
+
+.form-label{
+    color:#ddd;
+    font-weight:700;
+}
+
+.form-control,
+.form-select{
+    background:#09090e;
+    color:#fff;
+    border:1px solid #2b2b36;
+    border-radius:10px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    background:#09090e;
+    color:#fff;
+    border-color:#7c3aed;
+    box-shadow:0 0 0 .2rem rgba(124,58,237,.12);
+}
+
+.form-control::placeholder{
+    color:#666674;
+}
+
+/* CHECKS */
+
+.req,
+.check-row{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:14px;
+    border:1px solid #24242e;
+    background:#111118;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+
+.req input,
+.check-row input{
+    margin-top:4px;
+    accent-color:#8b5cf6;
+}
+
+.req strong,
+.check-row strong{
+    display:block;
+}
+
+.req small,
+.check-row small{
+    color:var(--muted);
+}
+
+/* CODE */
+
+.code-box{
+    position:relative;
+    padding:17px;
+    margin:12px 0;
+    background:#050508;
+    border:1px solid #272731;
+    border-radius:12px;
+}
+
+.code-box pre{
+    margin:0;
+    padding-right:48px;
+    color:#ddd;
+    white-space:pre-wrap;
+    word-break:break-word;
+    font-family:Consolas,Monaco,monospace;
+    font-size:.88rem;
+}
+
+.copy-btn{
+    position:absolute;
+    right:10px;
+    top:10px;
+    border:1px solid #33333e;
+    background:#15151d;
+    color:#aaa;
+    border-radius:8px;
+    padding:5px 8px;
+}
+
+.copy-btn:hover{
+    color:#fff;
+    border-color:#7044b0;
+}
+
+/* TOOL */
+
+.tool-card{
+    position:relative;
+    overflow:hidden;
+    height:100%;
+    padding:30px;
+    border:1px solid #49336f;
+    background:
+        radial-gradient(circle at 90% 0%,rgba(124,58,237,.18),transparent 34%),
+        #111118;
+    border-radius:20px;
+}
+
+.tool-badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(124,58,237,.14);
+    color:#c4b5fd;
+    font-size:.75rem;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+/* PORT TABLE */
+
+.port-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.port-table th,
+.port-table td{
+    padding:13px;
+    border-bottom:1px solid #24242e;
+}
+
+.port-table th{
+    color:#a78bfa;
+    text-transform:uppercase;
+    font-size:.78rem;
+    letter-spacing:.6px;
+}
+
+.port-table td{
+    color:#ddd;
+}
+
+/* ROUTER */
+
+.router-card{
+    height:100%;
     padding:18px;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.015);
-    border-radius:15px;
+    border:1px solid var(--border);
+    background:#111118;
+    border-radius:14px;
     cursor:pointer;
     transition:.2s;
 }
 
-.trouble-card:hover{
-    border-color:rgba(168,85,247,.45);
+.router-card:hover{
+    transform:translateY(-2px);
+    border-color:#60428e;
+}
+
+.router-card.active{
+    border-color:#8b5cf6;
+    background:rgba(124,58,237,.08);
+}
+
+.router-card i{
+    font-size:25px;
+    color:#a78bfa;
+}
+
+/* BUG */
+
+.bug-card{
+    padding:27px;
+    border:1px solid rgba(239,68,68,.35);
+    background:rgba(239,68,68,.045);
+    border-radius:20px;
+}
+
+.bug-title{
+    color:#fca5a5;
+    font-weight:950;
+}
+
+/* RESOURCE */
+
+.resource{
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px;
+    border:1px solid var(--border);
+    background:#111118;
+    border-radius:14px;
+    transition:.2s;
+}
+
+.resource:hover{
+    border-color:#5c3e89;
     transform:translateY(-2px);
 }
 
-.trouble-answer{
-    display:none;
-    margin-top:15px;
-    padding-top:15px;
-    border-top:1px solid rgba(255,255,255,.07);
-    color:var(--muted);
-}
-
-.trouble-card.open .trouble-answer{
-    display:block;
-}
-
-.check{
-    display:flex;
-    align-items:center;
-    gap:13px;
-    padding:14px;
-    border:1px solid var(--line);
-    border-radius:13px;
-    margin-bottom:9px;
-    cursor:pointer;
-}
-
-.check.done{
-    border-color:rgba(34,197,94,.3);
-    background:rgba(34,197,94,.04);
-}
-
-.check input{
-    width:19px;
-    height:19px;
-    accent-color:#a855f7;
-}
-
-.completion{
-    text-align:center;
-    padding:45px 20px;
-}
-
-.complete-icon{
-    width:105px;
-    height:105px;
-    border-radius:50%;
+.resource-icon{
+    width:45px;
+    height:45px;
+    flex:0 0 45px;
     display:flex;
     align-items:center;
     justify-content:center;
-    margin:0 auto 25px;
-    font-size:3rem;
-    color:#86efac;
-    background:rgba(34,197,94,.08);
-    border:1px solid rgba(34,197,94,.25);
-    box-shadow:0 0 70px rgba(34,197,94,.12);
+    border-radius:12px;
+    background:rgba(124,58,237,.12);
+    color:#a78bfa;
+    font-size:20px;
 }
 
-.router-info{
-    display:none;
-}
-
-.router-info.active{
+.resource strong{
     display:block;
-    animation:slideIn .2s ease;
+    color:#fff;
 }
 
-footer{
-    border-top:1px solid var(--line);
-    padding:45px 0;
+.resource small{
     color:var(--muted);
 }
 
-.toast{
-    background:#160c21;
-    color:#fff;
-    border:1px solid var(--line);
+/* SUPPORT */
+
+.report{
+    padding:18px;
+    border:1px solid #272731;
+    background:#050508;
+    border-radius:14px;
 }
 
-@media(max-width:992px){
-
-    .hero{
-        min-height:auto;
-        padding:140px 0 80px;
-    }
-
-    .hero-console{
-        margin-top:45px;
-        transform:none;
-    }
-
+.report pre{
+    margin:0;
+    color:#ddd;
+    white-space:pre-wrap;
+    font-family:Consolas,Monaco,monospace;
+    font-size:.86rem;
 }
+
+/* FOOTER */
+
+footer{
+    padding:40px 0;
+    border-top:1px solid var(--border);
+    color:#777783;
+}
+
+.xz{
+    color:#a78bfa;
+    font-weight:950;
+}
+
+/* MOBILE */
 
 @media(max-width:768px){
 
+    .hero{
+        padding:60px 0 45px;
+    }
+
     .hero h1{
-        letter-spacing:-3px;
+        font-size:3rem;
+        letter-spacing:-2px;
     }
 
-    .section{
-        padding:65px 0;
+    .wizard-body{
+        padding:20px;
     }
 
-    .setup-body{
-        padding:22px;
-    }
-
-    .setup-footer{
-        padding:17px;
+    .wizard-head{
+        flex-direction:column;
+        align-items:flex-start;
     }
 
     .flow-arrow{
-        display:none;
+        transform:rotate(90deg);
     }
 
-    .flow-box{
-        min-width:100%;
+    .section{
+        padding:45px 0;
     }
-
 }
 </style>
 </head>
@@ -730,22 +649,25 @@ footer{
 
 <!-- NAV -->
 
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<nav class="navbar navbar-expand-lg sticky-top">
 
 <div class="container">
 
-<a class="navbar-brand brand" href="#">
+<a class="navbar-brand" href="#">
 <i class="bi bi-controller"></i>
-MODDING <span>XZ</span>
+MODDING XZ
 </a>
 
-<button class="navbar-toggler"
+<button
+class="navbar-toggler"
+type="button"
 data-bs-toggle="collapse"
-data-bs-target="#navbar">
-<span class="navbar-toggler-icon"></span>
+data-bs-target="#nav"
+>
+<i class="bi bi-list text-white"></i>
 </button>
 
-<div class="collapse navbar-collapse" id="navbar">
+<div class="collapse navbar-collapse" id="nav">
 
 <ul class="navbar-nav ms-auto">
 
@@ -754,21 +676,24 @@ data-bs-target="#navbar">
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="#network">Network</a>
+<a class="nav-link" href="#bridge">Bridge</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="#troubleshoot">Troubleshoot</a>
+<a class="nav-link" href="#ports">Ports</a>
 </li>
 
 <li class="nav-item">
-<a class="nav-link" href="#resources">Resources</a>
+<a class="nav-link" href="#wifi">Known Bug</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#troubleshooting">Fixes</a>
 </li>
 
 </ul>
 
 </div>
-
 </div>
 </nav>
 
@@ -777,127 +702,250 @@ data-bs-target="#navbar">
 
 <header class="hero">
 
-<div class="hero-grid"></div>
-<div class="glow one"></div>
-<div class="glow two"></div>
+<div class="container position-relative">
 
-<div class="container hero-content">
-
-<div class="row align-items-center g-5">
-
-<div class="col-lg-7">
-
-<div class="eyebrow">
-<i class="bi bi-lightning-charge-fill"></i>
-MODDING XZ NETWORK UTILITY
+<div class="hero-badge">
+<i class="bi bi-broadcast-pin"></i>
+BO2 CONSOLE BRIDGE — FULL GUIDE
 </div>
 
 <h1>
-BO2<br>
-<span class="gradient">RELAY TOOL</span>
+𝕄𝕠𝕕𝕕𝕚𝕟𝕘 𝕏
+<br>
+<span>BO2 CONSOLE BRIDGE</span>
 </h1>
 
-<p class="hero-copy">
-A complete interactive setup system for hosting BO2 custom
-games behind NAT. Configure your network, generate your
-router rules, prepare RUN_GUI and troubleshoot problems
-without digging through a massive wall of text.
+<p>
+Host BO2 Custom Games behind NAT for your friends using the
+Modding XZ Console Bridge setup.
 </p>
 
-<div class="d-flex flex-wrap gap-3 mt-4">
+<p class="mt-2">
+<strong>🎯 Game Port:</strong> 3074
+&nbsp;&nbsp;
+<strong>🔁 Network Range:</strong> 3060–3080 UDP
+</p>
+
+<div class="d-flex flex-wrap gap-2 mt-4">
 
 <a href="#setup" class="btn btn-xz">
 <i class="bi bi-play-fill"></i>
-START CONFIGURATION
+Start Full Setup
 </a>
 
-<a href="#network" class="btn btn-outline-xz">
+<a href="#bridge" class="btn btn-dark-xz">
 <i class="bi bi-diagram-3"></i>
-VIEW NETWORK
+Console Bridge
 </a>
 
 </div>
 
 </div>
 
-
-<div class="col-lg-5">
-
-<div class="hero-console">
-
-<div class="console-head">
-
-<span class="dot red"></span>
-<span class="dot yellow"></span>
-<span class="dot green"></span>
-
-&nbsp;&nbsp;moddingxz://bo2-relay
-
-</div>
-
-<div class="console-body">
-
-<div class="console-line"
-style="animation-delay:.1s">
-
-<span class="purple-text">[MODDING XZ]</span>
-initialising relay utility...
-</div>
-
-<div class="console-line"
-style="animation-delay:.5s">
-
-<span class="purple-text">[NETWORK]</span>
-loading port configuration...
-</div>
-
-<div class="console-line"
-style="animation-delay:.9s">
-
-<span class="green-text">[OK]</span>
-GAME PORT ........ 3074
-</div>
-
-<div class="console-line"
-style="animation-delay:1.3s">
-
-<span class="green-text">[OK]</span>
-RELAY PORT ....... 3077
-</div>
-
-<div class="console-line"
-style="animation-delay:1.7s">
-
-<span class="green-text">[OK]</span>
-UDP RANGE ........ 3074-3077
-</div>
-
-<div class="console-line"
-style="animation-delay:2.1s">
-
-<span class="yellow-text">[WAIT]</span>
-awaiting configuration...
-</div>
-
-<div class="console-line"
-style="animation-delay:2.5s">
-
-<span class="muted-text">
-&gt; Ready for operator input
-</span>
-<span class="terminal-cursor"></span>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 </header>
+
+
+<!-- STATS -->
+
+<section class="pb-5">
+
+<div class="container">
+
+<div class="row g-3">
+
+<div class="col-6 col-lg-3">
+
+<div class="stat-card">
+
+<div class="stat-icon">
+<i class="bi bi-router"></i>
+</div>
+
+<div class="stat-number">3060–3080</div>
+<div class="stat-label">UDP Range</div>
+
+</div>
+
+</div>
+
+
+<div class="col-6 col-lg-3">
+
+<div class="stat-card">
+
+<div class="stat-icon">
+<i class="bi bi-controller"></i>
+</div>
+
+<div class="stat-number">3074</div>
+<div class="stat-label">BO2 Game Port</div>
+
+</div>
+
+</div>
+
+
+<div class="col-6 col-lg-3">
+
+<div class="stat-card">
+
+<div class="stat-icon">
+<i class="bi bi-pc-display"></i>
+</div>
+
+<div class="stat-number">PC</div>
+<div class="stat-label">Bridge Host</div>
+
+</div>
+
+</div>
+
+
+<div class="col-6 col-lg-3">
+
+<div class="stat-card">
+
+<div class="stat-icon">
+<i class="bi bi-wifi"></i>
+</div>
+
+<div class="stat-number">TESTING</div>
+<div class="stat-label">Wi-Fi Bug</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+
+<section class="section">
+
+<div class="container">
+
+<div class="text-center mb-4">
+
+<h2 class="section-title">
+How It Works
+</h2>
+
+<p class="section-subtitle">
+Your Windows PC acts as the bridge between the BO2 traffic and the network.
+</p>
+
+</div>
+
+
+<div class="flow">
+
+<div class="flow-box">
+
+<i class="bi bi-controller"></i>
+
+<strong>BO2</strong>
+
+<small>
+Custom Game
+</small>
+
+</div>
+
+
+<div class="flow-arrow">
+<i class="bi bi-arrow-right"></i>
+</div>
+
+
+<div class="flow-box">
+
+<i class="bi bi-router"></i>
+
+<strong>Router</strong>
+
+<small>
+UDP forwarding
+</small>
+
+</div>
+
+
+<div class="flow-arrow">
+<i class="bi bi-arrow-right"></i>
+</div>
+
+
+<div class="flow-box">
+
+<i class="bi bi-pc-display"></i>
+
+<strong>Windows PC</strong>
+
+<small>
+Bridge host
+</small>
+
+</div>
+
+
+<div class="flow-arrow">
+<i class="bi bi-arrow-right"></i>
+</div>
+
+
+<div class="flow-box">
+
+<i class="bi bi-diagram-3"></i>
+
+<strong>Console Bridge</strong>
+
+<small>
+Bridge traffic
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BIG WARNING -->
+
+<section class="section pt-0">
+
+<div class="container">
+
+<div class="alert-xz alert-warning-xz">
+
+<strong>
+<i class="bi bi-exclamation-triangle-fill"></i>
+IMPORTANT
+</strong>
+
+<div class="mt-2">
+
+This method is still being tested.
+
+The biggest known issue currently being investigated is
+<strong>Wi-Fi disconnecting every few minutes after somebody joins.</strong>
+
+The guide will be updated once the cause is confirmed.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 
 <!-- SETUP -->
@@ -906,158 +954,182 @@ style="animation-delay:2.5s">
 
 <div class="container">
 
-<div class="text-center mb-5">
+<div class="text-center mb-4">
 
-<div class="eyebrow mb-3">
-<i class="bi bi-cpu"></i>
-INTERACTIVE CONFIGURATOR
-</div>
-
-<h2 class="section-title display-5">
-Configure your relay.
+<h2 class="section-title">
+🎮 Full Setup Wizard
 </h2>
 
-<p class="muted">
-Your settings are saved locally in your browser.
-Nothing needs to be uploaded to a server.
+<p class="section-subtitle">
+Work through the setup from top to bottom.
 </p>
 
 </div>
 
 
-<div class="panel setup-shell">
+<div class="wizard">
 
-<div class="setup-head">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="wizard-head">
 
 <div>
 
-<div class="fw-bold" id="stepTitle">
-Step 1 — Requirements
+<strong>
+BO2 Console Bridge Setup
+</strong>
+
+<div id="stepCount" class="step-count">
+Step 1 of 9
 </div>
 
-<div class="muted small" id="stepDescription">
-Let's make sure everything is ready.
 </div>
 
-</div>
 
-<span class="badge-status badge-green">
-
-<i class="bi bi-circle-fill"></i>
-LOCAL SETUP
-
-</span>
-
-</div>
+<div style="min-width:200px;">
 
 <div class="progress">
 
 <div
+id="progressBar"
 class="progress-bar"
-id="wizardProgress"
-style="width:14.28%">
-</div>
+style="width:11%"
+></div>
 
 </div>
 
 </div>
 
+</div>
 
-<div class="setup-body">
+
+<div class="wizard-body">
 
 
 <!-- STEP 1 -->
 
-<div class="wizard-step active" data-step="1">
+<div class="step active" data-step="1">
 
-<div class="row g-4">
-
-<div class="col-lg-7">
-
-<h3 class="fw-bold">
-Before we start
+<h3>
+🧰 What You Need
 </h3>
 
-<p class="muted">
-Tick everything you already have.
+<p>
+Get these ready before starting.
 </p>
 
-<div class="requirement">
+
+<div class="req">
+
 <input type="checkbox">
+
 <div>
-<strong>Windows 10 / Windows 11</strong>
-<small>A Windows PC is required for the relay.</small>
-</div>
+
+<strong>Windows 10 or Windows 11</strong>
+
+<small>
+Administrator access recommended.
+</small>
+
 </div>
 
-<div class="requirement">
+</div>
+
+
+<div class="req">
+
 <input type="checkbox">
+
 <div>
-<strong>Administrator access</strong>
-<small>Required for networking software and RUN_GUI.</small>
-</div>
+
+<strong>Wireshark</strong>
+
+<small>
+Used to inspect the UDP traffic.
+</small>
+
 </div>
 
-<div class="requirement">
+</div>
+
+
+<div class="req">
+
 <input type="checkbox">
+
 <div>
-<strong>Router login</strong>
-<small>You need access to port forwarding settings.</small>
-</div>
+
+<strong>Npcap</strong>
+
+<small>
+Installed through the Wireshark Windows installer.
+</small>
+
 </div>
 
-<div class="requirement">
+</div>
+
+
+<div class="req">
+
 <input type="checkbox">
+
 <div>
-<strong>BO2 + RUN_GUI files</strong>
-<small>Have your client and relay files ready.</small>
-</div>
-</div>
 
-</div>
+<strong>BO2 PC files / required client</strong>
 
-<div class="col-lg-5">
-
-<div class="panel panel-pad h-100">
-
-<div class="icon mb-3">
-<i class="bi bi-info-circle"></i>
-</div>
-
-<h5 class="fw-bold">
-What this tool does
-</h5>
-
-<p class="muted">
-It walks you through the network setup and creates
-the configuration information you need.
-</p>
-
-<div class="code mt-3">
-BO2
-<br>
-&nbsp;↓
-<br>
-UDP 3074
-<br>
-&nbsp;↓
-<br>
-Router
-<br>
-&nbsp;↓
-<br>
-PC
-<br>
-&nbsp;↓
-<br>
-RUN_GUI :3077
-</div>
+<small>
+Use your BO2 Resurge or supported MS Store setup.
+</small>
 
 </div>
 
 </div>
+
+
+<div class="req">
+
+<input type="checkbox">
+
+<div>
+
+<strong>Console Bridge tool</strong>
+
+<small>
+Available from the Modding XZ Telegram post.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="req">
+
+<input type="checkbox">
+
+<div>
+
+<strong>Router administrator access</strong>
+
+<small>
+You need to create UDP port forwarding rules.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="alert-xz alert-info-xz mt-3">
+
+<strong>
+Current driver note:
+</strong>
+
+Wireshark's current Windows installer includes Npcap.
+WinPcap is legacy and is no longer supported by current Wireshark.
+
+If the specific Console Bridge build explicitly requires
+legacy WinPcap, follow the requirements supplied with that build.
 
 </div>
 
@@ -1066,48 +1138,61 @@ RUN_GUI :3077
 
 <!-- STEP 2 -->
 
-<div class="wizard-step" data-step="2">
+<div class="step" data-step="2">
 
-<h3 class="fw-bold">
-Find your network details
+<h3>
+🖥 Find Your PC IP
 </h3>
 
-<p class="muted">
-Press <strong>Win + R</strong>, type <code>cmd</code>,
-then run <code>ipconfig</code>.
+<p>
+Your router needs the local IP address of the PC running the bridge.
 </p>
 
-<div class="code mt-4">
 
-<button class="btn btn-sm btn-outline-xz copy"
-onclick="copy('ipconfig')">
+<div class="code-box">
+
+<button class="copy-btn" onclick="copyCode(this)">
 <i class="bi bi-copy"></i>
 </button>
 
-ipconfig
+<pre>Win + R
+
+cmd
+
+ipconfig</pre>
 
 </div>
 
-<div class="row g-4 mt-2">
+
+<p>
+Find your active adapter.
+It will normally be either:
+</p>
+
+<ul class="text-secondary">
+
+<li>Ethernet adapter</li>
+<li>Wireless LAN adapter Wi-Fi</li>
+
+</ul>
+
+
+<div class="row g-3">
 
 <div class="col-md-6">
 
 <label class="form-label">
-PC IPv4 Address
+IPv4 Address
 </label>
 
 <input
-class="form-control"
 id="pcIp"
+class="form-control"
 placeholder="192.168.1.50"
-autocomplete="off"
 >
 
-<div class="input-status" id="ipStatus">
-Example: 192.168.1.50
 </div>
 
-</div>
 
 <div class="col-md-6">
 
@@ -1116,41 +1201,33 @@ Default Gateway
 </label>
 
 <input
-class="form-control"
 id="gateway"
+class="form-control"
 placeholder="192.168.1.1"
-autocomplete="off"
 >
 
-<div class="input-status" id="gatewayStatus">
-Example: 192.168.1.1
 </div>
 
 </div>
 
-</div>
 
-<div class="panel panel-pad mt-4">
+<div class="code-box mt-4">
 
-<div class="d-flex gap-3">
+<pre>Example:
 
-<div class="icon">
-<i class="bi bi-lightbulb"></i>
-</div>
-
-<div>
-
-<strong>Why does this matter?</strong>
-
-<p class="muted mb-0 mt-1">
-Your router needs to know which PC should receive
-UDP 3074–3077. If your local IP changes, the forwarding
-rule can stop working.
-</p>
+IPv4 Address    : 192.168.1.50
+Default Gateway : 192.168.1.1</pre>
 
 </div>
 
-</div>
+
+<div class="alert-xz alert-info-xz">
+
+<strong>
+💡 Recommended:
+</strong>
+
+Reserve the PC's IP in your router using DHCP reservation so it doesn't change after a reboot.
 
 </div>
 
@@ -1159,177 +1236,179 @@ rule can stop working.
 
 <!-- STEP 3 -->
 
-<div class="wizard-step" data-step="3">
+<div class="step" data-step="3">
 
-<h3 class="fw-bold">
-Select your router
+<h3>
+🌐 Open Your Router
 </h3>
 
-<p class="muted">
-This controls the guidance shown below.
+<p>
+Use the Default Gateway from the previous step.
 </p>
 
-<select
-class="form-select mt-3"
-id="router"
->
 
-<option value="generic">Generic / Other</option>
-<option value="bt">BT</option>
-<option value="virgin">Virgin Media</option>
-<option value="sky">Sky</option>
-<option value="ee">EE</option>
-<option value="talktalk">TalkTalk</option>
-<option value="tp">TP-Link</option>
-<option value="asus">ASUS</option>
-<option value="netgear">NETGEAR</option>
+<div class="code-box">
 
-</select>
+<pre>http://YOUR_DEFAULT_GATEWAY</pre>
+
+</div>
 
 
-<div id="routerGeneric"
-class="router-info active mt-4">
+<p>
+Example:
+</p>
 
-<div class="panel panel-pad">
+<div class="code-box">
 
-<h5>
+<pre>http://192.168.1.1</pre>
+
+</div>
+
+
+<p>
+Look for one of these sections:
+</p>
+
+<ul>
+
+<li>Port Forwarding</li>
+<li>Virtual Server</li>
+<li>NAT</li>
+<li>Gaming</li>
+<li>Port Mapping</li>
+
+</ul>
+
+
+<div class="row g-3">
+
+<div class="col-6 col-md-3">
+
+<div class="router-card" onclick="selectRouter(this,'BT')">
+
 <i class="bi bi-router"></i>
-Generic router
-</h5>
 
-<p class="muted">
-Look for Port Forwarding, NAT, Virtual Server,
-Gaming, Firewall or Advanced Networking.
-</p>
+<div class="mt-2">
+<strong>BT</strong>
+</div>
 
 </div>
 
 </div>
 
 
-<div id="routerBt" class="router-info mt-4">
+<div class="col-6 col-md-3">
 
-<div class="panel panel-pad">
+<div class="router-card" onclick="selectRouter(this,'Virgin Media')">
 
-<h5>BT</h5>
+<i class="bi bi-router"></i>
 
-<p class="muted">
-Look in your router's Advanced settings for
-port forwarding or port mapping.
-</p>
-
+<div class="mt-2">
+<strong>Virgin</strong>
 </div>
-
-</div>
-
-
-<div id="routerVirgin" class="router-info mt-4">
-
-<div class="panel panel-pad">
-
-<h5>Virgin Media</h5>
-
-<p class="muted">
-Open the advanced router settings and locate
-port forwarding/security options.
-</p>
 
 </div>
 
 </div>
 
 
-<div id="routerSky" class="router-info mt-4">
+<div class="col-6 col-md-3">
 
-<div class="panel panel-pad">
+<div class="router-card" onclick="selectRouter(this,'Sky')">
 
-<h5>Sky</h5>
+<i class="bi bi-router"></i>
 
-<p class="muted">
-Look through Advanced Networking for port
-forwarding options.
-</p>
-
+<div class="mt-2">
+<strong>Sky</strong>
 </div>
-
-</div>
-
-
-<div id="routerEe" class="router-info mt-4">
-
-<div class="panel panel-pad">
-
-<h5>EE</h5>
-
-<p class="muted">
-Check Advanced Settings and look for NAT
-or port forwarding.
-</p>
 
 </div>
 
 </div>
 
 
-<div id="routerTalktalk" class="router-info mt-4">
+<div class="col-6 col-md-3">
 
-<div class="panel panel-pad">
+<div class="router-card" onclick="selectRouter(this,'EE')">
 
-<h5>TalkTalk</h5>
+<i class="bi bi-router"></i>
 
-<p class="muted">
-Look under Advanced Networking or port
-forwarding.
-</p>
-
+<div class="mt-2">
+<strong>EE</strong>
 </div>
-
-</div>
-
-
-<div id="routerTp" class="router-info mt-4">
-
-<div class="panel panel-pad">
-
-<h5>TP-Link</h5>
-
-<p class="muted">
-Depending on model, this is normally under
-NAT Forwarding / Virtual Servers / Port Forwarding.
-</p>
 
 </div>
 
 </div>
 
 
-<div id="routerAsus" class="router-info mt-4">
+<div class="col-6 col-md-3">
 
-<div class="panel panel-pad">
+<div class="router-card" onclick="selectRouter(this,'TP-Link')">
 
-<h5>ASUS</h5>
+<i class="bi bi-router"></i>
 
-<p class="muted">
-Look under WAN and Virtual Server / Port Forwarding.
-</p>
+<div class="mt-2">
+<strong>TP-Link</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-6 col-md-3">
+
+<div class="router-card" onclick="selectRouter(this,'ASUS')">
+
+<i class="bi bi-router"></i>
+
+<div class="mt-2">
+<strong>ASUS</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-6 col-md-3">
+
+<div class="router-card" onclick="selectRouter(this,'NETGEAR')">
+
+<i class="bi bi-router"></i>
+
+<div class="mt-2">
+<strong>NETGEAR</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-6 col-md-3">
+
+<div class="router-card" onclick="selectRouter(this,'Other')">
+
+<i class="bi bi-router"></i>
+
+<div class="mt-2">
+<strong>Other</strong>
+</div>
+
+</div>
 
 </div>
 
 </div>
 
 
-<div id="routerNetgear" class="router-info mt-4">
-
-<div class="panel panel-pad">
-
-<h5>NETGEAR</h5>
-
-<p class="muted">
-Look under Advanced Setup → Port Forwarding.
-</p>
-
-</div>
-
+<div
+id="routerGuide"
+class="alert-xz alert-info-xz mt-4"
+>
+Select your router brand for basic guidance.
 </div>
 
 </div>
@@ -1337,91 +1416,147 @@ Look under Advanced Setup → Port Forwarding.
 
 <!-- STEP 4 -->
 
-<div class="wizard-step" data-step="4">
+<div class="step" data-step="4">
 
-<h3 class="fw-bold">
-Port configuration
+<h3>
+🔌 Port Forwarding
 </h3>
 
-<p class="muted">
-Forward these UDP ports to your PC.
+<p>
+This is the important part.
 </p>
 
-<div class="port-table mt-4">
 
-<table class="table">
+<div class="alert-xz alert-danger-xz">
+
+<strong>
+⚠️ UDP ONLY
+</strong>
+
+<div class="mt-2">
+
+Do not create a TCP rule unless the specific bridge documentation tells you to.
+
+</div>
+
+</div>
+
+
+<h5 class="mt-4">
+Recommended Console Bridge range
+</h5>
+
+
+<div class="table-responsive">
+
+<table class="port-table">
 
 <thead>
 
 <tr>
-<th>Port</th>
-<th>Protocol</th>
-<th>Destination</th>
-<th>Purpose</th>
+
+<th>Setting</th>
+<th>Value</th>
+
 </tr>
 
 </thead>
 
-<tbody id="portRows"></tbody>
+<tbody>
+
+<tr>
+
+<td>Protocol</td>
+<td><strong>UDP</strong></td>
+
+</tr>
+
+<tr>
+
+<td>External Start</td>
+<td><strong>3060</strong></td>
+
+</tr>
+
+<tr>
+
+<td>External End</td>
+<td><strong>3080</strong></td>
+
+</tr>
+
+<tr>
+
+<td>Internal Start</td>
+<td><strong>3060</strong></td>
+
+</tr>
+
+<tr>
+
+<td>Internal End</td>
+<td><strong>3080</strong></td>
+
+</tr>
+
+<tr>
+
+<td>Host IP</td>
+<td id="portHostIp">
+YOUR PC IP
+</td>
+
+</tr>
+
+</tbody>
 
 </table>
 
 </div>
 
-<div class="row g-3 mt-3">
 
-<div class="col-md-6">
+<div class="alert-xz alert-info-xz mt-4">
 
-<button
-class="btn btn-xz w-100"
-onclick="copyPortRules()"
->
+<strong>
+If your router supports port ranges:
+</strong>
 
-<i class="bi bi-clipboard"></i>
-COPY PORT RULES
+<div class="mt-2">
 
-</button>
+Create one rule:
 
-</div>
-
-<div class="col-md-6">
-
-<button
-class="btn btn-outline-xz w-100"
-onclick="copyRouterRule()"
->
-
-<i class="bi bi-router"></i>
-COPY ROUTER RULE
-
-</button>
+<strong>
+UDP 3060–3080 → YOUR PC IP
+</strong>
 
 </div>
 
 </div>
 
-<div class="panel panel-pad mt-4">
 
-<div class="d-flex gap-3">
+<div class="alert-xz alert-warning-xz">
 
-<div class="icon">
-<i class="bi bi-arrow-left-right"></i>
-</div>
+<strong>
+If your router does NOT support ranges:
+</strong>
 
-<div>
+<div class="mt-2">
 
-<strong>Range supported?</strong>
-
-<p class="muted mb-0 mt-1">
-Use one UDP rule:
-<strong>3074–3077 → your PC IP</strong>.
-If your router doesn't support ranges, make four
-separate UDP rules.
-</p>
+Create individual UDP rules for every port from
+<strong>3060 through 3080</strong>.
 
 </div>
 
 </div>
+
+
+<div class="code-box">
+
+<pre id="forwardExample">Name: BO2-Console-Bridge
+Protocol: UDP
+External: 3060-3080
+Internal: 3060-3080
+Host IP: YOUR_PC_IP</pre>
 
 </div>
 
@@ -1430,111 +1565,104 @@ separate UDP rules.
 
 <!-- STEP 5 -->
 
-<div class="wizard-step" data-step="5">
+<div class="step" data-step="5">
 
-<h3 class="fw-bold">
-RUN_GUI configuration
+<h3>
+🧩 Install / Open Console Bridge
 </h3>
 
-<p class="muted">
-Use these values inside RUN_GUI.
+<p>
+This is the replacement for the old RUN_GUI section.
 </p>
 
-<div class="row g-3">
 
-<div class="col-md-6">
+<div class="tool-card">
 
-<div class="panel panel-pad">
-
-<div class="config-label">
-Game Port
+<div class="tool-badge">
+MODDING XZ
 </div>
 
-<div class="display-5 fw-bold">
-3074
-</div>
+<h2>
+🎮 Console Bridge Tool
+</h2>
 
-</div>
+<p>
+The current tool is available through the Modding XZ Telegram post.
+</p>
 
-</div>
+<a
+href="https://t.me/ModdingXZ/20303"
+target="_blank"
+rel="noopener"
+class="btn btn-xz"
+>
 
-<div class="col-md-6">
+<i class="bi bi-telegram"></i>
+Open Console Bridge Tool
 
-<div class="panel panel-pad">
-
-<div class="config-label">
-Relay Port
-</div>
-
-<div class="display-5 fw-bold">
-3077
-</div>
+</a>
 
 </div>
 
-</div>
+
+<div class="alert-xz alert-warning-xz mt-4">
+
+<strong>
+⚠️ Tool settings
+</strong>
+
+<div class="mt-2">
+
+Use the settings supplied with the Console Bridge build.
+
+This guide does not assume a particular executable name,
+command-line option or interface because those can change between builds.
 
 </div>
 
-<div class="terminal mt-4">
-
-<div class="terminal-head">
-
-<span class="dot red"></span>
-<span class="dot yellow"></span>
-<span class="dot green"></span>
-
-&nbsp; RUN_GUI // CONFIGURATION
-
 </div>
 
-<div class="terminal-body">
+
+<div class="check-row">
+
+<input
+type="checkbox"
+id="bridgeDownloaded"
+>
 
 <div>
-<span class="purple-text">[CONFIG]</span>
-Game Port = 3074
+
+<strong>
+Console Bridge downloaded
+</strong>
+
+<small>
+The tool is on your PC.
+</small>
+
 </div>
+
+</div>
+
+
+<div class="check-row">
+
+<input
+type="checkbox"
+id="bridgeStarted"
+>
 
 <div>
-<span class="purple-text">[CONFIG]</span>
-Relay Port = 3077
-</div>
 
-<div>
-<span class="purple-text">[CONFIG]</span>
-Protocol = UDP
-</div>
+<strong>
+Console Bridge started
+</strong>
 
-<div>
-<span class="green-text">[READY]</span>
-Configuration accepted.
-</div>
-
-<div>
-<span class="yellow-text">[WAIT]</span>
-DO NOT PRESS START YET.
-</div>
+<small>
+Started using the supplied tool instructions.
+</small>
 
 </div>
-
-</div>
-
-<div class="panel panel-pad mt-4">
-
-<strong>Launch sequence</strong>
-
-<ol class="muted mt-3 mb-0">
-
-<li>Launch BO2.</li>
-<li>Enter Custom Game.</li>
-<li>Open your lobby.</li>
-<li>Run RUN_GUI as Administrator.</li>
-<li>Set Game Port to 3074.</li>
-<li>Set Relay Port to 3077.</li>
-<li>Press START.</li>
-<li>Watch the logs for traffic.</li>
-
-</ol>
 
 </div>
 
@@ -1543,77 +1671,70 @@ DO NOT PRESS START YET.
 
 <!-- STEP 6 -->
 
-<div class="wizard-step" data-step="6">
+<div class="step" data-step="6">
 
-<h3 class="fw-bold">
-BO2 client
+<h3>
+🎮 Start BO2
 </h3>
 
-<p class="muted">
-Select which client you're using.
+<p>
+Get BO2 ready before testing the network.
 </p>
 
-<div class="row g-3 mt-2">
 
-<div class="col-md-6">
-
-<label class="panel panel-pad d-block"
-style="cursor:pointer">
-
-<input
-type="radio"
-name="client"
-value="Resurge"
-checked
-class="form-check-input me-2"
->
-
-<strong>BO2 Resurge Client</strong>
-
-<p class="muted mt-2 mb-0">
-Recommended client for this setup.
-</p>
-
-</label>
-
-</div>
-
-
-<div class="col-md-6">
-
-<label class="panel panel-pad d-block"
-style="cursor:pointer">
-
-<input
-type="radio"
-name="client"
-value="MS Store"
-class="form-check-input me-2"
->
-
-<strong>Microsoft Store Client</strong>
-
-<p class="muted mt-2 mb-0">
-Same relay port configuration.
-</p>
-
-</label>
-
-</div>
-
-</div>
-
-<div class="panel panel-pad mt-4">
+<div class="alert-xz alert-info-xz">
 
 <strong>
-MS Store troubleshooting
+Supported setups
 </strong>
 
-<p class="muted mb-0 mt-2">
-If the Microsoft Store version has connection problems,
-check Windows networking, Xbox Game Services, Teredo
-and firewall configuration.
-</p>
+<div class="mt-2">
+
+✅ BO2 Resurge Client
+<br>
+✅ MS Store Client
+
+</div>
+
+</div>
+
+
+<h5>
+Recommended order
+</h5>
+
+
+<div class="code-box">
+
+<pre>1. Start the required Console Bridge tool
+
+2. Launch BO2
+
+3. Open Custom Game
+
+4. Create/open the lobby
+
+5. Start the map
+
+6. Test the connection
+
+7. Watch Wireshark for UDP traffic</pre>
+
+</div>
+
+
+<div class="alert-xz alert-warning-xz">
+
+<strong>
+⚠️ Important
+</strong>
+
+<div class="mt-2">
+
+If the specific Console Bridge documentation says the tool must be started
+after the Custom Game is open, follow the tool's instructions instead.
+
+</div>
 
 </div>
 
@@ -1622,141 +1743,90 @@ and firewall configuration.
 
 <!-- STEP 7 -->
 
-<div class="wizard-step" data-step="7">
+<div class="step" data-step="7">
 
-<h3 class="fw-bold">
-Configuration dashboard
+<h3>
+🔎 Wireshark Test
 </h3>
 
-<p class="muted">
-Check everything before launching.
+<p>
+Use Wireshark to see whether traffic is reaching the PC.
 </p>
 
-<div class="row g-3">
 
-<div class="col-md-6">
-
-<div class="panel panel-pad config-card">
-
-<div class="config-label">
-PC IPv4
-</div>
-
-<div class="config-value"
-id="summaryIp">
-Not configured
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="panel panel-pad config-card">
-
-<div class="config-label">
-Gateway
-</div>
-
-<div class="config-value"
-id="summaryGateway">
-Not configured
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="panel panel-pad config-card">
-
-<div class="config-label">
-Router
-</div>
-
-<div class="config-value"
-id="summaryRouter">
-Generic
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="panel panel-pad config-card">
-
-<div class="config-label">
-BO2 Client
-</div>
-
-<div class="config-value"
-id="summaryClient">
-Resurge
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="panel panel-pad config-card">
-
-<div class="config-label">
-UDP Forwarding
-</div>
-
-<div class="config-value">
-3074–3077
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-6">
-
-<div class="panel panel-pad config-card">
-
-<div class="config-label">
-RUN_GUI
-</div>
-
-<div class="config-value">
-3074 → 3077
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="d-flex flex-wrap gap-2 mt-4">
-
-<button
-class="btn btn-xz"
-onclick="copyFullConfig()"
->
-
-<i class="bi bi-clipboard"></i>
-COPY CONFIG
-
-</button>
-
-<button
-class="btn btn-outline-xz"
-onclick="exportConfig()"
+<a
+href="https://www.wireshark.org/download.html"
+target="_blank"
+class="btn btn-dark-xz mb-3"
 >
 
 <i class="bi bi-download"></i>
-EXPORT JSON
+Download Wireshark
 
+</a>
+
+
+<h5>
+Display Filter
+</h5>
+
+
+<div class="code-box">
+
+<button class="copy-btn" onclick="copyCode(this)">
+<i class="bi bi-copy"></i>
 </button>
+
+<pre>udp.port >= 3060 &amp;&amp; udp.port <= 3080</pre>
+
+</div>
+
+
+<button
+class="btn btn-dark-xz"
+onclick="copyText('udp.port >= 3060 && udp.port <= 3080')"
+>
+Copy Display Filter
+</button>
+
+
+<h5 class="mt-4">
+Capture Filter
+</h5>
+
+
+<div class="code-box">
+
+<button class="copy-btn" onclick="copyCode(this)">
+<i class="bi bi-copy"></i>
+</button>
+
+<pre>udp portrange 3060-3080</pre>
+
+</div>
+
+
+<button
+class="btn btn-dark-xz"
+onclick="copyText('udp portrange 3060-3080')"
+>
+Copy Capture Filter
+</button>
+
+
+<div class="alert-xz alert-warning-xz mt-4">
+
+<strong>
+⚠️ Select the correct interface
+</strong>
+
+<div class="mt-2">
+
+Capture from the actual Ethernet/Wi-Fi adapter being used.
+
+Avoid selecting VPN, Hyper-V, VMware, loopback or other virtual adapters unless your setup specifically requires one.
+
+</div>
 
 </div>
 
@@ -1765,137 +1835,255 @@ EXPORT JSON
 
 <!-- STEP 8 -->
 
-<div class="wizard-step" data-step="8">
+<div class="step" data-step="8">
 
-<div class="completion">
+<h3>
+🌐 VPS / CGNAT
+</h3>
 
-<div class="complete-icon">
-
-<i class="bi bi-check-lg"></i>
-
-</div>
-
-<h2 class="display-5 fw-black">
-READY TO HOST
-</h2>
-
-<p class="muted fs-5">
-Your configuration is ready.
+<p>
+Use this section if you cannot accept incoming connections normally.
 </p>
 
-<div class="panel panel-pad text-start mt-4">
 
-<h5 class="fw-bold">
-Final launch sequence
+<div class="alert-xz alert-warning-xz">
+
+<strong>
+Possible reasons:
+</strong>
+
+<ul class="mb-0 mt-2">
+
+<li>CGNAT</li>
+<li>Shared accommodation Wi-Fi</li>
+<li>Dorm / university network</li>
+<li>No router port-forwarding access</li>
+<li>Double NAT</li>
+<li>ISP restrictions</li>
+
+</ul>
+
+</div>
+
+
+<h5 class="mt-4">
+Basic concept
 </h5>
 
-<div class="check mt-3">
-<div class="icon">1</div>
+
+<div class="code-box">
+
+<pre>Friends
+   ↓
+VPS Public IP
+   ↓
+VPN / Tunnel
+   ↓
+Home PC
+   ↓
+Console Bridge
+   ↓
+BO2</pre>
+
+</div>
+
+
+<p>
+A VPS needs a public IPv4 address and the required UDP traffic allowed through its provider firewall.
+</p>
+
+
+<div class="alert-xz alert-info-xz">
+
+<strong>
+⚠️ VPS is not required for everyone.
+</strong>
+
+<div class="mt-2">
+
+If normal home port forwarding works, use the normal method first.
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- STEP 9 -->
+
+<div class="step" data-step="9">
+
+<h3>
+☑️ Final Checklist
+</h3>
+
+<p>
+Before asking for help, check everything below.
+</p>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
 <div>
-<strong>Launch BO2</strong>
-<small class="d-block muted">
-Enter Custom Game.
-</small>
-</div>
+<strong>Wireshark installed</strong>
 </div>
 
-<div class="check">
-<div class="icon">2</div>
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
 <div>
-<strong>Open the lobby</strong>
-<small class="d-block muted">
-Have the map/lobby ready first.
-</small>
-</div>
+<strong>Npcap installed</strong>
 </div>
 
-<div class="check">
-<div class="icon">3</div>
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
 <div>
-<strong>Launch RUN_GUI as Administrator</strong>
-<small class="d-block muted">
-Game 3074 / Relay 3077.
-</small>
-</div>
+<strong>PC IPv4 found</strong>
 </div>
 
-<div class="check">
-<div class="icon">4</div>
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
 <div>
-<strong>Press START</strong>
-<small class="d-block muted">
-Start the relay after the lobby is open.
-</small>
-</div>
+<strong>Default Gateway found</strong>
 </div>
 
-<div class="check">
-<div class="icon">5</div>
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
 <div>
-<strong>Friends connect</strong>
-<small class="d-block muted">
-Watch the RUN_GUI traffic/logs.
-</small>
-</div>
+<strong>UDP 3060–3080 forwarded</strong>
 </div>
 
 </div>
 
-<div class="d-flex justify-content-center flex-wrap gap-2 mt-4">
+
+<div class="check-row">
+
+<input type="checkbox">
+
+<div>
+<strong>Correct PC IP used in router</strong>
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
+<div>
+<strong>Console Bridge running</strong>
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
+<div>
+<strong>BO2 Custom Game opened</strong>
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
+<div>
+<strong>Wireshark checked for traffic</strong>
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<input type="checkbox">
+
+<div>
+<strong>Friend tested joining</strong>
+</div>
+
+</div>
+
+
+<div class="alert-xz alert-success-xz mt-4">
+
+<strong>
+🎮 Ready to test.
+</strong>
+
+<div class="mt-2">
+
+If it works, nice.
+
+If it doesn't, use the Support Report below and send the information to Modding XZ.
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- NAV -->
+
+<div class="d-flex justify-content-between gap-2 mt-4">
 
 <button
-class="btn btn-xz"
-onclick="copyFullConfig()"
->
-<i class="bi bi-clipboard"></i>
-COPY SETUP
-</button>
-
-<button
-class="btn btn-outline-xz"
-onclick="window.scrollTo({top:document.getElementById('network').offsetTop-80,behavior:'smooth'})"
->
-<i class="bi bi-diagram-3"></i>
-VIEW NETWORK
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-</div>
-
-
-<div class="setup-footer">
-
-<button
-class="btn btn-outline-xz"
-id="backButton"
+id="prevBtn"
+class="btn btn-dark-xz"
 onclick="previousStep()"
 disabled
 >
 
 <i class="bi bi-arrow-left"></i>
-BACK
+Back
 
 </button>
 
+
 <button
+id="nextBtn"
 class="btn btn-xz"
-id="nextButton"
 onclick="nextStep()"
 >
 
-NEXT
+Next
 <i class="bi bi-arrow-right"></i>
 
 </button>
 
 </div>
 
+
+</div>
 </div>
 
 </div>
@@ -1903,557 +2091,56 @@ NEXT
 </section>
 
 
-<!-- NETWORK -->
+<!-- BRIDGE -->
 
-<section class="section" id="network">
+<section class="section" id="bridge">
 
 <div class="container">
 
-<div class="text-center mb-5">
+<div class="text-center mb-4">
 
-<div class="eyebrow mb-3">
-<i class="bi bi-diagram-3"></i>
-NETWORK MAP
-</div>
-
-<h2 class="section-title display-5">
-How the setup works.
+<h2 class="section-title">
+🎮 Console Bridge
 </h2>
 
-<p class="muted">
-The traffic path in one glance.
+<p class="section-subtitle">
+The new bridge method replaces the old RUN_GUI setup.
 </p>
 
 </div>
 
 
-<div class="panel panel-pad">
-
-<div class="flow">
-
-<div class="flow-box">
-
-<i class="bi bi-controller"></i>
-
-<div class="fw-bold mt-2">
-BO2
-</div>
-
-<small class="muted">
-Game traffic
-</small>
-
-</div>
-
-<div class="flow-arrow">
-<i class="bi bi-arrow-right"></i>
-</div>
-
-<div class="flow-box">
-
-<i class="bi bi-router"></i>
-
-<div class="fw-bold mt-2">
-ROUTER
-</div>
-
-<small class="muted">
-UDP 3074–3077
-</small>
-
-</div>
-
-<div class="flow-arrow">
-<i class="bi bi-arrow-right"></i>
-</div>
-
-<div class="flow-box">
-
-<i class="bi bi-pc-display"></i>
-
-<div class="fw-bold mt-2">
-WINDOWS PC
-</div>
-
-<small class="muted">
-Your IPv4
-</small>
-
-</div>
-
-<div class="flow-arrow">
-<i class="bi bi-arrow-right"></i>
-</div>
-
-<div class="flow-box">
-
-<i class="bi bi-terminal"></i>
-
-<div class="fw-bold mt-2">
-RUN_GUI
-</div>
-
-<small class="muted">
-Relay :3077
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="row g-4 mt-4">
-
-<div class="col-md-3">
-
-<div class="panel panel-pad">
-
-<div class="icon mb-3">
-<i class="bi bi-ethernet"></i>
-</div>
-
-<div class="display-6 fw-bold">
-3074
-</div>
-
-<div class="muted">
-Game port
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="panel panel-pad">
-
-<div class="icon mb-3">
-<i class="bi bi-arrow-repeat"></i>
-</div>
-
-<div class="display-6 fw-bold">
-3075
-</div>
-
-<div class="muted">
-Forwarded UDP
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="panel panel-pad">
-
-<div class="icon mb-3">
-<i class="bi bi-arrow-repeat"></i>
-</div>
-
-<div class="display-6 fw-bold">
-3076
-</div>
-
-<div class="muted">
-Forwarded UDP
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="panel panel-pad">
-
-<div class="icon mb-3">
-<i class="bi bi-broadcast-pin"></i>
-</div>
-
-<div class="display-6 fw-bold">
-3077
-</div>
-
-<div class="muted">
-Relay port
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- TROUBLESHOOT -->
-
-<section class="section" id="troubleshoot">
-
-<div class="container">
-
-<div class="text-center mb-5">
-
-<div class="eyebrow mb-3">
-<i class="bi bi-tools"></i>
-TROUBLESHOOTING
-</div>
-
-<h2 class="section-title display-5">
-What's actually going wrong?
-</h2>
-
-<p class="muted">
-Click the symptom that matches your problem.
-</p>
-
-</div>
-
-
-<div class="row g-3">
-
-
-<div class="col-md-6">
-
-<div class="trouble-card">
-
-<div class="d-flex align-items-center gap-3">
-
-<div class="icon">
-<i class="bi bi-terminal-x"></i>
-</div>
-
-<div>
-<strong>RUN_GUI shows no traffic</strong>
-<div class="muted small">
-Nothing appears in the logs.
-</div>
-</div>
-
-</div>
-
-<div class="trouble-answer">
-
-Check:
-
-<ul>
-<li>Wireshark/Npcap.</li>
-<li>WinPcap installation.</li>
-<li>Windows Firewall.</li>
-<li>Correct network interface.</li>
-<li>RUN_GUI is Administrator.</li>
-<li>BO2 Custom Game is already open.</li>
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="col-md-6">
-
-<div class="trouble-card">
-
-<div class="d-flex align-items-center gap-3">
-
-<div class="icon">
-<i class="bi bi-person-x"></i>
-</div>
-
-<div>
-<strong>Friends cannot connect</strong>
-<div class="muted small">
-Relay appears to run but nobody joins.
-</div>
-</div>
-
-</div>
-
-<div class="trouble-answer">
-
-Check:
-
-<ul>
-<li>UDP 3074–3077 forwarding.</li>
-<li>Correct PC IPv4.</li>
-<li>Windows Firewall.</li>
-<li>Double NAT.</li>
-<li>CGNAT.</li>
-<li>Your router rules point to the correct machine.</li>
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="col-md-6">
-
-<div class="trouble-card">
-
-<div class="d-flex align-items-center gap-3">
-
-<div class="icon">
-<i class="bi bi-arrow-clockwise"></i>
-</div>
-
-<div>
-<strong>It worked before reboot</strong>
-<div class="muted small">
-Everything stopped after restarting Windows.
-</div>
-</div>
-
-</div>
-
-<div class="trouble-answer">
-
-Run:
-
-<div class="code mt-2">
-ipconfig
-</div>
-
-Check whether your IPv4 changed.
-
-A DHCP reservation/static lease can prevent
-this problem happening again.
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="col-md-6">
-
-<div class="trouble-card">
-
-<div class="d-flex align-items-center gap-3">
-
-<div class="icon">
-<i class="bi bi-cloud-slash"></i>
-</div>
-
-<div>
-<strong>I'm behind CGNAT</strong>
-<div class="muted small">
-Router forwarding doesn't work.
-</div>
-</div>
-
-</div>
-
-<div class="trouble-answer">
-
-Normal inbound forwarding may not work through CGNAT.
-
-A VPS with a public IPv4 can be used as the public
-network endpoint, with a suitable tunnel between
-the VPS and your home PC.
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="col-md-6">
-
-<div class="trouble-card">
-
-<div class="d-flex align-items-center gap-3">
-
-<div class="icon">
-<i class="bi bi-shield-exclamation"></i>
-</div>
-
-<div>
-<strong>Windows blocks it</strong>
-<div class="muted small">
-Firewall/security software interferes.
-</div>
-</div>
-
-</div>
-
-<div class="trouble-answer">
-
-Check Windows Defender Firewall and make sure the
-required application/network traffic is permitted
-for the network profile you're using.
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="col-md-6">
-
-<div class="trouble-card">
-
-<div class="d-flex align-items-center gap-3">
-
-<div class="icon">
-<i class="bi bi-bug"></i>
-</div>
-
-<div>
-<strong>RUN_GUI throws an error</strong>
-<div class="muted small">
-The tool itself reports an error.
-</div>
-</div>
-
-</div>
-
-<div class="trouble-answer">
-
-Keep the complete error/log.
-
-Useful information includes:
-
-<ul>
-<li>Full error message.</li>
-<li>Full log.</li>
-<li>BO2 client.</li>
-<li>Router model.</li>
-<li>Home forwarding or VPS.</li>
-</ul>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- CHECKLIST -->
-
-<section class="section">
-
-<div class="container">
-
-<div class="row g-5">
+<div class="row g-4">
 
 <div class="col-lg-7">
 
-<div class="eyebrow mb-3">
-<i class="bi bi-check2-square"></i>
-FINAL CHECK
+<div class="tool-card">
+
+<div class="tool-badge">
+MODDING XZ TELEGRAM
 </div>
 
-<h2 class="section-title display-5">
-Ready to test?
+<h2>
+BO2 Console Bridge
 </h2>
 
-<p class="muted mb-4">
-Tick these off before blaming the relay.
+<p class="mt-3">
+
+Get the current Console Bridge tool from the Modding XZ post.
+
 </p>
 
+<a
+href="https://t.me/ModdingXZ/20303"
+target="_blank"
+rel="noopener"
+class="btn btn-xz"
+>
 
-<div id="checklist">
+<i class="bi bi-telegram"></i>
+Open Tool Post
 
-<label class="check">
-<input type="checkbox" data-key="wireshark">
-<div>
-<strong>Wireshark + Npcap installed</strong>
-<small class="d-block muted">
-Network capture components ready.
-</small>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-key="winpcap">
-<div>
-<strong>WinPcap installed</strong>
-<small class="d-block muted">
-WinPcap 4.1.3 installed.
-</small>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-key="ip">
-<div>
-<strong>PC IPv4 confirmed</strong>
-<small class="d-block muted">
-Forwarding destination is correct.
-</small>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-key="gateway">
-<div>
-<strong>Gateway confirmed</strong>
-<small class="d-block muted">
-Router settings are accessible.
-</small>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-key="ports">
-<div>
-<strong>UDP 3074–3077 forwarded</strong>
-<small class="d-block muted">
-All required ports point to your PC.
-</small>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-key="gui">
-<div>
-<strong>RUN_GUI configured</strong>
-<small class="d-block muted">
-Game 3074 / Relay 3077.
-</small>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-key="lobby">
-<div>
-<strong>BO2 Custom Game open</strong>
-<small class="d-block muted">
-Lobby is ready.
-</small>
-</div>
-</label>
-
-<label class="check">
-<input type="checkbox" data-key="started">
-<div>
-<strong>RUN_GUI started</strong>
-<small class="d-block muted">
-Traffic/logs are appearing.
-</small>
-</div>
-</label>
+</a>
 
 </div>
 
@@ -2462,71 +2149,848 @@ Traffic/logs are appearing.
 
 <div class="col-lg-5">
 
-<div class="panel panel-pad sticky-top"
-style="top:95px">
+<div class="panel">
 
-<div class="config-label">
-SETUP COMPLETION
+<div class="panel-title">
+Bridge Checklist
 </div>
+
+
+<div class="check-row mt-3">
+
+<i class="bi bi-check-circle text-success"></i>
+
+<div>
+<strong>PC connected</strong>
+<small>
+Wi-Fi or Ethernet
+</small>
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<i class="bi bi-check-circle text-success"></i>
+
+<div>
+<strong>UDP forwarded</strong>
+<small>
+3060–3080
+</small>
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<i class="bi bi-check-circle text-success"></i>
+
+<div>
+<strong>Bridge running</strong>
+<small>
+Current tool
+</small>
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<i class="bi bi-check-circle text-success"></i>
+
+<div>
+<strong>Wireshark ready</strong>
+<small>
+UDP filter
+</small>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PORT GENERATOR -->
+
+<section class="section" id="ports">
+
+<div class="container">
+
+<div class="text-center mb-4">
+
+<h2 class="section-title">
+🔌 Port Forward Generator
+</h2>
+
+<p class="section-subtitle">
+Enter your PC IP and generate the router configuration.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="row g-3">
+
+<div class="col-md-6">
+
+<label class="form-label">
+PC IPv4
+</label>
+
+<input
+id="generatorIp"
+class="form-control"
+placeholder="192.168.1.50"
+oninput="updateGenerator()"
+>
+
+</div>
+
+
+<div class="col-md-6">
+
+<label class="form-label">
+Rule Name
+</label>
+
+<input
+id="generatorName"
+class="form-control"
+value="BO2-Console-Bridge"
+oninput="updateGenerator()"
+>
+
+</div>
+
+</div>
+
+
+<div class="code-box mt-4">
+
+<button class="copy-btn" onclick="copyCode(this)">
+<i class="bi bi-copy"></i>
+</button>
+
+<pre id="generatedRule">Name: BO2-Console-Bridge
+Protocol: UDP
+External: 3060-3080
+Internal: 3060-3080
+Host IP: YOUR_PC_IP</pre>
+
+</div>
+
+
+<button
+class="btn btn-dark-xz"
+onclick="generateIndividualPorts()"
+>
+
+<i class="bi bi-list-ol"></i>
+Generate Individual Rules
+
+</button>
+
 
 <div
-class="display-2 fw-bold mt-2"
-id="percent">
-0%
-</div>
+id="individualPorts"
+class="code-box mt-3"
+style="display:none;"
+>
 
-<div class="progress mt-3">
+<button class="copy-btn" onclick="copyCode(this)">
+<i class="bi bi-copy"></i>
+</button>
 
-<div
-class="progress-bar"
-id="checkProgress"
-style="width:0%">
-</div>
+<pre id="individualOutput"></pre>
 
 </div>
 
-<div class="muted mt-3"
-id="checkCount">
-0 / 8 complete
 </div>
 
-<div class="code mt-4">
-
-<div class="purple-text">
-MODDING XZ STATUS
 </div>
+
+</section>
+
+
+<!-- WIFI BUG -->
+
+<section class="section" id="wifi">
+
+<div class="container">
+
+<div class="bug-card">
+
+<div class="bug-title fs-3 mb-3">
+
+🚨 KNOWN BUG — WI-FI DISCONNECTING
+
+</div>
+
+
+<p class="text-light">
+
+<strong>
+Currently investigating.
+</strong>
+
+Wi-Fi may disconnect every few minutes after somebody joins.
+
+At the moment, the cause has not been confirmed, so the guide is being kept as a testing guide rather than pretending there is a guaranteed fix.
+
+</p>
+
+
+<div class="row g-3 mt-3">
+
+<div class="col-md-6">
+
+<div class="check-row h-100">
+
+<div>
+
+<strong>
+Try Ethernet
+</strong>
+
+<small>
+Useful for determining whether the problem is Wi-Fi-specific.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="check-row h-100">
+
+<div>
+
+<strong>
+Update Wi-Fi driver
+</strong>
+
+<small>
+Install the latest driver from your PC/laptop manufacturer.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="check-row h-100">
+
+<div>
+
+<strong>
+Disable Wi-Fi power saving
+</strong>
+
+<small>
+Device Manager → Network adapters → Wi-Fi adapter → Power Management.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="check-row h-100">
+
+<div>
+
+<strong>
+Check VPN / virtual adapters
+</strong>
+
+<small>
+Temporarily disable them while testing.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="check-row h-100">
+
+<div>
+
+<strong>
+Check Wireshark interface
+</strong>
+
+<small>
+Make sure you are capturing the actual Wi-Fi interface.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="check-row h-100">
+
+<div>
+
+<strong>
+Record exactly when it disconnects
+</strong>
+
+<small>
+Especially note whether it happens immediately after somebody joins.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="alert-xz alert-danger-xz mt-4">
+
+<strong>
+⚠️ DO NOT CLAIM THIS IS FIXED YET
+</strong>
 
 <div class="mt-2">
-Network: <span class="green-text">LOCAL</span>
+
+If you find a repeatable fix, update this section.
+
 </div>
 
-<div>
-Ports: <span class="green-text">3074-3077</span>
 </div>
 
-<div>
-Game: <span class="green-text">3074</span>
 </div>
 
-<div>
-Relay: <span class="green-text">3077</span>
 </div>
+
+</section>
+
+
+<!-- BO2 ERROR -->
+
+<section class="section">
+
+<div class="container">
+
+<div class="panel">
+
+<h2 class="section-title">
+🛠️ BO2 Startup Error
+</h2>
+
+<p class="panel-text">
+
+If BO2 gives the known graphics/startup error and you have been supplied alternate
+<strong>d3d11.dll</strong> files through the Modding XZ Telegram section, use only the files supplied with your trusted setup and place the appropriate one in the BO2 game directory.
+
+</p>
+
+
+<div class="alert-xz alert-warning-xz">
+
+<strong>
+⚠️ Important
+</strong>
+
+<div class="mt-2">
+
+Do not randomly download DLL files from unknown websites.
+
+If you are unsure which file belongs to your build, ask for help with a screenshot of the error and your exact BO2 client.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- TROUBLESHOOTING -->
+
+<section class="section" id="troubleshooting">
+
+<div class="container">
+
+<div class="text-center mb-4">
+
+<h2 class="section-title">
+🛠️ Troubleshooting
+</h2>
+
+<p class="section-subtitle">
+Go through these before changing the entire setup.
+</p>
+
+</div>
+
+
+<div class="row g-4">
+
+
+<div class="col-lg-6">
+
+<div class="panel">
+
+<h4>
+❌ No Traffic
+</h4>
+
+
+<div class="check-row mt-3">
+
+<div>
+<strong>
+Wireshark installed?
+</strong>
+
+<small>
+Make sure the Windows capture interface is visible.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+Npcap installed?
+</strong>
+
+<small>
+Current Wireshark Windows installers include Npcap.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+Correct interface?
+</strong>
+
+<small>
+Use your active Ethernet/Wi-Fi adapter.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+Bridge running?
+</strong>
+
+<small>
+Check the current Console Bridge tool instructions.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+Windows Firewall?
+</strong>
+
+<small>
+Check whether Windows Security is blocking the bridge.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="col-lg-6">
+
+<div class="panel">
+
+<h4>
+❌ Friends Can't Join
+</h4>
+
+
+<div class="check-row mt-3">
+
+<div>
+<strong>
+UDP 3060–3080?
+</strong>
+
+<small>
+Check the router rule.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+Correct PC IP?
+</strong>
+
+<small>
+Run ipconfig again.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+Double NAT?
+</strong>
+
+<small>
+Check if you have an ISP hub plus another router.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+CGNAT?
+</strong>
+
+<small>
+Normal inbound port forwarding may not work.
+</small>
+
+</div>
+
+</div>
+
+
+<div class="check-row">
+
+<div>
+<strong>
+Wi-Fi disconnecting?
+</strong>
+
+<small>
+Check the known-bug section above.
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- COMMANDS -->
+
+<section class="section">
+
+<div class="container">
+
+<div class="text-center mb-4">
+
+<h2 class="section-title">
+💻 Windows Commands
+</h2>
+
+</div>
+
+
+<div class="row g-4">
+
+<div class="col-md-6">
+
+<div class="panel">
+
+<h5>
+Find IP
+</h5>
+
+<div class="code-box">
+
+<pre>ipconfig</pre>
 
 </div>
 
 <button
-class="btn btn-outline-xz w-100 mt-3"
-onclick="resetChecklist()"
+class="btn btn-dark-xz"
+onclick="copyText('ipconfig')"
 >
-
-<i class="bi bi-arrow-counterclockwise"></i>
-RESET CHECKLIST
-
+Copy
 </button>
 
 </div>
 
 </div>
+
+
+<div class="col-md-6">
+
+<div class="panel">
+
+<h5>
+Full network information
+</h5>
+
+<div class="code-box">
+
+<pre>ipconfig /all</pre>
+
+</div>
+
+<button
+class="btn btn-dark-xz"
+onclick="copyText('ipconfig /all')"
+>
+Copy
+</button>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="panel">
+
+<h5>
+Wi-Fi information
+</h5>
+
+<div class="code-box">
+
+<pre>netsh wlan show interfaces</pre>
+
+</div>
+
+<button
+class="btn btn-dark-xz"
+onclick="copyText('netsh wlan show interfaces')"
+>
+Copy
+</button>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="panel">
+
+<h5>
+Routing table
+</h5>
+
+<div class="code-box">
+
+<pre>route print</pre>
+
+</div>
+
+<button
+class="btn btn-dark-xz"
+onclick="copyText('route print')"
+>
+Copy
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SUPPORT REPORT -->
+
+<section class="section">
+
+<div class="container">
+
+<div class="text-center mb-4">
+
+<h2 class="section-title">
+📋 Support Report
+</h2>
+
+<p class="section-subtitle">
+Generate this before asking Modding XZ for help.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="row g-3">
+
+<div class="col-md-4">
+
+<label class="form-label">
+Connection
+</label>
+
+<select id="connectionType" class="form-select">
+
+<option>Wi-Fi</option>
+<option>Ethernet</option>
+
+</select>
+
+</div>
+
+
+<div class="col-md-4">
+
+<label class="form-label">
+Bridge
+</label>
+
+<select id="bridgeStatus" class="form-select">
+
+<option>Running</option>
+<option>Not Running</option>
+<option>Not Tested</option>
+
+</select>
+
+</div>
+
+
+<div class="col-md-4">
+
+<label class="form-label">
+Console
+</label>
+
+<select id="consoleStatus" class="form-select">
+
+<option>Can Join</option>
+<option>Cannot Join</option>
+<option>Not Tested</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<button
+class="btn btn-xz mt-4"
+onclick="generateReport()"
+>
+
+<i class="bi bi-file-text"></i>
+Generate Support Report
+
+</button>
+
+
+<div class="report mt-3">
+
+<pre id="supportReport">Generate a report when you need help.</pre>
+
+</div>
+
+
+<button
+class="btn btn-dark-xz mt-3"
+onclick="copyText(document.getElementById('supportReport').innerText)"
+>
+
+<i class="bi bi-copy"></i>
+Copy Report
+
+</button>
 
 </div>
 
@@ -2537,118 +3001,228 @@ RESET CHECKLIST
 
 <!-- RESOURCES -->
 
-<section class="section" id="resources">
+<section class="section">
 
 <div class="container">
 
-<div class="text-center mb-5">
+<div class="text-center mb-4">
 
-<div class="eyebrow mb-3">
-<i class="bi bi-box-seam"></i>
-RESOURCES
-</div>
-
-<h2 class="section-title display-5">
-Everything in one place.
+<h2 class="section-title">
+📁 Files & Resources
 </h2>
 
 </div>
 
 
-<div class="row g-4">
+<div class="row g-3">
 
-<div class="col-md-6 col-lg-3">
+
+<div class="col-md-6">
 
 <a
 href="https://www.wireshark.org/download.html"
 target="_blank"
-class="panel panel-pad d-block h-100"
 >
 
-<div class="icon mb-3">
+<div class="resource">
+
+<div class="resource-icon">
 <i class="bi bi-activity"></i>
 </div>
 
-<h5>
-Wireshark
-</h5>
+<div>
 
-<p class="muted mb-0">
-Download Wireshark and install with Npcap enabled.
-</p>
+<strong>Wireshark</strong>
+
+<small>
+Official Wireshark download
+</small>
+
+</div>
+
+</div>
 
 </a>
 
 </div>
 
 
-<div class="col-md-6 col-lg-3">
+<div class="col-md-6">
 
 <a
-href="https://www.winpcap.org/install/"
+href="https://npcap.com/"
 target="_blank"
-class="panel panel-pad d-block h-100"
 >
 
-<div class="icon mb-3">
-<i class="bi bi-pc-display"></i>
+<div class="resource">
+
+<div class="resource-icon">
+<i class="bi bi-broadcast"></i>
 </div>
 
-<h5>
-WinPcap
-</h5>
+<div>
 
-<p class="muted mb-0">
-WinPcap 4.1.3 installation.
-</p>
+<strong>Npcap</strong>
+
+<small>
+Official Npcap site
+</small>
+
+</div>
+
+</div>
 
 </a>
 
 </div>
 
 
-<div class="col-md-6 col-lg-3">
+<div class="col-md-6">
 
 <a
-href="https://gitlab.com/Spet001/msclients"
+href="https://buzzheavier.com/turbm180v9i6"
 target="_blank"
-class="panel panel-pad d-block h-100"
 >
 
-<div class="icon mb-3">
-<i class="bi bi-git"></i>
+<div class="resource">
+
+<div class="resource-icon">
+<i class="bi bi-controller"></i>
 </div>
 
-<h5>
-MS Client Resources
-</h5>
+<div>
 
-<p class="muted mb-0">
-Related Microsoft Store client resources.
-</p>
+<strong>BO2 PC Files</strong>
+
+<small>
+User-provided BO2 resource
+</small>
+
+</div>
+
+</div>
 
 </a>
 
 </div>
 
 
-<div class="col-md-6 col-lg-3">
+<div class="col-md-6">
 
-<div class="panel panel-pad h-100">
+<a
+href="https://drive.google.com/file/d/144MtGL73suIjFeWrYUHBa5c3AWDnXdnD/view?usp=sharing"
+target="_blank"
+>
 
-<div class="icon mb-3">
-<i class="bi bi-terminal"></i>
+<div class="resource">
+
+<div class="resource-icon">
+<i class="bi bi-tools"></i>
 </div>
 
-<h5>
-RUN_GUI
-</h5>
+<div>
 
-<p class="muted mb-0">
-Use the RUN_GUI executable supplied with your relay package.
-</p>
+<strong>Tool Files</strong>
+
+<small>
+User-provided resource
+</small>
 
 </div>
+
+</div>
+
+</a>
+
+</div>
+
+
+<div class="col-md-6">
+
+<a
+href="https://t.me/ModdingXZ/20303"
+target="_blank"
+>
+
+<div class="resource">
+
+<div class="resource-icon">
+<i class="bi bi-diagram-3"></i>
+</div>
+
+<div>
+
+<strong>Console Bridge</strong>
+
+<small>
+Modding XZ Telegram post
+</small>
+
+</div>
+
+</div>
+
+</a>
+
+</div>
+
+
+<div class="col-md-6">
+
+<a
+href="https://moddingxz.co.uk/t.html"
+target="_blank"
+>
+
+<div class="resource">
+
+<div class="resource-icon">
+<i class="bi bi-globe"></i>
+</div>
+
+<div>
+
+<strong>Modding XZ Guide</strong>
+
+<small>
+Main guide
+</small>
+
+</div>
+
+</div>
+
+</a>
+
+</div>
+
+
+<div class="col-md-6">
+
+<a
+href="https://t.me/moddingxz"
+target="_blank"
+>
+
+<div class="resource">
+
+<div class="resource-icon">
+<i class="bi bi-telegram"></i>
+</div>
+
+<div>
+
+<strong>Modding XZ Telegram</strong>
+
+<small>
+Updates and support
+</small>
+
+</div>
+
+</div>
+
+</a>
 
 </div>
 
@@ -2659,38 +3233,100 @@ Use the RUN_GUI executable supplied with your relay package.
 </section>
 
 
-<footer>
+<!-- FINAL -->
+
+<section class="section">
 
 <div class="container">
 
-<div class="row align-items-center g-3">
+<div class="panel text-center">
 
-<div class="col-md-8">
+<div class="stat-icon mx-auto">
 
-<div class="fw-bold text-white">
 <i class="bi bi-controller"></i>
-MODDING XZ
+
+</div>
+
+<h2 class="fw-bold">
+🎮 BO2 Console Bridge
+</h2>
+
+<p class="panel-text">
+
+BO2 Resurge is the primary supported setup in this guide.
+The MS Store client is also listed as supported.
+
+</p>
+
+
+<div class="d-flex justify-content-center flex-wrap gap-2">
+
+<a
+href="#setup"
+class="btn btn-xz"
+>
+
+<i class="bi bi-arrow-up"></i>
+Back To Setup
+
+</a>
+
+
+<a
+href="https://t.me/ModdingXZ/20303"
+target="_blank"
+class="btn btn-dark-xz"
+>
+
+<i class="bi bi-telegram"></i>
+Console Bridge
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="container text-center">
+
+<div class="xz">
+𝕄𝕠𝕕𝕕𝕚𝕟𝕘 𝕏
+</div>
+
+<div class="mt-2">
+BO2 Console Bridge Setup
 </div>
 
 <div class="small mt-2">
-BO2 Relay Utility // Interactive network setup
+Made for the BO2 community. 🎮
 </div>
 
-</div>
+<div class="mt-3">
 
-<div class="col-md-4 text-md-end">
-
-<button
-class="btn btn-outline-xz btn-sm"
-onclick="resetEverything()"
+<a
+href="https://moddingxz.co.uk"
+target="_blank"
 >
+moddingxz.co.uk
+</a>
 
-<i class="bi bi-trash3"></i>
-RESET ALL DATA
+&nbsp; · &nbsp;
 
-</button>
-
-</div>
+<a
+href="https://t.me/moddingxz"
+target="_blank"
+>
+Telegram
+</a>
 
 </div>
 
@@ -2699,362 +3335,152 @@ RESET ALL DATA
 </footer>
 
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-
-<div
-id="toast"
-class="toast"
->
-
-<div class="toast-body">
-
-<i class="bi bi-check-circle-fill text-success"></i>
-
-<span id="toastMessage">
-Copied.
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
 <script>
 
-/* =====================================================
-   MODDING XZ // BO2 RELAY UTILITY
-===================================================== */
+/* ================================
+   STORAGE
+================================ */
 
-const STORAGE="moddingxz_bo2_relay_v3";
+const STORAGE_KEY =
+"moddingxz_bo2_bridge_v5";
 
-let step=1;
 
-const totalSteps=8;
+let state = {
 
+    step:1,
 
-/* =========================
-   TOAST
-========================= */
+    pcIp:"",
 
-function notify(message){
+    gateway:"",
 
-    document.getElementById("toastMessage")
-        .textContent=message;
-
-    bootstrap.Toast.getOrCreateInstance(
-        document.getElementById("toast"),
-        {delay:2200}
-    ).show();
-
-}
-
-
-/* =========================
-   COPY
-========================= */
-
-async function copy(text){
-
-    try{
-
-        await navigator.clipboard.writeText(text);
-
-        notify("Copied to clipboard.");
-
-    }catch{
-
-        notify("Could not access clipboard.");
-
-    }
-
-}
-
-
-/* =========================
-   IP VALIDATION
-========================= */
-
-function validIP(ip){
-
-    const parts=ip.trim().split(".");
-
-    return parts.length===4 &&
-        parts.every(
-            x =>
-            /^\d+$/.test(x) &&
-            Number(x)>=0 &&
-            Number(x)<=255
-        );
-
-}
-
-
-function updateIPStatus(){
-
-    const ip=document.getElementById("pcIp").value.trim();
-    const gateway=document.getElementById("gateway").value.trim();
-
-    const ipStatus=document.getElementById("ipStatus");
-    const gatewayStatus=document.getElementById("gatewayStatus");
-
-    if(!ip){
-
-        ipStatus.textContent="Enter the IPv4 address from ipconfig.";
-        ipStatus.className="input-status";
-
-    }else if(validIP(ip)){
-
-        ipStatus.innerHTML=
-            '<span class="valid"><i class="bi bi-check-circle"></i> Valid IPv4 address</span>';
-
-    }else{
-
-        ipStatus.innerHTML=
-            '<span class="invalid"><i class="bi bi-x-circle"></i> Invalid IPv4 address</span>';
-
-    }
-
-
-    if(!gateway){
-
-        gatewayStatus.textContent="Enter the Default Gateway from ipconfig.";
-        gatewayStatus.className="input-status";
-
-    }else if(validIP(gateway)){
-
-        gatewayStatus.innerHTML=
-            '<span class="valid"><i class="bi bi-check-circle"></i> Valid gateway</span>';
-
-    }else{
-
-        gatewayStatus.innerHTML=
-            '<span class="invalid"><i class="bi bi-x-circle"></i> Invalid gateway</span>';
-
-    }
-
-}
-
-
-/* =========================
-   SAVE
-========================= */
-
-function save(){
-
-    const data={
-
-        pcIp:
-            document.getElementById("pcIp").value.trim(),
-
-        gateway:
-            document.getElementById("gateway").value.trim(),
-
-        router:
-            document.getElementById("router").value,
-
-        client:
-            document.querySelector(
-                'input[name="client"]:checked'
-            )?.value || "Resurge"
-
-    };
-
-    localStorage.setItem(
-        STORAGE,
-        JSON.stringify(data)
-    );
-
-    updateSummary();
-    generatePorts();
-
-}
-
-
-/* =========================
-   LOAD
-========================= */
-
-function load(){
-
-    const raw=localStorage.getItem(STORAGE);
-
-    if(!raw) return;
-
-    try{
-
-        const data=JSON.parse(raw);
-
-        if(data.pcIp)
-            document.getElementById("pcIp").value=data.pcIp;
-
-        if(data.gateway)
-            document.getElementById("gateway").value=data.gateway;
-
-        if(data.router)
-            document.getElementById("router").value=data.router;
-
-        if(data.client){
-
-            const radio=
-                document.querySelector(
-                    `input[name="client"][value="${data.client}"]`
-                );
-
-            if(radio)
-                radio.checked=true;
-
-        }
-
-    }catch{}
-
-    updateRouter();
-    updateIPStatus();
-    updateSummary();
-    generatePorts();
-
-}
-
-
-/* =========================
-   WIZARD
-========================= */
-
-const stepInfo={
-
-    1:[
-        "Step 1 — Requirements",
-        "Let's make sure everything is ready."
-    ],
-
-    2:[
-        "Step 2 — Network",
-        "Enter your PC IPv4 and gateway."
-    ],
-
-    3:[
-        "Step 3 — Router",
-        "Choose your router."
-    ],
-
-    4:[
-        "Step 4 — Ports",
-        "Generate your UDP forwarding rules."
-    ],
-
-    5:[
-        "Step 5 — RUN_GUI",
-        "Configure the game and relay ports."
-    ],
-
-    6:[
-        "Step 6 — BO2 Client",
-        "Select your BO2 client."
-    ],
-
-    7:[
-        "Step 7 — Review",
-        "Check your complete configuration."
-    ],
-
-    8:[
-        "Step 8 — Ready",
-        "Your relay setup is configured."
-    ]
+    router:""
 
 };
 
 
-function updateWizard(){
+/* ================================
+   LOAD / SAVE
+================================ */
 
-    document.querySelectorAll(".wizard-step")
-        .forEach(el=>{
+function saveState(){
 
-            el.classList.toggle(
-                "active",
-                Number(el.dataset.step)===step
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+    );
+
+}
+
+
+function loadState(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(STORAGE_KEY)
             );
+
+        if(saved){
+
+            state = {
+                ...state,
+                ...saved
+            };
+
+        }
+
+    }catch(e){}
+
+}
+
+
+/* ================================
+   WIZARD
+================================ */
+
+const totalSteps = 9;
+
+
+function showStep(step){
+
+    state.step = step;
+
+    document
+        .querySelectorAll(".step")
+        .forEach(el => {
+
+            el.classList.remove("active");
 
         });
 
 
-    document.getElementById("stepTitle")
-        .textContent=stepInfo[step][0];
-
-    document.getElementById("stepDescription")
-        .textContent=stepInfo[step][1];
-
-
-    document.getElementById("wizardProgress")
-        .style.width=
-        ((step/totalSteps)*100)+"%";
+    const current =
+        document.querySelector(
+            `.step[data-step="${step}"]`
+        );
 
 
-    document.getElementById("backButton")
-        .disabled=step===1;
+    if(current){
+
+        current.classList.add("active");
+
+    }
 
 
-    document.getElementById("nextButton")
-        .innerHTML=
-        step===totalSteps
-        ? '<i class="bi bi-check-lg"></i> FINISH'
-        : 'NEXT <i class="bi bi-arrow-right"></i>';
+    document.getElementById("stepCount")
+        .innerText =
+        `Step ${step} of ${totalSteps}`;
 
 
-    updateSummary();
+    document.getElementById("progressBar")
+        .style.width =
+        `${(step / totalSteps) * 100}%`;
+
+
+    document.getElementById("prevBtn")
+        .disabled =
+        step === 1;
+
+
+    if(step === totalSteps){
+
+        document.getElementById("nextBtn")
+            .innerHTML =
+            `<i class="bi bi-check-lg"></i> Finish`;
+
+    }else{
+
+        document.getElementById("nextBtn")
+            .innerHTML =
+            `Next <i class="bi bi-arrow-right"></i>`;
+
+    }
+
+
+    saveState();
 
 }
 
 
 function nextStep(){
 
-    save();
+    collectInputs();
 
-    if(step===2){
+    if(state.step < totalSteps){
 
-        const ip=document.getElementById("pcIp").value.trim();
-        const gateway=document.getElementById("gateway").value.trim();
+        showStep(state.step + 1);
 
-        if(!validIP(ip)){
-
-            notify("Enter a valid PC IPv4 address.");
-            document.getElementById("pcIp").focus();
-
-            return;
-
-        }
-
-        if(!validIP(gateway)){
-
-            notify("Enter a valid Default Gateway.");
-            document.getElementById("gateway").focus();
-
-            return;
-
-        }
-
-    }
-
-
-    if(step<totalSteps){
-
-        step++;
-
-        updateWizard();
-
-        document.getElementById("setup")
-            .scrollIntoView({
-                behavior:"smooth",
-                block:"start"
-            });
+        window.scrollTo({
+            top:
+                document.getElementById("setup")
+                    .offsetTop - 80,
+            behavior:"smooth"
+        });
 
     }else{
 
-        notify("BO2 relay setup complete.");
+        showToast("Setup checklist complete");
 
     }
 
@@ -3063,476 +3489,482 @@ function nextStep(){
 
 function previousStep(){
 
-    if(step>1){
+    if(state.step > 1){
 
-        step--;
+        collectInputs();
 
-        updateWizard();
+        showStep(state.step - 1);
 
     }
 
 }
 
 
-/* =========================
-   ROUTER
-========================= */
+/* ================================
+   INPUTS
+================================ */
 
-function updateRouter(){
+function collectInputs(){
 
-    const value=
-        document.getElementById("router").value;
+    const pc =
+        document.getElementById("pcIp");
 
-    document.querySelectorAll(".router-info")
-        .forEach(el=>{
-            el.classList.remove("active");
+    const gateway =
+        document.getElementById("gateway");
+
+
+    if(pc)
+        state.pcIp = pc.value.trim();
+
+
+    if(gateway)
+        state.gateway = gateway.value.trim();
+
+
+    updateIPDisplays();
+
+    saveState();
+
+}
+
+
+function updateIPDisplays(){
+
+    const ip =
+        state.pcIp || "YOUR_PC_IP";
+
+
+    const host =
+        document.getElementById("portHostIp");
+
+    if(host)
+        host.innerText = ip;
+
+
+    const generator =
+        document.getElementById("generatorIp");
+
+
+    if(generator && state.pcIp){
+
+        generator.value =
+            state.pcIp;
+
+    }
+
+
+    const rule =
+        document.getElementById("forwardExample");
+
+
+    if(rule){
+
+        rule.innerText =
+`Name: BO2-Console-Bridge
+Protocol: UDP
+External: 3060-3080
+Internal: 3060-3080
+Host IP: ${ip}`;
+
+    }
+
+}
+
+
+/* ================================
+   ROUTERS
+================================ */
+
+function selectRouter(el,name){
+
+    document
+        .querySelectorAll(".router-card")
+        .forEach(card =>
+            card.classList.remove("active")
+        );
+
+
+    el.classList.add("active");
+
+
+    state.router = name;
+
+
+    const guides = {
+
+        "BT":
+        `<strong>BT:</strong>
+        Find Port Forwarding / Port Sharing in your hub settings.
+        Forward UDP 3060–3080 to your PC.`,
+
+        "Virgin Media":
+        `<strong>Virgin Media:</strong>
+        Open Advanced Settings and find Port Forwarding.
+        Forward UDP 3060–3080 to your PC.`,
+
+        "Sky":
+        `<strong>Sky:</strong>
+        Find the router's port forwarding / port management section.
+        Forward UDP 3060–3080 to your PC.`,
+
+        "EE":
+        `<strong>EE:</strong>
+        Find Port Forwarding in your hub settings.
+        Forward UDP 3060–3080 to your PC.`,
+
+        "TP-Link":
+        `<strong>TP-Link:</strong>
+        Advanced → NAT Forwarding → Port Forwarding.
+        Create a UDP 3060–3080 rule.`,
+
+        "ASUS":
+        `<strong>ASUS:</strong>
+        Advanced Settings → WAN → Virtual Server / Port Forwarding.`,
+
+        "NETGEAR":
+        `<strong>NETGEAR:</strong>
+        Advanced → Advanced Setup → Port Forwarding.`,
+
+        "Other":
+        `<strong>Other router:</strong>
+        Search your router settings for Port Forwarding,
+        Virtual Server, NAT or Gaming.`
+
+    };
+
+
+    document.getElementById("routerGuide")
+        .innerHTML =
+        guides[name] || guides["Other"];
+
+
+    saveState();
+
+}
+
+
+/* ================================
+   COPY
+================================ */
+
+function copyText(text){
+
+    navigator.clipboard
+        .writeText(text)
+        .then(() => {
+
+            showToast("Copied");
+
+        })
+        .catch(() => {
+
+            const area =
+                document.createElement("textarea");
+
+            area.value = text;
+
+            document.body.appendChild(area);
+
+            area.select();
+
+            document.execCommand("copy");
+
+            area.remove();
+
+            showToast("Copied");
+
         });
 
-
-    const idMap={
-
-        generic:"routerGeneric",
-        bt:"routerBt",
-        virgin:"routerVirgin",
-        sky:"routerSky",
-        ee:"routerEe",
-        talktalk:"routerTalkTalk",
-        tp:"routerTp",
-        asus:"routerAsus",
-        netgear:"routerNetgear"
-
-    };
+}
 
 
-    const target=
-        document.getElementById(
-            idMap[value]
-        );
+function copyCode(button){
 
-    if(target)
-        target.classList.add("active");
+    const box =
+        button.closest(".code-box");
 
+    const pre =
+        box.querySelector("pre");
 
-    save();
+    copyText(pre.innerText);
 
 }
 
 
-/* =========================
-   PORTS
-========================= */
+/* ================================
+   TOAST
+================================ */
 
-function generatePorts(){
+function showToast(message){
 
-    const ip=
-        document.getElementById("pcIp")
-        ?.value.trim() || "YOUR-PC-IP";
-
-    const ports=[
-        [3074,"Game"],
-        [3075,"Forwarded UDP"],
-        [3076,"Forwarded UDP"],
-        [3077,"Relay"]
-    ];
-
-    document.getElementById("portRows")
-        .innerHTML=
-
-        ports.map(p=>`
-
-        <tr>
-
-            <td>
-                <span class="port">${p[0]}</span>
-            </td>
-
-            <td>UDP</td>
-
-            <td>
-                <span class="config-value">
-                    ${ip}
-                </span>
-            </td>
-
-            <td>${p[1]}</td>
-
-        </tr>
-
-        `).join("");
-
-}
+    let toast =
+        document.getElementById("xzToast");
 
 
-/* =========================
-   PORT COPY
-========================= */
+    if(!toast){
 
-function copyPortRules(){
+        toast =
+            document.createElement("div");
 
-    const ip=
-        document.getElementById("pcIp")
-        .value.trim() || "YOUR-PC-IP";
+        toast.id =
+            "xzToast";
 
-    copy(
-`MODDING XZ // BO2 RELAY
+        toast.style.position =
+            "fixed";
 
-PROTOCOL: UDP
-DESTINATION: ${ip}
+        toast.style.right =
+            "20px";
 
-3074 -> ${ip}:3074
-3075 -> ${ip}:3075
-3076 -> ${ip}:3076
-3077 -> ${ip}:3077
+        toast.style.bottom =
+            "20px";
 
-RANGE OPTION:
-UDP 3074-3077 -> ${ip}`
+        toast.style.zIndex =
+            "99999";
+
+        toast.style.padding =
+            "12px 18px";
+
+        toast.style.background =
+            "#15151d";
+
+        toast.style.border =
+            "1px solid #6845a0";
+
+        toast.style.borderRadius =
+            "12px";
+
+        toast.style.color =
+            "#fff";
+
+        toast.style.boxShadow =
+            "0 10px 30px rgba(0,0,0,.5)";
+
+        document.body.appendChild(toast);
+
+    }
+
+
+    toast.innerText =
+        message;
+
+    toast.style.display =
+        "block";
+
+
+    clearTimeout(
+        window.toastTimer
     );
 
+
+    window.toastTimer =
+        setTimeout(() => {
+
+            toast.style.display =
+                "none";
+
+        },1800);
+
 }
 
 
-function copyRouterRule(){
+/* ================================
+   PORT GENERATOR
+================================ */
 
-    const ip=
-        document.getElementById("pcIp")
-        .value.trim() || "YOUR-PC-IP";
+function updateGenerator(){
 
-    copy(
-`PORT FORWARD
+    const ip =
+        document.getElementById("generatorIp")
+            .value.trim()
+        || "YOUR_PC_IP";
 
+
+    const name =
+        document.getElementById("generatorName")
+            .value.trim()
+        || "BO2-Console-Bridge";
+
+
+    document.getElementById("generatedRule")
+        .innerText =
+`Name: ${name}
 Protocol: UDP
-External: 3074-3077
-Internal: 3074-3077
-Destination: ${ip}
-
-Game Port: 3074
-Relay Port: 3077`
-    );
+External: 3060-3080
+Internal: 3060-3080
+Host IP: ${ip}`;
 
 }
 
 
-/* =========================
-   SUMMARY
-========================= */
+function generateIndividualPorts(){
 
-function updateSummary(){
-
-    const ip=
-        document.getElementById("pcIp")
-        ?.value.trim();
-
-    const gateway=
-        document.getElementById("gateway")
-        ?.value.trim();
-
-    const router=
-        document.getElementById("router")
-        ?.value;
-
-    const client=
-        document.querySelector(
-            'input[name="client"]:checked'
-        )?.value || "Resurge";
+    const ip =
+        document.getElementById("generatorIp")
+            .value.trim()
+        || "YOUR_PC_IP";
 
 
-    document.getElementById("summaryIp")
-        .textContent=ip || "Not configured";
-
-    document.getElementById("summaryGateway")
-        .textContent=gateway || "Not configured";
-
-    document.getElementById("summaryRouter")
-        .textContent=router || "Generic";
-
-    document.getElementById("summaryClient")
-        .textContent=client;
-
-}
+    let output = "";
 
 
-/* =========================
-   FULL CONFIG
-========================= */
+    for(
+        let port = 3060;
+        port <= 3080;
+        port++
+    ){
 
-function getConfig(){
-
-    return {
-
-        pcIPv4:
-            document.getElementById("pcIp").value.trim(),
-
-        gateway:
-            document.getElementById("gateway").value.trim(),
-
-        router:
-            document.getElementById("router").value,
-
-        client:
-            document.querySelector(
-                'input[name="client"]:checked'
-            )?.value || "Resurge",
-
-        protocol:"UDP",
-
-        forwardingRange:"3074-3077",
-
-        gamePort:3074,
-
-        relayPort:3077
-
-    };
-
-}
-
-
-function copyFullConfig(){
-
-    const c=getConfig();
-
-    copy(
-`MODDING XZ // BO2 RELAY SETUP
-
-PC IPv4: ${c.pcIPv4}
-Gateway: ${c.gateway}
-Router: ${c.router}
-Client: ${c.client}
-
+        output +=
+`Rule ${port}
 Protocol: UDP
-Forwarding: 3074-3077
+External: ${port}
+Internal: ${port}
+Host IP: ${ip}
 
-Game Port: 3074
-Relay Port: 3077
+`;
 
-LAUNCH ORDER:
-
-1. Launch BO2
-2. Enter Custom Game
-3. Open lobby
-4. Run RUN_GUI as Administrator
-5. Game Port = 3074
-6. Relay Port = 3077
-7. Press START
-8. Friends connect`
-    );
-
-}
+    }
 
 
-function exportConfig(){
+    document.getElementById("individualOutput")
+        .innerText =
+        output;
 
-    const blob=
-        new Blob(
-            [JSON.stringify(getConfig(),null,4)],
-            {type:"application/json"}
-        );
 
-    const url=
-        URL.createObjectURL(blob);
-
-    const a=document.createElement("a");
-
-    a.href=url;
-
-    a.download=
-        "moddingxz-bo2-relay-config.json";
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-    URL.revokeObjectURL(url);
-
-    notify("Configuration exported.");
+    document.getElementById("individualPorts")
+        .style.display =
+        "block";
 
 }
 
 
-/* =========================
-   CHECKLIST
-========================= */
+/* ================================
+   SUPPORT REPORT
+================================ */
 
-function updateCheck(){
+function generateReport(){
 
-    const boxes=
-        [...document.querySelectorAll(
-            "#checklist input"
-        )];
-
-    let complete=0;
-
-    boxes.forEach(box=>{
-
-        const key=
-            "xz_check_"+box.dataset.key;
-
-        const saved=
-            localStorage.getItem(key)==="true";
-
-        box.checked=saved;
-
-        const row=
-            box.closest(".check");
-
-        row.classList.toggle(
-            "done",
-            saved
-        );
-
-        if(saved)
-            complete++;
-
-        box.onchange=()=>{
-
-            localStorage.setItem(
-                key,
-                box.checked
-            );
-
-            updateCheck();
-
-        };
-
-    });
+    collectInputs();
 
 
-    const percent=
-        Math.round(
-            complete/boxes.length*100
-        );
+    const connection =
+        document.getElementById("connectionType")
+            .value;
 
 
-    document.getElementById("percent")
-        .textContent=percent+"%";
-
-    document.getElementById("checkProgress")
-        .style.width=percent+"%";
-
-    document.getElementById("checkCount")
-        .textContent=
-        `${complete} / ${boxes.length} complete`;
-
-}
+    const bridge =
+        document.getElementById("bridgeStatus")
+            .value;
 
 
-function resetChecklist(){
+    const consoleStatus =
+        document.getElementById("consoleStatus")
+            .value;
 
-    document.querySelectorAll(
-        "#checklist input"
-    ).forEach(box=>{
 
-        localStorage.removeItem(
-            "xz_check_"+box.dataset.key
-        );
+    const report =
+`𝕄𝕠𝕕𝕕𝕚𝕟𝕘 𝕏 // BO2 CONSOLE BRIDGE REPORT
 
-    });
+PC IPv4:
+${state.pcIp || "Not provided"}
 
-    updateCheck();
+Default Gateway:
+${state.gateway || "Not provided"}
 
-    notify("Checklist reset.");
+Router:
+${state.router || "Not provided"}
+
+Connection:
+${connection}
+
+UDP RANGE:
+3060-3080
+
+BO2 GAME PORT:
+3074
+
+CONSOLE BRIDGE:
+${bridge}
+
+WIRESHARK:
+UDP 3060-3080
+
+CONSOLE:
+${consoleStatus}
+
+KNOWN WI-FI BUG:
+${connection === "Wi-Fi"
+    ? "Wi-Fi currently being investigated"
+    : "Not using Wi-Fi"}
+
+CONSOLE BRIDGE POST:
+https://t.me/ModdingXZ/20303`;
+
+
+    document.getElementById("supportReport")
+        .innerText =
+        report;
 
 }
 
 
-/* =========================
-   RESET
-========================= */
+/* ================================
+   START
+================================ */
 
-function resetEverything(){
-
-    if(
-        !confirm(
-            "Reset all Modding XZ relay configuration?"
-        )
-    )
-        return;
+loadState();
 
 
-    localStorage.removeItem(STORAGE);
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    document.querySelectorAll(
-        "#checklist input"
-    ).forEach(box=>{
+        const pc =
+            document.getElementById("pcIp");
 
-        localStorage.removeItem(
-            "xz_check_"+box.dataset.key
+
+        const gateway =
+            document.getElementById("gateway");
+
+
+        if(pc)
+            pc.value =
+                state.pcIp || "";
+
+
+        if(gateway)
+            gateway.value =
+                state.gateway || "";
+
+
+        updateIPDisplays();
+
+        updateGenerator();
+
+        showStep(
+            state.step || 1
         );
 
-    });
-
-    location.reload();
-
-}
+    }
+);
 
 
-/* =========================
-   EVENTS
-========================= */
+/* ================================
+   AUTO SAVE
+================================ */
 
-document.getElementById("pcIp")
-    .addEventListener("input",()=>{
-        updateIPStatus();
-        save();
-    });
+document.addEventListener(
+    "input",
+    () => {
 
-document.getElementById("gateway")
-    .addEventListener("input",()=>{
-        updateIPStatus();
-        save();
-    });
+        collectInputs();
 
-document.getElementById("router")
-    .addEventListener("change",updateRouter);
-
-document.querySelectorAll(
-    'input[name="client"]'
-).forEach(input=>{
-    input.addEventListener("change",save);
-});
-
-document.querySelectorAll(
-    ".requirement input"
-).forEach(input=>{
-
-    input.addEventListener("change",()=>{
-
-        input.closest(".requirement")
-            .classList.toggle(
-                "done",
-                input.checked
-            );
-
-    });
-
-});
-
-
-document.querySelectorAll(
-    ".trouble-card"
-).forEach(card=>{
-
-    card.addEventListener("click",()=>{
-
-        card.classList.toggle("open");
-
-    });
-
-});
-
-
-/* =========================
-   INIT
-========================= */
-
-load();
-
-updateCheck();
-
-updateWizard();
+    }
+);
 
 </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
