@@ -2,211 +2,697 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080611">
 
-    <title>Modding XZ | Updates Coming Soon</title>
-    <meta name="description" content="Modding XZ website updates are in progress. Visit our Telegram channel for the latest news, announcements and updates.">
-    <meta name="theme-color" content="#0b0712">
+  <title>Modding XZ | Updates Coming Soon</title>
+  <meta name="description" content="Modding XZ website updates are in progress. Join our Telegram for the latest news, announcements, BO2 updates and more.">
 
-    <style>
-        :root {
-            --background: #0b0712;
-            --card: #15101f;
-            --purple: #a855f7;
-            --purple-light: #c084fc;
-            --text: #f5f3f7;
-            --muted: #aaa2b5;
-            --border: rgba(168, 85, 247, 0.22);
-        }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root {
+      --bg: #080611;
+      --panel: #110d20;
+      --purple: #a855f7;
+      --pink: #d946ef;
+      --text: #f8f7ff;
+      --muted: #aaa3bf;
+      --border: rgba(168, 85, 247, .24);
+    }
 
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background:
-                radial-gradient(
-                    circle at 50% 20%,
-                    rgba(126, 34, 206, 0.16),
-                    transparent 45%
-                ),
-                var(--background);
-            color: var(--text);
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-        }
+    * { box-sizing: border-box; }
 
-        .container {
-            width: 100%;
-            max-width: 650px;
-            padding: 45px 30px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
-        }
+    html { scroll-behavior: smooth; }
 
-        .logo {
-            font-size: clamp(30px, 7vw, 46px);
-            font-weight: 900;
-            letter-spacing: 2px;
-            margin-bottom: 28px;
-        }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, sans-serif;
+    }
 
-        .logo span {
-            color: var(--purple-light);
-        }
+    a { text-decoration: none; }
 
-        .status {
-            display: inline-block;
-            padding: 9px 14px;
-            margin-bottom: 24px;
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            background: rgba(168, 85, 247, 0.09);
-            color: var(--purple-light);
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-        }
+    .background {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(126,34,206,.22), transparent 38%),
+        radial-gradient(ellipse at 10% 65%, rgba(88,28,135,.14), transparent 35%),
+        #080611;
+    }
 
-        h1 {
-            margin-bottom: 18px;
-            font-size: clamp(28px, 6vw, 40px);
-            line-height: 1.2;
-        }
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .15;
+      background-image:
+        linear-gradient(rgba(168,85,247,.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,.1) 1px, transparent 1px);
+      background-size: 55px 55px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
 
-        h1 span {
-            color: var(--purple-light);
-        }
+    /* Navigation */
+    .navbar {
+      padding: 18px 0;
+      background: rgba(8,6,17,.82);
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      backdrop-filter: blur(18px);
+    }
 
-        .description {
-            max-width: 490px;
-            margin: 0 auto 26px;
-            color: var(--muted);
-            font-size: 16px;
-            line-height: 1.8;
-        }
+    .brand {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
 
-        .notice {
-            margin: 0 auto 30px;
-            padding: 15px;
-            border: 1px solid rgba(168, 85, 247, 0.16);
-            border-radius: 12px;
-            background: rgba(168, 85, 247, 0.06);
-            color: #d5c9e2;
-            font-size: 14px;
-            line-height: 1.7;
-        }
+    .brand:hover { color: white; }
 
-        .telegram-button {
-            display: inline-block;
-            padding: 15px 25px;
-            border-radius: 10px;
-            background: var(--purple);
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: background 0.2s ease, transform 0.2s ease;
-        }
+    .brand-xz { color: #c084fc; }
 
-        .telegram-button:hover {
-            background: #9333ea;
-            transform: translateY(-2px);
-        }
+    .brand-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      margin-right: 9px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(168,85,247,.12);
+      color: #d8a4ff;
+    }
 
-        .telegram-button:focus-visible {
-            outline: 3px solid var(--purple-light);
-            outline-offset: 4px;
-        }
+    .nav-telegram {
+      padding: 10px 17px;
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+      transition: .25s;
+    }
 
-        .footer {
-            margin-top: 35px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-            color: #81788c;
-            font-size: 12px;
-            line-height: 1.8;
-        }
+    .nav-telegram:hover {
+      background: rgba(168,85,247,.15);
+      color: white;
+      border-color: var(--purple);
+    }
 
-        .footer a {
-            color: var(--purple-light);
-            text-decoration: none;
-        }
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 95px 0 70px;
+    }
 
-        .footer a:hover {
-            text-decoration: underline;
-        }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 15px;
+      border: 1px solid rgba(192,38,255,.45);
+      border-radius: 50px;
+      background: rgba(168,85,247,.09);
+      color: #e9b5ff;
+      font-size: .73rem;
+      font-weight: 800;
+      letter-spacing: 1.1px;
+    }
 
-        @media (max-width: 480px) {
-            .container {
-                padding: 35px 20px;
-            }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d946ef;
+      box-shadow: 0 0 12px #d946ef;
+      animation: pulse 1.8s infinite;
+    }
 
-            .description {
-                font-size: 15px;
-            }
+    @keyframes pulse {
+      50% { opacity: .35; }
+    }
 
-            .telegram-button {
-                width: 100%;
-            }
-        }
-    </style>
+    .hero-title {
+      margin: 28px 0 22px;
+      font-size: clamp(2.8rem, 6vw, 5.3rem);
+      font-weight: 900;
+      line-height: .99;
+      letter-spacing: -3.5px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, #c084fc, #e879f9, #9333ea);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      max-width: 540px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.9;
+    }
+
+    .hero-description strong { color: #f1eaff; }
+
+    .btn-purple {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 15px 23px;
+      border: 1px solid #d879ff;
+      border-radius: 12px;
+      background: linear-gradient(110deg, #9333ea, #c026ff);
+      box-shadow: 0 8px 30px rgba(168,85,247,.22);
+      color: white;
+      font-weight: 800;
+      transition: .25s;
+    }
+
+    .btn-purple:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 38px rgba(192,38,255,.35);
+      color: white;
+    }
+
+    .btn-outline-custom {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 15px 21px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 12px;
+      background: rgba(255,255,255,.025);
+      color: #eee8f8;
+      font-weight: 700;
+      transition: .25s;
+    }
+
+    .btn-outline-custom:hover {
+      border-color: var(--border);
+      background: rgba(168,85,247,.08);
+      color: white;
+    }
+
+    /* Hero graphic */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 390px;
+    }
+
+    .orb {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,85,247,.3), rgba(126,34,206,.05) 60%, transparent 72%);
+      filter: blur(12px);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 330px;
+      height: 125px;
+      border: 1px solid rgba(216,164,255,.6);
+      border-radius: 50%;
+      transform: rotate(-28deg);
+      box-shadow: 0 0 24px rgba(168,85,247,.12);
+    }
+
+    .orbit.two {
+      width: 280px;
+      height: 105px;
+      transform: rotate(38deg);
+      border-color: rgba(192,38,255,.4);
+    }
+
+    .logo-art {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 205px;
+      height: 205px;
+      border: 1px solid rgba(216,164,255,.4);
+      border-radius: 42px;
+      background: linear-gradient(145deg, #241038, #0c0916 70%);
+      box-shadow:
+        0 0 35px rgba(168,85,247,.22),
+        inset 0 0 35px rgba(168,85,247,.08);
+      color: #d8a4ff;
+      font-size: 6rem;
+      font-weight: 900;
+      transform: rotate(-7deg);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .logo-art span {
+      background: linear-gradient(135deg, #fff, #d946ef 60%, #9333ea);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-7deg); }
+      50% { transform: translateY(-12px) rotate(-4deg); }
+    }
+
+    /* Feature strip */
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 100%;
+      padding: 13px 0;
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 43px;
+      height: 43px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: rgba(168,85,247,.09);
+      color: #d8a4ff;
+      font-size: 1.15rem;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: .88rem;
+    }
+
+    .feature small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: .75rem;
+    }
+
+    /* Main information card */
+    .update-card {
+      position: relative;
+      overflow: hidden;
+      padding: 35px;
+      border: 1px solid rgba(168,85,247,.45);
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse at 0% 100%, rgba(126,34,206,.12), transparent 45%),
+        linear-gradient(145deg, rgba(20,14,36,.97), rgba(10,8,20,.97));
+      box-shadow: 0 20px 70px rgba(0,0,0,.2);
+    }
+
+    .telegram-icon-large {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 85px;
+      height: 85px;
+      margin: 0 auto;
+      border: 1px solid rgba(168,85,247,.5);
+      border-radius: 25px;
+      background: linear-gradient(145deg, rgba(168,85,247,.25), rgba(168,85,247,.04));
+      color: #d8a4ff;
+      font-size: 2.7rem;
+    }
+
+    .eyebrow {
+      color: #c084fc;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+
+    .update-copy {
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .mini-feature {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin: 15px 0;
+    }
+
+    .mini-feature-icon {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 43px;
+      height: 43px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: rgba(168,85,247,.08);
+      color: #d8a4ff;
+      font-size: 1.1rem;
+    }
+
+    .mini-feature strong {
+      display: block;
+      font-size: .87rem;
+    }
+
+    .mini-feature small {
+      color: var(--muted);
+      font-size: .75rem;
+    }
+
+    /* Bottom highlights */
+    .highlight {
+      padding: 25px 10px;
+      text-align: center;
+    }
+
+    .highlight i {
+      display: block;
+      margin-bottom: 13px;
+      color: #c084fc;
+      font-size: 1.7rem;
+    }
+
+    .highlight strong {
+      display: block;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    .highlight small {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: .7rem;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+
+    .divider-right {
+      border-right: 1px solid rgba(255,255,255,.12);
+    }
+
+    footer {
+      margin-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(8,6,17,.65);
+    }
+
+    .footer-text {
+      color: #89819f;
+      font-size: .78rem;
+      line-height: 1.9;
+    }
+
+    .footer-link { color: #c084fc; }
+    .footer-link:hover { color: #e879f9; }
+
+    @media (max-width: 991px) {
+      .hero { padding-top: 70px; }
+      .hero-visual { min-height: 330px; }
+      .hero-title { letter-spacing: -2px; }
+    }
+
+    @media (max-width: 575px) {
+      .hero { padding: 55px 0 45px; }
+      .hero-title { font-size: 2.8rem; }
+      .hero-visual { min-height: 290px; }
+      .logo-art { width: 155px; height: 155px; font-size: 4.5rem; }
+      .orb { width: 240px; height: 240px; }
+      .orbit { width: 260px; height: 100px; }
+      .update-card { padding: 25px 20px; }
+      .btn-purple, .btn-outline-custom { width: 100%; }
+      .divider-right { border-right: 0; }
+      .highlight { padding: 18px 4px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <main class="container">
-        <div class="logo">MODDING <span>XZ</span></div>
+  <div class="background"></div>
+  <div class="grid-bg"></div>
 
-        <div class="status">WEBSITE UPDATES IN PROGRESS</div>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container d-flex align-items-center justify-content-between">
+      <a href="#home" class="brand d-flex align-items-center">
+        <span class="brand-icon"><i class="bi bi-lightning-charge-fill"></i></span>
+        MODDING <span class="brand-xz ms-1">XZ</span>
+      </a>
 
-        <h1>ALL NEWS <span>COMING SOON</span></h1>
+      <a class="nav-telegram" href="https://t.me/moddingxz"
+         target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-telegram me-2"></i>
+        <span class="d-none d-sm-inline">Join Telegram</span>
+        <span class="d-sm-none">Telegram</span>
+      </a>
+    </div>
+  </nav>
 
-        <p class="description">
-            We're working on updating the Modding XZ website.
-            All the latest news, announcements and project updates
-            will be shared on our Telegram channel.
-        </p>
+  <main id="home">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-7">
+            <div class="status">
+              <span class="status-dot"></span>
+              Website updates in progress
+            </div>
 
-        <div class="notice">
-            <strong>Keep up to date!</strong><br>
-            Some guides and tools may be outdated while updates
-            are in progress. Join our Telegram for the latest
-            information and announcements.
+            <h1 class="hero-title">
+              ALL NEWS<br>
+              <span class="gradient-text">COMING SOON</span>
+            </h1>
+
+            <p class="hero-description mb-4">
+              We're working on updating the <strong>Modding XZ</strong>
+              website. All the latest news, announcements and project
+              updates will be shared on our Telegram channel.
+            </p>
+
+            <div class="d-flex flex-column flex-sm-row gap-3">
+              <a href="https://t.me/moddingxz"
+                 class="btn-purple"
+                 target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-telegram fs-5"></i>
+                Join Modding XZ on Telegram
+                <i class="bi bi-arrow-up-right"></i>
+              </a>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-3 mt-4 g-2">
+              <div class="col">
+                <div class="feature">
+                  <div class="feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                  <div>
+                    <strong>Latest News</strong>
+                    <small>Be the first to know</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="feature">
+                  <div class="feature-icon"><i class="bi bi-bell-fill"></i></div>
+                  <div>
+                    <strong>Announcements</strong>
+                    <small>Project updates</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="feature">
+                  <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                  <div>
+                    <strong>Guides & Tools</strong>
+                    <small>More to come</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Decorative logo graphic -->
+          <div class="col-lg-5">
+            <div class="hero-visual" aria-label="Modding XZ decorative graphic">
+              <div class="orb"></div>
+              <div class="orbit"></div>
+              <div class="orbit two"></div>
+              <div class="logo-art" aria-hidden="true">
+                <span>XZ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Telegram update card -->
+    <section class="pb-4">
+      <div class="container">
+        <div class="update-card">
+          <div class="row align-items-center g-4">
+            <div class="col-md-2 text-center">
+              <div class="telegram-icon-large">
+                <i class="bi bi-telegram"></i>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="eyebrow mb-2">Keep up to date</div>
+              <h2 class="h3 fw-bold mb-3">Follow Us on Telegram</h2>
+              <p class="update-copy mb-4">
+                Some guides and tools may be outdated while updates are
+                in progress. Join our Telegram for the latest information,
+                announcements and project news.
+              </p>
+              <a href="https://t.me/moddingxz"
+                 target="_blank" rel="noopener noreferrer"
+                 class="btn-purple">
+                <i class="bi bi-telegram"></i>
+                Visit Telegram Channel
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+
+            <div class="col-md-4">
+              <div class="ps-md-4">
+                <div class="mini-feature">
+                  <div class="mini-feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                  <div>
+                    <strong>Instant Updates</strong>
+                    <small>News, releases and more</small>
+                  </div>
+                </div>
+
+                <div class="mini-feature">
+                  <div class="mini-feature-icon"><i class="bi bi-people-fill"></i></div>
+                  <div>
+                    <strong>Community</strong>
+                    <small>Stay connected with Modding XZ</small>
+                  </div>
+                </div>
+
+                <div class="mini-feature">
+                  <div class="mini-feature-icon"><i class="bi bi-controller"></i></div>
+                  <div>
+                    <strong>Gaming Projects</strong>
+                    <small>Guides, tools and announcements</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Highlights -->
+    <section class="py-4">
+      <div class="container">
+        <div class="row row-cols-2 row-cols-md-4">
+          <div class="col divider-right">
+            <div class="highlight">
+              <i class="bi bi-code-slash"></i>
+              <strong>MODDING</strong>
+              <small>Made for gamers</small>
+            </div>
+          </div>
+
+          <div class="col divider-right">
+            <div class="highlight">
+              <i class="bi bi-people"></i>
+              <strong>COMMUNITY</strong>
+              <small>Growing together</small>
+            </div>
+          </div>
+
+          <div class="col divider-right">
+            <div class="highlight">
+              <i class="bi bi-stars"></i>
+              <strong>UPDATES</strong>
+              <small>News & announcements</small>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="highlight">
+              <i class="bi bi-infinity"></i>
+              <strong>MORE TO COME</strong>
+              <small>Watch this space</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4">
+    <div class="container">
+      <div class="row align-items-center gy-3">
+        <div class="col-md-4 text-center text-md-start">
+          <a href="#home" class="brand">
+            MODDING <span class="brand-xz">XZ</span>
+          </a>
         </div>
 
-        <a
-            class="telegram-button"
-            href="https://t.me/moddingxz"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            Join Modding XZ on Telegram →
-        </a>
-
-        <footer class="footer">
-            © <span id="year">2026</span> Modding XZ. All rights reserved.<br>
+        <div class="col-md-4 text-center">
+          <div class="footer-text">
+            &copy; <span id="year">2026</span> Modding XZ. All rights reserved.<br>
             Latest updates:
-            <a
-                href="https://t.me/moddingxz"
-                target="_blank"
-                rel="noopener noreferrer"
-            >t.me/moddingxz</a>
-        </footer>
-    </main>
+            <a class="footer-link" href="https://t.me/moddingxz"
+               target="_blank" rel="noopener noreferrer">t.me/moddingxz</a>
+          </div>
+        </div>
 
-    <script>
-        document.getElementById("year").textContent =
-            new Date().getFullYear();
-    </script>
+        <div class="col-md-4 text-center text-md-end">
+          <a class="nav-telegram d-inline-block" href="https://t.me/moddingxz"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Modding XZ on Telegram">
+            <i class="bi bi-telegram fs-5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
