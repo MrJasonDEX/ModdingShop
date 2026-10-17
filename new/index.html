@@ -2,1132 +2,766 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090711">
-  <meta name="description" content="Discover gaming mods, homebrew, modding tools, open-source projects and community releases with ModdingXZ.">
-  <title>ModdingXZ | Community Pulse</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090711">
+<meta name="description" content="Discover gaming mods, homebrew, open-source tools, mod loaders and community projects from across the internet.">
+<title>ModdingXZ — Community Discovery</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #090711;
-      --panel: #100d1a;
-      --panel2: #151020;
-      --border: #29213a;
-      --purple: #a855f7;
-      --purple2: #7c3aed;
-      --text: #f4f0fa;
-      --muted: #a59bb5;
-      --green: #4ade80;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(ellipse at 50% -20%, #32154e 0, transparent 45%),
-        var(--bg);
-      color: var(--text);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      min-height: 100vh;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button, input, select { font: inherit; }
-
-    .navbar {
-      background: rgba(9,7,17,.94);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-    }
-
-    .brand {
-      font-weight: 950;
-      letter-spacing: -.8px;
-      font-size: 1.35rem;
-    }
-
-    .brand span { color: var(--purple); }
-
-    .live-dot {
-      display: inline-block;
-      height: 8px;
-      width: 8px;
-      background: var(--green);
-      border-radius: 50%;
-      margin-right: 7px;
-      box-shadow: 0 0 10px #4ade8066;
-    }
-
-    .hero {
-      padding: 52px 0 30px;
-    }
-
-    .eyebrow {
-      color: #c084fc;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: .72rem;
-      font-weight: 800;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.3rem, 6vw, 4.5rem);
-      font-weight: 950;
-      letter-spacing: -2px;
-      line-height: 1.02;
-      margin: 12px 0;
-    }
-
-    .gradient-text {
-      background: linear-gradient(90deg, #c084fc, #8b5cf6, #e879f9);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .muted { color: var(--muted); }
-
-    .search-wrap {
-      display: flex;
-      gap: 10px;
-      padding: 8px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      max-width: 760px;
-      margin-top: 26px;
-    }
-
-    .search-wrap input {
-      min-width: 0;
-      flex: 1;
-      color: white;
-      background: transparent;
-      border: 0;
-      outline: none;
-      padding: 9px 12px;
-    }
-
-    .btn-purple {
-      color: white;
-      background: var(--purple2);
-      border: 1px solid #8b5cf6;
-      border-radius: 10px;
-      padding: 10px 17px;
-      font-weight: 750;
-    }
-
-    .btn-purple:hover {
-      background: #6d28d9;
-      color: white;
-    }
-
-    .btn-quiet {
-      background: #181223;
-      border: 1px solid var(--border);
-      color: #ded5ed;
-      border-radius: 9px;
-      padding: 8px 12px;
-    }
-
-    .btn-quiet:hover, .btn-quiet.active {
-      color: white;
-      border-color: var(--purple);
-      background: #28163e;
-    }
-
-    .section-heading {
-      font-weight: 850;
-      letter-spacing: -.4px;
-    }
-
-    .section-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 28px 0 15px;
-    }
-
-    .feed-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 25px 0;
-    }
-
-    .project-card {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(145deg, var(--panel2), var(--panel));
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      padding: 19px;
-      transition: transform .18s ease, border-color .18s ease;
-      overflow: hidden;
-    }
-
-    .project-card:hover {
-      transform: translateY(-3px);
-      border-color: #8151b9;
-    }
-
-    .project-owner {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      font-size: .82rem;
-      color: var(--muted);
-      min-width: 0;
-    }
-
-    .avatar {
-      width: 29px;
-      height: 29px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: #251634;
-      flex-shrink: 0;
-    }
-
-    .project-name {
-      font-size: 1.03rem;
-      font-weight: 850;
-      overflow-wrap: anywhere;
-      margin: 17px 0 9px;
-    }
-
-    .project-description {
-      font-size: .88rem;
-      color: #bcb2ca;
-      line-height: 1.55;
-      flex: 1;
-      overflow-wrap: anywhere;
-    }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 13px 0;
-    }
-
-    .tag {
-      border: 1px solid #3b2b50;
-      background: #21152e;
-      color: #d8b4fe;
-      font-size: .7rem;
-      padding: 4px 8px;
-      border-radius: 6px;
-    }
-
-    .project-stats {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
-      font-size: .76rem;
-      color: var(--muted);
-      padding: 12px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .project-footer {
-      display: flex;
-      gap: 8px;
-      margin-top: 5px;
-    }
-
-    .project-footer a {
-      flex: 1;
-      text-align: center;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      padding: 8px 5px;
-      font-size: .8rem;
-      font-weight: 750;
-    }
-
-    .project-footer a:first-child {
-      background: #28163e;
-      border-color: #563479;
-    }
-
-    .project-footer a:hover { border-color: var(--purple); }
-
-    .status-panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 15px;
-      font-size: .82rem;
-    }
-
-    .feed-info {
-      font-size: .78rem;
-      color: var(--muted);
-    }
-
-    .loading {
-      border: 2px solid #35234a;
-      border-top-color: var(--purple);
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      animation: spin .7s linear infinite;
-      margin: 30px auto;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .empty-state {
-      border: 1px dashed #403050;
-      border-radius: 14px;
-      padding: 35px 18px;
-      text-align: center;
-      color: var(--muted);
-      background: #100c18;
-    }
-
-    .release-row {
-      padding: 15px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 10px;
-    }
-
-    .release-row h3 { font-size: .97rem; font-weight: 800; }
-
-    .release-body {
-      font-size: .84rem;
-      color: #bcb2ca;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      max-height: 110px;
-      overflow: auto;
-      margin: 10px 0;
-    }
-
-    .site-footer {
-      margin-top: 65px;
-      border-top: 1px solid var(--border);
-      padding: 25px 0;
-      font-size: .82rem;
-      color: var(--muted);
-    }
-
-    .small-link {
-      color: #c084fc;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .filter-line {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .filter-line select {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      color: var(--text);
-      border-radius: 8px;
-      padding: 8px;
-      max-width: 100%;
-    }
-
-    @media (max-width: 575px) {
-      .hero { padding-top: 38px; }
-      .search-wrap { flex-wrap: wrap; }
-      .search-wrap input { flex-basis: 100%; }
-      .search-wrap button { flex: 1; }
-      .section-bar { align-items: flex-start; flex-direction: column; }
-      .project-card { padding: 16px; }
-    }
-  </style>
+<style>
+:root {
+  --bg:#090711;--panel:#100d19;--panel2:#171121;--border:#2b223a;
+  --purple:#a855f7;--purple2:#7c3aed;--text:#f7f3fc;
+  --muted:#a69bb7;--green:#4ade80;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -15%,#35164c 0,transparent 42%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.navbar{background:rgba(9,7,17,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}
+.brand{font-size:1.35rem;font-weight:950;letter-spacing:-.8px}
+.brand span,.purple{color:var(--purple)}
+.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:7px;box-shadow:0 0 10px #4ade8055}
+.hero{padding:48px 0 25px}
+.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:.7rem;color:#c084fc;font-weight:850}
+.hero h1{font-size:clamp(2.5rem,7vw,5rem);line-height:.99;font-weight:950;letter-spacing:-2.5px;margin:13px 0}
+.gradient{background:linear-gradient(90deg,#d8b4fe,#a855f7,#e879f9);background-clip:text;-webkit-background-clip:text;color:transparent}
+.muted{color:var(--muted)}
+.searchbox{display:flex;gap:8px;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:14px;max-width:850px;margin-top:25px}
+.searchbox input{min-width:0;flex:1;padding:10px;background:transparent;border:0;outline:none;color:white}
+.btn-purple{background:var(--purple2);border:1px solid #9560e8;color:white;border-radius:9px;padding:10px 15px;font-weight:800}
+.btn-purple:hover{background:#6d28d9;color:white}
+.btn-quiet{background:#171121;border:1px solid var(--border);color:#ddd3eb;border-radius:9px;padding:8px 12px}
+.btn-quiet:hover,.btn-quiet.active{background:#2b1740;color:white;border-color:#8b5cf6}
+.source-row,.topic-row,.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.source-row{margin-top:18px}
+.statusbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:13px 15px;background:var(--panel);border:1px solid var(--border);border-radius:12px;font-size:.82rem}
+.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
+.stat{padding:16px;background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--border);border-radius:12px}
+.stat strong{display:block;font-size:1.55rem;letter-spacing:-.5px}
+.stat span{font-size:.77rem;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:30px 0 15px}
+.section-head h2{font-size:1.35rem;font-weight:900;margin:4px 0}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+select{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:9px;padding:9px;max-width:100%}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.project{min-width:0;display:flex;flex-direction:column;background:linear-gradient(145deg,#171121,#0f0c17);border:1px solid var(--border);border-radius:15px;padding:17px;transition:transform .18s,border-color .18s}
+.project:hover{transform:translateY(-3px);border-color:#8350b4}
+.project-top{display:flex;align-items:center;gap:9px;min-width:0}
+.project-icon{height:38px;width:38px;flex-shrink:0;object-fit:cover;border-radius:10px;background:#281637;border:1px solid #38254c}
+.project-owner{min-width:0;font-size:.75rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.project-title{font-size:1rem;font-weight:850;line-height:1.35;margin:16px 0 8px;overflow-wrap:anywhere}
+.project-title a:hover{color:#d8b4fe}
+.project-desc{font-size:.83rem;line-height:1.55;color:#bdb2cc;overflow-wrap:anywhere;flex:1;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin:13px 0}
+.tag{font-size:.68rem;padding:4px 7px;border-radius:6px;background:#251633;border:1px solid #422b59;color:#d8b4fe}
+.source-tag{background:#171e2c;border-color:#303d53;color:#b8d4ff}
+.project-stats{display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid var(--border);padding:12px 0;color:var(--muted);font-size:.75rem}
+.project-actions{display:flex;gap:7px;margin-top:3px}
+.project-actions a{flex:1;text-align:center;font-size:.78rem;font-weight:800;padding:9px 5px;border:1px solid var(--border);border-radius:8px}
+.project-actions a:first-child{background:#28163e;border-color:#50336b}
+.project-actions a:hover{border-color:var(--purple)}
+.empty{padding:35px 18px;border:1px dashed #443153;border-radius:13px;text-align:center;color:var(--muted);grid-column:1/-1}
+.loader{height:29px;width:29px;border:2px solid #362344;border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite;margin:30px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+footer{margin-top:60px;border-top:1px solid var(--border);padding:25px 0;color:var(--muted);font-size:.8rem}
+footer a{color:#c084fc;text-decoration:underline}
+.note{padding:14px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;font-size:.8rem;color:var(--muted);line-height:1.6}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){
+ .hero{padding-top:36px}.grid{grid-template-columns:1fr}
+ .searchbox{flex-wrap:wrap}.searchbox input{flex-basis:100%}
+ .searchbox button{flex:1}.stats-grid{gap:7px}.stat{padding:12px}
+ .stat strong{font-size:1.25rem}.project{padding:16px}
+}
+</style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg sticky-top">
-  <div class="container py-2">
-    <a class="brand" href="#" aria-label="ModdingXZ home">MODDING<span>XZ</span></a>
-    <div class="d-flex align-items-center gap-3">
-      <span class="small muted d-none d-sm-inline">
-        <span class="live-dot"></span>Community discovery
-      </span>
-      <a class="btn-quiet" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
-        Telegram ↗
-      </a>
-    </div>
+<nav class="navbar sticky-top">
+ <div class="container py-2 d-flex align-items-center justify-content-between">
+  <a class="brand" href="#">MODDING<span>XZ</span></a>
+  <div class="d-flex align-items-center gap-3">
+   <span class="muted small d-none d-sm-inline"><span class="live-dot"></span>Community Pulse</span>
+   <a class="btn-quiet" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
   </div>
+ </div>
 </nav>
 
 <main class="container">
-  <header class="hero">
-    <div class="eyebrow">The modding community, in one place</div>
-    <h1>Discover what's<br><span class="gradient-text">being built.</span></h1>
-    <p class="muted mb-0" style="max-width:650px">
-      Explore public modding projects, open-source tools, homebrew,
-      game modifications and developer releases discovered from GitHub.
-      New projects appear as the source data changes.
-    </p>
+ <header class="hero">
+  <div class="eyebrow">Gaming mods · Open source · Homebrew</div>
+  <h1>What's being<br><span class="gradient">built right now?</span></h1>
+  <p class="muted" style="max-width:720px">
+   Find projects, mods, tools and releases from across the gaming community.
+   Automatically discovered from public sources, all in one place.
+  </p>
 
-    <form class="search-wrap" id="searchForm">
-      <input id="searchInput" type="search"
-        placeholder="Search BO2, homebrew, loaders, GTA mods, Minecraft..."
-        aria-label="Search public GitHub projects">
-      <button class="btn-purple" type="submit">Search projects</button>
-      <button class="btn-quiet" id="clearSearch" type="button">Clear</button>
-    </form>
+  <form id="searchForm" class="searchbox">
+   <input id="searchInput" type="search" placeholder="Search BO2, PS5 homebrew, GTA, loaders, Minecraft..." aria-label="Search modding projects">
+   <button class="btn-purple" type="submit">Search</button>
+   <button class="btn-quiet" id="clearBtn" type="button">Clear</button>
+  </form>
 
-    <div class="feed-tabs" id="feedTabs" aria-label="Feed type">
-      <button class="btn-quiet active" data-feed="latest">Latest projects</button>
-      <button class="btn-quiet" data-feed="updated">Recently updated</button>
-      <button class="btn-quiet" data-feed="popular">Popular projects</button>
-      <button class="btn-quiet" data-feed="releases">Project releases</button>
-    </div>
+  <div class="source-row" id="sourceFilters">
+   <button class="btn-quiet active" data-source="all">All sources</button>
+   <button class="btn-quiet" data-source="github">GitHub</button>
+   <button class="btn-quiet" data-source="modrinth">Modrinth</button>
+   <button class="btn-quiet" data-source="thunderstore">Thunderstore</button>
+  </div>
 
-    <div class="status-panel d-flex flex-wrap justify-content-between align-items-center gap-2">
-      <span id="connectionStatus"><span class="live-dot"></span>Connecting to GitHub...</span>
-      <span id="lastUpdated" class="muted">Waiting for first feed</span>
-    </div>
-  </header>
+  <div class="tabs mt-3" id="sortFilters">
+   <button class="btn-quiet active" data-sort="newest">Latest</button>
+   <button class="btn-quiet" data-sort="popular">Popular</button>
+   <button class="btn-quiet" data-sort="updated">Recently updated</button>
+  </div>
 
-  <section aria-labelledby="discoverTitle">
-    <div class="section-bar">
-      <div>
-        <div class="eyebrow">Community feed</div>
-        <h2 class="section-heading h3 mb-1" id="discoverTitle">Explore modding projects</h2>
-        <div class="feed-info" id="feedDescription">
-          Discovering recently created public repositories.
-        </div>
-      </div>
-      <div class="filter-line">
-        <select id="categoryFilter" aria-label="Filter by topic">
-          <option value="all">All topics</option>
-          <option value="callofduty">Call of Duty / BO2</option>
-          <option value="playstation">PlayStation</option>
-          <option value="xbox">Xbox</option>
-          <option value="nintendo">Nintendo</option>
-          <option value="pc">PC modding</option>
-          <option value="minecraft">Minecraft</option>
-          <option value="gta">GTA</option>
-          <option value="homebrew">Homebrew</option>
-          <option value="tools">Modding tools</option>
-        </select>
-        <select id="languageFilter" aria-label="Filter by programming language">
-          <option value="all">All languages</option>
-          <option value="C++">C++</option>
-          <option value="C#">C#</option>
-          <option value="C">C</option>
-          <option value="Python">Python</option>
-          <option value="JavaScript">JavaScript</option>
-          <option value="Rust">Rust</option>
-          <option value="Java">Java</option>
-        </select>
-        <button class="btn-quiet" id="refreshButton" type="button">↻ Refresh</button>
-      </div>
-    </div>
+  <div class="statusbar mt-3">
+   <span id="status"><span class="live-dot"></span>Connecting to public APIs...</span>
+   <span class="muted" id="updatedAt">Starting first scan</span>
+  </div>
 
-    <div id="errorBox" class="alert alert-warning d-none" role="status"></div>
-    <div id="projectGrid" class="row g-3" aria-live="polite">
-      <div class="col-12"><div class="loading"></div></div>
-    </div>
-    <div class="text-center mt-4">
-      <button class="btn-quiet" id="loadMoreButton" type="button">Load more projects</button>
-    </div>
-  </section>
+  <div class="stats-grid">
+   <div class="stat"><strong id="totalCount">—</strong><span>Projects discovered</span></div>
+   <div class="stat"><strong id="sourceCount">0/3</strong><span>Sources responding</span></div>
+   <div class="stat"><strong id="lastScan">—</strong><span>Last scan</span></div>
+  </div>
+ </header>
 
-  <section id="releasesSection" class="mt-5">
-    <div class="section-bar">
-      <div>
-        <div class="eyebrow">Published by project creators</div>
-        <h2 class="section-heading h3 mb-1">Latest project releases</h2>
-        <p class="muted small mb-0">
-          Release notes are fetched from public GitHub repositories.
-        </p>
-      </div>
-      <button class="btn-quiet" id="loadReleasesButton" type="button">
-        Load releases
-      </button>
-    </div>
-    <div id="releaseList">
-      <div class="empty-state">
-        <div class="mb-2">No release feed loaded yet.</div>
-        <span class="small">Select “Project releases” above or use “Load releases”.</span>
-      </div>
-    </div>
-  </section>
+ <section>
+  <div class="section-head">
+   <div>
+    <div class="eyebrow">The community feed</div>
+    <h2 id="feedTitle">Discover projects</h2>
+    <div class="muted small" id="feedSubtitle">Searching multiple public sources.</div>
+   </div>
+   <div class="filters">
+    <select id="gameFilter" aria-label="Filter by game or category">
+     <option value="all">All categories</option>
+     <option value="callofduty">Call of Duty / BO2</option>
+     <option value="playstation">PlayStation</option>
+     <option value="xbox">Xbox</option>
+     <option value="nintendo">Nintendo</option>
+     <option value="minecraft">Minecraft</option>
+     <option value="gta">GTA</option>
+     <option value="pc">PC modding</option>
+     <option value="homebrew">Homebrew</option>
+     <option value="tools">Tools / loaders</option>
+    </select>
+    <select id="typeFilter" aria-label="Filter by content type">
+     <option value="all">All content types</option>
+     <option value="mod">Mods</option>
+     <option value="modpack">Modpacks</option>
+     <option value="resourcepack">Resource packs</option>
+     <option value="shader">Shaders</option>
+     <option value="tool">Tools / source code</option>
+    </select>
+   </div>
+  </div>
 
-  <section class="mt-5">
-    <div class="section-bar">
-      <div>
-        <div class="eyebrow">Browse by interest</div>
-        <h2 class="section-heading h3 mb-1">Explore a community</h2>
-        <p class="muted small mb-0">Choose a topic to discover matching public projects.</p>
-      </div>
-    </div>
-    <div class="d-flex flex-wrap gap-2" id="topicButtons">
-      <button class="btn-quiet" data-topic="Black Ops 2 modding">Black Ops 2</button>
-      <button class="btn-quiet" data-topic="Call of Duty modding">Call of Duty</button>
-      <button class="btn-quiet" data-topic="PlayStation homebrew">PlayStation</button>
-      <button class="btn-quiet" data-topic="Xbox modding">Xbox</button>
-      <button class="btn-quiet" data-topic="Nintendo homebrew">Nintendo</button>
-      <button class="btn-quiet" data-topic="GTA modding">GTA</button>
-      <button class="btn-quiet" data-topic="Minecraft mods">Minecraft</button>
-      <button class="btn-quiet" data-topic="PC game modding">PC modding</button>
-      <button class="btn-quiet" data-topic="game mod loader">Mod loaders</button>
-      <button class="btn-quiet" data-topic="game reverse engineering">Game research</button>
-      <button class="btn-quiet" data-topic="game mod menu">Mod menus</button>
-      <button class="btn-quiet" data-topic="open source game tools">Open-source tools</button>
-    </div>
-  </section>
+  <div id="errorNotice" class="note mb-3 d-none"></div>
+  <div id="projectGrid" class="grid" aria-live="polite"><div class="empty"><div class="loader"></div>Scanning community sources...</div></div>
+  <div class="text-center mt-4">
+   <button class="btn-quiet" id="moreBtn" type="button">Load more</button>
+   <button class="btn-purple ms-2" id="refreshBtn" type="button">↻ Refresh feeds</button>
+  </div>
+ </section>
 
-  <section class="mt-5">
-    <div class="status-panel">
-      <strong>How this feed works</strong>
-      <p class="muted small mt-2 mb-0">
-        ModdingXZ searches public GitHub repositories and links back to the original creators.
-        Results are automated discoveries, not endorsements or safety checks.
-        GitHub search is not a complete index of every modding community, and some projects
-        may not appear if their descriptions, topics or repository metadata don't match a search.
-        Always inspect a project's source, licence and reputation before downloading anything.
-      </p>
-    </div>
-  </section>
+ <section class="mt-5">
+  <div class="section-head">
+   <div>
+    <div class="eyebrow">Jump into a topic</div>
+    <h2>Explore the modding scene</h2>
+   </div>
+  </div>
+  <div class="topic-row" id="topicButtons">
+   <button class="btn-quiet" data-query="Black Ops 2 modding">Black Ops 2</button>
+   <button class="btn-quiet" data-query="Call of Duty mod tools">Call of Duty</button>
+   <button class="btn-quiet" data-query="PlayStation homebrew">PlayStation</button>
+   <button class="btn-quiet" data-query="PS5 homebrew">PS5 homebrew</button>
+   <button class="btn-quiet" data-query="Xbox homebrew">Xbox</button>
+   <button class="btn-quiet" data-query="Nintendo Switch homebrew">Nintendo</button>
+   <button class="btn-quiet" data-query="GTA mods">GTA</button>
+   <button class="btn-quiet" data-query="Minecraft mod">Minecraft</button>
+   <button class="btn-quiet" data-query="game mod loader">Mod loaders</button>
+   <button class="btn-quiet" data-query="game reverse engineering">Game research</button>
+   <button class="btn-quiet" data-query="game mod menu">Mod menus</button>
+   <button class="btn-quiet" data-query="open source game tools">Open-source tools</button>
+  </div>
+ </section>
+
+ <section class="mt-5">
+  <div class="note">
+   <strong class="text-white">About this feed</strong><br>
+   ModdingXZ automatically searches public APIs and links to the original project pages.
+   Results are not endorsements, and downloads are not scanned for malware.
+   Search results depend on the data each platform exposes. A project's absence doesn't
+   mean it doesn't exist. Always check the creator, licence, source code and download
+   instructions before running files.
+  </div>
+ </section>
 </main>
 
-<footer class="site-footer">
-  <div class="container d-flex flex-wrap justify-content-between gap-3">
-    <span>© <span id="year"></span> ModdingXZ · Community Pulse</span>
-    <span>
-      Data via <a class="small-link" href="https://docs.github.com/en/rest/search/search" target="_blank" rel="noopener noreferrer">GitHub API</a>
-      · <a class="small-link" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Join Telegram</a>
-    </span>
-  </div>
+<footer>
+ <div class="container d-flex flex-wrap justify-content-between gap-3">
+  <span>© <span id="year"></span> ModdingXZ · Community Discovery</span>
+  <span>
+   Data from <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>,
+   <a href="https://modrinth.com" target="_blank" rel="noopener noreferrer">Modrinth</a> and
+   <a href="https://thunderstore.io" target="_blank" rel="noopener noreferrer">Thunderstore</a>
+  </span>
+ </div>
 </footer>
 
 <script>
 (() => {
-  "use strict";
+"use strict";
 
-  const API = "https://api.github.com";
-  const PER_PAGE = 30;
-  const CACHE_PREFIX = "moddingxz-community-pulse-v1:";
-  const CACHE_TTL = 5 * 60 * 1000;
-  const REFRESH_INTERVAL = 10 * 60 * 1000;
+const GITHUB = "https://api.github.com";
+const MODRINTH = "https://api.modrinth.com/v2";
+const THUNDERSTORE_COMMUNITIES = [
+  "lethal-company",
+  "riskofrain2",
+  "valheim",
+  "content-warning"
+];
 
-  const state = {
-    feed: "latest",
-    query: "",
-    page: 1,
-    loading: false,
-    hasMore: false,
-    repositories: [],
-    seenIds: new Set(),
-    releasesLoaded: false,
-    lastRequestAt: 0
-  };
+const CACHE_PREFIX = "xz-pulse-cache-v2:";
+const CACHE_MS = 5 * 60 * 1000;
+const REFRESH_MS = 15 * 60 * 1000;
+const PAGE_SIZE = 24;
 
-  const $ = id => document.getElementById(id);
+const state = {
+  source: "all",
+  sort: "newest",
+  query: "",
+  page: 1,
+  loading: false,
+  allItems: [],
+  sourceStatus: {github:"waiting",modrinth:"waiting",thunderstore:"waiting"},
+  sourceErrors: [],
+  lastScan: 0
+};
 
-  const grid = $("projectGrid");
-  const status = $("connectionStatus");
-  const lastUpdated = $("lastUpdated");
-  const errorBox = $("errorBox");
-  const moreButton = $("loadMoreButton");
+const $ = id => document.getElementById(id);
 
-  const feedDescriptions = {
-    latest: "Recently created public repositories matching modding-related searches.",
-    updated: "Projects with recent repository activity.",
-    popular: "Discover projects with stars and community attention.",
-    releases: "Browse projects and inspect their published releases."
-  };
+const grid = $("projectGrid");
+const status = $("status");
+const updatedAt = $("updatedAt");
+const moreBtn = $("moreBtn");
+const refreshBtn = $("refreshBtn");
+const errorNotice = $("errorNotice");
 
-  const categoryTerms = {
-    all: "",
-    callofduty: "call of duty black ops cod bo2",
-    playstation: "playstation ps4 ps5 ps3 homebrew",
-    xbox: "xbox homebrew modding",
-    nintendo: "nintendo switch homebrew",
-    pc: "pc game modding",
-    minecraft: "minecraft mod forge fabric",
-    gta: "gta grand theft auto",
-    homebrew: "homebrew jailbreak",
-    tools: "modding tools loader"
-  };
+const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+})[c]);
 
-  const safeUrl = value => {
-    try {
-      const url = new URL(value);
-      return url.protocol === "https:" && url.hostname === "github.com"
-        ? url.href : "#";
-    } catch {
-      return "#";
-    }
-  };
+function safeExternal(url) {
+  try {
+    const parsed = new URL(url);
+    if (parsed.protocol !== "https:") return "#";
+    const allowed = [
+      "github.com","modrinth.com","thunderstore.io",
+      "cdn.modrinth.com","thunderstore.io"
+    ];
+    if (!allowed.some(domain => parsed.hostname === domain ||
+        parsed.hostname.endsWith("." + domain))) return "#";
+    return parsed.href;
+  } catch { return "#"; }
+}
 
-  const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
+function dateValue(value) {
+  const date = new Date(value || 0);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+}
 
-  const dateText = value => {
-    if (!value) return "Unknown";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "Unknown";
-    return date.toLocaleDateString(undefined, {
-      year: "numeric", month: "short", day: "numeric"
-    });
-  };
+function dateLabel(value) {
+  if (!value) return "Date unknown";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Date unknown";
+  return date.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
+}
 
-  const relativeTime = value => {
-    if (!value) return "date unknown";
-    const seconds = Math.max(0, Math.floor((Date.now() - new Date(value)) / 1000));
-    if (seconds < 60) return "just now";
-    if (seconds < 3600) return Math.floor(seconds / 60) + "m ago";
-    if (seconds < 86400) return Math.floor(seconds / 3600) + "h ago";
-    if (seconds < 2592000) return Math.floor(seconds / 86400) + "d ago";
-    return dateText(value);
-  };
+function ago(value) {
+  const time = dateValue(value);
+  if (!time) return "date unknown";
+  const seconds = Math.max(0,Math.floor((Date.now()-time)/1000));
+  if (seconds < 60) return "just now";
+  if (seconds < 3600) return Math.floor(seconds/60)+"m ago";
+  if (seconds < 86400) return Math.floor(seconds/3600)+"h ago";
+  if (seconds < 2592000) return Math.floor(seconds/86400)+"d ago";
+  return dateLabel(value);
+}
 
-  const numberText = value => {
-    const number = Number(value || 0);
-    return number >= 1000
-      ? (number / 1000).toFixed(number >= 10000 ? 0 : 1) + "k"
-      : number.toLocaleString();
-  };
+function number(value) {
+  const n = Number(value || 0);
+  return n >= 1000000 ? (n/1000000).toFixed(1)+"m" :
+         n >= 1000 ? (n/1000).toFixed(1)+"k" : n.toLocaleString();
+}
 
-  function cacheGet(key) {
-    try {
-      const raw = localStorage.getItem(CACHE_PREFIX + key);
-      if (!raw) return null;
-      const item = JSON.parse(raw);
-      if (!item.time || Date.now() - item.time > CACHE_TTL) return null;
-      return item.value;
-    } catch {
-      return null;
-    }
-  }
+function cacheRead(key) {
+  try {
+    const item = JSON.parse(localStorage.getItem(CACHE_PREFIX+key) || "null");
+    if (item && Date.now()-item.time < CACHE_MS) return item.data;
+  } catch {}
+  return null;
+}
 
-  function cacheSet(key, value) {
-    try {
-      localStorage.setItem(CACHE_PREFIX + key, JSON.stringify({
-        time: Date.now(), value
-      }));
-    } catch {
-      // Storage may be disabled or full. The feed still works without it.
-    }
-  }
+function cacheWrite(key,data) {
+  try {
+    localStorage.setItem(CACHE_PREFIX+key,JSON.stringify({time:Date.now(),data}));
+  } catch {}
+}
 
-  async function apiGet(url, cacheKey = url) {
-    const cached = cacheGet(cacheKey);
-    if (cached) return cached;
+async function fetchJson(url,cacheKey,options={}) {
+  const cached = cacheRead(cacheKey);
+  if (cached !== null) return cached;
 
-    const response = await fetch(url, {
-      headers: {
-        "Accept": "application/vnd.github+json"
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(),12000);
+
+  try {
+    const response = await fetch(url,{
+      ...options,
+      signal:controller.signal,
+      headers:{
+        "Accept":"application/json",
+        ...(options.headers || {})
       }
     });
 
-    if (response.status === 403 || response.status === 429) {
-      const reset = response.headers.get("x-ratelimit-reset");
-      const wait = reset
-        ? Math.max(1, Math.ceil((Number(reset) * 1000 - Date.now()) / 60000))
-        : null;
-      const error = new Error(
-        wait
-          ? `GitHub API limit reached. Try again in about ${wait} minute(s).`
-          : "GitHub API rate limit reached. Please try again later."
-      );
-      error.rateLimit = true;
-      throw error;
-    }
-
     if (!response.ok) {
-      throw new Error(`GitHub returned HTTP ${response.status}.`);
+      if (response.status===403 || response.status===429) {
+        const error = new Error("Rate limit reached. Cached data may still be available.");
+        error.rateLimited = true;
+        throw error;
+      }
+      throw new Error("API returned HTTP "+response.status);
     }
 
     const data = await response.json();
-    cacheSet(cacheKey, data);
+    cacheWrite(cacheKey,data);
     return data;
+  } finally {
+    clearTimeout(timeout);
   }
+}
 
-  function buildQuery() {
-    const date = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000)
-      .toISOString().slice(0, 10);
+function makeSearchTerms() {
+  const q = state.query.trim();
+  if (q) return q;
 
-    const base = state.query.trim();
-    const category = $("categoryFilter").value;
-    const language = $("languageFilter").value;
+  const category = $("gameFilter").value;
+  const terms = {
+    all:"game modding OR homebrew OR mod loader",
+    callofduty:"Call of Duty OR Black Ops OR BO2",
+    playstation:"PlayStation OR PS4 OR PS5 homebrew",
+    xbox:"Xbox modding OR Xbox homebrew",
+    nintendo:"Nintendo Switch homebrew",
+    minecraft:"Minecraft mod",
+    gta:"GTA mod OR Grand Theft Auto mod",
+    pc:"PC game modding OR game mod loader",
+    homebrew:"homebrew OR jailbreak",
+    tools:"game modding tools OR mod loader"
+  };
+  return terms[category] || terms.all;
+}
 
-    const terms = base || categoryTerms[category] ||
-      "modding OR homebrew OR game-mod";
+function githubQuery() {
+  const terms = makeSearchTerms().replace(/\s+OR\s+/gi," ");
+  const params = new URLSearchParams({
+    q: terms + " fork:false",
+    sort: state.sort==="popular" ? "stars" : state.sort==="updated" ? "updated" : "created",
+    order:"desc",
+    per_page:String(PAGE_SIZE)
+  });
+  return GITHUB+"/search/repositories?"+params;
+}
 
-    let query = `(${terms})`;
-    if (!base && category === "all") {
-      query = "(modding OR homebrew OR \"game mod\" OR \"mod loader\" OR \"mod menu\")";
-    }
+async function getGithub() {
+  const url = githubQuery();
+  const data = await fetchJson(url,"github:"+url);
+  return (data.items || []).map(repo => ({
+    id:"github:"+repo.id,
+    source:"github",
+    sourceLabel:"GitHub",
+    title:repo.full_name || repo.name,
+    description:repo.description || "No description provided by the creator.",
+    creator:repo.owner?.login || "Unknown creator",
+    creatorUrl:repo.owner?.html_url || "https://github.com",
+    url:repo.html_url,
+    icon:repo.owner?.avatar_url || "",
+    created:repo.created_at,
+    updated:repo.pushed_at || repo.updated_at,
+    score:repo.stargazers_count || 0,
+    downloads:0,
+    language:repo.language || "Source code",
+    type:"tool",
+    tags:[repo.language,...(repo.topics || [])].filter(Boolean).slice(0,4),
+    detail:"★ "+number(repo.stargazers_count)+" stars ·⑂ "+number(repo.forks_count)+" forks"
+  }));
+}
 
-    if (language !== "all") query += ` language:${language}`;
-    query += ` created:>=${date} fork:false`;
+function modrinthSearchQuery() {
+  const params = new URLSearchParams({
+    query:makeSearchTerms(),
+    limit:"30",
+    index:state.sort==="popular" ? "downloads" : state.sort==="updated" ? "updated" : "newest"
+  });
+  return MODRINTH+"/search?"+params;
+}
 
-    return query;
-  }
+async function getModrinth() {
+  const url = modrinthSearchQuery();
+  const data = await fetchJson(url,"modrinth:"+url);
+  return (data.hits || []).map(project => ({
+    id:"modrinth:"+project.project_id,
+    source:"modrinth",
+    sourceLabel:"Modrinth",
+    title:project.title || project.slug,
+    description:project.description || "No description provided by the creator.",
+    creator:project.author || "Community creator",
+    creatorUrl:"https://modrinth.com",
+    url:"https://modrinth.com/"+(project.project_type || "mod")+"/"+encodeURIComponent(project.slug || project.project_id),
+    icon:project.icon_url || "",
+    created:project.date_created,
+    updated:project.date_modified,
+    score:project.downloads || 0,
+    downloads:project.downloads || 0,
+    language:"Minecraft community",
+    type:project.project_type || "mod",
+    tags:(project.categories || []).slice(0,4),
+    detail:"↓ "+number(project.downloads)+" downloads · ♡ "+number(project.follows)+" follows"
+  }));
+}
 
-  function feedSort() {
-    if (state.feed === "popular") return "stars";
-    if (state.feed === "updated") return "updated";
-    return "created";
-  }
+async function getThunderstoreCommunity(community) {
+  const url = "https://thunderstore.io/c/"+encodeURIComponent(community)+"/api/v1/package/";
+  const data = await fetchJson(url,"thunderstore:"+community);
+  if (!Array.isArray(data)) throw new Error("Unexpected Thunderstore response");
 
-  function searchUrl(page) {
-    const params = new URLSearchParams({
-      q: buildQuery(),
-      sort: feedSort(),
-      order: state.feed === "latest" ? "desc" : "desc",
-      per_page: String(PER_PAGE),
-      page: String(page)
-    });
-    return `${API}/search/repositories?${params.toString()}`;
-  }
+  return data.map(pkg => {
+    const versions = Array.isArray(pkg.versions) ? pkg.versions : [];
+    const latest = versions[0] || {};
+    const fullName = (pkg.owner || "unknown")+"-"+(pkg.name || "package");
 
-  function setStatus(message, healthy = null) {
-    const dot = healthy === false ? "" : '<span class="live-dot"></span>';
-    status.innerHTML = dot + escapeHtml(message);
-  }
-
-  function showError(message) {
-    errorBox.textContent = message;
-    errorBox.classList.remove("d-none");
-  }
-
-  function clearError() {
-    errorBox.textContent = "";
-    errorBox.classList.add("d-none");
-  }
-
-  function showLoading() {
-    grid.innerHTML = '<div class="col-12"><div class="loading"></div></div>';
-  }
-
-  function detectTags(repo) {
-    const source = [
-      repo.name, repo.description, repo.language,
-      ...(repo.topics || [])
-    ].filter(Boolean).join(" ").toLowerCase();
-
-    const tags = [];
-    const groups = [
-      ["Call of Duty", /call.of.duty|\bcod\b|\bbo2\b|black.ops/],
-      ["PlayStation", /playstation|\bps[345]\b|ps4|ps5|ps3/],
-      ["Xbox", /\bxbox\b/],
-      ["Nintendo", /nintendo|switch.homebrew/],
-      ["Minecraft", /minecraft|fabric|forge/],
-      ["GTA", /grand.theft.auto|\bgta\b/],
-      ["Homebrew", /homebrew|jailbreak|payload/],
-      ["Modding tools", /modding.tool|mod.menu|mod.loader|trainer/],
-      ["PC modding", /pc.mod|game.mod|reverse.engineering/]
-    ];
-
-    for (const [name, regex] of groups) {
-      if (regex.test(source)) tags.push(name);
-    }
-
-    if (repo.language && !tags.includes(repo.language)) {
-      tags.push(repo.language);
-    }
-
-    return tags.slice(0, 4);
-  }
-
-  function categoryMatches(repo) {
-    const category = $("categoryFilter").value;
-    const language = $("languageFilter").value;
-
-    if (language !== "all" && repo.language !== language) return false;
-    if (category === "all") return true;
-
-    const text = [
-      repo.name, repo.description, repo.language,
-      ...(repo.topics || [])
-    ].filter(Boolean).join(" ").toLowerCase();
-
-    const patterns = {
-      callofduty: /call.of.duty|\bcod\b|\bbo2\b|black.ops/,
-      playstation: /playstation|\bps[345]\b|ps4|ps5|ps3/,
-      xbox: /\bxbox\b/,
-      nintendo: /nintendo|switch/,
-      pc: /pc|windows|linux|game.mod|modding/,
-      minecraft: /minecraft|fabric|forge/,
-      gta: /\bgta\b|grand.theft.auto/,
-      homebrew: /homebrew|jailbreak|payload/,
-      tools: /tool|loader|mod.menu|trainer|modding/
+    return {
+      id:"thunderstore:"+community+":"+(pkg.uuid4 || fullName),
+      source:"thunderstore",
+      sourceLabel:"Thunderstore",
+      title:pkg.name || fullName,
+      description:pkg.versions?.[0]?.description || pkg.name || "Community package",
+      creator:pkg.owner || "Community creator",
+      creatorUrl:"https://thunderstore.io/c/"+encodeURIComponent(community)+"/",
+      url:"https://thunderstore.io/c/"+encodeURIComponent(community)+"/p/"+
+        encodeURIComponent(pkg.owner || "unknown")+"/"+encodeURIComponent(pkg.name || "package")+"/",
+      icon:latest.icon || "",
+      created:latest.date_created || pkg.date_created,
+      updated:latest.date_updated || pkg.date_updated || latest.date_created,
+      score:latest.downloads || 0,
+      downloads:latest.downloads || 0,
+      language:community,
+      type:"mod",
+      tags:[community,...(pkg.categories || []).map(c=>c.name || c)].slice(0,4),
+      detail:"↓ "+number(latest.downloads)+" downloads · "+community,
+      community
     };
+  });
+}
 
-    return patterns[category] ? patterns[category].test(text) : true;
+async function getThunderstore() {
+  const results = await Promise.allSettled(
+    THUNDERSTORE_COMMUNITIES.map(getThunderstoreCommunity)
+  );
+
+  const packages = [];
+  const errors = [];
+
+  results.forEach((result,i) => {
+    if (result.status==="fulfilled") packages.push(...result.value);
+    else errors.push(THUNDERSTORE_COMMUNITIES[i]+": "+result.reason.message);
+  });
+
+  if (!packages.length) {
+    throw new Error(errors.join("; ") || "Thunderstore did not return packages.");
   }
 
-  function repoCard(repo) {
-    const owner = repo.owner || {};
-    const tags = detectTags(repo);
-    const language = repo.language || "Unspecified language";
-    const description = repo.description || "No description provided by the project creator.";
-    const repoUrl = safeUrl(repo.html_url);
-    const ownerUrl = safeUrl(owner.html_url);
-    const topics = (repo.topics || []).slice(0, 3);
-    const allTags = [...new Set([...topics, ...tags])].slice(0, 4);
+  return packages;
+}
 
-    const avatar = owner.avatar_url &&
-      /^https:\/\/avatars\.githubusercontent\.com\//.test(owner.avatar_url)
-      ? owner.avatar_url : "";
+function classify(item) {
+  const text = [
+    item.title,item.description,item.creator,item.language,
+    item.type,item.community,...(item.tags || [])
+  ].filter(Boolean).join(" ").toLowerCase();
 
-    return `
-      <div class="col-12 col-md-6 col-xl-4">
-        <article class="project-card">
+  const category = $("gameFilter").value;
+  const patterns = {
+    callofduty:/call.of.duty|\bcod\b|\bbo2\b|black.ops/,
+    playstation:/playstation|\bps[345]\b|ps4|ps5|ps3/,
+    xbox:/\bxbox\b/,
+    nintendo:/nintendo|switch/,
+    minecraft:/minecraft|fabric|forge|modrinth/,
+    gta:/\bgta\b|grand.theft.auto/,
+    pc:/pc|windows|linux|game.mod|modding/,
+    homebrew:/homebrew|jailbreak|payload/,
+    tools:/tool|loader|mod.menu|trainer|source.code/
+  };
+
+  if (category!=="all" && patterns[category] && !patterns[category].test(text)) return false;
+
+  const type = $("typeFilter").value;
+  if (type!=="all") {
+    if (type==="tool" && item.type!=="tool") return false;
+    if (type!=="tool" && item.type!==type) return false;
+  }
+
+  if (state.source!=="all" && item.source!==state.source) return false;
+  return true;
+}
+
+function sortedItems() {
+  const items = state.allItems.filter(classify);
+  if (state.sort==="popular") {
+    items.sort((a,b)=>(b.score||0)-(a.score||0));
+  } else if (state.sort==="updated") {
+    items.sort((a,b)=>dateValue(b.updated)-dateValue(a.updated));
+  } else {
+    items.sort((a,b)=>dateValue(b.created)-dateValue(a.created));
+  }
+  return items;
+}
+
+function itemCard(item) {
+  const url = safeExternal(item.url);
+  const creatorUrl = safeExternal(item.creatorUrl);
+  const icon = item.icon && /^https:\/\//.test(item.icon)
+    ? `<img class="project-icon" loading="lazy" referrerpolicy="no-referrer" src="${escapeHtml(item.icon)}" alt="">`
+    : `<div class="project-icon d-flex align-items-center justify-content-center purple fw-bold">XZ</div>`;
+
+  const tags = (item.tags || []).slice(0,4);
+  return `
+    <article class="project">
+      <div class="project-top">
+        ${icon}
+        <div class="min-w-0">
           <div class="project-owner">
-            ${avatar ? `<img class="avatar" src="${escapeHtml(avatar)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}
-            <a href="${ownerUrl}" target="_blank" rel="noopener noreferrer">
-              ${escapeHtml(owner.login || "Unknown creator")}
-            </a>
-            <span class="ms-auto muted">${escapeHtml(relativeTime(repo.created_at))}</span>
+            <a href="${creatorUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.creator)}</a>
           </div>
-
-          <h3 class="project-name">
-            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">
-              ${escapeHtml(repo.full_name || repo.name)}
-            </a>
-          </h3>
-
-          <p class="project-description">${escapeHtml(description)}</p>
-
-          <div class="tag-row">
-            <span class="tag">${escapeHtml(language)}</span>
-            ${allTags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
-          </div>
-
-          <div class="project-stats">
-            <span>★ ${numberText(repo.stargazers_count)}</span>
-            <span>⑂ ${numberText(repo.forks_count)}</span>
-            <span>Updated ${escapeHtml(relativeTime(repo.pushed_at))}</span>
-          </div>
-
-          <div class="project-footer">
-            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">View project ↗</a>
-            <a href="${repoUrl}/issues" target="_blank" rel="noopener noreferrer">Issues</a>
-          </div>
-        </article>
+          <div class="project-owner">${escapeHtml(item.sourceLabel)} · ${escapeHtml(ago(item.created))}</div>
+        </div>
       </div>
-    `;
+      <h3 class="project-title">
+        <a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a>
+      </h3>
+      <p class="project-desc">${escapeHtml(item.description)}</p>
+      <div class="tags">
+        <span class="tag source-tag">${escapeHtml(item.sourceLabel)}</span>
+        ${tags.map(tag=>`<span class="tag">${escapeHtml(tag)}</span>`).join("")}
+      </div>
+      <div class="project-stats">
+        <span>${escapeHtml(item.detail || "Community project")}</span>
+        <span>Updated ${escapeHtml(ago(item.updated))}</span>
+      </div>
+      <div class="project-actions">
+        <a href="${url}" target="_blank" rel="noopener noreferrer">View original ↗</a>
+      </div>
+    </article>`;
+}
+
+function render() {
+  const items = sortedItems();
+  $("totalCount").textContent = number(state.allItems.length);
+  const responding = Object.values(state.sourceStatus).filter(s=>s==="ok").length;
+  $("sourceCount").textContent = responding+"/3";
+
+  const titles = {
+    newest:"Latest community projects",
+    popular:"Popular community projects",
+    updated:"Recently updated projects"
+  };
+  $("feedTitle").textContent = titles[state.sort];
+  $("feedSubtitle").textContent = `${items.length} projects match your current filters.`;
+
+  const visible = items.slice(0,state.page*PAGE_SIZE);
+  if (!visible.length) {
+    grid.innerHTML = `<div class="empty">
+      <h3 class="h5 text-white">No matching projects found</h3>
+      <p class="mb-0">Try a different search, source or category.</p>
+    </div>`;
+  } else {
+    grid.innerHTML = visible.map(itemCard).join("");
   }
 
-  function visibleRepositories() {
-    return state.repositories.filter(categoryMatches);
+  moreBtn.classList.toggle("d-none",visible.length>=items.length);
+  moreBtn.disabled = state.loading;
+}
+
+function setStatus(message) {
+  status.textContent = message;
+}
+
+function showErrors(errors) {
+  if (!errors.length) {
+    errorNotice.classList.add("d-none");
+    errorNotice.textContent = "";
+    return;
   }
+  errorNotice.classList.remove("d-none");
+  errorNotice.textContent = "Some sources could not be reached: "+errors.join(" · ")+
+    ". Other sources may still be available. Refresh later if needed.";
+}
 
-  function renderRepositories(append = false) {
-    const visible = visibleRepositories();
+async function loadFeeds(force=false) {
+  if (state.loading) return;
+  state.loading = true;
+  refreshBtn.disabled = true;
+  refreshBtn.textContent = "Scanning...";
+  state.sourceErrors = [];
 
-    if (!visible.length && !state.loading) {
-      grid.innerHTML = `
-        <div class="col-12">
-          <div class="empty-state">
-            <h3 class="h5 text-white">No matching projects found</h3>
-            <p class="mb-0">Try another topic or a broader search term.</p>
-          </div>
-        </div>`;
-      return;
-    }
-
-    const html = visible.map(repoCard).join("");
-
-    if (append) {
-      grid.insertAdjacentHTML("beforeend", html);
-    } else {
-      grid.innerHTML = html || '<div class="col-12"><div class="loading"></div></div>';
-    }
-  }
-
-  async function loadFeed({ append = false } = {}) {
-    if (state.loading) return;
-
-    state.loading = true;
-    clearError();
-
-    if (!append) {
-      state.page = 1;
-      state.repositories = [];
-      state.seenIds.clear();
-      showLoading();
-    } else {
-      moreButton.disabled = true;
-      moreButton.textContent = "Loading...";
-    }
-
-    setStatus("Fetching public projects...");
-
+  if (force) {
     try {
-      const url = searchUrl(state.page);
-      const result = await apiGet(url, "search:" + url);
-
-      const incoming = Array.isArray(result.items) ? result.items : [];
-      for (const repo of incoming) {
-        if (!state.seenIds.has(repo.id)) {
-          state.seenIds.add(repo.id);
-          state.repositories.push(repo);
-        }
+      const keys = [];
+      for (let i=0;i<localStorage.length;i++) {
+        const key=localStorage.key(i);
+        if (key && key.startsWith(CACHE_PREFIX)) keys.push(key);
       }
-
-      state.hasMore = state.repositories.length < (result.total_count || 0) &&
-        incoming.length === PER_PAGE;
-      state.lastRequestAt = Date.now();
-
-      $("feedDescription").textContent = feedDescriptions[state.feed];
-      $("discoverTitle").textContent = {
-        latest: "Latest community projects",
-        updated: "Recently updated projects",
-        popular: "Popular modding projects",
-        releases: "Projects with releases"
-      }[state.feed];
-
-      setStatus(`${numberText(result.total_count || 0)} matching repositories found`);
-      lastUpdated.textContent = "Fetched " + new Date().toLocaleTimeString();
-
-      renderRepositories(append);
-      moreButton.classList.toggle("d-none", !state.hasMore);
-    } catch (error) {
-      showError(error.message || "Unable to load projects.");
-      setStatus("Feed unavailable", false);
-
-      if (!state.repositories.length) {
-        grid.innerHTML = `
-          <div class="col-12">
-            <div class="empty-state">
-              <h3 class="h5 text-white">Couldn't load the live feed</h3>
-              <p class="mb-3">The public API may be unavailable or rate-limited.</p>
-              <button class="btn-purple" onclick="document.getElementById('refreshButton').click()">
-                Try again
-              </button>
-            </div>
-          </div>`;
-      } else {
-        renderRepositories();
-      }
-      moreButton.classList.add("d-none");
-    } finally {
-      state.loading = false;
-      moreButton.disabled = false;
-      moreButton.textContent = "Load more projects";
-    }
-  }
-
-  function selectFeed(feed) {
-    state.feed = feed;
-
-    document.querySelectorAll("[data-feed]").forEach(button => {
-      button.classList.toggle("active", button.dataset.feed === feed);
-    });
-
-    if (feed === "releases") {
-      $("releasesSection").scrollIntoView({ behavior: "smooth", block: "start" });
-      loadReleases();
-    } else {
-      loadFeed();
-    }
-  }
-
-  async function loadReleases() {
-    const releaseList = $("releaseList");
-    const button = $("loadReleasesButton");
-
-    button.disabled = true;
-    button.textContent = "Loading...";
-    releaseList.innerHTML = '<div class="loading"></div>';
-    clearError();
-
-    try {
-      let repos = state.repositories.slice(0, 8);
-
-      if (!repos.length) {
-        const query = new URLSearchParams({
-          q: '(modding OR homebrew OR "game mod") fork:false',
-          sort: "updated",
-          order: "desc",
-          per_page: "8"
-        });
-        const result = await apiGet(
-          `${API}/search/repositories?${query}`,
-          "release-discovery"
-        );
-        repos = result.items || [];
-      }
-
-      const checks = repos.slice(0, 6).map(async repo => {
-        try {
-          const url = `${API}/repos/${encodeURIComponent(repo.owner.login)}/${encodeURIComponent(repo.name)}/releases?per_page=2`;
-          const releases = await apiGet(url, "releases:" + repo.full_name);
-          return (releases || []).map(release => ({ repo, release }));
-        } catch {
-          return [];
-        }
-      });
-
-      const nested = await Promise.all(checks);
-      const releases = nested.flat()
-        .sort((a, b) => new Date(b.release.published_at || 0) -
-                         new Date(a.release.published_at || 0));
-
-      if (!releases.length) {
-        releaseList.innerHTML = `
-          <div class="empty-state">
-            No published releases were found for these projects.
-            Try a broader project search or check back later.
-          </div>`;
-      } else {
-        releaseList.innerHTML = releases.slice(0, 12).map(({ repo, release }) => {
-          const releaseUrl = safeUrl(release.html_url);
-          const projectUrl = safeUrl(repo.html_url);
-          const summary = (release.body || "No release notes supplied.")
-            .slice(0, 900);
-
-          return `
-            <article class="release-row">
-              <div class="d-flex flex-wrap justify-content-between gap-2">
-                <div>
-                  <h3 class="mb-1">
-                    <a href="${releaseUrl}" target="_blank" rel="noopener noreferrer">
-                      ${escapeHtml(release.name || release.tag_name || "Untitled release")} ↗
-                    </a>
-                  </h3>
-                  <a class="muted small" href="${projectUrl}" target="_blank" rel="noopener noreferrer">
-                    ${escapeHtml(repo.full_name)}
-                  </a>
-                </div>
-                <span class="tag align-self-start">
-                  ${escapeHtml(dateText(release.published_at))}
-                </span>
-              </div>
-              <div class="release-body">${escapeHtml(summary)}</div>
-              <a class="small-link" href="${releaseUrl}" target="_blank" rel="noopener noreferrer">
-                Read original release notes
-              </a>
-            </article>`;
-        }).join("");
-      }
-
-      state.releasesLoaded = true;
-    } catch (error) {
-      releaseList.innerHTML = `
-        <div class="empty-state">
-          <p>${escapeHtml(error.message || "Unable to fetch releases.")}</p>
-          <p class="small mb-0">The main project feed may still work. Try again later.</p>
-        </div>`;
-    } finally {
-      button.disabled = false;
-      button.textContent = "↻ Refresh releases";
-    }
-  }
-
-  $("searchForm").addEventListener("submit", event => {
-    event.preventDefault();
-    state.query = $("searchInput").value.trim();
-    $("categoryFilter").value = "all";
-    loadFeed();
-  });
-
-  $("clearSearch").addEventListener("click", () => {
-    $("searchInput").value = "";
-    state.query = "";
-    $("categoryFilter").value = "all";
-    $("languageFilter").value = "all";
-    loadFeed();
-  });
-
-  document.querySelectorAll("[data-feed]").forEach(button => {
-    button.addEventListener("click", () => selectFeed(button.dataset.feed));
-  });
-
-  $("categoryFilter").addEventListener("change", () => {
-    if (state.query) {
-      $("searchInput").value = state.query;
-    }
-    loadFeed();
-  });
-
-  $("languageFilter").addEventListener("change", () => {
-    loadFeed();
-  });
-
-  $("refreshButton").addEventListener("click", () => {
-    const cacheKeys = [];
-    try {
-      for (let i = localStorage.length - 1; i >= 0; i--) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith(CACHE_PREFIX)) cacheKeys.push(key);
-      }
-      cacheKeys.forEach(key => localStorage.removeItem(key));
+      keys.forEach(key=>localStorage.removeItem(key));
     } catch {}
+  }
 
-    state.releasesLoaded = false;
-    loadFeed();
-  });
+  setStatus("Scanning public community sources...");
+  grid.innerHTML='<div class="empty"><div class="loader"></div>Discovering projects from public APIs...</div>';
 
-  moreButton.addEventListener("click", () => {
-    if (!state.hasMore || state.loading) return;
-    state.page += 1;
-    loadFeed({ append: true });
-  });
+  const tasks = [
+    ["github",getGithub],
+    ["modrinth",getModrinth],
+    ["thunderstore",getThunderstore]
+  ];
 
-  $("loadReleasesButton").addEventListener("click", loadReleases);
-
-  $("topicButtons").addEventListener("click", event => {
-    const button = event.target.closest("[data-topic]");
-    if (!button) return;
-
-    state.query = button.dataset.topic;
-    $("searchInput").value = state.query;
-    $("categoryFilter").value = "all";
-    $("languageFilter").value = "all";
-    state.feed = "updated";
-
-    document.querySelectorAll("[data-feed]").forEach(item => {
-      item.classList.toggle("active", item.dataset.feed === "updated");
+  try {
+    const results = await Promise.allSettled(tasks.map(([,fn])=>fn()));
+    const all = [];
+    results.forEach((result,index)=>{
+      const source = tasks[index][0];
+      if (result.status==="fulfilled") {
+        state.sourceStatus[source]="ok";
+        all.push(...result.value);
+      } else {
+        state.sourceStatus[source]="error";
+        state.sourceErrors.push(source+": "+(result.reason?.message || "Unavailable"));
+      }
     });
 
-    loadFeed();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
+    // Deduplicate by source-specific ID.
+    const unique = new Map();
+    for (const item of all) unique.set(item.id,item);
+    state.allItems = [...unique.values()];
+    state.lastScan=Date.now();
+    $("lastScan").textContent=new Date().toLocaleTimeString([],{
+      hour:"2-digit",minute:"2-digit"
+    });
+    updatedAt.textContent="Last checked "+new Date().toLocaleTimeString();
+    setStatus(`${state.allItems.length} projects collected from ${Object.values(state.sourceStatus).filter(s=>s==="ok").length} sources`);
+    showErrors(state.sourceErrors);
+    state.page=1;
+    render();
 
-  $("year").textContent = new Date().getFullYear();
-
-  // First visit fetches the live feed automatically.
-  loadFeed();
-
-  // Refresh periodically while the page is open.
-  // API results are cached locally for a short period.
-  setInterval(() => {
-    if (!document.hidden && !state.loading) {
-      loadFeed();
+    if (!state.allItems.length) {
+      grid.innerHTML='<div class="empty">No source returned any projects. This may be a temporary API or network issue. Try refreshing later.</div>';
     }
-  }, REFRESH_INTERVAL);
+  } catch(error) {
+    setStatus("Unable to load feeds");
+    showErrors([error.message || "Unexpected error"]);
+    grid.innerHTML='<div class="empty">The feeds could not be loaded. Check your connection and try again.</div>';
+  } finally {
+    state.loading=false;
+    refreshBtn.disabled=false;
+    refreshBtn.textContent="↻ Refresh feeds";
+    render();
+  }
+}
 
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden &&
-        Date.now() - state.lastRequestAt > REFRESH_INTERVAL &&
-        !state.loading) {
-      loadFeed();
-    }
+function updateActiveButtons(selector,attribute,value) {
+  document.querySelectorAll(selector).forEach(button=>{
+    button.classList.toggle("active",button.dataset[attribute]===value);
   });
+}
+
+$("searchForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  state.query=$("searchInput").value.trim();
+  loadFeeds();
+});
+
+$("clearBtn").addEventListener("click",()=>{
+  $("searchInput").value="";
+  state.query="";
+  $("gameFilter").value="all";
+  $("typeFilter").value="all";
+  state.source="all";
+  updateActiveButtons("[data-source]","source","all");
+  loadFeeds();
+});
+
+$("sourceFilters").addEventListener("click",event=>{
+  const button=event.target.closest("[data-source]");
+  if (!button) return;
+  state.source=button.dataset.source;
+  updateActiveButtons("[data-source]","source",state.source);
+  render();
+});
+
+$("sortFilters").addEventListener("click",event=>{
+  const button=event.target.closest("[data-sort]");
+  if (!button) return;
+  state.sort=button.dataset.sort;
+  updateActiveButtons("[data-sort]","sort",state.sort);
+  loadFeeds();
+});
+
+$("gameFilter").addEventListener("change",()=>{
+  state.query="";
+  $("searchInput").value="";
+  loadFeeds();
+});
+
+$("typeFilter").addEventListener("change",render);
+
+$("topicButtons").addEventListener("click",event=>{
+  const button=event.target.closest("[data-query]");
+  if (!button) return;
+  state.query=button.dataset.query;
+  $("searchInput").value=state.query;
+  $("gameFilter").value="all";
+  state.page=1;
+  loadFeeds();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+moreBtn.addEventListener("click",()=>{
+  state.page++;
+  render();
+});
+
+refreshBtn.addEventListener("click",()=>loadFeeds(true));
+
+$("year").textContent=new Date().getFullYear();
+
+// First scan happens automatically when the page opens.
+loadFeeds();
+
+// Refresh public sources periodically while this page remains open.
+// This is browser-side refreshing, not a server-side crawler.
+setInterval(()=>{
+  if (!document.hidden && !state.loading) loadFeeds();
+},REFRESH_MS);
+
+document.addEventListener("visibilitychange",()=>{
+  if (!document.hidden && Date.now()-state.lastScan>REFRESH_MS && !state.loading) {
+    loadFeeds();
+  }
+});
 })();
 </script>
 </body>
