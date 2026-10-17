@@ -3,409 +3,483 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080510">
-<meta name="description" content="AFTERZERO — discover digital mysteries, create artifacts and explore the open internet. Powered by ModdingXZ.">
-<title>AFTERZERO // The Signal Is Still Out There</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080610">
+<meta name="description" content="ModdingXZ Command Centre — BO2 resources, PC-to-PS4/PS5 relay guides, community tools and gaming projects.">
+<title>ModdingXZ // Command Centre</title>
 <style>
-:root {
-  color-scheme: dark;
-  --bg:#080510;
-  --panel:#100b1c;
-  --line:#382052;
-  --purple:#a855f7;
-  --pink:#e879f9;
-  --text:#f7f0ff;
-  --muted:#a99cbd;
-  --green:#73fbd3;
+:root{
+  color-scheme:dark;
+  --bg:#080610;--panel:#110c1d;--panel2:#171024;
+  --line:#342044;--purple:#a855f7;--pink:#e879f9;
+  --text:#f6f0ff;--muted:#a89ab9;--green:#68f5c2;
+  --red:#fb7185;--yellow:#facc15
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;background:radial-gradient(ellipse at 75% 0%,#41136a55,transparent 38%),var(--bg);
-  color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,sans-serif
-}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:radial-gradient(ellipse at 50% -20%,#50167c55,transparent 55%),var(--bg);color:var(--text);font:15px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
 a{color:inherit;text-decoration:none}
-button,input,textarea,select{font:inherit}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.wrap{width:min(1150px,calc(100% - 32px));margin:auto}
-header{position:sticky;top:0;z-index:10;background:#080510ed;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
-nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:72px}
-.logo{font-weight:1000;letter-spacing:.12em;font-size:21px}
-.logo span,.purple{color:var(--purple)}
-.logo small{display:block;font-size:9px;color:var(--muted);letter-spacing:.22em}
-.links{display:flex;gap:20px;font-size:13px;color:#d2c5e8}
-.links a:hover{color:var(--pink)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 15px;border:1px solid var(--line);border-radius:11px;background:#160d25;color:white;font-weight:750;transition:.2s}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+.wrap{width:min(1180px,calc(100% - 32px));margin:auto}
+header{position:sticky;top:0;z-index:20;background:#080610ed;border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
+nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.logo{font-size:20px;font-weight:1000;letter-spacing:.11em;line-height:1.1}
+.logo b{color:var(--purple)}
+.logo small{display:block;font-size:9px;letter-spacing:.22em;color:var(--muted);margin-top:5px}
+.navlinks{display:flex;gap:19px;font-size:12px;color:#d1c5e2}
+.navlinks a:hover{color:var(--pink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);border-radius:10px;background:#171024;color:white;padding:10px 14px;font-weight:750;font-size:13px;transition:.18s}
 .btn:hover{border-color:var(--purple);transform:translateY(-1px)}
 .btn.primary{background:linear-gradient(110deg,#7c3aed,#c026d3);border-color:transparent}
-.hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:35px;padding:65px 0 45px;min-height:490px}
-.eyebrow,.kicker{color:var(--pink);text-transform:uppercase;font-size:11px;font-weight:900;letter-spacing:.17em}
-h1{font-size:clamp(42px,7vw,76px);line-height:.99;letter-spacing:-.055em;margin:18px 0}
-.gradient{background:linear-gradient(90deg,#fff,#c084fc,#f0abfc);background-clip:text;color:transparent}
+.btn.small{padding:6px 10px;font-size:11px}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.hero{padding:62px 0 38px;display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
+.eyebrow,.kicker{color:var(--pink);font-size:10px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}
+h1{font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-.06em;margin:18px 0}
+.gradient{background:linear-gradient(90deg,#fff,#d8b4fe,#e879f9);color:transparent;background-clip:text}
 p{color:var(--muted)}
-.hero p{font-size:17px;max-width:560px}
-.actions,.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
-.stats{gap:28px}
-.stat strong{display:block;font-size:23px;color:var(--pink)}
-.stat small{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.1em}
-.orb{aspect-ratio:1;max-width:420px;width:100%;margin:auto;display:grid;place-items:center;position:relative}
-.orb:before,.orb:after{content:"";position:absolute;inset:10%;border:1px solid #a855f788;border-radius:50%;transform:rotate(-30deg) scaleY(.4);box-shadow:0 0 35px #9333ea44}
-.orb:after{inset:20%;transform:rotate(35deg) scaleY(.4);border-color:#e879f988}
-.core{width:55%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#f5d0fe,#9333ea 20%,#3b0764 55%,#080510 75%);box-shadow:0 0 65px #9333ea88,inset -15px -20px 35px #05020d}
-.core span{font-size:95px;color:#f5d0fe;text-shadow:0 0 35px #e879f9}
-.orb-label{position:absolute;z-index:2;padding:9px 12px;border:1px solid #6b328f;border-radius:9px;background:#10091e;font-size:10px;letter-spacing:.12em;color:#e9d5ff}
-.label1{top:12%;left:0}.label2{bottom:12%;right:0}
-hr{border:0;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:15px 0}
-section{padding:30px 0;scroll-margin-top:90px}
-.heading{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:18px}
-h2{font-size:clamp(25px,4vw,36px);margin:4px 0;letter-spacing:-.03em}
+.hero p{font-size:16px;max-width:590px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.stats{display:flex;gap:25px;flex-wrap:wrap;margin-top:30px}
+.stat strong{display:block;font-size:22px;color:#e9d5ff}
+.stat small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.console{border:1px solid #523171;border-radius:17px;padding:18px;background:linear-gradient(145deg,#180e28,#0b0813);box-shadow:0 0 55px #9333ea13}
+.console-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.dots{display:flex;gap:5px}.dots i{width:8px;height:8px;border-radius:50%;background:#7343a0}
+.terminal{font:12px/2 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere}
+.terminal .muted{color:#85749b}
+.terminal .good{color:var(--green)}
+.terminal .violet{color:#d8b4fe}
+.pulse{display:inline-block;width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green);margin-right:7px}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);border:0;margin:14px 0}
+section{padding:27px 0}
+.heading{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:17px}
+h2{font-size:clamp(24px,4vw,34px);letter-spacing:-.035em;margin:3px 0}
 h3{margin:8px 0}
 .muted{color:var(--muted)}
-.small{font-size:12px}
+.smalltext{font-size:12px}
 .grid{display:grid;gap:14px}
-.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-.card{background:linear-gradient(145deg,#130c22,#0b0812);border:1px solid var(--line);border-radius:16px;padding:20px;min-width:0;box-shadow:0 0 25px #8b2cff0a}
-.card:hover{border-color:#7940b2}
-.icon{width:42px;height:42px;border:1px solid #64328d;border-radius:12px;background:#25103b;display:grid;place-items:center;font-size:21px}
-.tag{display:inline-block;border:1px solid #603081;background:#28123c;color:#e9d5ff;padding:4px 8px;border-radius:30px;font-size:10px;letter-spacing:.1em}
-.field{width:100%;min-width:0;padding:12px;background:#080510;border:1px solid #493065;border-radius:10px;color:white;outline:none}
+.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{min-width:0;padding:19px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(145deg,#140e21,#0c0913);transition:border-color .2s}
+.card:hover{border-color:#70439b}
+.icon{display:grid;place-items:center;width:42px;height:42px;border:1px solid #59327b;border-radius:12px;background:#26133a;font-size:21px}
+.tag{display:inline-block;border:1px solid #593476;background:#251435;color:#e9d5ff;padding:3px 8px;border-radius:20px;font-size:9px;font-weight:800;letter-spacing:.1em}
+.tag.green{color:var(--green);border-color:#236d58;background:#0c2823}
+.tag.yellow{color:var(--yellow);border-color:#70591c;background:#29200b}
+.field{width:100%;min-width:0;background:#080610;border:1px solid #49315f;color:white;border-radius:9px;padding:11px;outline:none}
 .field:focus{border-color:var(--purple)}
-.row{display:flex;gap:8px;margin-top:12px}
+.row{display:flex;gap:8px;align-items:center;margin-top:10px}
 .row>*{min-width:0}
-.row input,.row select{flex:1}
-textarea.field{min-height:120px;resize:vertical}
-.notice{font-size:12px;color:var(--green);min-height:20px;margin-top:8px}
-.code{font:800 clamp(26px,4vw,40px) ui-monospace,monospace;color:#d8b4fe;letter-spacing:.12em;margin:15px 0;text-shadow:0 0 18px #9333ea66}
-.vault-list{display:grid;gap:9px}
-.vault-item,.api-item{padding:12px;border:1px solid #302044;background:#0b0814;border-radius:10px}
-.vault-item{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.vault-item strong,.api-item strong{display:block;font-size:13px;overflow-wrap:anywhere}
-.vault-item small,.api-item small{color:var(--muted);display:block}
-.empty{border:1px dashed #4a3264;border-radius:12px;padding:20px;color:var(--muted);text-align:center}
-.preview{min-height:250px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at 80% 20%,#5b21b633,transparent 38%),#080510;border:1px dashed #633a86;border-radius:14px;padding:20px;overflow-wrap:anywhere}
-.preview h3{font-size:27px}
-.preview code{color:#d8b4fe}
-.feed{display:grid;gap:12px}
-.feed-item{display:flex;gap:12px;align-items:start}
-.feed-icon{flex:0 0 34px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#24103a;border:1px solid #693a91}
-.feed-item p{margin:0;font-size:13px}
-.cta{margin:35px 0 55px;padding:28px;border:1px solid #6b21a8;border-radius:20px;background:linear-gradient(110deg,#1b0c2d,#0d0918);display:flex;justify-content:space-between;align-items:center;gap:20px}
-footer{border-top:1px solid var(--line);padding:25px 0 35px;font-size:12px}
-footer .foot{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
-.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:30;background:#1a1030;border:1px solid var(--purple);border-radius:12px;padding:12px 16px;transition:.2s;max-width:90%;box-shadow:0 0 30px #9333ea44}
+.row .field{flex:1}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap}
+.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tool{display:flex;flex-direction:column;gap:9px;min-width:0;padding:15px;border:1px solid var(--line);border-radius:12px;background:#0e0a17}
+.tool h3{font-size:15px;overflow-wrap:anywhere}
+.tool p{font-size:12px;margin:0;flex:1}
+.tool .bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{font-size:10px;color:#d8b4fe;border:1px solid #48305f;border-radius:6px;padding:3px 6px}
+.repo{padding:12px;border:1px solid #30213f;border-radius:10px;background:#0b0812;min-width:0}
+.repo strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.repo p{font-size:12px;margin:5px 0}
+.repo a{color:#d8b4fe;text-decoration:underline;font-size:12px}
+.repo-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:var(--muted)}
+.list{display:grid;gap:9px}
+.empty{padding:20px;border:1px dashed #49325e;border-radius:10px;text-align:center;color:var(--muted);font-size:12px}
+.checkrow{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #2b2038;font-size:13px}
+.checkrow:last-child{border-bottom:0}
+.checkrow input{accent-color:var(--purple);margin-top:5px}
+.checkrow span{flex:1}
+.progress{height:5px;border-radius:10px;background:#261a32;overflow:hidden;margin:13px 0}
+.progress div{height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#e879f9);transition:width .2s}
+.statusline{display:flex;align-items:center;gap:8px;font-size:12px}
+.statusdot{width:8px;height:8px;border-radius:50%;background:var(--yellow);flex:none}
+.statusdot.online{background:var(--green)}
+.statusdot.offline{background:var(--red)}
+.notice{font-size:12px;color:var(--green);min-height:19px;margin-top:8px}
+.cta{margin:32px 0 45px;padding:26px;border:1px solid #65378a;border-radius:17px;background:linear-gradient(105deg,#20102f,#0d0916);display:flex;justify-content:space-between;align-items:center;gap:20px}
+footer{border-top:1px solid var(--line);padding:25px 0 35px}
+.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;z-index:50;background:#1a1030;border:1px solid var(--purple);border-radius:10px;padding:12px 16px;max-width:90%;box-shadow:0 0 30px #9333ea44;transition:.2s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-.api-item a{display:inline-block;color:#d8b4fe;text-decoration:underline;margin-top:7px}
-@media(max-width:800px){.links{display:none}.hero{grid-template-columns:1fr;text-align:center;padding-top:40px}.hero p{margin:auto}.actions,.stats{justify-content:center}.orb{max-width:330px}.three{grid-template-columns:repeat(2,minmax(0,1fr))}.cta{align-items:flex-start;flex-direction:column}}
-@media(max-width:560px){.wrap{width:calc(100% - 24px)}.three,.two{grid-template-columns:1fr}.heading{align-items:flex-start;flex-direction:column}.row{flex-wrap:wrap}.row .btn{width:100%}.card{padding:16px}.hero{padding-top:30px}.stats{gap:16px}}
+@media(max-width:850px){.navlinks{display:none}.hero{grid-template-columns:1fr}.console{max-width:650px;width:100%;margin:auto}.cols3,.tools{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.wrap{width:calc(100% - 24px)}.hero{padding-top:35px}.cols3,.cols2,.tools{grid-template-columns:1fr}.heading{align-items:flex-start;flex-direction:column}.cta{align-items:flex-start;flex-direction:column}.stats{gap:18px}.card{padding:15px}.row{flex-wrap:wrap}.row .btn{flex:1}.logo{font-size:17px}}
 </style>
 </head>
 <body>
 <header>
 <nav class="wrap">
-<a class="logo" href="#home">AFTER<span>ZERO</span><small>THE SIGNAL IS STILL OUT THERE</small></a>
-<div class="links">
-<a href="#signal">Signal</a><a href="#vault">Vault</a><a href="#market">Market</a><a href="#create">Creator Lab</a><a href="#radar">Live Radar</a>
+<a class="logo" href="#home">MODDING <b>XZ</b><small>COMMAND CENTRE // COMMUNITY HUB</small></a>
+<div class="navlinks">
+<a href="#tools">Tools</a><a href="#relay">Relay</a><a href="#releases">Releases</a><a href="#status">Status</a>
 </div>
-<a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Join ModdingXZ ↗</a>
+<a class="btn primary" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">✈ Join Telegram</a>
 </nav>
 </header>
 
 <main class="wrap" id="home">
 <section class="hero">
 <div>
-<div class="eyebrow">● A living mystery on the open web</div>
-<h1>THE FUTURE<br>LEFT US A<br><span class="gradient">MESSAGE.</span></h1>
-<p>Decode strange signals, collect digital artifacts and create tiny worlds for other people to discover. The internet is your playground. The mystery is yours to solve.</p>
+<div class="eyebrow"><span class="pulse"></span> COMMUNITY MODDING NETWORK</div>
+<h1>YOUR GAME.<br>YOUR RULES.<br><span class="gradient">MOD IT.</span></h1>
+<p>Welcome to the ModdingXZ Command Centre. Find gaming resources, explore BO2 relay guides, check public project releases and get community support in one place.</p>
 <div class="actions">
-<a class="btn primary" href="#signal">⌁ Decode today's signal</a>
-<a class="btn" href="#create">＋ Create artifact</a>
+<a class="btn primary" href="#tools">⌘ Explore resources</a>
+<a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Join the community ↗</a>
 </div>
 <div class="stats">
-<div class="stat"><strong id="statFound">000</strong><small>Local discoveries</small></div>
-<div class="stat"><strong>∞</strong><small>Possible signals</small></div>
-<div class="stat"><strong>FREE</strong><small>To get started</small></div>
+<div class="stat"><strong id="toolCount">0</strong><small>Listed resources</small></div>
+<div class="stat"><strong id="savedCount">0</strong><small>Saved favourites</small></div>
+<div class="stat"><strong id="apiLabel">WAITING</strong><small>GitHub API</small></div>
 </div>
 </div>
-<div class="orb" aria-label="Digital signal illustration">
-<div class="core"><span>⟁</span></div>
-<div class="orb-label label1">SIGNAL // ACTIVE</div>
-<div class="orb-label label2">UNKNOWN ORIGIN</div>
+<div class="console">
+<div class="console-top"><div class="dots"><i></i><i></i><i></i></div><span class="tag">MXZ // TERMINAL</span><span class="smalltext muted">v1.0</span></div>
+<div class="terminal" style="padding-top:12px">
+<div class="muted">C:\MODDINGXZ\COMMAND-CENTRE&gt; boot</div>
+<div class="good">[OK] Interface initialised</div>
+<div class="good">[OK] Resource library loaded</div>
+<div class="violet">[--] Connecting to public APIs...</div>
+<div class="muted">[INFO] No private API key required</div>
+<div class="muted">[INFO] Community: t.me/moddingxz</div>
+<div class="divider"></div>
+<div class="statusline"><span class="statusdot" id="apiDot"></span><span id="terminalStatus">Waiting for GitHub response...</span></div>
+<div id="lastUpdated" class="muted" style="margin-top:8px">Live information will appear here.</div>
+</div>
 </div>
 </section>
 
-<hr>
+<hr class="divider">
 
-<section id="signal">
-<div class="heading"><div><div class="kicker">01 / Daily transmission</div><h2>One signal. One tiny mystery.</h2><div class="muted">Solve today's puzzle to archive a transmission.</div></div><span class="tag" id="dayTag">TRANSMISSION 000</span></div>
-<div class="grid two">
+<section id="tools">
+<div class="heading"><div><div class="kicker">01 / Resource library</div><h2>Find your next tool.</h2><p class="smalltext">Search the listed resources. External links are provided for convenience; always verify the source.</p></div><span class="tag">SEARCH + FILTER</span></div>
+<div class="card">
+<div class="row" style="margin-top:0">
+<input class="field" id="searchTools" type="search" placeholder="Search BO2, relay, FOV, PC, PS4...">
+<select class="field" id="filterCategory" aria-label="Filter resources" style="max-width:190px">
+<option value="all">All categories</option>
+<option value="bo2">Black Ops 2</option>
+<option value="relay">PC-to-console relay</option>
+<option value="network">Networking</option>
+<option value="github">Open source</option>
+</select>
+</div>
+<div class="tools" id="toolGrid" style="margin-top:14px"></div>
+<div id="noTools" class="empty" hidden>No resources match that search.</div>
+</div>
+</section>
+
+<section id="relay">
+<div class="heading"><div><div class="kicker">02 / Connection workshop</div><h2>PC-to-PS4 / PS5 relay centre.</h2><p class="smalltext">A practical checklist for diagnosing your own setup.</p></div><span class="tag">LOCAL CHECKLIST</span></div>
+<div class="grid cols2">
 <article class="card">
-<span class="tag">INCOMING PACKET</span>
-<div class="code" id="cipher">•• ••• ••</div>
-<p id="riddle">Loading today's riddle…</p>
-<div class="row"><input class="field" id="answerInput" placeholder="Enter your answer" autocomplete="off"><button class="btn primary" id="solveBtn">Decode ↗</button></div>
-<div class="notice" id="solveNotice" aria-live="polite"></div>
+<div class="heading"><h3>Setup checklist</h3><span class="tag" id="checkCount">0 / 7</span></div>
+<div class="progress"><div id="progressBar"></div></div>
+<div id="checklist">
+<label class="checkrow"><input type="checkbox"><span><strong>Confirm the game and console versions</strong><br><span class="muted">Check which versions and update states are involved.</span></span></label>
+<label class="checkrow"><input type="checkbox"><span><strong>Confirm both devices are online</strong><br><span class="muted">Verify normal internet access on the PC and console.</span></span></label>
+<label class="checkrow"><input type="checkbox"><span><strong>Check local network addresses</strong><br><span class="muted">Confirm each device has a valid address on the intended network.</span></span></label>
+<label class="checkrow"><input type="checkbox"><span><strong>Review firewall permissions</strong><br><span class="muted">Allow only the applications and connections you trust.</span></span></label>
+<label class="checkrow"><input type="checkbox"><span><strong>Review router and NAT configuration</strong><br><span class="muted">Check existing rules and avoid exposing unrelated services.</span></span></label>
+<label class="checkrow"><input type="checkbox"><span><strong>Confirm the method is still maintained</strong><br><span class="muted">Check its original release page and the latest maintainer notes.</span></span></label>
+<label class="checkrow"><input type="checkbox"><span><strong>Retest and record the result</strong><br><span class="muted">Note the error, exact versions and changes made.</span></span></label>
+</div>
+<div class="row"><button class="btn" id="resetChecks">Reset checklist</button><button class="btn" id="copyChecks">Copy checklist status</button></div>
+<div class="notice" id="checkNotice"></div>
 </article>
-<article class="card" id="vault">
-<div class="heading"><div><div class="kicker">02 / Personal archive</div><h2 style="font-size:24px">Your Vault</h2></div><span class="tag" id="vaultCount">0 saved</span></div>
-<p class="small">Saved in this browser only. Nothing is uploaded to a server.</p>
-<div class="vault-list" id="vaultList"><div class="empty">Your vault is quiet. Decode a signal to begin.</div></div>
-<div class="row"><button class="btn" id="exportBtn">Export JSON ↓</button><button class="btn" id="clearBtn">Clear vault</button></div>
+<article class="card">
+<div class="kicker">TROUBLESHOOTING</div><h3>What is going wrong?</h3>
+<label class="smalltext muted" for="problem">Choose the closest issue</label>
+<select class="field" id="problem" style="margin-top:7px">
+<option value="connect">Devices cannot connect</option>
+<option value="timeout">Connection times out</option>
+<option value="update">Method stopped working after an update</option>
+<option value="game">Game crashes or fails to launch</option>
+<option value="unknown">Something else</option>
+</select>
+<div id="troubleResult" class="repo" style="margin-top:13px">
+<strong>Start with basic connectivity</strong><p>Confirm both devices have internet access, restart the affected application and record any error message.</p>
+</div>
+<p class="smalltext">This is a troubleshooting guide, not a live test of your router, console or relay.</p>
+<a class="btn primary" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Ask the community ↗</a>
 </article>
+</div>
+</section>
+
+<section id="releases">
+<div class="heading"><div><div class="kicker">03 / External API</div><h2>Live GitHub releases.</h2><p class="smalltext">Fetches public repository and release information directly from GitHub.</p></div><button class="btn" id="refreshBtn">↻ Refresh data</button></div>
+<div class="grid cols2">
+<article class="card">
+<div class="heading"><h3>Project discovery</h3><span class="tag" id="searchStatus">READY</span></div>
+<div class="row" style="margin-top:0"><input class="field" id="repoQuery" value="black ops 2 modding" aria-label="GitHub search query"><button class="btn primary" id="repoSearchBtn">Search</button></div>
+<p class="smalltext">Search public repositories by description and name. Search has a separate, stricter API limit.</p>
+<div class="list" id="repoResults"><div class="empty">Press Search to load public projects.</div></div>
+</article>
+<article class="card">
+<div class="heading"><h3>Latest releases</h3><span class="tag">PUBLIC FEED</span></div>
+<p class="smalltext">Choose a public GitHub repository to load its published releases.</p>
+<div class="row" style="margin-top:0"><input class="field" id="releaseRepo" placeholder="owner/repository" aria-label="GitHub owner and repository"><button class="btn primary" id="releaseBtn">Load</button></div>
+<div class="list" id="releaseResults" style="margin-top:12px"><div class="empty">Enter a repository such as octocat/Hello-World.</div></div>
+</article>
+</div>
+</section>
+
+<section id="status">
+<div class="heading"><div><div class="kicker">04 / Community status board</div><h2>Know before you launch.</h2><p class="smalltext">Starter status board. These labels are not live confirmations.</p></div><span class="tag yellow">MANUAL VERIFICATION</span></div>
+<div class="grid cols3">
+<article class="card"><span class="tag">GUIDES</span><h3>BO2 relay guides</h3><p class="smalltext">Check the latest guide and maintainer notes before following setup instructions.</p><span class="tag yellow">VERIFY SOURCE</span></article>
+<article class="card"><span class="tag">TOOLS</span><h3>Tool compatibility</h3><p class="smalltext">Confirm the tool's supported game version, platform and release date.</p><span class="tag yellow">NOT VERIFIED LIVE</span></article>
+<article class="card"><span class="tag">NETWORK</span><h3>Connection status</h3><p class="smalltext">This page does not probe external servers or confirm console service availability.</p><span class="tag">NOT TESTED</span></article>
 </div>
 </section>
 
 <section>
-<div class="heading"><div><div class="kicker">03 / The experience</div><h2>Not another profile page.</h2></div><span class="muted small">Explore · Collect · Create</span></div>
-<div class="grid three">
-<article class="card"><div class="icon">⌘</div><h3>Discover the strange</h3><p class="small">Find interactive artifacts, secret messages and creator-made rabbit holes.</p></article>
-<article class="card"><div class="icon">⟁</div><h3>Make it collectible</h3><p class="small">Turn a clue, phrase or story into a shareable artifact with its own identity.</p></article>
-<article class="card"><div class="icon">↗</div><h3>Build a creator economy</h3><p class="small">The long-term idea: premium story packs, creator tools and featured discoveries.</p></article>
-</div>
-</section>
-
-<section id="market">
-<div class="heading"><div><div class="kicker">04 / Concept marketplace</div><h2>Artifacts from the edge.</h2><div class="muted">These are demo items, not products for sale.</div></div><span class="tag">CREATOR EDITION</span></div>
-<div class="grid three">
-<article class="card"><span class="tag">MYSTERY PACK</span><h3>The Dead Air Tapes</h3><p class="small">Five transmissions, a missing station and a final code that doesn't belong.</p><div class="row"><button class="btn" data-collect="The Dead Air Tapes">Collect ↗</button></div></article>
-<article class="card"><span class="tag">WORLD KIT</span><h3>Neon Reliquary</h3><p class="small">A starter kit for connected cyberpunk discoveries.</p><div class="row"><button class="btn" data-collect="Neon Reliquary">Collect ↗</button></div></article>
-<article class="card"><span class="tag">CHALLENGE</span><h3>The 11th Door</h3><p class="small">Ten doors are obvious. The last one is a question.</p><div class="row"><button class="btn" data-collect="The 11th Door">Collect ↗</button></div></article>
-</div>
-</section>
-
-<section id="create">
-<div class="heading"><div><div class="kicker">05 / Creator lab</div><h2>Leave a signal behind.</h2><div class="muted">Create an artifact and share it with a link.</div></div><span class="tag">NO ACCOUNT NEEDED</span></div>
-<div class="grid two">
-<article class="card">
-<label class="small muted" for="artifactTitle">ARTIFACT TITLE</label>
-<div class="row"><input class="field" id="artifactTitle" maxlength="60" value="A message from tomorrow"></div>
-<label class="small muted" for="artifactBody">MESSAGE / CLUE</label>
-<div class="row"><textarea class="field" id="artifactBody" maxlength="500">If you found this, the future has already happened. Keep this fragment safe.</textarea></div>
-<div class="row"><select class="field" id="artifactType"><option>SIGNAL</option><option>FRAGMENT</option><option>PUZZLE</option><option>RELIC</option></select><button class="btn primary" id="generateBtn">Generate ↗</button></div>
-<div class="notice" id="createNotice" aria-live="polite"></div>
-</article>
-<article class="preview">
-<span class="tag" id="previewType">SIGNAL // DRAFT</span>
-<h3 id="previewTitle">A message from tomorrow</h3>
-<p id="previewBody">If you found this, the future has already happened. Keep this fragment safe.</p>
-<hr><div class="small muted">ARTIFACT ID <code id="previewId">AZ-000000</code></div>
-<div class="row"><button class="btn" id="shareBtn">Copy share link ↗</button><button class="btn" id="saveBtn">Save to vault</button></div>
-</article>
-</div>
-</section>
-
-<section id="radar">
-<div class="heading"><div><div class="kicker">06 / Live network radar</div><h2>Signals from the open internet.</h2><p class="small">Live data from GitHub's public API. Results depend on API availability and rate limits.</p></div><button class="btn" id="refreshRadar">↻ Refresh</button></div>
-<div class="grid two">
-<article class="card"><div class="heading"><h3>ModdingXZ repositories</h3><span class="tag" id="githubStatus">CONNECTING</span></div><div class="vault-list" id="githubRadar"><div class="empty">Connecting to GitHub…</div></div></article>
-<article class="card"><div class="heading"><h3>Fresh gaming projects</h3><span class="tag">PUBLIC REPOS</span></div><div class="vault-list" id="projectRadar"><div class="empty">Loading projects…</div></div></article>
-</div>
-</section>
-
-<section>
-<div class="heading"><div><div class="kicker">07 / Local activity</div><h2>Signal watch.</h2><p class="small">This activity feed belongs to your current browser, not a global network.</p></div></div>
-<div class="card feed" id="feed">
-<div class="feed-item"><div class="feed-icon">⌁</div><div><strong>AFTERZERO initialised</strong><p class="small">Local archive ready.</p></div></div>
-</div>
+<div class="heading"><div><div class="kicker">05 / Personal settings</div><h2>Your saved resources.</h2><p class="smalltext">Favourites stay in this browser. They are not shared with other visitors.</p></div></div>
+<div class="card"><div class="heading"><h3>Saved favourites</h3><span class="tag" id="favouriteCount">0 saved</span></div><div id="favourites" class="list"><div class="empty">Use the Save button on any resource to add it here.</div></div><div class="row"><button class="btn" id="exportFav">Export favourites JSON</button><button class="btn" id="clearFav">Clear favourites</button></div></div>
 </section>
 
 <section class="cta">
-<div><div class="kicker">THE INTERNET ISN'T FINISHED</div><h2>Make something worth finding.</h2><p>Join the community and help build the next signal.</p></div>
-<div class="actions"><a class="btn primary" href="#create">Open Creator Lab ↗</a><a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Join t.me/moddingxz ↗</a></div>
+<div><div class="kicker">MODDING XZ COMMUNITY</div><h2>Need help? Join the network.</h2><p>Get community updates, share troubleshooting details and find new resources.</p></div>
+<div class="actions"><a class="btn primary" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">✈ t.me/moddingxz</a><a class="btn" href="#tools">Explore resources ↑</a></div>
 </section>
 </main>
 
 <footer><div class="wrap foot">
-<div><strong class="logo">AFTER<span>ZERO</span></strong><p>Explore the unknown. Create the next clue.</p></div>
-<div><a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram: t.me/moddingxz ↗</a><p>Built for GitHub Pages · Static-first</p></div>
-</div><div class="wrap small muted">Prototype project. Demo listings are not purchasable. Vault data stays in this browser. GitHub API powers the live radar.</div></footer>
+<div><strong class="logo">MODDING <b>XZ</b></strong><p class="smalltext">Independent gaming community resource hub.</p></div>
+<div><a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram community ↗</a><p class="smalltext muted">GitHub Pages · External APIs · Local storage</p></div>
+</div><div class="wrap smalltext muted">Only use tools and resources you trust and are authorised to use. External repositories are not endorsements. API results may be delayed, unavailable or rate-limited.</div></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (() => {
 'use strict';
+
 const $ = id => document.getElementById(id);
-const KEY = 'afterzero_vault_v2';
-const now = new Date();
-const dateKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-const dayNumber = Math.floor(Date.UTC(now.getFullYear(),now.getMonth(),now.getDate())/86400000);
-const puzzles = [
- {code:'F U U V S F',riddle:'I am always ahead of you, but you will never catch me. What am I?',answers:['future','the future'],hint:'Think beyond the present.'},
- {code:'U J N F',riddle:'I have a face and two hands, but no arms or legs. What am I?',answers:['clock','a clock'],hint:'You might check me before leaving.'},
- {code:'T J P P U T U F Q T',riddle:'The more you take, the more you leave behind. What are they?',answers:['footsteps','steps','footprints'],hint:'Think about walking.'},
- {code:'F D I P',riddle:'I have cities but no houses, forests but no trees, and rivers without water. What am I?',answers:['map','a map'],hint:'Fold me up and take me on a trip.'},
- {code:'M J H I U',riddle:'What can fill a room but takes up no space?',answers:['light'],hint:'Flip a switch.'},
- {code:'Q J B O P',riddle:'What has keys but cannot open locks?',answers:['piano','a piano','keyboard','a keyboard'],hint:'It can make music or type words.'}
+const TG = 'https://t.me/moddingxz';
+const FAV_KEY = 'moddingxz_favourites_v1';
+const CACHE_PREFIX = 'mxz_api_cache_v1_';
+
+const resources = [
+ {id:'bo2-guide',name:'Black Ops 2 resource guide',category:'bo2',platform:'PC / Console',description:'Central place for BO2 guides, version notes and community resources.',url:'https://github.com/topics/black-ops-2',label:'Browse topic'},
+ {id:'relay-guide',name:'PC-to-PS4 / PS5 relay setup',category:'relay',platform:'PC + PlayStation',description:'Use the relay checklist and verify the method against its original maintainer.',url:'https://github.com/search?q=ps4+relay&type=repositories',label:'Find projects'},
+ {id:'network-basics',name:'Network troubleshooting',category:'network',platform:'All platforms',description:'Start with basic connectivity, firewall rules and local network settings.',url:'https://support.microsoft.com/windows',label:'Microsoft support'},
+ {id:'github-search',name:'Public GitHub releases',category:'github',platform:'Open source',description:'Search public repositories and inspect published release notes.',url:'https://github.com/explore',label:'Explore GitHub'},
+ {id:'fov',name:'FOV guides and resources',category:'bo2',platform:'PC / Console',description:'Explore community documentation and verify compatibility before use.',url:'https://github.com/search?q=black+ops+2+FOV&type=repositories',label:'Search FOV'},
+ {id:'community',name:'ModdingXZ Telegram',category:'relay',platform:'Community',description:'Visit the community for announcements, support and new resources.',url:TG,label:'Join Telegram'},
+ {id:'github-docs',name:'GitHub API documentation',category:'github',platform:'Developers',description:'Official documentation for public repository and release APIs.',url:'https://docs.github.com/en/rest',label:'Read docs'},
+ {id:'pc-support',name:'Windows gaming support',category:'network',platform:'Windows PC',description:'Official Windows troubleshooting resources for games and applications.',url:'https://support.microsoft.com/windows',label:'Open support'},
+ {id:'bo2-search',name:'BO2 open-source projects',category:'bo2',platform:'Open source',description:'Search public code repositories related to Black Ops 2.',url:'https://github.com/search?q=black+ops+2&type=repositories',label:'Search projects'}
 ];
-const puzzle = puzzles[dayNumber % puzzles.length];
-$('dayTag').textContent = 'TRANSMISSION '+String(dayNumber%1000).padStart(3,'0');
-$('cipher').textContent = puzzle.code;
-$('riddle').textContent = puzzle.riddle;
 
-let vault = readVault();
-let currentArtifact = null;
-let toastTimer;
+let favourites = loadFavourites();
+let toastTimer = null;
 
-function readVault(){
+function toast(message){
+ const el=$('toast');
+ el.textContent=message;
+ el.classList.add('show');
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+}
+function loadFavourites(){
  try{
-  const data=JSON.parse(localStorage.getItem(KEY)||'[]');
+  const data=JSON.parse(localStorage.getItem(FAV_KEY)||'[]');
   return Array.isArray(data)?data:[];
  }catch{return []}
 }
-function persist(){
- try{localStorage.setItem(KEY,JSON.stringify(vault));return true}
- catch{notify('Storage unavailable. Export your vault to keep a backup.');return false}
+function persistFavourites(){
+ try{localStorage.setItem(FAV_KEY,JSON.stringify(favourites));return true}
+ catch{toast('Browser storage is unavailable. Export your favourites.');return false}
 }
-function notify(message){
- const el=$('toast');el.textContent=message;el.classList.add('show');
- clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
+function esc(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function addFeed(icon,title,detail){
- const row=document.createElement('div');row.className='feed-item';
- const mark=document.createElement('div');mark.className='feed-icon';mark.textContent=icon;
- const content=document.createElement('div');const strong=document.createElement('strong');strong.textContent=title;
- const small=document.createElement('p');small.className='small';small.textContent=detail;
- content.append(strong,small);row.append(mark,content);$('feed').prepend(row);
- while($('feed').children.length>6)$('feed').lastElementChild.remove();
+function categoryName(category){
+ return ({bo2:'BLACK OPS 2',relay:'RELAY',network:'NETWORK',github:'OPEN SOURCE'})[category]||category;
 }
-function renderVault(){
- $('vaultCount').textContent=vault.length+' saved';
- $('statFound').textContent=String(vault.length).padStart(3,'0');
- const list=$('vaultList');list.replaceChildren();
- if(!vault.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Your vault is quiet. Decode a signal or create an artifact to begin.';list.append(empty);return}
- vault.slice().reverse().slice(0,8).forEach(item=>{
-  const row=document.createElement('div');row.className='vault-item';
-  const info=document.createElement('div');const title=document.createElement('strong');title.textContent=item.title;
-  const meta=document.createElement('small');meta.textContent=(item.type||'ARTIFACT')+' · '+(item.date||'saved locally');
-  info.append(title,meta);const btn=document.createElement('button');btn.className='btn';btn.textContent='View';
-  btn.addEventListener('click',()=>{
-   if(item.body){$('artifactTitle').value=item.title;$('artifactBody').value=item.body;$('artifactType').value=item.type||'SIGNAL';currentArtifact=item;updatePreview();$('create').scrollIntoView({behavior:'smooth'});}
-   else notify('This item is archived in your vault.');
-  });
-  row.append(info,btn);list.append(row);
- });
+function renderResources(){
+ const query=$('searchTools').value.trim().toLowerCase();
+ const category=$('filterCategory').value;
+ const list=resources.filter(r=>(category==='all'||r.category===category)&&
+  (r.name+' '+r.description+' '+r.platform+' '+r.category).toLowerCase().includes(query));
+ $('toolGrid').innerHTML=list.map(r=>`
+  <article class="tool">
+   <div><span class="chip">${esc(categoryName(r.category))}</span></div>
+   <h3>${esc(r.name)}</h3><p>${esc(r.description)}</p>
+   <div class="bottom"><span class="muted smalltext">${esc(r.platform)}</span>
+    <button class="btn small" data-fav="${esc(r.id)}">${favourites.some(f=>f.id===r.id)?'★ Saved':'☆ Save'}</button>
+   </div>
+   <a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.label)} ↗</a>
+  </article>`).join('');
+ $('noTools').hidden=list.length!==0;
+ $('toolCount').textContent=resources.length;
 }
-function saveItem(item){
- if(vault.some(x=>x.id===item.id)){notify('Already saved in your vault.');return}
- vault.push(item);persist();renderVault();addFeed('⌘','Archived '+item.title,'Saved in this browser');notify('Saved to your vault.');
+function renderFavourites(){
+ $('savedCount').textContent=favourites.length;
+ $('favouriteCount').textContent=favourites.length+' saved';
+ const root=$('favourites');
+ if(!favourites.length){
+  root.innerHTML='<div class="empty">Use the Save button on any resource to add it here.</div>';
+  return;
+ }
+ root.innerHTML=favourites.map(f=>`<div class="repo">
+ <strong>${esc(f.name)}</strong><p>${esc(f.description)}</p>
+ <div class="row"><a class="btn small" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Open ↗</a><button class="btn small" data-remove="${esc(f.id)}">Remove</button></div>
+ </div>`).join('');
 }
-function makeId(title,body){
- let hash=2166136261;
- for(const ch of title+'|'+body+'|'+dateKey){hash^=ch.charCodeAt(0);hash=Math.imul(hash,16777619)}
- return 'AZ-'+(hash>>>0).toString(16).toUpperCase().padStart(8,'0');
-}
-function updatePreview(){
- $('previewTitle').textContent=$('artifactTitle').value.trim()||'Untitled signal';
- $('previewBody').textContent=$('artifactBody').value.trim()||'No message attached.';
- $('previewType').textContent=$('artifactType').value+' // DRAFT';
-}
-function generateArtifact(){
- const title=$('artifactTitle').value.trim()||'Untitled signal';
- const body=$('artifactBody').value.trim()||'No message attached.';
- const type=$('artifactType').value;
- currentArtifact={id:makeId(title,body),title,body,type,date:dateKey,kind:'artifact'};
- $('previewId').textContent=currentArtifact.id;
- $('previewType').textContent=type+' // READY';
- $('createNotice').textContent='Artifact generated. Save it or copy a share link.';
- addFeed('⟁','Created '+title,'Just now · this browser');
- notify('Artifact generated: '+currentArtifact.id);
-}
-$('solveBtn').addEventListener('click',()=>{
- const answer=$('answerInput').value.trim().toLowerCase().replace(/[.!?]/g,'');
- if(puzzle.answers.includes(answer)){
-  saveItem({id:'SIG-'+dateKey,title:'Transmission '+String(dayNumber%1000).padStart(3,'0'),body:puzzle.riddle+' Answer: '+puzzle.answers[0]+'.',type:'SIGNAL',date:dateKey,kind:'solved'});
-  $('solveNotice').textContent='Signal decoded and archived.';
-  $('answerInput').value='';
- }else $('solveNotice').textContent='Not quite. Hint: '+puzzle.hint;
+document.addEventListener('click',e=>{
+ const favButton=e.target.closest('[data-fav]');
+ if(favButton){
+  const item=resources.find(r=>r.id===favButton.dataset.fav);
+  if(!item)return;
+  if(favourites.some(f=>f.id===item.id)){
+   favourites=favourites.filter(f=>f.id!==item.id);
+   toast('Removed from favourites.');
+  }else{
+   favourites.push(item);
+   toast('Saved to favourites.');
+  }
+  persistFavourites();renderFavourites();renderResources();return;
+ }
+ const removeButton=e.target.closest('[data-remove]');
+ if(removeButton){
+  favourites=favourites.filter(f=>f.id!==removeButton.dataset.remove);
+  persistFavourites();renderFavourites();renderResources();toast('Favourite removed.');
+ }
 });
-$('answerInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('solveBtn').click()});
-document.querySelectorAll('[data-collect]').forEach(btn=>btn.addEventListener('click',()=>{
- const title=btn.dataset.collect;
- saveItem({id:makeId(title,'demo'),title,body:'Demo marketplace collectible. This is not a purchased product.',type:'RELIC',date:dateKey,kind:'demo'});
-}));
-['artifactTitle','artifactBody'].forEach(id=>$(id).addEventListener('input',updatePreview));
-$('artifactType').addEventListener('change',updatePreview);
-$('generateBtn').addEventListener('click',generateArtifact);
-$('saveBtn').addEventListener('click',()=>{if(!currentArtifact)generateArtifact();if(currentArtifact)saveItem(currentArtifact)});
-$('shareBtn').addEventListener('click',async()=>{
- if(!currentArtifact)generateArtifact();
- const item=currentArtifact;
- const data=btoa(unescape(encodeURIComponent(JSON.stringify({id:item.id,title:item.title,body:item.body,type:item.type}))));
- const url=new URL(location.href);url.hash='artifact='+data;
- try{await navigator.clipboard.writeText(url.href);notify('Share link copied.')}
- catch{prompt('Copy this share link:',url.href)}
-});
-$('exportBtn').addEventListener('click',()=>{
- const blob=new Blob([JSON.stringify({app:'AFTERZERO',version:2,exportedAt:new Date().toISOString(),vault},null,2)],{type:'application/json'});
- const url=URL.createObjectURL(blob);const a=document.createElement('a');
- a.href=url;a.download='afterzero-vault-'+dateKey+'.json';a.click();URL.revokeObjectURL(url);
-});
-$('clearBtn').addEventListener('click',()=>{
- if(!vault.length){notify('Your vault is already empty.');return}
- if(confirm('Delete all locally saved discoveries? Export first if you need a backup.')){vault=[];persist();renderVault();notify('Vault cleared.')}
-});
-function readSharedArtifact(){
- if(!location.hash.startsWith('#artifact='))return;
- try{
-  const data=JSON.parse(decodeURIComponent(escape(atob(location.hash.slice(10)))));
-  if(!data.title)return;
-  $('artifactTitle').value=data.title;$('artifactBody').value=data.body||'';
-  $('artifactType').value=['SIGNAL','FRAGMENT','PUZZLE','RELIC'].includes(data.type)?data.type:'SIGNAL';
-  currentArtifact={...data,date:dateKey,kind:'shared'};
-  $('previewId').textContent=data.id||makeId(data.title,data.body||'');
-  updatePreview();$('previewType').textContent=(data.type||'SIGNAL')+' // SHARED';
-  notify('Shared artifact loaded. Save it to keep it in your vault.');
- }catch{notify('This artifact link could not be decoded.')}
-}
+$('searchTools').addEventListener('input',renderResources);
+$('filterCategory').addEventListener('change',renderResources);
 
-async function loadRadar(){
- const status=$('githubStatus'),mod=$('githubRadar'),projects=$('projectRadar');
- status.textContent='FETCHING';
- mod.replaceChildren();projects.replaceChildren();
- const loading=document.createElement('div');loading.className='empty';loading.textContent='Fetching public data…';mod.append(loading);
- const headers={'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
+const tips={
+ connect:['Start with basic connectivity','Confirm both devices have internet access. Check the local network settings and make sure both devices are on the network required by the guide.'],
+ timeout:['Investigate the timeout','Record the exact error, verify the target service is available and review firewall/router rules. A browser page cannot prove that a specific port is open.'],
+ update:['Recheck version compatibility','Read the original project’s latest release notes. An update may change compatibility; do not assume an older guide still works.'],
+ game:['Troubleshoot the game separately','Confirm game files and supported runtime dependencies, then test the game without optional modifications to narrow down the cause.'],
+ unknown:['Collect useful diagnostic details','Write down the platform, game version, method version, steps already tried and exact error. Remove passwords, tokens and other private information before sharing.']
+};
+function updateTrouble(){
+ const [title,body]=tips[$('problem').value];
+ $('troubleResult').innerHTML='<strong>'+esc(title)+'</strong><p>'+esc(body)+'</p>';
+}
+$('problem').addEventListener('change',updateTrouble);
+
+const checks=[...document.querySelectorAll('#checklist input[type=checkbox]')];
+function updateChecks(){
+ const done=checks.filter(c=>c.checked).length;
+ $('checkCount').textContent=done+' / '+checks.length;
+ $('progressBar').style.width=(done/checks.length*100)+'%';
+}
+checks.forEach(c=>c.addEventListener('change',updateChecks));
+$('resetChecks').addEventListener('click',()=>{
+ checks.forEach(c=>c.checked=false);updateChecks();$('checkNotice').textContent='Checklist reset.';
+});
+$('copyChecks').addEventListener('click',async()=>{
+ const text=checks.map(c=>(c.checked?'[x] ':'[ ] ')+c.parentElement.querySelector('strong').textContent).join('\n');
+ try{await navigator.clipboard.writeText(text);$('checkNotice').textContent='Checklist copied.'}
+ catch{$('checkNotice').textContent='Clipboard access blocked. Select and copy the checklist manually.'}
+});
+
+async function apiFetch(url,cacheMinutes=10){
+ const key=CACHE_PREFIX+url;
  try{
-  const urls=[
-   'https://api.github.com/search/repositories?q=moddingxz&sort=updated&order=desc&per_page=5',
-   'https://api.github.com/search/repositories?q=topic%3Agaming+topic%3Ajavascript&sort=updated&order=desc&per_page=5'
-  ];
-  const responses=await Promise.all(urls.map(url=>fetch(url,{headers})));
-  if(responses.some(r=>!r.ok))throw Error('GitHub API status '+responses.find(r=>!r.ok).status);
-  const [modData,projectData]=await Promise.all(responses.map(r=>r.json()));
-  mod.replaceChildren();
-  const matches=(modData.items||[]).filter(r=>/modding\s*xz|moddingxz/i.test(r.full_name+' '+(r.description||'')));
-  if(!matches.length){
-   const empty=document.createElement('div');empty.className='empty';
-   empty.textContent='No public repository matching ModdingXZ was found. Check your GitHub username or repository name.';
-   mod.append(empty);
-  }else matches.slice(0,4).forEach(r=>mod.append(makeRepoCard(r)));
-  projects.replaceChildren();
-  (projectData.items||[]).slice(0,5).forEach(r=>projects.append(makeRepoCard(r)));
-  status.textContent='ONLINE';status.style.color='var(--green)';
-  addFeed('↗','GitHub radar refreshed','Public API · '+new Date().toLocaleTimeString());
+  const cached=JSON.parse(localStorage.getItem(key)||'null');
+  if(cached&&Date.now()-cached.time<cacheMinutes*60000)return cached.data;
+ }catch{}
+ const response=await fetch(url,{
+  headers:{Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'}
+ });
+ if(!response.ok){
+  if(response.status===403||response.status===429)throw Error('GitHub rate limit reached. Try again later.');
+  if(response.status===404)throw Error('Repository not found or no public data available.');
+  throw Error('GitHub returned HTTP '+response.status+'.');
+ }
+ const data=await response.json();
+ try{localStorage.setItem(key,JSON.stringify({time:Date.now(),data}))}catch{}
+ return data;
+}
+function repoCard(r){
+ const desc=r.description||'No description supplied by the owner.';
+ const updated=r.updated_at?new Date(r.updated_at).toLocaleDateString():'Unknown';
+ const language=r.language||'Unspecified';
+ return `<article class="repo"><strong>${esc(r.full_name)}</strong>
+ <p>${esc(desc)}</p><div class="repo-meta"><span>★ ${Number(r.stargazers_count)||0}</span><span>${esc(language)}</span><span>Updated ${esc(updated)}</span></div>
+ <p><a href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">View repository ↗</a></p></article>`;
+}
+async function searchRepos(){
+ const query=$('repoQuery').value.trim();
+ if(!query){toast('Enter a search term first.');return}
+ $('searchStatus').textContent='SEARCHING';
+ $('repoResults').innerHTML='<div class="empty">Searching public GitHub repositories…</div>';
+ try{
+  const data=await apiFetch('https://api.github.com/search/repositories?q='+encodeURIComponent(query)+'&sort=updated&order=desc&per_page=6',5);
+  const items=data.items||[];
+  $('repoResults').innerHTML=items.length?items.map(repoCard).join(''):'<div class="empty">No public repositories found.</div>';
+  $('searchStatus').textContent='LIVE';
+  $('apiLabel').textContent='ONLINE';
+  $('apiDot').className='statusdot online';
+  $('terminalStatus').textContent='GitHub API responding';
+  $('lastUpdated').textContent='Last successful fetch: '+new Date().toLocaleTimeString();
  }catch(err){
-  status.textContent='OFFLINE';status.style.color='#f0abfc';
-  mod.replaceChildren();projects.replaceChildren();
-  const a=document.createElement('div');a.className='empty';a.textContent='Live results unavailable. GitHub may be rate-limiting requests.';
-  const b=a.cloneNode(true);mod.append(a);projects.append(b);
+  $('repoResults').innerHTML='<div class="empty">'+esc(err.message)+'<br>Try again later or browse GitHub directly.</div>';
+  $('searchStatus').textContent='UNAVAILABLE';
+  $('apiLabel').textContent='LIMITED';
+  $('apiDot').className='statusdot offline';
+  $('terminalStatus').textContent='API unavailable or rate-limited';
+  $('lastUpdated').textContent='Last checked: '+new Date().toLocaleTimeString();
  }
 }
-function makeRepoCard(repo){
- const card=document.createElement('div');card.className='api-item';
- const name=document.createElement('strong');name.textContent=repo.full_name;
- const desc=document.createElement('small');
- desc.textContent=(repo.description||'No description provided')+' · ★ '+repo.stargazers_count+' · Updated '+new Date(repo.updated_at).toLocaleDateString();
- const link=document.createElement('a');link.href=repo.html_url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Open repository ↗';
- card.append(name,desc,link);return card;
+async function loadReleases(){
+ const raw=$('releaseRepo').value.trim();
+ if(!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(raw)){
+  toast('Enter a repository in owner/name format.');return;
+ }
+ $('releaseResults').innerHTML='<div class="empty">Loading public releases…</div>';
+ try{
+  const releases=await apiFetch('https://api.github.com/repos/'+raw+'/releases?per_page=5',10);
+  $('releaseResults').innerHTML=releases.length?releases.map(r=>`
+   <article class="repo"><strong>${esc(r.name||r.tag_name)}</strong>
+   <p>${esc((r.body||'No release notes provided.').slice(0,300))}</p>
+   <div class="repo-meta"><span>${esc(r.tag_name)}</span><span>${r.published_at?esc(new Date(r.published_at).toLocaleDateString()):'Unpublished date'}</span></div>
+   <p><a href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">Open release ↗</a></p></article>`).join(''):'<div class="empty">No published releases were found for this public repository.</div>';
+ }catch(err){
+  $('releaseResults').innerHTML='<div class="empty">'+esc(err.message)+'</div>';
+ }
 }
-$('refreshRadar').addEventListener('click',loadRadar);
-loadRadar();
-renderVault();
-updatePreview();
-readSharedArtifact();
+$('repoSearchBtn').addEventListener('click',searchRepos);
+$('repoQuery').addEventListener('keydown',e=>{if(e.key==='Enter')searchRepos()});
+$('releaseBtn').addEventListener('click',loadReleases);
+$('releaseRepo').addEventListener('keydown',e=>{if(e.key==='Enter')loadReleases()});
+$('refreshBtn').addEventListener('click',()=>{
+ try{
+  for(let i=localStorage.length-1;i>=0;i--){
+   const key=localStorage.key(i);
+   if(key&&key.startsWith(CACHE_PREFIX))localStorage.removeItem(key);
+  }
+ }catch{}
+ searchRepos();
+ toast('Refreshing public project data.');
+});
+
+$('exportFav').addEventListener('click',()=>{
+ const blob=new Blob([JSON.stringify({brand:'ModdingXZ',exportedAt:new Date().toISOString(),favourites},null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;a.download='moddingxz-favourites.json';a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+$('clearFav').addEventListener('click',()=>{
+ if(!favourites.length){toast('No favourites to clear.');return}
+ if(confirm('Clear all saved favourites from this browser?')){
+  favourites=[];persistFavourites();renderFavourites();renderResources();toast('Favourites cleared.');
+ }
+});
+
+renderResources();
+renderFavourites();
+updateChecks();
+updateTrouble();
 })();
 </script>
 </body>
 </html>
-
