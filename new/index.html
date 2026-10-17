@@ -4,2170 +4,1130 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#09070f">
-  <meta name="description" content="XZ OS 5.0 — ModdingXZ gaming dashboard, modding resources, public project discovery and developer tools.">
-  <title>XZ OS 5.0 | ModdingXZ</title>
+  <meta name="theme-color" content="#090711">
+  <meta name="description" content="Discover gaming mods, homebrew, modding tools, open-source projects and community releases with ModdingXZ.">
+  <title>ModdingXZ | Community Pulse</title>
 
-  <!-- External libraries: no build step required -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #09070f;
-      --panel: #100d19;
-      --panel-2: #171222;
-      --panel-3: #201832;
+      --bg: #090711;
+      --panel: #100d1a;
+      --panel2: #151020;
+      --border: #29213a;
       --purple: #a855f7;
-      --purple-2: #7c3aed;
-      --purple-soft: rgba(168,85,247,.14);
-      --text: #f3effa;
-      --muted: #a59bb8;
-      --border: rgba(194,164,255,.15);
-      --green: #54e0a1;
-      --red: #ff738b;
-      --yellow: #f7ce73;
-      --radius: 18px;
+      --purple2: #7c3aed;
+      --text: #f4f0fa;
+      --muted: #a59bb5;
+      --green: #4ade80;
     }
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
-
     body {
-      min-height: 100vh;
       margin: 0;
-      color: var(--text);
       background:
-        radial-gradient(ellipse at 15% -15%, rgba(124,58,237,.17), transparent 38%),
-        radial-gradient(ellipse at 100% 0%, rgba(168,85,247,.08), transparent 28%),
+        radial-gradient(ellipse at 50% -20%, #32154e 0, transparent 45%),
         var(--bg);
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
     }
 
-    a { color: #c9a5ff; }
-    a:hover { color: #ead9ff; }
-    button, input, select, textarea { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
 
-    .app-shell { display: flex; min-height: 100vh; }
-
-    .sidebar {
-      position: fixed;
-      z-index: 1040;
-      inset: 0 auto 0 0;
-      display: flex;
-      flex-direction: column;
-      width: 258px;
-      padding: 22px 15px;
-      overflow-y: auto;
-      background: rgba(12,9,19,.97);
-      border-right: 1px solid var(--border);
-      transition: transform .25s ease;
+    .navbar {
+      background: rgba(9,7,17,.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 5px 9px 24px;
-      color: var(--text);
-      text-decoration: none;
+      font-weight: 950;
+      letter-spacing: -.8px;
+      font-size: 1.35rem;
     }
 
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 43px;
-      height: 43px;
-      flex-shrink: 0;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #a855f7, #5b21b6);
-      box-shadow: 0 0 25px rgba(168,85,247,.25);
-      font-weight: 900;
-      letter-spacing: -2px;
+    .brand span { color: var(--purple); }
+
+    .live-dot {
+      display: inline-block;
+      height: 8px;
+      width: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      margin-right: 7px;
+      box-shadow: 0 0 10px #4ade8066;
     }
 
-    .brand-name { font-size: 16px; font-weight: 850; letter-spacing: .6px; }
-    .brand-sub { margin-top: 1px; color: var(--muted); font-size: 10px; letter-spacing: 2px; }
+    .hero {
+      padding: 52px 0 30px;
+    }
 
-    .nav-label {
-      padding: 13px 11px 7px;
-      color: #817590;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 1.8px;
+    .eyebrow {
+      color: #c084fc;
       text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: .72rem;
+      font-weight: 800;
     }
 
-    .sidebar .nav-link {
+    .hero h1 {
+      font-size: clamp(2.3rem, 6vw, 4.5rem);
+      font-weight: 950;
+      letter-spacing: -2px;
+      line-height: 1.02;
+      margin: 12px 0;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #c084fc, #8b5cf6, #e879f9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .muted { color: var(--muted); }
+
+    .search-wrap {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 2px 0;
-      padding: 11px 12px;
-      border: 1px solid transparent;
-      border-radius: 11px;
-      color: #b9afc8;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: .18s ease;
-    }
-
-    .sidebar .nav-link i { width: 18px; font-size: 16px; text-align: center; }
-    .sidebar .nav-link:hover { background: var(--purple-soft); color: white; }
-    .sidebar .nav-link.active {
-      color: white;
-      border-color: rgba(168,85,247,.24);
-      background: linear-gradient(90deg, rgba(124,58,237,.28), rgba(168,85,247,.07));
-    }
-
-    .sidebar-bottom { margin-top: auto; padding: 18px 9px 0; }
-    .community-mini {
-      padding: 15px;
+      gap: 10px;
+      padding: 8px;
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 15px;
-      background: linear-gradient(145deg, rgba(124,58,237,.17), rgba(16,13,25,.8));
+      max-width: 760px;
+      margin-top: 26px;
     }
 
-    .main {
-      width: calc(100% - 258px);
+    .search-wrap input {
       min-width: 0;
-      margin-left: 258px;
+      flex: 1;
+      color: white;
+      background: transparent;
+      border: 0;
+      outline: none;
+      padding: 9px 12px;
     }
 
-    .topbar {
-      position: sticky;
-      z-index: 100;
-      top: 0;
+    .btn-purple {
+      color: white;
+      background: var(--purple2);
+      border: 1px solid #8b5cf6;
+      border-radius: 10px;
+      padding: 10px 17px;
+      font-weight: 750;
+    }
+
+    .btn-purple:hover {
+      background: #6d28d9;
+      color: white;
+    }
+
+    .btn-quiet {
+      background: #181223;
+      border: 1px solid var(--border);
+      color: #ded5ed;
+      border-radius: 9px;
+      padding: 8px 12px;
+    }
+
+    .btn-quiet:hover, .btn-quiet.active {
+      color: white;
+      border-color: var(--purple);
+      background: #28163e;
+    }
+
+    .section-heading {
+      font-weight: 850;
+      letter-spacing: -.4px;
+    }
+
+    .section-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
-      min-height: 72px;
-      padding: 13px 28px;
-      border-bottom: 1px solid var(--border);
-      background: rgba(9,7,15,.84);
-      backdrop-filter: blur(18px);
+      gap: 12px;
+      margin: 28px 0 15px;
     }
 
-    .search-wrap { position: relative; width: min(420px, 100%); }
-    .search-wrap i {
-      position: absolute;
-      top: 50%;
-      left: 14px;
-      transform: translateY(-50%);
-      color: var(--muted);
+    .feed-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 25px 0;
     }
 
-    .search-wrap input { padding-left: 39px; }
-
-    .top-actions { display: flex; align-items: center; gap: 10px; }
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: #c8bdd6;
-      background: var(--panel);
-      font-size: 11px;
-      white-space: nowrap;
-    }
-
-    .online-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 10px rgba(84,224,161,.55);
-    }
-
-    .mobile-menu { display: none; }
-
-    .content { max-width: 1600px; margin: auto; padding: 28px; }
-    .page { display: none; animation: appear .22s ease; }
-    .page.active { display: block; }
-    @keyframes appear { from { opacity: .45; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-
-    .eyebrow {
-      color: #b989ff;
-      font-size: 10px;
-      font-weight: 850;
-      letter-spacing: 2.1px;
-      text-transform: uppercase;
-    }
-
-    .page-title { margin: 7px 0 8px; font-size: clamp(26px, 3vw, 39px); font-weight: 850; letter-spacing: -1.5px; }
-    .page-desc { max-width: 700px; color: var(--muted); font-size: 13px; line-height: 1.8; }
-    .section-heading { margin: 29px 0 14px; font-size: 15px; font-weight: 800; }
-    .muted { color: var(--muted) !important; }
-    .tiny { font-size: 11px; }
-    .small-label { color: var(--muted); font-size: 11px; }
-
-    .panel {
-      min-width: 0;
-      padding: 19px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: linear-gradient(145deg, rgba(25,19,38,.96), rgba(15,12,23,.96));
-      box-shadow: 0 12px 35px rgba(0,0,0,.08);
-    }
-
-    .panel h3 { font-size: 14px; font-weight: 800; }
-    .stat-card { height: 100%; padding: 19px; }
-    .stat-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .stat-icon {
-      display: grid;
-      place-items: center;
-      width: 39px;
-      height: 39px;
-      border: 1px solid rgba(168,85,247,.22);
-      border-radius: 12px;
-      color: #d2b1ff;
-      background: var(--purple-soft);
-      font-size: 17px;
-    }
-    .stat-value { margin-top: 17px; font-size: 28px; font-weight: 850; letter-spacing: -1px; }
-    .stat-label { margin-top: 2px; color: var(--muted); font-size: 12px; }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(23px, 4vw, 43px);
-      border: 1px solid rgba(168,85,247,.27);
-      border-radius: 23px;
-      background:
-        radial-gradient(ellipse at 85% 20%, rgba(168,85,247,.25), transparent 38%),
-        linear-gradient(120deg, #171024, #100c19 75%);
-    }
-
-    .hero::after {
-      position: absolute;
-      right: 6%;
-      bottom: -75px;
-      width: 240px;
-      height: 240px;
-      border: 1px solid rgba(168,85,247,.12);
-      border-radius: 50%;
-      box-shadow: 0 0 0 25px rgba(168,85,247,.025), 0 0 0 55px rgba(168,85,247,.025);
-      content: "";
-      pointer-events: none;
-    }
-
-    .hero h2 { max-width: 620px; font-size: clamp(27px, 4vw, 44px); font-weight: 900; letter-spacing: -1.8px; }
-    .hero p { max-width: 570px; color: #b9accb; font-size: 13px; line-height: 1.9; }
-    .hero-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-
-    .btn-xz {
-      padding: 10px 15px;
-      border: 1px solid transparent;
-      border-radius: 11px;
-      color: white;
-      background: linear-gradient(135deg, #9333ea, #6d28d9);
-      font-size: 12px;
-      font-weight: 750;
-    }
-    .btn-xz:hover { color: white; background: linear-gradient(135deg, #a855f7, #7c3aed); }
-    .btn-outline-xz {
-      padding: 9px 14px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      color: #ddd1ec;
-      background: rgba(255,255,255,.02);
-      font-size: 12px;
-      font-weight: 700;
-    }
-    .btn-outline-xz:hover { color: white; border-color: #a855f7; background: var(--purple-soft); }
-    .btn-danger-soft {
-      padding: 8px 11px;
-      border: 1px solid rgba(255,115,139,.25);
-      border-radius: 9px;
-      color: #ff9caf;
-      background: rgba(255,115,139,.07);
-      font-size: 11px;
-    }
-
-    .form-control, .form-select, .input-group-text {
-      min-height: 40px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      background-color: #0c0913;
-      font-size: 12px;
-    }
-    .form-control::placeholder { color: #756b83; }
-    .form-control:focus, .form-select:focus {
-      color: white;
-      border-color: #9b5de5;
-      background-color: #0e0a17;
-      box-shadow: 0 0 0 .2rem rgba(168,85,247,.13);
-    }
-    .form-select option { color: white; background: #100d19; }
-    .form-label { margin-bottom: 7px; color: #c7bbd7; font-size: 11px; font-weight: 700; }
-    textarea.form-control { min-height: 110px; resize: vertical; }
-
-    .game-card {
+    .project-card {
+      height: 100%;
       display: flex;
       flex-direction: column;
-      height: 100%;
-      padding: 17px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: linear-gradient(145deg, rgba(27,20,41,.96), rgba(15,12,23,.95));
-      transition: transform .18s ease, border-color .18s ease;
-    }
-    .game-card:hover { transform: translateY(-3px); border-color: rgba(168,85,247,.45); }
-    .game-symbol {
-      display: grid;
-      place-items: center;
-      width: 47px;
-      height: 47px;
-      margin-bottom: 15px;
-      border: 1px solid rgba(168,85,247,.2);
-      border-radius: 14px;
-      color: #d6b8ff;
-      background: var(--purple-soft);
-      font-size: 21px;
-    }
-    .game-card h3 { margin-bottom: 7px; font-size: 14px; font-weight: 800; }
-    .game-card p { flex: 1; color: var(--muted); font-size: 11px; line-height: 1.7; }
-    .game-card .game-meta { margin-bottom: 12px; color: #8d819f; font-size: 10px; }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
-      margin: 2px 3px 2px 0;
-      padding: 5px 8px;
-      border: 1px solid rgba(168,85,247,.18);
-      border-radius: 7px;
-      color: #d4baff;
-      background: rgba(168,85,247,.08);
-      font-size: 10px;
-    }
-
-    .resource-card {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      padding: 16px;
+      background: linear-gradient(145deg, var(--panel2), var(--panel));
       border: 1px solid var(--border);
       border-radius: 15px;
-      background: rgba(20,15,30,.8);
-    }
-    .resource-card h3 { margin: 9px 0 7px; font-size: 13px; font-weight: 800; overflow-wrap: anywhere; }
-    .resource-card p { flex: 1; color: var(--muted); font-size: 11px; line-height: 1.7; overflow-wrap: anywhere; }
-    .resource-url { overflow-wrap: anywhere; font-size: 10px; }
-    .resource-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-
-    .badge-xz {
-      padding: 5px 8px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      color: #cdb4f0;
-      background: rgba(168,85,247,.09);
-      font-size: 10px;
-      font-weight: 700;
+      padding: 19px;
+      transition: transform .18s ease, border-color .18s ease;
+      overflow: hidden;
     }
 
-    .task-row, .activity-row, .api-row {
+    .project-card:hover {
+      transform: translateY(-3px);
+      border-color: #8151b9;
+    }
+
+    .project-owner {
       display: flex;
-      align-items: flex-start;
-      gap: 11px;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(194,164,255,.09);
-    }
-    .task-row:last-child, .activity-row:last-child, .api-row:last-child { border-bottom: 0; }
-    .task-row input { margin-top: 4px; accent-color: #a855f7; }
-    .task-row .task-text { flex: 1; min-width: 0; font-size: 12px; overflow-wrap: anywhere; }
-    .task-done { color: #7f758e; text-decoration: line-through; }
-    .activity-icon {
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      color: #d0b0ff;
-      background: var(--purple-soft);
+      align-items: center;
+      gap: 9px;
+      font-size: .82rem;
+      color: var(--muted);
+      min-width: 0;
     }
 
-    .empty-state { padding: 34px 15px; color: var(--muted); text-align: center; font-size: 12px; }
-    .empty-state i { display: block; margin-bottom: 10px; color: #77678e; font-size: 27px; }
-    .code-output {
-      min-height: 95px;
-      padding: 13px;
-      overflow: auto;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: #d6c5ec;
-      background: #09070f;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: 11px;
-      line-height: 1.7;
-      white-space: pre-wrap;
+    .avatar {
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #251634;
+      flex-shrink: 0;
+    }
+
+    .project-name {
+      font-size: 1.03rem;
+      font-weight: 850;
+      overflow-wrap: anywhere;
+      margin: 17px 0 9px;
+    }
+
+    .project-description {
+      font-size: .88rem;
+      color: #bcb2ca;
+      line-height: 1.55;
+      flex: 1;
       overflow-wrap: anywhere;
     }
 
-    .notice {
-      padding: 12px 14px;
-      border: 1px solid rgba(247,206,115,.2);
-      border-radius: 11px;
-      color: #d7c59e;
-      background: rgba(247,206,115,.05);
-      font-size: 11px;
-      line-height: 1.8;
-    }
-    .success-note {
-      padding: 12px 14px;
-      border: 1px solid rgba(84,224,161,.2);
-      border-radius: 11px;
-      color: #a5ebc9;
-      background: rgba(84,224,161,.05);
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
-    .footer {
+    .tag-row {
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 38px;
-      padding: 18px 0 6px;
-      border-top: 1px solid var(--border);
-      color: #766c83;
-      font-size: 10px;
+      gap: 6px;
+      margin: 13px 0;
     }
 
-    .toast-container { z-index: 2000; }
-    .xz-toast {
-      padding: 12px 16px;
+    .tag {
+      border: 1px solid #3b2b50;
+      background: #21152e;
+      color: #d8b4fe;
+      font-size: .7rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .project-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+      font-size: .76rem;
+      color: var(--muted);
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .project-footer {
+      display: flex;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .project-footer a {
+      flex: 1;
+      text-align: center;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 8px 5px;
+      font-size: .8rem;
+      font-weight: 750;
+    }
+
+    .project-footer a:first-child {
+      background: #28163e;
+      border-color: #563479;
+    }
+
+    .project-footer a:hover { border-color: var(--purple); }
+
+    .status-panel {
+      background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 12px;
-      color: white;
-      background: #1b1428;
-      box-shadow: 0 12px 40px #0008;
-      font-size: 12px;
+      padding: 12px 15px;
+      font-size: .82rem;
     }
 
-    .overlay {
-      position: fixed;
-      z-index: 1030;
-      inset: 0;
-      display: none;
-      background: rgba(0,0,0,.65);
-    }
-    .overlay.show { display: block; }
-
-    @media (max-width: 991.98px) {
-      .sidebar { transform: translateX(-105%); }
-      .sidebar.open { transform: translateX(0); }
-      .main { width: 100%; margin-left: 0; }
-      .mobile-menu { display: inline-flex; }
-      .topbar { padding: 12px 16px; }
-      .content { padding: 20px 16px; }
-      .search-wrap { width: 100%; max-width: 340px; }
+    .feed-info {
+      font-size: .78rem;
+      color: var(--muted);
     }
 
-    @media (max-width: 575.98px) {
-      .topbar { gap: 8px; }
-      .top-actions .status-pill { display: none; }
-      .content { padding: 16px 12px; }
-      .hero { padding: 23px 18px; }
-      .panel { padding: 15px; }
-      .stat-card { padding: 14px; }
-      .stat-value { font-size: 24px; }
-      .brand { padding-bottom: 18px; }
+    .loading {
+      border: 2px solid #35234a;
+      border-top-color: var(--purple);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      animation: spin .7s linear infinite;
+      margin: 30px auto;
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state {
+      border: 1px dashed #403050;
+      border-radius: 14px;
+      padding: 35px 18px;
+      text-align: center;
+      color: var(--muted);
+      background: #100c18;
+    }
+
+    .release-row {
+      padding: 15px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .release-row h3 { font-size: .97rem; font-weight: 800; }
+
+    .release-body {
+      font-size: .84rem;
+      color: #bcb2ca;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      max-height: 110px;
+      overflow: auto;
+      margin: 10px 0;
+    }
+
+    .site-footer {
+      margin-top: 65px;
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .small-link {
+      color: #c084fc;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .filter-line {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-line select {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 8px;
+      max-width: 100%;
+    }
+
+    @media (max-width: 575px) {
+      .hero { padding-top: 38px; }
+      .search-wrap { flex-wrap: wrap; }
+      .search-wrap input { flex-basis: 100%; }
+      .search-wrap button { flex: 1; }
+      .section-bar { align-items: flex-start; flex-direction: column; }
+      .project-card { padding: 16px; }
     }
   </style>
 </head>
 
 <body>
-<div class="app-shell">
-  <div class="overlay" id="sidebarOverlay"></div>
-
-  <aside class="sidebar" id="sidebar">
-    <a class="brand" href="#dashboard" data-page-link="dashboard" aria-label="ModdingXZ dashboard">
-      <div class="brand-mark">XZ</div>
-      <div>
-        <div class="brand-name">MODDINGXZ</div>
-        <div class="brand-sub">XZ OS 5.0</div>
-      </div>
-    </a>
-
-    <div class="nav-label">Workspace</div>
-    <nav class="nav flex-column" aria-label="Main navigation">
-      <a class="nav-link active" href="#dashboard" data-page-link="dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
-      <a class="nav-link" href="#games" data-page-link="games"><i class="bi bi-controller"></i> Gaming hub</a>
-      <a class="nav-link" href="#resources" data-page-link="resources"><i class="bi bi-collection"></i> Resource library <span class="ms-auto badge-xz" id="resourceNavCount">0</span></a>
-      <a class="nav-link" href="#radar" data-page-link="radar"><i class="bi bi-radar"></i> Release Radar</a>
-      <a class="nav-link" href="#relay" data-page-link="relay"><i class="bi bi-diagram-3"></i> Relay & diagnostics</a>
-
-      <div class="nav-label">Utilities</div>
-      <a class="nav-link" href="#toolkit" data-page-link="toolkit"><i class="bi bi-code-slash"></i> Developer toolkit</a>
-      <a class="nav-link" href="#tasks" data-page-link="tasks"><i class="bi bi-check2-square"></i> Tasks & notes</a>
-      <a class="nav-link" href="#community" data-page-link="community"><i class="bi bi-people"></i> Community</a>
-      <a class="nav-link" href="#settings" data-page-link="settings"><i class="bi bi-sliders"></i> Settings & backup</a>
-    </nav>
-
-    <div class="sidebar-bottom">
-      <div class="community-mini">
-        <div class="d-flex align-items-center gap-2 mb-2">
-          <i class="bi bi-lightning-charge-fill" style="color:#c49aff"></i>
-          <strong style="font-size:12px">ModdingXZ Community</strong>
-        </div>
-        <p class="muted tiny mb-3">Guides, releases, tools and community support.</p>
-        <a class="btn btn-xz w-100" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
-          <i class="bi bi-telegram me-1"></i> Open Telegram
-        </a>
-      </div>
-      <div class="tiny muted mt-3 px-1">XZ OS 5.0 · Static edition</div>
-    </div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div class="d-flex align-items-center gap-3 flex-grow-1">
-        <button class="btn btn-outline-xz mobile-menu" id="menuToggle" aria-label="Open navigation">
-          <i class="bi bi-list fs-5"></i>
-        </button>
-        <div class="search-wrap">
-          <i class="bi bi-search"></i>
-          <input type="search" class="form-control" id="globalSearch" placeholder="Search games, resources, tasks..." aria-label="Search dashboard">
-        </div>
-      </div>
-      <div class="top-actions">
-        <div class="status-pill"><span class="online-dot"></span> Local mode</div>
-        <button class="btn btn-outline-xz" id="quickAddBtn"><i class="bi bi-plus-lg me-1"></i><span class="d-none d-sm-inline">Quick add</span></button>
-      </div>
-    </header>
-
-    <div class="content">
-
-      <!-- DASHBOARD -->
-      <section class="page active" id="page-dashboard">
-        <div class="hero">
-          <div class="eyebrow">ModdingXZ · Gaming workspace</div>
-          <h2>One hub.<br><span style="color:#c49aff">Every gaming project.</span></h2>
-          <p>Welcome to XZ OS 5.0. Organise your gaming resources, explore public developer projects, keep track of tasks and use built-in utilities from one responsive dashboard.</p>
-          <div class="hero-actions">
-            <button class="btn btn-xz" data-go="games"><i class="bi bi-controller me-2"></i>Explore gaming hub</button>
-            <button class="btn btn-outline-xz" data-go="resources"><i class="bi bi-collection me-2"></i>Open resources</button>
-            <a class="btn btn-outline-xz" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>Join Telegram</a>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1" id="dashboardStats">
-          <div class="col-6 col-xl-3">
-            <div class="panel stat-card">
-              <div class="stat-top"><span class="small-label">Game categories</span><span class="stat-icon"><i class="bi bi-controller"></i></span></div>
-              <div class="stat-value" id="statGames">8</div>
-              <div class="stat-label">Gaming areas</div>
-            </div>
-          </div>
-          <div class="col-6 col-xl-3">
-            <div class="panel stat-card">
-              <div class="stat-top"><span class="small-label">Saved resources</span><span class="stat-icon"><i class="bi bi-collection"></i></span></div>
-              <div class="stat-value" id="statResources">0</div>
-              <div class="stat-label">Guides and links</div>
-            </div>
-          </div>
-          <div class="col-6 col-xl-3">
-            <div class="panel stat-card">
-              <div class="stat-top"><span class="small-label">Open tasks</span><span class="stat-icon"><i class="bi bi-list-check"></i></span></div>
-              <div class="stat-value" id="statTasks">0</div>
-              <div class="stat-label">Things to work on</div>
-            </div>
-          </div>
-          <div class="col-6 col-xl-3">
-            <div class="panel stat-card">
-              <div class="stat-top"><span class="small-label">Favourites</span><span class="stat-icon"><i class="bi bi-star"></i></span></div>
-              <div class="stat-value" id="statFavourites">0</div>
-              <div class="stat-label">Pinned resources</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-lg-7">
-            <div class="panel h-100">
-              <div class="d-flex justify-content-between align-items-center gap-2">
-                <div>
-                  <h3 class="mb-1">Gaming categories</h3>
-                  <div class="muted tiny">Jump into a platform or game area.</div>
-                </div>
-                <button class="btn btn-outline-xz" data-go="games">View all <i class="bi bi-arrow-right ms-1"></i></button>
-              </div>
-              <div class="row g-2 mt-2" id="dashboardGameGrid"></div>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="panel h-100">
-              <div class="d-flex justify-content-between align-items-center">
-                <div>
-                  <h3 class="mb-1">Your task list</h3>
-                  <div class="muted tiny">Saved in this browser.</div>
-                </div>
-                <button class="btn btn-outline-xz" data-go="tasks"><i class="bi bi-arrow-right"></i></button>
-              </div>
-              <div id="dashboardTasks" class="mt-2"></div>
-              <button class="btn btn-xz w-100 mt-2" id="dashboardAddTask"><i class="bi bi-plus-lg me-1"></i>Add task</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-lg-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-clock-history me-2" style="color:#c49aff"></i>Recent activity</h3>
-              <div id="activityList"></div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-lightning-charge me-2" style="color:#c49aff"></i>Quick actions</h3>
-              <div class="row g-2 mt-1">
-                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="radar"><i class="bi bi-github d-block fs-5 mb-2"></i><strong>Release Radar</strong><div class="muted tiny mt-1">Explore public projects</div></button></div>
-                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="toolkit"><i class="bi bi-code-slash d-block fs-5 mb-2"></i><strong>Dev toolkit</strong><div class="muted tiny mt-1">Format, encode, hash</div></button></div>
-                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="relay"><i class="bi bi-diagram-3 d-block fs-5 mb-2"></i><strong>Relay notes</strong><div class="muted tiny mt-1">Troubleshooting checklist</div></button></div>
-                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="settings"><i class="bi bi-cloud-arrow-down d-block fs-5 mb-2"></i><strong>Backup</strong><div class="muted tiny mt-1">Export your data</div></button></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- GAMING HUB -->
-      <section class="page" id="page-games">
-        <div class="eyebrow">Explore</div>
-        <h1 class="page-title">Gaming hub</h1>
-        <p class="page-desc">Browse gaming categories, platforms and modding topics. Add your own links to the resource library for quick access.</p>
-        <div class="row g-2 mt-3">
-          <div class="col-md-8"><input class="form-control" id="gameSearch" placeholder="Filter games and platforms..."></div>
-          <div class="col-md-4">
-            <select class="form-select" id="gameTypeFilter">
-              <option value="all">All categories</option>
-              <option value="game">Games</option>
-              <option value="platform">Platforms</option>
-              <option value="tools">Developer tools</option>
-            </select>
-          </div>
-        </div>
-        <div class="row g-3 mt-1" id="gameGrid"></div>
-        <div class="panel mt-4">
-          <h3>Build your own gaming workspace</h3>
-          <p class="muted tiny">Save official documentation, open-source projects, community guides or your own notes. Only add resources you trust and have permission to use.</p>
-          <button class="btn btn-xz" data-add-resource><i class="bi bi-plus-lg me-1"></i>Add a resource</button>
-        </div>
-      </section>
-
-      <!-- RESOURCE LIBRARY -->
-      <section class="page" id="page-resources">
-        <div class="eyebrow">Your collection</div>
-        <h1 class="page-title">Resource library</h1>
-        <p class="page-desc">Keep guides, trusted websites, tools and project notes together. Resources you add are stored locally in your browser.</p>
-        <div class="panel mt-4">
-          <form id="resourceForm">
-            <input type="hidden" id="resourceId">
-            <div class="row g-3">
-              <div class="col-md-6"><label class="form-label" for="resourceTitle">Resource title *</label><input class="form-control" id="resourceTitle" maxlength="120" required placeholder="e.g. Official game documentation"></div>
-              <div class="col-md-6"><label class="form-label" for="resourceUrl">Website URL *</label><input class="form-control" id="resourceUrl" required type="url" maxlength="1500" placeholder="https://example.com"></div>
-              <div class="col-md-4"><label class="form-label" for="resourceGame">Game / platform</label><select class="form-select" id="resourceGame"></select></div>
-              <div class="col-md-4"><label class="form-label" for="resourceCategory">Resource type</label><select class="form-select" id="resourceCategory"><option>Guide</option><option>Tool</option><option>Documentation</option><option>Repository</option><option>Community</option><option>Other</option></select></div>
-              <div class="col-md-4"><label class="form-label" for="resourceTags">Tags (comma-separated)</label><input class="form-control" id="resourceTags" maxlength="250" placeholder="BO2, PC, guide"></div>
-              <div class="col-12"><label class="form-label" for="resourceDescription">Description / notes</label><textarea class="form-control" id="resourceDescription" maxlength="1500" rows="2" placeholder="What is this resource for?"></textarea></div>
-              <div class="col-12 d-flex flex-wrap gap-2">
-                <button class="btn btn-xz" id="resourceSubmit" type="submit"><i class="bi bi-plus-lg me-1"></i>Save resource</button>
-                <button class="btn btn-outline-xz d-none" id="resourceCancelEdit" type="button">Cancel edit</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="d-flex flex-wrap gap-2 mt-4">
-          <div class="flex-grow-1" style="min-width:180px"><input class="form-control" id="resourceSearch" placeholder="Search saved resources..."></div>
-          <div style="min-width:150px"><select class="form-select" id="resourceFilterGame"></select></div>
-          <div style="min-width:140px"><select class="form-select" id="resourceFilterType"><option value="all">All types</option><option>Guide</option><option>Tool</option><option>Documentation</option><option>Repository</option><option>Community</option><option>Other</option></select></div>
-          <button class="btn btn-outline-xz" id="favouritesOnly"><i class="bi bi-star me-1"></i>Favourites</button>
-        </div>
-        <div class="row g-3 mt-1" id="resourceGrid"></div>
-      </section>
-
-      <!-- RELEASE RADAR -->
-      <section class="page" id="page-radar">
-        <div class="eyebrow">Public API explorer</div>
-        <h1 class="page-title">Release Radar</h1>
-        <p class="page-desc">Search public GitHub repositories, browse open-source gaming projects and inspect project metadata. This searches public repository information, not private releases or console status.</p>
-
-        <div class="panel mt-4">
-          <form id="githubSearchForm">
-            <label class="form-label" for="githubQuery">Search GitHub repositories</label>
-            <div class="d-flex flex-column flex-sm-row gap-2">
-              <input class="form-control" id="githubQuery" maxlength="180" value="game modding" placeholder="e.g. game modding language:javascript">
-              <select class="form-select" id="githubSort" style="max-width:180px">
-                <option value="best-match">Best match</option>
-                <option value="updated">Recently updated</option>
-                <option value="stars">Most stars</option>
-              </select>
-              <button class="btn btn-xz" type="submit" id="githubSearchBtn"><i class="bi bi-search me-1"></i>Search</button>
-            </div>
-            <div class="muted tiny mt-2">Powered by the public GitHub REST API. Unauthenticated API limits apply. No API key is stored or required.</div>
-          </form>
-          <div id="githubStatus" class="mt-3 muted tiny" aria-live="polite"></div>
-        </div>
-        <div class="row g-3 mt-1" id="githubResults"></div>
-        <div class="panel mt-4">
-          <h3>Useful public project searches</h3>
-          <div class="d-flex flex-wrap gap-2 mt-3">
-            <button class="btn btn-outline-xz preset-search" data-query="black ops 2 modding">Black Ops 2</button>
-            <button class="btn btn-outline-xz preset-search" data-query="game modding tools">Game modding</button>
-            <button class="btn btn-outline-xz preset-search" data-query="PlayStation homebrew">PlayStation homebrew</button>
-            <button class="btn btn-outline-xz preset-search" data-query="Minecraft mod loader">Minecraft</button>
-            <button class="btn btn-outline-xz preset-search" data-query="GTA modding">GTA modding</button>
-            <button class="btn btn-outline-xz preset-search" data-query="game save editor">Save editors</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- RELAY / DIAGNOSTICS -->
-      <section class="page" id="page-relay">
-        <div class="eyebrow">Connection workspace</div>
-        <h1 class="page-title">Relay & diagnostics</h1>
-        <p class="page-desc">Use the checklist to record connection symptoms, work through basic network checks and save notes for your own setup. These checks do not scan external devices or change router settings.</p>
-
-        <div class="notice mt-4"><i class="bi bi-info-circle me-2"></i>Results are based on the checklist you complete, not a live test of your console, router, NAT type or internet connection.</div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-lg-7">
-            <div class="panel">
-              <h3>Connection checklist</h3>
-              <p class="muted tiny">Tick each step once you have checked it.</p>
-              <div id="relayChecklist" class="mt-2"></div>
-              <div class="d-flex gap-2 flex-wrap mt-3">
-                <button class="btn btn-xz" id="relayCheckBtn"><i class="bi bi-clipboard-check me-1"></i>Review checklist</button>
-                <button class="btn btn-outline-xz" id="relayResetBtn">Reset checks</button>
-              </div>
-              <div id="relayResult" class="mt-3"></div>
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="panel">
-              <h3>Save a diagnostic note</h3>
-              <form id="diagnosticForm" class="mt-3">
-                <div class="mb-3"><label class="form-label" for="diagPlatform">Platform</label><select class="form-select" id="diagPlatform"><option>PC</option><option>PlayStation</option><option>Xbox</option><option>Network / router</option><option>Other</option></select></div>
-                <div class="mb-3"><label class="form-label" for="diagSymptom">Symptom</label><input class="form-control" id="diagSymptom" required maxlength="120" placeholder="e.g. Cannot join a lobby"></div>
-                <div class="mb-3"><label class="form-label" for="diagDetails">What happened / what you tried</label><textarea class="form-control" id="diagDetails" maxlength="2000" rows="4" placeholder="Record the error message and checks completed..."></textarea></div>
-                <button class="btn btn-xz" type="submit">Save note</button>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="panel mt-3">
-          <div class="d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">Saved diagnostic notes</h3>
-            <span class="badge-xz" id="diagCount">0 notes</span>
-          </div>
-          <div id="diagnosticList" class="mt-2"></div>
-        </div>
-      </section>
-
-      <!-- DEVELOPER TOOLKIT -->
-      <section class="page" id="page-toolkit">
-        <div class="eyebrow">Built-in utilities</div>
-        <h1 class="page-title">Developer toolkit</h1>
-        <p class="page-desc">Every tool below runs in your browser. Input is not sent to a backend by these utilities.</p>
-
-        <div class="row g-3 mt-2">
-          <div class="col-xl-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-braces me-2" style="color:#c49aff"></i>JSON formatter & validator</h3>
-              <label class="form-label mt-3" for="jsonInput">JSON input</label>
-              <textarea class="form-control" id="jsonInput" rows="7" spellcheck="false" placeholder='{"project":"ModdingXZ","version":"5.0"}'></textarea>
-              <div class="d-flex flex-wrap gap-2 mt-3">
-                <button class="btn btn-xz" id="jsonFormatBtn">Format & validate</button>
-                <button class="btn btn-outline-xz" id="jsonMinifyBtn">Minify</button>
-                <button class="btn btn-outline-xz" id="jsonClearBtn">Clear</button>
-              </div>
-              <div class="small-label mt-3">Output</div>
-              <pre class="code-output mt-2" id="jsonOutput">Your formatted JSON will appear here.</pre>
-              <button class="btn btn-outline-xz mt-2" data-copy-target="jsonOutput">Copy output</button>
-            </div>
-          </div>
-
-          <div class="col-xl-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-arrow-left-right me-2" style="color:#c49aff"></i>Base64 encoder / decoder</h3>
-              <label class="form-label mt-3" for="base64Input">Text or Base64 input</label>
-              <textarea class="form-control" id="base64Input" rows="7" placeholder="Enter text to encode, or Base64 to decode..."></textarea>
-              <div class="d-flex flex-wrap gap-2 mt-3">
-                <button class="btn btn-xz" id="base64EncodeBtn">Encode</button>
-                <button class="btn btn-outline-xz" id="base64DecodeBtn">Decode</button>
-                <button class="btn btn-outline-xz" id="base64ClearBtn">Clear</button>
-              </div>
-              <div class="small-label mt-3">Output</div>
-              <pre class="code-output mt-2" id="base64Output">Output will appear here.</pre>
-              <button class="btn btn-outline-xz mt-2" data-copy-target="base64Output">Copy output</button>
-            </div>
-          </div>
-
-          <div class="col-xl-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-fingerprint me-2" style="color:#c49aff"></i>SHA-256 hash</h3>
-              <p class="muted tiny mt-2">Generate a SHA-256 digest from text using the browser Web Crypto API. This is not a password-storage tool.</p>
-              <label class="form-label" for="hashInput">Text to hash</label>
-              <textarea class="form-control" id="hashInput" rows="4" placeholder="Enter text..."></textarea>
-              <button class="btn btn-xz mt-3" id="hashBtn">Generate SHA-256</button>
-              <div class="small-label mt-3">Digest</div>
-              <pre class="code-output mt-2" id="hashOutput">Your hash will appear here.</pre>
-              <button class="btn btn-outline-xz mt-2" data-copy-target="hashOutput">Copy hash</button>
-            </div>
-          </div>
-
-          <div class="col-xl-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-file-diff me-2" style="color:#c49aff"></i>Text comparison</h3>
-              <p class="muted tiny mt-2">Compare two text blocks line by line. Lines marked + appear only in the second input; - lines appear only in the first.</p>
-              <div class="row g-2">
-                <div class="col-6"><label class="form-label" for="diffA">Original</label><textarea class="form-control" id="diffA" rows="6" placeholder="Original text..."></textarea></div>
-                <div class="col-6"><label class="form-label" for="diffB">Modified</label><textarea class="form-control" id="diffB" rows="6" placeholder="Modified text..."></textarea></div>
-              </div>
-              <button class="btn btn-xz mt-3" id="diffBtn">Compare text</button>
-              <pre class="code-output mt-3" id="diffOutput">Comparison will appear here.</pre>
-              <button class="btn btn-outline-xz mt-2" data-copy-target="diffOutput">Copy comparison</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- TASKS -->
-      <section class="page" id="page-tasks">
-        <div class="eyebrow">Personal workspace</div>
-        <h1 class="page-title">Tasks & notes</h1>
-        <p class="page-desc">Track upcoming releases, website changes, guides to write and other project work. Everything is saved in your browser.</p>
-
-        <div class="panel mt-4">
-          <form id="taskForm">
-            <div class="row g-2">
-              <div class="col-md-7"><label class="form-label" for="taskInput">Task</label><input class="form-control" id="taskInput" maxlength="240" required placeholder="e.g. Update the BO2 guide"></div>
-              <div class="col-md-3"><label class="form-label" for="taskPriority">Priority</label><select class="form-select" id="taskPriority"><option>Normal</option><option>High</option><option>Low</option></select></div>
-              <div class="col-md-2 d-flex align-items-end"><button class="btn btn-xz w-100" type="submit"><i class="bi bi-plus-lg me-1"></i>Add</button></div>
-            </div>
-          </form>
-        </div>
-
-        <div class="row g-3 mt-1">
-          <div class="col-md-4"><div class="panel"><div class="small-label">Total tasks</div><div class="stat-value" id="taskTotal">0</div></div></div>
-          <div class="col-md-4"><div class="panel"><div class="small-label">Completed</div><div class="stat-value" id="taskCompleted">0</div></div></div>
-          <div class="col-md-4"><div class="panel"><div class="small-label">Remaining</div><div class="stat-value" id="taskRemaining">0</div></div></div>
-        </div>
-
-        <div class="panel mt-3">
-          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
-            <h3 class="mb-0">Your tasks</h3>
-            <div class="d-flex gap-2">
-              <select class="form-select" id="taskFilter" style="width:auto"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Completed</option></select>
-              <button class="btn btn-outline-xz" id="clearCompletedBtn">Clear completed</button>
-            </div>
-          </div>
-          <div id="taskList" class="mt-2"></div>
-        </div>
-
-        <div class="panel mt-3">
-          <h3>Scratchpad</h3>
-          <p class="muted tiny">Autosaves locally as you type. Do not store passwords, API keys or other secrets here.</p>
-          <textarea class="form-control" id="scratchpad" rows="7" maxlength="20000" placeholder="Ideas, changelog notes, website plans..."></textarea>
-          <div class="d-flex justify-content-between mt-2"><span class="muted tiny" id="scratchStatus">Saved locally</span><span class="muted tiny" id="scratchCount">0 / 20000</span></div>
-        </div>
-      </section>
-
-      <!-- COMMUNITY -->
-      <section class="page" id="page-community">
-        <div class="eyebrow">Connect</div>
-        <h1 class="page-title">ModdingXZ community</h1>
-        <p class="page-desc">Quick access to the community and useful public documentation. Always verify downloads and project ownership before running external files.</p>
-
-        <div class="row g-3 mt-2">
-          <div class="col-md-6 col-xl-4">
-            <div class="game-card">
-              <div class="game-symbol"><i class="bi bi-telegram"></i></div>
-              <h3>ModdingXZ Telegram</h3>
-              <p>Community updates, releases, gaming discussions and support.</p>
-              <a class="btn btn-xz mt-auto" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Open Telegram <i class="bi bi-box-arrow-up-right ms-1"></i></a>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="game-card">
-              <div class="game-symbol"><i class="bi bi-globe2"></i></div>
-              <h3>ModdingXZ website</h3>
-              <p>Visit the project website for available guides, links and resources.</p>
-              <a class="btn btn-xz mt-auto" href="https://moddingxz.co.uk/" target="_blank" rel="noopener noreferrer">Visit website <i class="bi bi-box-arrow-up-right ms-1"></i></a>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="game-card">
-              <div class="game-symbol"><i class="bi bi-github"></i></div>
-              <h3>GitHub</h3>
-              <p>Explore open-source repositories, code, documentation and project history.</p>
-              <a class="btn btn-xz mt-auto" href="https://github.com/" target="_blank" rel="noopener noreferrer">Explore GitHub <i class="bi bi-box-arrow-up-right ms-1"></i></a>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="game-card">
-              <div class="game-symbol"><i class="bi bi-book"></i></div>
-              <h3>MDN Web Docs</h3>
-              <p>Reliable documentation for HTML, CSS, JavaScript and browser APIs.</p>
-              <a class="btn btn-outline-xz mt-auto" href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">Read documentation <i class="bi bi-box-arrow-up-right ms-1"></i></a>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="game-card">
-              <div class="game-symbol"><i class="bi bi-bootstrap"></i></div>
-              <h3>Bootstrap</h3>
-              <p>Responsive layout components used by this dashboard.</p>
-              <a class="btn btn-outline-xz mt-auto" href="https://getbootstrap.com/docs/5.3/" target="_blank" rel="noopener noreferrer">Bootstrap docs <i class="bi bi-box-arrow-up-right ms-1"></i></a>
-            </div>
-          </div>
-          <div class="col-md-6 col-xl-4">
-            <div class="game-card">
-              <div class="game-symbol"><i class="bi bi-shield-check"></i></div>
-              <h3>Safe downloads</h3>
-              <p>Check the source, release notes, permissions and file reputation before running tools.</p>
-              <a class="btn btn-outline-xz mt-auto" href="https://docs.github.com/en/repositories/releasing-projects-on-github" target="_blank" rel="noopener noreferrer">Release documentation <i class="bi bi-box-arrow-up-right ms-1"></i></a>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel mt-4">
-          <h3>Community safety checklist</h3>
-          <ul class="muted tiny mb-0" style="line-height:2.2">
-            <li>Prefer official project pages and source repositories.</li>
-            <li>Check hashes and signatures when the developer provides them.</li>
-            <li>Never enter account passwords, recovery codes or API keys into unknown tools.</li>
-            <li>Check console terms, game rules and local laws before modifying online gameplay.</li>
-            <li>Do not disable antivirus simply because an unknown download asks you to.</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- SETTINGS -->
-      <section class="page" id="page-settings">
-        <div class="eyebrow">Configuration</div>
-        <h1 class="page-title">Settings & backup</h1>
-        <p class="page-desc">Control your dashboard preferences and manage a portable backup of your locally stored data.</p>
-
-        <div class="row g-3 mt-2">
-          <div class="col-lg-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-palette me-2" style="color:#c49aff"></i>Appearance</h3>
-              <p class="muted tiny">Choose an accent colour. The dark background stays in place.</p>
-              <label class="form-label" for="accentSelect">Accent colour</label>
-              <select class="form-select" id="accentSelect">
-                <option value="purple">ModdingXZ purple</option>
-                <option value="blue">Electric blue</option>
-                <option value="green">Neon green</option>
-                <option value="pink">Hot pink</option>
-              </select>
-              <div class="d-flex gap-2 flex-wrap mt-3">
-                <button class="btn btn-outline-xz" id="resetAccentBtn">Reset appearance</button>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="panel h-100">
-              <h3><i class="bi bi-hdd me-2" style="color:#c49aff"></i>Storage information</h3>
-              <div class="api-row"><span class="muted tiny">Storage method</span><strong class="ms-auto tiny">Browser localStorage</strong></div>
-              <div class="api-row"><span class="muted tiny">Resources</span><strong class="ms-auto tiny" id="settingResourceCount">0</strong></div>
-              <div class="api-row"><span class="muted tiny">Tasks</span><strong class="ms-auto tiny" id="settingTaskCount">0</strong></div>
-              <div class="api-row"><span class="muted tiny">Diagnostic notes</span><strong class="ms-auto tiny" id="settingDiagCount">0</strong></div>
-              <div class="notice mt-3">Local data is tied to this browser and site origin. Clearing site data, changing browsers or using a different device can remove or hide it. Export a backup regularly.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel mt-3">
-          <h3><i class="bi bi-arrow-down-up me-2" style="color:#c49aff"></i>Import / export backup</h3>
-          <p class="muted tiny">Export your resources, tasks, notes, scratchpad and preferences into a JSON file. Import a previous XZ OS backup to restore it.</p>
-          <div class="d-flex flex-wrap gap-2">
-            <button class="btn btn-xz" id="exportBtn"><i class="bi bi-download me-1"></i>Export backup</button>
-            <button class="btn btn-outline-xz" id="importBtn"><i class="bi bi-upload me-1"></i>Import backup</button>
-            <input type="file" id="importFile" accept=".json,application/json" hidden>
-          </div>
-          <div class="notice mt-3">Only import JSON backups you trust. An import replaces the current local XZ OS data after you confirm. Keep a separate backup first.</div>
-        </div>
-
-        <div class="panel mt-3">
-          <h3><i class="bi bi-shield-lock me-2" style="color:#c49aff"></i>Privacy & external services</h3>
-          <ul class="muted tiny mb-0" style="line-height:2.1">
-            <li>Your saved dashboard content is stored in this browser, not on a ModdingXZ server.</li>
-            <li>Release Radar sends your search query to the public GitHub API when you search.</li>
-            <li>External websites have their own privacy policies and may collect information when opened.</li>
-            <li>This dashboard does not ask for console credentials, passwords or API keys.</li>
-            <li>Exported backups contain the data you saved here. Keep them private if your notes contain personal information.</li>
-          </ul>
-        </div>
-
-        <div class="panel mt-3">
-          <h3 style="color:#ff9caf"><i class="bi bi-exclamation-triangle me-2"></i>Reset local dashboard</h3>
-          <p class="muted tiny">Permanently remove saved resources, tasks, diagnostics, notes and preferences from this browser. This cannot be undone unless you have a backup.</p>
-          <button class="btn btn-danger-soft" id="resetAllBtn">Reset all local data</button>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <span>© <span id="footerYear"></span> ModdingXZ · XZ OS 5.0</span>
-        <span>Built for static hosting · No backend required</span>
-      </footer>
-    </div>
-  </main>
-</div>
-
-<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
-
-<!-- Quick-add modal -->
-<div class="modal fade" id="quickAddModal" tabindex="-1" aria-labelledby="quickAddTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="color:var(--text);border:1px solid var(--border);border-radius:18px;background:#120d1c">
-      <div class="modal-header" style="border-color:var(--border)">
-        <h5 class="modal-title fs-6" id="quickAddTitle">Quick add</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p class="muted tiny">What would you like to add?</p>
-        <div class="d-grid gap-2">
-          <button class="btn btn-outline-xz text-start" data-quick-type="resource"><i class="bi bi-collection me-2"></i>Save a resource</button>
-          <button class="btn btn-outline-xz text-start" data-quick-type="task"><i class="bi bi-check2-square me-2"></i>Add a task</button>
-          <button class="btn btn-outline-xz text-start" data-quick-type="diagnostic"><i class="bi bi-diagram-3 me-2"></i>Save a diagnostic note</button>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container py-2">
+    <a class="brand" href="#" aria-label="ModdingXZ home">MODDING<span>XZ</span></a>
+    <div class="d-flex align-items-center gap-3">
+      <span class="small muted d-none d-sm-inline">
+        <span class="live-dot"></span>Community discovery
+      </span>
+      <a class="btn-quiet" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+        Telegram ↗
+      </a>
     </div>
   </div>
-</div>
+</nav>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<main class="container">
+  <header class="hero">
+    <div class="eyebrow">The modding community, in one place</div>
+    <h1>Discover what's<br><span class="gradient-text">being built.</span></h1>
+    <p class="muted mb-0" style="max-width:650px">
+      Explore public modding projects, open-source tools, homebrew,
+      game modifications and developer releases discovered from GitHub.
+      New projects appear as the source data changes.
+    </p>
+
+    <form class="search-wrap" id="searchForm">
+      <input id="searchInput" type="search"
+        placeholder="Search BO2, homebrew, loaders, GTA mods, Minecraft..."
+        aria-label="Search public GitHub projects">
+      <button class="btn-purple" type="submit">Search projects</button>
+      <button class="btn-quiet" id="clearSearch" type="button">Clear</button>
+    </form>
+
+    <div class="feed-tabs" id="feedTabs" aria-label="Feed type">
+      <button class="btn-quiet active" data-feed="latest">Latest projects</button>
+      <button class="btn-quiet" data-feed="updated">Recently updated</button>
+      <button class="btn-quiet" data-feed="popular">Popular projects</button>
+      <button class="btn-quiet" data-feed="releases">Project releases</button>
+    </div>
+
+    <div class="status-panel d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <span id="connectionStatus"><span class="live-dot"></span>Connecting to GitHub...</span>
+      <span id="lastUpdated" class="muted">Waiting for first feed</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="discoverTitle">
+    <div class="section-bar">
+      <div>
+        <div class="eyebrow">Community feed</div>
+        <h2 class="section-heading h3 mb-1" id="discoverTitle">Explore modding projects</h2>
+        <div class="feed-info" id="feedDescription">
+          Discovering recently created public repositories.
+        </div>
+      </div>
+      <div class="filter-line">
+        <select id="categoryFilter" aria-label="Filter by topic">
+          <option value="all">All topics</option>
+          <option value="callofduty">Call of Duty / BO2</option>
+          <option value="playstation">PlayStation</option>
+          <option value="xbox">Xbox</option>
+          <option value="nintendo">Nintendo</option>
+          <option value="pc">PC modding</option>
+          <option value="minecraft">Minecraft</option>
+          <option value="gta">GTA</option>
+          <option value="homebrew">Homebrew</option>
+          <option value="tools">Modding tools</option>
+        </select>
+        <select id="languageFilter" aria-label="Filter by programming language">
+          <option value="all">All languages</option>
+          <option value="C++">C++</option>
+          <option value="C#">C#</option>
+          <option value="C">C</option>
+          <option value="Python">Python</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="Rust">Rust</option>
+          <option value="Java">Java</option>
+        </select>
+        <button class="btn-quiet" id="refreshButton" type="button">↻ Refresh</button>
+      </div>
+    </div>
+
+    <div id="errorBox" class="alert alert-warning d-none" role="status"></div>
+    <div id="projectGrid" class="row g-3" aria-live="polite">
+      <div class="col-12"><div class="loading"></div></div>
+    </div>
+    <div class="text-center mt-4">
+      <button class="btn-quiet" id="loadMoreButton" type="button">Load more projects</button>
+    </div>
+  </section>
+
+  <section id="releasesSection" class="mt-5">
+    <div class="section-bar">
+      <div>
+        <div class="eyebrow">Published by project creators</div>
+        <h2 class="section-heading h3 mb-1">Latest project releases</h2>
+        <p class="muted small mb-0">
+          Release notes are fetched from public GitHub repositories.
+        </p>
+      </div>
+      <button class="btn-quiet" id="loadReleasesButton" type="button">
+        Load releases
+      </button>
+    </div>
+    <div id="releaseList">
+      <div class="empty-state">
+        <div class="mb-2">No release feed loaded yet.</div>
+        <span class="small">Select “Project releases” above or use “Load releases”.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div class="section-bar">
+      <div>
+        <div class="eyebrow">Browse by interest</div>
+        <h2 class="section-heading h3 mb-1">Explore a community</h2>
+        <p class="muted small mb-0">Choose a topic to discover matching public projects.</p>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap gap-2" id="topicButtons">
+      <button class="btn-quiet" data-topic="Black Ops 2 modding">Black Ops 2</button>
+      <button class="btn-quiet" data-topic="Call of Duty modding">Call of Duty</button>
+      <button class="btn-quiet" data-topic="PlayStation homebrew">PlayStation</button>
+      <button class="btn-quiet" data-topic="Xbox modding">Xbox</button>
+      <button class="btn-quiet" data-topic="Nintendo homebrew">Nintendo</button>
+      <button class="btn-quiet" data-topic="GTA modding">GTA</button>
+      <button class="btn-quiet" data-topic="Minecraft mods">Minecraft</button>
+      <button class="btn-quiet" data-topic="PC game modding">PC modding</button>
+      <button class="btn-quiet" data-topic="game mod loader">Mod loaders</button>
+      <button class="btn-quiet" data-topic="game reverse engineering">Game research</button>
+      <button class="btn-quiet" data-topic="game mod menu">Mod menus</button>
+      <button class="btn-quiet" data-topic="open source game tools">Open-source tools</button>
+    </div>
+  </section>
+
+  <section class="mt-5">
+    <div class="status-panel">
+      <strong>How this feed works</strong>
+      <p class="muted small mt-2 mb-0">
+        ModdingXZ searches public GitHub repositories and links back to the original creators.
+        Results are automated discoveries, not endorsements or safety checks.
+        GitHub search is not a complete index of every modding community, and some projects
+        may not appear if their descriptions, topics or repository metadata don't match a search.
+        Always inspect a project's source, licence and reputation before downloading anything.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container d-flex flex-wrap justify-content-between gap-3">
+    <span>© <span id="year"></span> ModdingXZ · Community Pulse</span>
+    <span>
+      Data via <a class="small-link" href="https://docs.github.com/en/rest/search/search" target="_blank" rel="noopener noreferrer">GitHub API</a>
+      · <a class="small-link" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Join Telegram</a>
+    </span>
+  </div>
+</footer>
+
 <script>
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "moddingxz_xzos5_v1";
-  const $ = (selector, root = document) => root.querySelector(selector);
-  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const API = "https://api.github.com";
+  const PER_PAGE = 30;
+  const CACHE_PREFIX = "moddingxz-community-pulse-v1:";
+  const CACHE_TTL = 5 * 60 * 1000;
+  const REFRESH_INTERVAL = 10 * 60 * 1000;
 
-  const GAMES = [
-    { id:"bo2", name:"Call of Duty: Black Ops 2", short:"BO2", icon:"bi-crosshair", type:"game", platform:"PC · PlayStation · Xbox", desc:"Game guides, community resources, troubleshooting and legitimate customisation information.", tags:["Call of Duty","Guides","Community"] },
-    { id:"cod", name:"Call of Duty series", short:"COD", icon:"bi-bullseye", type:"game", platform:"PC · PlayStation · Xbox", desc:"Resources and documentation across the wider Call of Duty series.", tags:["COD","Gaming"] },
-    { id:"gta", name:"Grand Theft Auto", short:"GTA", icon:"bi-car-front", type:"game", platform:"PC · PlayStation · Xbox", desc:"Single-player modding resources, game files documentation and community projects.", tags:["GTA","Single-player"] },
-    { id:"minecraft", name:"Minecraft", short:"MC", icon:"bi-boxes", type:"game", platform:"PC · Console · Mobile", desc:"Mod loaders, add-ons, resource packs and community documentation.", tags:["Minecraft","Mods"] },
-    { id:"othergames", name:"Other PC games", short:"PC", icon:"bi-pc-display", type:"game", platform:"Windows · Linux", desc:"Discover projects, game utilities, configuration guides and open-source tools.", tags:["PC","Tools"] },
-    { id:"playstation", name:"PlayStation", short:"PS", icon:"bi-controller", type:"platform", platform:"PlayStation consoles", desc:"Platform documentation, account safety and community resources.", tags:["Console","Documentation"] },
-    { id:"xbox", name:"Xbox", short:"XB", icon:"bi-controller", type:"platform", platform:"Xbox consoles", desc:"Platform support, network troubleshooting and official documentation.", tags:["Console","Support"] },
-    { id:"switch", name:"Nintendo", short:"N", icon:"bi-joystick", type:"platform", platform:"Nintendo consoles", desc:"Official support, gaming resources and platform documentation.", tags:["Console","Support"] },
-    { id:"devtools", name:"Developer tools", short:"DEV", icon:"bi-code-slash", type:"tools", platform:"Browser · PC", desc:"JSON utilities, text comparison, hashing and public repository discovery.", tags:["Development","Utilities"] }
-  ];
-
-  const RELAY_STEPS = [
-    "Confirm the game and platform versions match.",
-    "Restart the game, device and router if appropriate.",
-    "Check the official service status and any current maintenance notices.",
-    "Confirm the device has a working internet connection.",
-    "Review NAT and firewall settings through your own router or official documentation.",
-    "Check that any required software is from a trusted source and is up to date.",
-    "Record the exact error message and when the issue occurs."
-  ];
-
-  const DEFAULT_STATE = {
-    version: 1,
-    resources: [],
-    tasks: [],
-    diagnostics: [],
-    scratchpad: "",
-    activity: [],
-    preferences: { accent: "purple" },
-    relayChecks: []
+  const state = {
+    feed: "latest",
+    query: "",
+    page: 1,
+    loading: false,
+    hasMore: false,
+    repositories: [],
+    seenIds: new Set(),
+    releasesLoaded: false,
+    lastRequestAt: 0
   };
 
-  let state = loadState();
-  let favouritesOnly = false;
-  let githubAbortController = null;
-  let githubRequestSequence = 0;
-  let quickModal = null;
+  const $ = id => document.getElementById(id);
 
-  function clone(value) {
-    return JSON.parse(JSON.stringify(value));
-  }
+  const grid = $("projectGrid");
+  const status = $("connectionStatus");
+  const lastUpdated = $("lastUpdated");
+  const errorBox = $("errorBox");
+  const moreButton = $("loadMoreButton");
 
-  function loadState() {
+  const feedDescriptions = {
+    latest: "Recently created public repositories matching modding-related searches.",
+    updated: "Projects with recent repository activity.",
+    popular: "Discover projects with stars and community attention.",
+    releases: "Browse projects and inspect their published releases."
+  };
+
+  const categoryTerms = {
+    all: "",
+    callofduty: "call of duty black ops cod bo2",
+    playstation: "playstation ps4 ps5 ps3 homebrew",
+    xbox: "xbox homebrew modding",
+    nintendo: "nintendo switch homebrew",
+    pc: "pc game modding",
+    minecraft: "minecraft mod forge fabric",
+    gta: "gta grand theft auto",
+    homebrew: "homebrew jailbreak",
+    tools: "modding tools loader"
+  };
+
+  const safeUrl = value => {
     try {
-      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
-      if (!parsed || typeof parsed !== "object") return clone(DEFAULT_STATE);
-
-      const safe = clone(DEFAULT_STATE);
-      safe.resources = Array.isArray(parsed.resources) ? parsed.resources : [];
-      safe.tasks = Array.isArray(parsed.tasks) ? parsed.tasks : [];
-      safe.diagnostics = Array.isArray(parsed.diagnostics) ? parsed.diagnostics : [];
-      safe.scratchpad = typeof parsed.scratchpad === "string" ? parsed.scratchpad : "";
-      safe.activity = Array.isArray(parsed.activity) ? parsed.activity : [];
-      safe.relayChecks = Array.isArray(parsed.relayChecks) ? parsed.relayChecks : [];
-      safe.preferences = {
-        ...safe.preferences,
-        ...(parsed.preferences && typeof parsed.preferences === "object" ? parsed.preferences : {})
-      };
-
-      safe.resources = safe.resources.filter(x => x && typeof x.id === "string" && typeof x.title === "string");
-      safe.tasks = safe.tasks.filter(x => x && typeof x.id === "string" && typeof x.text === "string");
-      safe.diagnostics = safe.diagnostics.filter(x => x && typeof x.id === "string");
-      safe.activity = safe.activity.filter(x => x && typeof x.message === "string").slice(0, 30);
-      return safe;
-    } catch (error) {
-      console.warn("Could not read XZ OS local data.", error);
-      return clone(DEFAULT_STATE);
+      const url = new URL(value);
+      return url.protocol === "https:" && url.hostname === "github.com"
+        ? url.href : "#";
+    } catch {
+      return "#";
     }
-  }
+  };
 
-  function saveState() {
+  const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+
+  const dateText = value => {
+    if (!value) return "Unknown";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Unknown";
+    return date.toLocaleDateString(undefined, {
+      year: "numeric", month: "short", day: "numeric"
+    });
+  };
+
+  const relativeTime = value => {
+    if (!value) return "date unknown";
+    const seconds = Math.max(0, Math.floor((Date.now() - new Date(value)) / 1000));
+    if (seconds < 60) return "just now";
+    if (seconds < 3600) return Math.floor(seconds / 60) + "m ago";
+    if (seconds < 86400) return Math.floor(seconds / 3600) + "h ago";
+    if (seconds < 2592000) return Math.floor(seconds / 86400) + "d ago";
+    return dateText(value);
+  };
+
+  const numberText = value => {
+    const number = Number(value || 0);
+    return number >= 1000
+      ? (number / 1000).toFixed(number >= 10000 ? 0 : 1) + "k"
+      : number.toLocaleString();
+  };
+
+  function cacheGet(key) {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      updateStats();
-      updateSettingsStats();
-      return true;
-    } catch (error) {
-      console.error("Could not save XZ OS data.", error);
-      toast("Could not save. Browser storage may be full or disabled.", "error");
-      return false;
-    }
-  }
-
-  function uid() {
-    return typeof crypto !== "undefined" && crypto.randomUUID
-      ? crypto.randomUUID()
-      : Date.now().toString(36) + Math.random().toString(36).slice(2);
-  }
-
-  function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-      "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
-    })[char]);
-  }
-
-  function safeHttpUrl(raw) {
-    try {
-      const url = new URL(String(raw));
-      if (url.protocol !== "https:" && url.protocol !== "http:") return null;
-      return url.href;
-    } catch (_) {
+      const raw = localStorage.getItem(CACHE_PREFIX + key);
+      if (!raw) return null;
+      const item = JSON.parse(raw);
+      if (!item.time || Date.now() - item.time > CACHE_TTL) return null;
+      return item.value;
+    } catch {
       return null;
     }
   }
 
-  function externalLink(url, label, classes = "btn btn-outline-xz") {
-    const safe = safeHttpUrl(url);
-    if (!safe) return `<span class="muted tiny">Invalid or unsupported URL</span>`;
-    return `<a class="${classes}" href="${escapeHTML(safe)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+  function cacheSet(key, value) {
+    try {
+      localStorage.setItem(CACHE_PREFIX + key, JSON.stringify({
+        time: Date.now(), value
+      }));
+    } catch {
+      // Storage may be disabled or full. The feed still works without it.
+    }
   }
 
-  function toast(message, kind = "success") {
-    const container = $("#toastContainer");
-    const item = document.createElement("div");
-    item.className = "xz-toast mb-2";
-    item.setAttribute("role", "status");
-    const icon = kind === "error" ? "bi-exclamation-circle" : "bi-check-circle";
-    item.innerHTML = `<i class="bi ${icon} me-2" style="color:${kind === "error" ? "#ff9caf" : "#7ee7b4"}"></i>${escapeHTML(message)}`;
-    container.appendChild(item);
-    window.setTimeout(() => item.remove(), 3800);
-  }
+  async function apiGet(url, cacheKey = url) {
+    const cached = cacheGet(cacheKey);
+    if (cached) return cached;
 
-  function addActivity(message, icon = "bi-lightning") {
-    state.activity.unshift({ id: uid(), message, icon, at: new Date().toISOString() });
-    state.activity = state.activity.slice(0, 30);
-    saveState();
-    renderActivity();
-  }
-
-  function niceDate(value) {
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "Unknown date";
-    return date.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
-  }
-
-  function gameName(id) {
-    return GAMES.find(game => game.id === id)?.name || "General";
-  }
-
-  function populateGameSelects() {
-    const options = GAMES.map(game => `<option value="${escapeHTML(game.id)}">${escapeHTML(game.name)}</option>`).join("");
-    $("#resourceGame").innerHTML = `<option value="general">General / all games</option>${options}`;
-    $("#resourceFilterGame").innerHTML = `<option value="all">All games</option><option value="general">General / all games</option>${options}`;
-  }
-
-  function applyAccent() {
-    const themes = {
-      purple: { purple:"#a855f7", secondary:"#7c3aed" },
-      blue: { purple:"#60a5fa", secondary:"#2563eb" },
-      green: { purple:"#4ade80", secondary:"#16a34a" },
-      pink: { purple:"#f472b6", secondary:"#db2777" }
-    };
-    const chosen = themes[state.preferences.accent] || themes.purple;
-    document.documentElement.style.setProperty("--purple", chosen.purple);
-    document.documentElement.style.setProperty("--purple-2", chosen.secondary);
-    document.documentElement.style.setProperty("--purple-soft", `color-mix(in srgb, ${chosen.purple} 14%, transparent)`);
-    $("#accentSelect").value = state.preferences.accent in themes ? state.preferences.accent : "purple";
-  }
-
-  function navigate(page) {
-    if (!$("#page-" + page)) page = "dashboard";
-    $$(".page").forEach(section => section.classList.toggle("active", section.id === "page-" + page));
-    $$(".sidebar .nav-link").forEach(link => link.classList.toggle("active", link.dataset.pageLink === page));
-    history.replaceState(null, "", "#" + page);
-    closeSidebar();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    if (page === "resources") renderResources();
-    if (page === "tasks") renderTasks();
-    if (page === "relay") renderDiagnostics();
-    if (page === "games") renderGames();
-  }
-
-  function openSidebar() {
-    $("#sidebar").classList.add("open");
-    $("#sidebarOverlay").classList.add("show");
-  }
-
-  function closeSidebar() {
-    $("#sidebar").classList.remove("open");
-    $("#sidebarOverlay").classList.remove("show");
-  }
-
-  function updateStats() {
-    $("#statGames").textContent = GAMES.length;
-    $("#statResources").textContent = state.resources.length;
-    $("#statTasks").textContent = state.tasks.filter(task => !task.done).length;
-    $("#statFavourites").textContent = state.resources.filter(resource => resource.favourite).length;
-    $("#resourceNavCount").textContent = state.resources.length;
-    $("#taskTotal").textContent = state.tasks.length;
-    $("#taskCompleted").textContent = state.tasks.filter(task => task.done).length;
-    $("#taskRemaining").textContent = state.tasks.filter(task => !task.done).length;
-    $("#diagCount").textContent = `${state.diagnostics.length} note${state.diagnostics.length === 1 ? "" : "s"}`;
-  }
-
-  function updateSettingsStats() {
-    $("#settingResourceCount").textContent = state.resources.length;
-    $("#settingTaskCount").textContent = state.tasks.length;
-    $("#settingDiagCount").textContent = state.diagnostics.length;
-  }
-
-  function renderDashboardGames() {
-    const chosen = GAMES.slice(0, 4);
-    $("#dashboardGameGrid").innerHTML = chosen.map(game => `
-      <div class="col-6">
-        <button class="btn btn-outline-xz w-100 text-start h-100" data-game-open="${escapeHTML(game.id)}">
-          <i class="bi ${escapeHTML(game.icon)} d-block fs-5 mb-2"></i>
-          <strong style="font-size:11px">${escapeHTML(game.short)}</strong>
-          <div class="muted tiny mt-1">${escapeHTML(game.name)}</div>
-        </button>
-      </div>`).join("");
-  }
-
-  function renderGames() {
-    const query = ($("#gameSearch").value || "").trim().toLowerCase();
-    const type = $("#gameTypeFilter").value;
-    const games = GAMES.filter(game => {
-      const matchesType = type === "all" || game.type === type;
-      const haystack = `${game.name} ${game.short} ${game.platform} ${game.desc} ${game.tags.join(" ")}`.toLowerCase();
-      return matchesType && haystack.includes(query);
+    const response = await fetch(url, {
+      headers: {
+        "Accept": "application/vnd.github+json"
+      }
     });
 
-    $("#gameGrid").innerHTML = games.length ? games.map(game => `
-      <div class="col-sm-6 col-xl-4">
-        <article class="game-card">
-          <div class="game-symbol"><i class="bi ${escapeHTML(game.icon)}"></i></div>
-          <div class="d-flex align-items-center justify-content-between gap-2">
-            <h3>${escapeHTML(game.name)}</h3>
-            <span class="badge-xz">${escapeHTML(game.type)}</span>
+    if (response.status === 403 || response.status === 429) {
+      const reset = response.headers.get("x-ratelimit-reset");
+      const wait = reset
+        ? Math.max(1, Math.ceil((Number(reset) * 1000 - Date.now()) / 60000))
+        : null;
+      const error = new Error(
+        wait
+          ? `GitHub API limit reached. Try again in about ${wait} minute(s).`
+          : "GitHub API rate limit reached. Please try again later."
+      );
+      error.rateLimit = true;
+      throw error;
+    }
+
+    if (!response.ok) {
+      throw new Error(`GitHub returned HTTP ${response.status}.`);
+    }
+
+    const data = await response.json();
+    cacheSet(cacheKey, data);
+    return data;
+  }
+
+  function buildQuery() {
+    const date = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000)
+      .toISOString().slice(0, 10);
+
+    const base = state.query.trim();
+    const category = $("categoryFilter").value;
+    const language = $("languageFilter").value;
+
+    const terms = base || categoryTerms[category] ||
+      "modding OR homebrew OR game-mod";
+
+    let query = `(${terms})`;
+    if (!base && category === "all") {
+      query = "(modding OR homebrew OR \"game mod\" OR \"mod loader\" OR \"mod menu\")";
+    }
+
+    if (language !== "all") query += ` language:${language}`;
+    query += ` created:>=${date} fork:false`;
+
+    return query;
+  }
+
+  function feedSort() {
+    if (state.feed === "popular") return "stars";
+    if (state.feed === "updated") return "updated";
+    return "created";
+  }
+
+  function searchUrl(page) {
+    const params = new URLSearchParams({
+      q: buildQuery(),
+      sort: feedSort(),
+      order: state.feed === "latest" ? "desc" : "desc",
+      per_page: String(PER_PAGE),
+      page: String(page)
+    });
+    return `${API}/search/repositories?${params.toString()}`;
+  }
+
+  function setStatus(message, healthy = null) {
+    const dot = healthy === false ? "" : '<span class="live-dot"></span>';
+    status.innerHTML = dot + escapeHtml(message);
+  }
+
+  function showError(message) {
+    errorBox.textContent = message;
+    errorBox.classList.remove("d-none");
+  }
+
+  function clearError() {
+    errorBox.textContent = "";
+    errorBox.classList.add("d-none");
+  }
+
+  function showLoading() {
+    grid.innerHTML = '<div class="col-12"><div class="loading"></div></div>';
+  }
+
+  function detectTags(repo) {
+    const source = [
+      repo.name, repo.description, repo.language,
+      ...(repo.topics || [])
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    const tags = [];
+    const groups = [
+      ["Call of Duty", /call.of.duty|\bcod\b|\bbo2\b|black.ops/],
+      ["PlayStation", /playstation|\bps[345]\b|ps4|ps5|ps3/],
+      ["Xbox", /\bxbox\b/],
+      ["Nintendo", /nintendo|switch.homebrew/],
+      ["Minecraft", /minecraft|fabric|forge/],
+      ["GTA", /grand.theft.auto|\bgta\b/],
+      ["Homebrew", /homebrew|jailbreak|payload/],
+      ["Modding tools", /modding.tool|mod.menu|mod.loader|trainer/],
+      ["PC modding", /pc.mod|game.mod|reverse.engineering/]
+    ];
+
+    for (const [name, regex] of groups) {
+      if (regex.test(source)) tags.push(name);
+    }
+
+    if (repo.language && !tags.includes(repo.language)) {
+      tags.push(repo.language);
+    }
+
+    return tags.slice(0, 4);
+  }
+
+  function categoryMatches(repo) {
+    const category = $("categoryFilter").value;
+    const language = $("languageFilter").value;
+
+    if (language !== "all" && repo.language !== language) return false;
+    if (category === "all") return true;
+
+    const text = [
+      repo.name, repo.description, repo.language,
+      ...(repo.topics || [])
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    const patterns = {
+      callofduty: /call.of.duty|\bcod\b|\bbo2\b|black.ops/,
+      playstation: /playstation|\bps[345]\b|ps4|ps5|ps3/,
+      xbox: /\bxbox\b/,
+      nintendo: /nintendo|switch/,
+      pc: /pc|windows|linux|game.mod|modding/,
+      minecraft: /minecraft|fabric|forge/,
+      gta: /\bgta\b|grand.theft.auto/,
+      homebrew: /homebrew|jailbreak|payload/,
+      tools: /tool|loader|mod.menu|trainer|modding/
+    };
+
+    return patterns[category] ? patterns[category].test(text) : true;
+  }
+
+  function repoCard(repo) {
+    const owner = repo.owner || {};
+    const tags = detectTags(repo);
+    const language = repo.language || "Unspecified language";
+    const description = repo.description || "No description provided by the project creator.";
+    const repoUrl = safeUrl(repo.html_url);
+    const ownerUrl = safeUrl(owner.html_url);
+    const topics = (repo.topics || []).slice(0, 3);
+    const allTags = [...new Set([...topics, ...tags])].slice(0, 4);
+
+    const avatar = owner.avatar_url &&
+      /^https:\/\/avatars\.githubusercontent\.com\//.test(owner.avatar_url)
+      ? owner.avatar_url : "";
+
+    return `
+      <div class="col-12 col-md-6 col-xl-4">
+        <article class="project-card">
+          <div class="project-owner">
+            ${avatar ? `<img class="avatar" src="${escapeHtml(avatar)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : ""}
+            <a href="${ownerUrl}" target="_blank" rel="noopener noreferrer">
+              ${escapeHtml(owner.login || "Unknown creator")}
+            </a>
+            <span class="ms-auto muted">${escapeHtml(relativeTime(repo.created_at))}</span>
           </div>
-          <div class="game-meta">${escapeHTML(game.platform)}</div>
-          <p>${escapeHTML(game.desc)}</p>
-          <div class="mb-3">${game.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
-          <div class="d-flex flex-wrap gap-2 mt-auto">
-            <button class="btn btn-xz btn-sm" data-add-for-game="${escapeHTML(game.id)}"><i class="bi bi-plus-lg me-1"></i>Add resource</button>
-            <button class="btn btn-outline-xz btn-sm" data-search-game="${escapeHTML(game.name)}"><i class="bi bi-collection me-1"></i>View resources</button>
+
+          <h3 class="project-name">
+            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">
+              ${escapeHtml(repo.full_name || repo.name)}
+            </a>
+          </h3>
+
+          <p class="project-description">${escapeHtml(description)}</p>
+
+          <div class="tag-row">
+            <span class="tag">${escapeHtml(language)}</span>
+            ${allTags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join("")}
+          </div>
+
+          <div class="project-stats">
+            <span>★ ${numberText(repo.stargazers_count)}</span>
+            <span>⑂ ${numberText(repo.forks_count)}</span>
+            <span>Updated ${escapeHtml(relativeTime(repo.pushed_at))}</span>
+          </div>
+
+          <div class="project-footer">
+            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer">View project ↗</a>
+            <a href="${repoUrl}/issues" target="_blank" rel="noopener noreferrer">Issues</a>
           </div>
         </article>
-      </div>`).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-search"></i>No games or platforms match your search.</div></div>`;
+      </div>
+    `;
   }
 
-  function clearResourceForm() {
-    $("#resourceForm").reset();
-    $("#resourceId").value = "";
-    $("#resourceSubmit").innerHTML = `<i class="bi bi-plus-lg me-1"></i>Save resource`;
-    $("#resourceCancelEdit").classList.add("d-none");
+  function visibleRepositories() {
+    return state.repositories.filter(categoryMatches);
   }
 
-  function editResource(id) {
-    const resource = state.resources.find(item => item.id === id);
-    if (!resource) return;
-    navigate("resources");
-    $("#resourceId").value = resource.id;
-    $("#resourceTitle").value = resource.title;
-    $("#resourceUrl").value = resource.url;
-    $("#resourceGame").value = resource.game || "general";
-    $("#resourceCategory").value = resource.category || "Other";
-    $("#resourceTags").value = (resource.tags || []).join(", ");
-    $("#resourceDescription").value = resource.description || "";
-    $("#resourceSubmit").innerHTML = `<i class="bi bi-check-lg me-1"></i>Update resource`;
-    $("#resourceCancelEdit").classList.remove("d-none");
-    $("#resourceTitle").focus();
-  }
+  function renderRepositories(append = false) {
+    const visible = visibleRepositories();
 
-  function renderResources() {
-    const query = ($("#resourceSearch").value || "").trim().toLowerCase();
-    const game = $("#resourceFilterGame").value || "all";
-    const category = $("#resourceFilterType").value || "all";
-
-    const items = state.resources.filter(resource => {
-      const text = `${resource.title} ${resource.url} ${resource.description || ""} ${(resource.tags || []).join(" ")} ${gameName(resource.game)} ${resource.category}`.toLowerCase();
-      return text.includes(query)
-        && (game === "all" || resource.game === game)
-        && (category === "all" || resource.category === category)
-        && (!favouritesOnly || resource.favourite);
-    }).sort((a, b) => Number(!!b.favourite) - Number(!!a.favourite) || String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
-
-    $("#favouritesOnly").classList.toggle("btn-xz", favouritesOnly);
-    $("#favouritesOnly").classList.toggle("btn-outline-xz", !favouritesOnly);
-
-    $("#resourceGrid").innerHTML = items.length ? items.map(resource => {
-      const url = safeHttpUrl(resource.url);
-      const tagHtml = (resource.tags || []).map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join("");
-      return `
-        <div class="col-sm-6 col-xl-4">
-          <article class="resource-card">
-            <div class="d-flex justify-content-between align-items-start gap-2">
-              <span class="badge-xz">${escapeHTML(resource.category || "Other")}</span>
-              <button class="btn btn-sm ${resource.favourite ? "btn-xz" : "btn-outline-xz"}" data-resource-fav="${escapeHTML(resource.id)}" aria-label="Toggle favourite" title="Toggle favourite"><i class="bi bi-star${resource.favourite ? "-fill" : ""}"></i></button>
-            </div>
-            <h3>${escapeHTML(resource.title)}</h3>
-            <div class="small-label mb-2">${escapeHTML(gameName(resource.game))}</div>
-            <p>${escapeHTML(resource.description || "No description added.")}</p>
-            <div class="mb-2">${tagHtml}</div>
-            <div class="resource-url mb-1">${url ? escapeHTML(new URL(url).hostname) : "Invalid URL"}</div>
-            <div class="resource-actions">
-              ${url ? `<a class="btn btn-xz btn-sm" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Open</a>` : ""}
-              <button class="btn btn-outline-xz btn-sm" data-resource-edit="${escapeHTML(resource.id)}"><i class="bi bi-pencil me-1"></i>Edit</button>
-              <button class="btn btn-outline-xz btn-sm" data-resource-copy="${escapeHTML(resource.id)}"><i class="bi bi-link-45deg me-1"></i>Copy URL</button>
-              <button class="btn btn-danger-soft" data-resource-delete="${escapeHTML(resource.id)}" aria-label="Delete resource"><i class="bi bi-trash"></i></button>
-            </div>
-          </article>
-        </div>`;
-    }).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-collection"></i>${state.resources.length ? "No resources match these filters." : "Your library is empty. Add your first guide, tool or trusted link above."}</div></div>`;
-  }
-
-  function saveResource(event) {
-    event.preventDefault();
-    const id = $("#resourceId").value;
-    const title = $("#resourceTitle").value.trim();
-    const url = safeHttpUrl($("#resourceUrl").value.trim());
-
-    if (!title) return toast("Enter a resource title.", "error");
-    if (!url) return toast("Enter a valid HTTP or HTTPS URL.", "error");
-
-    const old = state.resources.find(resource => resource.id === id);
-    const resource = {
-      id: old ? old.id : uid(),
-      title,
-      url,
-      game: $("#resourceGame").value || "general",
-      category: $("#resourceCategory").value || "Other",
-      tags: $("#resourceTags").value.split(",").map(tag => tag.trim()).filter(Boolean).slice(0, 20),
-      description: $("#resourceDescription").value.trim(),
-      favourite: old ? !!old.favourite : false,
-      createdAt: old ? old.createdAt : new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    };
-
-    if (old) {
-      state.resources = state.resources.map(item => item.id === old.id ? resource : item);
-      addActivity(`Updated resource: ${title}`, "bi-pencil");
-      toast("Resource updated.");
-    } else {
-      state.resources.unshift(resource);
-      addActivity(`Added resource: ${title}`, "bi-collection");
-      toast("Resource saved.");
-    }
-
-    saveState();
-    clearResourceForm();
-    renderResources();
-  }
-
-  function deleteResource(id) {
-    const resource = state.resources.find(item => item.id === id);
-    if (!resource) return;
-    if (!confirm(`Delete "${resource.title}" from your local library?`)) return;
-    state.resources = state.resources.filter(item => item.id !== id);
-    saveState();
-    renderResources();
-    addActivity(`Deleted resource: ${resource.title}`, "bi-trash");
-    toast("Resource deleted.");
-  }
-
-  async function copyText(text) {
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(String(text));
-      } else {
-        const area = document.createElement("textarea");
-        area.value = String(text);
-        area.style.position = "fixed";
-        area.style.opacity = "0";
-        document.body.appendChild(area);
-        area.select();
-        const copied = document.execCommand("copy");
-        area.remove();
-        if (!copied) throw new Error("Copy failed");
-      }
-      toast("Copied to clipboard.");
-    } catch (_) {
-      toast("Could not copy automatically. Select and copy the text manually.", "error");
-    }
-  }
-
-  function addTask(text, priority = "Normal") {
-    const clean = String(text).trim();
-    if (!clean) return false;
-    state.tasks.unshift({
-      id: uid(),
-      text: clean.slice(0, 240),
-      priority: ["Low", "Normal", "High"].includes(priority) ? priority : "Normal",
-      done: false,
-      createdAt: new Date().toISOString()
-    });
-    saveState();
-    renderTasks();
-    renderDashboardTasks();
-    addActivity(`Added task: ${clean}`, "bi-check2-square");
-    return true;
-  }
-
-  function renderTasks() {
-    const filter = $("#taskFilter").value;
-    const tasks = state.tasks.filter(task => filter === "all" || (filter === "done" ? task.done : !task.done));
-    const priorityClass = priority => priority === "High" ? "color:#ff9caf" : priority === "Low" ? "color:#a5ebc9" : "color:#cdb4f0";
-
-    $("#taskList").innerHTML = tasks.length ? tasks.map(task => `
-      <div class="task-row">
-        <input type="checkbox" data-task-toggle="${escapeHTML(task.id)}" ${task.done ? "checked" : ""} aria-label="Mark task complete">
-        <div class="task-text ${task.done ? "task-done" : ""}">
-          <div>${escapeHTML(task.text)}</div>
-          <div class="muted tiny mt-1"><span style="${priorityClass(task.priority)}">${escapeHTML(task.priority || "Normal")} priority</span> · ${escapeHTML(niceDate(task.createdAt))}</div>
-        </div>
-        <button class="btn btn-danger-soft" data-task-delete="${escapeHTML(task.id)}" aria-label="Delete task"><i class="bi bi-trash"></i></button>
-      </div>`).join("") : `<div class="empty-state"><i class="bi bi-check2-circle"></i>No tasks in this view.</div>`;
-
-    updateStats();
-  }
-
-  function renderDashboardTasks() {
-    const tasks = state.tasks.filter(task => !task.done).slice(0, 5);
-    $("#dashboardTasks").innerHTML = tasks.length ? tasks.map(task => `
-      <div class="task-row">
-        <input type="checkbox" data-task-toggle="${escapeHTML(task.id)}" aria-label="Complete task">
-        <div class="task-text">${escapeHTML(task.text)}<div class="muted tiny mt-1">${escapeHTML(task.priority || "Normal")} priority</div></div>
-      </div>`).join("") : `<div class="empty-state"><i class="bi bi-check2-circle"></i>No open tasks. Add one when you're ready.</div>`;
-  }
-
-  function toggleTask(id, checked) {
-    const task = state.tasks.find(item => item.id === id);
-    if (!task) return;
-    task.done = checked;
-    task.completedAt = checked ? new Date().toISOString() : null;
-    saveState();
-    renderTasks();
-    renderDashboardTasks();
-  }
-
-  function deleteTask(id) {
-    state.tasks = state.tasks.filter(task => task.id !== id);
-    saveState();
-    renderTasks();
-    renderDashboardTasks();
-    toast("Task deleted.");
-  }
-
-  function renderActivity() {
-    const items = state.activity.slice(0, 7);
-    $("#activityList").innerHTML = items.length ? items.map(item => `
-      <div class="activity-row">
-        <div class="activity-icon"><i class="bi ${escapeHTML(item.icon || "bi-lightning")}"></i></div>
-        <div class="flex-grow-1">
-          <div style="font-size:11px">${escapeHTML(item.message)}</div>
-          <div class="muted tiny mt-1">${escapeHTML(niceDate(item.at))}</div>
-        </div>
-      </div>`).join("") : `<div class="empty-state"><i class="bi bi-clock-history"></i>Your recent dashboard activity will appear here.</div>`;
-  }
-
-  function renderRelayChecklist() {
-    $("#relayChecklist").innerHTML = RELAY_STEPS.map((step, index) => `
-      <label class="task-row" style="cursor:pointer">
-        <input type="checkbox" data-relay-step="${index}" ${state.relayChecks.includes(index) ? "checked" : ""}>
-        <span class="task-text">${escapeHTML(step)}</span>
-      </label>`).join("");
-  }
-
-  function reviewRelay() {
-    const checked = state.relayChecks.length;
-    const total = RELAY_STEPS.length;
-    const missing = total - checked;
-    $("#relayResult").innerHTML = `
-      <div class="${missing === 0 ? "success-note" : "notice"}">
-        <strong>${missing === 0 ? "Checklist completed" : "Checklist progress: " + checked + "/" + total}</strong><br>
-        ${missing === 0
-          ? "You have recorded every basic check. This does not guarantee the connection is working; test your setup and consult official support if needed."
-          : `${missing} step${missing === 1 ? "" : "s"} remain unchecked. Review the remaining items, record any error messages and retest the connection.`}
-      </div>`;
-    addActivity(`Reviewed connection checklist (${checked}/${total})`, "bi-diagram-3");
-  }
-
-  function saveDiagnostic(event) {
-    event.preventDefault();
-    const symptom = $("#diagSymptom").value.trim();
-    if (!symptom) return toast("Enter a symptom first.", "error");
-    state.diagnostics.unshift({
-      id: uid(),
-      platform: $("#diagPlatform").value,
-      symptom: symptom.slice(0, 120),
-      details: $("#diagDetails").value.trim().slice(0, 2000),
-      createdAt: new Date().toISOString()
-    });
-    saveState();
-    $("#diagnosticForm").reset();
-    renderDiagnostics();
-    addActivity(`Saved diagnostic note: ${symptom}`, "bi-journal-text");
-    toast("Diagnostic note saved locally.");
-  }
-
-  function renderDiagnostics() {
-    $("#diagnosticList").innerHTML = state.diagnostics.length ? state.diagnostics.map(note => `
-      <div class="activity-row">
-        <div class="activity-icon"><i class="bi bi-journal-text"></i></div>
-        <div class="flex-grow-1">
-          <div class="d-flex flex-wrap justify-content-between gap-2">
-            <strong style="font-size:12px">${escapeHTML(note.symptom || "Diagnostic note")}</strong>
-            <span class="badge-xz">${escapeHTML(note.platform || "Other")}</span>
+    if (!visible.length && !state.loading) {
+      grid.innerHTML = `
+        <div class="col-12">
+          <div class="empty-state">
+            <h3 class="h5 text-white">No matching projects found</h3>
+            <p class="mb-0">Try another topic or a broader search term.</p>
           </div>
-          <div class="muted tiny mt-1">${escapeHTML(niceDate(note.createdAt))}</div>
-          <p class="muted tiny mt-2 mb-0" style="white-space:pre-wrap">${escapeHTML(note.details || "No additional details.")}</p>
-        </div>
-        <button class="btn btn-danger-soft" data-diag-delete="${escapeHTML(note.id)}" aria-label="Delete note"><i class="bi bi-trash"></i></button>
-      </div>`).join("") : `<div class="empty-state"><i class="bi bi-journal"></i>No diagnostic notes saved yet.</div>`;
-    updateStats();
-  }
-
-  function deleteDiagnostic(id) {
-    state.diagnostics = state.diagnostics.filter(note => note.id !== id);
-    saveState();
-    renderDiagnostics();
-    toast("Diagnostic note deleted.");
-  }
-
-  async function searchGitHub(queryOverride) {
-    const query = String(queryOverride ?? $("#githubQuery").value).trim();
-    if (!query) {
-      $("#githubStatus").textContent = "Enter a search term.";
+        </div>`;
       return;
     }
 
-    $("#githubQuery").value = query;
-    const sort = $("#githubSort").value;
-    const requestId = ++githubRequestSequence;
+    const html = visible.map(repoCard).join("");
 
-    if (githubAbortController) githubAbortController.abort();
-    githubAbortController = new AbortController();
+    if (append) {
+      grid.insertAdjacentHTML("beforeend", html);
+    } else {
+      grid.innerHTML = html || '<div class="col-12"><div class="loading"></div></div>';
+    }
+  }
 
-    $("#githubSearchBtn").disabled = true;
-    $("#githubSearchBtn").innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Searching`;
-    $("#githubStatus").textContent = "Contacting the public GitHub API...";
-    $("#githubResults").innerHTML = "";
+  async function loadFeed({ append = false } = {}) {
+    if (state.loading) return;
 
-    const params = new URLSearchParams({ q: query, per_page: "12" });
-    if (sort === "stars") params.set("sort", "stars");
-    if (sort === "updated") params.set("sort", "updated");
-    if (sort !== "best-match") params.set("order", "desc");
+    state.loading = true;
+    clearError();
+
+    if (!append) {
+      state.page = 1;
+      state.repositories = [];
+      state.seenIds.clear();
+      showLoading();
+    } else {
+      moreButton.disabled = true;
+      moreButton.textContent = "Loading...";
+    }
+
+    setStatus("Fetching public projects...");
 
     try {
-      const response = await fetch(`https://api.github.com/search/repositories?${params.toString()}`, {
-        headers: { Accept: "application/vnd.github+json" },
-        signal: githubAbortController.signal
-      });
-      const data = await response.json().catch(() => ({}));
-      if (requestId !== githubRequestSequence) return;
+      const url = searchUrl(state.page);
+      const result = await apiGet(url, "search:" + url);
 
-      if (!response.ok) {
-        const message = response.status === 403 || response.status === 429
-          ? "GitHub's unauthenticated API rate limit may have been reached. Wait a little and try again."
-          : response.status === 422
-            ? "GitHub could not process this search. Try a simpler query."
-            : `GitHub API returned HTTP ${response.status}.`;
-        $("#githubStatus").textContent = message;
-        return;
+      const incoming = Array.isArray(result.items) ? result.items : [];
+      for (const repo of incoming) {
+        if (!state.seenIds.has(repo.id)) {
+          state.seenIds.add(repo.id);
+          state.repositories.push(repo);
+        }
       }
 
-      const items = Array.isArray(data.items) ? data.items : [];
-      $("#githubStatus").textContent = `${Number(data.total_count || 0).toLocaleString()} public repositories found. Showing ${items.length} results.`;
-      $("#githubResults").innerHTML = items.length ? items.map(repo => {
-        const url = safeHttpUrl(repo.html_url);
-        const language = repo.language || "Not specified";
-        const stars = Number(repo.stargazers_count || 0).toLocaleString();
-        const forks = Number(repo.forks_count || 0).toLocaleString();
-        return `
-          <div class="col-md-6 col-xl-4">
-            <article class="resource-card">
-              <div class="d-flex justify-content-between align-items-start gap-2">
-                <span class="badge-xz"><i class="bi bi-github me-1"></i>Public repository</span>
-                <span class="muted tiny"><i class="bi bi-star me-1"></i>${escapeHTML(stars)}</span>
-              </div>
-              <h3>${escapeHTML(repo.full_name || repo.name || "Repository")}</h3>
-              <p>${escapeHTML(repo.description || "No description supplied by the repository owner.")}</p>
-              <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="tag">${escapeHTML(language)}</span>
-                <span class="tag"><i class="bi bi-diagram-2 me-1"></i>${escapeHTML(forks)} forks</span>
-                ${repo.license && repo.license.spdx_id ? `<span class="tag">${escapeHTML(repo.license.spdx_id)}</span>` : ""}
-              </div>
-              <div class="muted tiny mb-3">Updated ${escapeHTML(repo.updated_at ? new Date(repo.updated_at).toLocaleDateString() : "date unavailable")}</div>
-              <div class="d-flex flex-wrap gap-2 mt-auto">
-                ${url ? `<a class="btn btn-xz btn-sm" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Open project</a>` : ""}
-                <button class="btn btn-outline-xz btn-sm" data-save-repo="${escapeHTML(repo.id)}" data-repo-title="${escapeHTML(repo.full_name || repo.name || "GitHub repository")}" data-repo-url="${escapeHTML(url || "")}" data-repo-desc="${escapeHTML(repo.description || "")}"><i class="bi bi-bookmark-plus me-1"></i>Save resource</button>
-              </div>
-            </article>
+      state.hasMore = state.repositories.length < (result.total_count || 0) &&
+        incoming.length === PER_PAGE;
+      state.lastRequestAt = Date.now();
+
+      $("feedDescription").textContent = feedDescriptions[state.feed];
+      $("discoverTitle").textContent = {
+        latest: "Latest community projects",
+        updated: "Recently updated projects",
+        popular: "Popular modding projects",
+        releases: "Projects with releases"
+      }[state.feed];
+
+      setStatus(`${numberText(result.total_count || 0)} matching repositories found`);
+      lastUpdated.textContent = "Fetched " + new Date().toLocaleTimeString();
+
+      renderRepositories(append);
+      moreButton.classList.toggle("d-none", !state.hasMore);
+    } catch (error) {
+      showError(error.message || "Unable to load projects.");
+      setStatus("Feed unavailable", false);
+
+      if (!state.repositories.length) {
+        grid.innerHTML = `
+          <div class="col-12">
+            <div class="empty-state">
+              <h3 class="h5 text-white">Couldn't load the live feed</h3>
+              <p class="mb-3">The public API may be unavailable or rate-limited.</p>
+              <button class="btn-purple" onclick="document.getElementById('refreshButton').click()">
+                Try again
+              </button>
+            </div>
           </div>`;
-      }).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-search"></i>No public repositories found. Try another search.</div></div>`;
-    } catch (error) {
-      if (error.name === "AbortError") return;
-      if (requestId !== githubRequestSequence) return;
-      $("#githubStatus").textContent = "Unable to contact GitHub. Check your connection, browser privacy settings or try again later.";
-      $("#githubResults").innerHTML = `<div class="col-12"><div class="panel empty-state"><i class="bi bi-wifi-off"></i>Search failed. GitHub or your network may be temporarily unavailable.</div></div>`;
-    } finally {
-      if (requestId === githubRequestSequence) {
-        $("#githubSearchBtn").disabled = false;
-        $("#githubSearchBtn").innerHTML = `<i class="bi bi-search me-1"></i>Search`;
-      }
-    }
-  }
-
-  function saveGitHubRepo(button) {
-    const url = safeHttpUrl(button.dataset.repoUrl);
-    const title = button.dataset.repoTitle || "GitHub repository";
-    if (!url) return toast("This repository has no valid URL.", "error");
-
-    const exists = state.resources.some(item => item.url === url);
-    if (exists) return toast("This repository is already saved.");
-
-    state.resources.unshift({
-      id: uid(),
-      title: title.slice(0, 120),
-      url,
-      game: "general",
-      category: "Repository",
-      tags: ["GitHub", "Open source"],
-      description: (button.dataset.repoDesc || "").slice(0, 1500),
-      favourite: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    });
-    saveState();
-    renderResources();
-    addActivity(`Saved public repository: ${title}`, "bi-github");
-    toast("Repository saved to your library.");
-  }
-
-  function setTextOutput(selector, value) {
-    $(selector).textContent = String(value);
-  }
-
-  function formatJSON(minify = false) {
-    const input = $("#jsonInput").value;
-    try {
-      const parsed = JSON.parse(input);
-      const output = JSON.stringify(parsed, null, minify ? 0 : 2);
-      setTextOutput("#jsonOutput", output);
-      toast("Valid JSON.");
-    } catch (error) {
-      setTextOutput("#jsonOutput", "Invalid JSON:\n" + error.message);
-      toast("JSON validation failed.", "error");
-    }
-  }
-
-  function encodeBase64() {
-    try {
-      const bytes = new TextEncoder().encode($("#base64Input").value);
-      let binary = "";
-      bytes.forEach(byte => binary += String.fromCharCode(byte));
-      setTextOutput("#base64Output", btoa(binary));
-    } catch (_) {
-      setTextOutput("#base64Output", "Encoding failed.");
-    }
-  }
-
-  function decodeBase64() {
-    try {
-      const raw = atob($("#base64Input").value.trim());
-      const bytes = Uint8Array.from(raw, char => char.charCodeAt(0));
-      setTextOutput("#base64Output", new TextDecoder("utf-8", { fatal: true }).decode(bytes));
-    } catch (_) {
-      setTextOutput("#base64Output", "Invalid Base64 input or the decoded bytes are not valid UTF-8 text.");
-    }
-  }
-
-  async function makeHash() {
-    const input = $("#hashInput").value;
-    if (!window.crypto || !crypto.subtle) {
-      setTextOutput("#hashOutput", "Web Crypto is unavailable. Open this page over HTTPS or localhost.");
-      return;
-    }
-    try {
-      const bytes = new TextEncoder().encode(input);
-      const digest = await crypto.subtle.digest("SHA-256", bytes);
-      const hash = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
-      setTextOutput("#hashOutput", hash);
-    } catch (_) {
-      setTextOutput("#hashOutput", "Hash generation failed in this browser.");
-    }
-  }
-
-  function compareText() {
-    const left = $("#diffA").value.split("\n");
-    const right = $("#diffB").value.split("\n");
-    const maxLines = 2000;
-
-    if (left.length > maxLines || right.length > maxLines) {
-      setTextOutput("#diffOutput", `For performance, compare at most ${maxLines} lines per input.`);
-      return;
-    }
-
-    // Simple positional line comparison, not a minimal edit-distance diff.
-    const count = Math.max(left.length, right.length);
-    const output = [];
-    for (let i = 0; i < count; i++) {
-      if (left[i] === right[i]) {
-        if (left[i] !== undefined) output.push("  " + left[i]);
       } else {
-        if (left[i] !== undefined) output.push("- " + left[i]);
-        if (right[i] !== undefined) output.push("+ " + right[i]);
+        renderRepositories();
       }
-    }
-    setTextOutput("#diffOutput", output.join("\n") || "Both inputs are empty.");
-  }
-
-  function exportBackup() {
-    const backup = {
-      application: "XZ OS 5.0",
-      formatVersion: 1,
-      exportedAt: new Date().toISOString(),
-      data: state
-    };
-    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const anchor = document.createElement("a");
-    anchor.href = url;
-    anchor.download = `moddingxz-xzos5-backup-${new Date().toISOString().slice(0, 10)}.json`;
-    document.body.appendChild(anchor);
-    anchor.click();
-    anchor.remove();
-    URL.revokeObjectURL(url);
-    toast("Backup export started.");
-  }
-
-  function validImportedState(input) {
-    if (!input || typeof input !== "object" || Array.isArray(input)) return null;
-    const candidate = input.data && typeof input.data === "object" ? input.data : input;
-    if (!Array.isArray(candidate.resources) || !Array.isArray(candidate.tasks)) return null;
-
-    const next = clone(DEFAULT_STATE);
-    next.resources = candidate.resources.filter(item =>
-      item && typeof item === "object" && typeof item.title === "string" &&
-      typeof item.url === "string" && typeof item.id === "string" && safeHttpUrl(item.url)
-    ).slice(0, 5000).map(item => ({
-      id: item.id.slice(0, 100),
-      title: item.title.slice(0, 120),
-      url: safeHttpUrl(item.url),
-      game: typeof item.game === "string" ? item.game.slice(0, 80) : "general",
-      category: typeof item.category === "string" ? item.category.slice(0, 60) : "Other",
-      tags: Array.isArray(item.tags) ? item.tags.filter(tag => typeof tag === "string").slice(0, 20).map(tag => tag.slice(0, 60)) : [],
-      description: typeof item.description === "string" ? item.description.slice(0, 1500) : "",
-      favourite: !!item.favourite,
-      createdAt: typeof item.createdAt === "string" ? item.createdAt : new Date().toISOString(),
-      updatedAt: typeof item.updatedAt === "string" ? item.updatedAt : new Date().toISOString()
-    }));
-
-    next.tasks = candidate.tasks.filter(item =>
-      item && typeof item === "object" && typeof item.id === "string" && typeof item.text === "string"
-    ).slice(0, 5000).map(item => ({
-      id: item.id.slice(0, 100),
-      text: item.text.slice(0, 240),
-      priority: ["Low", "Normal", "High"].includes(item.priority) ? item.priority : "Normal",
-      done: !!item.done,
-      createdAt: typeof item.createdAt === "string" ? item.createdAt : new Date().toISOString(),
-      completedAt: typeof item.completedAt === "string" ? item.completedAt : null
-    }));
-
-    next.diagnostics = Array.isArray(candidate.diagnostics) ? candidate.diagnostics.filter(item =>
-      item && typeof item === "object" && typeof item.id === "string"
-    ).slice(0, 5000).map(item => ({
-      id: item.id.slice(0, 100),
-      platform: typeof item.platform === "string" ? item.platform.slice(0, 100) : "Other",
-      symptom: typeof item.symptom === "string" ? item.symptom.slice(0, 120) : "",
-      details: typeof item.details === "string" ? item.details.slice(0, 2000) : "",
-      createdAt: typeof item.createdAt === "string" ? item.createdAt : new Date().toISOString()
-    })) : [];
-
-    next.scratchpad = typeof candidate.scratchpad === "string" ? candidate.scratchpad.slice(0, 20000) : "";
-    next.activity = Array.isArray(candidate.activity) ? candidate.activity.filter(item =>
-      item && typeof item.message === "string"
-    ).slice(0, 30).map(item => ({
-      id: typeof item.id === "string" ? item.id.slice(0, 100) : uid(),
-      message: item.message.slice(0, 240),
-      icon: typeof item.icon === "string" ? item.icon.slice(0, 80) : "bi-lightning",
-      at: typeof item.at === "string" ? item.at : new Date().toISOString()
-    })) : [];
-    next.preferences = {
-      accent: ["purple", "blue", "green", "pink"].includes(candidate.preferences?.accent)
-        ? candidate.preferences.accent : "purple"
-    };
-    next.relayChecks = Array.isArray(candidate.relayChecks)
-      ? candidate.relayChecks.filter(index => Number.isInteger(index) && index >= 0 && index < RELAY_STEPS.length)
-      : [];
-
-    return next;
-  }
-
-  async function importBackup(file) {
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      toast("Backup file is too large (maximum 5 MB).", "error");
-      return;
-    }
-
-    try {
-      const text = await file.text();
-      const parsed = JSON.parse(text);
-      const imported = validImportedState(parsed);
-      if (!imported) {
-        toast("This does not look like a valid XZ OS backup.", "error");
-        return;
-      }
-      if (!confirm("Import this backup and replace the current local dashboard data? Export your current data first if you want to keep it.")) return;
-
-      const previous = state;
-      state = imported;
-      if (!saveState()) {
-        state = previous;
-        return;
-      }
-
-      applyAccent();
-      renderAll();
-      toast("Backup imported successfully.");
-    } catch (_) {
-      toast("Could not read this backup file. Check that it is valid JSON.", "error");
+      moreButton.classList.add("d-none");
     } finally {
-      $("#importFile").value = "";
+      state.loading = false;
+      moreButton.disabled = false;
+      moreButton.textContent = "Load more projects";
     }
   }
 
-  function renderAll() {
-    populateGameSelects();
-    applyAccent();
-    renderDashboardGames();
-    renderGames();
-    renderResources();
-    renderTasks();
-    renderDashboardTasks();
-    renderActivity();
-    renderRelayChecklist();
-    renderDiagnostics();
-    updateStats();
-    updateSettingsStats();
-    $("#scratchpad").value = state.scratchpad;
-    $("#scratchCount").textContent = `${state.scratchpad.length} / 20000`;
-    $("#scratchStatus").textContent = "Saved locally";
-  }
+  function selectFeed(feed) {
+    state.feed = feed;
 
-  function openQuickAdd(type) {
-    if (quickModal) quickModal.hide();
-    if (type === "resource") {
-      navigate("resources");
-      $("#resourceTitle").focus();
-    } else if (type === "task") {
-      navigate("tasks");
-      $("#taskInput").focus();
-    } else if (type === "diagnostic") {
-      navigate("relay");
-      $("#diagSymptom").focus();
+    document.querySelectorAll("[data-feed]").forEach(button => {
+      button.classList.toggle("active", button.dataset.feed === feed);
+    });
+
+    if (feed === "releases") {
+      $("releasesSection").scrollIntoView({ behavior: "smooth", block: "start" });
+      loadReleases();
+    } else {
+      loadFeed();
     }
   }
 
-  // Navigation
-  $$("[data-page-link]").forEach(link => link.addEventListener("click", event => {
-    event.preventDefault();
-    navigate(link.dataset.pageLink);
-  }));
+  async function loadReleases() {
+    const releaseList = $("releaseList");
+    const button = $("loadReleasesButton");
 
-  $$("[data-go]").forEach(button => button.addEventListener("click", () => navigate(button.dataset.go)));
-  $("#menuToggle").addEventListener("click", openSidebar);
-  $("#sidebarOverlay").addEventListener("click", closeSidebar);
+    button.disabled = true;
+    button.textContent = "Loading...";
+    releaseList.innerHTML = '<div class="loading"></div>';
+    clearError();
 
-  window.addEventListener("hashchange", () => {
-    const page = location.hash.replace("#", "") || "dashboard";
-    navigate(page);
-  });
-
-  // Quick add
-  quickModal = new bootstrap.Modal($("#quickAddModal"));
-  $("#quickAddBtn").addEventListener("click", () => quickModal.show());
-  $("#dashboardAddTask").addEventListener("click", () => openQuickAdd("task"));
-  $$("[data-quick-type]").forEach(button => button.addEventListener("click", () => openQuickAdd(button.dataset.quickType)));
-  $$("[data-add-resource]").forEach(button => button.addEventListener("click", () => openQuickAdd("resource")));
-
-  // Game hub
-  $("#gameSearch").addEventListener("input", renderGames);
-  $("#gameTypeFilter").addEventListener("change", renderGames);
-
-  // Resource library
-  $("#resourceForm").addEventListener("submit", saveResource);
-  $("#resourceCancelEdit").addEventListener("click", clearResourceForm);
-  $("#resourceSearch").addEventListener("input", renderResources);
-  $("#resourceFilterGame").addEventListener("change", renderResources);
-  $("#resourceFilterType").addEventListener("change", renderResources);
-  $("#favouritesOnly").addEventListener("click", () => {
-    favouritesOnly = !favouritesOnly;
-    renderResources();
-  });
-
-  // Task manager
-  $("#taskForm").addEventListener("submit", event => {
-    event.preventDefault();
-    const input = $("#taskInput");
-    if (addTask(input.value, $("#taskPriority").value)) {
-      input.value = "";
-      toast("Task added.");
-    }
-  });
-  $("#taskFilter").addEventListener("change", renderTasks);
-  $("#clearCompletedBtn").addEventListener("click", () => {
-    const count = state.tasks.filter(task => task.done).length;
-    if (!count) return toast("There are no completed tasks.");
-    if (!confirm(`Delete ${count} completed task${count === 1 ? "" : "s"}?`)) return;
-    state.tasks = state.tasks.filter(task => !task.done);
-    saveState();
-    renderTasks();
-    renderDashboardTasks();
-    toast("Completed tasks cleared.");
-  });
-
-  // Scratchpad autosave
-  $("#scratchpad").addEventListener("input", () => {
-    state.scratchpad = $("#scratchpad").value.slice(0, 20000);
-    saveState();
-    $("#scratchCount").textContent = `${state.scratchpad.length} / 20000`;
-    $("#scratchStatus").textContent = "Saved locally";
-  });
-
-  // Relay checklist
-  $("#relayCheckBtn").addEventListener("click", reviewRelay);
-  $("#relayResetBtn").addEventListener("click", () => {
-    state.relayChecks = [];
-    saveState();
-    renderRelayChecklist();
-    $("#relayResult").innerHTML = "";
-    toast("Checklist reset.");
-  });
-  $("#diagnosticForm").addEventListener("submit", saveDiagnostic);
-
-  // GitHub API
-  $("#githubSearchForm").addEventListener("submit", event => {
-    event.preventDefault();
-    searchGitHub();
-  });
-  $("#githubSort").addEventListener("change", () => {
-    if ($("#githubQuery").value.trim()) searchGitHub();
-  });
-  $$(".preset-search").forEach(button => button.addEventListener("click", () => {
-    navigate("radar");
-    searchGitHub(button.dataset.query);
-  }));
-
-  // Developer toolkit
-  $("#jsonFormatBtn").addEventListener("click", () => formatJSON(false));
-  $("#jsonMinifyBtn").addEventListener("click", () => formatJSON(true));
-  $("#jsonClearBtn").addEventListener("click", () => {
-    $("#jsonInput").value = "";
-    setTextOutput("#jsonOutput", "Your formatted JSON will appear here.");
-  });
-  $("#base64EncodeBtn").addEventListener("click", encodeBase64);
-  $("#base64DecodeBtn").addEventListener("click", decodeBase64);
-  $("#base64ClearBtn").addEventListener("click", () => {
-    $("#base64Input").value = "";
-    setTextOutput("#base64Output", "Output will appear here.");
-  });
-  $("#hashBtn").addEventListener("click", makeHash);
-  $("#diffBtn").addEventListener("click", compareText);
-
-  $$("[data-copy-target]").forEach(button => button.addEventListener("click", () => {
-    const target = $("#" + button.dataset.copyTarget);
-    if (target) copyText(target.textContent);
-  }));
-
-  // Appearance and backups
-  $("#accentSelect").addEventListener("change", () => {
-    state.preferences.accent = $("#accentSelect").value;
-    applyAccent();
-    saveState();
-    toast("Appearance updated.");
-  });
-  $("#resetAccentBtn").addEventListener("click", () => {
-    state.preferences.accent = "purple";
-    applyAccent();
-    saveState();
-    toast("Appearance reset.");
-  });
-  $("#exportBtn").addEventListener("click", exportBackup);
-  $("#importBtn").addEventListener("click", () => $("#importFile").click());
-  $("#importFile").addEventListener("change", event => importBackup(event.target.files?.[0]));
-
-  $("#resetAllBtn").addEventListener("click", () => {
-    if (!confirm("Permanently delete ALL locally saved XZ OS data from this browser? Export a backup first if needed.")) return;
-    if (!confirm("Final confirmation: this cannot be undone without a backup. Continue?")) return;
-    state = clone(DEFAULT_STATE);
     try {
-      localStorage.removeItem(STORAGE_KEY);
-    } catch (_) {}
-    saveState();
-    clearResourceForm();
-    $("#resourceSearch").value = "";
-    $("#resourceFilterType").value = "all";
-    $("#resourceFilterGame").value = "all";
-    $("#taskFilter").value = "all";
-    $("#relayResult").innerHTML = "";
-    renderAll();
-    toast("Local dashboard data reset.");
-    navigate("dashboard");
-  });
+      let repos = state.repositories.slice(0, 8);
 
-  // Global search searches locally saved data and task entries.
-  $("#globalSearch").addEventListener("keydown", event => {
-    if (event.key !== "Enter") return;
-    const query = event.target.value.trim();
-    if (!query) return;
-    $("#resourceSearch").value = query;
-    $("#gameSearch").value = query;
-    navigate("resources");
-    renderResources();
-    if (!state.resources.some(resource =>
-      `${resource.title} ${resource.description || ""} ${resource.url}`.toLowerCase().includes(query.toLowerCase())
-    )) {
-      const gameMatches = GAMES.some(game =>
-        `${game.name} ${game.desc} ${game.tags.join(" ")}`.toLowerCase().includes(query.toLowerCase())
-      );
-      const taskMatches = state.tasks.some(task => task.text.toLowerCase().includes(query.toLowerCase()));
-      if (gameMatches && !taskMatches) {
-        navigate("games");
-        renderGames();
-      } else if (taskMatches) {
-        navigate("tasks");
+      if (!repos.length) {
+        const query = new URLSearchParams({
+          q: '(modding OR homebrew OR "game mod") fork:false',
+          sort: "updated",
+          order: "desc",
+          per_page: "8"
+        });
+        const result = await apiGet(
+          `${API}/search/repositories?${query}`,
+          "release-discovery"
+        );
+        repos = result.items || [];
       }
+
+      const checks = repos.slice(0, 6).map(async repo => {
+        try {
+          const url = `${API}/repos/${encodeURIComponent(repo.owner.login)}/${encodeURIComponent(repo.name)}/releases?per_page=2`;
+          const releases = await apiGet(url, "releases:" + repo.full_name);
+          return (releases || []).map(release => ({ repo, release }));
+        } catch {
+          return [];
+        }
+      });
+
+      const nested = await Promise.all(checks);
+      const releases = nested.flat()
+        .sort((a, b) => new Date(b.release.published_at || 0) -
+                         new Date(a.release.published_at || 0));
+
+      if (!releases.length) {
+        releaseList.innerHTML = `
+          <div class="empty-state">
+            No published releases were found for these projects.
+            Try a broader project search or check back later.
+          </div>`;
+      } else {
+        releaseList.innerHTML = releases.slice(0, 12).map(({ repo, release }) => {
+          const releaseUrl = safeUrl(release.html_url);
+          const projectUrl = safeUrl(repo.html_url);
+          const summary = (release.body || "No release notes supplied.")
+            .slice(0, 900);
+
+          return `
+            <article class="release-row">
+              <div class="d-flex flex-wrap justify-content-between gap-2">
+                <div>
+                  <h3 class="mb-1">
+                    <a href="${releaseUrl}" target="_blank" rel="noopener noreferrer">
+                      ${escapeHtml(release.name || release.tag_name || "Untitled release")} ↗
+                    </a>
+                  </h3>
+                  <a class="muted small" href="${projectUrl}" target="_blank" rel="noopener noreferrer">
+                    ${escapeHtml(repo.full_name)}
+                  </a>
+                </div>
+                <span class="tag align-self-start">
+                  ${escapeHtml(dateText(release.published_at))}
+                </span>
+              </div>
+              <div class="release-body">${escapeHtml(summary)}</div>
+              <a class="small-link" href="${releaseUrl}" target="_blank" rel="noopener noreferrer">
+                Read original release notes
+              </a>
+            </article>`;
+        }).join("");
+      }
+
+      state.releasesLoaded = true;
+    } catch (error) {
+      releaseList.innerHTML = `
+        <div class="empty-state">
+          <p>${escapeHtml(error.message || "Unable to fetch releases.")}</p>
+          <p class="small mb-0">The main project feed may still work. Try again later.</p>
+        </div>`;
+    } finally {
+      button.disabled = false;
+      button.textContent = "↻ Refresh releases";
     }
+  }
+
+  $("searchForm").addEventListener("submit", event => {
+    event.preventDefault();
+    state.query = $("searchInput").value.trim();
+    $("categoryFilter").value = "all";
+    loadFeed();
   });
 
-  // Delegated interactions for cards rendered dynamically.
-  document.addEventListener("click", event => {
-    const target = event.target.closest("button");
-    if (!target) return;
-
-    if (target.dataset.gameOpen) {
-      navigate("games");
-      $("#gameSearch").value = GAMES.find(game => game.id === target.dataset.gameOpen)?.name || "";
-      renderGames();
-      return;
-    }
-
-    if (target.dataset.addForGame) {
-      navigate("resources");
-      $("#resourceGame").value = target.dataset.addForGame;
-      $("#resourceTitle").focus();
-      return;
-    }
-
-    if (target.dataset.searchGame) {
-      navigate("resources");
-      $("#resourceSearch").value = target.dataset.searchGame;
-      $("#resourceFilterGame").value = "all";
-      renderResources();
-      return;
-    }
-
-    if (target.dataset.resourceFav) {
-      const resource = state.resources.find(item => item.id === target.dataset.resourceFav);
-      if (!resource) return;
-      resource.favourite = !resource.favourite;
-      saveState();
-      renderResources();
-      return;
-    }
-
-    if (target.dataset.resourceEdit) {
-      editResource(target.dataset.resourceEdit);
-      return;
-    }
-
-    if (target.dataset.resourceDelete) {
-      deleteResource(target.dataset.resourceDelete);
-      return;
-    }
-
-    if (target.dataset.resourceCopy) {
-      const resource = state.resources.find(item => item.id === target.dataset.resourceCopy);
-      if (resource) copyText(resource.url);
-      return;
-    }
-
-    if (target.dataset.taskDelete) {
-      deleteTask(target.dataset.taskDelete);
-      return;
-    }
-
-    if (target.dataset.diagDelete) {
-      deleteDiagnostic(target.dataset.diagDelete);
-      return;
-    }
-
-    if (target.dataset.saveRepo) {
-      saveGitHubRepo(target);
-    }
+  $("clearSearch").addEventListener("click", () => {
+    $("searchInput").value = "";
+    state.query = "";
+    $("categoryFilter").value = "all";
+    $("languageFilter").value = "all";
+    loadFeed();
   });
 
-  document.addEventListener("change", event => {
-    const target = event.target;
-    if (target.matches("[data-task-toggle]")) {
-      toggleTask(target.dataset.taskToggle, target.checked);
-      return;
-    }
-    if (target.matches("[data-relay-step]")) {
-      const index = Number(target.dataset.relayStep);
-      state.relayChecks = target.checked
-        ? [...new Set([...state.relayChecks, index])]
-        : state.relayChecks.filter(item => item !== index);
-      saveState();
-    }
+  document.querySelectorAll("[data-feed]").forEach(button => {
+    button.addEventListener("click", () => selectFeed(button.dataset.feed));
   });
 
-  // Start the app.
-  $("#footerYear").textContent = new Date().getFullYear();
-  renderAll();
+  $("categoryFilter").addEventListener("change", () => {
+    if (state.query) {
+      $("searchInput").value = state.query;
+    }
+    loadFeed();
+  });
 
-  const initialPage = location.hash.replace("#", "") || "dashboard";
-  navigate($("#page-" + initialPage) ? initialPage : "dashboard");
+  $("languageFilter").addEventListener("change", () => {
+    loadFeed();
+  });
+
+  $("refreshButton").addEventListener("click", () => {
+    const cacheKeys = [];
+    try {
+      for (let i = localStorage.length - 1; i >= 0; i--) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith(CACHE_PREFIX)) cacheKeys.push(key);
+      }
+      cacheKeys.forEach(key => localStorage.removeItem(key));
+    } catch {}
+
+    state.releasesLoaded = false;
+    loadFeed();
+  });
+
+  moreButton.addEventListener("click", () => {
+    if (!state.hasMore || state.loading) return;
+    state.page += 1;
+    loadFeed({ append: true });
+  });
+
+  $("loadReleasesButton").addEventListener("click", loadReleases);
+
+  $("topicButtons").addEventListener("click", event => {
+    const button = event.target.closest("[data-topic]");
+    if (!button) return;
+
+    state.query = button.dataset.topic;
+    $("searchInput").value = state.query;
+    $("categoryFilter").value = "all";
+    $("languageFilter").value = "all";
+    state.feed = "updated";
+
+    document.querySelectorAll("[data-feed]").forEach(item => {
+      item.classList.toggle("active", item.dataset.feed === "updated");
+    });
+
+    loadFeed();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  $("year").textContent = new Date().getFullYear();
+
+  // First visit fetches the live feed automatically.
+  loadFeed();
+
+  // Refresh periodically while the page is open.
+  // API results are cached locally for a short period.
+  setInterval(() => {
+    if (!document.hidden && !state.loading) {
+      loadFeed();
+    }
+  }, REFRESH_INTERVAL);
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden &&
+        Date.now() - state.lastRequestAt > REFRESH_INTERVAL &&
+        !state.loading) {
+      loadFeed();
+    }
+  });
 })();
 </script>
 </body>
