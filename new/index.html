@@ -1,764 +1,1069 @@
 
-<!DOCTYPE html>
-<html lang="en-GB">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090611">
-<meta name="description" content="ModdingXZ Gaming Network: discover gaming mods, mod menus, trainers, save editors, game tools, homebrew, open-source projects and community releases across PC and consoles.">
-<title>ModdingXZ // Gaming Network</title>
+<meta name="theme-color" content="#090710">
+<meta name="description" content="ModdingXZ Nexus — gaming modding resources, project discovery, releases, guides and developer utilities.">
+<title>ModdingXZ Nexus 2.0</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
 <style>
-:root{
- --bg:#08060e;--panel:#100c19;--panel2:#171020;
- --border:#30213f;--purple:#a855f7;--pink:#ec4899;
- --text:#f8f3ff;--muted:#a99bb9;--green:#4ade80;
- --yellow:#facc15;--red:#fb7185;
+:root {
+  --bg:#090710;--panel:#110d1c;--panel2:#181126;--border:#302340;
+  --purple:#a970ff;--purple2:#783cff;--text:#f7f3ff;--muted:#a69bb9;
+  --green:#50e3a4;--red:#ff718f;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{margin:0;background:radial-gradient(ellipse at 50% -10%,#2c1240,transparent 42%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-a{color:inherit;text-decoration:none}
-button,input,select{font:inherit}
-button{cursor:pointer}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--purple);outline-offset:3px}
-.wrap{width:min(1280px,93%);margin:auto}
-header{position:sticky;top:0;z-index:50;background:#090611ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-weight:1000;font-size:24px;letter-spacing:-1.2px;white-space:nowrap}
-.logo span{color:#c084fc}
-.navlinks{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.navlinks a{font-size:12px;color:var(--muted)}
-.navlinks a:hover{color:white}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 13px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;color:white;font-size:12px;font-weight:800;transition:.2s}
-.btn:hover{border-color:var(--purple);transform:translateY(-1px)}
-.btn.primary{background:linear-gradient(120deg,#7c3aed,#c026d3);border:0}
-.btn.danger{border-color:#67303c;color:#fda4af}
-.btn.tiny{font-size:10px;padding:7px 9px}
-.hero{padding:70px 0 35px}
-.eyebrow{display:inline-block;padding:7px 11px;background:#1a1027;border:1px solid #53346c;border-radius:99px;color:#d8b4fe;font-size:10px;letter-spacing:1.3px;font-weight:900}
-h1{font-size:clamp(42px,8vw,86px);line-height:.97;letter-spacing:-4px;margin:24px 0 18px}
-.gradient{background:linear-gradient(90deg,#c084fc,#f0abfc,#fb7185);color:transparent;background-clip:text}
-.hero p{max-width:760px;color:var(--muted);font-size:15px;line-height:1.85}
-.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:32px 0}
-.stat,.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:15px}
-.stat{padding:17px}
-.stat strong{font-size:21px;display:block;margin-bottom:5px}
-.stat span{font-size:11px;color:var(--muted);line-height:1.6}
-section{padding:30px 0}
-.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:17px}
-h2{font-size:25px;letter-spacing:-.8px;margin:0 0 7px}
-h3{line-height:1.4}
-.sub{font-size:12px;line-height:1.75;color:var(--muted);margin:0}
-.panel{padding:19px}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
-.card{padding:17px;min-width:0;overflow-wrap:anywhere;transition:.18s}
-.card:hover{border-color:#7544a0;transform:translateY(-2px)}
-.cardtop{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.iconbox{width:40px;height:40px;display:grid;place-items:center;background:#29143b;border:1px solid #4c2a64;border-radius:11px;font-size:20px;flex-shrink:0}
-.tag{font-size:9px;text-transform:uppercase;letter-spacing:.5px;font-weight:900;padding:5px 7px;border:1px solid var(--border);border-radius:6px;color:#d8b4fe}
-.card h3{font-size:15px;margin:14px 0 7px}
-.card p{font-size:12px;line-height:1.7;color:var(--muted);margin:0;min-height:58px}
-.cardfoot{border-top:1px solid var(--border);margin-top:13px;padding-top:11px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.cardfoot small{font-size:10px;color:var(--muted);line-height:1.5}
-.cardbuttons{display:flex;gap:6px;align-items:center}
-.searchrow{display:grid;grid-template-columns:minmax(0,1fr) 190px 170px;gap:9px;margin-bottom:14px}
-.field{min-width:0;width:100%;padding:12px;background:#0c0913;border:1px solid var(--border);border-radius:9px;color:white;outline:none}
-.field:focus{border-color:var(--purple)}
-.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:15px}
-.filter{padding:8px 11px;border:1px solid var(--border);border-radius:99px;background:var(--panel);color:var(--muted);font-size:11px;font-weight:800}
-.filter.active,.filter:hover{background:#291638;border-color:var(--purple);color:white}
-.loading,.empty{grid-column:1/-1;border:1px dashed var(--border);border-radius:12px;padding:28px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8}
-.apihead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.apistatus{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--muted)}
-.dot{width:7px;height:7px;border-radius:50%;background:#777;flex-shrink:0}
-.dot.live{background:var(--green)}
-.dot.error{background:var(--red)}
-.dot.busy{background:var(--yellow)}
-.apierror{font-size:12px;color:#fda4af;padding:15px;background:#210f1a;border-radius:9px;line-height:1.7}
-.apinote{font-size:11px;line-height:1.7;color:var(--muted);margin-top:12px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.stack{display:grid;gap:9px}
-.listitem{display:flex;align-items:flex-start;gap:11px;padding:12px;border:1px solid var(--border);background:#0d0a14;border-radius:10px;min-width:0}
-.listitem .emoji{font-size:18px}
-.listitem strong{font-size:12px;display:block;line-height:1.5;overflow-wrap:anywhere}
-.listitem p{font-size:11px;color:var(--muted);line-height:1.6;margin:4px 0}
-.meta{font-size:10px;color:var(--muted)}
-.notice{padding:13px;border:1px solid #51346b;background:#180f24;color:#d9c7eb;border-radius:10px;font-size:11px;line-height:1.8}
-.count{color:#d8b4fe;font-size:11px}
-footer{margin-top:35px;padding:30px 0;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
-.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.mobilemenu{display:none}
-hr{border:0;border-top:1px solid var(--border);margin:17px 0}
-@media(max-width:900px){
- .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .navlinks{gap:10px}
- .navlinks a:not(.join){display:none}
- .two{grid-template-columns:1fr}
-}
-@media(max-width:600px){
- .grid{grid-template-columns:1fr}
- .stats{grid-template-columns:repeat(2,1fr)}
- .searchrow{grid-template-columns:1fr}
- .hero{padding-top:48px}
- h1{letter-spacing:-2px}
- .sectionhead{align-items:flex-start;flex-direction:column}
- .panel{padding:13px}
-}
+body{background:radial-gradient(ellipse at 15% 0%,#35165b55,transparent 36%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+a{color:var(--purple);text-decoration:none}
+a:hover{color:#d9c1ff}
+.navbar{background:#090710ed;backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.navbar-brand{color:#fff;font-weight:950;letter-spacing:-.8px}
+.brand{color:var(--purple)}
+.nav-link{color:var(--muted)!important;font-size:.9rem;font-weight:650}
+.nav-link:hover{color:#fff!important}
+.hero{padding:72px 0 40px}
+.hero h1{font-size:clamp(2.5rem,7vw,5.3rem);font-weight:950;line-height:.98;letter-spacing:-3px}
+.gradient{background:linear-gradient(100deg,#ddc4ff,#a970ff,#7750ff);color:transparent;background-clip:text;-webkit-background-clip:text}
+.muted{color:var(--muted)!important}
+.panel,.card-xz{background:var(--panel);border:1px solid var(--border);border-radius:17px}
+.panel{padding:22px}
+.card-xz{padding:19px;height:100%;transition:transform .18s,border-color .18s}
+.card-xz:hover{transform:translateY(-2px);border-color:#8959ce}
+.section{padding:30px 0 42px;scroll-margin-top:78px}
+.section-title{font-size:clamp(1.55rem,4vw,2.2rem);font-weight:900;letter-spacing:-.8px}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--border);background:#a970ff12;border-radius:100px;padding:7px 12px;color:#d8c1ff;font-size:.76rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase}
+.btn-xz{background:linear-gradient(110deg,#a970ff,#783cff);border:0;color:#fff;border-radius:11px;font-weight:800;padding:10px 15px}
+.btn-xz:hover{color:white;filter:brightness(1.12)}
+.btn-outline-xz{background:#ffffff04;border:1px solid var(--border);color:var(--text);border-radius:11px;font-weight:700}
+.btn-outline-xz:hover{color:#fff;border-color:var(--purple);background:#a970ff16}
+.form-control,.form-select{background:#0b0812;color:var(--text);border-color:var(--border);border-radius:10px}
+.form-control:focus,.form-select:focus{background:#0b0812;color:#fff;border-color:var(--purple);box-shadow:0 0 0 .2rem #a970ff20}
+.form-control::placeholder{color:#776c88}
+.form-select option{background:#110d1c;color:white}
+.form-check-input{background-color:#0b0812;border-color:var(--border)}
+.form-check-input:checked{background-color:var(--purple);border-color:var(--purple)}
+.label{font-size:.72rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:800}
+.stat{padding:17px;border:1px solid var(--border);background:var(--panel);border-radius:15px;height:100%}
+.stat-num{font-size:1.8rem;font-weight:900}
+.icon-box{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;background:#a970ff16;color:#d2b4ff;border:1px solid var(--border);font-size:1.2rem}
+.tag{display:inline-block;background:#a970ff14;color:#d8c1ff;border:1px solid #a970ff28;border-radius:7px;padding:4px 8px;font-size:.72rem;font-weight:750}
+.project-desc{color:var(--muted);font-size:.9rem;line-height:1.65;overflow-wrap:anywhere}
+.item-title{font-weight:850;overflow-wrap:anywhere}
+.code-area{font: .88rem ui-monospace,SFMono-Regular,Consolas,monospace;min-height:160px;resize:vertical}
+.console{font: .82rem ui-monospace,SFMono-Regular,Consolas,monospace;background:#08060d;border:1px solid var(--border);border-radius:12px;padding:13px;max-height:240px;overflow:auto;color:#cfc0e5;overflow-wrap:anywhere}
+.console-line{margin-bottom:7px}
+.console-line:last-child{margin-bottom:0}
+.console-prefix{color:var(--green)}
+.empty{padding:35px 16px;text-align:center;border:1px dashed var(--border);border-radius:14px;color:var(--muted)}
+.resource-row{border:1px solid var(--border);border-radius:12px;padding:14px;background:#ffffff03}
+.resource-row+.resource-row{margin-top:9px}
+.note-text{white-space:pre-wrap;overflow-wrap:anywhere;color:#d9cfe6;font-size:.9rem}
+.tab-buttons{display:flex;gap:8px;flex-wrap:wrap}
+.tab-button{background:var(--panel2);border:1px solid var(--border);border-radius:9px;color:var(--muted);padding:8px 12px;font-weight:750}
+.tab-button.active{color:white;border-color:var(--purple);background:#a970ff18}
+.footer{border-top:1px solid var(--border);margin-top:40px;padding:30px 0;color:var(--muted);font-size:.86rem}
+.status{font-size:.8rem;color:var(--muted)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#82778e;margin-right:6px}
+.dot.ok{background:var(--green)}
+.dot.bad{background:var(--red)}
+.kbd{border:1px solid var(--border);background:var(--panel2);border-radius:5px;padding:2px 6px;font-size:.75rem;color:var(--muted)}
+.toast{background:#181126;color:#fff;border:1px solid var(--border)}
+.modal-content{background:#110d1c;color:var(--text);border:1px solid var(--border);border-radius:17px}
+.btn-close{filter:invert(1)}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#d9caff}
+body.compact .card-xz{padding:12px}
+body.compact .project-desc{line-height:1.4}
+body.light{--bg:#f5f2fb;--panel:#fff;--panel2:#f0eafb;--border:#ddd2ef;--text:#211533;--muted:#655874;background:var(--bg);color:var(--text)}
+body.light .navbar{background:#ffffffee}
+body.light .navbar-brand,body.light .nav-link:hover{color:#211533!important}
+body.light .form-control,body.light .form-select{background:#fff;color:#211533}
+body.light .form-select option{background:#fff;color:#211533}
+body.light .console{background:#f8f5ff;color:#34254b}
+body.light .note-text{color:#34254b}
+body.light .modal-content{background:#fff;color:#211533}
+body.light .toast{background:#fff;color:#211533}
+body.light .btn-close{filter:none}
+@media(max-width:767px){.hero{padding:48px 0 28px}.hero h1{letter-spacing:-1.7px}.section{padding:22px 0 30px}.panel{padding:16px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
-<body>
 
-<header>
-<nav class="wrap">
- <a class="logo" href="#">MODDING<span>XZ</span></a>
- <div class="navlinks">
-  <a href="#games">Games</a>
-  <a href="#library">Library</a>
-  <a href="#opensource">Live projects</a>
-  <a href="#minecraft">Minecraft</a>
-  <a href="#releases">Releases</a>
-  <a href="#saved">Saved</a>
-  <a class="btn primary join" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Join Telegram ↗</a>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top">
+ <div class="container">
+  <a class="navbar-brand fs-4" href="#home">MODDING<span class="brand">XZ</span><span class="muted"> / NEXUS</span></a>
+  <button class="navbar-toggler btn-outline-xz" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle navigation"><i class="bi bi-list fs-4"></i></button>
+  <div class="collapse navbar-collapse" id="nav">
+   <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+    <a class="nav-link" href="#discover">Discover</a>
+    <a class="nav-link" href="#releases">Releases</a>
+    <a class="nav-link" href="#guides">Guides</a>
+    <a class="nav-link" href="#workbench">Workbench</a>
+    <a class="nav-link" href="#workspace">Workspace</a>
+    <button class="btn btn-outline-xz btn-sm ms-lg-2 mt-2 mt-lg-0" id="themeBtn"><i class="bi bi-circle-half me-1"></i>Theme</button>
+    <a class="btn btn-xz btn-sm mt-2 mt-lg-0" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-1"></i>Telegram</a>
+   </div>
+  </div>
  </div>
 </nav>
+
+<header class="hero" id="home">
+ <div class="container">
+  <div class="row align-items-center g-4">
+   <div class="col-lg-8">
+    <span class="eyebrow"><i class="bi bi-lightning-charge-fill"></i> Community-powered gaming</span>
+    <h1 class="mt-4">THE MODDING<br><span class="gradient">COMMAND CENTRE.</span></h1>
+    <p class="muted fs-5 mt-3" style="max-width:700px;line-height:1.75">
+     Discover projects, track releases, organise resources and build your own modding workspace.
+     Made for the ModdingXZ community.
+    </p>
+    <div class="d-flex flex-wrap gap-2 mt-4">
+     <a href="#discover" class="btn btn-xz"><i class="bi bi-search me-2"></i>Explore projects</a>
+     <a href="#workbench" class="btn btn-outline-xz"><i class="bi bi-code-slash me-2"></i>Open workbench</a>
+     <button class="btn btn-outline-xz" id="surpriseBtn"><i class="bi bi-shuffle me-2"></i>Surprise me</button>
+    </div>
+    <div class="muted small mt-4"><i class="bi bi-shield-check me-1"></i>Public APIs · Local storage · No paid API keys required</div>
+   </div>
+   <div class="col-lg-4">
+    <div class="panel">
+     <div class="d-flex justify-content-between align-items-center mb-3">
+      <span class="label">Your workspace</span><span class="tag">NEXUS 2.0</span>
+     </div>
+     <div class="row g-3">
+      <div class="col-6"><div class="stat"><div class="icon-box mb-3"><i class="bi bi-bookmark-star"></i></div><div class="stat-num" id="statFav">0</div><div class="muted small">Saved resources</div></div></div>
+      <div class="col-6"><div class="stat"><div class="icon-box mb-3"><i class="bi bi-journal-text"></i></div><div class="stat-num" id="statNotes">0</div><div class="muted small">Personal notes</div></div></div>
+      <div class="col-12">
+       <div class="label mb-2">Service checks</div>
+       <div class="d-flex justify-content-between py-2 border-bottom border-secondary-subtle"><span>Modrinth API</span><span id="statusModrinth" class="status"><span class="dot"></span>Not checked</span></div>
+       <div class="d-flex justify-content-between py-2"><span>GitHub API</span><span id="statusGithub" class="status"><span class="dot"></span>Not checked</span></div>
+       <button class="btn btn-outline-xz btn-sm w-100 mt-2" id="checkServices"><i class="bi bi-arrow-repeat me-1"></i>Check services</button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
 </header>
 
-<main class="wrap">
-
-<section class="hero">
- <span class="eyebrow">⚡ THE COMMUNITY GAMING NETWORK</span>
- <h1>MOD YOUR GAME.<br><span class="gradient">YOUR WAY.</span></h1>
- <p>One hub for the gaming modding community. Discover modifications, mod menus, trainers, save editors, mod managers, custom content, game patches, open-source projects and console resources across PC and consoles.</p>
- <div class="actions">
-  <a class="btn primary" href="#library">Explore the library →</a>
-  <a class="btn" href="#opensource">Live open-source projects ↗</a>
-  <a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">💜 ModdingXZ Telegram</a>
- </div>
- <div class="stats">
-  <div class="stat"><strong>🎮 All games</strong><span>FPS, RPG, sandbox, racing, simulation and more</span></div>
-  <div class="stat"><strong>🖥️ All platforms</strong><span>PC, PlayStation, Xbox, Nintendo and Android</span></div>
-  <div class="stat"><strong>🌐 Live data</strong><span>Public API searches and project releases</span></div>
-  <div class="stat"><strong>☆ Your library</strong><span>Save favourites in this browser</span></div>
+<main>
+<section class="container section">
+ <div class="row g-3">
+  <div class="col-6 col-lg-3"><div class="stat"><div class="icon-box mb-3"><i class="bi bi-globe2"></i></div><div class="fw-bold fs-5">Live discovery</div><div class="muted small">Search external project catalogues</div></div></div>
+  <div class="col-6 col-lg-3"><div class="stat"><div class="icon-box mb-3"><i class="bi bi-rocket-takeoff"></i></div><div class="fw-bold fs-5">Release tracker</div><div class="muted small">Look up public GitHub releases</div></div></div>
+  <div class="col-6 col-lg-3"><div class="stat"><div class="icon-box mb-3"><i class="bi bi-tools"></i></div><div class="fw-bold fs-5">Dev workbench</div><div class="muted small">Format, encode and hash text</div></div></div>
+  <div class="col-6 col-lg-3"><div class="stat"><div class="icon-box mb-3"><i class="bi bi-database"></i></div><div class="fw-bold fs-5">Personal vault</div><div class="muted small">Keep your own saved resources</div></div></div>
  </div>
 </section>
 
-<section id="games">
- <div class="sectionhead">
-  <div><h2>Explore games</h2><p class="sub">Choose a game to filter the library and find relevant resources.</p></div>
-  <span id="gameCount" class="count"></span>
+<section class="container section" id="discover">
+ <div class="mb-4">
+  <div class="label mb-2">Explore the ecosystem</div>
+  <h2 class="section-title">Project discovery.</h2>
+  <p class="muted mb-0">Search Modrinth and GitHub. Availability and results depend on those services.</p>
  </div>
- <div class="filters" id="gameFilters"></div>
- <div class="grid" id="gameGrid"></div>
+ <div class="panel mb-4">
+  <form id="searchForm">
+   <div class="row g-3">
+    <div class="col-lg-6"><label class="label mb-2" for="searchQuery">Search term</label><input id="searchQuery" class="form-control" placeholder="Minecraft mods, game tools, BO2 research..." maxlength="180"></div>
+    <div class="col-sm-6 col-lg-3"><label class="label mb-2" for="searchSource">Source</label><select id="searchSource" class="form-select"><option value="both">Both sources</option><option value="modrinth">Modrinth only</option><option value="github">GitHub only</option></select></div>
+    <div class="col-sm-6 col-lg-3"><label class="label mb-2" for="searchSort">Sort results</label><select id="searchSort" class="form-select"><option value="relevance">Relevance</option><option value="downloads">Downloads</option><option value="stars">GitHub stars</option><option value="updated">Recently updated</option></select></div>
+    <div class="col-12 d-flex flex-wrap gap-2">
+     <button class="btn btn-xz" id="searchSubmit"><i class="bi bi-search me-2"></i>Search</button>
+     <button class="btn btn-outline-xz" type="button" id="clearSearch">Reset</button>
+     <button class="btn btn-outline-xz" type="button" id="savedFilterBtn"><i class="bi bi-bookmark-heart me-1"></i>Show saved only</button>
+    </div>
+   </div>
+  </form>
+  <div class="d-flex flex-wrap gap-2 mt-3" id="suggestions">
+   <button class="tag border-0" data-query="Minecraft performance mods">Performance mods</button>
+   <button class="tag border-0" data-query="Minecraft shaders">Shaders</button>
+   <button class="tag border-0" data-query="Minecraft modpacks">Modpacks</button>
+   <button class="tag border-0" data-query="game modding tools">Modding tools</button>
+   <button class="tag border-0" data-query="Black Ops 2 modding">Black Ops 2</button>
+   <button class="tag border-0" data-query="open source game utilities">Game utilities</button>
+  </div>
+ </div>
+ <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+  <div class="fw-bold" id="resultTitle">Ready to search</div><div class="muted small" id="resultCount"></div>
+ </div>
+ <div id="searchMessage" aria-live="polite"></div>
+ <div class="row g-3" id="results">
+  <div class="col-12"><div class="empty"><i class="bi bi-search fs-2 d-block mb-2"></i>Enter a search term to discover projects.</div></div>
+ </div>
 </section>
 
-<section id="library">
- <div class="sectionhead">
-  <div><h2>Modding resource library</h2><p class="sub">Browse mods, trainers, mod menus, tools, save editors, patches and guides.</p></div>
-  <span id="libraryCount" class="count"></span>
- </div>
+<section class="container section" id="releases">
+ <div class="label mb-2">Developer updates</div>
+ <h2 class="section-title">Release tracker.</h2>
+ <p class="muted mb-4">Check public releases for any GitHub repository using its owner/repository name.</p>
  <div class="panel">
-  <div class="searchrow">
-   <input class="field" id="libSearch" placeholder="Search games, mods, tools..." aria-label="Search resources">
-   <select class="field" id="platformFilter" aria-label="Filter by platform">
-    <option value="">All platforms</option><option>PC</option><option>PlayStation</option><option>Xbox</option><option>Nintendo</option><option>Android</option><option>Multi-platform</option>
-   </select>
-   <select class="field" id="resourceSort" aria-label="Sort resources">
-    <option value="default">Recommended order</option>
-    <option value="title">Name A–Z</option>
-    <option value="game">Game A–Z</option>
-   </select>
+  <form id="releaseForm" class="row g-3">
+   <div class="col-md-8"><label class="label mb-2" for="repoInput">GitHub repository</label><input class="form-control" id="repoInput" placeholder="e.g. owner/project" required pattern="[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+" title="Enter owner/repository"></div>
+   <div class="col-md-4 d-flex align-items-end"><button class="btn btn-xz w-100" type="submit" id="releaseSubmit"><i class="bi bi-arrow-down-circle me-2"></i>Check releases</button></div>
+  </form>
+  <div class="muted small mt-2">Public repositories only. GitHub may rate-limit requests. No access token is stored here.</div>
+  <div class="mt-4" id="releaseResults"><div class="empty">Enter a repository to check its latest public releases.</div></div>
+ </div>
+ <div class="mt-3">
+  <div class="label mb-2">Example searches</div>
+  <div class="d-flex flex-wrap gap-2">
+   <button class="btn btn-outline-xz btn-sm repo-example" data-repo="facebook/react">React</button>
+   <button class="btn btn-outline-xz btn-sm repo-example" data-repo="microsoft/PowerToys">PowerToys</button>
+   <button class="btn btn-outline-xz btn-sm repo-example" data-repo="LLK/scratch-gui">Scratch GUI</button>
   </div>
-  <div class="filters" id="typeFilters"></div>
-  <div class="grid" id="libraryGrid"></div>
  </div>
 </section>
 
-<section id="opensource">
- <div class="sectionhead">
-  <div><h2>Live open-source projects</h2><p class="sub">Search public GitHub repositories for game tools and modding projects.</p></div>
-  <span class="apistatus"><span class="dot" id="githubDot"></span><span id="githubStatus">Ready</span></span>
+<section class="container section" id="guides">
+ <div class="label mb-2">Community knowledge base</div>
+ <h2 class="section-title">Guides & quick reference.</h2>
+ <p class="muted mb-4">Starter notes you can customise. These are general pointers, not claims that a particular method currently works.</p>
+ <div class="row g-3">
+  <div class="col-md-6 col-xl-4">
+   <article class="card-xz">
+    <div class="icon-box mb-3"><i class="bi bi-controller"></i></div>
+    <h3 class="h5 item-title">Black Ops 2 resources</h3>
+    <p class="project-desc">Keep links to guides, compatibility notes, changelogs and community announcements in one place.</p>
+    <ul class="muted small ps-3">
+     <li>Record game version and platform.</li>
+     <li>Keep a note of recent tool updates.</li>
+     <li>Verify community reports before repeating them.</li>
+    </ul>
+    <button class="btn btn-outline-xz btn-sm mt-auto guide-save" data-title="Black Ops 2 resources" data-text="Platform:\nGame version:\nTool version:\nSource link:\nLast verified:\nNotes:">Add template to notes</button>
+   </article>
+  </div>
+  <div class="col-md-6 col-xl-4">
+   <article class="card-xz">
+    <div class="icon-box mb-3"><i class="bi bi-wifi"></i></div>
+    <h3 class="h5 item-title">Networking checklist</h3>
+    <p class="project-desc">A basic troubleshooting checklist for multiplayer connection problems.</p>
+    <ul class="muted small ps-3">
+     <li>Check service status and connection type.</li>
+     <li>Record relevant error codes.</li>
+     <li>Document router changes before applying them.</li>
+    </ul>
+    <button class="btn btn-outline-xz btn-sm mt-auto guide-save" data-title="Networking checklist" data-text="Game/platform:\nError code:\nConnection type:\nRecent network changes:\nTests performed:\nResult:">Add template to notes</button>
+   </article>
+  </div>
+  <div class="col-md-6 col-xl-4">
+   <article class="card-xz">
+    <div class="icon-box mb-3"><i class="bi bi-shield-check"></i></div>
+    <h3 class="h5 item-title">Safe tool checks</h3>
+    <p class="project-desc">A simple process for checking downloads and third-party projects.</p>
+    <ul class="muted small ps-3">
+     <li>Check the original publisher and source.</li>
+     <li>Read release notes and issue reports.</li>
+     <li>Avoid unknown executables and credential requests.</li>
+    </ul>
+    <button class="btn btn-outline-xz btn-sm mt-auto guide-save" data-title="Safe tool checks" data-text="Project name:\nOfficial source:\nRelease/version:\nFile type:\nPublisher verified:\nNotes:">Add template to notes</button>
+   </article>
+  </div>
  </div>
+</section>
+
+<section class="container section" id="workbench">
+ <div class="label mb-2">Developer utilities</div>
+ <h2 class="section-title">Workbench.</h2>
+ <p class="muted mb-4">Tools run locally in your browser. Do not paste passwords, API keys or private information.</p>
  <div class="panel">
-  <div class="searchrow">
-   <input class="field" id="repoSearch" value="game modding" placeholder="Search public projects..." aria-label="GitHub search">
-   <select class="field" id="repoSort" aria-label="Sort GitHub projects">
-    <option value="stars">Most stars</option><option value="updated">Recently updated</option><option value="forks">Most forks</option>
-   </select>
-   <select class="field" id="repoLanguage" aria-label="Filter programming language">
-    <option value="">Any language</option><option>Python</option><option>JavaScript</option><option>TypeScript</option><option>C++</option><option>C#</option><option>Java</option><option>Rust</option>
-   </select>
+  <div class="tab-buttons mb-4" role="tablist" aria-label="Developer utilities">
+   <button class="tab-button active" data-tab="json" role="tab" aria-selected="true">JSON</button>
+   <button class="tab-button" data-tab="base64" role="tab" aria-selected="false">Base64</button>
+   <button class="tab-button" data-tab="url" role="tab" aria-selected="false">URL encode</button>
+   <button class="tab-button" data-tab="hash" role="tab" aria-selected="false">SHA-256</button>
   </div>
-  <div class="filters" id="repoPresets">
-   <button class="filter active" data-query="game modding">Game modding</button>
-   <button class="filter" data-query="game trainer">Trainers</button>
-   <button class="filter" data-query="game save editor">Save editors</button>
-   <button class="filter" data-query="game mod manager">Mod managers</button>
-   <button class="filter" data-query="minecraft mod">Minecraft</button>
-   <button class="filter" data-query="skyrim mod">Skyrim</button>
-   <button class="filter" data-query="game randomizer">Randomisers</button>
-   <button class="filter" data-query="emulator gaming">Emulation</button>
-   <button class="filter" data-query="playstation homebrew">PlayStation homebrew</button>
-   <button class="filter" data-query="gta modding">GTA</button>
+  <div id="workbench-json" class="work-tab">
+   <label class="label mb-2" for="jsonInput">JSON input</label>
+   <textarea id="jsonInput" class="form-control code-area mb-3" spellcheck="false" placeholder='{"project":"ModdingXZ","enabled":true}'></textarea>
+   <div class="d-flex flex-wrap gap-2 mb-3">
+    <button class="btn btn-xz" id="jsonFormat">Format JSON</button>
+    <button class="btn btn-outline-xz" id="jsonMinify">Minify</button>
+    <button class="btn btn-outline-xz" id="jsonValidate">Validate</button>
+   </div>
+   <div id="jsonOutput" class="console" aria-live="polite">Your result will appear here.</div>
   </div>
-  <div class="actions" style="margin:0 0 15px">
-   <button class="btn primary" id="repoGo">Search GitHub ↗</button>
-   <button class="btn" id="repoReload">Refresh results</button>
+  <div id="workbench-base64" class="work-tab d-none">
+   <label class="label mb-2" for="baseInput">Text or Base64 input</label>
+   <textarea id="baseInput" class="form-control code-area mb-3" placeholder="Enter text to encode, or Base64 to decode..."></textarea>
+   <div class="d-flex flex-wrap gap-2 mb-3">
+    <button class="btn btn-xz" id="baseEncode">Encode</button>
+    <button class="btn btn-outline-xz" id="baseDecode">Decode</button>
+   </div>
+   <div id="baseOutput" class="console">Base64 output appears here.</div>
   </div>
-  <div class="grid" id="repoGrid"><div class="loading">Choose a category or search for a project.</div></div>
-  <p class="apinote">Live source: GitHub REST API. Public search requests are rate-limited. Repository search results are not endorsements; check code, licences, maintainers and releases before using a project.</p>
+  <div id="workbench-url" class="work-tab d-none">
+   <label class="label mb-2" for="urlInput">Text or URL component</label>
+   <textarea id="urlInput" class="form-control code-area mb-3" placeholder="Text to encode or decode..."></textarea>
+   <div class="d-flex flex-wrap gap-2 mb-3">
+    <button class="btn btn-xz" id="urlEncode">Encode component</button>
+    <button class="btn btn-outline-xz" id="urlDecode">Decode component</button>
+   </div>
+   <div id="urlOutput" class="console">URL output appears here.</div>
+  </div>
+  <div id="workbench-hash" class="work-tab d-none">
+   <label class="label mb-2" for="hashInput">Text to hash</label>
+   <textarea id="hashInput" class="form-control code-area mb-3" placeholder="Enter text..."></textarea>
+   <button class="btn btn-xz mb-3" id="hashRun"><i class="bi bi-fingerprint me-2"></i>Generate SHA-256</button>
+   <div id="hashOutput" class="console">Hash output appears here.</div>
+   <div class="muted small mt-2">SHA-256 hashes text input; it does not verify a downloaded file. Use a trusted file-hashing utility for files.</div>
+  </div>
  </div>
 </section>
 
-<section id="minecraft">
- <div class="sectionhead">
-  <div><h2>Minecraft mod explorer</h2><p class="sub">Search real community projects using Modrinth's public API.</p></div>
-  <span class="apistatus"><span class="dot" id="modrinthDot"></span><span id="modrinthStatus">Ready</span></span>
+<section class="container section" id="workspace">
+ <div class="label mb-2">Personal area</div>
+ <h2 class="section-title">Your resource vault.</h2>
+ <p class="muted mb-4">Save custom links and notes locally. Export a backup if you want to move this data to another browser.</p>
+ <div class="row g-4">
+  <div class="col-lg-6">
+   <div class="panel">
+    <h3 class="h5 fw-bold mb-3"><i class="bi bi-plus-circle me-2"></i>Add resource</h3>
+    <form id="resourceForm">
+     <div class="mb-3"><label class="label mb-2" for="resourceName">Name</label><input class="form-control" id="resourceName" maxlength="100" required placeholder="Tool, guide or repository"></div>
+     <div class="mb-3"><label class="label mb-2" for="resourceUrl">URL</label><input class="form-control" id="resourceUrl" type="url" required placeholder="https://example.com"></div>
+     <div class="mb-3"><label class="label mb-2" for="resourceCategory">Category</label><select class="form-select" id="resourceCategory"><option>BO2</option><option>PlayStation</option><option>PC</option><option>Minecraft</option><option>Tools</option><option>Guides</option><option>Other</option></select></div>
+     <div class="mb-3"><label class="label mb-2" for="resourceDesc">Description</label><textarea class="form-control" id="resourceDesc" rows="2" maxlength="500" placeholder="What is this resource for?"></textarea></div>
+     <button class="btn btn-xz" type="submit"><i class="bi bi-plus-lg me-1"></i>Save resource</button>
+    </form>
+    <hr style="border-color:var(--border)" class="my-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+     <h3 class="h6 fw-bold mb-0">Saved resources</h3>
+     <input class="form-control form-control-sm" id="resourceFilter" placeholder="Filter saved..." style="max-width:190px">
+    </div>
+    <div id="resourceList"><div class="empty">Your saved resources will appear here.</div></div>
+   </div>
+  </div>
+  <div class="col-lg-6">
+   <div class="panel mb-4">
+    <h3 class="h5 fw-bold mb-3"><i class="bi bi-journal-text me-2"></i>Personal notes</h3>
+    <form id="noteForm">
+     <div class="mb-3"><label class="label mb-2" for="noteTitle">Title</label><input class="form-control" id="noteTitle" maxlength="100" required placeholder="e.g. BO2 testing notes"></div>
+     <div class="mb-3"><label class="label mb-2" for="noteContent">Note</label><textarea class="form-control" id="noteContent" rows="3" maxlength="5000" required placeholder="Write your notes..."></textarea></div>
+     <button class="btn btn-xz" type="submit"><i class="bi bi-plus-lg me-1"></i>Add note</button>
+    </form>
+    <div id="noteList" class="mt-3"></div>
+   </div>
+   <div class="panel">
+    <h3 class="h5 fw-bold mb-3"><i class="bi bi-database-gear me-2"></i>Backup & settings</h3>
+    <div class="d-flex flex-wrap gap-2">
+     <button class="btn btn-xz" id="exportData"><i class="bi bi-download me-1"></i>Export backup</button>
+     <button class="btn btn-outline-xz" id="importData"><i class="bi bi-upload me-1"></i>Import backup</button>
+     <input id="backupFile" type="file" accept=".json,application/json" hidden>
+     <button class="btn btn-outline-xz" id="compactToggle"><i class="bi bi-layout-three-columns me-1"></i>Compact view</button>
+    </div>
+    <div class="muted small mt-3">A backup contains your saved resources, notes and favourites. Importing replaces those collections, so export first if you want to keep the current data.</div>
+    <hr style="border-color:var(--border)">
+    <button class="btn btn-outline-danger btn-sm" id="clearData">Clear local workspace</button>
+   </div>
+  </div>
  </div>
+</section>
+
+<section class="container section" id="activity">
  <div class="panel">
-  <div class="searchrow">
-   <input class="field" id="mcSearch" value="performance" placeholder="Search Minecraft mods..." aria-label="Search Minecraft">
-   <select class="field" id="mcType" aria-label="Minecraft resource type">
-    <option value="mod">Mods</option><option value="modpack">Modpacks</option><option value="resourcepack">Resource packs</option><option value="shader">Shaders</option><option value="plugin">Plugins</option><option value="datapack">Datapacks</option>
-   </select>
-   <select class="field" id="mcSort" aria-label="Sort Minecraft projects">
-    <option value="relevance">Relevance</option><option value="downloads">Downloads</option><option value="updated">Recently updated</option><option value="newest">Newest</option>
-   </select>
+  <div class="d-flex flex-wrap justify-content-between gap-2 align-items-center mb-3">
+   <div><div class="label mb-1">System messages</div><h2 class="h5 fw-bold mb-0">Activity console</h2></div>
+   <button class="btn btn-outline-xz btn-sm" id="clearLog">Clear log</button>
   </div>
-  <div class="actions" style="margin:0 0 15px">
-   <button class="btn primary" id="mcGo">Search Modrinth ↗</button>
-   <button class="btn" id="mcReload">Refresh</button>
+  <div id="consoleLog" class="console" aria-live="polite">
+   <div class="console-line"><span class="console-prefix">[XZ]</span> ModdingXZ Nexus initialised.</div>
+   <div class="console-line"><span class="console-prefix">[XZ]</span> Local workspace loaded.</div>
+   <div class="console-line"><span class="console-prefix">[XZ]</span> Awaiting commands.</div>
   </div>
-  <div class="grid" id="mcGrid"><div class="loading">Search for a Minecraft project to load results.</div></div>
-  <p class="apinote">Live source: Modrinth API. This search covers Minecraft ecosystem resources; check game versions, loaders, dependencies and project licences before installation.</p>
+  <div class="muted small mt-2">This is a local activity log, not a server log or a record of community activity.</div>
  </div>
 </section>
 
-<section id="releases">
- <div class="sectionhead">
-  <div><h2>Release tracker</h2><p class="sub">Check the latest published releases for a public GitHub project.</p></div>
- </div>
- <div class="two">
-  <div class="panel">
-   <h3 style="margin-top:0">📦 Repository releases</h3>
-   <p class="sub">Enter any public repository in owner/name format.</p>
-   <div style="margin-top:12px"><input class="field" id="releaseRepo" value="OpenRCT2/OpenRCT2" placeholder="owner/repository"></div>
-   <div class="actions"><button class="btn primary" id="releaseGo">Load releases</button><button class="btn" id="releaseClear">Clear</button></div>
-   <hr>
-   <div class="stack" id="releaseList"><div class="loading">Load a repository's releases.</div></div>
-   <p class="apinote">A release feed shows releases from the selected repository. It does not imply that the project is affiliated with ModdingXZ.</p>
-  </div>
-  <div class="panel">
-   <h3 style="margin-top:0">📰 Gaming discussions</h3>
-   <p class="sub">Search public Hacker News discussions about games, tools and development.</p>
-   <div style="margin-top:12px"><input class="field" id="newsSearch" value="game modding" placeholder="Search public discussions"></div>
-   <div class="actions"><button class="btn primary" id="newsGo">Search discussions</button></div>
-   <hr>
-   <div class="stack" id="newsList"><div class="loading">Search to load discussions.</div></div>
-   <p class="apinote">Source: Hacker News Algolia search API. This is a technology discussion feed, not a dedicated gaming news service.</p>
+<section class="container section" id="community">
+ <div class="panel p-4 p-md-5">
+  <div class="row align-items-center g-4">
+   <div class="col-lg-8">
+    <span class="eyebrow mb-3"><i class="bi bi-people-fill"></i> Community hub</span>
+    <h2 class="section-title">Stay connected with ModdingXZ.</h2>
+    <p class="muted mb-0">Find community announcements, updates and shared resources through the official ModdingXZ Telegram link.</p>
+   </div>
+   <div class="col-lg-4 text-lg-end"><a class="btn btn-xz btn-lg" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>Join Telegram</a></div>
   </div>
  </div>
 </section>
-
-<section id="saved">
- <div class="sectionhead">
-  <div><h2>Your saved resources</h2><p class="sub">Keep favourite library resources in this browser.</p></div>
-  <div class="actions" style="margin:0">
-   <button class="btn" id="exportSaved">Export JSON</button>
-   <button class="btn danger" id="clearSaved">Clear saved</button>
-  </div>
- </div>
- <div class="grid" id="savedGrid"></div>
- <p class="apinote">Favourites are stored locally in this browser using localStorage. They do not sync across devices or users.</p>
-</section>
-
-<section id="community">
- <div class="sectionhead"><div><h2>ModdingXZ community</h2><p class="sub">Explore the community and discover more trusted resources.</p></div></div>
- <div class="grid">
-  <article class="card"><div class="cardtop"><div class="iconbox">🎯</div><span class="tag">FPS</span></div><h3>Call of Duty</h3><p>Black Ops, Zombies, Modern Warfare, community tools, supported game modifications and guides.</p><div class="cardfoot"><small>Community resources</small><a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Explore ↗</a></div></article>
-  <article class="card"><div class="cardtop"><div class="iconbox">🚗</div><span class="tag">Open world</span></div><h3>GTA & FiveM</h3><p>Single-player mods, scripts, map changes and server development resources.</p><div class="cardfoot"><small>Community mods</small><a class="btn" href="https://www.gta5-mods.com/" target="_blank" rel="noopener noreferrer">Explore ↗</a></div></article>
-  <article class="card"><div class="cardtop"><div class="iconbox">🧰</div><span class="tag">PC tools</span></div><h3>Trainers & utilities</h3><p>Research PC game utilities and trainers. Check their source and your game's online rules.</p><div class="cardfoot"><small>PC gaming</small><a class="btn" href="https://www.wemod.com/" target="_blank" rel="noopener noreferrer">Explore ↗</a></div></article>
-  <article class="card"><div class="cardtop"><div class="iconbox">🎮</div><span class="tag">Consoles</span></div><h3>Console resources</h3><p>Explore public documentation and supported console development projects.</p><div class="cardfoot"><small>Homebrew research</small><a class="btn" href="https://github.com/topics/console-modding" target="_blank" rel="noopener noreferrer">Explore ↗</a></div></article>
-  <article class="card"><div class="cardtop"><div class="iconbox">🧱</div><span class="tag">Development</span></div><h3>Roblox creation</h3><p>Create your own game experiences, scripts and mechanics using supported developer tools.</p><div class="cardfoot"><small>Studio & Lua</small><a class="btn" href="https://create.roblox.com/" target="_blank" rel="noopener noreferrer">Explore ↗</a></div></article>
-  <article class="card"><div class="cardtop"><div class="iconbox">💜</div><span class="tag">Official</span></div><h3>Join ModdingXZ</h3><p>Community announcements, free resources, updates and support through Telegram.</p><div class="cardfoot"><small>Community hub</small><a class="btn primary" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Join ↗</a></div></article>
- </div>
- <div class="notice" style="margin-top:15px"><strong>Security first:</strong> check sources, licences, compatibility and release notes. Back up saves and original files. Scan downloads, avoid unknown executables and respect game-specific rules. Some online modifications may lead to account bans.</div>
-</section>
-
 </main>
 
-<footer>
- <div class="wrap foot">
-  <span>© <span id="year"></span> MODDINGXZ · Gaming modding community.</span>
-  <span><a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram</a> · Public APIs · Community resources</span>
+<footer class="footer">
+ <div class="container d-flex flex-wrap justify-content-between gap-3">
+  <div><div class="fw-bold text-white">MODDING<span class="brand">XZ</span></div><div>Gaming modding community resources.</div></div>
+  <div class="text-md-end"><div>Independent community project.</div><div>Review third-party files and permissions before use.</div></div>
  </div>
 </footer>
 
+<div class="modal fade" id="commandModal" tabindex="-1" aria-labelledby="commandTitle" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+  <div class="modal-header border-secondary-subtle"><h2 class="modal-title fs-5 fw-bold" id="commandTitle"><i class="bi bi-command me-2"></i>Quick actions</h2><button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+  <div class="modal-body d-grid gap-2">
+   <button class="btn btn-outline-xz text-start command" data-target="#discover"><i class="bi bi-search me-2"></i>Search projects</button>
+   <button class="btn btn-outline-xz text-start command" data-target="#releases"><i class="bi bi-rocket me-2"></i>Check releases</button>
+   <button class="btn btn-outline-xz text-start command" data-target="#workbench"><i class="bi bi-code-slash me-2"></i>Open workbench</button>
+   <button class="btn btn-outline-xz text-start command" data-target="#workspace"><i class="bi bi-journal-text me-2"></i>Open workspace</button>
+   <button class="btn btn-outline-xz text-start" id="paletteBackup"><i class="bi bi-download me-2"></i>Export backup</button>
+  </div>
+  <div class="modal-footer border-secondary-subtle"><span class="muted small"><span class="kbd">Ctrl</span> + <span class="kbd">K</span> opens quick actions</span></div>
+ </div></div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+ <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"><div class="d-flex"><div id="toastText" class="toast-body">Ready.</div><button class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+(() => {
 "use strict";
 
-/* ======================================================
-   MODDINGXZ GAMING NETWORK
-   Static frontend, public API feeds, local favourites.
-   No private API keys are stored in this file.
-   ====================================================== */
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const KEYS = {
+  fav:"mxz2_favourites",
+  resources:"mxz2_resources",
+  notes:"mxz2_notes",
+  prefs:"mxz2_preferences"
+};
 
-const $ = id => document.getElementById(id);
-const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, c => ({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-}[c]));
+const defaults = {
+  favourites:[],
+  resources:[],
+  notes:[],
+  prefs:{theme:"dark",compact:false}
+};
 
-const cache = new Map();
-const CACHE_SECONDS = 240;
-
-async function getJSON(url, maxAge=CACHE_SECONDS, force=false) {
-  const cached = cache.get(url);
-  if (!force && cached && Date.now()-cached.time < maxAge*1000) {
-    return cached.data;
-  }
-
-  const response = await fetch(url, {
-    headers:{"Accept":"application/json"},
-    signal:AbortSignal.timeout(16000)
-  });
-
-  if (!response.ok) {
-    if (response.status===403 || response.status===429) {
-      throw new Error("The public API rate limit has been reached. Wait a little and try again.");
-    }
-    if (response.status===404) {
-      throw new Error("The requested project was not found. Check the name and try again.");
-    }
-    throw new Error("The API returned HTTP "+response.status+".");
-  }
-
-  const data=await response.json();
-  cache.set(url,{time:Date.now(),data});
-  return data;
+function read(key,fallback) {
+  try {
+    const raw=localStorage.getItem(key);
+    return raw===null ? fallback : JSON.parse(raw);
+  } catch { return fallback; }
 }
+let favourites=read(KEYS.fav,defaults.favourites);
+let resources=read(KEYS.resources,defaults.resources);
+let notes=read(KEYS.notes,defaults.notes);
+let prefs=read(KEYS.prefs,defaults.prefs);
 
-function setStatus(prefix,state,message) {
-  const dot=$(prefix+"Dot"),label=$(prefix+"Status");
-  if(dot)dot.className="dot "+(state==="live"?"live":state==="error"?"error":state==="busy"?"busy":"");
-  if(label)label.textContent=message;
+if(!Array.isArray(favourites)) favourites=[];
+if(!Array.isArray(resources)) resources=[];
+if(!Array.isArray(notes)) notes=[];
+if(!prefs || typeof prefs!=="object") prefs={...defaults.prefs};
+
+let results=[];
+let searchPage=0;
+let searchBusy=false;
+let savedOnly=false;
+let githubPage=1;
+let lastSearch="";
+let lastSource="both";
+let githubHasMore=false;
+let currentSearchId=0;
+
+const toast=bootstrap.Toast.getOrCreateInstance($("#toast"),{delay:3000});
+const palette=bootstrap.Modal.getOrCreateInstance($("#commandModal"));
+
+function notify(message) {
+  $("#toastText").textContent=message;
+  toast.show();
 }
-
-function validUrl(value) {
+function log(message) {
+  const box=$("#consoleLog");
+  const line=document.createElement("div");
+  line.className="console-line";
+  const prefix=document.createElement("span");
+  prefix.className="console-prefix";
+  prefix.textContent="[XZ] ";
+  const text=document.createElement("span");
+  text.textContent=new Date().toLocaleTimeString()+" — "+message;
+  line.append(prefix,text);
+  box.append(line);
+  while(box.children.length>15) box.removeChild(box.firstChild);
+  box.scrollTop=box.scrollHeight;
+}
+function persist() {
+  try {
+    localStorage.setItem(KEYS.fav,JSON.stringify(favourites));
+    localStorage.setItem(KEYS.resources,JSON.stringify(resources));
+    localStorage.setItem(KEYS.notes,JSON.stringify(notes));
+    localStorage.setItem(KEYS.prefs,JSON.stringify(prefs));
+    updateStats();
+  } catch(e) {
+    notify("Unable to save data in this browser. Storage may be full or disabled.");
+    log("Local storage error.");
+  }
+}
+function escapeHtml(value) {
+  return String(value??"").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+function safeUrl(value) {
   try {
     const u=new URL(value);
-    return u.protocol==="https:"||u.protocol==="http:";
-  } catch {return false;}
+    return ["https:","http:"].includes(u.protocol) ? u.href : "";
+  } catch { return ""; }
 }
-
-function openLink(url,label="Open ↗") {
-  if(!validUrl(url))return "";
-  return `<a class="btn tiny" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(label)}</a>`;
+function formatNumber(n) {
+  return Number(n||0).toLocaleString();
 }
-
-function showError(id,error) {
-  $(id).innerHTML=`<div class="apierror">${escapeHTML(error?.message||"Unable to load data.")}</div>`;
+function updateStats() {
+  $("#statFav").textContent=favourites.length;
+  $("#statNotes").textContent=notes.length;
 }
-
-function iconForGame(name) {
-  const match=games.find(g=>g.name.toLowerCase()===String(name||"").toLowerCase());
-  return match?.icon||"🧰";
+function applyPrefs() {
+  document.body.classList.toggle("light",prefs.theme==="light");
+  document.body.classList.toggle("compact",!!prefs.compact);
 }
-
-function makeCard({title,description,url,tag="Resource",icon="🧰",meta="",saveId=""}) {
-  const link=validUrl(url)?url:"";
-  const isSaved=saveId&&savedIds().includes(saveId);
-  return `<article class="card">
-    <div class="cardtop"><div class="iconbox">${icon}</div><span class="tag">${escapeHTML(tag)}</span></div>
-    <h3>${escapeHTML(title)}</h3>
-    <p>${escapeHTML(description||"No description provided by the source.")}</p>
-    <div class="cardfoot">
-      <small>${escapeHTML(meta)}</small>
-      <div class="cardbuttons">
-        ${saveId?`<button class="btn tiny" data-save="${escapeHTML(saveId)}" aria-label="${isSaved?"Remove favourite":"Save favourite"}">${isSaved?"★ Saved":"☆ Save"}</button>`:""}
-        ${link?openLink(link):""}
-      </div>
-    </div>
-  </article>`;
+function isFavourite(id) {
+  return favourites.some(f=>f.id===id);
 }
-
-/* GAME DIRECTORY */
-
-const games=[
- {name:"Call of Duty",icon:"🎯",type:"FPS",desc:"Black Ops, Zombies, Modern Warfare, tools, customisation and supported community projects.",query:"call of duty mod"},
- {name:"Grand Theft Auto",icon:"🚗",type:"Open world",desc:"GTA V, GTA IV, single-player mods, scripts, maps and FiveM development.",query:"gta modding"},
- {name:"Minecraft",icon:"⛏️",type:"Sandbox",desc:"Mods, modpacks, shaders, resource packs, plugins and loaders.",query:"minecraft mod"},
- {name:"Fortnite",icon:"🪂",type:"Battle royale",desc:"Creative development, custom experiences, settings and supported resources.",query:"fortnite development"},
- {name:"Skyrim",icon:"🐉",type:"RPG",desc:"Quest mods, graphics, gameplay changes and mod managers.",query:"skyrim mod"},
- {name:"Fallout",icon:"☢️",type:"RPG",desc:"Community patches, quests, gameplay changes and visual modifications.",query:"fallout mod"},
- {name:"Cyberpunk 2077",icon:"🌆",type:"RPG",desc:"Scripts, gameplay changes, character customisation and visual mods.",query:"cyberpunk 2077 mod"},
- {name:"Elden Ring",icon:"⚔️",type:"Action RPG",desc:"Single-player mods, randomisers, visual projects and compatibility guides.",query:"elden ring mod"},
- {name:"The Sims",icon:"🏠",type:"Simulation",desc:"Custom content, gameplay mods, builds, presets and creator tools.",query:"sims 4 mod"},
- {name:"Roblox",icon:"🧱",type:"Creation",desc:"Studio development, Lua scripting and supported creator utilities.",query:"roblox development"},
- {name:"Red Dead Redemption",icon:"🤠",type:"Open world",desc:"Single-player modifications and community resources where supported.",query:"red dead redemption mod"},
- {name:"Racing games",icon:"🏎️",type:"Racing",desc:"Car mods, tracks, setups, telemetry tools and custom liveries.",query:"racing game mod"},
- {name:"Fighting games",icon:"🥊",type:"Fighting",desc:"Character skins, training tools and supported custom content.",query:"fighting game mod"},
- {name:"Terraria",icon:"🌳",type:"Sandbox",desc:"Content mods, mod loaders and community projects.",query:"terraria mod"},
- {name:"Stardew Valley",icon:"🌻",type:"Simulation",desc:"Gameplay extensions, custom content and modding frameworks.",query:"stardew valley mod"},
- {name:"Nintendo & emulation",icon:"👾",type:"Emulation",desc:"Open-source emulator projects, compatibility resources and homebrew documentation.",query:"emulator game"}
-];
-
-let activeGame="All games";
-let activeType="All";
-
-function renderGames() {
-  $("gameCount").textContent=games.length+" categories";
-  const categories=["All games",...games.map(g=>g.name)];
-  $("gameFilters").innerHTML=categories.map(name=>
-    `<button class="filter ${activeGame===name?"active":""}" data-game="${escapeHTML(name)}">${escapeHTML(name)}</button>`
-  ).join("");
-
-  const list=activeGame==="All games"?games:games.filter(g=>g.name===activeGame);
-  $("gameGrid").innerHTML=list.map(g=>makeCard({
-    title:g.name,description:g.desc,tag:g.type,icon:g.icon,
-    url:"https://github.com/search?q="+encodeURIComponent(g.query)+"&type=repositories",
-    meta:"Explore projects",saveId:"game:"+g.name
-  })).join("");
+function toggleFavourite(item) {
+  const id=String(item.id);
+  if(isFavourite(id)) {
+    favourites=favourites.filter(f=>f.id!==id);
+    notify("Removed from favourites.");
+    log("Favourite removed: "+item.title);
+  } else {
+    favourites.unshift({
+      id,
+      title:String(item.title||"Untitled").slice(0,200),
+      url:safeUrl(item.url),
+      description:String(item.description||"").slice(0,1000),
+      source:String(item.source||"Custom"),
+      category:String(item.category||"Project"),
+      savedAt:new Date().toISOString()
+    });
+    notify("Project saved to favourites.");
+    log("Favourite added: "+item.title);
+  }
+  persist();
+  renderResults();
+  renderResourceList();
 }
-
-$("gameFilters").addEventListener("click",e=>{
-  const button=e.target.closest("[data-game]");
-  if(!button)return;
-  activeGame=button.dataset.game;
-  renderGames();
-  renderLibrary();
-});
-
-/* RESOURCE LIBRARY */
-
-const resourceTypes=[
- "All","Mods","Tools","Mod Menus","Trainers","Save Editors",
- "Patches","Homebrew","Guides","Development","Emulation","Custom Content"
-];
-
-const resources=[
- {title:"BO2 community resources",game:"Call of Duty",platform:"PC",type:"Tools",desc:"Find Black Ops 2 community tools, updates and guides.",url:"https://t.me/moddingxz",icon:"🎯"},
- {title:"BO2 PC-to-PlayStation relay guide",game:"Call of Duty",platform:"PlayStation",type:"Guides",desc:"Relay setup, compatibility and network troubleshooting.",url:"https://moddingxz.co.uk/relay.html",icon:"🌐"},
- {title:"COD modding projects",game:"Call of Duty",platform:"PC",type:"Mod Menus",desc:"Search public projects and check game version and platform support.",url:"https://github.com/search?q=call+of+duty+mod&type=repositories",icon:"🧰"},
- {title:"GTA V mods",game:"Grand Theft Auto",platform:"PC",type:"Mods",desc:"Community single-player mods, scripts and map additions.",url:"https://www.gta5-mods.com/",icon:"🚗"},
- {title:"GTA V scripts",game:"Grand Theft Auto",platform:"PC",type:"Development",desc:"Explore game scripts and developer resources.",url:"https://www.gta5-mods.com/scripts",icon:"💻"},
- {title:"Minecraft mods",game:"Minecraft",platform:"PC",type:"Mods",desc:"Browse community mods and project documentation.",url:"https://modrinth.com/mods",icon:"⛏️"},
- {title:"Minecraft modpacks",game:"Minecraft",platform:"PC",type:"Mods",desc:"Discover modpacks and check dependencies and loader requirements.",url:"https://modrinth.com/modpacks",icon:"📦"},
- {title:"Minecraft resource packs",game:"Minecraft",platform:"PC",type:"Custom Content",desc:"Explore textures, resource packs and supported customisation.",url:"https://modrinth.com/resourcepacks",icon:"🎨"},
- {title:"Skyrim Special Edition",game:"Skyrim",platform:"PC",type:"Mods",desc:"Browse community mods and compatibility notes.",url:"https://www.nexusmods.com/skyrimspecialedition",icon:"🐉"},
- {title:"Fallout 4 mods",game:"Fallout",platform:"PC",type:"Mods",desc:"Explore community gameplay and visual changes.",url:"https://www.nexusmods.com/fallout4",icon:"☢️"},
- {title:"Cyberpunk 2077 mods",game:"Cyberpunk 2077",platform:"PC",type:"Mods",desc:"Browse gameplay tweaks and visual enhancements.",url:"https://www.nexusmods.com/cyberpunk2077",icon:"🌆"},
- {title:"Elden Ring mods",game:"Elden Ring",platform:"PC",type:"Mods",desc:"Browse single-player mods and check compatibility and online restrictions.",url:"https://www.nexusmods.com/eldenring",icon:"⚔️"},
- {title:"The Sims 4 mods",game:"The Sims",platform:"PC",type:"Custom Content",desc:"Find custom content and gameplay mods.",url:"https://www.curseforge.com/sims4",icon:"🏠"},
- {title:"Roblox Studio",game:"Roblox",platform:"PC",type:"Development",desc:"Official tools for creating Roblox experiences.",url:"https://create.roblox.com/",icon:"🧱"},
- {title:"Terraria mods",game:"Terraria",platform:"PC",type:"Mods",desc:"Explore the Terraria modding ecosystem and supported projects.",url:"https://github.com/topics/terraria-mod",icon:"🌳"},
- {title:"Stardew Valley mods",game:"Stardew Valley",platform:"PC",type:"Mods",desc:"Browse community modifications and compatibility information.",url:"https://www.nexusmods.com/stardewvalley",icon:"🌻"},
- {title:"PC game trainers",game:"All games",platform:"PC",type:"Trainers",desc:"Research PC gaming trainers and verify sources before downloading.",url:"https://www.wemod.com/",icon:"🧰"},
- {title:"Open-source game mods",game:"All games",platform:"PC",type:"Development",desc:"Find open-source game modification projects.",url:"https://github.com/topics/game-modding",icon:"💻"},
- {title:"Save editor projects",game:"All games",platform:"PC",type:"Save Editors",desc:"Search for game-specific save tools and supported save formats.",url:"https://github.com/topics/save-editor",icon:"💾"},
- {title:"Mod manager projects",game:"All games",platform:"PC",type:"Tools",desc:"Find open-source mod managers and installation utilities.",url:"https://github.com/topics/mod-manager",icon:"🧰"},
- {title:"Game patch projects",game:"All games",platform:"PC",type:"Patches",desc:"Discover community compatibility fixes and patches.",url:"https://github.com/topics/game-patch",icon:"🛠️"},
- {title:"Console homebrew research",game:"All games",platform:"PlayStation",type:"Homebrew",desc:"Explore public console homebrew repositories and documentation.",url:"https://github.com/topics/console-modding",icon:"🎮"},
- {title:"Emulation projects",game:"Nintendo & emulation",platform:"Multi-platform",type:"Emulation",desc:"Research open-source emulator projects and their documentation.",url:"https://github.com/topics/emulation",icon:"👾"},
- {title:"PC game modding guides",game:"All games",platform:"PC",type:"Guides",desc:"Search tutorials, installation notes and community guides.",url:"https://github.com/topics/game-modding",icon:"📚"},
- {title:"Racing game modifications",game:"Racing games",platform:"PC",type:"Mods",desc:"Search for racing game mods, tracks and vehicle customisation.",url:"https://github.com/search?q=racing+game+mod&type=repositories",icon:"🏎️"},
- {title:"Fighting game tools",game:"Fighting games",platform:"PC",type:"Tools",desc:"Search for open-source tools, training utilities and supported mods.",url:"https://github.com/search?q=fighting+game+tools&type=repositories",icon:"🥊"}
-];
-
-function renderLibrary() {
-  const q=$("libSearch").value.trim().toLowerCase();
-  const platform=$("platformFilter").value;
-  const sort=$("resourceSort").value;
-
-  let list=resources.filter(r=>{
-    const text=[r.title,r.game,r.platform,r.type,r.desc].join(" ").toLowerCase();
-    const matchesGame=activeGame==="All games"||
-      r.game.toLowerCase()===activeGame.toLowerCase()||
-      r.game==="All games";
-    return text.includes(q)&&matchesGame&&
-      (!platform||r.platform===platform)&&
-      (activeType==="All"||r.type===activeType);
-  });
-
-  if(sort==="title")list.sort((a,b)=>a.title.localeCompare(b.title));
-  if(sort==="game")list.sort((a,b)=>a.game.localeCompare(b.game));
-
-  $("libraryCount").textContent=list.length+" resources";
-  $("libraryGrid").innerHTML=list.length?list.map(r=>makeCard({
-    title:r.title,description:r.desc,url:r.url,tag:r.type,
-    icon:r.icon,meta:r.game+" · "+r.platform,saveId:"resource:"+r.title
-  })).join(""):'<div class="empty">No resources match these filters. Try another game, platform or search.</div>';
+function makeButton(label,cls,handler) {
+  const b=document.createElement("button");
+  b.type="button";b.className=cls;b.textContent=label;b.addEventListener("click",handler);
+  return b;
 }
+function renderResults() {
+  const grid=$("#results");
+  grid.replaceChildren();
 
-$("typeFilters").innerHTML=resourceTypes.map(type=>
-  `<button class="filter ${type==="All"?"active":""}" data-type="${escapeHTML(type)}">${escapeHTML(type)}</button>`
-).join("");
+  let list=results.slice();
+  if(savedOnly) list=list.filter(x=>isFavourite(String(x.id)));
 
-$("typeFilters").addEventListener("click",e=>{
-  const button=e.target.closest("[data-type]");
-  if(!button)return;
-  activeType=button.dataset.type;
-  $("typeFilters").querySelectorAll("[data-type]").forEach(b=>b.classList.toggle("active",b===button));
-  renderLibrary();
-});
+  const sort=$("#searchSort").value;
+  if(sort==="downloads") list.sort((a,b)=>(b.downloads||0)-(a.downloads||0));
+  if(sort==="stars") list.sort((a,b)=>(b.stars||0)-(a.stars||0));
+  if(sort==="updated") list.sort((a,b)=>String(b.updated||"").localeCompare(String(a.updated||"")));
 
-["libSearch","platformFilter","resourceSort"].forEach(id=>{
-  $(id).addEventListener(id==="libSearch"?"input":"change",renderLibrary);
-});
+  $("#resultCount").textContent=list.length+" shown";
+  if(savedOnly) $("#resultTitle").textContent="Saved search results";
+  else if(lastSearch) $("#resultTitle").textContent="Results for “"+lastSearch+"”";
 
-/* FAVOURITES */
+  if(!list.length) {
+    grid.innerHTML='<div class="col-12"><div class="empty"><i class="bi bi-inbox fs-2 d-block mb-2"></i><div class="fw-bold mb-1">No results to show</div><div class="small">Try another query or remove the saved-only filter.</div></div></div>';
+    return;
+  }
 
-function savedIds() {
+  for(const item of list) {
+    const col=document.createElement("div");
+    col.className="col-md-6 col-xl-4";
+    const card=document.createElement("article");
+    card.className="card-xz d-flex flex-column";
+    const top=document.createElement("div");
+    top.className="d-flex align-items-start justify-content-between gap-2 mb-3";
+    const icon=document.createElement("div");
+    icon.className="icon-box";
+    icon.innerHTML=item.source==="Modrinth" ? '<i class="bi bi-box-seam"></i>' : '<i class="bi bi-github"></i>';
+    const fav=document.createElement("button");
+    fav.type="button";
+    fav.className="btn icon-button "+(isFavourite(String(item.id))?"saved":"");
+    fav.setAttribute("aria-label",isFavourite(String(item.id))?"Remove favourite":"Add favourite");
+    fav.innerHTML=isFavourite(String(item.id))?'<i class="bi bi-bookmark-star-fill"></i>':'<i class="bi bi-bookmark-star"></i>';
+    fav.addEventListener("click",()=>toggleFavourite(item));
+    top.append(icon,fav);
+
+    const title=document.createElement("h3");
+    title.className="h6 item-title";
+    title.textContent=item.title;
+    const tags=document.createElement("div");
+    tags.className="d-flex flex-wrap gap-2 mb-3";
+    for(const tag of [item.source,item.category].filter(Boolean)) {
+      const span=document.createElement("span");span.className="tag";span.textContent=tag;tags.append(span);
+    }
+    const desc=document.createElement("p");
+    desc.className="project-desc";
+    desc.textContent=item.description||"No description supplied by the source.";
+    const meta=document.createElement("div");
+    meta.className="muted small mb-3";
+    if(item.source==="Modrinth") meta.textContent="Downloads: "+formatNumber(item.downloads);
+    else meta.textContent="Stars: "+formatNumber(item.stars)+(item.updated?" · Updated "+new Date(item.updated).toLocaleDateString():"");
+
+    const footer=document.createElement("div");
+    footer.className="mt-auto d-flex gap-2 flex-wrap";
+    const open=document.createElement("a");
+    open.className="btn btn-xz btn-sm";
+    open.href=safeUrl(item.url)||"#";
+    open.textContent="Open project";
+    open.target="_blank";open.rel="noopener noreferrer";
+    if(!safeUrl(item.url)) open.classList.add("disabled");
+    const copy=makeButton("Copy link","btn btn-outline-xz btn-sm",async()=>{
+      await copyText(item.url);notify("Project link copied if clipboard access is available.");
+    });
+    footer.append(open,copy);
+    card.append(top,title,tags,desc,meta,footer);
+    col.append(card);grid.append(col);
+  }
+}
+function renderLoading() {
+  $("#results").innerHTML='<div class="col-12"><div class="empty"><span class="spinner-border spinner-border-sm me-2" role="status"></span>Searching external services...</div></div>';
+}
+function setSearchMessage(message,type="info") {
+  const box=$("#searchMessage");
+  box.replaceChildren();
+  if(!message) return;
+  const alert=document.createElement("div");
+  alert.className="alert alert-"+type+" py-2";
+  alert.textContent=message;
+  box.append(alert);
+}
+async function fetchJson(url,timeout=12000) {
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),timeout);
   try {
-    const data=JSON.parse(localStorage.getItem("moddingxz_saved")||"[]");
-    return Array.isArray(data)?data:[];
-  } catch {return [];}
+    const response=await fetch(url,{signal:controller.signal,headers:{Accept:"application/json"}});
+    if(!response.ok) {
+      const error=new Error("HTTP "+response.status);
+      error.status=response.status;
+      throw error;
+    }
+    return await response.json();
+  } finally { clearTimeout(timer); }
 }
+async function performSearch(append=false) {
+  const query=$("#searchQuery").value.trim();
+  const source=$("#searchSource").value;
+  if(!query) {
+    setSearchMessage("Enter a search term first.","warning");
+    $("#searchQuery").focus();return;
+  }
+  if(searchBusy) return;
+  searchBusy=true;
+  const requestId=++currentSearchId;
+  $("#searchSubmit").disabled=true;
+  $("#searchSubmit").innerHTML='<span class="spinner-border spinner-border-sm me-2"></span>Searching';
+  if(!append) {
+    results=[];searchPage=0;githubPage=1;githubHasMore=false;
+    lastSearch=query;lastSource=source;renderLoading();
+  }
+  setSearchMessage("");
+  const tasks=[];
 
-function writeSaved(ids) {
+  if(source==="both"||source==="modrinth") {
+    const offset=append?searchPage*12:0;
+    const url="https://api.modrinth.com/v2/search?query="+encodeURIComponent(query)+"&limit=12&offset="+offset;
+    tasks.push(fetchJson(url).then(data=>{
+      return (data.hits||[]).map(x=>({
+        id:"modrinth:"+x.project_id,
+        title:x.title||x.slug||"Untitled project",
+        description:x.description||"",
+        url:"https://modrinth.com/"+(x.project_type||"project")+"/"+(x.slug||x.project_id),
+        source:"Modrinth",
+        category:x.project_type||"Project",
+        downloads:x.downloads||0,
+        updated:x.date_modified||""
+      }));
+    }).catch(e=>{throw {source:"Modrinth",message:e.message,status:e.status};}));
+  }
+
+  if(source==="both"||source==="github") {
+    const page=append?githubPage:1;
+    const url="https://api.github.com/search/repositories?q="+encodeURIComponent(query)+"&sort=updated&order=desc&per_page=12&page="+page;
+    tasks.push(fetchJson(url).then(data=>{
+      githubHasMore=(data.items||[]).length===12;
+      githubPage=page+1;
+      return (data.items||[]).map(x=>({
+        id:"github:"+x.full_name,
+        title:x.full_name,
+        description:x.description||"",
+        url:x.html_url,
+        source:"GitHub",
+        category:x.language||"Repository",
+        stars:x.stargazers_count||0,
+        updated:x.updated_at||""
+      }));
+    }).catch(e=>{throw {source:"GitHub",message:e.message,status:e.status};}));
+  }
+
+  const settled=await Promise.allSettled(tasks);
+  if(requestId!==currentSearchId) {
+    searchBusy=false;return;
+  }
+
+  const errors=[];
+  const fetched=[];
+  for(const item of settled) {
+    if(item.status==="fulfilled") fetched.push(...item.value);
+    else errors.push(item.reason);
+  }
+
+  if(append) {
+    const existing=new Set(results.map(x=>x.id));
+    results.push(...fetched.filter(x=>!existing.has(x.id)));
+  } else results=fetched;
+
+  searchPage++;
+  searchBusy=false;
+  $("#searchSubmit").disabled=false;
+  $("#searchSubmit").innerHTML='<i class="bi bi-search me-2"></i>Search';
+
+  renderResults();
+  $("#loadMoreWrap").classList.toggle("d-none",!(source==="github"&&githubHasMore));
+
+  if(errors.length) {
+    const details=errors.map(e=>e.source+": "+(
+      e.status===403||e.status===429 ? "rate limit reached" :
+      e.message==="Failed to fetch" ? "network or browser access issue" : e.message
+    )).join("; ");
+    setSearchMessage((fetched.length?"Some sources failed: ":"Search failed: ")+details,"warning");
+    log("Search had source errors.");
+  } else {
+    setSearchMessage(fetched.length?"Search complete. Results are supplied by the external services.":"No matching projects were returned.","success");
+    log("Search completed: "+query);
+  }
+}
+$("#searchForm").addEventListener("submit",e=>{e.preventDefault();savedOnly=false;$("#savedFilterBtn").classList.remove("active");performSearch(false);});
+$("#searchSort").addEventListener("change",renderResults);
+$("#savedFilterBtn").addEventListener("click",()=>{
+  savedOnly=!savedOnly;
+  $("#savedFilterBtn").classList.toggle("active",savedOnly);
+  renderResults();
+});
+$("#clearSearch").addEventListener("click",()=>{
+  $("#searchQuery").value="";
+  results=[];lastSearch="";savedOnly=false;
+  $("#savedFilterBtn").classList.remove("active");
+  $("#resultTitle").textContent="Ready to search";
+  $("#resultCount").textContent="";
+  setSearchMessage("");
+  $("#loadMoreWrap").classList.add("d-none");
+  $("#results").innerHTML='<div class="col-12"><div class="empty">Enter a search term to discover projects.</div></div>';
+});
+$("#loadMoreBtn").addEventListener("click",()=>performSearch(true));
+$$("[data-query]").forEach(btn=>btn.addEventListener("click",()=>{
+  $("#searchQuery").value=btn.dataset.query;
+  $("#searchForm").requestSubmit();
+}));
+$$(".repo-example").forEach(btn=>btn.addEventListener("click",()=>{
+  $("#repoInput").value=btn.dataset.repo;
+  $("#releaseForm").requestSubmit();
+}));
+$$(".guide-save").forEach(btn=>btn.addEventListener("click",()=>{
+  addNote(btn.dataset.title,btn.dataset.text);
+  $("#noteTitle").value=btn.dataset.title;
+  $("#noteContent").value=btn.dataset.text;
+  $("#workspace").scrollIntoView({behavior:"smooth"});
+}));
+
+$("#surpriseBtn").addEventListener("click",()=>{
+  $("#searchQuery").value=exampleSearches[Math.floor(Math.random()*exampleSearches.length)];
+  $("#searchForm").requestSubmit();
+});
+
+async function checkService(url,elementId) {
+  const el=$(elementId);
+  el.innerHTML='<span class="dot"></span>Checking';
   try {
-    localStorage.setItem("moddingxz_saved",JSON.stringify([...new Set(ids)]));
+    await fetchJson(url,8000);
+    el.innerHTML='<span class="dot ok"></span>Responding';
     return true;
   } catch {
-    alert("Your browser could not save favourites. Check your browser storage settings.");
+    el.innerHTML='<span class="dot bad"></span>Unavailable';
     return false;
   }
 }
-
-function resourceById(id) {
-  if(id.startsWith("resource:"))return resources.find(r=>"resource:"+r.title===id);
-  if(id.startsWith("game:"))return games.find(g=>"game:"+g.name===id);
-  return null;
-}
-
-function toggleSaved(id) {
-  const ids=savedIds();
-  const next=ids.includes(id)?ids.filter(x=>x!==id):[...ids,id];
-  if(!writeSaved(next))return;
-  renderGames();
-  renderLibrary();
-  renderSaved();
-}
-
-document.addEventListener("click",e=>{
-  const button=e.target.closest("[data-save]");
-  if(button)toggleSaved(button.dataset.save);
+$("#checkServices").addEventListener("click",async()=>{
+  log("Checking public API endpoints.");
+  const values=await Promise.all([
+    checkService("https://api.modrinth.com/v2/tag/game_version","#statusModrinth"),
+    checkService("https://api.github.com/rate_limit","#statusGithub")
+  ]);
+  notify(values.every(Boolean)?"Both services responded.":"One or more services could not be reached.");
+});
+$("#releaseForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const repo=$("#repoInput").value.trim();
+  if(!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) {
+    $("#releaseResults").innerHTML='<div class="empty">Use the format owner/repository.</div>';return;
+  }
+  const out=$("#releaseResults");
+  out.innerHTML='<div class="empty"><span class="spinner-border spinner-border-sm me-2"></span>Checking public releases...</div>';
+  $("#releaseSubmit").disabled=true;
+  try {
+    const data=await fetchJson("https://api.github.com/repos/"+repo.split("/").map(encodeURIComponent).join("/")+"/releases?per_page=10");
+    out.replaceChildren();
+    if(!Array.isArray(data)||!data.length) {
+      out.innerHTML='<div class="empty">No public releases found for this repository. It may publish builds elsewhere.</div>';
+    } else {
+      for(const release of data) {
+        const row=document.createElement("div");
+        row.className="resource-row";
+        const title=document.createElement("div");
+        title.className="fw-bold";
+        title.textContent=release.name||release.tag_name||"Untitled release";
+        const meta=document.createElement("div");
+        meta.className="muted small my-2";
+        meta.textContent=(release.tag_name||"No tag")+" · "+(release.published_at?new Date(release.published_at).toLocaleString():"Date unavailable");
+        const desc=document.createElement("p");
+        desc.className="project-desc mb-2";
+        desc.textContent=(release.body||"No release notes provided.").slice(0,500);
+        const link=document.createElement("a");
+        link.className="btn btn-outline-xz btn-sm";
+        link.href=safeUrl(release.html_url)||"#";
+        link.target="_blank";link.rel="noopener noreferrer";link.textContent="View release";
+        row.append(title,meta,desc,link);out.append(row);
+      }
+    }
+    log("Release lookup complete: "+repo);
+  } catch(err) {
+    out.innerHTML="";
+    const msg=document.createElement("div");
+    msg.className="alert alert-warning";
+    msg.textContent=err.status===404?"Repository not found or not public.":err.status===403||err.status===429?"GitHub API rate limit reached. Try again later.":"Could not fetch releases. Check the repository name and connection.";
+    out.append(msg);
+    log("Release lookup failed: "+repo);
+  } finally { $("#releaseSubmit").disabled=false; }
 });
 
-function renderSaved() {
-  const ids=savedIds();
-  const list=ids.map(resourceById).filter(Boolean);
-  $("savedGrid").innerHTML=list.length?list.map(r=>makeCard({
-    title:r.title||r.name,
-    description:r.desc||r.description,
-    url:r.url||("https://github.com/topics/"+encodeURIComponent((r.name||"game-modding").toLowerCase().replaceAll(" ","-"))),
-    tag:r.type||r.category||"Game",
-    icon:r.icon||"🎮",
-    meta:r.game||"Saved resource",
-    saveId:(r.title?"resource:"+r.title:"game:"+r.name)
-  })).join(""):'<div class="empty">Nothing saved yet. Use ☆ Save on any library card to add a favourite.</div>';
+function renderResourceList() {
+  const filter=$("#resourceFilter").value.trim().toLowerCase();
+  const list=$("#resourceList");
+  list.replaceChildren();
+  const all=[
+    ...resources.map(x=>({...x,kind:"Custom"})),
+    ...favourites.map(x=>({...x,kind:"Favourite",category:x.category||x.source}))
+  ].filter(x=>(x.title+" "+x.description+" "+x.category+" "+x.kind).toLowerCase().includes(filter));
+  if(!all.length) {
+    list.innerHTML='<div class="empty">No matching resources saved.</div>';return;
+  }
+  for(const item of all) {
+    const row=document.createElement("div");row.className="resource-row";
+    const head=document.createElement("div");head.className="d-flex justify-content-between gap-2";
+    const info=document.createElement("div");
+    const title=document.createElement("div");title.className="fw-bold";title.textContent=item.title;
+    const meta=document.createElement("div");meta.className="muted small mt-1";meta.textContent=(item.category||"Resource")+" · "+item.kind;
+    info.append(title,meta);
+    const actions=document.createElement("div");actions.className="d-flex gap-1 flex-shrink-0";
+    const open=document.createElement("a");open.className="btn btn-outline-xz btn-sm";open.textContent="Open";open.href=safeUrl(item.url)||"#";open.target="_blank";open.rel="noopener noreferrer";
+    if(!safeUrl(item.url))open.classList.add("disabled");
+    const del=makeButton("×","btn btn-outline-danger btn-sm",()=>{
+      if(item.kind==="Custom") resources=resources.filter(x=>x.id!==item.id);
+      else favourites=favourites.filter(x=>x.id!==item.id);
+      persist();renderResourceList();renderResults();notify("Resource removed.");
+    });
+    del.setAttribute("aria-label","Remove resource");
+    actions.append(open,del);head.append(info,actions);row.append(head);
+    if(item.description){const p=document.createElement("p");p.className="project-desc mt-2 mb-0";p.textContent=item.description;row.append(p);}
+    list.append(row);
+  }
 }
-
-$("exportSaved").addEventListener("click",()=>{
-  const data=savedIds().map(id=>{
-    const r=resourceById(id);
-    return r?{id,...r}:{id};
+$("#resourceForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=$("#resourceName").value.trim();
+  const url=safeUrl($("#resourceUrl").value.trim());
+  if(!url){notify("Enter a valid HTTP or HTTPS URL.");return;}
+  resources.unshift({
+    id:"custom:"+crypto.randomUUID(),
+    title:name,url,category:$("#resourceCategory").value,
+    description:$("#resourceDesc").value.trim(),
+    savedAt:new Date().toISOString()
   });
+  persist();renderResourceList();e.target.reset();
+  notify("Resource saved.");log("Custom resource added: "+name);
+});
+$("#resourceFilter").addEventListener("input",renderResourceList);
+
+function addNote(title,content) {
+  title=String(title||"").trim();
+  content=String(content||"").trim();
+  if(!title||!content)return;
+  notes.unshift({id:crypto.randomUUID(),title:title.slice(0,100),content:content.slice(0,5000),createdAt:new Date().toISOString()});
+  persist();renderNotes();notify("Note saved.");log("Note created: "+title);
+}
+function renderNotes() {
+  const list=$("#noteList");list.replaceChildren();
+  if(!notes.length){list.innerHTML='<div class="empty mt-3">No notes yet.</div>';return;}
+  for(const note of notes) {
+    const row=document.createElement("div");row.className="resource-row";
+    const head=document.createElement("div");head.className="d-flex justify-content-between align-items-start gap-2";
+    const title=document.createElement("div");title.className="fw-bold";title.textContent=note.title;
+    const del=makeButton("Delete","btn btn-outline-danger btn-sm",()=>{
+      notes=notes.filter(n=>n.id!==note.id);persist();renderNotes();notify("Note deleted.");
+    });
+    head.append(title,del);
+    const date=document.createElement("div");date.className="muted small mt-1";date.textContent=note.createdAt?new Date(note.createdAt).toLocaleString():"";
+    const text=document.createElement("div");text.className="note-text mt-2";text.textContent=note.content;
+    row.append(head,date,text);list.append(row);
+  }
+}
+$("#noteForm").addEventListener("submit",e=>{
+  e.preventDefault();addNote($("#noteTitle").value,$("#noteContent").value);e.target.reset();
+});
+
+function renderSavedResults() {
+  results=favourites.map(f=>({...f,source:f.source||"Saved",category:f.category||"Saved"}));
+  savedOnly=true;
+  $("#savedFilterBtn").classList.add("active");
+  $("#resultTitle").textContent="Your saved projects";
+  $("#discover").scrollIntoView({behavior:"smooth"});
+  renderResults();
+}
+$("#savedFilterBtn").addEventListener("dblclick",renderSavedResults);
+
+async function copyText(text) {
+  if(!text){notify("Nothing to copy.");return;}
+  try {
+    await navigator.clipboard.writeText(String(text));
+  } catch {
+    const ta=document.createElement("textarea");
+    ta.value=String(text);ta.style.position="fixed";ta.style.opacity="0";
+    document.body.append(ta);ta.select();
+    try{document.execCommand("copy");}catch{}
+    ta.remove();
+  }
+}
+$("#exportData").addEventListener("click",exportBackup);
+$("#paletteBackup").addEventListener("click",()=>{palette.hide();exportBackup();});
+function exportBackup() {
+  const data={
+    app:"ModdingXZ Nexus",
+    schemaVersion:2,
+    exportedAt:new Date().toISOString(),
+    favourites,resources,notes,prefs
+  };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;a.download="moddingxz-favourites.json";a.click();
+  const a=document.createElement("a");a.href=url;a.download="moddingxz-nexus-backup.json";a.click();
   URL.revokeObjectURL(url);
+  notify("Backup exported.");log("Workspace backup exported.");
+}
+$("#importData").addEventListener("click",()=>$("#backupFile").click());
+$("#backupFile").addEventListener("change",async e=>{
+  const file=e.target.files[0];if(!file)return;
+  try {
+    if(file.size>5_000_000)throw new Error("Backup is too large.");
+    const data=JSON.parse(await file.text());
+    if(!data||data.app!=="ModdingXZ Nexus"||data.schemaVersion!==2)throw new Error("Unsupported backup format.");
+    if(!Array.isArray(data.favourites)||!Array.isArray(data.resources)||!Array.isArray(data.notes))throw new Error("Invalid backup collections.");
+    if(!confirm("Import this backup? Your current saved data will be replaced."))return;
+    favourites=data.favourites.filter(x=>x&&typeof x==="object"&&safeUrl(x.url)).slice(0,500);
+    resources=data.resources.filter(x=>x&&typeof x==="object"&&safeUrl(x.url)).slice(0,500);
+    notes=data.notes.filter(x=>x&&typeof x==="object").slice(0,500);
+    prefs=data.prefs&&typeof data.prefs==="object"?data.prefs:defaults.prefs;
+    persist();applyPrefs();renderNotes();renderResourceList();renderResults();
+    notify("Backup imported.");log("Workspace backup imported.");
+  } catch(err){notify("Import failed: "+err.message);}
+  finally{e.target.value="";}
+});
+$("#clearData").addEventListener("click",()=>{
+  if(!confirm("Clear all saved resources, favourites and notes from this browser? Export a backup first if needed."))return;
+  favourites=[];resources=[];notes=[];
+  persist();renderNotes();renderResourceList();renderResults();
+  notify("Local workspace cleared.");log("Local workspace cleared.");
+});
+$("#compactToggle").addEventListener("click",()=>{
+  prefs.compact=!prefs.compact;applyPrefs();persist();
+  notify(prefs.compact?"Compact view enabled.":"Compact view disabled.");
+});
+$("#themeBtn").addEventListener("click",()=>{
+  prefs.theme=prefs.theme==="light"?"dark":"light";applyPrefs();persist();
+  notify("Theme changed.");
 });
 
-$("clearSaved").addEventListener("click",()=>{
-  if(!savedIds().length)return;
-  if(confirm("Clear all locally saved ModdingXZ favourites?")){
-    writeSaved([]);
-    renderSaved();
-    renderGames();
-    renderLibrary();
+$$("[data-tab]").forEach(btn=>btn.addEventListener("click",()=>{
+  $$("[data-tab]").forEach(b=>{b.classList.toggle("active",b===btn);b.setAttribute("aria-selected",String(b===btn));});
+  $$(".work-tab").forEach(tab=>tab.classList.add("d-none"));
+  $("#workbench-"+btn.dataset.tab).classList.remove("d-none");
+}));
+
+function output(id,text){$(id).textContent=text;}
+function getWorkbenchInput(id){return $(id).value;}
+$("#jsonFormat").addEventListener("click",()=>{
+  try{output("#jsonOutput",JSON.stringify(JSON.parse(getWorkbenchInput("#jsonInput")),null,2));}
+  catch(e){output("#jsonOutput","Invalid JSON: "+e.message);}
+});
+$("#jsonMinify").addEventListener("click",()=>{
+  try{output("#jsonOutput",JSON.stringify(JSON.parse(getWorkbenchInput("#jsonInput"))));}
+  catch(e){output("#jsonOutput","Invalid JSON: "+e.message);}
+});
+$("#jsonValidate").addEventListener("click",()=>{
+  try{JSON.parse(getWorkbenchInput("#jsonInput"));output("#jsonOutput","Valid JSON ✓");}
+  catch(e){output("#jsonOutput","Invalid JSON: "+e.message);}
+});
+function utf8ToBase64(text) {
+  const bytes=new TextEncoder().encode(text);
+  let binary="";
+  bytes.forEach(b=>binary+=String.fromCharCode(b));
+  return btoa(binary);
+}
+function base64ToUtf8(text) {
+  const binary=atob(text.trim());
+  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  return new TextDecoder("utf-8",{fatal:true}).decode(bytes);
+}
+$("#baseEncode").addEventListener("click",()=>{
+  try{output("#baseOutput",utf8ToBase64(getWorkbenchInput("#baseInput")));}
+  catch(e){output("#baseOutput","Encoding failed: "+e.message);}
+});
+$("#baseDecode").addEventListener("click",()=>{
+  try{output("#baseOutput",base64ToUtf8(getWorkbenchInput("#baseInput")));}
+  catch(e){output("#baseOutput","Invalid Base64 or invalid UTF-8 text.");}
+});
+$("#urlEncode").addEventListener("click",()=>output("#urlOutput",encodeURIComponent(getWorkbenchInput("#urlInput"))));
+$("#urlDecode").addEventListener("click",()=>{
+  try{output("#urlOutput",decodeURIComponent(getWorkbenchInput("#urlInput")));}
+  catch(e){output("#urlOutput","Invalid encoded URL component.");}
+});
+$("#hashRun").addEventListener("click",async()=>{
+  const text=getWorkbenchInput("#hashInput");
+  if(!crypto.subtle){output("#hashOutput","Web Crypto is unavailable. Use HTTPS or localhost.");return;}
+  try {
+    const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(text));
+    output("#hashOutput",[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join(""));
+  } catch(e){output("#hashOutput","Hash failed: "+e.message);}
+});
+$("#copyTextBtn")?.addEventListener("click",()=>copyText($("#clipboardInput").value).then(()=>notify("Copy attempted.")));
+$("#clearClipboardBtn")?.addEventListener("click",()=>$("#clipboardInput").value="");
+
+$("#clearLog").addEventListener("click",()=>{$("#consoleLog").replaceChildren();log("Console cleared.");});
+$("#commandModal").querySelectorAll(".command").forEach(btn=>btn.addEventListener("click",()=>{
+  palette.hide();$(btn.dataset.target).scrollIntoView({behavior:"smooth"});
+  if(btn.dataset.target==="#discover")setTimeout(()=>$("#searchQuery").focus(),350);
+}));
+document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k") {
+    e.preventDefault();palette.show();
   }
+  if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="s") {
+    e.preventDefault();$("#searchQuery").focus();$("#discover").scrollIntoView({behavior:"smooth"});
+  }
+  if(e.key==="Escape"&&document.activeElement===$("#searchQuery"))$("#searchQuery").blur();
 });
 
-/* GITHUB PUBLIC REPOSITORY SEARCH */
-
-async function searchRepos(force=false) {
-  const query=$("repoSearch").value.trim();
-  if(!query){
-    $("repoGrid").innerHTML='<div class="empty">Enter a project search first.</div>';
-    return;
-  }
-
-  $("repoGrid").innerHTML='<div class="loading">Searching public GitHub repositories…</div>';
-  setStatus("github","busy","Searching…");
-
-  const sort=$("repoSort").value;
-  const lang=$("repoLanguage").value;
-  const fullQuery=query+(lang?" language:"+lang:"");
-  const url="https://api.github.com/search/repositories?q="+encodeURIComponent(fullQuery)+
-    "&sort="+encodeURIComponent(sort)+"&order=desc&per_page=9";
-
-  try {
-    const data=await getJSON(url,240,force);
-    const items=data.items||[];
-
-    $("repoGrid").innerHTML=items.length?items.map(r=>makeCard({
-      title:r.full_name,
-      description:r.description||"No description provided by the repository owner.",
-      url:r.html_url,
-      tag:r.language||"Repository",
-      icon:"⌘",
-      meta:"★ "+Number(r.stargazers_count||0).toLocaleString()+" · Forks "+Number(r.forks_count||0).toLocaleString(),
-      saveId:"external:"+r.html_url
-    })).join(""):'<div class="empty">No repositories found. Try a broader search.</div>';
-
-    setStatus("github","live",items.length+" projects returned");
-  } catch(error) {
-    showError("repoGrid",error);
-    setStatus("github","error","API unavailable");
-  }
-}
-
-$("repoGo").addEventListener("click",()=>searchRepos(true));
-$("repoReload").addEventListener("click",()=>searchRepos(true));
-$("repoSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchRepos(true)});
-$("repoSort").addEventListener("change",()=>searchRepos(true));
-$("repoLanguage").addEventListener("change",()=>searchRepos(true));
-
-$("repoPresets").addEventListener("click",e=>{
-  const button=e.target.closest("[data-query]");
-  if(!button)return;
-  $("repoSearch").value=button.dataset.query;
-  $("repoPresets").querySelectorAll("button").forEach(b=>b.classList.toggle("active",b===button));
-  searchRepos(true);
-});
-
-/* MODRINTH LIVE PROJECT SEARCH */
-
-async function searchModrinth(force=false) {
-  const query=$("mcSearch").value.trim();
-  const type=$("mcType").value;
-  const sort=$("mcSort").value;
-
-  $("mcGrid").innerHTML='<div class="loading">Searching Modrinth projects…</div>';
-  setStatus("modrinth","busy","Searching…");
-
-  const facets=JSON.stringify([[`project_type:${type}`]]);
-  const url="https://api.modrinth.com/v2/search?query="+encodeURIComponent(query)+
-    "&facets="+encodeURIComponent(facets)+
-    "&limit=9&index="+encodeURIComponent(sort);
-
-  try {
-    const data=await getJSON(url,300,force);
-    const hits=data.hits||[];
-
-    $("mcGrid").innerHTML=hits.length?hits.map(p=>makeCard({
-      title:p.title||p.slug,
-      description:p.description||"No description provided.",
-      url:"https://modrinth.com/"+encodeURIComponent(p.project_type||type)+"/"+encodeURIComponent(p.slug),
-      tag:p.project_type||type,
-      icon:"⛏️",
-      meta:"↓ "+Number(p.downloads||0).toLocaleString()+" downloads",
-      saveId:"external:https://modrinth.com/"+(p.project_type||type)+"/"+p.slug
-    })).join(""):'<div class="empty">No projects found. Try a different search or project type.</div>';
-
-    setStatus("modrinth","live",hits.length+" projects returned");
-  } catch(error) {
-    showError("mcGrid",error);
-    setStatus("modrinth","error","API unavailable");
-  }
-}
-
-$("mcGo").addEventListener("click",()=>searchModrinth(true));
-$("mcReload").addEventListener("click",()=>searchModrinth(true));
-$("mcSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchModrinth(true)});
-$("mcType").addEventListener("change",()=>searchModrinth(true));
-$("mcSort").addEventListener("change",()=>searchModrinth(true));
-
-/* GITHUB RELEASE FEED */
-
-async function loadReleases(force=false) {
-  const repo=$("releaseRepo").value.trim();
-
-  if(!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) {
-    $("releaseList").innerHTML='<div class="apierror">Enter a valid public repository in owner/name format.</div>';
-    return;
-  }
-
-  $("releaseList").innerHTML='<div class="loading">Loading public releases…</div>';
-
-  try {
-    const url="https://api.github.com/repos/"+repo+"/releases?per_page=7";
-    const data=await getJSON(url,300,force);
-
-    $("releaseList").innerHTML=data.length?data.map(r=>{
-      const assets=Array.isArray(r.assets)?r.assets:[];
-      const safeBody=(r.body||"No release notes supplied.").slice(0,350);
-      return `<div class="listitem">
-        <div class="emoji">📦</div>
-        <div style="min-width:0;flex:1">
-          <strong><a href="${escapeHTML(r.html_url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(r.name||r.tag_name||"Release")} ↗</a></strong>
-          <p>${escapeHTML(safeBody)}</p>
-          <span class="meta">${escapeHTML(r.tag_name||"")}${r.published_at?" · "+escapeHTML(new Date(r.published_at).toLocaleDateString()):""} · ${assets.length} attached files</span>
-          ${assets.length?`<p>${assets.slice(0,3).map(a=>openLink(a.browser_download_url,a.name)).join(" ")}</p>`:""}
-        </div>
-      </div>`;
-    }).join(""):'<div class="empty">No public releases found for this repository.</div>';
-  } catch(error) {
-    showError("releaseList",error);
-  }
-}
-
-$("releaseGo").addEventListener("click",()=>loadReleases(true));
-$("releaseRepo").addEventListener("keydown",e=>{if(e.key==="Enter")loadReleases(true)});
-$("releaseClear").addEventListener("click",()=>{
-  $("releaseList").innerHTML='<div class="loading">Enter a public repository to see releases.</div>';
-});
-
-/* HACKER NEWS PUBLIC SEARCH */
-
-async function searchDiscussions(force=false) {
-  const query=$("newsSearch").value.trim();
-  if(!query){
-    $("newsList").innerHTML='<div class="empty">Enter a search term first.</div>';
-    return;
-  }
-
-  $("newsList").innerHTML='<div class="loading">Searching public discussions…</div>';
-
-  const url="https://hn.algolia.com/api/v1/search?query="+encodeURIComponent(query)+
-    "&tags=story&hitsPerPage=7";
-
-  try {
-    const data=await getJSON(url,300,force);
-    const hits=data.hits||[];
-
-    $("newsList").innerHTML=hits.length?hits.map(item=>{
-      const target=validUrl(item.url)?item.url:
-        "https://news.ycombinator.com/item?id="+encodeURIComponent(item.objectID);
-
-      return `<div class="listitem">
-        <div class="emoji">📰</div>
-        <div style="min-width:0">
-          <strong><a href="${escapeHTML(target)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.title||"Untitled discussion")} ↗</a></strong>
-          <p>${escapeHTML(item.author?"Posted by "+item.author:"Community post")} · ${Number(item.points||0)} points · ${Number(item.num_comments||0)} comments</p>
-        </div>
-      </div>`;
-    }).join(""):'<div class="empty">No discussions found for this search.</div>';
-  } catch(error) {
-    showError("newsList",error);
-  }
-}
-
-$("newsGo").addEventListener("click",()=>searchDiscussions(true));
-$("newsSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchDiscussions(true)});
-
-/* FIRST RENDER */
-$("year").textContent=new Date().getFullYear();
-renderGames();
-renderLibrary();
-renderSaved();
+renderNotes();
+renderResourceList();
+updateStats();
+applyPrefs();
+log("Nexus ready. Local data loaded.");
+})();
 </script>
 </body>
 </html>
