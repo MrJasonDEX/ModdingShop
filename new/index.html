@@ -2,1571 +2,2173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090710">
-<meta name="description" content="XZ OS 4.0 — the ModdingXZ gaming modding command centre. Gaming resources, BO2 relay guides, tools, releases and community updates.">
-<title>XZ OS 4.0 | ModdingXZ Command Centre</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09070f">
+  <meta name="description" content="XZ OS 5.0 — ModdingXZ gaming dashboard, modding resources, public project discovery and developer tools.">
+  <title>XZ OS 5.0 | ModdingXZ</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- External libraries: no build step required -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-<style>
-:root {
-  --bg: #090710;
-  --panel: #100d1b;
-  --panel2: #151123;
-  --border: #29213b;
-  --purple: #a855f7;
-  --purple2: #7c3aed;
-  --text: #f4efff;
-  --muted: #a39bb7;
-  --green: #4ade80;
-  --red: #fb7185;
-  --orange: #fbbf24;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 14px;
-}
-a { color: #c4a1ff; text-decoration: none; }
-a:hover { color: #e9d5ff; }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-::selection { background: #7c3aed; color: white; }
-::-webkit-scrollbar { width: 7px; height: 7px; }
-::-webkit-scrollbar-thumb { background: #413052; border-radius: 10px; }
-.app { min-height: 100vh; }
-.sidebar {
-  width: 250px;
-  position: fixed;
-  top: 0; bottom: 0; left: 0;
-  background: #0d0a15;
-  border-right: 1px solid var(--border);
-  padding: 22px 15px;
-  z-index: 1000;
-  overflow-y: auto;
-}
-.brand {
-  display: flex; align-items: center; gap: 12px;
-  padding: 3px 8px 24px;
-}
-.brand-icon {
-  width: 43px; height: 43px; border-radius: 13px;
-  display: grid; place-items: center;
-  background: linear-gradient(140deg, #a855f7, #4c1d95);
-  color: white; font-size: 24px;
-  box-shadow: 0 0 25px #7c3aed35;
-}
-.brand-name { font-size: 16px; font-weight: 900; letter-spacing: 1.5px; }
-.brand-sub { font-size: 10px; color: var(--muted); letter-spacing: 2px; }
-.nav-heading {
-  font-size: 10px; font-weight: 800; letter-spacing: 1.5px;
-  color: #746a88; margin: 20px 10px 8px;
-}
-.nav-item {
-  width: 100%; display: flex; align-items: center; gap: 12px;
-  border: 1px solid transparent; border-radius: 9px;
-  padding: 10px 12px; margin: 3px 0;
-  color: #b9b0ca; background: transparent; text-align: left;
-  transition: .15s;
-}
-.nav-item i { font-size: 17px; width: 20px; text-align: center; }
-.nav-item:hover, .nav-item.active {
-  color: white; background: #211631; border-color: #493062;
-}
-.nav-item.active { box-shadow: inset 3px 0 var(--purple); }
-.nav-badge {
-  margin-left: auto; font-size: 10px; border-radius: 5px;
-  padding: 2px 6px; background: #392150; color: #e9d5ff;
-}
-.sidebar-bottom {
-  margin-top: 25px; padding: 14px;
-  border: 1px solid var(--border); border-radius: 12px;
-  background: linear-gradient(145deg,#171025,#0d0a15);
-}
-.main { margin-left: 250px; min-width: 0; }
-.topbar {
-  height: 69px; padding: 0 28px;
-  border-bottom: 1px solid var(--border);
-  background: #0b0812eF;
-  display: flex; align-items: center; gap: 15px;
-  position: sticky; top: 0; z-index: 500;
-  backdrop-filter: blur(15px);
-}
-.searchbox {
-  max-width: 450px; flex: 1; display: flex; align-items: center; gap: 10px;
-  border: 1px solid var(--border); border-radius: 9px;
-  padding: 9px 12px; background: #110d1c; color: var(--muted);
-}
-.searchbox input {
-  width: 100%; color: white; background: transparent; border: 0; outline: 0;
-}
-.top-action {
-  width: 37px; height: 37px; display: grid; place-items: center;
-  border: 1px solid var(--border); background: var(--panel);
-  color: #d8c8ed; border-radius: 9px;
-}
-.top-action:hover { background: #29183d; }
-.page { padding: 28px; max-width: 1700px; margin: auto; }
-.page-section { display: none; }
-.page-section.active { display: block; animation: fadeIn .2s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-.eyebrow { font-size: 10px; color: #ba8bff; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; }
-.page-title { font-size: clamp(24px, 3vw, 32px); font-weight: 850; letter-spacing: -.8px; margin: 5px 0; }
-.page-description { color: var(--muted); margin: 0; }
-.panel {
-  background: var(--panel); border: 1px solid var(--border);
-  border-radius: 14px; min-width: 0;
-}
-.panel-header {
-  padding: 16px 18px; border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.panel-title { font-size: 13px; font-weight: 800; margin: 0; }
-.panel-body { padding: 18px; }
-.hero {
-  border: 1px solid #44305d; border-radius: 16px; overflow: hidden;
-  background:
-    radial-gradient(ellipse at 83% 0%, #7937bc3b, transparent 45%),
-    radial-gradient(ellipse at 10% 110%, #5726a327, transparent 40%),
-    linear-gradient(125deg,#171026,#0f0b18 65%);
-  padding: 30px; position: relative;
-}
-.hero:after {
-  content: "XZ"; position: absolute; right: 7%; top: 4%;
-  font-size: clamp(100px, 15vw, 180px); font-weight: 1000;
-  color: #c084fc; opacity: .055; pointer-events: none; line-height: 1;
-}
-.hero-content { position: relative; z-index: 1; }
-.hero h2 { font-size: clamp(27px, 4vw, 43px); font-weight: 950; letter-spacing: -1.5px; }
-.hero h2 span { color: #c084fc; }
-.hero p { max-width: 610px; color: #bdb1d0; line-height: 1.8; }
-.btn-xz {
-  background: linear-gradient(130deg,#9333ea,#6d28d9); color: white;
-  border: 1px solid #a855f7; border-radius: 8px; padding: 10px 15px;
-  font-weight: 750; display: inline-flex; gap: 8px; align-items: center; justify-content: center;
-}
-.btn-xz:hover { color: white; filter: brightness(1.13); }
-.btn-muted {
-  color: #ded2f1; background: #1a1426; border: 1px solid #3b2c4e;
-  border-radius: 8px; padding: 9px 13px;
-}
-.btn-muted:hover { background: #2a1d3c; color: white; }
-.btn-danger-soft { color: #fda4af; background: #30131e; border: 1px solid #552333; border-radius: 8px; padding: 8px 12px; }
-.stat-card {
-  padding: 17px; height: 100%; border: 1px solid var(--border);
-  border-radius: 12px; background: linear-gradient(145deg,#151023,#100d19);
-}
-.stat-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.stat-icon {
-  width: 38px; height: 38px; display: grid; place-items: center;
-  border: 1px solid #493060; border-radius: 10px;
-  background: #29183d; color: #d8b4fe; font-size: 18px;
-}
-.stat-label { color: var(--muted); font-size: 12px; }
-.stat-number { font-size: 27px; font-weight: 900; margin: 12px 0 2px; }
-.stat-note { color: #847993; font-size: 11px; }
-.status-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); margin-right: 5px; }
-.status-text { color: #86efac; font-size: 11px; }
-.tag {
-  display: inline-flex; align-items: center; gap: 5px;
-  border: 1px solid #463257; background: #241632;
-  color: #d8b4fe; padding: 4px 8px; border-radius: 6px;
-  font-size: 10px; font-weight: 750;
-}
-.tag.green { color: #86efac; background: #10261b; border-color: #244d34; }
-.tag.orange { color: #fcd34d; background: #2a2110; border-color: #56421a; }
-.tag.red { color: #fda4af; background: #30131e; border-color: #552333; }
-.muted { color: var(--muted); }
-.small-muted { font-size: 11px; color: #9186a4; }
-.resource-card {
-  border: 1px solid var(--border); background: #120e1d;
-  border-radius: 12px; padding: 17px; height: 100%;
-  transition: border-color .15s, transform .15s;
-}
-.resource-card:hover { border-color: #74509a; transform: translateY(-2px); }
-.resource-icon {
-  height: 42px; width: 42px; display: grid; place-items: center;
-  background: #29183d; border: 1px solid #493060; color: #d8b4fe;
-  border-radius: 10px; font-size: 21px; flex-shrink: 0;
-}
-.resource-title { font-size: 14px; font-weight: 850; }
-.resource-desc { color: #a99eb9; font-size: 12px; line-height: 1.7; }
-.resource-footer { border-top: 1px solid var(--border); padding-top: 12px; margin-top: 13px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-.form-control, .form-select, .form-check-input {
-  background-color: #0d0a15 !important; color: #eee5fa !important;
-  border-color: #3a2c4b !important;
-}
-.form-control::placeholder { color: #776b87; }
-.form-control:focus, .form-select:focus { border-color: #a855f7 !important; box-shadow: 0 0 0 .2rem #a855f722 !important; }
-.form-select option { background: #100d1b; }
-textarea.form-control { min-height: 110px; }
-.table { --bs-table-bg: transparent; --bs-table-color: #e7def3; --bs-table-border-color: var(--border); font-size: 12px; }
-.table th { color: #a99dbb; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: .7px; }
-.table td, .table th { padding: 12px 10px; vertical-align: middle; }
-.list-row { display: flex; align-items: flex-start; gap: 11px; padding: 13px 0; border-bottom: 1px solid #241b32; }
-.list-row:last-child { border-bottom: 0; }
-.checkline { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-bottom: 1px solid #241b32; }
-.checkline:last-child { border: 0; }
-.checkline input { margin-top: 4px; accent-color: #a855f7; }
-.checkline label { cursor: pointer; flex: 1; }
-.checkline.done label { color: #7f748e; text-decoration: line-through; }
-.progress { height: 6px; background: #292037; border-radius: 20px; }
-.progress-bar { background: linear-gradient(90deg,#7c3aed,#c084fc); }
-.activity-icon { height: 31px; width: 31px; display: grid; place-items: center; border-radius: 9px; background: #29183d; color: #d8b4fe; flex-shrink: 0; }
-.empty-state { text-align: center; padding: 35px 15px; color: var(--muted); }
-.empty-state i { font-size: 30px; color: #69547f; }
-.toast-container { z-index: 2000; }
-.toast { background: #1a1426; color: white; border: 1px solid #493060; }
-.mobile-menu { display: none; }
-.footer { color: #766b85; font-size: 11px; text-align: center; padding: 30px 0 8px; }
-kbd { color: #d8b4fe; background: #2a1d3c; border: 1px solid #493060; border-radius: 4px; padding: 2px 5px; font-size: 10px; }
-.section-gap { margin-top: 23px; }
-@media(max-width: 1100px) {
-  .sidebar { width: 220px; }
-  .main { margin-left: 220px; }
-  .page { padding: 21px; }
-}
-@media(max-width: 760px) {
-  .sidebar { transform: translateX(-100%); width: 260px; transition: transform .2s; box-shadow: 15px 0 50px #0008; }
-  .sidebar.open { transform: translateX(0); }
-  .main { margin-left: 0; }
-  .topbar { padding: 0 14px; height: 62px; }
-  .page { padding: 17px 13px; }
-  .hero { padding: 23px 19px; }
-  .mobile-menu { display: grid; }
-  .hide-mobile { display: none !important; }
-}
-</style>
+  <style>
+    :root {
+      --bg: #09070f;
+      --panel: #100d19;
+      --panel-2: #171222;
+      --panel-3: #201832;
+      --purple: #a855f7;
+      --purple-2: #7c3aed;
+      --purple-soft: rgba(168,85,247,.14);
+      --text: #f3effa;
+      --muted: #a59bb8;
+      --border: rgba(194,164,255,.15);
+      --green: #54e0a1;
+      --red: #ff738b;
+      --yellow: #f7ce73;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% -15%, rgba(124,58,237,.17), transparent 38%),
+        radial-gradient(ellipse at 100% 0%, rgba(168,85,247,.08), transparent 28%),
+        var(--bg);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: #c9a5ff; }
+    a:hover { color: #ead9ff; }
+    button, input, select, textarea { font: inherit; }
+
+    .app-shell { display: flex; min-height: 100vh; }
+
+    .sidebar {
+      position: fixed;
+      z-index: 1040;
+      inset: 0 auto 0 0;
+      display: flex;
+      flex-direction: column;
+      width: 258px;
+      padding: 22px 15px;
+      overflow-y: auto;
+      background: rgba(12,9,19,.97);
+      border-right: 1px solid var(--border);
+      transition: transform .25s ease;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 5px 9px 24px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #a855f7, #5b21b6);
+      box-shadow: 0 0 25px rgba(168,85,247,.25);
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .brand-name { font-size: 16px; font-weight: 850; letter-spacing: .6px; }
+    .brand-sub { margin-top: 1px; color: var(--muted); font-size: 10px; letter-spacing: 2px; }
+
+    .nav-label {
+      padding: 13px 11px 7px;
+      color: #817590;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .sidebar .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 2px 0;
+      padding: 11px 12px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      color: #b9afc8;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .sidebar .nav-link i { width: 18px; font-size: 16px; text-align: center; }
+    .sidebar .nav-link:hover { background: var(--purple-soft); color: white; }
+    .sidebar .nav-link.active {
+      color: white;
+      border-color: rgba(168,85,247,.24);
+      background: linear-gradient(90deg, rgba(124,58,237,.28), rgba(168,85,247,.07));
+    }
+
+    .sidebar-bottom { margin-top: auto; padding: 18px 9px 0; }
+    .community-mini {
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: linear-gradient(145deg, rgba(124,58,237,.17), rgba(16,13,25,.8));
+    }
+
+    .main {
+      width: calc(100% - 258px);
+      min-width: 0;
+      margin-left: 258px;
+    }
+
+    .topbar {
+      position: sticky;
+      z-index: 100;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      min-height: 72px;
+      padding: 13px 28px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9,7,15,.84);
+      backdrop-filter: blur(18px);
+    }
+
+    .search-wrap { position: relative; width: min(420px, 100%); }
+    .search-wrap i {
+      position: absolute;
+      top: 50%;
+      left: 14px;
+      transform: translateY(-50%);
+      color: var(--muted);
+    }
+
+    .search-wrap input { padding-left: 39px; }
+
+    .top-actions { display: flex; align-items: center; gap: 10px; }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: #c8bdd6;
+      background: var(--panel);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .online-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(84,224,161,.55);
+    }
+
+    .mobile-menu { display: none; }
+
+    .content { max-width: 1600px; margin: auto; padding: 28px; }
+    .page { display: none; animation: appear .22s ease; }
+    .page.active { display: block; }
+    @keyframes appear { from { opacity: .45; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    .eyebrow {
+      color: #b989ff;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 2.1px;
+      text-transform: uppercase;
+    }
+
+    .page-title { margin: 7px 0 8px; font-size: clamp(26px, 3vw, 39px); font-weight: 850; letter-spacing: -1.5px; }
+    .page-desc { max-width: 700px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .section-heading { margin: 29px 0 14px; font-size: 15px; font-weight: 800; }
+    .muted { color: var(--muted) !important; }
+    .tiny { font-size: 11px; }
+    .small-label { color: var(--muted); font-size: 11px; }
+
+    .panel {
+      min-width: 0;
+      padding: 19px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(25,19,38,.96), rgba(15,12,23,.96));
+      box-shadow: 0 12px 35px rgba(0,0,0,.08);
+    }
+
+    .panel h3 { font-size: 14px; font-weight: 800; }
+    .stat-card { height: 100%; padding: 19px; }
+    .stat-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .stat-icon {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      border: 1px solid rgba(168,85,247,.22);
+      border-radius: 12px;
+      color: #d2b1ff;
+      background: var(--purple-soft);
+      font-size: 17px;
+    }
+    .stat-value { margin-top: 17px; font-size: 28px; font-weight: 850; letter-spacing: -1px; }
+    .stat-label { margin-top: 2px; color: var(--muted); font-size: 12px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(23px, 4vw, 43px);
+      border: 1px solid rgba(168,85,247,.27);
+      border-radius: 23px;
+      background:
+        radial-gradient(ellipse at 85% 20%, rgba(168,85,247,.25), transparent 38%),
+        linear-gradient(120deg, #171024, #100c19 75%);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: 6%;
+      bottom: -75px;
+      width: 240px;
+      height: 240px;
+      border: 1px solid rgba(168,85,247,.12);
+      border-radius: 50%;
+      box-shadow: 0 0 0 25px rgba(168,85,247,.025), 0 0 0 55px rgba(168,85,247,.025);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero h2 { max-width: 620px; font-size: clamp(27px, 4vw, 44px); font-weight: 900; letter-spacing: -1.8px; }
+    .hero p { max-width: 570px; color: #b9accb; font-size: 13px; line-height: 1.9; }
+    .hero-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+
+    .btn-xz {
+      padding: 10px 15px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      color: white;
+      background: linear-gradient(135deg, #9333ea, #6d28d9);
+      font-size: 12px;
+      font-weight: 750;
+    }
+    .btn-xz:hover { color: white; background: linear-gradient(135deg, #a855f7, #7c3aed); }
+    .btn-outline-xz {
+      padding: 9px 14px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      color: #ddd1ec;
+      background: rgba(255,255,255,.02);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .btn-outline-xz:hover { color: white; border-color: #a855f7; background: var(--purple-soft); }
+    .btn-danger-soft {
+      padding: 8px 11px;
+      border: 1px solid rgba(255,115,139,.25);
+      border-radius: 9px;
+      color: #ff9caf;
+      background: rgba(255,115,139,.07);
+      font-size: 11px;
+    }
+
+    .form-control, .form-select, .input-group-text {
+      min-height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      background-color: #0c0913;
+      font-size: 12px;
+    }
+    .form-control::placeholder { color: #756b83; }
+    .form-control:focus, .form-select:focus {
+      color: white;
+      border-color: #9b5de5;
+      background-color: #0e0a17;
+      box-shadow: 0 0 0 .2rem rgba(168,85,247,.13);
+    }
+    .form-select option { color: white; background: #100d19; }
+    .form-label { margin-bottom: 7px; color: #c7bbd7; font-size: 11px; font-weight: 700; }
+    textarea.form-control { min-height: 110px; resize: vertical; }
+
+    .game-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(27,20,41,.96), rgba(15,12,23,.95));
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .game-card:hover { transform: translateY(-3px); border-color: rgba(168,85,247,.45); }
+    .game-symbol {
+      display: grid;
+      place-items: center;
+      width: 47px;
+      height: 47px;
+      margin-bottom: 15px;
+      border: 1px solid rgba(168,85,247,.2);
+      border-radius: 14px;
+      color: #d6b8ff;
+      background: var(--purple-soft);
+      font-size: 21px;
+    }
+    .game-card h3 { margin-bottom: 7px; font-size: 14px; font-weight: 800; }
+    .game-card p { flex: 1; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .game-card .game-meta { margin-bottom: 12px; color: #8d819f; font-size: 10px; }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin: 2px 3px 2px 0;
+      padding: 5px 8px;
+      border: 1px solid rgba(168,85,247,.18);
+      border-radius: 7px;
+      color: #d4baff;
+      background: rgba(168,85,247,.08);
+      font-size: 10px;
+    }
+
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(20,15,30,.8);
+    }
+    .resource-card h3 { margin: 9px 0 7px; font-size: 13px; font-weight: 800; overflow-wrap: anywhere; }
+    .resource-card p { flex: 1; color: var(--muted); font-size: 11px; line-height: 1.7; overflow-wrap: anywhere; }
+    .resource-url { overflow-wrap: anywhere; font-size: 10px; }
+    .resource-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+
+    .badge-xz {
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      color: #cdb4f0;
+      background: rgba(168,85,247,.09);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .task-row, .activity-row, .api-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(194,164,255,.09);
+    }
+    .task-row:last-child, .activity-row:last-child, .api-row:last-child { border-bottom: 0; }
+    .task-row input { margin-top: 4px; accent-color: #a855f7; }
+    .task-row .task-text { flex: 1; min-width: 0; font-size: 12px; overflow-wrap: anywhere; }
+    .task-done { color: #7f758e; text-decoration: line-through; }
+    .activity-icon {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      color: #d0b0ff;
+      background: var(--purple-soft);
+    }
+
+    .empty-state { padding: 34px 15px; color: var(--muted); text-align: center; font-size: 12px; }
+    .empty-state i { display: block; margin-bottom: 10px; color: #77678e; font-size: 27px; }
+    .code-output {
+      min-height: 95px;
+      padding: 13px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: #d6c5ec;
+      background: #09070f;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 11px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .notice {
+      padding: 12px 14px;
+      border: 1px solid rgba(247,206,115,.2);
+      border-radius: 11px;
+      color: #d7c59e;
+      background: rgba(247,206,115,.05);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+    .success-note {
+      padding: 12px 14px;
+      border: 1px solid rgba(84,224,161,.2);
+      border-radius: 11px;
+      color: #a5ebc9;
+      background: rgba(84,224,161,.05);
+      font-size: 11px;
+      line-height: 1.8;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 38px;
+      padding: 18px 0 6px;
+      border-top: 1px solid var(--border);
+      color: #766c83;
+      font-size: 10px;
+    }
+
+    .toast-container { z-index: 2000; }
+    .xz-toast {
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: white;
+      background: #1b1428;
+      box-shadow: 0 12px 40px #0008;
+      font-size: 12px;
+    }
+
+    .overlay {
+      position: fixed;
+      z-index: 1030;
+      inset: 0;
+      display: none;
+      background: rgba(0,0,0,.65);
+    }
+    .overlay.show { display: block; }
+
+    @media (max-width: 991.98px) {
+      .sidebar { transform: translateX(-105%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { width: 100%; margin-left: 0; }
+      .mobile-menu { display: inline-flex; }
+      .topbar { padding: 12px 16px; }
+      .content { padding: 20px 16px; }
+      .search-wrap { width: 100%; max-width: 340px; }
+    }
+
+    @media (max-width: 575.98px) {
+      .topbar { gap: 8px; }
+      .top-actions .status-pill { display: none; }
+      .content { padding: 16px 12px; }
+      .hero { padding: 23px 18px; }
+      .panel { padding: 15px; }
+      .stat-card { padding: 14px; }
+      .stat-value { font-size: 24px; }
+      .brand { padding-bottom: 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
+
 <body>
-<div class="app">
+<div class="app-shell">
+  <div class="overlay" id="sidebarOverlay"></div>
+
   <aside class="sidebar" id="sidebar">
-    <div class="brand">
-      <div class="brand-icon"><i class="bi bi-controller"></i></div>
+    <a class="brand" href="#dashboard" data-page-link="dashboard" aria-label="ModdingXZ dashboard">
+      <div class="brand-mark">XZ</div>
       <div>
-        <div class="brand-name">MODDING<span style="color:#c084fc">XZ</span></div>
-        <div class="brand-sub">XZ OS // VERSION 4.0</div>
+        <div class="brand-name">MODDINGXZ</div>
+        <div class="brand-sub">XZ OS 5.0</div>
       </div>
-    </div>
+    </a>
 
-    <div class="nav-heading">WORKSPACE</div>
-    <button class="nav-item active" data-page="dashboard"><i class="bi bi-grid-1x2-fill"></i> Command Centre</button>
-    <button class="nav-item" data-page="library"><i class="bi bi-collection-fill"></i> Game Library <span class="nav-badge">ALL</span></button>
-    <button class="nav-item" data-page="tools"><i class="bi bi-wrench-adjustable-circle"></i> Modding Tools</button>
-    <button class="nav-item" data-page="relay"><i class="bi bi-hdd-network-fill"></i> Relay Centre</button>
-    <button class="nav-item" data-page="releases"><i class="bi bi-box-seam-fill"></i> Releases</button>
+    <div class="nav-label">Workspace</div>
+    <nav class="nav flex-column" aria-label="Main navigation">
+      <a class="nav-link active" href="#dashboard" data-page-link="dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+      <a class="nav-link" href="#games" data-page-link="games"><i class="bi bi-controller"></i> Gaming hub</a>
+      <a class="nav-link" href="#resources" data-page-link="resources"><i class="bi bi-collection"></i> Resource library <span class="ms-auto badge-xz" id="resourceNavCount">0</span></a>
+      <a class="nav-link" href="#radar" data-page-link="radar"><i class="bi bi-radar"></i> Release Radar</a>
+      <a class="nav-link" href="#relay" data-page-link="relay"><i class="bi bi-diagram-3"></i> Relay & diagnostics</a>
 
-    <div class="nav-heading">PERSONAL</div>
-    <button class="nav-item" data-page="favourites"><i class="bi bi-bookmark-heart-fill"></i> Saved Resources</button>
-    <button class="nav-item" data-page="checklists"><i class="bi bi-list-check"></i> Checklists</button>
-    <button class="nav-item" data-page="notes"><i class="bi bi-journal-text"></i> Notes & Workspace</button>
-
-    <div class="nav-heading">SYSTEM</div>
-    <button class="nav-item" data-page="community"><i class="bi bi-people-fill"></i> Community</button>
-    <button class="nav-item" data-page="settings"><i class="bi bi-sliders"></i> Settings</button>
+      <div class="nav-label">Utilities</div>
+      <a class="nav-link" href="#toolkit" data-page-link="toolkit"><i class="bi bi-code-slash"></i> Developer toolkit</a>
+      <a class="nav-link" href="#tasks" data-page-link="tasks"><i class="bi bi-check2-square"></i> Tasks & notes</a>
+      <a class="nav-link" href="#community" data-page-link="community"><i class="bi bi-people"></i> Community</a>
+      <a class="nav-link" href="#settings" data-page-link="settings"><i class="bi bi-sliders"></i> Settings & backup</a>
+    </nav>
 
     <div class="sidebar-bottom">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <i class="bi bi-telegram" style="font-size:22px;color:#c084fc"></i>
-        <div>
-          <div class="fw-bold">Join ModdingXZ</div>
-          <div class="small-muted">Tools, guides & community</div>
+      <div class="community-mini">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="bi bi-lightning-charge-fill" style="color:#c49aff"></i>
+          <strong style="font-size:12px">ModdingXZ Community</strong>
         </div>
+        <p class="muted tiny mb-3">Guides, releases, tools and community support.</p>
+        <a class="btn btn-xz w-100" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-telegram me-1"></i> Open Telegram
+        </a>
       </div>
-      <p class="small-muted mb-3">Get community updates and discover new resources.</p>
-      <a class="btn-xz w-100" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram"></i> Open Telegram</a>
+      <div class="tiny muted mt-3 px-1">XZ OS 5.0 · Static edition</div>
     </div>
-    <div class="small-muted mt-3 px-2">XZ OS 4.0 · Browser edition</div>
   </aside>
 
   <main class="main">
     <header class="topbar">
-      <button class="top-action mobile-menu" id="menuBtn" aria-label="Toggle navigation"><i class="bi bi-list"></i></button>
-      <div class="searchbox">
-        <i class="bi bi-search"></i>
-        <input id="globalSearch" placeholder="Search games, tools, guides..." autocomplete="off">
-        <kbd class="hide-mobile">/</kbd>
+      <div class="d-flex align-items-center gap-3 flex-grow-1">
+        <button class="btn btn-outline-xz mobile-menu" id="menuToggle" aria-label="Open navigation">
+          <i class="bi bi-list fs-5"></i>
+        </button>
+        <div class="search-wrap">
+          <i class="bi bi-search"></i>
+          <input type="search" class="form-control" id="globalSearch" placeholder="Search games, resources, tasks..." aria-label="Search dashboard">
+        </div>
       </div>
-      <div class="ms-auto d-flex gap-2 align-items-center">
-        <button class="top-action" id="refreshBtn" title="Refresh live data"><i class="bi bi-arrow-clockwise"></i></button>
-        <button class="top-action" data-go="community" title="Community"><i class="bi bi-people"></i></button>
-        <div class="resource-icon" style="height:37px;width:37px;font-size:16px"><i class="bi bi-person-fill"></i></div>
+      <div class="top-actions">
+        <div class="status-pill"><span class="online-dot"></span> Local mode</div>
+        <button class="btn btn-outline-xz" id="quickAddBtn"><i class="bi bi-plus-lg me-1"></i><span class="d-none d-sm-inline">Quick add</span></button>
       </div>
     </header>
 
-    <div class="page">
-      <!-- COMMAND CENTRE -->
-      <section class="page-section active" id="page-dashboard">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-4">
-          <div>
-            <div class="eyebrow">MODDINGXZ OPERATING SYSTEM</div>
-            <h1 class="page-title">Command Centre<span style="color:#a855f7">.</span></h1>
-            <p class="page-description">Your gaming modding workspace. Everything in one place.</p>
-          </div>
-          <div class="text-end">
-            <div class="small-muted">LOCAL SYSTEM TIME</div>
-            <div id="clock" class="fw-bold fs-5">--:--:--</div>
-            <div id="today" class="small-muted"></div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <section class="page active" id="page-dashboard">
+        <div class="hero">
+          <div class="eyebrow">ModdingXZ · Gaming workspace</div>
+          <h2>One hub.<br><span style="color:#c49aff">Every gaming project.</span></h2>
+          <p>Welcome to XZ OS 5.0. Organise your gaming resources, explore public developer projects, keep track of tasks and use built-in utilities from one responsive dashboard.</p>
+          <div class="hero-actions">
+            <button class="btn btn-xz" data-go="games"><i class="bi bi-controller me-2"></i>Explore gaming hub</button>
+            <button class="btn btn-outline-xz" data-go="resources"><i class="bi bi-collection me-2"></i>Open resources</button>
+            <a class="btn btn-outline-xz" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>Join Telegram</a>
           </div>
         </div>
 
-        <div class="hero mb-4">
-          <div class="hero-content">
-            <div class="eyebrow mb-3"><i class="bi bi-lightning-charge-fill"></i> XZ OS 4.0 // GAMING DIVISION</div>
-            <h2>YOUR GAME.<br>YOUR <span>RULES.</span></h2>
-            <p>Discover gaming tools, manage your saved resources, follow public releases and get your Black Ops 2 relay setup organised — all from your own browser.</p>
-            <div class="d-flex gap-2 flex-wrap">
-              <button class="btn-xz" data-go="tools"><i class="bi bi-controller"></i> Explore Modding</button>
-              <button class="btn-muted" data-go="relay"><i class="bi bi-diagram-3"></i> Open Relay Centre</button>
-              <a class="btn-muted" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram"></i> Telegram</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="row g-3 mb-4">
+        <div class="row g-3 mt-1" id="dashboardStats">
           <div class="col-6 col-xl-3">
-            <div class="stat-card">
-              <div class="stat-top"><span class="stat-label">Game Resources</span><span class="stat-icon"><i class="bi bi-collection"></i></span></div>
-              <div class="stat-number" id="statResources">0</div>
-              <div class="stat-note">Built-in resource catalogue</div>
+            <div class="panel stat-card">
+              <div class="stat-top"><span class="small-label">Game categories</span><span class="stat-icon"><i class="bi bi-controller"></i></span></div>
+              <div class="stat-value" id="statGames">8</div>
+              <div class="stat-label">Gaming areas</div>
             </div>
           </div>
           <div class="col-6 col-xl-3">
-            <div class="stat-card">
-              <div class="stat-top"><span class="stat-label">Saved Resources</span><span class="stat-icon"><i class="bi bi-bookmark-heart"></i></span></div>
-              <div class="stat-number" id="statSaved">0</div>
-              <div class="stat-note">Saved in this browser</div>
+            <div class="panel stat-card">
+              <div class="stat-top"><span class="small-label">Saved resources</span><span class="stat-icon"><i class="bi bi-collection"></i></span></div>
+              <div class="stat-value" id="statResources">0</div>
+              <div class="stat-label">Guides and links</div>
             </div>
           </div>
           <div class="col-6 col-xl-3">
-            <div class="stat-card">
-              <div class="stat-top"><span class="stat-label">Checklist Progress</span><span class="stat-icon"><i class="bi bi-check2-circle"></i></span></div>
-              <div class="stat-number" id="statProgress">0%</div>
-              <div class="stat-note">Across your saved tasks</div>
+            <div class="panel stat-card">
+              <div class="stat-top"><span class="small-label">Open tasks</span><span class="stat-icon"><i class="bi bi-list-check"></i></span></div>
+              <div class="stat-value" id="statTasks">0</div>
+              <div class="stat-label">Things to work on</div>
             </div>
           </div>
           <div class="col-6 col-xl-3">
-            <div class="stat-card">
-              <div class="stat-top"><span class="stat-label">Public API</span><span class="stat-icon"><i class="bi bi-globe2"></i></span></div>
-              <div class="stat-number" style="font-size:21px" id="apiStat">Not checked</div>
-              <div class="stat-note">GitHub API connection status</div>
+            <div class="panel stat-card">
+              <div class="stat-top"><span class="small-label">Favourites</span><span class="stat-icon"><i class="bi bi-star"></i></span></div>
+              <div class="stat-value" id="statFavourites">0</div>
+              <div class="stat-label">Pinned resources</div>
             </div>
           </div>
         </div>
 
-        <div class="row g-3">
-          <div class="col-xl-8">
+        <div class="row g-3 mt-1">
+          <div class="col-lg-7">
             <div class="panel h-100">
-              <div class="panel-header"><h3 class="panel-title"><i class="bi bi-stars me-2" style="color:#c084fc"></i>Quick Launch</h3><span class="tag">XZ MODULES</span></div>
-              <div class="panel-body">
-                <div class="row g-3">
-                  <div class="col-sm-6">
-                    <div class="resource-card">
-                      <div class="d-flex gap-3">
-                        <div class="resource-icon"><i class="bi bi-controller"></i></div>
-                        <div><div class="resource-title">BO2 Modding Hub</div><div class="small-muted mt-1">Tools, unlocks, FOV & guides</div></div>
-                      </div>
-                      <p class="resource-desc mt-3 mb-3">Browse Black Ops 2 resources and save the guides you use most.</p>
-                      <button class="btn-muted w-100" data-go="tools">Open module <i class="bi bi-arrow-right ms-1"></i></button>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="resource-card">
-                      <div class="d-flex gap-3">
-                        <div class="resource-icon"><i class="bi bi-diagram-3"></i></div>
-                        <div><div class="resource-title">PC-to-PS Relay</div><div class="small-muted mt-1">Network setup & diagnostics</div></div>
-                      </div>
-                      <p class="resource-desc mt-3 mb-3">Keep your relay checklist, notes and troubleshooting steps organised.</p>
-                      <button class="btn-muted w-100" data-go="relay">Open module <i class="bi bi-arrow-right ms-1"></i></button>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="resource-card">
-                      <div class="d-flex gap-3">
-                        <div class="resource-icon"><i class="bi bi-github"></i></div>
-                        <div><div class="resource-title">GitHub Discovery</div><div class="small-muted mt-1">Open-source gaming projects</div></div>
-                      </div>
-                      <p class="resource-desc mt-3 mb-3">Search public repositories and discover project releases.</p>
-                      <button class="btn-muted w-100" data-go="releases">Discover projects <i class="bi bi-arrow-right ms-1"></i></button>
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="resource-card">
-                      <div class="d-flex gap-3">
-                        <div class="resource-icon"><i class="bi bi-journal-code"></i></div>
-                        <div><div class="resource-title">Personal Workspace</div><div class="small-muted mt-1">Notes, tasks & exports</div></div>
-                      </div>
-                      <p class="resource-desc mt-3 mb-3">Save your own setup notes, custom links and troubleshooting history.</p>
-                      <button class="btn-muted w-100" data-go="notes">Open workspace <i class="bi bi-arrow-right ms-1"></i></button>
-                    </div>
-                  </div>
+              <div class="d-flex justify-content-between align-items-center gap-2">
+                <div>
+                  <h3 class="mb-1">Gaming categories</h3>
+                  <div class="muted tiny">Jump into a platform or game area.</div>
                 </div>
+                <button class="btn btn-outline-xz" data-go="games">View all <i class="bi bi-arrow-right ms-1"></i></button>
               </div>
+              <div class="row g-2 mt-2" id="dashboardGameGrid"></div>
             </div>
           </div>
-          <div class="col-xl-4">
-            <div class="panel mb-3">
-              <div class="panel-header"><h3 class="panel-title">System Overview</h3><i class="bi bi-activity" style="color:#c084fc"></i></div>
-              <div class="panel-body">
-                <div class="d-flex justify-content-between mb-2"><span class="muted">Browser storage</span><span class="tag green">Available</span></div>
-                <div class="progress mb-3"><div class="progress-bar" style="width:100%"></div></div>
-                <div class="d-flex justify-content-between mb-2"><span class="muted">Backend server</span><span class="tag">Not required</span></div>
-                <div class="d-flex justify-content-between mb-2"><span class="muted">Public API</span><span class="tag" id="apiStatusTag">Not checked</span></div>
-                <div class="d-flex justify-content-between"><span class="muted">Community status</span><span class="tag orange">Check Telegram</span></div>
-                <p class="small-muted mt-3 mb-0">Live service availability is not assumed. Only the API requests you run are checked.</p>
+          <div class="col-lg-5">
+            <div class="panel h-100">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h3 class="mb-1">Your task list</h3>
+                  <div class="muted tiny">Saved in this browser.</div>
+                </div>
+                <button class="btn btn-outline-xz" data-go="tasks"><i class="bi bi-arrow-right"></i></button>
               </div>
+              <div id="dashboardTasks" class="mt-2"></div>
+              <button class="btn btn-xz w-100 mt-2" id="dashboardAddTask"><i class="bi bi-plus-lg me-1"></i>Add task</button>
             </div>
-            <div class="panel">
-              <div class="panel-header"><h3 class="panel-title">Latest Activity</h3><button class="btn-muted py-1 px-2" data-go="notes">Workspace</button></div>
-              <div class="panel-body" id="activityFeed"><div class="empty-state"><i class="bi bi-clock-history"></i><p class="mt-2 mb-0">Your activity will appear here.</p></div></div>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-lg-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-clock-history me-2" style="color:#c49aff"></i>Recent activity</h3>
+              <div id="activityList"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-lightning-charge me-2" style="color:#c49aff"></i>Quick actions</h3>
+              <div class="row g-2 mt-1">
+                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="radar"><i class="bi bi-github d-block fs-5 mb-2"></i><strong>Release Radar</strong><div class="muted tiny mt-1">Explore public projects</div></button></div>
+                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="toolkit"><i class="bi bi-code-slash d-block fs-5 mb-2"></i><strong>Dev toolkit</strong><div class="muted tiny mt-1">Format, encode, hash</div></button></div>
+                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="relay"><i class="bi bi-diagram-3 d-block fs-5 mb-2"></i><strong>Relay notes</strong><div class="muted tiny mt-1">Troubleshooting checklist</div></button></div>
+                <div class="col-6"><button class="btn btn-outline-xz w-100 h-100 text-start" data-go="settings"><i class="bi bi-cloud-arrow-down d-block fs-5 mb-2"></i><strong>Backup</strong><div class="muted tiny mt-1">Export your data</div></button></div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- GAME LIBRARY -->
-      <section class="page-section" id="page-library">
-        <div class="eyebrow">GAME DATABASE</div>
-        <h1 class="page-title">Game Library<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">Explore games and jump to relevant community and developer resources.</p>
-        <div class="row g-3" id="gameGrid"></div>
+      <!-- GAMING HUB -->
+      <section class="page" id="page-games">
+        <div class="eyebrow">Explore</div>
+        <h1 class="page-title">Gaming hub</h1>
+        <p class="page-desc">Browse gaming categories, platforms and modding topics. Add your own links to the resource library for quick access.</p>
+        <div class="row g-2 mt-3">
+          <div class="col-md-8"><input class="form-control" id="gameSearch" placeholder="Filter games and platforms..."></div>
+          <div class="col-md-4">
+            <select class="form-select" id="gameTypeFilter">
+              <option value="all">All categories</option>
+              <option value="game">Games</option>
+              <option value="platform">Platforms</option>
+              <option value="tools">Developer tools</option>
+            </select>
+          </div>
+        </div>
+        <div class="row g-3 mt-1" id="gameGrid"></div>
+        <div class="panel mt-4">
+          <h3>Build your own gaming workspace</h3>
+          <p class="muted tiny">Save official documentation, open-source projects, community guides or your own notes. Only add resources you trust and have permission to use.</p>
+          <button class="btn btn-xz" data-add-resource><i class="bi bi-plus-lg me-1"></i>Add a resource</button>
+        </div>
       </section>
 
-      <!-- TOOLS -->
-      <section class="page-section" id="page-tools">
-        <div class="eyebrow">MODDING DIVISION</div>
-        <h1 class="page-title">Modding Tools<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">Discover, filter and save gaming modding resources. Verify compatibility before using any tool.</p>
-        <div class="panel mb-4">
-          <div class="panel-body">
+      <!-- RESOURCE LIBRARY -->
+      <section class="page" id="page-resources">
+        <div class="eyebrow">Your collection</div>
+        <h1 class="page-title">Resource library</h1>
+        <p class="page-desc">Keep guides, trusted websites, tools and project notes together. Resources you add are stored locally in your browser.</p>
+        <div class="panel mt-4">
+          <form id="resourceForm">
+            <input type="hidden" id="resourceId">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label" for="resourceTitle">Resource title *</label><input class="form-control" id="resourceTitle" maxlength="120" required placeholder="e.g. Official game documentation"></div>
+              <div class="col-md-6"><label class="form-label" for="resourceUrl">Website URL *</label><input class="form-control" id="resourceUrl" required type="url" maxlength="1500" placeholder="https://example.com"></div>
+              <div class="col-md-4"><label class="form-label" for="resourceGame">Game / platform</label><select class="form-select" id="resourceGame"></select></div>
+              <div class="col-md-4"><label class="form-label" for="resourceCategory">Resource type</label><select class="form-select" id="resourceCategory"><option>Guide</option><option>Tool</option><option>Documentation</option><option>Repository</option><option>Community</option><option>Other</option></select></div>
+              <div class="col-md-4"><label class="form-label" for="resourceTags">Tags (comma-separated)</label><input class="form-control" id="resourceTags" maxlength="250" placeholder="BO2, PC, guide"></div>
+              <div class="col-12"><label class="form-label" for="resourceDescription">Description / notes</label><textarea class="form-control" id="resourceDescription" maxlength="1500" rows="2" placeholder="What is this resource for?"></textarea></div>
+              <div class="col-12 d-flex flex-wrap gap-2">
+                <button class="btn btn-xz" id="resourceSubmit" type="submit"><i class="bi bi-plus-lg me-1"></i>Save resource</button>
+                <button class="btn btn-outline-xz d-none" id="resourceCancelEdit" type="button">Cancel edit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          <div class="flex-grow-1" style="min-width:180px"><input class="form-control" id="resourceSearch" placeholder="Search saved resources..."></div>
+          <div style="min-width:150px"><select class="form-select" id="resourceFilterGame"></select></div>
+          <div style="min-width:140px"><select class="form-select" id="resourceFilterType"><option value="all">All types</option><option>Guide</option><option>Tool</option><option>Documentation</option><option>Repository</option><option>Community</option><option>Other</option></select></div>
+          <button class="btn btn-outline-xz" id="favouritesOnly"><i class="bi bi-star me-1"></i>Favourites</button>
+        </div>
+        <div class="row g-3 mt-1" id="resourceGrid"></div>
+      </section>
+
+      <!-- RELEASE RADAR -->
+      <section class="page" id="page-radar">
+        <div class="eyebrow">Public API explorer</div>
+        <h1 class="page-title">Release Radar</h1>
+        <p class="page-desc">Search public GitHub repositories, browse open-source gaming projects and inspect project metadata. This searches public repository information, not private releases or console status.</p>
+
+        <div class="panel mt-4">
+          <form id="githubSearchForm">
+            <label class="form-label" for="githubQuery">Search GitHub repositories</label>
+            <div class="d-flex flex-column flex-sm-row gap-2">
+              <input class="form-control" id="githubQuery" maxlength="180" value="game modding" placeholder="e.g. game modding language:javascript">
+              <select class="form-select" id="githubSort" style="max-width:180px">
+                <option value="best-match">Best match</option>
+                <option value="updated">Recently updated</option>
+                <option value="stars">Most stars</option>
+              </select>
+              <button class="btn btn-xz" type="submit" id="githubSearchBtn"><i class="bi bi-search me-1"></i>Search</button>
+            </div>
+            <div class="muted tiny mt-2">Powered by the public GitHub REST API. Unauthenticated API limits apply. No API key is stored or required.</div>
+          </form>
+          <div id="githubStatus" class="mt-3 muted tiny" aria-live="polite"></div>
+        </div>
+        <div class="row g-3 mt-1" id="githubResults"></div>
+        <div class="panel mt-4">
+          <h3>Useful public project searches</h3>
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            <button class="btn btn-outline-xz preset-search" data-query="black ops 2 modding">Black Ops 2</button>
+            <button class="btn btn-outline-xz preset-search" data-query="game modding tools">Game modding</button>
+            <button class="btn btn-outline-xz preset-search" data-query="PlayStation homebrew">PlayStation homebrew</button>
+            <button class="btn btn-outline-xz preset-search" data-query="Minecraft mod loader">Minecraft</button>
+            <button class="btn btn-outline-xz preset-search" data-query="GTA modding">GTA modding</button>
+            <button class="btn btn-outline-xz preset-search" data-query="game save editor">Save editors</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RELAY / DIAGNOSTICS -->
+      <section class="page" id="page-relay">
+        <div class="eyebrow">Connection workspace</div>
+        <h1 class="page-title">Relay & diagnostics</h1>
+        <p class="page-desc">Use the checklist to record connection symptoms, work through basic network checks and save notes for your own setup. These checks do not scan external devices or change router settings.</p>
+
+        <div class="notice mt-4"><i class="bi bi-info-circle me-2"></i>Results are based on the checklist you complete, not a live test of your console, router, NAT type or internet connection.</div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-lg-7">
+            <div class="panel">
+              <h3>Connection checklist</h3>
+              <p class="muted tiny">Tick each step once you have checked it.</p>
+              <div id="relayChecklist" class="mt-2"></div>
+              <div class="d-flex gap-2 flex-wrap mt-3">
+                <button class="btn btn-xz" id="relayCheckBtn"><i class="bi bi-clipboard-check me-1"></i>Review checklist</button>
+                <button class="btn btn-outline-xz" id="relayResetBtn">Reset checks</button>
+              </div>
+              <div id="relayResult" class="mt-3"></div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="panel">
+              <h3>Save a diagnostic note</h3>
+              <form id="diagnosticForm" class="mt-3">
+                <div class="mb-3"><label class="form-label" for="diagPlatform">Platform</label><select class="form-select" id="diagPlatform"><option>PC</option><option>PlayStation</option><option>Xbox</option><option>Network / router</option><option>Other</option></select></div>
+                <div class="mb-3"><label class="form-label" for="diagSymptom">Symptom</label><input class="form-control" id="diagSymptom" required maxlength="120" placeholder="e.g. Cannot join a lobby"></div>
+                <div class="mb-3"><label class="form-label" for="diagDetails">What happened / what you tried</label><textarea class="form-control" id="diagDetails" maxlength="2000" rows="4" placeholder="Record the error message and checks completed..."></textarea></div>
+                <button class="btn btn-xz" type="submit">Save note</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="panel mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Saved diagnostic notes</h3>
+            <span class="badge-xz" id="diagCount">0 notes</span>
+          </div>
+          <div id="diagnosticList" class="mt-2"></div>
+        </div>
+      </section>
+
+      <!-- DEVELOPER TOOLKIT -->
+      <section class="page" id="page-toolkit">
+        <div class="eyebrow">Built-in utilities</div>
+        <h1 class="page-title">Developer toolkit</h1>
+        <p class="page-desc">Every tool below runs in your browser. Input is not sent to a backend by these utilities.</p>
+
+        <div class="row g-3 mt-2">
+          <div class="col-xl-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-braces me-2" style="color:#c49aff"></i>JSON formatter & validator</h3>
+              <label class="form-label mt-3" for="jsonInput">JSON input</label>
+              <textarea class="form-control" id="jsonInput" rows="7" spellcheck="false" placeholder='{"project":"ModdingXZ","version":"5.0"}'></textarea>
+              <div class="d-flex flex-wrap gap-2 mt-3">
+                <button class="btn btn-xz" id="jsonFormatBtn">Format & validate</button>
+                <button class="btn btn-outline-xz" id="jsonMinifyBtn">Minify</button>
+                <button class="btn btn-outline-xz" id="jsonClearBtn">Clear</button>
+              </div>
+              <div class="small-label mt-3">Output</div>
+              <pre class="code-output mt-2" id="jsonOutput">Your formatted JSON will appear here.</pre>
+              <button class="btn btn-outline-xz mt-2" data-copy-target="jsonOutput">Copy output</button>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-arrow-left-right me-2" style="color:#c49aff"></i>Base64 encoder / decoder</h3>
+              <label class="form-label mt-3" for="base64Input">Text or Base64 input</label>
+              <textarea class="form-control" id="base64Input" rows="7" placeholder="Enter text to encode, or Base64 to decode..."></textarea>
+              <div class="d-flex flex-wrap gap-2 mt-3">
+                <button class="btn btn-xz" id="base64EncodeBtn">Encode</button>
+                <button class="btn btn-outline-xz" id="base64DecodeBtn">Decode</button>
+                <button class="btn btn-outline-xz" id="base64ClearBtn">Clear</button>
+              </div>
+              <div class="small-label mt-3">Output</div>
+              <pre class="code-output mt-2" id="base64Output">Output will appear here.</pre>
+              <button class="btn btn-outline-xz mt-2" data-copy-target="base64Output">Copy output</button>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-fingerprint me-2" style="color:#c49aff"></i>SHA-256 hash</h3>
+              <p class="muted tiny mt-2">Generate a SHA-256 digest from text using the browser Web Crypto API. This is not a password-storage tool.</p>
+              <label class="form-label" for="hashInput">Text to hash</label>
+              <textarea class="form-control" id="hashInput" rows="4" placeholder="Enter text..."></textarea>
+              <button class="btn btn-xz mt-3" id="hashBtn">Generate SHA-256</button>
+              <div class="small-label mt-3">Digest</div>
+              <pre class="code-output mt-2" id="hashOutput">Your hash will appear here.</pre>
+              <button class="btn btn-outline-xz mt-2" data-copy-target="hashOutput">Copy hash</button>
+            </div>
+          </div>
+
+          <div class="col-xl-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-file-diff me-2" style="color:#c49aff"></i>Text comparison</h3>
+              <p class="muted tiny mt-2">Compare two text blocks line by line. Lines marked + appear only in the second input; - lines appear only in the first.</p>
+              <div class="row g-2">
+                <div class="col-6"><label class="form-label" for="diffA">Original</label><textarea class="form-control" id="diffA" rows="6" placeholder="Original text..."></textarea></div>
+                <div class="col-6"><label class="form-label" for="diffB">Modified</label><textarea class="form-control" id="diffB" rows="6" placeholder="Modified text..."></textarea></div>
+              </div>
+              <button class="btn btn-xz mt-3" id="diffBtn">Compare text</button>
+              <pre class="code-output mt-3" id="diffOutput">Comparison will appear here.</pre>
+              <button class="btn btn-outline-xz mt-2" data-copy-target="diffOutput">Copy comparison</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TASKS -->
+      <section class="page" id="page-tasks">
+        <div class="eyebrow">Personal workspace</div>
+        <h1 class="page-title">Tasks & notes</h1>
+        <p class="page-desc">Track upcoming releases, website changes, guides to write and other project work. Everything is saved in your browser.</p>
+
+        <div class="panel mt-4">
+          <form id="taskForm">
             <div class="row g-2">
-              <div class="col-md-5"><input class="form-control" id="toolSearch" placeholder="Search tools, features or games..."></div>
-              <div class="col-md-3">
-                <select class="form-select" id="toolPlatform">
-                  <option value="all">All platforms</option><option>PC</option><option>PS3</option><option>PS4</option><option>PS5</option><option>Xbox</option><option>Multi-platform</option>
-                </select>
-              </div>
-              <div class="col-md-2">
-                <select class="form-select" id="toolCategory">
-                  <option value="all">All categories</option><option>BO2</option><option>Relay</option><option>Research</option><option>Utilities</option><option>Community</option>
-                </select>
-              </div>
-              <div class="col-md-2"><button class="btn-muted w-100" id="clearToolFilters"><i class="bi bi-x-circle"></i> Clear</button></div>
+              <div class="col-md-7"><label class="form-label" for="taskInput">Task</label><input class="form-control" id="taskInput" maxlength="240" required placeholder="e.g. Update the BO2 guide"></div>
+              <div class="col-md-3"><label class="form-label" for="taskPriority">Priority</label><select class="form-select" id="taskPriority"><option>Normal</option><option>High</option><option>Low</option></select></div>
+              <div class="col-md-2 d-flex align-items-end"><button class="btn btn-xz w-100" type="submit"><i class="bi bi-plus-lg me-1"></i>Add</button></div>
             </div>
-          </div>
+          </form>
         </div>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <span class="muted" id="toolCount">Resources</span>
-          <span class="small-muted">Select the bookmark to save a resource</span>
-        </div>
-        <div class="row g-3" id="toolGrid"></div>
-      </section>
 
-      <!-- RELAY CENTRE -->
-      <section class="page-section" id="page-relay">
-        <div class="eyebrow">NETWORKING DIVISION</div>
-        <h1 class="page-title">Relay Centre<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">A personal setup checklist and troubleshooting workspace for your PC-to-console relay configuration.</p>
-        <div class="row g-3 mb-4">
-          <div class="col-xl-8">
-            <div class="panel">
-              <div class="panel-header"><h3 class="panel-title"><i class="bi bi-diagram-3 me-2"></i>Setup Checklist</h3><span class="tag" id="relayProgressLabel">0% complete</span></div>
-              <div class="panel-body">
-                <div class="progress mb-3"><div class="progress-bar" id="relayProgressBar" style="width:0%"></div></div>
-                <div id="relayChecklist"></div>
-                <div class="d-flex gap-2 flex-wrap mt-3">
-                  <button class="btn-muted" id="resetRelay"><i class="bi bi-arrow-counterclockwise"></i> Reset checklist</button>
-                  <button class="btn-xz" data-go="notes"><i class="bi bi-journal-text"></i> Open notes</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-4">
-            <div class="panel mb-3">
-              <div class="panel-header"><h3 class="panel-title">Connection Notes</h3><i class="bi bi-shield-check" style="color:#c084fc"></i></div>
-              <div class="panel-body">
-                <p class="resource-desc">Use this as a general diagnostic checklist. Exact requirements depend on your console, game, network and relay software version.</p>
-                <div class="list-row"><i class="bi bi-check-circle" style="color:#86efac"></i><div><div class="fw-bold">Check both endpoints</div><div class="small-muted">Confirm the PC and console can communicate on your network.</div></div></div>
-                <div class="list-row"><i class="bi bi-check-circle" style="color:#86efac"></i><div><div class="fw-bold">Verify the current guide</div><div class="small-muted">Do not assume old port rules or methods still work.</div></div></div>
-                <div class="list-row"><i class="bi bi-check-circle" style="color:#86efac"></i><div><div class="fw-bold">Use trusted software</div><div class="small-muted">Scan downloads and avoid sharing account credentials.</div></div></div>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-header"><h3 class="panel-title">Quick Links</h3></div>
-              <div class="panel-body d-grid gap-2">
-                <a class="btn-muted" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>ModdingXZ Telegram</a>
-                <a class="btn-muted" href="https://github.com/topics/black-ops-2" target="_blank" rel="noopener noreferrer"><i class="bi bi-github me-2"></i>BO2 GitHub projects</a>
-                <a class="btn-muted" href="https://github.com/topics/console-modding" target="_blank" rel="noopener noreferrer"><i class="bi bi-search me-2"></i>Console modding projects</a>
-              </div>
-            </div>
-          </div>
+        <div class="row g-3 mt-1">
+          <div class="col-md-4"><div class="panel"><div class="small-label">Total tasks</div><div class="stat-value" id="taskTotal">0</div></div></div>
+          <div class="col-md-4"><div class="panel"><div class="small-label">Completed</div><div class="stat-value" id="taskCompleted">0</div></div></div>
+          <div class="col-md-4"><div class="panel"><div class="small-label">Remaining</div><div class="stat-value" id="taskRemaining">0</div></div></div>
         </div>
-        <div class="panel">
-          <div class="panel-header"><h3 class="panel-title">Troubleshooting Log</h3><span class="small-muted">Saved locally</span></div>
-          <div class="panel-body">
-            <label class="form-label muted" for="relayIssue">Describe your issue</label>
-            <textarea class="form-control mb-2" id="relayIssue" placeholder="Example: The console cannot find the host, or the connection stops after the game launches..."></textarea>
-            <div class="d-flex gap-2 flex-wrap">
-              <button class="btn-xz" id="saveRelayIssue"><i class="bi bi-save"></i> Save issue</button>
-              <button class="btn-muted" id="exportRelayIssue"><i class="bi bi-download"></i> Export log</button>
-            </div>
-            <div id="relayIssueLog" class="mt-3"></div>
-          </div>
-        </div>
-      </section>
 
-      <!-- RELEASES -->
-      <section class="page-section" id="page-releases">
-        <div class="eyebrow">OPEN-SOURCE DISCOVERY</div>
-        <h1 class="page-title">Projects & Releases<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">Search public GitHub projects and inspect their release history. Results are live only when an API request succeeds.</p>
-        <div class="panel mb-4">
-          <div class="panel-header"><h3 class="panel-title">GitHub Discovery</h3><span class="tag"><i class="bi bi-globe2"></i> Public API</span></div>
-          <div class="panel-body">
-            <form id="githubForm" class="row g-2">
-              <div class="col-md-8"><input class="form-control" id="githubQuery" value="black ops 2 modding" placeholder="Search repositories, e.g. game modding tools" required></div>
-              <div class="col-md-2">
-                <select class="form-select" id="githubSort"><option value="best-match">Best match</option><option value="stars">Most stars</option><option value="updated">Recently updated</option></select>
-              </div>
-              <div class="col-md-2"><button class="btn-xz w-100" type="submit" id="githubSearchBtn"><i class="bi bi-search"></i> Search</button></div>
-            </form>
-            <div class="small-muted mt-2">Anonymous API requests have rate limits. This module never requires a GitHub token.</div>
-          </div>
-        </div>
-        <div id="githubStatus" class="small-muted mb-3">Run a search to discover projects.</div>
-        <div class="row g-3" id="githubResults"></div>
-        <div class="panel section-gap">
-          <div class="panel-header"><h3 class="panel-title"><i class="bi bi-box-seam me-2"></i>Check Releases for a Repository</h3></div>
-          <div class="panel-body">
-            <form id="releaseForm" class="row g-2">
-              <div class="col-md-9"><input class="form-control" id="releaseRepo" placeholder="owner/repository (e.g. community/project)" pattern="[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+" required></div>
-              <div class="col-md-3"><button class="btn-muted w-100" type="submit"><i class="bi bi-arrow-down-circle"></i> Load releases</button></div>
-            </form>
-            <div id="releaseResults" class="mt-3"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FAVOURITES -->
-      <section class="page-section" id="page-favourites">
-        <div class="eyebrow">YOUR PERSONAL COLLECTION</div>
-        <h1 class="page-title">Saved Resources<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">Bookmarks are stored in this browser and can be exported as a backup.</p>
-        <div class="d-flex gap-2 flex-wrap mb-3">
-          <button class="btn-xz" id="exportData"><i class="bi bi-download"></i> Export workspace</button>
-          <button class="btn-muted" id="importDataBtn"><i class="bi bi-upload"></i> Import backup</button>
-          <input type="file" id="importFile" accept=".json,application/json" hidden>
-        </div>
-        <div class="row g-3" id="favouriteGrid"></div>
-      </section>
-
-      <!-- CHECKLISTS -->
-      <section class="page-section" id="page-checklists">
-        <div class="eyebrow">PERSONAL TASK MANAGER</div>
-        <h1 class="page-title">Checklists<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">Build your own gaming, setup, testing or troubleshooting lists.</p>
-        <div class="panel mb-4">
-          <div class="panel-body">
-            <form id="taskForm" class="row g-2">
-              <div class="col-md-8"><input class="form-control" id="taskInput" placeholder="Add a task to your checklist..." required maxlength="180"></div>
-              <div class="col-md-2"><select class="form-select" id="taskCategory"><option>Gaming</option><option>BO2</option><option>Relay</option><option>Website</option><option>General</option></select></div>
-              <div class="col-md-2"><button class="btn-xz w-100" type="submit"><i class="bi bi-plus-lg"></i> Add task</button></div>
-            </form>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-header"><h3 class="panel-title">Your Tasks</h3><button class="btn-muted py-1 px-2" id="clearCompleted">Clear completed</button></div>
-          <div class="panel-body" id="taskList"></div>
-        </div>
-      </section>
-
-      <!-- NOTES -->
-      <section class="page-section" id="page-notes">
-        <div class="eyebrow">PERSONAL WORKSPACE</div>
-        <h1 class="page-title">Notes & Workspace<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">A simple local notebook for configuration notes, ideas and troubleshooting.</p>
-        <div class="row g-3">
-          <div class="col-xl-7">
-            <div class="panel">
-              <div class="panel-header"><h3 class="panel-title">Workspace Notebook</h3><span class="tag green" id="noteSaveStatus">Autosave enabled</span></div>
-              <div class="panel-body">
-                <label class="form-label muted" for="notesTitle">Note title</label>
-                <input class="form-control mb-3" id="notesTitle" placeholder="My gaming setup">
-                <label class="form-label muted" for="notesContent">Notes</label>
-                <textarea class="form-control" id="notesContent" style="min-height:300px" placeholder="Write setup details, version numbers, ideas, links or things to investigate..."></textarea>
-                <div class="d-flex gap-2 mt-3 flex-wrap">
-                  <button class="btn-muted" id="downloadNote"><i class="bi bi-download"></i> Download note</button>
-                  <button class="btn-muted" id="clearNote"><i class="bi bi-trash"></i> Clear note</button>
-                </div>
-              </div>
+        <div class="panel mt-3">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <h3 class="mb-0">Your tasks</h3>
+            <div class="d-flex gap-2">
+              <select class="form-select" id="taskFilter" style="width:auto"><option value="all">All tasks</option><option value="open">Open</option><option value="done">Completed</option></select>
+              <button class="btn btn-outline-xz" id="clearCompletedBtn">Clear completed</button>
             </div>
           </div>
-          <div class="col-xl-5">
-            <div class="panel mb-3">
-              <div class="panel-header"><h3 class="panel-title">Custom Links</h3></div>
-              <div class="panel-body">
-                <form id="linkForm">
-                  <input class="form-control mb-2" id="linkTitle" placeholder="Link name" required maxlength="80">
-                  <input class="form-control mb-2" id="linkUrl" placeholder="https://example.com" type="url" required>
-                  <button class="btn-xz w-100" type="submit"><i class="bi bi-plus-lg"></i> Save link</button>
-                </form>
-                <div id="customLinks" class="mt-3"></div>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-header"><h3 class="panel-title">Activity History</h3><button class="btn-muted py-1 px-2" id="clearActivity">Clear</button></div>
-              <div class="panel-body" id="fullActivity"></div>
-            </div>
-          </div>
+          <div id="taskList" class="mt-2"></div>
+        </div>
+
+        <div class="panel mt-3">
+          <h3>Scratchpad</h3>
+          <p class="muted tiny">Autosaves locally as you type. Do not store passwords, API keys or other secrets here.</p>
+          <textarea class="form-control" id="scratchpad" rows="7" maxlength="20000" placeholder="Ideas, changelog notes, website plans..."></textarea>
+          <div class="d-flex justify-content-between mt-2"><span class="muted tiny" id="scratchStatus">Saved locally</span><span class="muted tiny" id="scratchCount">0 / 20000</span></div>
         </div>
       </section>
 
       <!-- COMMUNITY -->
-      <section class="page-section" id="page-community">
-        <div class="eyebrow">COMMUNITY DIVISION</div>
-        <h1 class="page-title">ModdingXZ Community<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">Find community resources and official destinations. Check announcements for the latest status.</p>
-        <div class="hero mb-4">
-          <div class="hero-content">
-            <div class="eyebrow mb-3">THE COMMUNITY HUB</div>
-            <h2>WELCOME TO <span>MODDINGXZ</span></h2>
-            <p>Gaming modding resources, community guides, updates and help. Visit the Telegram community for current announcements and support.</p>
-            <a class="btn-xz" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram"></i> Join Telegram</a>
-            <a class="btn-muted ms-1" href="https://github.com/" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i> GitHub</a>
+      <section class="page" id="page-community">
+        <div class="eyebrow">Connect</div>
+        <h1 class="page-title">ModdingXZ community</h1>
+        <p class="page-desc">Quick access to the community and useful public documentation. Always verify downloads and project ownership before running external files.</p>
+
+        <div class="row g-3 mt-2">
+          <div class="col-md-6 col-xl-4">
+            <div class="game-card">
+              <div class="game-symbol"><i class="bi bi-telegram"></i></div>
+              <h3>ModdingXZ Telegram</h3>
+              <p>Community updates, releases, gaming discussions and support.</p>
+              <a class="btn btn-xz mt-auto" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Open Telegram <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="game-card">
+              <div class="game-symbol"><i class="bi bi-globe2"></i></div>
+              <h3>ModdingXZ website</h3>
+              <p>Visit the project website for available guides, links and resources.</p>
+              <a class="btn btn-xz mt-auto" href="https://moddingxz.co.uk/" target="_blank" rel="noopener noreferrer">Visit website <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="game-card">
+              <div class="game-symbol"><i class="bi bi-github"></i></div>
+              <h3>GitHub</h3>
+              <p>Explore open-source repositories, code, documentation and project history.</p>
+              <a class="btn btn-xz mt-auto" href="https://github.com/" target="_blank" rel="noopener noreferrer">Explore GitHub <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="game-card">
+              <div class="game-symbol"><i class="bi bi-book"></i></div>
+              <h3>MDN Web Docs</h3>
+              <p>Reliable documentation for HTML, CSS, JavaScript and browser APIs.</p>
+              <a class="btn btn-outline-xz mt-auto" href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer">Read documentation <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="game-card">
+              <div class="game-symbol"><i class="bi bi-bootstrap"></i></div>
+              <h3>Bootstrap</h3>
+              <p>Responsive layout components used by this dashboard.</p>
+              <a class="btn btn-outline-xz mt-auto" href="https://getbootstrap.com/docs/5.3/" target="_blank" rel="noopener noreferrer">Bootstrap docs <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-4">
+            <div class="game-card">
+              <div class="game-symbol"><i class="bi bi-shield-check"></i></div>
+              <h3>Safe downloads</h3>
+              <p>Check the source, release notes, permissions and file reputation before running tools.</p>
+              <a class="btn btn-outline-xz mt-auto" href="https://docs.github.com/en/repositories/releasing-projects-on-github" target="_blank" rel="noopener noreferrer">Release documentation <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+            </div>
           </div>
         </div>
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="resource-card">
-              <div class="d-flex gap-3 align-items-center"><div class="resource-icon"><i class="bi bi-telegram"></i></div><div><div class="resource-title">ModdingXZ Telegram</div><div class="small-muted">Community announcements and resources</div></div></div>
-              <p class="resource-desc mt-3">Visit the official community to check current updates, ask for help and find the latest links.</p>
-              <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer" class="btn-muted w-100 d-block text-center">Open Telegram <i class="bi bi-arrow-up-right"></i></a>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="resource-card">
-              <div class="d-flex gap-3 align-items-center"><div class="resource-icon"><i class="bi bi-globe2"></i></div><div><div class="resource-title">ModdingXZ Website</div><div class="small-muted">Community web resources</div></div></div>
-              <p class="resource-desc mt-3">Open the ModdingXZ website to access your published tools, guides and other resources.</p>
-              <a href="https://moddingxz.co.uk/" target="_blank" rel="noopener noreferrer" class="btn-muted w-100 d-block text-center">Open website <i class="bi bi-arrow-up-right"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="panel section-gap">
-          <div class="panel-header"><h3 class="panel-title">Community Status Board</h3><span class="tag orange">Manual verification</span></div>
-          <div class="panel-body">
-            <p class="resource-desc">This dashboard cannot independently verify the status of your Telegram group, tools or relay services. Use this board to record what you have checked.</p>
-            <div id="communityStatus"></div>
-            <div class="d-flex gap-2 flex-wrap mt-3">
-              <button class="btn-muted" id="markCommunityChecked"><i class="bi bi-check2-circle"></i> Mark checked now</button>
-              <button class="btn-muted" id="resetCommunityStatus"><i class="bi bi-arrow-counterclockwise"></i> Reset status</button>
-            </div>
-            <div class="small-muted mt-3" id="communityCheckedAt">Not checked in this browser.</div>
-          </div>
+
+        <div class="panel mt-4">
+          <h3>Community safety checklist</h3>
+          <ul class="muted tiny mb-0" style="line-height:2.2">
+            <li>Prefer official project pages and source repositories.</li>
+            <li>Check hashes and signatures when the developer provides them.</li>
+            <li>Never enter account passwords, recovery codes or API keys into unknown tools.</li>
+            <li>Check console terms, game rules and local laws before modifying online gameplay.</li>
+            <li>Do not disable antivirus simply because an unknown download asks you to.</li>
+          </ul>
         </div>
       </section>
 
       <!-- SETTINGS -->
-      <section class="page-section" id="page-settings">
-        <div class="eyebrow">SYSTEM CONFIGURATION</div>
-        <h1 class="page-title">Settings<span style="color:#a855f7">.</span></h1>
-        <p class="page-description mb-4">Manage local preferences and your workspace backup.</p>
-        <div class="row g-3">
-          <div class="col-xl-7">
-            <div class="panel">
-              <div class="panel-header"><h3 class="panel-title">General Preferences</h3></div>
-              <div class="panel-body">
-                <label class="form-label muted" for="displayName">Workspace label</label>
-                <input class="form-control mb-3" id="displayName" maxlength="50" placeholder="My XZ workspace">
-                <label class="form-label muted" for="defaultGame">Default game</label>
-                <select class="form-select mb-3" id="defaultGame">
-                  <option>Call of Duty: Black Ops II</option><option>Call of Duty: Black Ops III</option><option>Grand Theft Auto V</option><option>Minecraft</option><option>Multi-game</option>
-                </select>
-                <div class="form-check form-switch mb-3">
-                  <input class="form-check-input" type="checkbox" id="saveActivity" checked>
-                  <label class="form-check-label" for="saveActivity">Save activity history locally</label>
-                </div>
-                <button class="btn-xz" id="saveSettings"><i class="bi bi-save"></i> Save settings</button>
+      <section class="page" id="page-settings">
+        <div class="eyebrow">Configuration</div>
+        <h1 class="page-title">Settings & backup</h1>
+        <p class="page-desc">Control your dashboard preferences and manage a portable backup of your locally stored data.</p>
+
+        <div class="row g-3 mt-2">
+          <div class="col-lg-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-palette me-2" style="color:#c49aff"></i>Appearance</h3>
+              <p class="muted tiny">Choose an accent colour. The dark background stays in place.</p>
+              <label class="form-label" for="accentSelect">Accent colour</label>
+              <select class="form-select" id="accentSelect">
+                <option value="purple">ModdingXZ purple</option>
+                <option value="blue">Electric blue</option>
+                <option value="green">Neon green</option>
+                <option value="pink">Hot pink</option>
+              </select>
+              <div class="d-flex gap-2 flex-wrap mt-3">
+                <button class="btn btn-outline-xz" id="resetAccentBtn">Reset appearance</button>
               </div>
             </div>
           </div>
-          <div class="col-xl-5">
-            <div class="panel mb-3">
-              <div class="panel-header"><h3 class="panel-title">Data Management</h3></div>
-              <div class="panel-body">
-                <p class="resource-desc">Your workspace is stored in this browser using localStorage. Clearing site data or switching browsers may remove it. Export a backup before resetting.</p>
-                <div class="d-grid gap-2">
-                  <button class="btn-muted" id="settingsExport"><i class="bi bi-download"></i> Export all data</button>
-                  <button class="btn-muted" id="settingsImport"><i class="bi bi-upload"></i> Import backup</button>
-                  <button class="btn-danger-soft" id="resetEverything"><i class="bi bi-exclamation-triangle"></i> Reset local workspace</button>
-                </div>
-              </div>
-            </div>
-            <div class="panel">
-              <div class="panel-header"><h3 class="panel-title">About XZ OS</h3></div>
-              <div class="panel-body">
-                <div class="d-flex justify-content-between mb-2"><span class="muted">Version</span><strong>4.0.0</strong></div>
-                <div class="d-flex justify-content-between mb-2"><span class="muted">Interface</span><strong>Bootstrap 5</strong></div>
-                <div class="d-flex justify-content-between mb-2"><span class="muted">Storage</span><strong>Browser localStorage</strong></div>
-                <div class="d-flex justify-content-between"><span class="muted">Backend</span><strong>None</strong></div>
-                <p class="small-muted mt-3 mb-0">External public API requests require an internet connection. API availability and rate limits are controlled by the providers.</p>
-              </div>
+          <div class="col-lg-6">
+            <div class="panel h-100">
+              <h3><i class="bi bi-hdd me-2" style="color:#c49aff"></i>Storage information</h3>
+              <div class="api-row"><span class="muted tiny">Storage method</span><strong class="ms-auto tiny">Browser localStorage</strong></div>
+              <div class="api-row"><span class="muted tiny">Resources</span><strong class="ms-auto tiny" id="settingResourceCount">0</strong></div>
+              <div class="api-row"><span class="muted tiny">Tasks</span><strong class="ms-auto tiny" id="settingTaskCount">0</strong></div>
+              <div class="api-row"><span class="muted tiny">Diagnostic notes</span><strong class="ms-auto tiny" id="settingDiagCount">0</strong></div>
+              <div class="notice mt-3">Local data is tied to this browser and site origin. Clearing site data, changing browsers or using a different device can remove or hide it. Export a backup regularly.</div>
             </div>
           </div>
         </div>
+
+        <div class="panel mt-3">
+          <h3><i class="bi bi-arrow-down-up me-2" style="color:#c49aff"></i>Import / export backup</h3>
+          <p class="muted tiny">Export your resources, tasks, notes, scratchpad and preferences into a JSON file. Import a previous XZ OS backup to restore it.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-xz" id="exportBtn"><i class="bi bi-download me-1"></i>Export backup</button>
+            <button class="btn btn-outline-xz" id="importBtn"><i class="bi bi-upload me-1"></i>Import backup</button>
+            <input type="file" id="importFile" accept=".json,application/json" hidden>
+          </div>
+          <div class="notice mt-3">Only import JSON backups you trust. An import replaces the current local XZ OS data after you confirm. Keep a separate backup first.</div>
+        </div>
+
+        <div class="panel mt-3">
+          <h3><i class="bi bi-shield-lock me-2" style="color:#c49aff"></i>Privacy & external services</h3>
+          <ul class="muted tiny mb-0" style="line-height:2.1">
+            <li>Your saved dashboard content is stored in this browser, not on a ModdingXZ server.</li>
+            <li>Release Radar sends your search query to the public GitHub API when you search.</li>
+            <li>External websites have their own privacy policies and may collect information when opened.</li>
+            <li>This dashboard does not ask for console credentials, passwords or API keys.</li>
+            <li>Exported backups contain the data you saved here. Keep them private if your notes contain personal information.</li>
+          </ul>
+        </div>
+
+        <div class="panel mt-3">
+          <h3 style="color:#ff9caf"><i class="bi bi-exclamation-triangle me-2"></i>Reset local dashboard</h3>
+          <p class="muted tiny">Permanently remove saved resources, tasks, diagnostics, notes and preferences from this browser. This cannot be undone unless you have a backup.</p>
+          <button class="btn btn-danger-soft" id="resetAllBtn">Reset all local data</button>
+        </div>
       </section>
 
-      <div class="footer">MODDINGXZ © <span id="year"></span> · XZ OS 4.0 · BUILT FOR THE COMMUNITY<br><span class="mt-1 d-inline-block">Use tools responsibly and verify compatibility, source integrity and game rules.</span></div>
+      <footer class="footer">
+        <span>© <span id="footerYear"></span> ModdingXZ · XZ OS 5.0</span>
+        <span>Built for static hosting · No backend required</span>
+      </footer>
     </div>
   </main>
 </div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Quick-add modal -->
+<div class="modal fade" id="quickAddModal" tabindex="-1" aria-labelledby="quickAddTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="color:var(--text);border:1px solid var(--border);border-radius:18px;background:#120d1c">
+      <div class="modal-header" style="border-color:var(--border)">
+        <h5 class="modal-title fs-6" id="quickAddTitle">Quick add</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="muted tiny">What would you like to add?</p>
+        <div class="d-grid gap-2">
+          <button class="btn btn-outline-xz text-start" data-quick-type="resource"><i class="bi bi-collection me-2"></i>Save a resource</button>
+          <button class="btn btn-outline-xz text-start" data-quick-type="task"><i class="bi bi-check2-square me-2"></i>Add a task</button>
+          <button class="btn btn-outline-xz text-start" data-quick-type="diagnostic"><i class="bi bi-diagram-3 me-2"></i>Save a diagnostic note</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-"use strict";
+(() => {
+  "use strict";
 
-/* ==========================================================
-   XZ OS 4.0 — ModdingXZ browser workspace
-   No backend. No private API keys. Data is local to this browser.
-   ========================================================== */
+  const STORAGE_KEY = "moddingxz_xzos5_v1";
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-const STORE_KEY = "moddingxz_xzos4_workspace_v1";
+  const GAMES = [
+    { id:"bo2", name:"Call of Duty: Black Ops 2", short:"BO2", icon:"bi-crosshair", type:"game", platform:"PC · PlayStation · Xbox", desc:"Game guides, community resources, troubleshooting and legitimate customisation information.", tags:["Call of Duty","Guides","Community"] },
+    { id:"cod", name:"Call of Duty series", short:"COD", icon:"bi-bullseye", type:"game", platform:"PC · PlayStation · Xbox", desc:"Resources and documentation across the wider Call of Duty series.", tags:["COD","Gaming"] },
+    { id:"gta", name:"Grand Theft Auto", short:"GTA", icon:"bi-car-front", type:"game", platform:"PC · PlayStation · Xbox", desc:"Single-player modding resources, game files documentation and community projects.", tags:["GTA","Single-player"] },
+    { id:"minecraft", name:"Minecraft", short:"MC", icon:"bi-boxes", type:"game", platform:"PC · Console · Mobile", desc:"Mod loaders, add-ons, resource packs and community documentation.", tags:["Minecraft","Mods"] },
+    { id:"othergames", name:"Other PC games", short:"PC", icon:"bi-pc-display", type:"game", platform:"Windows · Linux", desc:"Discover projects, game utilities, configuration guides and open-source tools.", tags:["PC","Tools"] },
+    { id:"playstation", name:"PlayStation", short:"PS", icon:"bi-controller", type:"platform", platform:"PlayStation consoles", desc:"Platform documentation, account safety and community resources.", tags:["Console","Documentation"] },
+    { id:"xbox", name:"Xbox", short:"XB", icon:"bi-controller", type:"platform", platform:"Xbox consoles", desc:"Platform support, network troubleshooting and official documentation.", tags:["Console","Support"] },
+    { id:"switch", name:"Nintendo", short:"N", icon:"bi-joystick", type:"platform", platform:"Nintendo consoles", desc:"Official support, gaming resources and platform documentation.", tags:["Console","Support"] },
+    { id:"devtools", name:"Developer tools", short:"DEV", icon:"bi-code-slash", type:"tools", platform:"Browser · PC", desc:"JSON utilities, text comparison, hashing and public repository discovery.", tags:["Development","Utilities"] }
+  ];
 
-const DEFAULT_RELAY_STEPS = [
-  { id:"relay1", text:"Confirm the console model, game version and supported setup." },
-  { id:"relay2", text:"Check the PC and console network connections." },
-  { id:"relay3", text:"Read the current relay software documentation." },
-  { id:"relay4", text:"Verify the host address and local network configuration." },
-  { id:"relay5", text:"Review firewall rules and only allow trusted software." },
-  { id:"relay6", text:"Check that required network settings match the current guide." },
-  { id:"relay7", text:"Test the connection and record any error messages." },
-  { id:"relay8", text:"Back up working settings and document the software version." }
-];
+  const RELAY_STEPS = [
+    "Confirm the game and platform versions match.",
+    "Restart the game, device and router if appropriate.",
+    "Check the official service status and any current maintenance notices.",
+    "Confirm the device has a working internet connection.",
+    "Review NAT and firewall settings through your own router or official documentation.",
+    "Check that any required software is from a trusted source and is up to date.",
+    "Record the exact error message and when the issue occurs."
+  ];
 
-const GAMES = [
-  { id:"bo2", name:"Call of Duty: Black Ops II", short:"BO2", category:"Call of Duty", icon:"bi-crosshair", description:"Multiplayer resources, community guides, modding research and relay troubleshooting.", platforms:"PC · PS3 · Xbox 360", tags:["Unlocks","FOV","Relay"], query:"black ops 2 modding" },
-  { id:"bo3", name:"Call of Duty: Black Ops III", short:"BO3", category:"Call of Duty", icon:"bi-bullseye", description:"Custom Zombies, mod tools and community projects.", platforms:"PC · PlayStation · Xbox", tags:["Zombies","Mods"], query:"black ops 3 mod tools" },
-  { id:"cod", name:"Call of Duty", short:"COD", category:"Call of Duty", icon:"bi-controller", description:"Discover community resources across the Call of Duty series.", platforms:"Multi-platform", tags:["Research","Community"], query:"call of duty modding" },
-  { id:"gta", name:"Grand Theft Auto V", short:"GTA V", category:"Open World", icon:"bi-car-front-fill", description:"Explore single-player modding projects, scripting tools and community resources.", platforms:"PC · Console", tags:["Scripts","Mods"], query:"gta v modding" },
-  { id:"minecraft", name:"Minecraft", short:"MC", category:"Sandbox", icon:"bi-boxes", description:"Mods, mod loaders, resource packs and developer tools.", platforms:"PC · Console · Mobile", tags:["Mods","Resources"], query:"minecraft modding" },
-  { id:"linux", name:"Linux Gaming", short:"LINUX", category:"PC Gaming", icon:"bi-terminal-fill", description:"Open-source utilities, game compatibility and community projects.", platforms:"PC", tags:["Open source","Utilities"], query:"linux gaming tools" }
-];
-
-const RESOURCES = [
-  { id:"bo2-hub", title:"Black Ops 2 Modding Hub", category:"BO2", platform:"Multi-platform", icon:"bi-controller", desc:"Find community projects, guides and development resources for Black Ops 2.", url:"https://github.com/topics/black-ops-2", kind:"Project discovery" },
-  { id:"bo2-repos", title:"BO2 GitHub Repositories", category:"BO2", platform:"PC", icon:"bi-github", desc:"Browse publicly indexed Black Ops 2 repositories and inspect their documentation.", url:"https://github.com/topics/black-ops-2", kind:"Open source" },
-  { id:"unlock-research", title:"Unlock & Progression Research", category:"BO2", platform:"Multi-platform", icon:"bi-unlock-fill", desc:"Research community discussions and documented compatibility before trying progression tools.", url:"https://github.com/topics/black-ops-2", kind:"Research" },
-  { id:"fov-research", title:"FOV & Display Mods", category:"BO2", platform:"PC", icon:"bi-aspect-ratio-fill", desc:"Explore field-of-view and display-related projects. Support varies by game version and platform.", url:"https://github.com/topics/game-mods", kind:"Mod research" },
-  { id:"relay-guide", title:"PC-to-Console Relay Resources", category:"Relay", platform:"Multi-platform", icon:"bi-diagram-3-fill", desc:"Use current documentation and community resources to understand supported relay configurations.", url:"https://github.com/topics/console-modding", kind:"Networking" },
-  { id:"network-tools", title:"Network Troubleshooting", category:"Utilities", platform:"PC", icon:"bi-hdd-network-fill", desc:"Document your connection, diagnose local network issues and check trusted software requirements.", url:"https://learn.microsoft.com/en-us/windows-server/networking/", kind:"Diagnostics" },
-  { id:"github-topics", title:"Gaming Modding Projects", category:"Research", platform:"Multi-platform", icon:"bi-code-slash", desc:"Discover open-source game modding projects across a range of games.", url:"https://github.com/topics/game-modding", kind:"Discovery" },
-  { id:"mod-tools", title:"Open-source Mod Tools", category:"Research", platform:"PC", icon:"bi-tools", desc:"Search repositories for asset tools, mod loaders, scripting utilities and documentation.", url:"https://github.com/topics/modding-tools", kind:"Developer tools" },
-  { id:"gta-mods", title:"GTA Modding Research", category:"Research", platform:"PC", icon:"bi-car-front-fill", desc:"Explore open-source single-player scripting and modding projects.", url:"https://github.com/topics/gta-v", kind:"Game resources" },
-  { id:"minecraft-mods", title:"Minecraft Modding", category:"Research", platform:"PC", icon:"bi-boxes", desc:"Browse Minecraft mods, loaders, plugins and developer projects.", url:"https://github.com/topics/minecraft-mods", kind:"Game resources" },
-  { id:"community", title:"ModdingXZ Community", category:"Community", platform:"Multi-platform", icon:"bi-telegram", desc:"Open the ModdingXZ Telegram community for current announcements and shared resources.", url:"https://t.me/moddingxz", kind:"Community" },
-  { id:"releases", title:"Public Project Releases", category:"Research", platform:"PC", icon:"bi-box-seam-fill", desc:"Inspect releases, changelogs and source links from public GitHub projects.", url:"https://github.com/topics/game-modding", kind:"Releases" }
-];
-
-const DEFAULT_STATE = {
-  version: 1,
-  favourites: [],
-  relayChecks: [],
-  tasks: [],
-  notesTitle: "",
-  notesContent: "",
-  customLinks: [],
-  activity: [],
-  settings: { displayName:"My XZ workspace", defaultGame:"Call of Duty: Black Ops II", saveActivity:true },
-  relayIssues: [],
-  communityCheckedAt: "",
-  communityStatus: {
-    telegram:"Not checked",
-    website:"Not checked",
-    releases:"Not checked"
-  },
-  toolSearch: "",
-  lastGitHubQuery: ""
-};
-
-let state = loadState();
-let apiWorking = false;
-let currentPage = "dashboard";
-let githubAbortController = null;
-
-function clone(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
-
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORE_KEY);
-    if (!raw) return clone(DEFAULT_STATE);
-    const parsed = JSON.parse(raw);
-    return {
-      ...clone(DEFAULT_STATE),
-      ...parsed,
-      settings: { ...DEFAULT_STATE.settings, ...(parsed.settings || {}) },
-      communityStatus: { ...DEFAULT_STATE.communityStatus, ...(parsed.communityStatus || {}) }
-    };
-  } catch (error) {
-    console.warn("Unable to load XZ OS workspace:", error);
-    return clone(DEFAULT_STATE);
-  }
-}
-
-function saveState() {
-  try {
-    localStorage.setItem(STORE_KEY, JSON.stringify(state));
-    return true;
-  } catch (error) {
-    toast("Could not save data. Browser storage may be full or disabled.", "error");
-    return false;
-  }
-}
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, ch => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
-  }[ch]));
-}
-
-function safeURL(raw) {
-  try {
-    const u = new URL(raw);
-    return ["https:", "http:"].includes(u.protocol) ? u.href : null;
-  } catch {
-    return null;
-  }
-}
-
-function externalLink(url, label, css = "btn-muted") {
-  const safe = safeURL(url);
-  if (!safe) return `<span class="small-muted">Invalid link</span>`;
-  return `<a class="${css}" href="${escapeHTML(safe)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
-}
-
-function toast(message, type = "success") {
-  const container = document.getElementById("toastContainer");
-  const el = document.createElement("div");
-  el.className = "toast show mb-2";
-  el.setAttribute("role", "status");
-  const icon = type === "error" ? "bi-exclamation-triangle" : "bi-check-circle";
-  el.innerHTML = `<div class="d-flex align-items-center p-3 gap-2"><i class="bi ${icon}" style="color:${type === "error" ? "#fb7185" : "#c084fc"}"></i><div class="flex-grow-1">${escapeHTML(message)}</div><button class="btn-close btn-close-white" aria-label="Close"></button></div>`;
-  el.querySelector("button").addEventListener("click", () => el.remove());
-  container.appendChild(el);
-  setTimeout(() => el.remove(), 4500);
-}
-
-function logActivity(title, detail = "") {
-  if (!state.settings.saveActivity) return;
-  state.activity.unshift({ id: makeId(), title, detail, time: new Date().toISOString() });
-  state.activity = state.activity.slice(0, 80);
-  saveState();
-  renderActivity();
-}
-
-function makeId() {
-  return (crypto?.randomUUID?.() || (Date.now().toString(36) + Math.random().toString(36).slice(2)));
-}
-
-function fmtTime(value) {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return "Unknown time";
-  return d.toLocaleString([], { dateStyle:"medium", timeStyle:"short" });
-}
-
-function fmtRelative(value) {
-  const d = new Date(value);
-  const mins = Math.round((Date.now() - d.getTime()) / 60000);
-  if (!Number.isFinite(mins) || mins < 0) return fmtTime(value);
-  if (mins < 1) return "Just now";
-  if (mins < 60) return `${mins}m ago`;
-  if (mins < 1440) return `${Math.floor(mins / 60)}h ago`;
-  return `${Math.floor(mins / 1440)}d ago`;
-}
-
-function setPage(page) {
-  const target = document.getElementById("page-" + page);
-  if (!target) return;
-  currentPage = page;
-  document.querySelectorAll(".page-section").forEach(el => el.classList.toggle("active", el === target));
-  document.querySelectorAll(".nav-item[data-page]").forEach(el => el.classList.toggle("active", el.dataset.page === page));
-  document.getElementById("sidebar").classList.remove("open");
-  if (page === "dashboard") renderDashboard();
-  if (page === "library") renderGames();
-  if (page === "tools") renderTools();
-  if (page === "favourites") renderFavourites();
-  if (page === "checklists") renderTasks();
-  if (page === "relay") renderRelay();
-  if (page === "notes") renderNotes();
-  if (page === "community") renderCommunity();
-  if (page === "settings") renderSettings();
-  window.scrollTo({ top:0, behavior:"smooth" });
-}
-
-document.querySelectorAll("[data-page]").forEach(btn => {
-  btn.addEventListener("click", () => setPage(btn.dataset.page));
-});
-document.querySelectorAll("[data-go]").forEach(btn => {
-  btn.addEventListener("click", () => setPage(btn.dataset.go));
-});
-document.getElementById("menuBtn").addEventListener("click", () => {
-  document.getElementById("sidebar").classList.toggle("open");
-});
-
-document.addEventListener("keydown", event => {
-  const tag = document.activeElement?.tagName;
-  if (event.key === "/" && !["INPUT","TEXTAREA","SELECT"].includes(tag)) {
-    event.preventDefault();
-    document.getElementById("globalSearch").focus();
-  }
-  if (event.key === "Escape") {
-    document.getElementById("sidebar").classList.remove("open");
-    document.getElementById("globalSearch").blur();
-  }
-});
-
-document.getElementById("globalSearch").addEventListener("input", event => {
-  const q = event.target.value.trim();
-  if (!q) return;
-  if (currentPage !== "tools") setPage("tools");
-  const toolInput = document.getElementById("toolSearch");
-  toolInput.value = q;
-  renderTools();
-});
-
-function isSaved(id) {
-  return state.favourites.includes(id);
-}
-
-function toggleFavourite(id) {
-  if (isSaved(id)) {
-    state.favourites = state.favourites.filter(x => x !== id);
-    toast("Resource removed from saved items.");
-  } else {
-    state.favourites.push(id);
-    toast("Resource saved to your workspace.");
-  }
-  saveState();
-  renderStats();
-  renderTools();
-  if (currentPage === "favourites") renderFavourites();
-  logActivity("Resource bookmarks updated", id);
-}
-
-function resourceCard(r) {
-  const saved = isSaved(r.id);
-  const icon = r.icon || "bi-controller";
-  const safe = safeURL(r.url);
-  return `<div class="col-md-6 col-xl-4">
-    <div class="resource-card d-flex flex-column">
-      <div class="d-flex gap-3 align-items-start">
-        <div class="resource-icon"><i class="bi ${escapeHTML(icon)}"></i></div>
-        <div class="flex-grow-1 min-w-0">
-          <div class="resource-title">${escapeHTML(r.title)}</div>
-          <div class="d-flex gap-1 flex-wrap mt-2"><span class="tag">${escapeHTML(r.category || "Resource")}</span><span class="tag">${escapeHTML(r.platform || "Multi-platform")}</span></div>
-        </div>
-        <button class="top-action" data-fav="${escapeHTML(r.id)}" aria-label="${saved ? "Remove bookmark" : "Save bookmark"}" title="${saved ? "Remove bookmark" : "Save bookmark"}"><i class="bi ${saved ? "bi-bookmark-heart-fill" : "bi-bookmark"}" style="${saved ? "color:#c084fc" : ""}"></i></button>
-      </div>
-      <p class="resource-desc mt-3 flex-grow-1">${escapeHTML(r.desc)}</p>
-      <div class="resource-footer"><span class="small-muted">${escapeHTML(r.kind || "Resource")}</span>${safe ? `<a href="${escapeHTML(safe)}" target="_blank" rel="noopener noreferrer" class="btn-muted py-2 px-3" data-open-resource="${escapeHTML(r.id)}">Open <i class="bi bi-arrow-up-right"></i></a>` : ""}</div>
-    </div>
-  </div>`;
-}
-
-function bindFavouriteButtons(root) {
-  root.querySelectorAll("[data-fav]").forEach(btn => {
-    btn.addEventListener("click", () => toggleFavourite(btn.dataset.fav));
-  });
-  root.querySelectorAll("[data-open-resource]").forEach(link => {
-    link.addEventListener("click", () => logActivity("Opened resource", link.dataset.openResource));
-  });
-}
-
-function renderTools() {
-  const q = document.getElementById("toolSearch").value.trim().toLowerCase();
-  const platform = document.getElementById("toolPlatform").value;
-  const category = document.getElementById("toolCategory").value;
-  const items = RESOURCES.filter(r => {
-    const text = `${r.title} ${r.desc} ${r.category} ${r.platform} ${r.kind}`.toLowerCase();
-    return (!q || text.includes(q)) &&
-      (platform === "all" || r.platform === platform || r.platform === "Multi-platform") &&
-      (category === "all" || r.category === category);
-  });
-  document.getElementById("toolCount").textContent = `${items.length} resource${items.length === 1 ? "" : "s"} found`;
-  const grid = document.getElementById("toolGrid");
-  grid.innerHTML = items.length ? items.map(resourceCard).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-search"></i><p class="mt-2">No resources match your filters.</p></div></div>`;
-  bindFavouriteButtons(grid);
-}
-
-document.getElementById("toolSearch").addEventListener("input", renderTools);
-document.getElementById("toolPlatform").addEventListener("change", renderTools);
-document.getElementById("toolCategory").addEventListener("change", renderTools);
-document.getElementById("clearToolFilters").addEventListener("click", () => {
-  document.getElementById("toolSearch").value = "";
-  document.getElementById("toolPlatform").value = "all";
-  document.getElementById("toolCategory").value = "all";
-  renderTools();
-});
-
-function renderGames() {
-  const root = document.getElementById("gameGrid");
-  root.innerHTML = GAMES.map(g => `<div class="col-md-6 col-xl-4">
-    <div class="resource-card">
-      <div class="d-flex gap-3">
-        <div class="resource-icon"><i class="bi ${escapeHTML(g.icon)}"></i></div>
-        <div><div class="resource-title">${escapeHTML(g.name)}</div><div class="small-muted mt-1">${escapeHTML(g.platforms)}</div></div>
-      </div>
-      <p class="resource-desc mt-3">${escapeHTML(g.description)}</p>
-      <div class="d-flex gap-1 flex-wrap mb-3">${g.tags.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join("")}</div>
-      <div class="d-flex gap-2">
-        <button class="btn-xz flex-grow-1" data-game-search="${escapeHTML(g.query)}"><i class="bi bi-search"></i> Find resources</button>
-        <a class="btn-muted" href="https://github.com/topics/${encodeURIComponent(g.id === "bo2" ? "black-ops-2" : g.id === "bo3" ? "black-ops-3" : g.id === "minecraft" ? "minecraft-mods" : g.id === "gta" ? "gta-v" : "game-modding")}" target="_blank" rel="noopener noreferrer" title="Browse public repositories"><i class="bi bi-github"></i></a>
-      </div>
-    </div>
-  </div>`).join("");
-  root.querySelectorAll("[data-game-search]").forEach(btn => btn.addEventListener("click", () => {
-    document.getElementById("toolSearch").value = btn.dataset.gameSearch;
-    document.getElementById("toolPlatform").value = "all";
-    document.getElementById("toolCategory").value = "all";
-    setPage("tools");
-    renderTools();
-  }));
-}
-
-function renderFavourites() {
-  const items = RESOURCES.filter(r => state.favourites.includes(r.id));
-  const root = document.getElementById("favouriteGrid");
-  root.innerHTML = items.length ? items.map(resourceCard).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-bookmark-heart"></i><p class="mt-3">No saved resources yet.</p><p class="small-muted">Open Modding Tools and select a bookmark to add resources here.</p><button class="btn-xz" data-go="tools">Explore resources</button></div></div>`;
-  bindFavouriteButtons(root);
-  root.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => setPage(b.dataset.go)));
-}
-
-function renderStats() {
-  document.getElementById("statResources").textContent = RESOURCES.length;
-  document.getElementById("statSaved").textContent = state.favourites.length;
-  const total = state.tasks.length + DEFAULT_RELAY_STEPS.length;
-  const done = state.tasks.filter(t => t.done).length + state.relayChecks.filter(id => DEFAULT_RELAY_STEPS.some(s => s.id === id)).length;
-  document.getElementById("statProgress").textContent = total ? Math.round(done / total * 100) + "%" : "0%";
-  document.getElementById("apiStat").textContent = apiWorking ? "Connected" : "Not checked";
-  document.getElementById("apiStatusTag").textContent = apiWorking ? "Connected" : "Not checked";
-  document.getElementById("apiStatusTag").className = "tag " + (apiWorking ? "green" : "");
-}
-
-function renderActivity() {
-  const feed = document.getElementById("activityFeed");
-  const full = document.getElementById("fullActivity");
-  const html = state.activity.length ? state.activity.slice(0, 7).map(a => `<div class="list-row">
-    <div class="activity-icon"><i class="bi bi-activity"></i></div>
-    <div class="flex-grow-1"><div class="fw-bold">${escapeHTML(a.title)}</div><div class="small-muted">${escapeHTML(a.detail || "")}</div><div class="small-muted mt-1">${escapeHTML(fmtRelative(a.time))}</div></div>
-  </div>`).join("") : `<div class="empty-state"><i class="bi bi-clock-history"></i><p class="mt-2 mb-0">No activity recorded yet.</p></div>`;
-  feed.innerHTML = html;
-  full.innerHTML = state.activity.length ? state.activity.map(a => `<div class="list-row"><div class="activity-icon"><i class="bi bi-clock-history"></i></div><div class="flex-grow-1"><div class="fw-bold">${escapeHTML(a.title)}</div><div class="small-muted">${escapeHTML(a.detail || "")}</div><div class="small-muted mt-1">${escapeHTML(fmtTime(a.time))}</div></div></div>`).join("") : `<div class="empty-state">No activity yet.</div>`;
-}
-
-document.getElementById("clearActivity").addEventListener("click", () => {
-  if (!confirm("Clear the activity history?")) return;
-  state.activity = [];
-  saveState();
-  renderActivity();
-  toast("Activity history cleared.");
-});
-
-function renderDashboard() {
-  renderStats();
-  renderActivity();
-}
-
-/* RELAY CHECKLIST */
-function renderRelay() {
-  const root = document.getElementById("relayChecklist");
-  root.innerHTML = DEFAULT_RELAY_STEPS.map(step => {
-    const checked = state.relayChecks.includes(step.id);
-    return `<div class="checkline ${checked ? "done" : ""}">
-      <input type="checkbox" id="${escapeHTML(step.id)}" data-relay-check="${escapeHTML(step.id)}" ${checked ? "checked" : ""}>
-      <label for="${escapeHTML(step.id)}">${escapeHTML(step.text)}</label>
-    </div>`;
-  }).join("");
-  root.querySelectorAll("[data-relay-check]").forEach(box => box.addEventListener("change", () => {
-    if (box.checked) {
-      if (!state.relayChecks.includes(box.dataset.relayCheck)) state.relayChecks.push(box.dataset.relayCheck);
-    } else {
-      state.relayChecks = state.relayChecks.filter(id => id !== box.dataset.relayCheck);
-    }
-    saveState();
-    renderRelay();
-    renderStats();
-  }));
-  const done = DEFAULT_RELAY_STEPS.filter(s => state.relayChecks.includes(s.id)).length;
-  const pct = Math.round(done / DEFAULT_RELAY_STEPS.length * 100);
-  document.getElementById("relayProgressLabel").textContent = `${pct}% complete`;
-  document.getElementById("relayProgressBar").style.width = pct + "%";
-  renderRelayIssues();
-}
-
-document.getElementById("resetRelay").addEventListener("click", () => {
-  if (!confirm("Reset all relay checklist progress?")) return;
-  state.relayChecks = [];
-  saveState();
-  renderRelay();
-  renderStats();
-  toast("Relay checklist reset.");
-});
-
-document.getElementById("saveRelayIssue").addEventListener("click", () => {
-  const text = document.getElementById("relayIssue").value.trim();
-  if (!text) return toast("Write an issue before saving.", "error");
-  state.relayIssues.unshift({ id:makeId(), text, time:new Date().toISOString() });
-  state.relayIssues = state.relayIssues.slice(0, 50);
-  document.getElementById("relayIssue").value = "";
-  saveState();
-  renderRelayIssues();
-  logActivity("Saved relay troubleshooting issue", text.slice(0, 60));
-  toast("Troubleshooting issue saved.");
-});
-
-function renderRelayIssues() {
-  const root = document.getElementById("relayIssueLog");
-  root.innerHTML = state.relayIssues.length ? state.relayIssues.map(issue => `<div class="list-row">
-    <div class="activity-icon"><i class="bi bi-wrench"></i></div>
-    <div class="flex-grow-1"><div style="white-space:pre-wrap;overflow-wrap:anywhere">${escapeHTML(issue.text)}</div><div class="small-muted mt-1">${escapeHTML(fmtTime(issue.time))}</div></div>
-    <button class="top-action" data-delete-issue="${escapeHTML(issue.id)}" title="Delete issue"><i class="bi bi-trash"></i></button>
-  </div>`).join("") : `<div class="small-muted">No saved troubleshooting issues.</div>`;
-  root.querySelectorAll("[data-delete-issue]").forEach(btn => btn.addEventListener("click", () => {
-    state.relayIssues = state.relayIssues.filter(i => i.id !== btn.dataset.deleteIssue);
-    saveState();
-    renderRelayIssues();
-  }));
-}
-
-document.getElementById("exportRelayIssue").addEventListener("click", () => {
-  downloadText("moddingxz-relay-log.txt", state.relayIssues.map(i => `${fmtTime(i.time)}\n${i.text}\n`).join("\n") || "No relay issues saved.");
-});
-
-/* TASKS */
-function renderTasks() {
-  const root = document.getElementById("taskList");
-  const tasks = [...state.tasks].sort((a,b) => Number(a.done) - Number(b.done));
-  root.innerHTML = tasks.length ? tasks.map(task => `<div class="checkline ${task.done ? "done" : ""}">
-    <input type="checkbox" id="task-${escapeHTML(task.id)}" data-task-check="${escapeHTML(task.id)}" ${task.done ? "checked" : ""}>
-    <label for="task-${escapeHTML(task.id)}">
-      <div>${escapeHTML(task.text)}</div>
-      <div class="small-muted mt-1">${escapeHTML(task.category)} · ${escapeHTML(fmtRelative(task.created))}</div>
-    </label>
-    <button class="top-action" data-task-delete="${escapeHTML(task.id)}" title="Delete task"><i class="bi bi-trash"></i></button>
-  </div>`).join("") : `<div class="empty-state"><i class="bi bi-list-check"></i><p class="mt-2">Your checklist is empty.</p><p class="small-muted">Add a task above to get started.</p></div>`;
-  root.querySelectorAll("[data-task-check]").forEach(box => box.addEventListener("change", () => {
-    const task = state.tasks.find(t => t.id === box.dataset.taskCheck);
-    if (task) task.done = box.checked;
-    saveState();
-    renderTasks();
-    renderStats();
-  }));
-  root.querySelectorAll("[data-task-delete]").forEach(btn => btn.addEventListener("click", () => {
-    state.tasks = state.tasks.filter(t => t.id !== btn.dataset.taskDelete);
-    saveState();
-    renderTasks();
-    renderStats();
-  }));
-}
-
-document.getElementById("taskForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const input = document.getElementById("taskInput");
-  const text = input.value.trim();
-  if (!text) return;
-  state.tasks.unshift({
-    id:makeId(), text, category:document.getElementById("taskCategory").value,
-    done:false, created:new Date().toISOString()
-  });
-  input.value = "";
-  saveState();
-  renderTasks();
-  renderStats();
-  logActivity("Added a checklist task", text);
-});
-
-document.getElementById("clearCompleted").addEventListener("click", () => {
-  state.tasks = state.tasks.filter(t => !t.done);
-  saveState();
-  renderTasks();
-  renderStats();
-  toast("Completed tasks cleared.");
-});
-
-/* NOTES */
-let noteSaveTimer = null;
-function renderNotes() {
-  document.getElementById("notesTitle").value = state.notesTitle;
-  document.getElementById("notesContent").value = state.notesContent;
-  renderCustomLinks();
-}
-
-function saveNotes() {
-  state.notesTitle = document.getElementById("notesTitle").value.slice(0, 180);
-  state.notesContent = document.getElementById("notesContent").value.slice(0, 100000);
-  saveState();
-  document.getElementById("noteSaveStatus").textContent = "Saved";
-  clearTimeout(noteSaveTimer);
-  noteSaveTimer = setTimeout(() => {
-    document.getElementById("noteSaveStatus").textContent = "Autosave enabled";
-  }, 1600);
-}
-
-document.getElementById("notesTitle").addEventListener("input", saveNotes);
-document.getElementById("notesContent").addEventListener("input", saveNotes);
-
-document.getElementById("downloadNote").addEventListener("click", () => {
-  saveNotes();
-  downloadText(safeFilename(state.notesTitle || "moddingxz-note") + ".txt", `${state.notesTitle}\n\n${state.notesContent}`);
-});
-
-document.getElementById("clearNote").addEventListener("click", () => {
-  if (!confirm("Clear the current note?")) return;
-  state.notesTitle = "";
-  state.notesContent = "";
-  saveState();
-  renderNotes();
-  toast("Note cleared.");
-});
-
-document.getElementById("linkForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const title = document.getElementById("linkTitle").value.trim();
-  const url = safeURL(document.getElementById("linkUrl").value.trim());
-  if (!title || !url) return toast("Enter a valid HTTP or HTTPS link.", "error");
-  state.customLinks.unshift({ id:makeId(), title:title.slice(0,80), url });
-  state.customLinks = state.customLinks.slice(0,100);
-  document.getElementById("linkTitle").value = "";
-  document.getElementById("linkUrl").value = "";
-  saveState();
-  renderCustomLinks();
-  logActivity("Saved a custom link", title);
-  toast("Custom link saved.");
-});
-
-function renderCustomLinks() {
-  const root = document.getElementById("customLinks");
-  root.innerHTML = state.customLinks.length ? state.customLinks.map(link => `<div class="list-row align-items-center">
-    <div class="activity-icon"><i class="bi bi-link-45deg"></i></div>
-    <div class="flex-grow-1 min-w-0"><a class="fw-bold" href="${escapeHTML(safeURL(link.url) || "#")}" target="_blank" rel="noopener noreferrer">${escapeHTML(link.title)}</a><div class="small-muted text-truncate">${escapeHTML(link.url)}</div></div>
-    <button class="top-action" data-delete-link="${escapeHTML(link.id)}" title="Delete link"><i class="bi bi-trash"></i></button>
-  </div>`).join("") : `<div class="small-muted mt-3">No custom links saved.</div>`;
-  root.querySelectorAll("[data-delete-link]").forEach(btn => btn.addEventListener("click", () => {
-    state.customLinks = state.customLinks.filter(l => l.id !== btn.dataset.deleteLink);
-    saveState();
-    renderCustomLinks();
-  }));
-}
-
-/* COMMUNITY STATUS BOARD */
-const COMMUNITY_ITEMS = [
-  { id:"telegram", title:"Telegram announcements", desc:"Open the group and check the latest announcement." },
-  { id:"website", title:"Website resources", desc:"Check that your public website and important links work." },
-  { id:"releases", title:"Tool releases", desc:"Review project versions and verify download sources." }
-];
-
-function renderCommunity() {
-  const root = document.getElementById("communityStatus");
-  root.innerHTML = COMMUNITY_ITEMS.map(item => `<div class="list-row align-items-start">
-    <div class="activity-icon"><i class="bi bi-check2-square"></i></div>
-    <div class="flex-grow-1"><div class="fw-bold">${escapeHTML(item.title)}</div><div class="small-muted mt-1">${escapeHTML(item.desc)}</div></div>
-    <select class="form-select form-select-sm" style="width:140px" data-community="${item.id}">
-      ${["Not checked","Checked OK","Needs attention"].map(v => `<option ${state.communityStatus[item.id] === v ? "selected" : ""}>${v}</option>`).join("")}
-    </select>
-  </div>`).join("");
-  root.querySelectorAll("[data-community]").forEach(select => select.addEventListener("change", () => {
-    state.communityStatus[select.dataset.community] = select.value;
-    saveState();
-    renderCommunity();
-  }));
-  document.getElementById("communityCheckedAt").textContent = state.communityCheckedAt
-    ? "Last marked checked: " + fmtTime(state.communityCheckedAt)
-    : "Not checked in this browser.";
-}
-
-document.getElementById("markCommunityChecked").addEventListener("click", () => {
-  state.communityCheckedAt = new Date().toISOString();
-  saveState();
-  renderCommunity();
-  toast("Check time recorded. Statuses are still your manual assessment.");
-});
-document.getElementById("resetCommunityStatus").addEventListener("click", () => {
-  state.communityStatus = clone(DEFAULT_STATE.communityStatus);
-  state.communityCheckedAt = "";
-  saveState();
-  renderCommunity();
-  toast("Community status board reset.");
-});
-
-/* SETTINGS */
-function renderSettings() {
-  document.getElementById("displayName").value = state.settings.displayName;
-  document.getElementById("defaultGame").value = state.settings.defaultGame;
-  document.getElementById("saveActivity").checked = state.settings.saveActivity;
-}
-
-document.getElementById("saveSettings").addEventListener("click", () => {
-  state.settings.displayName = document.getElementById("displayName").value.trim().slice(0,50) || "My XZ workspace";
-  state.settings.defaultGame = document.getElementById("defaultGame").value;
-  state.settings.saveActivity = document.getElementById("saveActivity").checked;
-  saveState();
-  renderStats();
-  toast("Settings saved.");
-  logActivity("Workspace settings updated", state.settings.defaultGame);
-});
-
-function downloadText(filename, text) {
-  const blob = new Blob([text], { type:"text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function safeFilename(value) {
-  return String(value).replace(/[^a-z0-9_-]+/gi, "-").replace(/^-+|-+$/g, "").slice(0,70) || "xz-os";
-}
-
-function exportWorkspace() {
-  const payload = {
-    app:"ModdingXZ XZ OS",
-    version:"4.0.0",
-    exportedAt:new Date().toISOString(),
-    state
+  const DEFAULT_STATE = {
+    version: 1,
+    resources: [],
+    tasks: [],
+    diagnostics: [],
+    scratchpad: "",
+    activity: [],
+    preferences: { accent: "purple" },
+    relayChecks: []
   };
-  downloadText("moddingxz-xz-os-backup.json", JSON.stringify(payload, null, 2));
-  toast("Workspace backup exported.");
-}
 
-document.getElementById("exportData").addEventListener("click", exportWorkspace);
-document.getElementById("settingsExport").addEventListener("click", exportWorkspace);
-document.getElementById("importDataBtn").addEventListener("click", () => document.getElementById("importFile").click());
-document.getElementById("settingsImport").addEventListener("click", () => document.getElementById("importFile").click());
+  let state = loadState();
+  let favouritesOnly = false;
+  let githubAbortController = null;
+  let githubRequestSequence = 0;
+  let quickModal = null;
 
-document.getElementById("importFile").addEventListener("change", async event => {
-  const file = event.target.files?.[0];
-  if (!file) return;
-  try {
-    if (file.size > 2_000_000) throw new Error("Backup is too large.");
-    const parsed = JSON.parse(await file.text());
-    const incoming = parsed.state || parsed;
-    if (!incoming || typeof incoming !== "object" || Array.isArray(incoming)) throw new Error("Invalid backup structure.");
-    if (!confirm("Import this backup and replace your current local workspace? Export the current workspace first if you need a copy.")) {
-      event.target.value = "";
-      return;
+  function clone(value) {
+    return JSON.parse(JSON.stringify(value));
+  }
+
+  function loadState() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+      if (!parsed || typeof parsed !== "object") return clone(DEFAULT_STATE);
+
+      const safe = clone(DEFAULT_STATE);
+      safe.resources = Array.isArray(parsed.resources) ? parsed.resources : [];
+      safe.tasks = Array.isArray(parsed.tasks) ? parsed.tasks : [];
+      safe.diagnostics = Array.isArray(parsed.diagnostics) ? parsed.diagnostics : [];
+      safe.scratchpad = typeof parsed.scratchpad === "string" ? parsed.scratchpad : "";
+      safe.activity = Array.isArray(parsed.activity) ? parsed.activity : [];
+      safe.relayChecks = Array.isArray(parsed.relayChecks) ? parsed.relayChecks : [];
+      safe.preferences = {
+        ...safe.preferences,
+        ...(parsed.preferences && typeof parsed.preferences === "object" ? parsed.preferences : {})
+      };
+
+      safe.resources = safe.resources.filter(x => x && typeof x.id === "string" && typeof x.title === "string");
+      safe.tasks = safe.tasks.filter(x => x && typeof x.id === "string" && typeof x.text === "string");
+      safe.diagnostics = safe.diagnostics.filter(x => x && typeof x.id === "string");
+      safe.activity = safe.activity.filter(x => x && typeof x.message === "string").slice(0, 30);
+      return safe;
+    } catch (error) {
+      console.warn("Could not read XZ OS local data.", error);
+      return clone(DEFAULT_STATE);
     }
-    const next = {
-      ...clone(DEFAULT_STATE),
-      ...incoming,
-      settings: { ...DEFAULT_STATE.settings, ...(incoming.settings || {}) },
-      communityStatus: { ...DEFAULT_STATE.communityStatus, ...(incoming.communityStatus || {}) }
+  }
+
+  function saveState() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateStats();
+      updateSettingsStats();
+      return true;
+    } catch (error) {
+      console.error("Could not save XZ OS data.", error);
+      toast("Could not save. Browser storage may be full or disabled.", "error");
+      return false;
+    }
+  }
+
+  function uid() {
+    return typeof crypto !== "undefined" && crypto.randomUUID
+      ? crypto.randomUUID()
+      : Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+      "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+    })[char]);
+  }
+
+  function safeHttpUrl(raw) {
+    try {
+      const url = new URL(String(raw));
+      if (url.protocol !== "https:" && url.protocol !== "http:") return null;
+      return url.href;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function externalLink(url, label, classes = "btn btn-outline-xz") {
+    const safe = safeHttpUrl(url);
+    if (!safe) return `<span class="muted tiny">Invalid or unsupported URL</span>`;
+    return `<a class="${classes}" href="${escapeHTML(safe)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+  }
+
+  function toast(message, kind = "success") {
+    const container = $("#toastContainer");
+    const item = document.createElement("div");
+    item.className = "xz-toast mb-2";
+    item.setAttribute("role", "status");
+    const icon = kind === "error" ? "bi-exclamation-circle" : "bi-check-circle";
+    item.innerHTML = `<i class="bi ${icon} me-2" style="color:${kind === "error" ? "#ff9caf" : "#7ee7b4"}"></i>${escapeHTML(message)}`;
+    container.appendChild(item);
+    window.setTimeout(() => item.remove(), 3800);
+  }
+
+  function addActivity(message, icon = "bi-lightning") {
+    state.activity.unshift({ id: uid(), message, icon, at: new Date().toISOString() });
+    state.activity = state.activity.slice(0, 30);
+    saveState();
+    renderActivity();
+  }
+
+  function niceDate(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Unknown date";
+    return date.toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
+  }
+
+  function gameName(id) {
+    return GAMES.find(game => game.id === id)?.name || "General";
+  }
+
+  function populateGameSelects() {
+    const options = GAMES.map(game => `<option value="${escapeHTML(game.id)}">${escapeHTML(game.name)}</option>`).join("");
+    $("#resourceGame").innerHTML = `<option value="general">General / all games</option>${options}`;
+    $("#resourceFilterGame").innerHTML = `<option value="all">All games</option><option value="general">General / all games</option>${options}`;
+  }
+
+  function applyAccent() {
+    const themes = {
+      purple: { purple:"#a855f7", secondary:"#7c3aed" },
+      blue: { purple:"#60a5fa", secondary:"#2563eb" },
+      green: { purple:"#4ade80", secondary:"#16a34a" },
+      pink: { purple:"#f472b6", secondary:"#db2777" }
     };
-    // Accept only the expected local data shapes from the imported file.
-    if (!Array.isArray(next.favourites) || !Array.isArray(next.tasks) ||
-        !Array.isArray(next.relayChecks) || !Array.isArray(next.activity) ||
-        !Array.isArray(next.customLinks) || !Array.isArray(next.relayIssues)) {
-      throw new Error("Backup contains invalid workspace data.");
+    const chosen = themes[state.preferences.accent] || themes.purple;
+    document.documentElement.style.setProperty("--purple", chosen.purple);
+    document.documentElement.style.setProperty("--purple-2", chosen.secondary);
+    document.documentElement.style.setProperty("--purple-soft", `color-mix(in srgb, ${chosen.purple} 14%, transparent)`);
+    $("#accentSelect").value = state.preferences.accent in themes ? state.preferences.accent : "purple";
+  }
+
+  function navigate(page) {
+    if (!$("#page-" + page)) page = "dashboard";
+    $$(".page").forEach(section => section.classList.toggle("active", section.id === "page-" + page));
+    $$(".sidebar .nav-link").forEach(link => link.classList.toggle("active", link.dataset.pageLink === page));
+    history.replaceState(null, "", "#" + page);
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (page === "resources") renderResources();
+    if (page === "tasks") renderTasks();
+    if (page === "relay") renderDiagnostics();
+    if (page === "games") renderGames();
+  }
+
+  function openSidebar() {
+    $("#sidebar").classList.add("open");
+    $("#sidebarOverlay").classList.add("show");
+  }
+
+  function closeSidebar() {
+    $("#sidebar").classList.remove("open");
+    $("#sidebarOverlay").classList.remove("show");
+  }
+
+  function updateStats() {
+    $("#statGames").textContent = GAMES.length;
+    $("#statResources").textContent = state.resources.length;
+    $("#statTasks").textContent = state.tasks.filter(task => !task.done).length;
+    $("#statFavourites").textContent = state.resources.filter(resource => resource.favourite).length;
+    $("#resourceNavCount").textContent = state.resources.length;
+    $("#taskTotal").textContent = state.tasks.length;
+    $("#taskCompleted").textContent = state.tasks.filter(task => task.done).length;
+    $("#taskRemaining").textContent = state.tasks.filter(task => !task.done).length;
+    $("#diagCount").textContent = `${state.diagnostics.length} note${state.diagnostics.length === 1 ? "" : "s"}`;
+  }
+
+  function updateSettingsStats() {
+    $("#settingResourceCount").textContent = state.resources.length;
+    $("#settingTaskCount").textContent = state.tasks.length;
+    $("#settingDiagCount").textContent = state.diagnostics.length;
+  }
+
+  function renderDashboardGames() {
+    const chosen = GAMES.slice(0, 4);
+    $("#dashboardGameGrid").innerHTML = chosen.map(game => `
+      <div class="col-6">
+        <button class="btn btn-outline-xz w-100 text-start h-100" data-game-open="${escapeHTML(game.id)}">
+          <i class="bi ${escapeHTML(game.icon)} d-block fs-5 mb-2"></i>
+          <strong style="font-size:11px">${escapeHTML(game.short)}</strong>
+          <div class="muted tiny mt-1">${escapeHTML(game.name)}</div>
+        </button>
+      </div>`).join("");
+  }
+
+  function renderGames() {
+    const query = ($("#gameSearch").value || "").trim().toLowerCase();
+    const type = $("#gameTypeFilter").value;
+    const games = GAMES.filter(game => {
+      const matchesType = type === "all" || game.type === type;
+      const haystack = `${game.name} ${game.short} ${game.platform} ${game.desc} ${game.tags.join(" ")}`.toLowerCase();
+      return matchesType && haystack.includes(query);
+    });
+
+    $("#gameGrid").innerHTML = games.length ? games.map(game => `
+      <div class="col-sm-6 col-xl-4">
+        <article class="game-card">
+          <div class="game-symbol"><i class="bi ${escapeHTML(game.icon)}"></i></div>
+          <div class="d-flex align-items-center justify-content-between gap-2">
+            <h3>${escapeHTML(game.name)}</h3>
+            <span class="badge-xz">${escapeHTML(game.type)}</span>
+          </div>
+          <div class="game-meta">${escapeHTML(game.platform)}</div>
+          <p>${escapeHTML(game.desc)}</p>
+          <div class="mb-3">${game.tags.map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}</div>
+          <div class="d-flex flex-wrap gap-2 mt-auto">
+            <button class="btn btn-xz btn-sm" data-add-for-game="${escapeHTML(game.id)}"><i class="bi bi-plus-lg me-1"></i>Add resource</button>
+            <button class="btn btn-outline-xz btn-sm" data-search-game="${escapeHTML(game.name)}"><i class="bi bi-collection me-1"></i>View resources</button>
+          </div>
+        </article>
+      </div>`).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-search"></i>No games or platforms match your search.</div></div>`;
+  }
+
+  function clearResourceForm() {
+    $("#resourceForm").reset();
+    $("#resourceId").value = "";
+    $("#resourceSubmit").innerHTML = `<i class="bi bi-plus-lg me-1"></i>Save resource`;
+    $("#resourceCancelEdit").classList.add("d-none");
+  }
+
+  function editResource(id) {
+    const resource = state.resources.find(item => item.id === id);
+    if (!resource) return;
+    navigate("resources");
+    $("#resourceId").value = resource.id;
+    $("#resourceTitle").value = resource.title;
+    $("#resourceUrl").value = resource.url;
+    $("#resourceGame").value = resource.game || "general";
+    $("#resourceCategory").value = resource.category || "Other";
+    $("#resourceTags").value = (resource.tags || []).join(", ");
+    $("#resourceDescription").value = resource.description || "";
+    $("#resourceSubmit").innerHTML = `<i class="bi bi-check-lg me-1"></i>Update resource`;
+    $("#resourceCancelEdit").classList.remove("d-none");
+    $("#resourceTitle").focus();
+  }
+
+  function renderResources() {
+    const query = ($("#resourceSearch").value || "").trim().toLowerCase();
+    const game = $("#resourceFilterGame").value || "all";
+    const category = $("#resourceFilterType").value || "all";
+
+    const items = state.resources.filter(resource => {
+      const text = `${resource.title} ${resource.url} ${resource.description || ""} ${(resource.tags || []).join(" ")} ${gameName(resource.game)} ${resource.category}`.toLowerCase();
+      return text.includes(query)
+        && (game === "all" || resource.game === game)
+        && (category === "all" || resource.category === category)
+        && (!favouritesOnly || resource.favourite);
+    }).sort((a, b) => Number(!!b.favourite) - Number(!!a.favourite) || String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+
+    $("#favouritesOnly").classList.toggle("btn-xz", favouritesOnly);
+    $("#favouritesOnly").classList.toggle("btn-outline-xz", !favouritesOnly);
+
+    $("#resourceGrid").innerHTML = items.length ? items.map(resource => {
+      const url = safeHttpUrl(resource.url);
+      const tagHtml = (resource.tags || []).map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join("");
+      return `
+        <div class="col-sm-6 col-xl-4">
+          <article class="resource-card">
+            <div class="d-flex justify-content-between align-items-start gap-2">
+              <span class="badge-xz">${escapeHTML(resource.category || "Other")}</span>
+              <button class="btn btn-sm ${resource.favourite ? "btn-xz" : "btn-outline-xz"}" data-resource-fav="${escapeHTML(resource.id)}" aria-label="Toggle favourite" title="Toggle favourite"><i class="bi bi-star${resource.favourite ? "-fill" : ""}"></i></button>
+            </div>
+            <h3>${escapeHTML(resource.title)}</h3>
+            <div class="small-label mb-2">${escapeHTML(gameName(resource.game))}</div>
+            <p>${escapeHTML(resource.description || "No description added.")}</p>
+            <div class="mb-2">${tagHtml}</div>
+            <div class="resource-url mb-1">${url ? escapeHTML(new URL(url).hostname) : "Invalid URL"}</div>
+            <div class="resource-actions">
+              ${url ? `<a class="btn btn-xz btn-sm" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Open</a>` : ""}
+              <button class="btn btn-outline-xz btn-sm" data-resource-edit="${escapeHTML(resource.id)}"><i class="bi bi-pencil me-1"></i>Edit</button>
+              <button class="btn btn-outline-xz btn-sm" data-resource-copy="${escapeHTML(resource.id)}"><i class="bi bi-link-45deg me-1"></i>Copy URL</button>
+              <button class="btn btn-danger-soft" data-resource-delete="${escapeHTML(resource.id)}" aria-label="Delete resource"><i class="bi bi-trash"></i></button>
+            </div>
+          </article>
+        </div>`;
+    }).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-collection"></i>${state.resources.length ? "No resources match these filters." : "Your library is empty. Add your first guide, tool or trusted link above."}</div></div>`;
+  }
+
+  function saveResource(event) {
+    event.preventDefault();
+    const id = $("#resourceId").value;
+    const title = $("#resourceTitle").value.trim();
+    const url = safeHttpUrl($("#resourceUrl").value.trim());
+
+    if (!title) return toast("Enter a resource title.", "error");
+    if (!url) return toast("Enter a valid HTTP or HTTPS URL.", "error");
+
+    const old = state.resources.find(resource => resource.id === id);
+    const resource = {
+      id: old ? old.id : uid(),
+      title,
+      url,
+      game: $("#resourceGame").value || "general",
+      category: $("#resourceCategory").value || "Other",
+      tags: $("#resourceTags").value.split(",").map(tag => tag.trim()).filter(Boolean).slice(0, 20),
+      description: $("#resourceDescription").value.trim(),
+      favourite: old ? !!old.favourite : false,
+      createdAt: old ? old.createdAt : new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    if (old) {
+      state.resources = state.resources.map(item => item.id === old.id ? resource : item);
+      addActivity(`Updated resource: ${title}`, "bi-pencil");
+      toast("Resource updated.");
+    } else {
+      state.resources.unshift(resource);
+      addActivity(`Added resource: ${title}`, "bi-collection");
+      toast("Resource saved.");
     }
-    state = next;
-    if (!saveState()) throw new Error("Could not save imported data.");
-    renderAll();
-    toast("Workspace backup imported.");
-  } catch (error) {
-    toast("Import failed: " + (error.message || "invalid file"), "error");
-  } finally {
-    event.target.value = "";
+
+    saveState();
+    clearResourceForm();
+    renderResources();
   }
-});
 
-document.getElementById("resetEverything").addEventListener("click", () => {
-  const first = confirm("This will delete your local bookmarks, tasks, notes, custom links and saved settings. Export a backup first if you want to keep them.");
-  if (!first) return;
-  const second = confirm("Are you sure you want to reset the entire XZ OS workspace?");
-  if (!second) return;
-  state = clone(DEFAULT_STATE);
-  saveState();
-  renderAll();
-  setPage("dashboard");
-  toast("Local workspace reset.");
-});
+  function deleteResource(id) {
+    const resource = state.resources.find(item => item.id === id);
+    if (!resource) return;
+    if (!confirm(`Delete "${resource.title}" from your local library?`)) return;
+    state.resources = state.resources.filter(item => item.id !== id);
+    saveState();
+    renderResources();
+    addActivity(`Deleted resource: ${resource.title}`, "bi-trash");
+    toast("Resource deleted.");
+  }
 
-/* PUBLIC GITHUB API */
-async function fetchJSON(url, options = {}) {
-  const response = await fetch(url, {
-    ...options,
-    headers: { Accept:"application/vnd.github+json", ...(options.headers || {}) }
-  });
-  if (!response.ok) {
-    if (response.status === 403 || response.status === 429) {
-      throw new Error("GitHub rate limit reached. Wait a little and try again.");
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(String(text));
+      } else {
+        const area = document.createElement("textarea");
+        area.value = String(text);
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.select();
+        const copied = document.execCommand("copy");
+        area.remove();
+        if (!copied) throw new Error("Copy failed");
+      }
+      toast("Copied to clipboard.");
+    } catch (_) {
+      toast("Could not copy automatically. Select and copy the text manually.", "error");
     }
-    if (response.status === 404) throw new Error("Repository or resource not found.");
-    throw new Error(`Request failed (${response.status}).`);
   }
-  return response.json();
-}
 
-function renderGitHubResults(repos) {
-  const root = document.getElementById("githubResults");
-  if (!repos.length) {
-    root.innerHTML = `<div class="col-12"><div class="panel empty-state"><i class="bi bi-search"></i><p class="mt-2">No repositories found.</p></div></div>`;
-    return;
+  function addTask(text, priority = "Normal") {
+    const clean = String(text).trim();
+    if (!clean) return false;
+    state.tasks.unshift({
+      id: uid(),
+      text: clean.slice(0, 240),
+      priority: ["Low", "Normal", "High"].includes(priority) ? priority : "Normal",
+      done: false,
+      createdAt: new Date().toISOString()
+    });
+    saveState();
+    renderTasks();
+    renderDashboardTasks();
+    addActivity(`Added task: ${clean}`, "bi-check2-square");
+    return true;
   }
-  root.innerHTML = repos.map(repo => {
-    const homepage = safeURL(repo.homepage || "");
-    return `<div class="col-md-6 col-xl-4">
-      <div class="resource-card d-flex flex-column">
-        <div class="d-flex justify-content-between gap-2 align-items-start">
-          <div class="resource-title">${escapeHTML(repo.full_name || repo.name)}</div>
-          <span class="tag"><i class="bi bi-star-fill"></i> ${Number(repo.stargazers_count || 0).toLocaleString()}</span>
+
+  function renderTasks() {
+    const filter = $("#taskFilter").value;
+    const tasks = state.tasks.filter(task => filter === "all" || (filter === "done" ? task.done : !task.done));
+    const priorityClass = priority => priority === "High" ? "color:#ff9caf" : priority === "Low" ? "color:#a5ebc9" : "color:#cdb4f0";
+
+    $("#taskList").innerHTML = tasks.length ? tasks.map(task => `
+      <div class="task-row">
+        <input type="checkbox" data-task-toggle="${escapeHTML(task.id)}" ${task.done ? "checked" : ""} aria-label="Mark task complete">
+        <div class="task-text ${task.done ? "task-done" : ""}">
+          <div>${escapeHTML(task.text)}</div>
+          <div class="muted tiny mt-1"><span style="${priorityClass(task.priority)}">${escapeHTML(task.priority || "Normal")} priority</span> · ${escapeHTML(niceDate(task.createdAt))}</div>
         </div>
-        <p class="resource-desc mt-3 flex-grow-1">${escapeHTML(repo.description || "No description provided by the repository owner.")}</p>
-        <div class="d-flex gap-1 flex-wrap mb-3">
-          <span class="tag">${escapeHTML(repo.language || "Unspecified language")}</span>
-          <span class="tag">Updated ${escapeHTML(fmtRelative(repo.updated_at))}</span>
-        </div>
-        <div class="d-flex gap-2 flex-wrap mt-auto">
-          <a class="btn-xz flex-grow-1 text-center" href="${escapeHTML(repo.html_url)}" target="_blank" rel="noopener noreferrer">View repository <i class="bi bi-arrow-up-right"></i></a>
-          ${homepage ? `<a class="btn-muted" href="${escapeHTML(homepage)}" target="_blank" rel="noopener noreferrer" title="Project website"><i class="bi bi-globe2"></i></a>` : ""}
-          <button class="btn-muted" data-repo-releases="${escapeHTML(repo.full_name)}" title="View releases"><i class="bi bi-box-seam"></i></button>
-        </div>
-      </div>
-    </div>`;
-  }).join("");
-  root.querySelectorAll("[data-repo-releases]").forEach(btn => btn.addEventListener("click", () => {
-    document.getElementById("releaseRepo").value = btn.dataset.repoReleases;
-    loadReleases(btn.dataset.repoReleases);
-    document.getElementById("releaseResults").scrollIntoView({ behavior:"smooth", block:"center" });
-  }));
-}
+        <button class="btn btn-danger-soft" data-task-delete="${escapeHTML(task.id)}" aria-label="Delete task"><i class="bi bi-trash"></i></button>
+      </div>`).join("") : `<div class="empty-state"><i class="bi bi-check2-circle"></i>No tasks in this view.</div>`;
 
-async function searchGitHub(query, sort) {
-  const status = document.getElementById("githubStatus");
-  const root = document.getElementById("githubResults");
-  const btn = document.getElementById("githubSearchBtn");
-  const clean = query.trim();
-  if (!clean) return;
-  if (githubAbortController) githubAbortController.abort();
-  githubAbortController = new AbortController();
-  const signal = githubAbortController.signal;
-  state.lastGitHubQuery = clean;
-  saveState();
-  btn.disabled = true;
-  btn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Searching`;
-  status.textContent = "Contacting GitHub's public API…";
-  root.innerHTML = `<div class="col-12"><div class="panel empty-state"><div class="spinner-border" style="color:#c084fc"></div><p class="mt-3">Searching public repositories…</p></div></div>`;
-  try {
-    const sortParam = sort === "best-match" ? "" : `&sort=${encodeURIComponent(sort)}&order=desc`;
-    const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(clean)}${sortParam}&per_page=12`;
-    const data = await fetchJSON(url, { signal });
-    apiWorking = true;
-    renderStats();
-    status.textContent = `${data.total_count.toLocaleString()} public repositories found. Showing ${data.items.length}. Results are live API data.`;
-    renderGitHubResults(data.items);
-    logActivity("Searched GitHub", clean);
-  } catch (error) {
-    if (error.name === "AbortError") return;
-    status.textContent = error.message || "Unable to contact GitHub.";
-    root.innerHTML = `<div class="col-12"><div class="panel p-4"><div class="d-flex gap-3"><i class="bi bi-exclamation-triangle fs-3" style="color:#fbbf24"></i><div><div class="fw-bold">Live search unavailable</div><p class="resource-desc mt-2">${escapeHTML(error.message || "Check your internet connection and try again.")}</p><a href="https://github.com/search?q=${encodeURIComponent(clean)}&type=repositories" target="_blank" rel="noopener noreferrer" class="btn-muted">Search GitHub directly <i class="bi bi-arrow-up-right"></i></a></div></div></div></div>`;
-    apiWorking = false;
-    renderStats();
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = `<i class="bi bi-search"></i> Search`;
+    updateStats();
   }
-}
 
-document.getElementById("githubForm").addEventListener("submit", event => {
-  event.preventDefault();
-  searchGitHub(document.getElementById("githubQuery").value, document.getElementById("githubSort").value);
-});
-
-async function loadReleases(repo) {
-  const root = document.getElementById("releaseResults");
-  const match = repo.trim().match(/^([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)$/);
-  if (!match) {
-    root.innerHTML = `<div class="small-muted">Enter a valid owner/repository name.</div>`;
-    return;
+  function renderDashboardTasks() {
+    const tasks = state.tasks.filter(task => !task.done).slice(0, 5);
+    $("#dashboardTasks").innerHTML = tasks.length ? tasks.map(task => `
+      <div class="task-row">
+        <input type="checkbox" data-task-toggle="${escapeHTML(task.id)}" aria-label="Complete task">
+        <div class="task-text">${escapeHTML(task.text)}<div class="muted tiny mt-1">${escapeHTML(task.priority || "Normal")} priority</div></div>
+      </div>`).join("") : `<div class="empty-state"><i class="bi bi-check2-circle"></i>No open tasks. Add one when you're ready.</div>`;
   }
-  const name = `${match[1]}/${match[2]}`;
-  root.innerHTML = `<div class="small-muted"><span class="spinner-border spinner-border-sm me-2"></span>Loading releases for ${escapeHTML(name)}…</div>`;
-  try {
-    const data = await fetchJSON(`https://api.github.com/repos/${encodeURIComponent(match[1])}/${encodeURIComponent(match[2])}/releases?per_page=10`);
-    apiWorking = true;
-    renderStats();
-    if (!data.length) {
-      root.innerHTML = `<div class="small-muted">No public releases found for this repository.</div>`;
+
+  function toggleTask(id, checked) {
+    const task = state.tasks.find(item => item.id === id);
+    if (!task) return;
+    task.done = checked;
+    task.completedAt = checked ? new Date().toISOString() : null;
+    saveState();
+    renderTasks();
+    renderDashboardTasks();
+  }
+
+  function deleteTask(id) {
+    state.tasks = state.tasks.filter(task => task.id !== id);
+    saveState();
+    renderTasks();
+    renderDashboardTasks();
+    toast("Task deleted.");
+  }
+
+  function renderActivity() {
+    const items = state.activity.slice(0, 7);
+    $("#activityList").innerHTML = items.length ? items.map(item => `
+      <div class="activity-row">
+        <div class="activity-icon"><i class="bi ${escapeHTML(item.icon || "bi-lightning")}"></i></div>
+        <div class="flex-grow-1">
+          <div style="font-size:11px">${escapeHTML(item.message)}</div>
+          <div class="muted tiny mt-1">${escapeHTML(niceDate(item.at))}</div>
+        </div>
+      </div>`).join("") : `<div class="empty-state"><i class="bi bi-clock-history"></i>Your recent dashboard activity will appear here.</div>`;
+  }
+
+  function renderRelayChecklist() {
+    $("#relayChecklist").innerHTML = RELAY_STEPS.map((step, index) => `
+      <label class="task-row" style="cursor:pointer">
+        <input type="checkbox" data-relay-step="${index}" ${state.relayChecks.includes(index) ? "checked" : ""}>
+        <span class="task-text">${escapeHTML(step)}</span>
+      </label>`).join("");
+  }
+
+  function reviewRelay() {
+    const checked = state.relayChecks.length;
+    const total = RELAY_STEPS.length;
+    const missing = total - checked;
+    $("#relayResult").innerHTML = `
+      <div class="${missing === 0 ? "success-note" : "notice"}">
+        <strong>${missing === 0 ? "Checklist completed" : "Checklist progress: " + checked + "/" + total}</strong><br>
+        ${missing === 0
+          ? "You have recorded every basic check. This does not guarantee the connection is working; test your setup and consult official support if needed."
+          : `${missing} step${missing === 1 ? "" : "s"} remain unchecked. Review the remaining items, record any error messages and retest the connection.`}
+      </div>`;
+    addActivity(`Reviewed connection checklist (${checked}/${total})`, "bi-diagram-3");
+  }
+
+  function saveDiagnostic(event) {
+    event.preventDefault();
+    const symptom = $("#diagSymptom").value.trim();
+    if (!symptom) return toast("Enter a symptom first.", "error");
+    state.diagnostics.unshift({
+      id: uid(),
+      platform: $("#diagPlatform").value,
+      symptom: symptom.slice(0, 120),
+      details: $("#diagDetails").value.trim().slice(0, 2000),
+      createdAt: new Date().toISOString()
+    });
+    saveState();
+    $("#diagnosticForm").reset();
+    renderDiagnostics();
+    addActivity(`Saved diagnostic note: ${symptom}`, "bi-journal-text");
+    toast("Diagnostic note saved locally.");
+  }
+
+  function renderDiagnostics() {
+    $("#diagnosticList").innerHTML = state.diagnostics.length ? state.diagnostics.map(note => `
+      <div class="activity-row">
+        <div class="activity-icon"><i class="bi bi-journal-text"></i></div>
+        <div class="flex-grow-1">
+          <div class="d-flex flex-wrap justify-content-between gap-2">
+            <strong style="font-size:12px">${escapeHTML(note.symptom || "Diagnostic note")}</strong>
+            <span class="badge-xz">${escapeHTML(note.platform || "Other")}</span>
+          </div>
+          <div class="muted tiny mt-1">${escapeHTML(niceDate(note.createdAt))}</div>
+          <p class="muted tiny mt-2 mb-0" style="white-space:pre-wrap">${escapeHTML(note.details || "No additional details.")}</p>
+        </div>
+        <button class="btn btn-danger-soft" data-diag-delete="${escapeHTML(note.id)}" aria-label="Delete note"><i class="bi bi-trash"></i></button>
+      </div>`).join("") : `<div class="empty-state"><i class="bi bi-journal"></i>No diagnostic notes saved yet.</div>`;
+    updateStats();
+  }
+
+  function deleteDiagnostic(id) {
+    state.diagnostics = state.diagnostics.filter(note => note.id !== id);
+    saveState();
+    renderDiagnostics();
+    toast("Diagnostic note deleted.");
+  }
+
+  async function searchGitHub(queryOverride) {
+    const query = String(queryOverride ?? $("#githubQuery").value).trim();
+    if (!query) {
+      $("#githubStatus").textContent = "Enter a search term.";
       return;
     }
-    root.innerHTML = data.map(release => `<div class="list-row">
-      <div class="activity-icon"><i class="bi bi-box-seam"></i></div>
-      <div class="flex-grow-1">
-        <div class="fw-bold">${escapeHTML(release.name || release.tag_name || "Untitled release")}</div>
-        <div class="small-muted mt-1">${escapeHTML(release.tag_name || "")} · ${escapeHTML(release.published_at ? fmtTime(release.published_at) : "Publication date unavailable")}</div>
-        <div class="resource-desc mt-2">${escapeHTML((release.body || "No release notes provided.").slice(0,500))}</div>
-      </div>
-      <a class="btn-muted" href="${escapeHTML(release.html_url)}" target="_blank" rel="noopener noreferrer">Open <i class="bi bi-arrow-up-right"></i></a>
-    </div>`).join("");
-    logActivity("Checked project releases", name);
-  } catch (error) {
-    apiWorking = false;
-    renderStats();
-    root.innerHTML = `<div class="resource-desc">${escapeHTML(error.message || "Unable to load releases.")}<br><a href="https://github.com/${encodeURIComponent(match[1])}/${encodeURIComponent(match[2])}/releases" target="_blank" rel="noopener noreferrer">Open releases on GitHub <i class="bi bi-arrow-up-right"></i></a></div>`;
+
+    $("#githubQuery").value = query;
+    const sort = $("#githubSort").value;
+    const requestId = ++githubRequestSequence;
+
+    if (githubAbortController) githubAbortController.abort();
+    githubAbortController = new AbortController();
+
+    $("#githubSearchBtn").disabled = true;
+    $("#githubSearchBtn").innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Searching`;
+    $("#githubStatus").textContent = "Contacting the public GitHub API...";
+    $("#githubResults").innerHTML = "";
+
+    const params = new URLSearchParams({ q: query, per_page: "12" });
+    if (sort === "stars") params.set("sort", "stars");
+    if (sort === "updated") params.set("sort", "updated");
+    if (sort !== "best-match") params.set("order", "desc");
+
+    try {
+      const response = await fetch(`https://api.github.com/search/repositories?${params.toString()}`, {
+        headers: { Accept: "application/vnd.github+json" },
+        signal: githubAbortController.signal
+      });
+      const data = await response.json().catch(() => ({}));
+      if (requestId !== githubRequestSequence) return;
+
+      if (!response.ok) {
+        const message = response.status === 403 || response.status === 429
+          ? "GitHub's unauthenticated API rate limit may have been reached. Wait a little and try again."
+          : response.status === 422
+            ? "GitHub could not process this search. Try a simpler query."
+            : `GitHub API returned HTTP ${response.status}.`;
+        $("#githubStatus").textContent = message;
+        return;
+      }
+
+      const items = Array.isArray(data.items) ? data.items : [];
+      $("#githubStatus").textContent = `${Number(data.total_count || 0).toLocaleString()} public repositories found. Showing ${items.length} results.`;
+      $("#githubResults").innerHTML = items.length ? items.map(repo => {
+        const url = safeHttpUrl(repo.html_url);
+        const language = repo.language || "Not specified";
+        const stars = Number(repo.stargazers_count || 0).toLocaleString();
+        const forks = Number(repo.forks_count || 0).toLocaleString();
+        return `
+          <div class="col-md-6 col-xl-4">
+            <article class="resource-card">
+              <div class="d-flex justify-content-between align-items-start gap-2">
+                <span class="badge-xz"><i class="bi bi-github me-1"></i>Public repository</span>
+                <span class="muted tiny"><i class="bi bi-star me-1"></i>${escapeHTML(stars)}</span>
+              </div>
+              <h3>${escapeHTML(repo.full_name || repo.name || "Repository")}</h3>
+              <p>${escapeHTML(repo.description || "No description supplied by the repository owner.")}</p>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="tag">${escapeHTML(language)}</span>
+                <span class="tag"><i class="bi bi-diagram-2 me-1"></i>${escapeHTML(forks)} forks</span>
+                ${repo.license && repo.license.spdx_id ? `<span class="tag">${escapeHTML(repo.license.spdx_id)}</span>` : ""}
+              </div>
+              <div class="muted tiny mb-3">Updated ${escapeHTML(repo.updated_at ? new Date(repo.updated_at).toLocaleDateString() : "date unavailable")}</div>
+              <div class="d-flex flex-wrap gap-2 mt-auto">
+                ${url ? `<a class="btn btn-xz btn-sm" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right me-1"></i>Open project</a>` : ""}
+                <button class="btn btn-outline-xz btn-sm" data-save-repo="${escapeHTML(repo.id)}" data-repo-title="${escapeHTML(repo.full_name || repo.name || "GitHub repository")}" data-repo-url="${escapeHTML(url || "")}" data-repo-desc="${escapeHTML(repo.description || "")}"><i class="bi bi-bookmark-plus me-1"></i>Save resource</button>
+              </div>
+            </article>
+          </div>`;
+      }).join("") : `<div class="col-12"><div class="panel empty-state"><i class="bi bi-search"></i>No public repositories found. Try another search.</div></div>`;
+    } catch (error) {
+      if (error.name === "AbortError") return;
+      if (requestId !== githubRequestSequence) return;
+      $("#githubStatus").textContent = "Unable to contact GitHub. Check your connection, browser privacy settings or try again later.";
+      $("#githubResults").innerHTML = `<div class="col-12"><div class="panel empty-state"><i class="bi bi-wifi-off"></i>Search failed. GitHub or your network may be temporarily unavailable.</div></div>`;
+    } finally {
+      if (requestId === githubRequestSequence) {
+        $("#githubSearchBtn").disabled = false;
+        $("#githubSearchBtn").innerHTML = `<i class="bi bi-search me-1"></i>Search`;
+      }
+    }
   }
-}
 
-document.getElementById("releaseForm").addEventListener("submit", event => {
-  event.preventDefault();
-  loadReleases(document.getElementById("releaseRepo").value);
-});
+  function saveGitHubRepo(button) {
+    const url = safeHttpUrl(button.dataset.repoUrl);
+    const title = button.dataset.repoTitle || "GitHub repository";
+    if (!url) return toast("This repository has no valid URL.", "error");
 
-/* LIVE CLOCK, REFRESH AND INITIAL RENDER */
-function updateClock() {
-  const now = new Date();
-  document.getElementById("clock").textContent = now.toLocaleTimeString([], { hour:"2-digit", minute:"2-digit", second:"2-digit" });
-  document.getElementById("today").textContent = now.toLocaleDateString([], { weekday:"long", day:"numeric", month:"long", year:"numeric" });
-}
+    const exists = state.resources.some(item => item.url === url);
+    if (exists) return toast("This repository is already saved.");
 
-document.getElementById("refreshBtn").addEventListener("click", () => {
-  updateClock();
+    state.resources.unshift({
+      id: uid(),
+      title: title.slice(0, 120),
+      url,
+      game: "general",
+      category: "Repository",
+      tags: ["GitHub", "Open source"],
+      description: (button.dataset.repoDesc || "").slice(0, 1500),
+      favourite: false,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    });
+    saveState();
+    renderResources();
+    addActivity(`Saved public repository: ${title}`, "bi-github");
+    toast("Repository saved to your library.");
+  }
+
+  function setTextOutput(selector, value) {
+    $(selector).textContent = String(value);
+  }
+
+  function formatJSON(minify = false) {
+    const input = $("#jsonInput").value;
+    try {
+      const parsed = JSON.parse(input);
+      const output = JSON.stringify(parsed, null, minify ? 0 : 2);
+      setTextOutput("#jsonOutput", output);
+      toast("Valid JSON.");
+    } catch (error) {
+      setTextOutput("#jsonOutput", "Invalid JSON:\n" + error.message);
+      toast("JSON validation failed.", "error");
+    }
+  }
+
+  function encodeBase64() {
+    try {
+      const bytes = new TextEncoder().encode($("#base64Input").value);
+      let binary = "";
+      bytes.forEach(byte => binary += String.fromCharCode(byte));
+      setTextOutput("#base64Output", btoa(binary));
+    } catch (_) {
+      setTextOutput("#base64Output", "Encoding failed.");
+    }
+  }
+
+  function decodeBase64() {
+    try {
+      const raw = atob($("#base64Input").value.trim());
+      const bytes = Uint8Array.from(raw, char => char.charCodeAt(0));
+      setTextOutput("#base64Output", new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+    } catch (_) {
+      setTextOutput("#base64Output", "Invalid Base64 input or the decoded bytes are not valid UTF-8 text.");
+    }
+  }
+
+  async function makeHash() {
+    const input = $("#hashInput").value;
+    if (!window.crypto || !crypto.subtle) {
+      setTextOutput("#hashOutput", "Web Crypto is unavailable. Open this page over HTTPS or localhost.");
+      return;
+    }
+    try {
+      const bytes = new TextEncoder().encode(input);
+      const digest = await crypto.subtle.digest("SHA-256", bytes);
+      const hash = [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, "0")).join("");
+      setTextOutput("#hashOutput", hash);
+    } catch (_) {
+      setTextOutput("#hashOutput", "Hash generation failed in this browser.");
+    }
+  }
+
+  function compareText() {
+    const left = $("#diffA").value.split("\n");
+    const right = $("#diffB").value.split("\n");
+    const maxLines = 2000;
+
+    if (left.length > maxLines || right.length > maxLines) {
+      setTextOutput("#diffOutput", `For performance, compare at most ${maxLines} lines per input.`);
+      return;
+    }
+
+    // Simple positional line comparison, not a minimal edit-distance diff.
+    const count = Math.max(left.length, right.length);
+    const output = [];
+    for (let i = 0; i < count; i++) {
+      if (left[i] === right[i]) {
+        if (left[i] !== undefined) output.push("  " + left[i]);
+      } else {
+        if (left[i] !== undefined) output.push("- " + left[i]);
+        if (right[i] !== undefined) output.push("+ " + right[i]);
+      }
+    }
+    setTextOutput("#diffOutput", output.join("\n") || "Both inputs are empty.");
+  }
+
+  function exportBackup() {
+    const backup = {
+      application: "XZ OS 5.0",
+      formatVersion: 1,
+      exportedAt: new Date().toISOString(),
+      data: state
+    };
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = `moddingxz-xzos5-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    URL.revokeObjectURL(url);
+    toast("Backup export started.");
+  }
+
+  function validImportedState(input) {
+    if (!input || typeof input !== "object" || Array.isArray(input)) return null;
+    const candidate = input.data && typeof input.data === "object" ? input.data : input;
+    if (!Array.isArray(candidate.resources) || !Array.isArray(candidate.tasks)) return null;
+
+    const next = clone(DEFAULT_STATE);
+    next.resources = candidate.resources.filter(item =>
+      item && typeof item === "object" && typeof item.title === "string" &&
+      typeof item.url === "string" && typeof item.id === "string" && safeHttpUrl(item.url)
+    ).slice(0, 5000).map(item => ({
+      id: item.id.slice(0, 100),
+      title: item.title.slice(0, 120),
+      url: safeHttpUrl(item.url),
+      game: typeof item.game === "string" ? item.game.slice(0, 80) : "general",
+      category: typeof item.category === "string" ? item.category.slice(0, 60) : "Other",
+      tags: Array.isArray(item.tags) ? item.tags.filter(tag => typeof tag === "string").slice(0, 20).map(tag => tag.slice(0, 60)) : [],
+      description: typeof item.description === "string" ? item.description.slice(0, 1500) : "",
+      favourite: !!item.favourite,
+      createdAt: typeof item.createdAt === "string" ? item.createdAt : new Date().toISOString(),
+      updatedAt: typeof item.updatedAt === "string" ? item.updatedAt : new Date().toISOString()
+    }));
+
+    next.tasks = candidate.tasks.filter(item =>
+      item && typeof item === "object" && typeof item.id === "string" && typeof item.text === "string"
+    ).slice(0, 5000).map(item => ({
+      id: item.id.slice(0, 100),
+      text: item.text.slice(0, 240),
+      priority: ["Low", "Normal", "High"].includes(item.priority) ? item.priority : "Normal",
+      done: !!item.done,
+      createdAt: typeof item.createdAt === "string" ? item.createdAt : new Date().toISOString(),
+      completedAt: typeof item.completedAt === "string" ? item.completedAt : null
+    }));
+
+    next.diagnostics = Array.isArray(candidate.diagnostics) ? candidate.diagnostics.filter(item =>
+      item && typeof item === "object" && typeof item.id === "string"
+    ).slice(0, 5000).map(item => ({
+      id: item.id.slice(0, 100),
+      platform: typeof item.platform === "string" ? item.platform.slice(0, 100) : "Other",
+      symptom: typeof item.symptom === "string" ? item.symptom.slice(0, 120) : "",
+      details: typeof item.details === "string" ? item.details.slice(0, 2000) : "",
+      createdAt: typeof item.createdAt === "string" ? item.createdAt : new Date().toISOString()
+    })) : [];
+
+    next.scratchpad = typeof candidate.scratchpad === "string" ? candidate.scratchpad.slice(0, 20000) : "";
+    next.activity = Array.isArray(candidate.activity) ? candidate.activity.filter(item =>
+      item && typeof item.message === "string"
+    ).slice(0, 30).map(item => ({
+      id: typeof item.id === "string" ? item.id.slice(0, 100) : uid(),
+      message: item.message.slice(0, 240),
+      icon: typeof item.icon === "string" ? item.icon.slice(0, 80) : "bi-lightning",
+      at: typeof item.at === "string" ? item.at : new Date().toISOString()
+    })) : [];
+    next.preferences = {
+      accent: ["purple", "blue", "green", "pink"].includes(candidate.preferences?.accent)
+        ? candidate.preferences.accent : "purple"
+    };
+    next.relayChecks = Array.isArray(candidate.relayChecks)
+      ? candidate.relayChecks.filter(index => Number.isInteger(index) && index >= 0 && index < RELAY_STEPS.length)
+      : [];
+
+    return next;
+  }
+
+  async function importBackup(file) {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast("Backup file is too large (maximum 5 MB).", "error");
+      return;
+    }
+
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      const imported = validImportedState(parsed);
+      if (!imported) {
+        toast("This does not look like a valid XZ OS backup.", "error");
+        return;
+      }
+      if (!confirm("Import this backup and replace the current local dashboard data? Export your current data first if you want to keep it.")) return;
+
+      const previous = state;
+      state = imported;
+      if (!saveState()) {
+        state = previous;
+        return;
+      }
+
+      applyAccent();
+      renderAll();
+      toast("Backup imported successfully.");
+    } catch (_) {
+      toast("Could not read this backup file. Check that it is valid JSON.", "error");
+    } finally {
+      $("#importFile").value = "";
+    }
+  }
+
+  function renderAll() {
+    populateGameSelects();
+    applyAccent();
+    renderDashboardGames();
+    renderGames();
+    renderResources();
+    renderTasks();
+    renderDashboardTasks();
+    renderActivity();
+    renderRelayChecklist();
+    renderDiagnostics();
+    updateStats();
+    updateSettingsStats();
+    $("#scratchpad").value = state.scratchpad;
+    $("#scratchCount").textContent = `${state.scratchpad.length} / 20000`;
+    $("#scratchStatus").textContent = "Saved locally";
+  }
+
+  function openQuickAdd(type) {
+    if (quickModal) quickModal.hide();
+    if (type === "resource") {
+      navigate("resources");
+      $("#resourceTitle").focus();
+    } else if (type === "task") {
+      navigate("tasks");
+      $("#taskInput").focus();
+    } else if (type === "diagnostic") {
+      navigate("relay");
+      $("#diagSymptom").focus();
+    }
+  }
+
+  // Navigation
+  $$("[data-page-link]").forEach(link => link.addEventListener("click", event => {
+    event.preventDefault();
+    navigate(link.dataset.pageLink);
+  }));
+
+  $$("[data-go]").forEach(button => button.addEventListener("click", () => navigate(button.dataset.go)));
+  $("#menuToggle").addEventListener("click", openSidebar);
+  $("#sidebarOverlay").addEventListener("click", closeSidebar);
+
+  window.addEventListener("hashchange", () => {
+    const page = location.hash.replace("#", "") || "dashboard";
+    navigate(page);
+  });
+
+  // Quick add
+  quickModal = new bootstrap.Modal($("#quickAddModal"));
+  $("#quickAddBtn").addEventListener("click", () => quickModal.show());
+  $("#dashboardAddTask").addEventListener("click", () => openQuickAdd("task"));
+  $$("[data-quick-type]").forEach(button => button.addEventListener("click", () => openQuickAdd(button.dataset.quickType)));
+  $$("[data-add-resource]").forEach(button => button.addEventListener("click", () => openQuickAdd("resource")));
+
+  // Game hub
+  $("#gameSearch").addEventListener("input", renderGames);
+  $("#gameTypeFilter").addEventListener("change", renderGames);
+
+  // Resource library
+  $("#resourceForm").addEventListener("submit", saveResource);
+  $("#resourceCancelEdit").addEventListener("click", clearResourceForm);
+  $("#resourceSearch").addEventListener("input", renderResources);
+  $("#resourceFilterGame").addEventListener("change", renderResources);
+  $("#resourceFilterType").addEventListener("change", renderResources);
+  $("#favouritesOnly").addEventListener("click", () => {
+    favouritesOnly = !favouritesOnly;
+    renderResources();
+  });
+
+  // Task manager
+  $("#taskForm").addEventListener("submit", event => {
+    event.preventDefault();
+    const input = $("#taskInput");
+    if (addTask(input.value, $("#taskPriority").value)) {
+      input.value = "";
+      toast("Task added.");
+    }
+  });
+  $("#taskFilter").addEventListener("change", renderTasks);
+  $("#clearCompletedBtn").addEventListener("click", () => {
+    const count = state.tasks.filter(task => task.done).length;
+    if (!count) return toast("There are no completed tasks.");
+    if (!confirm(`Delete ${count} completed task${count === 1 ? "" : "s"}?`)) return;
+    state.tasks = state.tasks.filter(task => !task.done);
+    saveState();
+    renderTasks();
+    renderDashboardTasks();
+    toast("Completed tasks cleared.");
+  });
+
+  // Scratchpad autosave
+  $("#scratchpad").addEventListener("input", () => {
+    state.scratchpad = $("#scratchpad").value.slice(0, 20000);
+    saveState();
+    $("#scratchCount").textContent = `${state.scratchpad.length} / 20000`;
+    $("#scratchStatus").textContent = "Saved locally";
+  });
+
+  // Relay checklist
+  $("#relayCheckBtn").addEventListener("click", reviewRelay);
+  $("#relayResetBtn").addEventListener("click", () => {
+    state.relayChecks = [];
+    saveState();
+    renderRelayChecklist();
+    $("#relayResult").innerHTML = "";
+    toast("Checklist reset.");
+  });
+  $("#diagnosticForm").addEventListener("submit", saveDiagnostic);
+
+  // GitHub API
+  $("#githubSearchForm").addEventListener("submit", event => {
+    event.preventDefault();
+    searchGitHub();
+  });
+  $("#githubSort").addEventListener("change", () => {
+    if ($("#githubQuery").value.trim()) searchGitHub();
+  });
+  $$(".preset-search").forEach(button => button.addEventListener("click", () => {
+    navigate("radar");
+    searchGitHub(button.dataset.query);
+  }));
+
+  // Developer toolkit
+  $("#jsonFormatBtn").addEventListener("click", () => formatJSON(false));
+  $("#jsonMinifyBtn").addEventListener("click", () => formatJSON(true));
+  $("#jsonClearBtn").addEventListener("click", () => {
+    $("#jsonInput").value = "";
+    setTextOutput("#jsonOutput", "Your formatted JSON will appear here.");
+  });
+  $("#base64EncodeBtn").addEventListener("click", encodeBase64);
+  $("#base64DecodeBtn").addEventListener("click", decodeBase64);
+  $("#base64ClearBtn").addEventListener("click", () => {
+    $("#base64Input").value = "";
+    setTextOutput("#base64Output", "Output will appear here.");
+  });
+  $("#hashBtn").addEventListener("click", makeHash);
+  $("#diffBtn").addEventListener("click", compareText);
+
+  $$("[data-copy-target]").forEach(button => button.addEventListener("click", () => {
+    const target = $("#" + button.dataset.copyTarget);
+    if (target) copyText(target.textContent);
+  }));
+
+  // Appearance and backups
+  $("#accentSelect").addEventListener("change", () => {
+    state.preferences.accent = $("#accentSelect").value;
+    applyAccent();
+    saveState();
+    toast("Appearance updated.");
+  });
+  $("#resetAccentBtn").addEventListener("click", () => {
+    state.preferences.accent = "purple";
+    applyAccent();
+    saveState();
+    toast("Appearance reset.");
+  });
+  $("#exportBtn").addEventListener("click", exportBackup);
+  $("#importBtn").addEventListener("click", () => $("#importFile").click());
+  $("#importFile").addEventListener("change", event => importBackup(event.target.files?.[0]));
+
+  $("#resetAllBtn").addEventListener("click", () => {
+    if (!confirm("Permanently delete ALL locally saved XZ OS data from this browser? Export a backup first if needed.")) return;
+    if (!confirm("Final confirmation: this cannot be undone without a backup. Continue?")) return;
+    state = clone(DEFAULT_STATE);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (_) {}
+    saveState();
+    clearResourceForm();
+    $("#resourceSearch").value = "";
+    $("#resourceFilterType").value = "all";
+    $("#resourceFilterGame").value = "all";
+    $("#taskFilter").value = "all";
+    $("#relayResult").innerHTML = "";
+    renderAll();
+    toast("Local dashboard data reset.");
+    navigate("dashboard");
+  });
+
+  // Global search searches locally saved data and task entries.
+  $("#globalSearch").addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+    const query = event.target.value.trim();
+    if (!query) return;
+    $("#resourceSearch").value = query;
+    $("#gameSearch").value = query;
+    navigate("resources");
+    renderResources();
+    if (!state.resources.some(resource =>
+      `${resource.title} ${resource.description || ""} ${resource.url}`.toLowerCase().includes(query.toLowerCase())
+    )) {
+      const gameMatches = GAMES.some(game =>
+        `${game.name} ${game.desc} ${game.tags.join(" ")}`.toLowerCase().includes(query.toLowerCase())
+      );
+      const taskMatches = state.tasks.some(task => task.text.toLowerCase().includes(query.toLowerCase()));
+      if (gameMatches && !taskMatches) {
+        navigate("games");
+        renderGames();
+      } else if (taskMatches) {
+        navigate("tasks");
+      }
+    }
+  });
+
+  // Delegated interactions for cards rendered dynamically.
+  document.addEventListener("click", event => {
+    const target = event.target.closest("button");
+    if (!target) return;
+
+    if (target.dataset.gameOpen) {
+      navigate("games");
+      $("#gameSearch").value = GAMES.find(game => game.id === target.dataset.gameOpen)?.name || "";
+      renderGames();
+      return;
+    }
+
+    if (target.dataset.addForGame) {
+      navigate("resources");
+      $("#resourceGame").value = target.dataset.addForGame;
+      $("#resourceTitle").focus();
+      return;
+    }
+
+    if (target.dataset.searchGame) {
+      navigate("resources");
+      $("#resourceSearch").value = target.dataset.searchGame;
+      $("#resourceFilterGame").value = "all";
+      renderResources();
+      return;
+    }
+
+    if (target.dataset.resourceFav) {
+      const resource = state.resources.find(item => item.id === target.dataset.resourceFav);
+      if (!resource) return;
+      resource.favourite = !resource.favourite;
+      saveState();
+      renderResources();
+      return;
+    }
+
+    if (target.dataset.resourceEdit) {
+      editResource(target.dataset.resourceEdit);
+      return;
+    }
+
+    if (target.dataset.resourceDelete) {
+      deleteResource(target.dataset.resourceDelete);
+      return;
+    }
+
+    if (target.dataset.resourceCopy) {
+      const resource = state.resources.find(item => item.id === target.dataset.resourceCopy);
+      if (resource) copyText(resource.url);
+      return;
+    }
+
+    if (target.dataset.taskDelete) {
+      deleteTask(target.dataset.taskDelete);
+      return;
+    }
+
+    if (target.dataset.diagDelete) {
+      deleteDiagnostic(target.dataset.diagDelete);
+      return;
+    }
+
+    if (target.dataset.saveRepo) {
+      saveGitHubRepo(target);
+    }
+  });
+
+  document.addEventListener("change", event => {
+    const target = event.target;
+    if (target.matches("[data-task-toggle]")) {
+      toggleTask(target.dataset.taskToggle, target.checked);
+      return;
+    }
+    if (target.matches("[data-relay-step]")) {
+      const index = Number(target.dataset.relayStep);
+      state.relayChecks = target.checked
+        ? [...new Set([...state.relayChecks, index])]
+        : state.relayChecks.filter(item => item !== index);
+      saveState();
+    }
+  });
+
+  // Start the app.
+  $("#footerYear").textContent = new Date().getFullYear();
   renderAll();
-  if (currentPage === "releases") {
-    const q = document.getElementById("githubQuery").value.trim();
-    if (q) searchGitHub(q, document.getElementById("githubSort").value);
-  }
-  toast("Dashboard refreshed.");
-});
 
-function renderAll() {
-  renderStats();
-  renderActivity();
-  renderGames();
-  renderTools();
-  renderRelay();
-  renderTasks();
-  renderNotes();
-  renderFavourites();
-  renderCommunity();
-  renderSettings();
-  renderDashboard();
-}
-
-document.getElementById("year").textContent = new Date().getFullYear();
-updateClock();
-setInterval(updateClock, 1000);
-renderAll();
+  const initialPage = location.hash.replace("#", "") || "dashboard";
+  navigate($("#page-" + initialPage) ? initialPage : "dashboard");
+})();
 </script>
 </body>
 </html>
