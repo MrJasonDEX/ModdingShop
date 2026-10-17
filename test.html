@@ -170,4 +170,262 @@ textarea.order{width:100%;min-height:130px;padding:12px;border:1px solid var(--b
   <div class="sh"><div class="kick">PERSONAL</div><h2>My <span>ModdingXZ</span></h2><p>Saved in this browser only. No account needed. <button class="linkbtn" id="clearMine" type="button">Clear my data</button></p></div>
   <div class="row g-3">
    <div class="col-lg-6"><div class="panel h-100"><h3 class="h6 text-uppercase">★ Favourites</h3><div id="favList"></div></div></div>
-   <div class="col-lg-6"><div class="panel h-100"><h3 class="h6 text-uppercase">Recently viewed
+   <div class="col-lg-6"><div class="panel h-100"><h3 class="h6 text-uppercase">Recently viewed</h3><div id="recList"></div></div></div>
+  </div>
+ </div></section>
+
+ <section class="section" id="community"><div class="container">
+  <div class="comm">
+   <div class="eyebrow"><i class="fa-brands fa-telegram"></i> THE MODDINGXZ COMMUNITY</div>
+   <h2 class="mt-2">Gaming is better <span class="grad">together.</span></h2>
+   <p class="muted" style="max-width:640px;line-height:1.8">Console modding discussion, Call of Duty resources, project updates and support. Resource submissions go through the support bot and are reviewed before they appear in the Vault. Verify downloads before using them.</p>
+   <div class="d-flex flex-wrap gap-2 mt-3">
+    <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer" class="btn-xz btn-p"><i class="fa-brands fa-telegram"></i> Join Telegram</a>
+    <a href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer" class="btn-xz btn-s"><i class="fa-solid fa-headset"></i> Support / Submit a resource</a>
+    <a href="https://www.tiktok.com/@moddingx1" target="_blank" rel="noopener noreferrer" class="btn-xz btn-s"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+   </div>
+   <p class="muted small2 mt-3 mb-0"><i class="fa-solid fa-shield-halved me-1"></i> Never send passwords or verification codes to anyone.</p>
+  </div>
+ </div></section>
+</main>
+
+<footer><div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+ <span>© <span id="year"></span> ModdingXZ. Independent community project. Platform and game names belong to their owners.</span>
+ <span><a href="https://moddingxz.co.uk/">Website</a> · <a href="https://github.com/MrJasonDEX" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer">Telegram</a></span>
+</div></footer>
+
+<div class="modal fade" id="svcModal" tabindex="-1" aria-labelledby="mTitle" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"><div class="modal-content">
+ <div class="modal-header"><div><small class="kick">MODDINGXZ CATALOGUE</small><h5 class="mb-0 mt-1 fw-black" id="mTitle">Service</h5></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+ <div class="modal-body">
+  <div class="mp" id="mPrice"></div><p class="muted small2 mt-2" id="mDesc"></p><ul class="mlist" id="mList"></ul>
+  <p class="muted small2 mt-3"><i class="fa-solid fa-circle-info me-1"></i> A catalogue listing, not a live availability check. Confirm with support before paying.</p>
+  <label for="order" class="fw-bold small2 mb-2">Your enquiry</label><textarea class="order" id="order" spellcheck="false"></textarea>
+ </div>
+ <div class="modal-footer"><button class="btn-xz btn-s me-auto" id="copyOrder" type="button"><i class="fa-regular fa-copy"></i> Copy enquiry</button><a class="btn-xz btn-p" href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i> Open Support</a></div>
+</div></div></div>
+<div class="toast-x" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s);
+const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+const ls={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const fmt=d=>{const x=new Date(d);return isNaN(x)?"date unknown":x.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})};
+const PLATS=[["all","All"],["ps","PlayStation"],["xbox","Xbox"],["pc","PC"],["cod","Call of Duty"]];
+const PN=Object.fromEntries(PLATS);
+const ext=u=>/^https:\/\/moddingxz\.co\.uk\//.test(u)?"":' target="_blank" rel="noopener noreferrer"';
+
+/* Tool Vault. repo => also shown in Release Radar. */
+const ITEMS=[
+{id:"hosts",t:"ModdingXZ Hosts",d:"PlayStation hosts page from ModdingXZ.",u:"https://moddingxz.co.uk/Hosts/index.html",p:["ps","cod"],c:"Hosts & Network"},
+{id:"relay",t:"BO2 Relay Guide",d:"Relay setup guide for Black Ops 2.",u:"https://moddingxz.co.uk/relay.html",p:["cod"],c:"Guides"},
+{id:"more",t:"Additional Resources",d:"More ModdingXZ resources and links.",u:"https://moddingxz.co.uk/t.html",p:["ps","xbox","pc"],c:"Guides"},
+{id:"unfriend",t:"PSN Unfriender Tool",d:"PSN management utility by MrJasonDEX.",u:"https://github.com/MrJasonDEX/PSN-Unfriender-Tool",p:["ps"],c:"ModdingXZ Projects"},
+{id:"cwmods",t:"Cold War PC Mods",d:"PC modding and GSC project by MrJasonDEX.",u:"https://github.com/MrJasonDEX/Cold-War-Mods",p:["pc","cod"],c:"ModdingXZ Projects"},
+{id:"bo3menu",t:"Black Ops 3 Mod Menu",d:"PS4 mod menu project by MrJasonDEX.",u:"https://github.com/MrJasonDEX/Black-ops-3-Mod-Menu-",p:["ps","cod"],c:"ModdingXZ Projects"},
+{id:"etahen",t:"etaHEN",d:"PS5 homebrew enabler project.",u:"https://github.com/LightningMods/etaHEN",p:["ps"],c:"Homebrew",repo:"LightningMods/etaHEN"},
+{id:"goldhen",t:"GoldHEN",d:"PS4 homebrew enabler project.",u:"https://github.com/GoldHEN/GoldHEN",p:["ps"],c:"Homebrew",repo:"GoldHEN/GoldHEN"},
+{id:"ps5sdk",t:"PS5 Payload SDK",d:"Open-source SDK for PS5 payloads.",u:"https://github.com/ps5-payload-dev/sdk",p:["ps"],c:"Homebrew",repo:"ps5-payload-dev/sdk"},
+{id:"openorbis",t:"OpenOrbis PS4 Toolchain",d:"Open-source toolchain for PS4 homebrew.",u:"https://github.com/OpenOrbis/OpenOrbis-PS4-Toolchain",p:["ps"],c:"Homebrew",repo:"OpenOrbis/OpenOrbis-PS4-Toolchain"},
+{id:"webman",t:"webMAN MOD",d:"Popular PS3 customised firmware plugin.",u:"https://github.com/aldostools/webMAN-MOD",p:["ps"],c:"Homebrew",repo:"aldostools/webMAN-MOD"},
+{id:"shadps4",t:"shadPS4",d:"PS4 emulator for PC.",u:"https://github.com/shadps4-emu/shadPS4",p:["pc","ps"],c:"Emulators",repo:"shadps4-emu/shadPS4"},
+{id:"rpcs3",t:"RPCS3",d:"PS3 emulator for PC with a compatibility list.",u:"https://rpcs3.net/",p:["pc","ps"],c:"Emulators"},
+{id:"xemu",t:"xemu",d:"Original Xbox emulator.",u:"https://xemu.app/",p:["pc","xbox"],c:"Emulators"},
+{id:"psn",t:"PlayStation Network Status",d:"Official PSN service status.",u:"https://status.playstation.com/",p:["ps"],c:"Hosts & Network"},
+{id:"xbl",t:"Xbox Network Status",d:"Official Xbox service status.",u:"https://support.xbox.com/en-GB/xbox-live-status",p:["xbox"],c:"Hosts & Network"},
+{id:"tg",t:"ModdingXZ Telegram",d:"Community announcements and chat.",u:"https://t.me/ModdingXZ",p:["ps","xbox","pc","cod"],c:"Community"},
+{id:"bot",t:"ModdingXZ Support Bot",d:"Support, orders and resource submissions.",u:"https://t.me/ModdingXZ_Support_Bot",p:["ps","xbox","pc","cod"],c:"Community"}
+];
+const CATS=["all"].concat([...new Set(ITEMS.map(i=>i.c))]);
+
+/* Services: listed prices supplied by ModdingXZ */
+const SERV=[
+{id:"s-cod",cat:"cod",label:"COD",name:"Full COD Max Pro Package",price:"£15",icon:"fa-fire",desc:"Combined progression package for the listed Call of Duty titles. Confirm included games and compatibility first.",feats:["MW2019 Level 1000","Cold War Level 2500","DA Unlock All","Vanguard Max Rank","Trophy services"]},
+{id:"s-bo3u",cat:"cod",label:"COD",name:"Black Ops 3 Ultimate",price:"£15",icon:"fa-skull",desc:"Listed BO3 package with multiplayer and Zombies features. Compatibility depends on platform and game version.",feats:["Prestige 1000 MP","Modded Classes","Unlock All","Custom Avatars","Zombies Prestige 12","All Easter Eggs","Unlimited Death Machine","Unreleased Camos","Green Clan Tag"]},
+{id:"s-bo3m",cat:"cod",label:"COD",name:"BO3 Maxed-Out",price:"£10",icon:"fa-bolt",desc:"Listed BO3 package focused on multiplayer and Zombies progression.",feats:["Prestige Master MP","Zombies Level 1000","Unlimited Death Machine","God Mode Classes"]},
+{id:"s-div",cat:"cod",label:"COD",name:"BO3 Liquid Divinium",price:"From £5",icon:"fa-flask",desc:"Liquid Divinium options for BO3. Confirm current options and prices with support.",feats:["100K, £5","500K, £10","1M, £20"]},
+{id:"s-cw",cat:"cod",label:"COD",name:"Cold War Services",price:"From £5",icon:"fa-snowflake",desc:"Listed Black Ops Cold War services.",feats:["Custom Modded Classes, £15","DA Unlock All, £10","Crystals / Currency, £5","Trophy services: ask support"]},
+{id:"s-oth",cat:"cod",label:"COD",name:"Other Call of Duty Games",price:"From £5",icon:"fa-crosshairs",desc:"Listed services for Ghosts, Advanced Warfare and Black Ops 4.",feats:["COD Ghosts, £15","Advanced Warfare, £10","BO4 Modded Classes, £10","BO4 All Trophies, £5"]},
+{id:"s-psn",cat:"psn",label:"PSN",name:"PSN Profile Extras",price:"From £2",icon:"fa-user-pen",desc:"Listed profile customisation. Ask support which options are currently supported.",feats:["Custom Avatar, £2","Modded About Me, £2","Profile Colour, £2"]},
+{id:"s-games",cat:"games",label:"GAMES",name:"Other Modded Games",price:"From £5",icon:"fa-car-side",desc:"Listed Need for Speed and PS4 save-related services.",feats:["Need for Speed Heat, £10","Need for Speed Hot Pursuit Remastered, £5","PS4 Modded Save / Reassign, £5"]},
+{id:"s-troph",cat:"trophy",label:"TROPHIES",name:"PlayStation Trophy Level 999",price:"From £30",icon:"fa-trophy",desc:"Listed trophy packages. Confirm supported console, account requirements, risks and turnaround with support first.",feats:["Level 999 + 1,100+ Platinums, £30","Level 999 + 1,800+ Platinums, £40","Account requirements must be discussed with support"]},
+{id:"s-iptv",cat:"iptv",label:"IPTV",name:"IPTV Subscription",price:"£50",icon:"fa-tv",desc:"Listed one-year subscription. Confirm channels, terms and device compatibility before purchase.",feats:["One-year subscription, £50","Firestick support","Android support","Ask support about bulk pricing"]}
+];
+const SF=[["all","All"],["cod","COD"],["psn","PSN"],["trophy","Trophies"],["games","Games"],["iptv","IPTV"]];
+
+let st={plat:ls.get("mxz_plat","all"),cat:ls.get("mxz_cat","all"),svc:"all",q:""};
+const valid=id=>ITEMS.some(i=>i.id===id)||SERV.some(s=>s.id===id);
+let favs=ls.get("mxz_favs",[]).filter(valid),recs=ls.get("mxz_recent",[]).filter(valid),news=[],rels=[],sel=null,tt;
+const lookup=id=>ITEMS.find(i=>i.id===id)||SERV.find(s=>s.id===id);
+const mt=t=>{const w=st.q.trim().toLowerCase();return !w||w.split(/\s+/).every(x=>t.toLowerCase().includes(x))};
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2600)}
+function toggleFav(id){favs=favs.includes(id)?favs.filter(x=>x!==id):[id].concat(favs);ls.set("mxz_favs",favs);renderAll()}
+function addRecent(id){recs=[id].concat(recs.filter(x=>x!==id)).slice(0,8);ls.set("mxz_recent",recs);renderMine()}
+
+/* Filters */
+function renderChips(){
+ $("#chips").innerHTML=PLATS.map(([k,l])=>`<button type="button" class="chip${st.plat===k?" on":""}" data-p="${k}" aria-pressed="${st.plat===k}">${esc(l)}</button>`).join("");
+ $("#svcFilters").innerHTML=SF.map(([k,l])=>`<button type="button" class="chip${st.svc===k?" on":""}" data-s="${k}" aria-pressed="${st.svc===k}">${esc(l)}</button>`).join("");
+ $("#cat").innerHTML=CATS.map(c=>`<option value="${esc(c)}"${c===st.cat?" selected":""}>${c==="all"?"All categories":esc(c)}</option>`).join("");
+}
+$("#chips").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(!b)return;st.plat=b.dataset.p;ls.set("mxz_plat",st.plat);renderChips();renderAll()});
+$("#svcFilters").addEventListener("click",e=>{const b=e.target.closest("[data-s]");if(!b)return;st.svc=b.dataset.s;renderChips();renderAll()});
+$("#cat").addEventListener("change",e=>{st.cat=e.target.value;ls.set("mxz_cat",st.cat);renderAll()});
+
+/* Vault */
+const vaultFiltered=()=>ITEMS.filter(i=>(st.plat==="all"||i.p.includes(st.plat))&&(st.cat==="all"||i.c===st.cat)&&mt([i.t,i.d,i.c,i.p.map(p=>PN[p]).join(" ")].join(" ")));
+function renderVault(){
+ const l=vaultFiltered();
+ $("#vaultCount").textContent=l.length+" resource"+(l.length===1?"":"s")+" shown";
+ $("#vaultGrid").innerHTML=l.length?l.map(i=>`<div class="col-md-6 col-xl-4"><div class="card-x">
+  <div class="d-flex justify-content-between align-items-start gap-2"><h3 class="mt-0"><a href="${esc(i.u)}"${ext(i.u)} data-rec="${esc(i.id)}">${esc(i.t)}</a></h3>
+  <button type="button" class="fav" data-fav="${esc(i.id)}" aria-pressed="${favs.includes(i.id)}" aria-label="${favs.includes(i.id)?"Remove favourite":"Add favourite"}: ${esc(i.t)}">${favs.includes(i.id)?"★":"☆"}</button></div>
+  <p>${esc(i.d)}</p><div><span class="tag">${esc(i.c)}</span>${i.p.map(p=>`<span class="tag">${esc(PN[p])}</span>`).join("")}</div></div></div>`).join("")
+  :`<div class="col-12"><div class="panel text-center muted">No resources match those filters. Try another platform or clear the search.</div></div>`;
+}
+
+/* Services */
+function renderServices(){
+ const l=SERV.filter(s=>(st.svc==="all"||s.cat===st.svc)&&mt([s.name,s.desc,s.label,s.price,...s.feats].join(" ")));
+ $("#svcEmpty").hidden=l.length>0;
+ $("#svcGrid").innerHTML=l.map(s=>`<div class="col-md-6 col-lg-4"><article class="card-x">
+  <div class="d-flex justify-content-between align-items-center"><div class="ic"><i class="fa-solid ${esc(s.icon)}"></i></div>
+  <div><span class="tag m-0">${esc(s.label)}</span><button type="button" class="fav" data-fav="${esc(s.id)}" aria-pressed="${favs.includes(s.id)}" aria-label="${favs.includes(s.id)?"Remove favourite":"Add favourite"}: ${esc(s.name)}">${favs.includes(s.id)?"★":"☆"}</button></div></div>
+  <h3>${esc(s.name)}</h3><p>${esc(s.desc)}</p>
+  <div class="d-flex justify-content-between align-items-center pt-3" style="border-top:1px solid var(--border)"><strong class="price">${esc(s.price)}</strong>
+  <button type="button" class="btn-xz btn-s" data-svc="${esc(s.id)}">View details</button></div></article></div>`).join("");
+}
+function openSvc(id){
+ const s=SERV.find(x=>x.id===id);if(!s)return;sel=s;addRecent(id);
+ $("#mTitle").textContent=s.name;$("#mPrice").textContent=s.price;$("#mDesc").textContent=s.desc;
+ $("#mList").innerHTML=s.feats.map(f=>`<li><i class="fa-solid fa-check"></i><span>${esc(f)}</span></li>`).join("");
+ $("#order").value=["Hi ModdingXZ, I'd like to ask about this service:","","Service: "+s.name,"Listed price: "+s.price,"Selected option: [add option]","Platform / console: [add platform]","Game version / firmware: [add if relevant]","","Is this currently available and compatible? Please confirm the final price and instructions before I pay."].join("\n");
+ bootstrap.Modal.getOrCreateInstance($("#svcModal")).show();
+}
+$("#copyOrder").addEventListener("click",async()=>{
+ const t=$("#order");
+ try{await navigator.clipboard.writeText(t.value);toast("Enquiry copied. Paste it into Telegram support.")}
+ catch(e){t.focus();t.select();try{toast(document.execCommand("copy")?"Enquiry copied.":"Select the text and copy it manually.")}catch(x){toast("Select the text and copy it manually.")}}
+});
+
+/* Delegated clicks (favourites, details, recents) */
+document.addEventListener("click",e=>{
+ const f=e.target.closest("[data-fav]");if(f){toggleFav(f.dataset.fav);return}
+ const s=e.target.closest("[data-svc]");if(s){openSvc(s.dataset.svc);return}
+ const r=e.target.closest("[data-rec]");if(r)addRecent(r.dataset.rec);
+});
+
+/* My XZ */
+function mini(ids,box,msg){
+ box.innerHTML=ids.length?ids.map(id=>{const i=lookup(id);return i.u?`<div class="row-i"><a href="${esc(i.u)}"${ext(i.u)} data-rec="${esc(i.id)}">${esc(i.t)}</a><span class="tag m-0">${esc(i.c)}</span></div>`
+  :`<div class="row-i"><button type="button" class="linkbtn" data-svc="${esc(i.id)}">${esc(i.name)}</button><span class="tag m-0">Service</span></div>`}).join(""):`<p class="muted mb-0">${msg}</p>`;
+}
+function renderMine(){mini(favs,$("#favList"),"No favourites yet. Tap ☆ on any resource or service.");mini(recs,$("#recList"),"Nothing viewed yet.")}
+
+/* Global search */
+function renderResults(){
+ const box=$("#results"),q=st.q.trim();box.innerHTML="";if(q.length<2)return;
+ const h=[];
+ vaultFiltered().forEach(i=>h.push({t:i.t,u:i.u,k:"Tool Vault",id:i.id}));
+ SERV.filter(s=>mt([s.name,s.desc,...s.feats].join(" "))).forEach(s=>h.push({t:s.name,k:"Service",svc:s.id}));
+ if(st.plat==="all"){
+  news.filter(n=>mt(n.t)).slice(0,5).forEach(n=>h.push({t:n.t,u:n.u,k:"Daily (unverified)"}));
+  rels.filter(r=>mt(r.name+" "+r.tag)).forEach(r=>h.push({t:r.name+" "+r.tag,u:r.u,k:"Release Radar"}));
+ }
+ box.innerHTML=`<div class="panel"><div class="small2 muted mb-1">${h.length} result${h.length===1?"":"s"} for “${esc(q)}”</div>`+
+  (h.length?h.slice(0,14).map(x=>`<div class="row-i">${x.svc?`<button type="button" class="linkbtn" data-svc="${esc(x.svc)}">${esc(x.t)}</button>`:`<a href="${esc(x.u)}"${ext(x.u)}${x.id?` data-rec="${esc(x.id)}"`:""}>${esc(x.t)}</a>`}<span class="tag m-0">${esc(x.k)}</span></div>`).join(""):`<p class="mb-0">No results. Try fewer words, or ask in the Telegram community.</p>`)+`</div>`;
+}
+function renderRecentSearches(){
+ const rs=ls.get("mxz_searches",[]);
+ $("#recentSearches").innerHTML=rs.length?`<span class="small2 muted">Recent:</span>`+rs.map(s=>`<button type="button" class="chip" data-rs="${esc(s)}">${esc(s)}</button>`).join(""):"";
+}
+$("#recentSearches").addEventListener("click",e=>{const b=e.target.closest("[data-rs]");if(b){$("#q").value=b.dataset.rs;st.q=b.dataset.rs;renderAll()}});
+function saveSearch(){const q=st.q.trim();if(q.length<2)return;ls.set("mxz_searches",[q].concat(ls.get("mxz_searches",[]).filter(x=>x!==q)).slice(0,5));renderRecentSearches()}
+const qi=$("#q");
+qi.addEventListener("input",e=>{st.q=e.target.value;renderAll()});
+qi.addEventListener("keydown",e=>{if(e.key==="Enter")saveSearch();if(e.key==="Escape"){qi.value="";st.q="";renderAll();qi.blur()}});
+qi.addEventListener("change",saveSearch);
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!["INPUT","TEXTAREA","SELECT"].includes(e.target.tagName)){e.preventDefault();qi.focus();window.scrollTo({top:0})}});
+function renderAll(){renderVault();renderServices();renderMine();renderResults()}
+
+/* Network helpers */
+async function getJSON(url){
+ const c=new AbortController(),t=setTimeout(()=>c.abort(),9000);
+ try{const r=await fetch(url,{signal:c.signal,headers:{Accept:"application/json"}});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json()}finally{clearTimeout(t)}
+}
+const cached=(k,ttl)=>{const c=ls.get(k,null);return c&&Date.now()-c.t<ttl?c.v:null};
+const safeGH=u=>{try{const x=new URL(u);return x.protocol==="https:"&&x.hostname==="github.com"?x.href:null}catch(e){return null}};
+
+/* Daily: Reddit */
+async function loadNews(){
+ const box=$("#news");
+ try{
+  let p=cached("mxz_news",15*60*1000);
+  if(!p){
+   const j=await getJSON("https://www.reddit.com/r/callofduty+emulation+CODZombies/new.json?limit=30&raw_json=1");
+   p=(j.data.children||[]).map(c=>c.data).filter(d=>d&&d.title&&typeof d.permalink==="string"&&d.permalink.startsWith("/r/")&&!d.over_18)
+    .map(d=>({t:String(d.title).slice(0,200),u:"https://www.reddit.com"+d.permalink,s:"r/"+d.subreddit,d:d.created_utc*1000}));
+   ls.set("mxz_news",{t:Date.now(),v:p});
+  }
+  if(!p.length)throw new Error("empty");
+  news=p;
+  box.innerHTML=p.slice(0,10).map(n=>`<div class="row-i d-block"><a href="${esc(n.u)}" target="_blank" rel="noopener noreferrer">${esc(n.t)}</a><div class="small2 muted">${esc(n.s)} · ${esc(fmt(n.d))} · community report</div></div>`).join("");
+ }catch(e){
+  box.innerHTML=`<p class="mb-2">Couldn't load community reports. The source may be unavailable or rate-limiting this browser.</p><a href="https://www.reddit.com/r/callofduty/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)">Open r/callofduty directly</a>`;
+ }
+ renderResults();
+}
+
+/* Radar: GitHub latest releases */
+async function loadRadar(){
+ const rows=await Promise.all(ITEMS.filter(i=>i.repo).map(async i=>{
+  const k="mxz_rel_"+i.repo,h=cached(k,30*60*1000);if(h)return h;
+  try{
+   const j=await getJSON("https://api.github.com/repos/"+i.repo+"/releases/latest");
+   const v={name:i.t,tag:String(j.tag_name||j.name||"release").slice(0,60),d:j.published_at||j.created_at,u:safeGH(j.html_url)||i.u,ok:1};
+   ls.set(k,{t:Date.now(),v});return v;
+  }catch(e){return{name:i.t,ok:0}}
+ }));
+ rels=rows.filter(r=>r.ok).sort((a,b)=>new Date(b.d)-new Date(a.d));
+ const bad=rows.filter(r=>!r.ok);
+ $("#radarList").innerHTML=(rels.length?rels.map(r=>`<div class="row-i"><div><a href="${esc(r.u)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a> <span class="tag ms-1">${esc(r.tag)}</span></div><span class="small2 muted">Published ${esc(fmt(r.d))}</span></div>`).join(""):`<p class="mb-2">Couldn't reach the GitHub API (or it's rate-limiting this browser). Try again later.</p>`)+
+  (bad.length?`<p class="small2 muted mt-2 mb-0">No release data for: ${esc(bad.map(b=>b.name).join(", "))} (no published release, or the request failed).</p>`:"");
+ renderResults();
+}
+
+/* Your GitHub projects */
+async function loadRepos(){
+ const b=$("#refreshRepos"),s=$("#repoStatus");
+ b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Loading';s.textContent="Checking public GitHub repositories…";
+ try{
+  const r=await getJSON("https://api.github.com/users/MrJasonDEX/repos?sort=updated&per_page=9&type=public");
+  if(!Array.isArray(r)||!r.length)throw new Error("none");
+  $("#repoGrid").innerHTML=r.map(x=>{const u=safeGH(x.html_url);return u?`<div class="col-md-6 col-xl-4"><a class="card-x" href="${esc(u)}" target="_blank" rel="noopener noreferrer"><h3 class="mt-0"><i class="fa-brands fa-github me-2"></i>${esc(x.name)}</h3><p>${esc(x.description||"No description supplied.")}</p><div class="small2 muted">${esc(x.language||"Project")} · ★ ${Number(x.stargazers_count||0)} · Updated ${esc(fmt(x.updated_at))}</div></a></div>`:""}).join("");
+  s.textContent="Showing "+r.length+" public repositories, most recently updated first. Data from GitHub.";
+ }catch(e){s.textContent="Live repository data is unavailable right now. Use the featured project links or open GitHub directly."}
+ finally{b.disabled=false;b.innerHTML='<i class="fa-solid fa-rotate"></i> Refresh projects'}
+}
+$("#refreshRepos").addEventListener("click",loadRepos);
+
+$("#clearMine").addEventListener("click",()=>{
+ if(!confirm("Clear favourites, recents, searches and saved filters from this browser?"))return;
+ ["mxz_favs","mxz_recent","mxz_searches","mxz_plat","mxz_cat"].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+ favs=[];recs=[];st.plat="all";st.cat="all";renderChips();renderRecentSearches();renderAll();
+});
+
+/* Navigation: close mobile menu, highlight current section */
+document.querySelectorAll("#mainNav a[href^='#']").forEach(a=>a.addEventListener("click",()=>{const n=$("#mainNav");if(n.classList.contains("show"))bootstrap.Collapse.getOrCreateInstance(n).hide()}));
+const nl=[...document.querySelectorAll(".navbar .nav-link[href^='#']")];
+if("IntersectionObserver"in window){
+ const o=new IntersectionObserver(es=>{const v=es.filter(x=>x.isIntersecting)[0];if(v)nl.forEach(l=>l.classList.toggle("active",l.getAttribute("href")==="#"+v.target.id))},{rootMargin:"-25% 0px -60% 0px"});
+ nl.forEach(l=>{const s=document.querySelector(l.getAttribute("href"));if(s)o.observe(s)});
+}
+
+$("#year").textContent=new Date().getFullYear();
+renderChips();renderRecentSearches();renderAll();loadNews();loadRadar();
+})();
+</script>
+</body>
+</html>
