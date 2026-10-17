@@ -3,545 +3,843 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090711">
-<meta name="description" content="ModdingXZ Console Intelligence: discover console homebrew, open-source tools, project releases and community research.">
-<title>ModdingXZ | Console Intelligence</title>
+<meta name="description" content="ModdingXZ Command Centre — discover console modding, homebrew, tools, releases and developer news from across the web.">
+<title>ModdingXZ | Command Centre</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
 <style>
-:root{
- --bg:#090711;--panel:#110e1c;--panel2:#171225;--border:#2d2240;
- --purple:#a855f7;--purple2:#7c3aed;--text:#f7f3ff;--muted:#a59ab9;
- --green:#66e5aa;--red:#fb7185;--gold:#f5cc77;
+:root {
+  --bg:#090711; --panel:#100d1c; --panel2:#171229;
+  --border:#2b2340; --purple:#a16aff; --purple2:#713de0;
+  --text:#f5f0ff; --muted:#a79bbd; --green:#5be6aa;
 }
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 50% -15%,#35164d 0,transparent 45%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
-a{color:inherit;text-decoration:none}a:hover{color:#d8b4fe}
-.navbar{background:#090711eF;border-bottom:1px solid var(--border);backdrop-filter:blur(15px)}
-.brand{font-weight:950;letter-spacing:-.8px;color:#fff!important}
-.brand span{color:var(--purple)}
-.brand-icon{display:inline-grid;place-items:center;width:35px;height:35px;background:linear-gradient(135deg,#c084fc,#6d28d9);border-radius:11px;margin-right:9px}
-.hero{padding:58px 0 32px}
-.eyebrow{display:inline-block;padding:7px 12px;border-radius:50px;background:#6b21a826;border:1px solid #7540a3;color:#d8b4fe;font-size:.75rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
-h1{font-size:clamp(2.3rem,7vw,4.6rem);font-weight:950;letter-spacing:-2.5px;line-height:1.04;margin:20px 0}
-.gradient{background:linear-gradient(90deg,#d8b4fe,#a855f7,#f0abfc);color:transparent;background-clip:text;-webkit-background-clip:text}
-.muted{color:var(--muted)}.small-muted{color:var(--muted);font-size:.83rem}
-.panel{background:linear-gradient(145deg,#151020,#100c19);border:1px solid var(--border);border-radius:16px}
-.stat{padding:16px;height:100%}.stat-number{font-size:1.55rem;font-weight:900}.stat-label{font-size:.76rem;color:var(--muted)}
-.section-title{font-weight:850;letter-spacing:-.6px}
-.btn-purple{background:linear-gradient(135deg,#9333ea,#6d28d9);border:1px solid #a855f7;color:#fff;font-weight:750}
-.btn-purple:hover{background:#a855f7;color:white}
-.btn-ghost{background:#171024;border:1px solid var(--border);color:#d8b4fe}
-.btn-ghost:hover,.btn-ghost.active{background:#6b21a833;border-color:#a855f7;color:white}
-.form-control,.form-select{background:#0c0914;color:white;border-color:var(--border)}
-.form-control::placeholder{color:#817590}
-.form-control:focus,.form-select:focus{background:#0c0914;color:white;border-color:var(--purple);box-shadow:0 0 0 .2rem #a855f725}
-.form-select option{background:#100c19}
-.console-tile{padding:18px;cursor:pointer;transition:.2s;height:100%;position:relative;overflow:hidden}
-.console-tile:hover{border-color:#9952d5;transform:translateY(-2px)}
-.console-tile.selected{border-color:var(--purple);background:linear-gradient(135deg,#32144a,#171024);box-shadow:0 0 0 1px #a855f755}
-.console-symbol{font-size:1.7rem;color:#d8b4fe;margin-bottom:12px}
-.console-name{font-weight:850}
-.console-desc{font-size:.78rem;color:var(--muted);margin-top:5px}
-.console-tile .check{position:absolute;top:13px;right:14px;color:#d8b4fe;display:none}
-.console-tile.selected .check{display:block}
-.tab-row{display:flex;gap:7px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:13px}
-.tab-btn{border:1px solid transparent;border-radius:10px;padding:10px 14px;background:transparent;color:var(--muted);font-weight:750}
-.tab-btn.active{background:#6b21a833;border-color:#6b369b;color:white}
-.project-card{height:100%;background:linear-gradient(145deg,#151021,#0e0b17);border:1px solid var(--border);border-radius:15px;display:flex;flex-direction:column;overflow:hidden;transition:.2s}
-.project-card:hover{transform:translateY(-3px);border-color:#8243bc;box-shadow:0 12px 35px #0005}
-.project-head{padding:17px 17px 0;display:flex;justify-content:space-between;gap:10px}
-.project-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#251632;border:1px solid #402957;font-size:1.2rem}
-.project-content{padding:16px;display:flex;flex-direction:column;flex:1}
-.project-name{font-size:1rem;font-weight:850;overflow-wrap:anywhere}
-.project-owner{font-size:.77rem;color:#c59ae9;margin-top:4px}
-.project-description{font-size:.84rem;line-height:1.65;color:var(--muted);margin:13px 0;overflow-wrap:anywhere}
-.pill{display:inline-block;background:#21152f;border:1px solid #3b2851;color:#d8b4fe;padding:4px 8px;border-radius:7px;font-size:.69rem;margin:0 4px 5px 0}
-.platform-badge{display:inline-block;background:#1b1427;border:1px solid var(--border);border-radius:50px;padding:5px 8px;color:#dfd0ef;font-size:.67rem;white-space:nowrap}
-.meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.75rem;color:var(--muted)}
-.meta i{color:#c084fc}
-.card-actions{display:flex;gap:8px;margin-top:auto;padding-top:16px}
-.card-actions .btn{font-size:.8rem}
-.fav{width:36px;height:36px;border-radius:9px;background:#130e20;border:1px solid var(--border);color:var(--muted)}
-.fav.saved{color:#f0abfc;border-color:#a855f7}
-.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:7px}
-.status-dot.warn{background:var(--gold)}.status-dot.error{background:var(--red)}
-.empty{border:1px dashed #443151;border-radius:15px;padding:40px 18px;text-align:center;color:var(--muted)}
-.empty i{display:block;font-size:2.4rem;color:#a855f7;margin-bottom:12px}
-.firmware-note{font-size:.8rem;line-height:1.6;border:1px solid #6c5125;background:#2c2111;color:#f6d99a;border-radius:11px;padding:12px}
-.release-item{padding:15px;border-bottom:1px solid var(--border)}
-.release-item:last-child{border-bottom:0}
-.release-item a{font-weight:800}
-footer{margin-top:55px;border-top:1px solid var(--border);padding:25px 0;color:var(--muted);font-size:.8rem}
-@media(max-width:575px){.hero{padding-top:40px}h1{letter-spacing:-1.5px}.stat{padding:12px}.stat-number{font-size:1.25rem}.console-tile{padding:13px}}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:#c9aaff;text-decoration:none}
+a:hover{color:white}
+.navbar{background:#090711ed;border-bottom:1px solid var(--border);backdrop-filter:blur(15px)}
+.navbar-brand{font-weight:900;letter-spacing:-.5px;color:white}
+.brand-x{color:var(--purple)}
+.brand-icon{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:11px;background:linear-gradient(135deg,var(--purple),var(--purple2));margin-right:8px}
+.nav-link{color:var(--muted)}
+.nav-link:hover{color:white}
+.navbar-toggler{border-color:var(--border);color:white}
+.hero{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:22px;padding:clamp(25px,5vw,48px);background:radial-gradient(ellipse at 85% 10%,#713de037,transparent 45%),linear-gradient(130deg,#171027,#0e0b17)}
+.hero:after{content:"XZ";position:absolute;right:4%;bottom:-65px;font-size:clamp(130px,23vw,250px);font-weight:1000;color:#a16aff08;pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.eyebrow{text-transform:uppercase;letter-spacing:1.8px;font-weight:800;font-size:.72rem;color:#c8aaff}
+h1{font-weight:950;letter-spacing:-1.6px;line-height:1.05}
+.gradient{background:linear-gradient(90deg,#decaff,#9455ff);color:#c8aaff;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.muted,.small-label{color:var(--muted)}
+.small-label{font-size:.78rem}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:16px;min-width:0}
+.panel-head{padding:16px 19px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.panel-body{padding:19px}
+.stat{height:100%;padding:17px;background:linear-gradient(145deg,#171229,#100d1b);border:1px solid var(--border);border-radius:14px}
+.stat-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#a16aff20;color:#c7a7ff;font-size:1.15rem}
+.stat-num{font-size:1.7rem;font-weight:900;letter-spacing:-.7px}
+.btn-xz{background:linear-gradient(135deg,#a16aff,#713de0);color:white;border:1px solid #ae82ff;border-radius:10px;font-weight:750}
+.btn-xz:hover{color:white;filter:brightness(1.12)}
+.btn-outline-xz{background:#ffffff04;color:#e2d5ff;border:1px solid var(--border);border-radius:10px}
+.btn-outline-xz:hover{background:#a16aff1a;border-color:var(--purple);color:white}
+.form-control,.form-select{background:#0c0915;color:var(--text);border:1px solid var(--border);border-radius:10px}
+.form-control::placeholder{color:#766b89}
+.form-control:focus,.form-select:focus{background:#0c0915;color:white;border-color:var(--purple);box-shadow:0 0 0 .2rem #a16aff22}
+.form-select option{background:#100d1c;color:white}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:50px;border:1px solid var(--border);font-size:.72rem;color:#c9bddc;background:#ffffff05}
+.pill-purple{color:#d5bdff;background:#a16aff18;border-color:#a16aff45}
+.pill-green{color:var(--green);background:#5be6aa10;border-color:#5be6aa35}
+.project-card,.feed-card{height:100%;padding:16px;background:linear-gradient(155deg,#171229,#100d1b);border:1px solid var(--border);border-radius:14px;overflow-wrap:anywhere;transition:border-color .15s,transform .15s}
+.project-card:hover,.feed-card:hover{border-color:#8156c3;transform:translateY(-2px)}
+.project-card h3{font-size:1rem;font-weight:850}
+.description{color:var(--muted);font-size:.83rem;line-height:1.6;min-height:52px}
+.meta{font-size:.76rem;color:var(--muted)}
+.tab-btn{border:1px solid var(--border);border-radius:50px;background:transparent;color:var(--muted);padding:7px 12px;font-size:.81rem;white-space:nowrap}
+.tab-btn.active{background:#a16aff20;color:white;border-color:#a16aff88}
+.favorite{width:35px;height:35px;border-radius:9px;border:1px solid var(--border);background:transparent;color:#a79bbd}
+.favorite.saved{color:#ff85b5;border-color:#ff85b555}
+.feed-source{font-size:.7rem;text-transform:uppercase;letter-spacing:.7px;color:#c6a3ff;font-weight:800}
+.feed-card h3{font-size:1rem;font-weight:800;line-height:1.4}
+.feed-card p{font-size:.84rem;color:var(--muted);line-height:1.6}
+.quick-link{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--border);border-radius:12px;color:white;height:100%;background:#ffffff03}
+.quick-link:hover{border-color:var(--purple);color:white}
+.quick-link i{font-size:1.3rem;color:#c5a1ff}
+.quick-link small{display:block;color:var(--muted)}
+.output{white-space:pre-wrap;overflow-wrap:anywhere;background:#090711;border:1px solid var(--border);border-radius:10px;padding:12px;min-height:65px;font: .82rem ui-monospace,Consolas,monospace;color:#d9caff}
+.empty{padding:30px 12px;text-align:center;color:var(--muted)}
+.empty i{font-size:2rem;color:var(--purple);display:block;margin-bottom:10px}
+.feed-line{padding:12px 0;border-bottom:1px solid #ffffff0b}
+.feed-line:last-child{border-bottom:0}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px}
+footer{border-top:1px solid var(--border);color:var(--muted)}
+.spinner{width:17px;height:17px;display:inline-block;border:2px solid #ffffff40;border-top-color:white;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{background:#191329;color:white;border:1px solid var(--border)}
+.toast .btn-close{filter:invert(1)}
+@media(max-width:575px){h1{letter-spacing:-.8px}.panel-body{padding:14px}.stat{padding:13px}.stat-num{font-size:1.45rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
-
 <body>
+
 <nav class="navbar navbar-expand-lg sticky-top">
- <div class="container py-1">
-  <a class="navbar-brand brand d-flex align-items-center" href="#">
-   <span class="brand-icon"><i class="bi bi-controller"></i></span>MODDING<span>XZ</span>
+ <div class="container-fluid px-lg-4">
+  <a class="navbar-brand d-flex align-items-center" href="#top">
+   <span class="brand-icon"><i class="bi bi-command"></i></span>
+   MODDING<span class="brand-x">XZ</span>
+   <span class="pill ms-2 d-none d-md-inline">COMMAND CENTRE</span>
   </a>
-  <button class="navbar-toggler btn-ghost" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle menu"><i class="bi bi-list"></i></button>
+  <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Open navigation"><i class="bi bi-list"></i></button>
   <div class="collapse navbar-collapse" id="nav">
-   <div class="navbar-nav ms-auto align-items-lg-center gap-lg-3 py-3 py-lg-0">
-    <a class="nav-link text-white" href="#consoles">Consoles</a>
-    <a class="nav-link text-white" href="#explorer">Explorer</a>
-    <a class="nav-link text-white" href="#releases">Releases</a>
-    <a class="btn btn-purple btn-sm px-3" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-1"></i> Community</a>
-   </div>
+   <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 py-2">
+    <li class="nav-item"><a class="nav-link" href="#discover">Discover</a></li>
+    <li class="nav-item"><a class="nav-link" href="#community">Communities</a></li>
+    <li class="nav-item"><a class="nav-link" href="#releases">Releases</a></li>
+    <li class="nav-item"><a class="nav-link" href="#toolbox">Toolbox</a></li>
+    <li class="nav-item"><a class="btn btn-xz btn-sm px-3" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-1"></i>Telegram</a></li>
+   </ul>
   </div>
  </div>
 </nav>
 
-<header class="hero">
- <div class="container">
-  <span class="eyebrow"><i class="bi bi-cpu me-1"></i> Console intelligence · v1.0</span>
-  <h1>Your console scene.<br><span class="gradient">One intelligence hub.</span></h1>
-  <p class="muted" style="max-width:690px;line-height:1.8">
-   Explore console homebrew, open-source tools, research and project releases.
-   Search public repositories, track useful projects and build your own watchlist.
-  </p>
-  <div class="row g-3 mt-4">
-   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countProjects">0</div><div class="stat-label">Projects indexed locally</div></div></div>
-   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countReleases">0</div><div class="stat-label">Releases found</div></div></div>
-   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countSaved">0</div><div class="stat-label">Saved projects</div></div></div>
-   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countSources">4</div><div class="stat-label">Discovery searches</div></div></div>
-  </div>
- </div>
-</header>
-
-<main class="container pb-5">
-<section id="consoles" class="mb-5">
- <div class="mb-3">
-  <h2 class="section-title h3 mb-1">Choose your platform</h2>
-  <p class="small-muted mb-0">Select a console category to personalise the discovery feed.</p>
- </div>
- <div class="row g-3">
-  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start selected" data-platform="all"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-grid-3x3-gap"></i></div><div class="console-name">All projects</div><div class="console-desc">Every discovered category</div></button></div>
-  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start" data-platform="playstation"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-playstation"></i></div><div class="console-name">PlayStation</div><div class="console-desc">PS4, PS5, Vita and more</div></button></div>
-  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start" data-platform="xbox"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-xbox"></i></div><div class="console-name">Xbox</div><div class="console-desc">Xbox homebrew and tools</div></button></div>
-  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start" data-platform="general"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-terminal"></i></div><div class="console-name">General homebrew</div><div class="console-desc">Cross-platform projects</div></button></div>
- </div>
-</section>
-
-<section class="mb-5" id="explorer">
- <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
-  <div><h2 class="section-title h3 mb-1">Project intelligence</h2><p class="small-muted mb-0">Search community repositories and inspect their public metadata.</p></div>
-  <span class="small-muted" id="updated">Waiting for feeds…</span>
- </div>
-
- <div class="panel p-3 mb-3">
-  <form id="searchForm" class="row g-2">
-   <div class="col-12 col-lg">
-    <input id="searchInput" class="form-control" placeholder="Search: PS5 homebrew, Xbox tools, console research…" autocomplete="off">
+<main class="container-fluid px-3 px-lg-4 py-4" id="top">
+ <section class="hero mb-4">
+  <div class="row align-items-center g-4">
+   <div class="col-lg-8">
+    <div class="eyebrow mb-3"><i class="bi bi-lightning-charge-fill me-1"></i>Multi-source discovery platform</div>
+    <h1 class="display-4 mb-3">The modding world.<br><span class="gradient">All in one place.</span></h1>
+    <p class="muted mb-4" style="max-width:690px">Explore console modding projects, public releases, developer discussions and community resources. Pull information from external sources and keep your favourite discoveries close.</p>
+    <div class="d-flex flex-wrap gap-2">
+     <a class="btn btn-xz px-4 py-2" href="#discover"><i class="bi bi-search me-2"></i>Discover projects</a>
+     <a class="btn btn-outline-xz px-4 py-2" href="#community"><i class="bi bi-people me-2"></i>Community sources</a>
+    </div>
    </div>
-   <div class="col-6 col-lg-2">
-    <select id="kindFilter" class="form-select">
-     <option value="all">All types</option><option value="tool">Tools</option><option value="homebrew">Homebrew</option><option value="research">Research</option>
-    </select>
+   <div class="col-lg-4">
+    <div class="panel p-3 p-lg-4">
+     <div class="d-flex justify-content-between align-items-center mb-3"><span class="small-label">SOURCE STATUS</span><span class="pill pill-purple">Live checks</span></div>
+     <div class="d-flex justify-content-between py-2"><span class="muted"><i class="bi bi-github me-2"></i>GitHub API</span><span id="githubStatus" class="small">Waiting</span></div>
+     <div class="d-flex justify-content-between py-2"><span class="muted"><i class="bi bi-fire me-2"></i>Hacker News</span><span id="hnStatus" class="small">Waiting</span></div>
+     <div class="d-flex justify-content-between py-2"><span class="muted"><i class="bi bi-rss me-2"></i>RSS feeds</span><span id="rssStatus" class="small">Not loaded</span></div>
+     <div class="d-flex justify-content-between py-2"><span class="muted"><i class="bi bi-heart me-2"></i>Saved items</span><strong id="savedCount">0</strong></div>
+     <button id="refreshAll" class="btn btn-outline-xz btn-sm w-100 mt-3"><i class="bi bi-arrow-clockwise me-1"></i>Refresh all sources</button>
+     <div class="small-label mt-3">Last update: <span id="lastUpdate">Not yet</span></div>
+    </div>
    </div>
-   <div class="col-6 col-lg-2">
-    <select id="sortFilter" class="form-select">
-     <option value="updated">Recently updated</option><option value="stars">Most stars</option><option value="forks">Most forks</option><option value="created">Newest projects</option>
-    </select>
+  </div>
+ </section>
+
+ <section class="row g-3 mb-4">
+  <div class="col-6 col-xl-3"><div class="stat"><div class="d-flex justify-content-between mb-3"><span class="small-label">PROJECTS</span><span class="stat-icon"><i class="bi bi-github"></i></span></div><div class="stat-num" id="statProjects">0</div><div class="small-label">GitHub discoveries</div></div></div>
+  <div class="col-6 col-xl-3"><div class="stat"><div class="d-flex justify-content-between mb-3"><span class="small-label">RELEASES</span><span class="stat-icon"><i class="bi bi-box-seam"></i></span></div><div class="stat-num" id="statReleases">0</div><div class="small-label">Latest versions found</div></div></div>
+  <div class="col-6 col-xl-3"><div class="stat"><div class="d-flex justify-content-between mb-3"><span class="small-label">DISCUSSIONS</span><span class="stat-icon"><i class="bi bi-chat-dots"></i></span></div><div class="stat-num" id="statDiscussions">0</div><div class="small-label">Developer stories</div></div></div>
+  <div class="col-6 col-xl-3"><div class="stat"><div class="d-flex justify-content-between mb-3"><span class="small-label">SAVED ITEMS</span><span class="stat-icon"><i class="bi bi-bookmark-heart"></i></span></div><div class="stat-num" id="statSaved">0</div><div class="small-label">Stored on this device</div></div></div>
+ </section>
+
+ <section class="panel mb-4" id="discover">
+  <div class="panel-head flex-wrap">
+   <div><div class="eyebrow mb-1">Open-source intelligence</div><h2 class="h5 fw-bold mb-0">Project discovery</h2></div>
+   <button id="refreshProjects" class="btn btn-outline-xz btn-sm"><i class="bi bi-arrow-clockwise me-1"></i>Refresh projects</button>
+  </div>
+  <div class="panel-body">
+   <div class="d-flex flex-wrap gap-2 mb-3" id="platformTabs">
+    <button class="tab-btn active" data-platform="all">All</button>
+    <button class="tab-btn" data-platform="playstation">PlayStation</button>
+    <button class="tab-btn" data-platform="xbox">Xbox</button>
+    <button class="tab-btn" data-platform="homebrew">Homebrew</button>
+    <button class="tab-btn" data-platform="development">Development</button>
+    <button class="tab-btn" data-platform="saved">Saved</button>
    </div>
-   <div class="col-12 col-lg-auto"><button class="btn btn-purple w-100" type="submit"><i class="bi bi-search me-1"></i> Search</button></div>
-  </form>
- </div>
-
- <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-  <div class="d-flex gap-2 flex-wrap">
-   <button class="btn btn-ghost active" data-mode="discover">Discover</button>
-   <button class="btn btn-ghost" data-mode="saved"><i class="bi bi-heart me-1"></i> Saved</button>
-   <button class="btn btn-ghost" data-mode="releases">Releases</button>
+   <div class="row g-2 mb-3">
+    <div class="col-lg-5"><input id="projectSearch" class="form-control" type="search" placeholder="Search projects, descriptions, topics..."></div>
+    <div class="col-6 col-lg-3"><select id="sortProjects" class="form-select"><option value="updated">Recently updated</option><option value="stars">Most stars</option><option value="forks">Most forks</option><option value="name">Name A–Z</option></select></div>
+    <div class="col-6 col-lg-2"><select id="languageFilter" class="form-select"><option value="all">All languages</option></select></div>
+    <div class="col-lg-2"><button id="clearProjectFilters" class="btn btn-outline-xz w-100">Clear filters</button></div>
+   </div>
+   <div id="projectStatus" class="small-label mb-3" aria-live="polite">Connecting to GitHub public API...</div>
+   <div id="projectGrid" class="row g-3"><div class="col-12"><div class="empty"><span class="spinner"></span><p class="mt-3">Loading projects...</p></div></div></div>
+   <div class="text-center mt-4"><button id="loadMore" class="btn btn-outline-xz" hidden>Load more</button></div>
+   <p class="small-label mt-3 mb-0">Repository search results are automated discoveries, not endorsements. Check the original project, release notes, licence and compatibility before downloading.</p>
   </div>
-  <button class="btn btn-ghost btn-sm" id="refresh"><i class="bi bi-arrow-clockwise me-1"></i> Refresh data</button>
- </div>
+ </section>
 
- <div class="firmware-note mb-3">
-  <i class="bi bi-info-circle me-1"></i>
-  <strong>Compatibility notice:</strong> project descriptions and repository topics are community-provided.
-  Firmware numbers in search results are not verified compatibility guarantees. Confirm compatibility,
-  risks and installation requirements using the original developer documentation.
- </div>
-
- <div class="small-muted mb-3" id="status" aria-live="polite"><span class="status-dot warn"></span>Loading public discovery feeds…</div>
- <div id="results" class="row g-3">
-  <div class="col-12"><div class="empty"><i class="bi bi-arrow-repeat"></i>Connecting to public project feeds…</div></div>
- </div>
- <div class="text-center mt-4"><button id="more" class="btn btn-ghost d-none">Load more</button></div>
-</section>
-
-<section id="releases" class="mb-5">
- <div class="panel p-4">
-  <div class="d-flex align-items-start gap-3">
-   <div class="console-symbol"><i class="bi bi-box-seam"></i></div>
-   <div><h2 class="section-title h4 mb-1">Release watch</h2><p class="small-muted mb-0">Latest GitHub releases checked from selected discovered projects. Open release notes at their original source.</p></div>
+ <section class="panel mb-4" id="community">
+  <div class="panel-head flex-wrap">
+   <div><div class="eyebrow mb-1">Beyond GitHub</div><h2 class="h5 fw-bold mb-0">Community & developer feeds</h2></div>
+   <button id="refreshFeeds" class="btn btn-outline-xz btn-sm"><i class="bi bi-arrow-clockwise me-1"></i>Refresh feeds</button>
   </div>
-  <div class="mt-3" id="releaseList"><div class="small-muted">Release data will appear after project discovery.</div></div>
- </div>
-</section>
+  <div class="panel-body">
+   <div class="d-flex flex-wrap gap-2 mb-3" id="feedTabs">
+    <button class="tab-btn active" data-feed="all">All activity</button>
+    <button class="tab-btn" data-feed="hackernews">Hacker News</button>
+    <button class="tab-btn" data-feed="rss">RSS feeds</button>
+    <button class="tab-btn" data-feed="saved">Saved items</button>
+   </div>
+   <div id="feedStatus" class="small-label mb-3" aria-live="polite">Feeds have not been loaded yet.</div>
+   <div id="feedGrid" class="row g-3"><div class="col-12"><div class="empty"><i class="bi bi-rss"></i>Refresh sources to load discussions and news.</div></div></div>
+   <div class="small-label mt-3">Hacker News uses its public Firebase API. RSS imports use an external conversion service and may fail if the feed or service is unavailable.</div>
+  </div>
+ </section>
 
-<section class="panel p-4 p-md-5 text-center">
- <div class="console-symbol"><i class="bi bi-telegram"></i></div>
- <h2 class="section-title h3">Powered by the community</h2>
- <p class="small-muted mx-auto" style="max-width:610px">Discover projects here, follow their original developers and join ModdingXZ for community discussion, guides and updates.</p>
- <a class="btn btn-purple px-4" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>Join ModdingXZ</a>
-</section>
+ <section class="row g-4 mb-4" id="releases">
+  <div class="col-lg-7">
+   <div class="panel h-100">
+    <div class="panel-head"><div><div class="eyebrow mb-1">Version tracker</div><h2 class="h5 fw-bold mb-0">Latest GitHub releases</h2></div><span class="pill">Public API</span></div>
+    <div class="panel-body"><div id="releaseList"><div class="empty"><span class="spinner"></span><p class="mt-2">Loading releases...</p></div></div></div>
+   </div>
+  </div>
+  <div class="col-lg-5">
+   <div class="panel h-100">
+    <div class="panel-head"><div><div class="eyebrow mb-1">Your workspace</div><h2 class="h5 fw-bold mb-0">Activity history</h2></div><button id="clearActivity" class="btn btn-outline-xz btn-sm">Clear</button></div>
+    <div class="panel-body"><div id="activityList" class="small-label">Your saved items and refreshes will appear here.</div></div>
+   </div>
+  </div>
+ </section>
+
+ <section class="panel mb-4" id="rssSettings">
+  <div class="panel-head"><div><div class="eyebrow mb-1">Custom sources</div><h2 class="h5 fw-bold mb-0">Add your own RSS feeds</h2></div><i class="bi bi-rss fs-4" style="color:var(--purple)"></i></div>
+  <div class="panel-body">
+   <p class="muted small">Follow a public RSS or Atom feed from a modding site, project blog or news source. Feed URLs are saved locally in this browser. This does not bypass login requirements or website restrictions.</p>
+   <form id="rssForm" class="row g-2">
+    <div class="col-md-4"><input id="rssName" class="form-control" placeholder="Source name e.g. Homebrew news" maxlength="70" required></div>
+    <div class="col-md-6"><input id="rssUrl" class="form-control" type="url" placeholder="https://example.com/feed.xml" required></div>
+    <div class="col-md-2"><button class="btn btn-xz w-100" type="submit"><i class="bi bi-plus-lg me-1"></i>Add feed</button></div>
+   </form>
+   <div id="customFeedList" class="mt-3"></div>
+   <div class="small-label mt-3">Feed conversion service: <a href="https://rss2json.com/" target="_blank" rel="noopener noreferrer">RSS2JSON</a>. Free service limits and CORS behaviour may change. No API key is embedded in this page.</div>
+  </div>
+ </section>
+
+ <section class="panel mb-4" id="toolbox">
+  <div class="panel-head"><div><div class="eyebrow mb-1">Browser utilities</div><h2 class="h5 fw-bold mb-0">XZ Developer Toolbox</h2></div><span class="pill pill-green">Runs locally</span></div>
+  <div class="panel-body">
+   <div class="row g-4">
+    <div class="col-lg-6">
+     <h3 class="h6 fw-bold"><i class="bi bi-braces me-2" style="color:var(--purple)"></i>JSON formatter</h3>
+     <textarea id="jsonInput" class="form-control mb-2" rows="5" placeholder='{"brand":"ModdingXZ","version":1}'></textarea>
+     <div class="d-flex flex-wrap gap-2 mb-2"><button class="btn btn-xz btn-sm" id="jsonFormat">Format</button><button class="btn btn-outline-xz btn-sm" id="jsonMinify">Minify</button><button class="btn btn-outline-xz btn-sm" id="jsonCopy">Copy output</button></div>
+     <div id="jsonOutput" class="output">JSON output appears here.</div>
+    </div>
+    <div class="col-lg-6">
+     <h3 class="h6 fw-bold"><i class="bi bi-code-slash me-2" style="color:var(--purple)"></i>Base64 encoder / decoder</h3>
+     <textarea id="baseInput" class="form-control mb-2" rows="5" placeholder="Enter text or Base64..."></textarea>
+     <div class="d-flex flex-wrap gap-2 mb-2"><button class="btn btn-xz btn-sm" id="baseEncode">Encode</button><button class="btn btn-outline-xz btn-sm" id="baseDecode">Decode</button><button class="btn btn-outline-xz btn-sm" id="baseCopy">Copy output</button></div>
+     <div id="baseOutput" class="output">Result appears here.</div>
+    </div>
+    <div class="col-lg-6">
+     <h3 class="h6 fw-bold"><i class="bi bi-link-45deg me-2" style="color:var(--purple)"></i>URL component encoder</h3>
+     <textarea id="urlInput" class="form-control mb-2" rows="3" placeholder="Enter text to encode or decode..."></textarea>
+     <div class="d-flex flex-wrap gap-2 mb-2"><button class="btn btn-xz btn-sm" id="urlEncode">Encode</button><button class="btn btn-outline-xz btn-sm" id="urlDecode">Decode</button><button class="btn btn-outline-xz btn-sm" id="urlCopy">Copy output</button></div>
+     <div id="urlOutput" class="output">Result appears here.</div>
+    </div>
+    <div class="col-lg-6">
+     <h3 class="h6 fw-bold"><i class="bi bi-file-earmark-text me-2" style="color:var(--purple)"></i>Text analyser</h3>
+     <textarea id="textInput" class="form-control mb-3" rows="3" placeholder="Paste text here..."></textarea>
+     <div class="row g-2">
+      <div class="col-4"><div class="stat"><div class="small-label">WORDS</div><div id="words" class="h4 mb-0">0</div></div></div>
+      <div class="col-4"><div class="stat"><div class="small-label">CHARS</div><div id="chars" class="h4 mb-0">0</div></div></div>
+      <div class="col-4"><div class="stat"><div class="small-label">LINES</div><div id="lines" class="h4 mb-0">0</div></div></div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </section>
+
+ <section class="panel mb-4">
+  <div class="panel-head"><div><div class="eyebrow mb-1">Personal settings</div><h2 class="h5 fw-bold mb-0">Dashboard preferences</h2></div></div>
+  <div class="panel-body">
+   <div class="d-flex justify-content-between align-items-center gap-3">
+    <div><strong>Automatic refresh</strong><div class="small-label">Refresh feeds every 15 minutes while this page is open.</div></div>
+    <div class="form-check form-switch"><input id="autoRefresh" class="form-check-input" type="checkbox" role="switch" checked></div>
+   </div>
+   <hr style="border-color:var(--border)">
+   <div class="d-flex justify-content-between align-items-center gap-3">
+    <div><strong>Reset local data</strong><div class="small-label">Clear saved items, cached data, history and custom RSS sources.</div></div>
+    <button id="resetData" class="btn btn-outline-xz btn-sm">Reset data</button>
+   </div>
+  </div>
+ </section>
+
+ <section class="mb-4">
+  <div class="eyebrow mb-2">Community links</div>
+  <h2 class="h4 fw-bold mb-3">Jump into the community</h2>
+  <div class="row g-3">
+   <div class="col-md-6 col-xl-3"><a class="quick-link" href="https://www.unknowncheats.me/forum/" target="_blank" rel="noopener noreferrer"><i class="bi bi-people"></i><span><strong>UnknownCheats</strong><small>Forum and community searches</small></span></a></div>
+   <div class="col-md-6 col-xl-3"><a class="quick-link" href="https://github.com/search?q=ps4+homebrew&type=repositories" target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i><span><strong>GitHub PlayStation</strong><small>Public project search</small></span></a></div>
+   <div class="col-md-6 col-xl-3"><a class="quick-link" href="https://github.com/search?q=xbox+homebrew&type=repositories" target="_blank" rel="noopener noreferrer"><i class="bi bi-controller"></i><span><strong>Xbox homebrew</strong><small>Browse public repositories</small></span></a></div>
+   <div class="col-md-6 col-xl-3"><a class="quick-link" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram"></i><span><strong>ModdingXZ Telegram</strong><small>Tools, updates and community</small></span></a></div>
+  </div>
+  <p class="small-label mt-3">UnknownCheats is provided as a direct community link. This site does not claim to fetch private forum content or have an official UnknownCheats API integration.</p>
+ </section>
+
+ <div class="text-center py-4">
+  <div class="eyebrow mb-2">Discover · Build · Share</div>
+  <h2 class="h4 fw-bold">MODDING<span class="brand-x">XZ</span></h2>
+  <p class="muted">A community-driven home for console modding and development.</p>
+ </div>
 </main>
 
-<footer><div class="container d-flex flex-column flex-md-row justify-content-between gap-2"><div><strong class="text-white">MODDING<span style="color:#a855f7">XZ</span></strong> · Console Intelligence</div><div>Independent project. Not affiliated with Sony or Microsoft.</div><div>Public data from GitHub.</div></div></footer>
+<footer class="py-4">
+ <div class="container-fluid px-3 px-lg-4 d-flex flex-column flex-md-row justify-content-between gap-2">
+  <span><strong>MODDING<span class="brand-x">XZ</span></strong> <span class="small-label">Command Centre</span></span>
+  <span class="small-label">Independent community project. Not affiliated with Sony, Microsoft, UnknownCheats or GitHub.</span>
+ </div>
+</footer>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+ <div id="xzToast" class="toast" role="status" aria-live="polite"><div class="d-flex"><div id="toastMessage" class="toast-body">Done</div><button class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 (() => {
 "use strict";
 
-const API = "https://api.github.com";
-const PREFIX = "mxci:v1:";
-const TTL = 15 * 60 * 1000;
+const $ = id => document.getElementById(id);
+const GH = "https://api.github.com";
+const HN = "https://hacker-news.firebaseio.com/v0";
+const ALGOLIA = "https://hn.algolia.com/api/v1";
+const RSS2JSON = "https://api.rss2json.com/v1/api.json?rss_url=";
+const CACHE_KEY = "moddingxz_cc_cache_v2";
+const FAVORITES_KEY = "moddingxz_cc_favorites_v2";
+const CUSTOM_FEEDS_KEY = "moddingxz_cc_feeds_v2";
+const ACTIVITY_KEY = "moddingxz_cc_activity_v2";
+const AUTO_KEY = "moddingxz_cc_auto_v2";
 const PAGE_SIZE = 12;
 
-const FEEDS = [
- {name:"PlayStation homebrew",q:'("PS4" OR "PS5" OR "PS Vita" OR PlayStation) homebrew'},
- {name:"Console tools",q:'(PS4 OR PS5 OR Xbox OR console) (tool OR toolkit OR utility)'},
- {name:"Xbox projects",q:'Xbox (homebrew OR modding OR developer OR emulator)'},
- {name:"Console research",q:'(PS4 OR PS5 OR Xbox OR PlayStation) (research OR reverse-engineering OR security)'}
-];
-
 const state = {
- projects:[], releases:[], platform:"all", kind:"all", mode:"discover",
- search:"", sort:"updated", page:1, busy:false, releaseBusy:false,
- lastUpdated:null, errors:[], request:0
+  projects: [], releases: [], discussions: [], rss: [],
+  platform: "all", feedTab: "all", search: "", language: "all",
+  sort: "updated", page: 1, loading: false, generation: 0,
+  lastUpdate: null, errors: []
 };
 
-const $ = id => document.getElementById(id);
+const searches = [
+  {platform:"playstation", query:'(PS4 OR PS5 OR PlayStation) homebrew'},
+  {platform:"xbox", query:'Xbox homebrew'},
+  {platform:"homebrew", query:'console homebrew'},
+  {platform:"development", query:'console modding tools'}
+];
 
-function getStore(key, fallback=null) {
- try { const value=localStorage.getItem(key); return value?JSON.parse(value):fallback; }
- catch { return fallback; }
-}
-function putStore(key,value) {
- try { localStorage.setItem(key,JSON.stringify(value)); } catch {}
-}
-function getCache(key,ttl=TTL) {
- const item=getStore(PREFIX+key);
- if(!item || !item.time || Date.now()-item.time>ttl) return null;
- return item.value;
-}
-function setCache(key,value) { putStore(PREFIX+key,{time:Date.now(),value}); }
+const store = {
+  get(key, fallback) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw === null ? fallback : JSON.parse(raw);
+    } catch { return fallback; }
+  },
+  set(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); return true; }
+    catch { return false; }
+  },
+  remove(key) { try { localStorage.removeItem(key); } catch {} }
+};
 
-function esc(value) {
- return String(value ?? "").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- })[c]);
+function esc(v) {
+  return String(v ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
 }
-function urlSafe(value) {
- try { const u=new URL(value); return u.protocol==="https:"?u.href:"#"; }
- catch { return "#"; }
+function urlOK(value) {
+  try {
+    const u = new URL(value);
+    return ["https:","http:"].includes(u.protocol) ? u.href : "#";
+  } catch { return "#"; }
 }
-function fmt(n) {
- return new Intl.NumberFormat("en-GB",{notation:"compact",maximumFractionDigits:1}).format(Number(n)||0);
+function num(v) {
+  return new Intl.NumberFormat("en-GB",{notation:v >= 10000 ? "compact":"standard",maximumFractionDigits:1}).format(Number(v)||0);
 }
 function ago(value) {
- const n=new Date(value||0).getTime();
- if(!n) return "Date unavailable";
- const s=Math.max(0,Math.floor((Date.now()-n)/1000));
- if(s<60)return "Just now";
- if(s<3600)return Math.floor(s/60)+"m ago";
- if(s<86400)return Math.floor(s/3600)+"h ago";
- if(s<2592000)return Math.floor(s/86400)+"d ago";
- return new Date(n).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+  if (!value) return "Date unavailable";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Date unavailable";
+  const seconds = Math.max(0, (Date.now()-date.getTime())/1000);
+  if (seconds < 60) return "Just now";
+  if (seconds < 3600) return Math.floor(seconds/60)+"m ago";
+  if (seconds < 86400) return Math.floor(seconds/3600)+"h ago";
+  if (seconds < 2592000) return Math.floor(seconds/86400)+"d ago";
+  return date.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 }
-function dateLabel(value) {
- if(!value)return "Date unavailable";
- const d=new Date(value);
- return Number.isNaN(d.getTime())?"Date unavailable":d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+function toast(message) {
+  $("toastMessage").textContent = message;
+  if (window.bootstrap) bootstrap.Toast.getOrCreateInstance($("xzToast"),{delay:2800}).show();
+  else alert(message);
 }
-function savedIds() {
- const v=getStore("moddingxz-ci-saved",[]);
- return Array.isArray(v)?v:[];
-}
-function saved(id) { return savedIds().includes(String(id)); }
+function favorites() { return store.get(FAVORITES_KEY,[]); }
+function setFavorites(value) { store.set(FAVORITES_KEY,value); updateStats(); }
+function activity() { return store.get(ACTIVITY_KEY,[]); }
 
-function setStatus(message,type="ok") {
- $("status").innerHTML='<span class="status-dot '+(type==="error"?"error":type==="warn"?"warn":"")+'"></span>'+esc(message);
+function log(title, detail="") {
+  const list = activity();
+  list.unshift({title,detail,time:new Date().toISOString()});
+  store.set(ACTIVITY_KEY,list.slice(0,25));
+  renderActivity();
 }
-function classifyPlatform(repo) {
- const t=[repo.full_name,repo.name,repo.description,...(repo.topics||[])].join(" ").toLowerCase();
- if(/\bxbox\b|xbox360|xbox-one|xbox-series/.test(t))return "xbox";
- if(/playstation|\bps[345]\b|psvita|ps-vita|\bpsp\b|orbis|goldhen|hen\b/.test(t))return "playstation";
- return "general";
-}
-function classifyKind(repo) {
- const t=[repo.name,repo.description,...(repo.topics||[])].join(" ").toLowerCase();
- if(/research|exploit|vulnerabilit|reverse.engineer|security|writeup/.test(t))return "research";
- if(/homebrew|emulator|launcher|frontend|application|\.elf|payload/.test(t))return "homebrew";
- return "tool";
-}
-function normalise(repo) {
- return {
-  id:String(repo.id),name:repo.name||repo.full_name||"Untitled",
-  full_name:repo.full_name||"Unknown",owner:repo.owner?.login||"",
-  description:repo.description||"No project description provided.",
-  html_url:urlSafe(repo.html_url),
-  releases_url:urlSafe((repo.html_url||"")+"/releases"),
-  created_at:repo.created_at||null,updated_at:repo.updated_at||null,
-  stars:Number(repo.stargazers_count)||0,forks:Number(repo.forks_count)||0,
-  language:repo.language||"",topics:Array.isArray(repo.topics)?repo.topics.slice(0,8):[],
-  platform:classifyPlatform(repo),kind:classifyKind(repo)
- };
-}
-async function fetchJSON(url) {
- const res=await fetch(url,{headers:{
-  "Accept":"application/vnd.github+json",
-  "X-GitHub-Api-Version":"2022-11-28"
- }});
- if(!res.ok) {
-  if(res.status===403||res.status===429)throw new Error("GitHub API rate limit reached. Wait a little before trying again.");
-  throw new Error("GitHub request failed (HTTP "+res.status+").");
- }
- return res.json();
-}
-async function feedSearch(feed) {
- const key="feed:"+feed.q;
- const cached=getCache(key);
- if(cached)return cached;
- const params=new URLSearchParams({q:feed.q+" in:name,description,readme",sort:"updated",order:"desc",per_page:"30"});
- const data=await fetchJSON(API+"/search/repositories?"+params);
- const items=(data.items||[]).map(normalise);
- setCache(key,items);
- return items;
-}
-function mergeProjects(items) {
- const map=new Map(state.projects.map(p=>[p.id,p]));
- items.forEach(p=>{if(p.html_url!=="#")map.set(p.id,p);});
- state.projects=Array.from(map.values());
- updateStats();
-}
-async function loadFeeds(force=false) {
- if(state.busy)return;
- state.busy=true;
- const request=++state.request;
- state.errors=[];
- $("refresh").disabled=true;
- $("refresh").innerHTML='<i class="bi bi-arrow-repeat me-1"></i>Refreshing…';
- setStatus("Searching public repositories…","warn");
- if(force) {
-  FEEDS.forEach(f=>{try{localStorage.removeItem(PREFIX+"feed:"+f.q);}catch{}});
-  try{localStorage.removeItem(PREFIX+"combined");}catch{}
- }
- try {
-  const results=await Promise.allSettled(FEEDS.map(feedSearch));
-  if(request!==state.request)return;
-  const found=[];
-  let success=0;
-  results.forEach((r,i)=>{
-   if(r.status==="fulfilled"){success++;found.push(...r.value);}
-   else state.errors.push(FEEDS[i].name);
-  });
-  const unique=new Map();
-  found.forEach(p=>{
-   if(!unique.has(p.id)||new Date(p.updated_at||0)>new Date(unique.get(p.id).updated_at||0))unique.set(p.id,p);
-  });
-  if(unique.size)state.projects=Array.from(unique.values());
-  else if(!state.projects.length)state.projects=[];
-  state.lastUpdated=new Date();
-  setCache("combined",state.projects);
-  $("updated").textContent="Updated "+state.lastUpdated.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
-  setStatus(success
-    ? state.errors.length ? "Some feeds loaded; "+state.errors.length+" failed." : "All "+success+" discovery feeds loaded."
-    : "Feeds unavailable. Showing any cached discoveries.",
-    success?(state.errors.length?"warn":"ok"):"error");
-  updateStats();
-  render();
-  await loadReleases(request);
- } catch(e) {
-  setStatus(e.message||"Could not load feeds.","error");
- } finally {
-  if(request===state.request) {
-   state.busy=false;
-   $("refresh").disabled=false;
-   $("refresh").innerHTML='<i class="bi bi-arrow-clockwise me-1"></i>Refresh data';
-  }
- }
-}
-async function searchRemote(query) {
- const trimmed=query.trim();
- if(trimmed.length<2)return;
- const key="query:"+trimmed.toLowerCase();
- const cached=getCache(key);
- if(cached){mergeProjects(cached);render();return;}
- setStatus("Searching GitHub for "+trimmed+"…","warn");
- try {
-  const q=trimmed+" (PS4 OR PS5 OR PlayStation OR Xbox OR homebrew OR console) in:name,description,readme";
-  const params=new URLSearchParams({q,sort:"updated",order:"desc",per_page:"25"});
-  const data=await fetchJSON(API+"/search/repositories?"+params);
-  const items=(data.items||[]).map(normalise);
-  setCache(key,items);
-  mergeProjects(items);
-  setStatus("Search complete. Check original project documentation for compatibility.","ok");
- } catch(e) {
-  setStatus(e.message||"Search failed. Filtering loaded projects instead.","error");
- }
- render();
-}
-async function loadReleases(request) {
- if(state.releaseBusy||!state.projects.length)return;
- state.releaseBusy=true;
- try {
-  const candidates=[...state.projects].sort((a,b)=>b.stars-a.stars).slice(0,8);
-  const results=await Promise.allSettled(candidates.map(async p=>{
-   const key="release:"+p.full_name;
-   const cached=getCache(key,30*60*1000);
-   if(cached!==null)return cached;
-   const parts=p.full_name.split("/").map(encodeURIComponent);
-   const data=await fetchJSON(API+"/repos/"+parts[0]+"/"+parts[1]+"/releases?per_page=3");
-   const releases=(Array.isArray(data)?data:[]).map(r=>({
-    id:String(r.id),repo:p.full_name,repoName:p.name,platform:p.platform,
-    name:r.name||r.tag_name||"Untitled release",tag:r.tag_name||"",
-    body:r.body||"",published_at:r.published_at||r.created_at||null,
-    html_url:urlSafe(r.html_url)
-   }));
-   setCache(key,releases);
-   return releases;
-  }));
-  if(request!==state.request)return;
-  const map=new Map();
-  results.forEach(r=>{if(r.status==="fulfilled")(r.value||[]).forEach(v=>map.set(v.id,v));});
-  state.releases=Array.from(map.values()).sort((a,b)=>new Date(b.published_at||0)-new Date(a.published_at||0));
-  updateStats();
-  render();
- } catch(e) {
-  console.warn("Release loading failed",e);
- } finally {state.releaseBusy=false;}
-}
-function platformName(p) {
- return ({playstation:"PlayStation",xbox:"Xbox",general:"General homebrew"})[p]||"Console project";
-}
-function kindName(k) {
- return ({tool:"Tool",homebrew:"Homebrew",research:"Research"})[k]||"Project";
-}
-function filteredProjects() {
- let items=[...state.projects];
- if(state.mode==="saved")items=items.filter(p=>saved(p.id));
- if(state.kind!=="all")items=items.filter(p=>p.kind===state.kind);
- if(state.platform!=="all")items=items.filter(p=>p.platform===state.platform);
- const q=state.search.toLowerCase();
- if(q)items=items.filter(p=>[p.name,p.full_name,p.description,p.language,p.platform,p.kind,...p.topics].join(" ").toLowerCase().includes(q));
- if(state.sort==="stars")items.sort((a,b)=>b.stars-a.stars);
- else if(state.sort==="forks")items.sort((a,b)=>b.forks-a.forks);
- else if(state.sort==="created")items.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
- else items.sort((a,b)=>new Date(b.updated_at||0)-new Date(a.updated_at||0));
- return items;
-}
-function filteredReleases() {
- let items=[...state.releases];
- if(state.platform!=="all")items=items.filter(r=>r.platform===state.platform);
- const q=state.search.toLowerCase();
- if(q)items=items.filter(r=>[r.name,r.repo,r.repoName,r.tag,r.body].join(" ").toLowerCase().includes(q));
- return items;
-}
-function projectCard(p) {
- const isSaved=saved(p.id);
- const desc=p.description.length>190?p.description.slice(0,187)+"…":p.description;
- const tags=p.topics.slice(0,4).map(t=>'<span class="pill">'+esc(t)+'</span>').join("");
- return `<div class="col-md-6 col-xl-4"><article class="project-card">
- <div class="project-head"><div class="project-icon"><i class="bi bi-github"></i></div>
- <div class="d-flex flex-wrap gap-1 justify-content-end"><span class="platform-badge">${esc(platformName(p.platform))}</span><span class="platform-badge">${esc(kindName(p.kind))}</span></div></div>
- <div class="project-content"><div class="project-name">${esc(p.name)}</div><div class="project-owner">${esc(p.full_name)}</div>
- <p class="project-description">${esc(desc)}</p><div class="mb-2">${tags||'<span class="pill">Open source</span>'}</div>
- <div class="meta mb-2"><span><i class="bi bi-star-fill me-1"></i>${fmt(p.stars)}</span><span><i class="bi bi-diagram-2 me-1"></i>${fmt(p.forks)}</span>${p.language?'<span><i class="bi bi-code-slash me-1"></i>'+esc(p.language)+'</span>':""}</div>
- <div class="meta"><span><i class="bi bi-clock me-1"></i>Updated ${esc(ago(p.updated_at))}</span></div>
- <div class="card-actions"><a class="btn btn-purple flex-grow-1" href="${esc(p.html_url)}" target="_blank" rel="noopener noreferrer">Open project <i class="bi bi-arrow-up-right ms-1"></i></a>
- <a class="btn btn-ghost" href="${esc(p.releases_url)}" target="_blank" rel="noopener noreferrer" aria-label="View releases"><i class="bi bi-box-arrow-up-right"></i></a>
- <button class="fav ${isSaved?"saved":""}" data-save="${esc(p.id)}" aria-label="${isSaved?"Unsave":"Save"} project"><i class="bi ${isSaved?"bi-heart-fill":"bi-heart"}"></i></button></div></div></article></div>`;
-}
-function releaseCard(r) {
- const body=(r.body||"No release notes provided.").replace(/[#>*_`~\[\]()!]/g," ").replace(/\s+/g," ").trim();
- return `<div class="col-md-6 col-xl-4"><article class="project-card"><div class="project-head"><div class="project-icon"><i class="bi bi-box-seam"></i></div><span class="platform-badge">${esc(platformName(r.platform))}</span></div>
- <div class="project-content"><div class="project-name">${esc(r.name)}</div><div class="project-owner">${esc(r.repo)}</div>
- <p class="project-description">${esc(body.slice(0,200))}${body.length>200?"…":""}</p>
- <div class="meta mb-3"><span><i class="bi bi-tag me-1"></i>${esc(r.tag||"Release")}</span><span><i class="bi bi-calendar me-1"></i>${esc(dateLabel(r.published_at))}</span></div>
- <div class="card-actions"><a class="btn btn-purple flex-grow-1" href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">View release <i class="bi bi-arrow-up-right ms-1"></i></a></div></div></article></div>`;
-}
-function empty(icon,title,desc) {
- return `<div class="col-12"><div class="empty"><i class="bi ${icon}"></i><h3 class="h5 text-white">${esc(title)}</h3><p class="mb-0">${esc(desc)}</p></div></div>`;
-}
-function renderReleaseList() {
- const items=filteredReleases().slice(0,6);
- $("releaseList").innerHTML=items.length?items.map(r=>`<div class="release-item d-flex justify-content-between align-items-start gap-3"><div><a href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a><div class="small-muted mt-1">${esc(r.repo)} · ${esc(dateLabel(r.published_at))}</div></div><span class="platform-badge">${esc(platformName(r.platform))}</span></div>`).join(""):'<div class="small-muted py-3">No releases match your current filters yet. Refresh feeds or discover more projects first.</div>';
-}
-function render() {
- const grid=$("results");
- const isReleases=state.mode==="releases";
- const items=isReleases?filteredReleases():filteredProjects();
- const visible=items.slice(0,state.page*PAGE_SIZE);
- $("resultsCount")?.remove();
- if(!items.length) {
-  grid.innerHTML=empty(state.mode==="saved"?"bi-heart":"bi-search",state.mode==="saved"?"No saved projects yet":"No matching projects",state.mode==="saved"?"Tap the heart on a project to add it to your watchlist.":"Try another search or refresh the public feeds.");
- } else grid.innerHTML=visible.map(p=>isReleases?releaseCard(p):projectCard(p)).join("");
- $("more").classList.toggle("d-none",items.length<=visible.length);
- $("more").textContent="Load more ("+(items.length-visible.length)+" remaining)";
- document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===state.mode));
- document.querySelectorAll("[data-platform]").forEach(b=>b.classList.toggle("selected",b.dataset.platform===state.platform));
- renderReleaseList();
+function renderActivity() {
+  const list = activity();
+  $("activityList").innerHTML = list.length ? list.slice(0,10).map(x => `
+    <div class="feed-line">
+      <strong>${esc(x.title)}</strong>
+      ${x.detail ? `<div>${esc(x.detail)}</div>` : ""}
+      <div class="mt-1">${ago(x.time)}</div>
+    </div>`).join("") : "No activity yet. Save a project or refresh a source to get started.";
 }
 function updateStats() {
- $("countProjects").textContent=fmt(state.projects.length);
- $("countReleases").textContent=fmt(state.releases.length);
- $("countSaved").textContent=fmt(savedIds().length);
+  $("statProjects").textContent = num(state.projects.length);
+  $("statReleases").textContent = num(state.releases.length);
+  $("statDiscussions").textContent = num(state.discussions.length + state.rss.length);
+  $("statSaved").textContent = favorites().length;
+  $("savedCount").textContent = favorites().length;
+}
+function updateTime() {
+  $("lastUpdate").textContent = state.lastUpdate
+    ? new Date(state.lastUpdate).toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"})
+    : "Not yet";
+}
+async function getJSON(url, timeout=14000) {
+  const controller = new AbortController();
+  const timer = setTimeout(()=>controller.abort(),timeout);
+  try {
+    const response = await fetch(url,{signal:controller.signal,headers:{"Accept":"application/json"}});
+    if (!response.ok) {
+      if (response.status===403 || response.status===429) throw new Error("Rate limit reached");
+      throw new Error("HTTP "+response.status);
+    }
+    return await response.json();
+  } finally { clearTimeout(timer); }
+}
+function normaliseRepo(r, platform) {
+  return {
+    id:String(r.id), name:r.name||"Untitled", fullName:r.full_name||r.name||"Repository",
+    description:r.description||"No description supplied by the developer.",
+    url:urlOK(r.html_url), stars:r.stargazers_count||0, forks:r.forks_count||0,
+    issues:r.open_issues_count||0, language:r.language||"Other",
+    updated:r.updated_at||null, platform, topics:Array.isArray(r.topics)?r.topics.slice(0,5):[],
+    archived:Boolean(r.archived)
+  };
+}
+async function searchRepos(item) {
+  const url=GH+"/search/repositories?q="+encodeURIComponent(item.query)+"&sort=updated&order=desc&per_page=30";
+  const data=await getJSON(url);
+  return (data.items||[]).map(r=>normaliseRepo(r,item.platform));
 }
 
-$("searchForm").addEventListener("submit",async e=>{
- e.preventDefault();
- state.search=$("searchInput").value.trim();state.page=1;
- render();
- if(state.search.length>=2)await searchRemote(state.search);
-});
-let debounce;
-$("searchInput").addEventListener("input",()=>{
- clearTimeout(debounce);
- debounce=setTimeout(()=>{state.search=$("searchInput").value.trim();state.page=1;render();},180);
-});
-$("kindFilter").addEventListener("change",e=>{state.kind=e.target.value;state.page=1;render();});
-$("sortFilter").addEventListener("change",e=>{state.sort=e.target.value;state.page=1;render();});
-document.querySelectorAll("[data-platform]").forEach(b=>b.addEventListener("click",()=>{
- state.platform=b.dataset.platform;state.page=1;render();
-}));
-document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>{
- state.mode=b.dataset.mode;state.page=1;render();
- if(state.mode==="releases"&&!state.releases.length)loadReleases(state.request);
-}));
-$("results").addEventListener("click",e=>{
- const b=e.target.closest("[data-save]");
- if(!b)return;
- const id=String(b.dataset.save);
- const ids=savedIds();
- putStore("moddingxz-ci-saved",ids.includes(id)?ids.filter(x=>x!==id):[...ids,id]);
- updateStats();render();
-});
-$("more").addEventListener("click",()=>{state.page++;render();});
-$("refresh").addEventListener("click",()=>loadFeeds(true));
-
-const cache=getCache("combined",24*60*60*1000);
-if(Array.isArray(cache)&&cache.length) {
- state.projects=cache;
- state.lastUpdated=new Date();
- $("updated").textContent="Showing cached projects";
- updateStats();render();
- setStatus("Showing cached discoveries while feeds refresh.","warn");
+async function loadProjects(generation) {
+  $("projectStatus").innerHTML='<span class="spinner me-2"></span>Searching public repositories...';
+  $("githubStatus").textContent="Loading";
+  try {
+    const results=await Promise.allSettled(searches.map(searchRepos));
+    if (generation!==state.generation) return;
+    const combined=[], seen=new Set();
+    results.forEach((result,i)=>{
+      if (result.status==="rejected") {
+        state.errors.push("GitHub "+searches[i].platform+": "+result.reason.message);
+        return;
+      }
+      result.value.forEach(repo=>{
+        if (!seen.has(repo.id)) {seen.add(repo.id);combined.push(repo);}
+      });
+    });
+    if (combined.length) {
+      state.projects=combined;
+      state.lastUpdate=Date.now();
+      store.set(CACHE_KEY,{time:Date.now(),projects:state.projects,releases:state.releases,discussions:state.discussions});
+      $("githubStatus").textContent=state.errors.length?"Partial":"Connected";
+      $("projectStatus").textContent=combined.length+" repositories loaded."+(state.errors.length?" Some searches failed; results may be incomplete.":"");
+      populateLanguages();
+      log("GitHub projects refreshed",combined.length+" repositories found");
+    } else {
+      $("githubStatus").textContent="Unavailable";
+      $("projectStatus").textContent=state.errors[0]||"No repositories returned.";
+    }
+  } catch(e) {
+    $("githubStatus").textContent="Unavailable";
+    $("projectStatus").textContent=e.message;
+  }
+  renderProjects(); updateStats(); updateTime();
 }
-loadFeeds(false);
-setInterval(()=>{if(!document.hidden&&!state.busy)loadFeeds(false);},15*60*1000);
-document.addEventListener("visibilitychange",()=>{
- if(!document.hidden&&state.lastUpdated&&Date.now()-state.lastUpdated.getTime()>15*60*1000&&!state.busy)loadFeeds(false);
+
+function populateLanguages() {
+  const select=$("languageFilter"), current=select.value;
+  const langs=[...new Set(state.projects.map(x=>x.language).filter(Boolean))].sort();
+  select.innerHTML='<option value="all">All languages</option>'+langs.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join("");
+  select.value=langs.includes(current)?current:"all";
+}
+function filteredProjects() {
+  let list=[...state.projects];
+  if (state.platform==="saved") {
+    const ids=new Set(favorites());
+    list=list.filter(x=>ids.has(x.id));
+  } else if (state.platform!=="all") list=list.filter(x=>x.platform===state.platform);
+  const q=state.search.toLowerCase();
+  if(q) list=list.filter(x=>[x.name,x.fullName,x.description,x.language,x.platform,...x.topics].join(" ").toLowerCase().includes(q));
+  if(state.language!=="all") list=list.filter(x=>x.language===state.language);
+  if(state.sort==="stars") list.sort((a,b)=>b.stars-a.stars);
+  else if(state.sort==="forks") list.sort((a,b)=>b.forks-a.forks);
+  else if(state.sort==="name") list.sort((a,b)=>a.name.localeCompare(b.name));
+  else list.sort((a,b)=>new Date(b.updated||0)-new Date(a.updated||0));
+  return list;
+}
+function renderProjects() {
+  const list=filteredProjects();
+  const visible=list.slice(0,state.page*PAGE_SIZE);
+  $("projectStatus").textContent=state.projects.length
+    ? `${list.length} matching projects · ${visible.length} displayed`
+    : $("projectStatus").textContent;
+  $("loadMore").hidden=visible.length>=list.length;
+  if(!visible.length) {
+    $("projectGrid").innerHTML='<div class="col-12"><div class="empty"><i class="bi bi-search"></i>No matching projects. Try another search or refresh the API.</div></div>';
+    return;
+  }
+  const labels={playstation:"PlayStation",xbox:"Xbox",homebrew:"Homebrew",development:"Development"};
+  $("projectGrid").innerHTML=visible.map(p=>{
+    const saved=favorites().includes(p.id);
+    return `<div class="col-md-6 col-xl-4"><article class="project-card">
+      <div class="d-flex gap-2 align-items-start mb-3">
+       <span class="stat-icon flex-shrink-0"><i class="bi bi-github"></i></span>
+       <div class="flex-grow-1"><div class="small-label">${esc(p.fullName)}</div><h3 class="mt-1 mb-0">${esc(p.name)}</h3></div>
+       <button class="favorite ${saved?"saved":""}" data-save-project="${esc(p.id)}" aria-label="${saved?"Remove saved project":"Save project"}"><i class="bi ${saved?"bi-heart-fill":"bi-heart"}"></i></button>
+      </div>
+      <p class="description">${esc(p.description)}</p>
+      <div class="d-flex flex-wrap gap-2 mb-3"><span class="pill pill-purple">${labels[p.platform]||esc(p.platform)}</span>${p.language!=="Other"?`<span class="pill">${esc(p.language)}</span>`:""}${p.archived?'<span class="pill">Archived</span>':""}</div>
+      <div class="d-flex gap-3 flex-wrap meta mb-3"><span><i class="bi bi-star me-1"></i>${num(p.stars)}</span><span><i class="bi bi-diagram-2 me-1"></i>${num(p.forks)}</span><span><i class="bi bi-clock me-1"></i>${ago(p.updated)}</span></div>
+      <a class="btn btn-outline-xz btn-sm w-100" href="${urlOK(p.url)}" target="_blank" rel="noopener noreferrer" data-open-project="${esc(p.id)}">View repository <i class="bi bi-arrow-up-right ms-1"></i></a>
+    </article></div>`;
+  }).join("");
+}
+function renderReleases() {
+  $("releaseList").innerHTML=state.releases.length?state.releases.map(r=>`
+    <div class="feed-line">
+      <div class="d-flex justify-content-between gap-2 flex-wrap"><strong>${esc(r.name)}</strong><span class="pill pill-purple">${esc(r.tag||"Release")}</span></div>
+      <div class="small-label mt-1">${esc(r.repo)} · ${ago(r.date)}</div>
+      ${r.body?`<p class="muted small mt-2 mb-2">${esc(r.body.slice(0,190))}${r.body.length>190?"…":""}</p>`:""}
+      <a href="${urlOK(r.url)}" target="_blank" rel="noopener noreferrer" class="small">View release <i class="bi bi-arrow-up-right"></i></a>
+    </div>`).join(""):'<div class="empty"><i class="bi bi-box-seam"></i>No releases loaded. Refresh sources to try again.</div>';
+}
+async function loadReleases(generation) {
+  // Keep this list short to respect unauthenticated GitHub API rate limits.
+  const repos=state.projects.filter(p=>!p.archived).slice(0,8);
+  const results=await Promise.allSettled(repos.map(async p=>{
+    const data=await getJSON(GH+"/repos/"+encodeURIComponent(p.fullName)+"/releases?per_page=1");
+    const r=data[0];
+    if(!r) return null;
+    return {name:r.name||p.name,repo:p.fullName,tag:r.tag_name||"",date:r.published_at||r.created_at,url:r.html_url,body:r.body||""};
+  }));
+  if(generation!==state.generation) return;
+  const releases=results.filter(x=>x.status==="fulfilled"&&x.value).map(x=>x.value);
+  if(releases.length) state.releases=releases.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  renderReleases(); updateStats();
+}
+
+async function loadHackerNews(generation) {
+  $("hnStatus").textContent="Loading";
+  try {
+    // Official public Firebase API: top story IDs, then story details.
+    const ids=await getJSON(HN+"/topstories.json");
+    const top=(ids||[]).slice(0,18);
+    const stories=await Promise.allSettled(top.map(id=>getJSON(HN+"/item/"+id+".json")));
+    if(generation!==state.generation) return;
+    state.discussions=stories.filter(x=>x.status==="fulfilled"&&x.value&&x.value.type==="story"&&!x.value.deleted&&!x.value.dead)
+      .map(x=>x.value).map(s=>({
+        id:"hn-"+s.id,title:s.title||"Untitled discussion",
+        url:urlOK(s.url||("https://news.ycombinator.com/item?id="+s.id)),
+        source:"Hacker News",date:s.time?new Date(s.time*1000).toISOString():null,
+        description:`${s.score||0} points · ${s.descendants||0} comments`,
+        points:s.score||0,comments:s.descendants||0,kind:"hackernews"
+      }));
+    $("hnStatus").textContent="Connected";
+  } catch(e) {
+    $("hnStatus").textContent="Unavailable";
+    state.errors.push("Hacker News: "+e.message);
+  }
+  renderFeeds(); updateStats();
+}
+
+async function loadRss(generation) {
+  const feeds=store.get(CUSTOM_FEEDS_KEY,[]);
+  if(!feeds.length) {
+    $("rssStatus").textContent="No feeds added";
+    state.rss=[];
+    renderFeeds(); updateStats();
+    return;
+  }
+  $("rssStatus").textContent="Loading";
+  const all=[];
+  const results=await Promise.allSettled(feeds.map(async feed=>{
+    // External converter fetches the feed server-side; availability and free quotas vary.
+    const data=await getJSON(RSS2JSON+encodeURIComponent(feed.url),16000);
+    if(data.status!=="ok") throw new Error(data.message||"Feed conversion failed");
+    return (data.items||[]).slice(0,12).map(item=>({
+      id:"rss-"+feed.id+"-"+(item.guid||item.link||item.title),
+      title:item.title||"Untitled post",url:urlOK(item.link),
+      source:feed.name,date:item.pubDate||null,
+      description:stripHTML(item.description||item.content||"").slice(0,240),
+      kind:"rss"
+    }));
+  }));
+  if(generation!==state.generation) return;
+  results.forEach((r,i)=>{
+    if(r.status==="fulfilled") all.push(...r.value);
+    else state.errors.push(feeds[i].name+": "+r.reason.message);
+  });
+  state.rss=all.sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+  $("rssStatus").textContent=results.some(x=>x.status==="fulfilled")?"Loaded":"Unavailable";
+  renderFeeds(); updateStats();
+}
+function stripHTML(html) {
+  const doc=new DOMParser().parseFromString(String(html),"text/html");
+  return (doc.body.textContent||"").replace(/\s+/g," ").trim();
+}
+function allFeeds() {
+  return [...state.discussions,...state.rss].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+}
+function renderFeeds() {
+  let items=allFeeds();
+  if(state.feedTab==="hackernews") items=state.discussions;
+  if(state.feedTab==="rss") items=state.rss;
+  if(state.feedTab==="saved") {
+    const ids=new Set(favorites());
+    items=items.filter(x=>ids.has(x.id));
+  }
+  if(!items.length) {
+    $("feedGrid").innerHTML='<div class="col-12"><div class="empty"><i class="bi bi-rss"></i>No items available for this tab. Add an RSS feed or refresh the sources.</div></div>';
+    $("feedStatus").textContent="No items to display.";
+    return;
+  }
+  $("feedStatus").textContent=items.length+" items from public developer feeds.";
+  $("feedGrid").innerHTML=items.slice(0,36).map(item=>{
+    const saved=favorites().includes(item.id);
+    return `<div class="col-md-6 col-xl-4"><article class="feed-card">
+      <div class="d-flex justify-content-between gap-2 align-items-start mb-3">
+       <span class="feed-source">${esc(item.source)}</span>
+       <button class="favorite ${saved?"saved":""}" data-save-feed="${esc(item.id)}" aria-label="${saved?"Remove saved item":"Save item"}"><i class="bi ${saved?"bi-heart-fill":"bi-heart"}"></i></button>
+      </div>
+      <h3>${esc(item.title)}</h3>
+      ${item.description?`<p>${esc(item.description)}</p>`:""}
+      <div class="small-label mb-3">${ago(item.date)}</div>
+      <a class="btn btn-outline-xz btn-sm w-100" href="${urlOK(item.url)}" target="_blank" rel="noopener noreferrer" data-open-feed="${esc(item.id)}">Read original <i class="bi bi-arrow-up-right ms-1"></i></a>
+    </article></div>`;
+  }).join("");
+}
+
+async function refreshAll() {
+  if(state.loading) return;
+  state.loading=true;
+  const generation=++state.generation;
+  state.errors=[];
+  $("refreshAll").disabled=true;
+  $("refreshProjects").disabled=true;
+  $("refreshFeeds").disabled=true;
+  $("refreshAll").innerHTML='<span class="spinner me-2"></span>Refreshing';
+  try {
+    await Promise.allSettled([
+      loadProjects(generation),
+      loadHackerNews(generation),
+      loadRss(generation)
+    ]);
+    if(generation===state.generation) {
+      // Releases use the newly loaded repositories if the project request succeeded.
+      await loadReleases(generation);
+      state.lastUpdate=Date.now();
+      updateTime();
+      store.set(CACHE_KEY,{time:Date.now(),projects:state.projects,releases:state.releases,discussions:state.discussions});
+      toast("Source refresh finished. Check each source's status.");
+    }
+  } finally {
+    if(generation===state.generation) {
+      state.loading=false;
+      $("refreshAll").disabled=false;
+      $("refreshProjects").disabled=false;
+      $("refreshFeeds").disabled=false;
+      $("refreshAll").innerHTML='<i class="bi bi-arrow-clockwise me-1"></i>Refresh all sources';
+      updateStats();
+    }
+  }
+}
+
+function saveItem(id) {
+  let list=favorites();
+  if(list.includes(id)) {
+    list=list.filter(x=>x!==id);
+    toast("Removed from saved items");
+  } else {
+    list.unshift(id);
+    toast("Saved to your watchlist");
+    log("Item saved",id);
+  }
+  setFavorites(list);
+  renderProjects();
+  renderFeeds();
+}
+function renderCustomFeeds() {
+  const feeds=store.get(CUSTOM_FEEDS_KEY,[]);
+  $("customFeedList").innerHTML=feeds.length?feeds.map(f=>`
+    <div class="d-flex align-items-center justify-content-between gap-2 py-2 border-bottom" style="border-color:var(--border)!important">
+      <div class="min-w-0"><strong>${esc(f.name)}</strong><div class="small-label text-break">${esc(f.url)}</div></div>
+      <button class="btn btn-outline-xz btn-sm flex-shrink-0" data-remove-feed="${esc(f.id)}">Remove</button>
+    </div>`).join(""):'<div class="small-label">No custom feeds yet.</div>';
+}
+function setPlatform(platform) {
+  state.platform=platform;state.page=1;
+  document.querySelectorAll("[data-platform]").forEach(b=>b.classList.toggle("active",b.dataset.platform===platform));
+  renderProjects();
+}
+function setFeedTab(tab) {
+  state.feedTab=tab;
+  document.querySelectorAll("[data-feed]").forEach(b=>b.classList.toggle("active",b.dataset.feed===tab));
+  renderFeeds();
+}
+
+document.querySelectorAll("[data-platform]").forEach(b=>b.addEventListener("click",()=>setPlatform(b.dataset.platform)));
+document.querySelectorAll("[data-feed]").forEach(b=>b.addEventListener("click",()=>setFeedTab(b.dataset.feed)));
+$("projectSearch").addEventListener("input",e=>{state.search=e.target.value;state.page=1;renderProjects();});
+$("sortProjects").addEventListener("change",e=>{state.sort=e.target.value;renderProjects();});
+$("languageFilter").addEventListener("change",e=>{state.language=e.target.value;renderProjects();});
+$("clearProjectFilters").addEventListener("click",()=>{
+  state.search="";state.language="all";state.sort="updated";state.page=1;
+  $("projectSearch").value="";$("languageFilter").value="all";$("sortProjects").value="updated";
+  setPlatform("all");renderProjects();
 });
+$("loadMore").addEventListener("click",()=>{state.page++;renderProjects();});
+$("refreshAll").addEventListener("click",refreshAll);
+$("refreshProjects").addEventListener("click",refreshAll);
+$("refreshFeeds").addEventListener("click",refreshAll);
+
+document.addEventListener("click",e=>{
+  const project=e.target.closest("[data-save-project]");
+  if(project) saveItem(project.dataset.saveProject);
+  const feed=e.target.closest("[data-save-feed]");
+  if(feed) saveItem(feed.dataset.saveFeed);
+
+  const openedProject=e.target.closest("[data-open-project]");
+  if(openedProject) log("Opened repository",openedProject.dataset.openProject);
+  const openedFeed=e.target.closest("[data-open-feed]");
+  if(openedFeed) log("Opened feed item",openedFeed.dataset.openFeed);
+
+  const remove=e.target.closest("[data-remove-feed]");
+  if(remove) {
+    const list=store.get(CUSTOM_FEEDS_KEY,[]).filter(f=>f.id!==remove.dataset.removeFeed);
+    store.set(CUSTOM_FEEDS_KEY,list);
+    renderCustomFeeds();toast("RSS feed removed");refreshAll();
+  }
+});
+
+$("rssForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const name=$("rssName").value.trim();
+  const url=$("rssUrl").value.trim();
+  if(!name||!url) return;
+  try {
+    const parsed=new URL(url);
+    if(!["http:","https:"].includes(parsed.protocol)) throw new Error();
+  } catch { toast("Enter a valid HTTP or HTTPS feed URL");return; }
+  const list=store.get(CUSTOM_FEEDS_KEY,[]);
+  if(list.some(f=>f.url===url)){toast("That feed is already added");return;}
+  list.push({id:Date.now().toString(36),name,url});
+  store.set(CUSTOM_FEEDS_KEY,list);
+  $("rssName").value="";$("rssUrl").value="";
+  renderCustomFeeds();toast("RSS feed added");refreshAll();
+});
+
+$("clearActivity").addEventListener("click",()=>{
+  store.set(ACTIVITY_KEY,[]);renderActivity();toast("Activity cleared");
+});
+$("resetData").addEventListener("click",()=>{
+  if(!confirm("Clear saved items, cache, activity and custom RSS feeds on this device?")) return;
+  [FAVORITES_KEY,CACHE_KEY,ACTIVITY_KEY,CUSTOM_FEEDS_KEY].forEach(store.remove);
+  state.projects=[];state.releases=[];state.discussions=[];state.rss=[];
+  state.page=1;renderCustomFeeds();renderActivity();renderProjects();renderReleases();renderFeeds();updateStats();
+  toast("Local data cleared");refreshAll();
+});
+
+$("autoRefresh").checked=store.get(AUTO_KEY,true);
+$("autoRefresh").addEventListener("change",e=>{
+  store.set(AUTO_KEY,e.target.checked);
+  setupAutoRefresh();
+  toast(e.target.checked?"Automatic refresh enabled":"Automatic refresh disabled");
+});
+function setupAutoRefresh() {
+  if(state.autoTimer) clearInterval(state.autoTimer);
+  state.autoTimer=null;
+  if(store.get(AUTO_KEY,true)) state.autoTimer=setInterval(()=>{if(!document.hidden) refreshAll();},15*60*1000);
+}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden && store.get(AUTO_KEY,true)) {
+  const cache=store.get(CACHE_KEY,null);
+  if(!cache||Date.now()-cache.time>15*60*1000) refreshAll();
+}});
+
+// JSON utilities
+function jsonAction(mode) {
+  try {
+    const parsed=JSON.parse($("jsonInput").value);
+    $("jsonOutput").textContent=mode==="minify"?JSON.stringify(parsed):JSON.stringify(parsed,null,2);
+  } catch(e) { $("jsonOutput").textContent="Invalid JSON: "+e.message; }
+}
+$("jsonFormat").addEventListener("click",()=>jsonAction("format"));
+$("jsonMinify").addEventListener("click",()=>jsonAction("minify"));
+$("jsonCopy").addEventListener("click",()=>copyText($("jsonOutput").textContent));
+
+// UTF-8-safe Base64
+function utf8ToBase64(value) {
+  const bytes=new TextEncoder().encode(value);
+  let binary="";
+  bytes.forEach(b=>binary+=String.fromCharCode(b));
+  return btoa(binary);
+}
+function base64ToUtf8(value) {
+  const binary=atob(value.trim());
+  const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+  return new TextDecoder("utf-8",{fatal:true}).decode(bytes);
+}
+$("baseEncode").addEventListener("click",()=>{
+  try {$("baseOutput").textContent=utf8ToBase64($("baseInput").value);}
+  catch(e){$("baseOutput").textContent="Could not encode: "+e.message;}
+});
+$("baseDecode").addEventListener("click",()=>{
+  try {$("baseOutput").textContent=base64ToUtf8($("baseInput").value);}
+  catch(e){$("baseOutput").textContent="Invalid Base64 or UTF-8 text.";}
+});
+$("baseCopy").addEventListener("click",()=>copyText($("baseOutput").textContent));
+$("urlEncode").addEventListener("click",()=>{$("urlOutput").textContent=encodeURIComponent($("urlInput").value);});
+$("urlDecode").addEventListener("click",()=>{
+  try {$("urlOutput").textContent=decodeURIComponent($("urlInput").value);}
+  catch {$("urlOutput").textContent="Invalid encoded URL component.";}
+});
+$("urlCopy").addEventListener("click",()=>copyText($("urlOutput").textContent));
+async function copyText(value) {
+  try {
+    await navigator.clipboard.writeText(value);
+    toast("Copied to clipboard");
+  } catch {
+    toast("Clipboard access unavailable. Select and copy the output manually.");
+  }
+}
+$("textInput").addEventListener("input",()=>{
+  const value=$("textInput").value;
+  $("words").textContent=(value.trim().match(/\S+/g)||[]).length;
+  $("chars").textContent=value.length;
+  $("lines").textContent=value.length?value.split(/\r\n|\r|\n/).length:0;
+});
+
+// Restore usable cached data immediately, then request fresh external data.
+const cached=store.get(CACHE_KEY,null);
+if(cached && Array.isArray(cached.projects)) {
+  state.projects=cached.projects;
+  state.releases=Array.isArray(cached.releases)?cached.releases:[];
+  state.discussions=Array.isArray(cached.discussions)?cached.discussions:[];
+  state.lastUpdate=cached.time||null;
+  populateLanguages();renderProjects();renderReleases();renderFeeds();updateStats();updateTime();
+  $("projectStatus").textContent="Showing cached data while refreshing sources...";
+}
+renderCustomFeeds();
+renderActivity();
+updateStats();
+setupAutoRefresh();
+refreshAll();
+
 })();
 </script>
 </body>
