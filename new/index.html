@@ -1,659 +1,431 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#09080f">
-<title>ModdingXZ — Scene Watch</title>
-<meta name="description" content="Your daily source for console modding news, homebrew projects, releases, tools and gaming guides.">
-<link rel="icon" href="https://fav.farm/🎮">
-<link rel="preconnect" href="https://api.github.com">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080711">
+<meta name="description" content="ModdingXZ: modding news, releases, tools, PlayStation hosts, Call of Duty services and community.">
+<title>MODDINGXZ // THE HUB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
 <style>
-:root {
-  --bg:#09080f; --panel:#12101b; --panel2:#191525;
-  --border:#292337; --purple:#a970ff; --purple2:#7541d8;
-  --text:#f5f2fc; --muted:#a29bb4; --green:#6ee7b7;
-}
+:root{--bg:#080711;--purple:#9565ff;--pink:#e879f9;--cyan:#80e4ff;--green:#67e8a5;--text:#f6f4ff;--muted:#a8a3bf;--border:rgba(255,255,255,.1)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;font-size:14px}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:radial-gradient(ellipse at 12% 0,rgba(116,64,237,.2),transparent 40%),var(--bg);background-attachment:fixed;color:var(--text);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit}
-.topline{height:3px;background:linear-gradient(90deg,#6e38ce,#c08cff,#6e38ce)}
-.navbar{background:rgba(9,8,15,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}
-.brand{font-weight:950;letter-spacing:-1px;font-size:21px}
-.brand span{color:var(--purple)}
-.brand-mark{display:inline-grid;place-items:center;background:var(--purple2);border-radius:9px;width:32px;height:32px;margin-right:9px}
-.nav-link{color:var(--muted);font-weight:650;padding:10px 12px!important}
-.nav-link:hover,.nav-link.active{color:#fff}
-.btn-xz{background:var(--purple2);color:white;border:1px solid #9662f1;font-weight:750;border-radius:10px;padding:10px 15px}
-.btn-xz:hover{background:#8951e8;color:white}
-.btn-quiet{background:#171321;border:1px solid var(--border);color:var(--text);border-radius:9px;padding:9px 12px}
-.btn-quiet:hover,.filter-chip:hover{border-color:var(--purple);color:white}
-.muted{color:var(--muted)}
-.tiny{font-size:11px}
-.eyebrow{color:#c6a5ff;text-transform:uppercase;font-size:10px;letter-spacing:2px;font-weight:850}
-.hero{padding:48px 0 28px;position:relative;overflow:hidden}
-.hero:before{content:"";position:absolute;width:480px;height:300px;right:-180px;top:-160px;background:#7439ce;opacity:.18;filter:blur(100px);pointer-events:none}
-.hero h1{font-size:clamp(36px,6vw,62px);line-height:1.01;letter-spacing:-2.6px;font-weight:950;max-width:720px}
-.hero h1 span{color:var(--purple)}
-.hero p{color:var(--muted);max-width:600px;line-height:1.8}
-.live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;display:inline-block;box-shadow:0 0 12px #6ee7b788}
-.hero-box{background:linear-gradient(140deg,#211633,#120f1d 75%);border:1px solid #38264e;border-radius:17px;padding:20px;height:100%;position:relative;overflow:hidden}
-.hero-box:after{content:"XZ";position:absolute;font-size:110px;font-weight:1000;color:#ffffff06;right:3px;bottom:-30px;pointer-events:none}
-.stat{font-size:25px;font-weight:900;letter-spacing:-1px}
-.stat-label{font-size:11px;color:var(--muted)}
-.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 15px}
-.section-head h2{font-size:19px;font-weight:900;letter-spacing:-.5px;margin:0}
-.section-head p{margin:5px 0 0;color:var(--muted);font-size:12px}
-.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px}
-.search-wrap{position:relative}
-.search-wrap i{position:absolute;left:14px;top:12px;color:var(--muted)}
-.search-wrap input{width:100%;background:#100e17;border:1px solid var(--border);border-radius:11px;color:white;padding:12px 12px 12px 40px;outline:none}
-.search-wrap input:focus{border-color:var(--purple)}
-.filter-chip{border:1px solid var(--border);background:#100e17;color:var(--muted);border-radius:9px;padding:8px 12px;white-space:nowrap;font-size:12px;font-weight:750}
-.filter-chip.active{background:#2a1b41;border-color:#8854d4;color:#e5d4ff}
-.feed-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.story{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:17px;transition:transform .16s,border-color .16s;min-width:0;height:100%;display:flex;flex-direction:column}
-.story:hover{border-color:#654398;transform:translateY(-2px)}
-.story-top{display:flex;justify-content:space-between;gap:8px;align-items:center}
-.source-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);border-radius:6px;padding:4px 7px;font-size:10px;color:#c9bddb;font-weight:800}
-.status-tag{font-size:10px;font-weight:800;color:var(--green)}
-.story h3{font-size:16px;line-height:1.4;font-weight:850;margin:14px 0 8px;overflow-wrap:anywhere}
-.story p{color:var(--muted);font-size:12px;line-height:1.7;margin:0 0 15px}
-.story-foot{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:auto;padding-top:12px;border-top:1px solid var(--border)}
-.platform-label{font-size:10px;color:#c5a8fa;background:#261a38;border-radius:5px;padding:4px 7px;font-weight:800}
-.story-actions{display:flex;gap:7px}
-.icon-btn{width:31px;height:31px;border-radius:8px;border:1px solid var(--border);background:#181421;color:var(--muted);display:grid;place-items:center}
-.icon-btn:hover,.icon-btn.saved{color:#d8b9ff;border-color:#8052c1}
-.icon-btn.seen{color:var(--green)}
-.sidebar-card{padding:17px}
-.side-link{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);color:#ddd6ea;font-size:12px;font-weight:700}
-.side-link:last-child{border:0;padding-bottom:0}
-.side-link:hover{color:#c6a5ff}
-.side-icon{width:34px;height:34px;border-radius:10px;background:#25183a;display:grid;place-items:center;color:#c5a0ff;flex-shrink:0}
-.hub-card{padding:16px;display:flex;align-items:center;gap:12px;min-height:80px}
-.hub-card:hover{border-color:#7651a9}
-.hub-card strong{font-size:13px;display:block}
-.hub-card small{font-size:11px;color:var(--muted)}
-.guide-card{padding:17px;display:flex;gap:13px;align-items:flex-start}
-.guide-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:11px;background:#26183c;color:#c8a5ff;font-size:18px;flex-shrink:0}
-.guide-card h3{font-size:13px;font-weight:850;margin:0 0 5px}
-.guide-card p{font-size:11px;color:var(--muted);margin:0;line-height:1.6}
-.empty{text-align:center;padding:45px 18px;color:var(--muted)}
-.empty i{font-size:28px;color:#a879ed}
-.notice{padding:12px 14px;border-radius:10px;background:#171321;border:1px solid var(--border);font-size:11px;color:var(--muted);line-height:1.65}
-.notice strong{color:#e4d9f7}
-footer{border-top:1px solid var(--border);margin-top:55px;padding:27px 0 90px;color:var(--muted);font-size:11px}
-.mobile-nav{display:none}
-.skeleton{height:175px;border-radius:14px;background:linear-gradient(100deg,#15121e 25%,#21192e 40%,#15121e 60%);background-size:200% 100%;animation:shimmer 1.5s infinite}
-@keyframes shimmer{to{background-position:-200% 0}}
-@media(max-width:767px){
- .hero{padding:34px 0 18px}.hero h1{letter-spacing:-1.6px}
- .desktop-nav{display:none!important}.section-head{margin-top:25px}
- .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#100e18f5;border-top:1px solid var(--border);justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));backdrop-filter:blur(12px)}
- .mobile-nav a{color:var(--muted);font-size:10px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;min-width:48px}
- .mobile-nav a i{font-size:18px}.mobile-nav a.active{color:#c9a7ff}
- footer{padding-bottom:100px}
-}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.topline{height:3px;background:linear-gradient(90deg,#7440ed,var(--pink),var(--cyan))}
+.navbar{background:rgba(8,7,17,.88);border-bottom:1px solid var(--border);backdrop-filter:blur(18px);padding:10px 0}
+.brand-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;font:900 .8rem Orbitron,sans-serif;background:linear-gradient(135deg,#a779ff,#6735dc)}
+.brand-name{font:800 .95rem Orbitron,sans-serif}.brand-name span{color:var(--purple)}
+.navbar .nav-link{color:#c4bfd6;font-size:.82rem;font-weight:700;min-height:44px;display:flex;align-items:center}
+.navbar .nav-link:hover,.navbar .nav-link.active{color:#fff}
+.navbar-toggler{border-color:var(--border);box-shadow:none!important}
+.btn-xz{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 17px;border:1px solid transparent;border-radius:12px;font-size:.83rem;font-weight:800;cursor:pointer;transition:transform .2s,background .2s,border-color .2s}
+.btn-xz:hover{transform:translateY(-2px)}
+.btn-p{color:#fff;background:linear-gradient(135deg,#9666ff,#6d3ae1);box-shadow:0 10px 30px rgba(116,64,237,.22)}.btn-p:hover{color:#fff}
+.btn-s{color:#fff;background:rgba(255,255,255,.04);border-color:var(--border)}.btn-s:hover{color:#fff;border-color:rgba(255,255,255,.25);background:rgba(255,255,255,.08)}
+.hero-panel{position:relative;overflow:hidden;margin-top:48px;padding:clamp(26px,5vw,60px);border:1px solid rgba(167,130,255,.22);border-radius:28px;background:linear-gradient(120deg,rgba(23,17,43,.98),rgba(12,11,24,.95) 60%,rgba(33,19,51,.88))}
+.hero-panel::after{content:"XZ";position:absolute;right:4%;top:50%;transform:translateY(-50%) rotate(-8deg);font:900 clamp(6rem,18vw,13rem) Orbitron,sans-serif;color:rgba(149,101,255,.08);pointer-events:none}
+.hero-panel>*{position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--cyan);font-size:.7rem;font-weight:900;letter-spacing:1.8px;text-transform:uppercase}
+.hero-panel h1{margin:18px 0 14px;font:900 clamp(2.2rem,6.5vw,4.8rem)/1.02 Orbitron,sans-serif;letter-spacing:-2px}
+.grad{color:transparent;background:linear-gradient(90deg,#c0a5ff,#9466ff 48%,#edb4ff);-webkit-background-clip:text;background-clip:text}
+.hero-panel p.lead2{max-width:620px;color:#bdb8d0;line-height:1.8}
+.searchbox{position:relative;max-width:700px}
+.searchbox i{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.searchbox input{width:100%;min-height:50px;padding:12px 56px 12px 42px;border:1px solid var(--border);border-radius:13px;background:rgba(255,255,255,.05);color:#fff;outline:none}
+.searchbox input:focus{border-color:rgba(149,101,255,.7)}
+.searchbox input::placeholder{color:#8f89a6}
+.searchbox kbd{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#1c1433;border:1px solid var(--border);color:#cfc7ee;font-size:.7rem}
+.chip{min-height:40px;padding:8px 15px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.03);color:#cfcadf;font-size:.76rem;font-weight:800;cursor:pointer}
+.chip:hover,.chip.on{background:rgba(149,101,255,.2);border-color:rgba(149,101,255,.5);color:#fff}
+.section{padding:56px 0}
+.sh{margin-bottom:22px}
+.kick{color:var(--purple);font-size:.7rem;font-weight:900;letter-spacing:1.8px}
+.sh h2{margin:6px 0 6px;font-size:clamp(1.7rem,4vw,2.4rem);font-weight:900;letter-spacing:-1px}.sh h2 span{color:#b69aff}
+.sh p{margin:0;color:var(--muted);font-size:.85rem;line-height:1.7;max-width:640px}
+.panel,.card-x{border:1px solid var(--border);border-radius:18px;background:linear-gradient(145deg,rgba(22,19,38,.94),rgba(13,12,23,.95))}
+.panel{padding:20px}
+.card-x{height:100%;padding:20px;display:flex;flex-direction:column;transition:transform .2s,border-color .2s}
+.card-x:hover{transform:translateY(-3px);border-color:rgba(149,101,255,.4)}
+.ic{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;border:1px solid rgba(149,101,255,.18);border-radius:13px;background:rgba(149,101,255,.1);color:#c4aaff}
+.card-x h3{margin:14px 0 6px;font-size:1rem;font-weight:900}
+.card-x p{margin:0 0 14px;color:var(--muted);font-size:.8rem;line-height:1.7;flex:1}
+.tag{display:inline-block;margin:0 5px 5px 0;padding:4px 9px;border:1px solid var(--border);border-radius:8px;background:rgba(255,255,255,.04);color:#d2cce3;font-size:.68rem}
+.tag.warn{color:#fbbf24;border-color:rgba(251,191,36,.3)}.tag.ok{color:var(--green);border-color:rgba(103,232,165,.3)}
+.fav{width:44px;height:44px;border:0;background:none;color:var(--muted);font-size:1.25rem}
+.fav[aria-pressed=true]{color:#facc15}
+.row-i{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--border)}
+.row-i:last-child{border:0}
+.row-i a:hover{color:var(--cyan)}
+.small2{font-size:.78rem}.muted{color:var(--muted)}
+.price{font-size:1.2rem;font-weight:900}
+.form-control,.form-select{min-height:46px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:#fff}
+.form-select option{background:#151225}
+.form-control:focus,.form-select:focus{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(149,101,255,.6);box-shadow:none}
+.mini span{display:inline-block;margin:0 5px 5px 0;padding:5px 8px;border:1px solid var(--border);border-radius:8px;color:#c9c3d9;font-size:.68rem}
+.comm{padding:clamp(24px,5vw,44px);border:1px solid rgba(149,101,255,.25);border-radius:24px;background:linear-gradient(120deg,rgba(116,64,237,.16),rgba(17,14,29,.95) 70%)}
+.comm h2{font-size:clamp(1.8rem,4vw,2.5rem);font-weight:900}
+footer{margin-top:20px;border-top:1px solid var(--border);background:rgba(5,5,12,.7);padding:26px 0;color:#8f89a6;font-size:.78rem}
+footer a:hover{color:#fff}
+.modal-content{background:#100e1b;color:#fff;border:1px solid rgba(149,101,255,.28);border-radius:20px}
+.modal-header,.modal-footer{border-color:var(--border)}
+.btn-close{filter:invert(1);opacity:.7}
+.mp{font:900 1.9rem Orbitron,sans-serif;color:#c5aaff}
+.mlist{list-style:none;padding:0;margin:14px 0 0}
+.mlist li{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.83rem;color:#d4cfe1}
+.mlist i{margin-top:4px;color:var(--green)}
+textarea.order{width:100%;min-height:130px;padding:12px;border:1px solid var(--border);border-radius:10px;background:#090812;color:#e5dfff;font-size:.8rem}
+.toast-x{position:fixed;right:18px;bottom:18px;z-index:3000;max-width:calc(100vw - 36px);padding:12px 16px;border:1px solid rgba(149,101,255,.3);border-radius:12px;background:#171226;font-size:.8rem;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s}
+.toast-x.show{opacity:1;transform:none}
+.linkbtn{background:none;border:0;padding:0;color:var(--cyan);font-size:inherit;text-decoration:underline}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 <div class="topline"></div>
-<nav class="navbar navbar-expand-lg sticky-top">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
  <div class="container">
-  <a class="navbar-brand brand d-flex align-items-center" href="#" data-page="discover">
-   <span class="brand-mark"><i class="bi bi-controller"></i></span>MODDING<span>XZ</span>
-  </a>
-  <div class="desktop-nav d-flex align-items-center gap-1 ms-auto">
-   <a class="nav-link active" href="#discover" data-page="discover">Discover</a>
-   <a class="nav-link" href="#releases" data-page="releases">Releases</a>
-   <a class="nav-link" href="#games" data-page="games">Game hubs</a>
-   <a class="nav-link" href="#saved" data-page="saved">Saved <span id="savedNavCount"></span></a>
-   <a class="btn btn-xz ms-2" href="https://t.me/moddingxz" target="_blank" rel="noopener"><i class="bi bi-telegram me-1"></i> Join Telegram</a>
+  <a class="navbar-brand d-flex align-items-center gap-2" href="#home" aria-label="ModdingXZ home"><div class="brand-mark">MZ</div><span class="brand-name">MODDING<span>XZ</span></span></a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+  <div class="collapse navbar-collapse" id="mainNav">
+   <ul class="navbar-nav ms-auto align-items-lg-center">
+    <li class="nav-item"><a class="nav-link" href="#daily">Daily</a></li>
+    <li class="nav-item"><a class="nav-link" href="#radar">Radar</a></li>
+    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+    <li class="nav-item"><a class="nav-link" href="#vault">Tool Vault</a></li>
+    <li class="nav-item"><a class="nav-link" href="#hosts">Hosts</a></li>
+    <li class="nav-item"><a class="nav-link" href="#mine">My XZ</a></li>
+    <li class="nav-item ms-lg-2"><a class="btn-xz btn-p" href="https://moddingxz.co.uk/Hosts/index.html"><i class="fa-brands fa-playstation"></i> Hosts</a></li>
+   </ul>
   </div>
-  <a class="btn btn-quiet d-lg-none" href="https://t.me/moddingxz" target="_blank" rel="noopener" aria-label="Join Telegram"><i class="bi bi-telegram"></i></a>
  </div>
 </nav>
 
-<main class="container">
- <section class="hero">
-  <div class="row g-4 align-items-stretch">
-   <div class="col-lg-8">
-    <div class="eyebrow mb-3"><span class="live-dot me-2"></span>Your daily modding feed</div>
-    <h1>The scene moves.<br><span>Stay ahead.</span></h1>
-    <p class="mt-3 mb-4">Discover new projects, modding tools, homebrew releases and community guides — all in one place. No noise. Just things worth checking out.</p>
-    <div class="d-flex flex-wrap gap-2">
-     <button class="btn btn-xz" onclick="setPage('discover')"><i class="bi bi-lightning-charge-fill me-1"></i> Explore the scene</button>
-     <button class="btn btn-quiet" onclick="refreshFeed()"><i class="bi bi-arrow-clockwise me-1"></i> Refresh feed</button>
-    </div>
-    <div class="d-flex align-items-center gap-2 mt-4 tiny muted"><span class="live-dot"></span><span id="lastUpdated">Public-source discovery</span><span>·</span><span>No account required</span></div>
+<main id="home">
+ <div class="container">
+  <div class="hero-panel">
+   <div class="eyebrow"><i class="fa-solid fa-circle" style="color:var(--green);font-size:.5rem"></i> THE MODDING HUB</div>
+   <h1>MODDINGXZ <span class="grad">// THE HUB</span></h1>
+   <p class="lead2">News, releases, trusted tools, PlayStation hosts and Call of Duty services in one place. Live sections show their source; nothing is faked.</p>
+   <div class="d-flex flex-wrap gap-2 mb-4">
+    <a href="https://moddingxz.co.uk/Hosts/index.html" class="btn-xz btn-p"><i class="fa-brands fa-playstation"></i> PlayStation Hosts</a>
+    <a href="https://moddingxz.co.uk/relay.html" class="btn-xz btn-s"><i class="fa-solid fa-network-wired"></i> BO2 Relay Guide</a>
+    <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer" class="btn-xz btn-s"><i class="fa-brands fa-telegram"></i> Join Telegram</a>
    </div>
-   <div class="col-lg-4">
-    <div class="hero-box">
-     <div class="eyebrow mb-3">Your scene overview</div>
-     <div class="row g-3">
-      <div class="col-6"><div class="stat" id="projectStat">—</div><div class="stat-label">Projects found</div></div>
-      <div class="col-6"><div class="stat" id="releaseStat">—</div><div class="stat-label">Release links</div></div>
-      <div class="col-6"><div class="stat" id="savedStat">0</div><div class="stat-label">Saved by you</div></div>
-      <div class="col-6"><div class="stat" id="unseenStat">—</div><div class="stat-label">Not seen yet</div></div>
-     </div>
-     <div class="notice mt-4"><strong><i class="bi bi-info-circle me-1"></i> Source transparency</strong><br>Project data comes from public GitHub results. It is not a complete scan of Telegram, forums or every modding community.</div>
-    </div>
-   </div>
+   <label class="searchbox w-100" for="q"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="q" type="search" autocomplete="off" placeholder="Search tools, services, news, releases…" aria-label="Search the hub"><kbd>/</kbd></label>
+   <div id="recentSearches" class="d-flex flex-wrap gap-2 align-items-center mt-2"></div>
+   <div id="chips" class="d-flex flex-wrap gap-2 mt-3" role="group" aria-label="Platform filter"></div>
+   <div id="results" class="mt-3" aria-live="polite"></div>
   </div>
- </section>
+ </div>
 
- <section id="searchArea">
-  <div class="search-wrap">
-   <i class="bi bi-search"></i>
-   <input id="searchInput" type="search" placeholder="Search projects, games, tools or releases..." autocomplete="off">
-  </div>
-  <div class="feed-toolbar mt-3" id="platformFilters">
-   <button class="filter-chip active" data-platform="all">Everything</button>
-   <button class="filter-chip" data-platform="playstation"><i class="bi bi-playstation me-1"></i>PlayStation</button>
-   <button class="filter-chip" data-platform="xbox"><i class="bi bi-xbox me-1"></i>Xbox</button>
-   <button class="filter-chip" data-platform="homebrew">Homebrew</button>
-   <button class="filter-chip" data-platform="bo2">Black Ops 2</button>
-   <button class="filter-chip" data-platform="pc">PC & tools</button>
-   <span class="ms-md-auto muted tiny" id="resultCount">Loading discovery feed…</span>
-  </div>
- </section>
+ <section class="section" id="daily"><div class="container">
+  <div class="sh"><div class="kick">MODDINGXZ DAILY</div><h2>Community <span>Reports</span></h2><p>Latest posts from r/callofduty, r/emulation and r/CODZombies. <span class="tag warn">Unverified community reports</span> Check the source before trusting anything.</p></div>
+  <div class="panel" id="news"><p class="muted mb-0">Loading community reports…</p></div>
+ </div></section>
 
- <section id="discoverPage">
-  <div class="section-head">
-   <div><h2 id="feedTitle">What's happening</h2><p id="feedSubtitle">Projects and tools from the public modding ecosystem.</p></div>
-   <select id="sortSelect" class="btn-quiet" aria-label="Sort projects">
-    <option value="updated">Recently updated</option>
-    <option value="stars">Most starred</option>
-    <option value="new">Recently created</option>
-   </select>
+ <section class="section" id="radar"><div class="container">
+  <div class="sh"><div class="kick">RELEASE RADAR</div><h2>Latest <span>Releases</span></h2><p>Latest published releases pulled live from the GitHub API. <span class="tag ok">Live from GitHub</span> Check firmware and game compatibility before use.</p></div>
+  <div class="panel" id="radarList"><p class="muted mb-0">Checking releases…</p></div>
+ </div></section>
+
+ <section class="section" id="services"><div class="container">
+  <div class="sh"><div class="kick">MODDINGXZ SHOP</div><h2>Service <span>Catalogue</span></h2><p>Listed prices only. Confirm availability, compatibility and the final price with support before paying.</p></div>
+  <div class="d-flex flex-wrap gap-2 mb-3" id="svcFilters" role="group" aria-label="Filter services"></div>
+  <div class="row g-3" id="svcGrid"></div>
+  <p class="muted small2 mt-3 mb-0" id="svcEmpty" hidden>No services match. Try another search or category.</p>
+ </div></section>
+
+ <section class="section" id="vault"><div class="container">
+  <div class="sh"><div class="kick">TOOL VAULT</div><h2>Tools &amp; <span>Resources</span></h2><p>Curated links to official or well-known sources. We link out and don't host downloads.</p></div>
+  <div class="row g-2 mb-3">
+   <div class="col-12 col-md-4"><label for="cat" class="visually-hidden">Category</label><select id="cat" class="form-select"></select></div>
+   <div class="col-12 col-md-8 d-flex align-items-center muted small2" id="vaultCount"></div>
   </div>
+  <div class="row g-3" id="vaultGrid"></div>
+  <div class="panel mt-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
+   <div><strong><i class="fa-brands fa-github me-2"></i>Projects by MrJasonDEX</strong><div class="muted small2" id="repoStatus">Showing featured projects. Refresh to load live data from GitHub.</div></div>
+   <button class="btn-xz btn-s" id="refreshRepos" type="button"><i class="fa-solid fa-rotate"></i> Refresh projects</button>
+  </div>
+  <div class="row g-3 mt-1" id="repoGrid"></div>
+ </div></section>
+
+ <section class="section" id="hosts"><div class="container">
+  <div class="sh"><div class="kick">NETWORK CENTRE</div><h2>Hosts &amp; <span>Network</span></h2><p>PlayStation hosts, network status and the Black Ops 2 relay guide.</p></div>
   <div class="row g-3">
-   <div class="col-lg-8">
-    <div id="feed" class="row g-3">
-     <div class="col-md-6"><div class="skeleton"></div></div>
-     <div class="col-md-6"><div class="skeleton"></div></div>
-     <div class="col-md-6"><div class="skeleton"></div></div>
-     <div class="col-md-6"><div class="skeleton"></div></div>
-    </div>
-    <div class="d-flex justify-content-center mt-4">
-     <button class="btn btn-quiet" id="loadMoreBtn" onclick="loadMore()">Load more projects <i class="bi bi-arrow-down ms-1"></i></button>
-    </div>
-   </div>
-   <aside class="col-lg-4">
-    <div class="panel sidebar-card mb-3">
-     <div class="d-flex align-items-center justify-content-between mb-1"><strong>Scene shortcuts</strong><i class="bi bi-compass muted"></i></div>
-     <a class="side-link" href="#games" data-page="games"><span><i class="bi bi-controller me-2"></i>Game hubs</span><i class="bi bi-arrow-up-right"></i></a>
-     <a class="side-link" href="#releases" data-page="releases"><span><i class="bi bi-box-seam me-2"></i>Release discovery</span><i class="bi bi-arrow-up-right"></i></a>
-     <a class="side-link" href="#saved" data-page="saved"><span><i class="bi bi-bookmark me-2"></i>Your saved projects</span><i class="bi bi-arrow-up-right"></i></a>
-     <a class="side-link" href="https://t.me/moddingxz" target="_blank" rel="noopener"><span><i class="bi bi-telegram me-2"></i>ModdingXZ Telegram</span><i class="bi bi-arrow-up-right"></i></a>
-    </div>
-    <div class="panel sidebar-card mb-3">
-     <div class="d-flex align-items-center justify-content-between mb-2"><strong>Follow your interests</strong><i class="bi bi-sliders muted"></i></div>
-     <p class="muted tiny mb-3">Choose a scene to narrow the feed. Your selection stays active until you change it.</p>
-     <div class="d-grid gap-2">
-      <button class="btn btn-quiet text-start" onclick="setPlatform('playstation')"><i class="bi bi-playstation me-2"></i>PlayStation modding</button>
-      <button class="btn btn-quiet text-start" onclick="setPlatform('xbox')"><i class="bi bi-xbox me-2"></i>Xbox & homebrew</button>
-      <button class="btn btn-quiet text-start" onclick="setPlatform('bo2')"><i class="bi bi-crosshair me-2"></i>Black Ops 2</button>
-     </div>
-    </div>
-    <div class="notice"><strong><i class="bi bi-shield-check me-1"></i> Browse carefully</strong><br>External projects are not endorsed or safety-verified by ModdingXZ. Check the original author, compatibility notes and files before using any download.</div>
-   </aside>
+   <div class="col-lg-4"><div class="card-x"><div class="ic"><i class="fa-brands fa-playstation"></i></div><h3>PlayStation Hosts</h3><p>The ModdingXZ Hosts page. Check firmware compatibility first.</p><a class="btn-xz btn-p" href="https://moddingxz.co.uk/Hosts/index.html">Open Hosts</a></div></div>
+   <div class="col-lg-4"><div class="card-x"><div class="ic"><i class="fa-solid fa-network-wired"></i></div><h3>BO2 Relay Guide</h3><p>Networking and PC-to-console relay guide for Black Ops 2.</p><a class="btn-xz btn-s" href="https://moddingxz.co.uk/relay.html">Read the guide</a></div></div>
+   <div class="col-lg-4"><div class="card-x"><div class="ic"><i class="fa-solid fa-signal"></i></div><h3>Service status</h3><p>Check it isn't the service before troubleshooting. <a href="https://moddingxz.co.uk/t.html" style="color:var(--cyan)">More resources</a>.</p><div class="d-flex flex-wrap gap-2"><a class="btn-xz btn-s" href="https://status.playstation.com/" target="_blank" rel="noopener noreferrer">PSN</a><a class="btn-xz btn-s" href="https://support.xbox.com/en-GB/xbox-live-status" target="_blank" rel="noopener noreferrer">Xbox</a></div></div></div>
   </div>
- </section>
+ </div></section>
 
- <section id="releasesPage" hidden>
-  <div class="section-head"><div><h2>Release radar</h2><p>Latest public release links from discovered projects.</p></div><button class="btn btn-quiet" onclick="refreshFeed()"><i class="bi bi-arrow-clockwise"></i></button></div>
-  <div id="releaseFeed" class="row g-3"></div>
- </section>
-
- <section id="gamesPage" hidden>
-  <div class="section-head"><div><h2>Choose your scene</h2><p>Start with a platform or game, then explore projects and guides.</p></div></div>
+ <section class="section" id="mine"><div class="container">
+  <div class="sh"><div class="kick">PERSONAL</div><h2>My <span>ModdingXZ</span></h2><p>Saved in this browser only. No account needed. <button class="linkbtn" id="clearMine" type="button">Clear my data</button></p></div>
   <div class="row g-3">
-   <div class="col-md-6"><a href="#discover" class="panel hub-card" onclick="setPlatform('playstation')"><div class="side-icon"><i class="bi bi-playstation"></i></div><div><strong>PlayStation</strong><small>Console projects, jailbreak research and homebrew</small></div><i class="bi bi-arrow-up-right ms-auto muted"></i></a></div>
-   <div class="col-md-6"><a href="#discover" class="panel hub-card" onclick="setPlatform('xbox')"><div class="side-icon"><i class="bi bi-xbox"></i></div><div><strong>Xbox</strong><small>Modding projects, tooling and console research</small></div><i class="bi bi-arrow-up-right ms-auto muted"></i></a></div>
-   <div class="col-md-6"><a href="#discover" class="panel hub-card" onclick="setPlatform('homebrew')"><div class="side-icon"><i class="bi bi-cpu"></i></div><div><strong>Homebrew & custom firmware</strong><small>Community-built apps, utilities and research</small></div><i class="bi bi-arrow-up-right ms-auto muted"></i></a></div>
-   <div class="col-md-6"><a href="#discover" class="panel hub-card" onclick="setPlatform('pc')"><div class="side-icon"><i class="bi bi-pc-display"></i></div><div><strong>PC modding tools</strong><small>Supporting tools, loaders and modding utilities</small></div><i class="bi bi-arrow-up-right ms-auto muted"></i></a></div>
-   <div class="col-md-6"><a href="#discover" class="panel hub-card" onclick="setPlatform('bo2')"><div class="side-icon"><i class="bi bi-crosshair"></i></div><div><strong>Call of Duty: Black Ops 2</strong><small>Tools, community projects and technical guides</small></div><i class="bi bi-arrow-up-right ms-auto muted"></i></a></div>
-   <div class="col-md-6"><a href="https://t.me/moddingxz" target="_blank" rel="noopener" class="panel hub-card"><div class="side-icon"><i class="bi bi-telegram"></i></div><div><strong>Community updates</strong><small>Join the ModdingXZ Telegram community</small></div><i class="bi bi-arrow-up-right ms-auto muted"></i></a></div>
+   <div class="col-lg-6"><div class="panel h-100"><h3 class="h6 text-uppercase">★ Favourites</h3><div id="favList"></div></div></div>
+   <div class="col-lg-6"><div class="panel h-100"><h3 class="h6 text-uppercase">Recently viewed</h3><div id="recList"></div></div></div>
   </div>
-  <div class="section-head"><div><h2>ModdingXZ guides</h2><p>Quick routes into the existing resource library.</p></div></div>
-  <div class="row g-3">
-   <div class="col-md-6"><a class="panel guide-card h-100" href="https://moddingxz.co.uk/relay.html"><div class="guide-icon"><i class="bi bi-diagram-3"></i></div><div><h3>BO2 relay guide</h3><p>Networking and relay setup information. Check the guide for current compatibility notes.</p></div><i class="bi bi-arrow-up-right muted ms-auto"></i></a></div>
-   <div class="col-md-6"><a class="panel guide-card h-100" href="https://moddingxz.co.uk/t.html"><div class="guide-icon"><i class="bi bi-tools"></i></div><div><h3>ModdingXZ resources</h3><p>Explore the existing ModdingXZ tool and resource page.</p></div><i class="bi bi-arrow-up-right muted ms-auto"></i></a></div>
-  </div>
- </section>
+ </div></section>
 
- <section id="savedPage" hidden>
-  <div class="section-head"><div><h2>Your watchlist</h2><p>Projects you've bookmarked on this device.</p></div><button class="btn btn-quiet" onclick="exportSaved()"><i class="bi bi-download me-1"></i> Export list</button></div>
-  <div class="notice mb-3">Your watchlist is stored locally in this browser. It does not sync between devices or browsers.</div>
-  <div id="savedFeed" class="row g-3"></div>
- </section>
-
- <section class="mt-5">
-  <div class="panel p-4 p-md-5" style="background:linear-gradient(120deg,#20152f,#12101b 65%);border-color:#3a2850">
-   <div class="row align-items-center g-3">
-    <div class="col-lg-8"><div class="eyebrow mb-2">Stay connected</div><h2 class="fw-bold mb-2" style="letter-spacing:-1px">The scene doesn't stop here.</h2><p class="muted mb-0">Join ModdingXZ on Telegram for community posts, resource updates and discussions.</p></div>
-    <div class="col-lg-4 text-lg-end"><a class="btn btn-xz" href="https://t.me/moddingxz" target="_blank" rel="noopener"><i class="bi bi-telegram me-2"></i>Open Telegram <i class="bi bi-arrow-up-right ms-1"></i></a></div>
+ <section class="section" id="community"><div class="container">
+  <div class="comm">
+   <div class="eyebrow"><i class="fa-brands fa-telegram"></i> THE MODDINGXZ COMMUNITY</div>
+   <h2 class="mt-2">Gaming is better <span class="grad">together.</span></h2>
+   <p class="muted" style="max-width:640px;line-height:1.8">Console modding discussion, Call of Duty resources, project updates and support. Resource submissions go through the support bot and are reviewed before they appear in the Vault. Verify downloads before using them.</p>
+   <div class="d-flex flex-wrap gap-2 mt-3">
+    <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer" class="btn-xz btn-p"><i class="fa-brands fa-telegram"></i> Join Telegram</a>
+    <a href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer" class="btn-xz btn-s"><i class="fa-solid fa-headset"></i> Support / Submit a resource</a>
+    <a href="https://www.tiktok.com/@moddingx1" target="_blank" rel="noopener noreferrer" class="btn-xz btn-s"><i class="fa-brands fa-tiktok"></i> TikTok</a>
    </div>
+   <p class="muted small2 mt-3 mb-0"><i class="fa-solid fa-shield-halved me-1"></i> Never send passwords or verification codes to anyone.</p>
   </div>
- </section>
+ </div></section>
 </main>
 
-<footer>
- <div class="container d-flex flex-column flex-md-row gap-3 justify-content-between">
-  <div><strong class="text-white">MODDINGXZ</strong> <span class="ms-2">Community-led modding discovery.</span></div>
-  <div>Public data · Local bookmarks · No backend</div>
-  <div><a href="https://moddingxz.co.uk">Website</a> · <a href="https://t.me/moddingxz">Telegram</a> · <button class="btn btn-link p-0 muted tiny" onclick="clearCache()">Clear local cache</button></div>
+<footer><div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+ <span>© <span id="year"></span> ModdingXZ. Independent community project. Platform and game names belong to their owners.</span>
+ <span><a href="https://moddingxz.co.uk/">Website</a> · <a href="https://github.com/MrJasonDEX" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer">Telegram</a></span>
+</div></footer>
+
+<div class="modal fade" id="svcModal" tabindex="-1" aria-labelledby="mTitle" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"><div class="modal-content">
+ <div class="modal-header"><div><small class="kick">MODDINGXZ CATALOGUE</small><h5 class="mb-0 mt-1 fw-black" id="mTitle">Service</h5></div><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+ <div class="modal-body">
+  <div class="mp" id="mPrice"></div><p class="muted small2 mt-2" id="mDesc"></p><ul class="mlist" id="mList"></ul>
+  <p class="muted small2 mt-3"><i class="fa-solid fa-circle-info me-1"></i> A catalogue listing, not a live availability check. Confirm with support before paying.</p>
+  <label for="order" class="fw-bold small2 mb-2">Your enquiry</label><textarea class="order" id="order" spellcheck="false"></textarea>
  </div>
-</footer>
+ <div class="modal-footer"><button class="btn-xz btn-s me-auto" id="copyOrder" type="button"><i class="fa-regular fa-copy"></i> Copy enquiry</button><a class="btn-xz btn-p" href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram"></i> Open Support</a></div>
+</div></div></div>
+<div class="toast-x" id="toast" role="status" aria-live="polite"></div>
 
-<nav class="mobile-nav">
- <a href="#discover" data-page="discover" class="active"><i class="bi bi-compass"></i>Discover</a>
- <a href="#releases" data-page="releases"><i class="bi bi-box-seam"></i>Releases</a>
- <a href="#games" data-page="games"><i class="bi bi-controller"></i>Games</a>
- <a href="#saved" data-page="saved"><i class="bi bi-bookmark"></i>Saved</a>
-</nav>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-(() => {
+(function(){
 "use strict";
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
-const CACHE_KEY = "xz_scene_cache_v1";
-const SAVED_KEY = "xz_scene_saved_v1";
-const SEEN_KEY = "xz_scene_seen_v1";
-const LAST_KEY = "xz_scene_last_visit_v1";
-const CACHE_TTL = 15 * 60 * 1000;
-const PAGE_SIZE = 12;
+const $=s=>document.querySelector(s);
+const esc=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+const ls={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const fmt=d=>{const x=new Date(d);return isNaN(x)?"date unknown":x.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})};
+const PLATS=[["all","All"],["ps","PlayStation"],["xbox","Xbox"],["pc","PC"],["cod","Call of Duty"]];
+const PN=Object.fromEntries(PLATS);
+const ext=u=>/^https:\/\/moddingxz\.co\.uk\//.test(u)?"":' target="_blank" rel="noopener noreferrer"';
 
-let projects = [];
-let releases = [];
-let platform = "all";
-let page = "discover";
-let visibleCount = PAGE_SIZE;
-let loading = false;
-let lastLoaded = 0;
-let currentRequest = 0;
-let activeError = "";
-let saved = readStore(SAVED_KEY, []);
-let seen = readStore(SEEN_KEY, []);
-let lastVisit = Number(localStorage.getItem(LAST_KEY) || 0);
-
-function readStore(key, fallback) {
-  try {
-    const value = JSON.parse(localStorage.getItem(key));
-    return value ?? fallback;
-  } catch { return fallback; }
-}
-function writeStore(key, value) {
-  try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
-}
-function escapeHTML(value="") {
-  return String(value).replace(/[&<>"']/g, ch => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  })[ch]);
-}
-function shortNumber(n=0) {
-  return new Intl.NumberFormat("en-GB", {notation:"compact",maximumFractionDigits:1}).format(n);
-}
-function timeAgo(date) {
-  if (!date) return "Date unavailable";
-  const diff = Math.max(0, Date.now() - new Date(date).getTime());
-  if (!Number.isFinite(diff)) return "Date unavailable";
-  const mins = Math.floor(diff/60000);
-  if (mins < 1) return "Just now";
-  if (mins < 60) return `${mins}m ago`;
-  const hrs = Math.floor(mins/60);
-  if (hrs < 24) return `${hrs}h ago`;
-  const days = Math.floor(hrs/24);
-  if (days < 30) return `${days}d ago`;
-  return new Date(date).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
-}
-function guessPlatforms(repo) {
-  const t = `${repo.name} ${repo.description || ""} ${repo.full_name || ""}`.toLowerCase();
-  const tags = [];
-  if (/playstation|ps3|ps4|ps5|ps vita|psvita|goldhen|hen|jailbreak|orbis|psx/.test(t)) tags.push("playstation");
-  if (/xbox|xbox360|xbox one|xbox series/.test(t)) tags.push("xbox");
-  if (/homebrew|custom firmware|\bcfw\b|payload|bootloader|exploit|firmware|jailbreak|hen/.test(t)) tags.push("homebrew");
-  if (/black.?ops.?2|\bbo2\b|plutonium|t6zm|t6mp/.test(t)) tags.push("bo2");
-  if (/mod loader|modding tool|mod menu|game mod|mod manager|modding|cheat engine/.test(t)) tags.push("pc");
-  if (!tags.length) tags.push("pc");
-  return [...new Set(tags)];
-}
-function labelPlatform(tags) {
-  if (tags.includes("bo2")) return "Black Ops 2";
-  if (tags.includes("playstation")) return "PlayStation";
-  if (tags.includes("xbox")) return "Xbox";
-  if (tags.includes("homebrew")) return "Homebrew";
-  return "PC & tools";
-}
-function repoToProject(repo) {
-  const tags = guessPlatforms(repo);
-  return {
-    id: repo.id,
-    name: repo.name || repo.full_name,
-    full_name: repo.full_name,
-    description: repo.description || "No description supplied by the project author.",
-    url: repo.html_url,
-    stars: repo.stargazers_count || 0,
-    forks: repo.forks_count || 0,
-    language: repo.language || "Community project",
-    updated: repo.updated_at,
-    created: repo.created_at,
-    tags,
-    source: "GitHub",
-    releases_url: repo.releases_url ? repo.releases_url.replace("{/id}","") : `https://github.com/${repo.full_name}/releases`,
-    release: null
-  };
-}
-async function apiJSON(url) {
-  const response = await fetch(url, {
-    headers: {"Accept":"application/vnd.github+json"}
-  });
-  if (!response.ok) {
-    if (response.status === 403 || response.status === 429) {
-      throw new Error("GitHub rate limit reached. Please wait a little before refreshing.");
-    }
-    throw new Error(`Source returned HTTP ${response.status}.`);
-  }
-  return response.json();
-}
-function getCache() {
-  try { return JSON.parse(localStorage.getItem(CACHE_KEY) || "null"); }
-  catch { return null; }
-}
-function setCache(data) {
-  try { localStorage.setItem(CACHE_KEY, JSON.stringify({...data, cachedAt:Date.now()})); } catch {}
-}
-function hydrateCache() {
-  const cache = getCache();
-  if (cache && Array.isArray(cache.projects)) {
-    projects = cache.projects;
-    releases = cache.releases || [];
-    lastLoaded = cache.cachedAt || 0;
-    renderAll();
-    $("#lastUpdated").textContent = `Cached source data · ${timeAgo(lastLoaded)}`;
-    return cache;
-  }
-  return null;
-}
-const searchSets = [
-  {name:"Console modding",q:'(playstation OR ps4 OR ps5 OR xbox OR homebrew) modding'},
-  {name:"PlayStation projects",q:'(PS4 OR PS5 OR PlayStation OR GoldHEN OR Orbis)'},
-  {name:"Xbox projects",q:'(Xbox OR Xenia OR Xbox360) homebrew'},
-  {name:"Homebrew projects",q:'(homebrew OR "custom firmware" OR jailbreak) console'},
-  {name:"Black Ops 2",q:'("Black Ops 2" OR BO2 OR plutonium OR T6)'},
-  {name:"Game modding tools",q:'("mod loader" OR "mod manager" OR "game modding")'}
+/* Tool Vault. repo => also shown in Release Radar. */
+const ITEMS=[
+{id:"hosts",t:"ModdingXZ Hosts",d:"PlayStation hosts page from ModdingXZ.",u:"https://moddingxz.co.uk/Hosts/index.html",p:["ps","cod"],c:"Hosts & Network"},
+{id:"relay",t:"BO2 Relay Guide",d:"Relay setup guide for Black Ops 2.",u:"https://moddingxz.co.uk/relay.html",p:["cod"],c:"Guides"},
+{id:"more",t:"Additional Resources",d:"More ModdingXZ resources and links.",u:"https://moddingxz.co.uk/t.html",p:["ps","xbox","pc"],c:"Guides"},
+{id:"unfriend",t:"PSN Unfriender Tool",d:"PSN management utility by MrJasonDEX.",u:"https://github.com/MrJasonDEX/PSN-Unfriender-Tool",p:["ps"],c:"ModdingXZ Projects"},
+{id:"cwmods",t:"Cold War PC Mods",d:"PC modding and GSC project by MrJasonDEX.",u:"https://github.com/MrJasonDEX/Cold-War-Mods",p:["pc","cod"],c:"ModdingXZ Projects"},
+{id:"bo3menu",t:"Black Ops 3 Mod Menu",d:"PS4 mod menu project by MrJasonDEX.",u:"https://github.com/MrJasonDEX/Black-ops-3-Mod-Menu-",p:["ps","cod"],c:"ModdingXZ Projects"},
+{id:"etahen",t:"etaHEN",d:"PS5 homebrew enabler project.",u:"https://github.com/LightningMods/etaHEN",p:["ps"],c:"Homebrew",repo:"LightningMods/etaHEN"},
+{id:"goldhen",t:"GoldHEN",d:"PS4 homebrew enabler project.",u:"https://github.com/GoldHEN/GoldHEN",p:["ps"],c:"Homebrew",repo:"GoldHEN/GoldHEN"},
+{id:"ps5sdk",t:"PS5 Payload SDK",d:"Open-source SDK for PS5 payloads.",u:"https://github.com/ps5-payload-dev/sdk",p:["ps"],c:"Homebrew",repo:"ps5-payload-dev/sdk"},
+{id:"openorbis",t:"OpenOrbis PS4 Toolchain",d:"Open-source toolchain for PS4 homebrew.",u:"https://github.com/OpenOrbis/OpenOrbis-PS4-Toolchain",p:["ps"],c:"Homebrew",repo:"OpenOrbis/OpenOrbis-PS4-Toolchain"},
+{id:"webman",t:"webMAN MOD",d:"Popular PS3 customised firmware plugin.",u:"https://github.com/aldostools/webMAN-MOD",p:["ps"],c:"Homebrew",repo:"aldostools/webMAN-MOD"},
+{id:"shadps4",t:"shadPS4",d:"PS4 emulator for PC.",u:"https://github.com/shadps4-emu/shadPS4",p:["pc","ps"],c:"Emulators",repo:"shadps4-emu/shadPS4"},
+{id:"rpcs3",t:"RPCS3",d:"PS3 emulator for PC with a compatibility list.",u:"https://rpcs3.net/",p:["pc","ps"],c:"Emulators"},
+{id:"xemu",t:"xemu",d:"Original Xbox emulator.",u:"https://xemu.app/",p:["pc","xbox"],c:"Emulators"},
+{id:"psn",t:"PlayStation Network Status",d:"Official PSN service status.",u:"https://status.playstation.com/",p:["ps"],c:"Hosts & Network"},
+{id:"xbl",t:"Xbox Network Status",d:"Official Xbox service status.",u:"https://support.xbox.com/en-GB/xbox-live-status",p:["xbox"],c:"Hosts & Network"},
+{id:"tg",t:"ModdingXZ Telegram",d:"Community announcements and chat.",u:"https://t.me/ModdingXZ",p:["ps","xbox","pc","cod"],c:"Community"},
+{id:"bot",t:"ModdingXZ Support Bot",d:"Support, orders and resource submissions.",u:"https://t.me/ModdingXZ_Support_Bot",p:["ps","xbox","pc","cod"],c:"Community"}
 ];
-function githubSearchURL(q, sort="updated") {
-  const params = new URLSearchParams({
-    q: `${q} fork:false`,
-    sort: sort === "stars" ? "stars" : sort === "new" ? "created" : "updated",
-    order:"desc", per_page:"30"
-  });
-  return "https://api.github.com/search/repositories?" + params.toString();
+const CATS=["all"].concat([...new Set(ITEMS.map(i=>i.c))]);
+
+/* Services: listed prices supplied by ModdingXZ */
+const SERV=[
+{id:"s-cod",cat:"cod",label:"COD",name:"Full COD Max Pro Package",price:"£15",icon:"fa-fire",desc:"Combined progression package for the listed Call of Duty titles. Confirm included games and compatibility first.",feats:["MW2019 Level 1000","Cold War Level 2500","DA Unlock All","Vanguard Max Rank","Trophy services"]},
+{id:"s-bo3u",cat:"cod",label:"COD",name:"Black Ops 3 Ultimate",price:"£15",icon:"fa-skull",desc:"Listed BO3 package with multiplayer and Zombies features. Compatibility depends on platform and game version.",feats:["Prestige 1000 MP","Modded Classes","Unlock All","Custom Avatars","Zombies Prestige 12","All Easter Eggs","Unlimited Death Machine","Unreleased Camos","Green Clan Tag"]},
+{id:"s-bo3m",cat:"cod",label:"COD",name:"BO3 Maxed-Out",price:"£10",icon:"fa-bolt",desc:"Listed BO3 package focused on multiplayer and Zombies progression.",feats:["Prestige Master MP","Zombies Level 1000","Unlimited Death Machine","God Mode Classes"]},
+{id:"s-div",cat:"cod",label:"COD",name:"BO3 Liquid Divinium",price:"From £5",icon:"fa-flask",desc:"Liquid Divinium options for BO3. Confirm current options and prices with support.",feats:["100K, £5","500K, £10","1M, £20"]},
+{id:"s-cw",cat:"cod",label:"COD",name:"Cold War Services",price:"From £5",icon:"fa-snowflake",desc:"Listed Black Ops Cold War services.",feats:["Custom Modded Classes, £15","DA Unlock All, £10","Crystals / Currency, £5","Trophy services: ask support"]},
+{id:"s-oth",cat:"cod",label:"COD",name:"Other Call of Duty Games",price:"From £5",icon:"fa-crosshairs",desc:"Listed services for Ghosts, Advanced Warfare and Black Ops 4.",feats:["COD Ghosts, £15","Advanced Warfare, £10","BO4 Modded Classes, £10","BO4 All Trophies, £5"]},
+{id:"s-psn",cat:"psn",label:"PSN",name:"PSN Profile Extras",price:"From £2",icon:"fa-user-pen",desc:"Listed profile customisation. Ask support which options are currently supported.",feats:["Custom Avatar, £2","Modded About Me, £2","Profile Colour, £2"]},
+{id:"s-games",cat:"games",label:"GAMES",name:"Other Modded Games",price:"From £5",icon:"fa-car-side",desc:"Listed Need for Speed and PS4 save-related services.",feats:["Need for Speed Heat, £10","Need for Speed Hot Pursuit Remastered, £5","PS4 Modded Save / Reassign, £5"]},
+{id:"s-troph",cat:"trophy",label:"TROPHIES",name:"PlayStation Trophy Level 999",price:"From £30",icon:"fa-trophy",desc:"Listed trophy packages. Confirm supported console, account requirements, risks and turnaround with support first.",feats:["Level 999 + 1,100+ Platinums, £30","Level 999 + 1,800+ Platinums, £40","Account requirements must be discussed with support"]},
+{id:"s-iptv",cat:"iptv",label:"IPTV",name:"IPTV Subscription",price:"£50",icon:"fa-tv",desc:"Listed one-year subscription. Confirm channels, terms and device compatibility before purchase.",feats:["One-year subscription, £50","Firestick support","Android support","Ask support about bulk pricing"]}
+];
+const SF=[["all","All"],["cod","COD"],["psn","PSN"],["trophy","Trophies"],["games","Games"],["iptv","IPTV"]];
+
+let st={plat:ls.get("mxz_plat","all"),cat:ls.get("mxz_cat","all"),svc:"all",q:""};
+const valid=id=>ITEMS.some(i=>i.id===id)||SERV.some(s=>s.id===id);
+let favs=ls.get("mxz_favs",[]).filter(valid),recs=ls.get("mxz_recent",[]).filter(valid),news=[],rels=[],sel=null,tt;
+const lookup=id=>ITEMS.find(i=>i.id===id)||SERV.find(s=>s.id===id);
+const mt=t=>{const w=st.q.trim().toLowerCase();return !w||w.split(/\s+/).every(x=>t.toLowerCase().includes(x))};
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2600)}
+function toggleFav(id){favs=favs.includes(id)?favs.filter(x=>x!==id):[id].concat(favs);ls.set("mxz_favs",favs);renderAll()}
+function addRecent(id){recs=[id].concat(recs.filter(x=>x!==id)).slice(0,8);ls.set("mxz_recent",recs);renderMine()}
+
+/* Filters */
+function renderChips(){
+ $("#chips").innerHTML=PLATS.map(([k,l])=>`<button type="button" class="chip${st.plat===k?" on":""}" data-p="${k}" aria-pressed="${st.plat===k}">${esc(l)}</button>`).join("");
+ $("#svcFilters").innerHTML=SF.map(([k,l])=>`<button type="button" class="chip${st.svc===k?" on":""}" data-s="${k}" aria-pressed="${st.svc===k}">${esc(l)}</button>`).join("");
+ $("#cat").innerHTML=CATS.map(c=>`<option value="${esc(c)}"${c===st.cat?" selected":""}>${c==="all"?"All categories":esc(c)}</option>`).join("");
 }
-async function fetchProjects(force=false) {
-  if (loading) return;
-  const requestId = ++currentRequest;
-  if (!force && projects.length && Date.now()-lastLoaded < CACHE_TTL) {
-    renderAll();
-    return;
-  }
-  loading = true;
-  activeError = "";
-  $("#resultCount").textContent = "Discovering projects…";
-  $("#feed").innerHTML = '<div class="col-md-6"><div class="skeleton"></div></div><div class="col-md-6"><div class="skeleton"></div></div>';
-  const sort = $("#sortSelect").value;
-  try {
-    const queries = searchSets.map(s => githubSearchURL(s.q, sort));
-    const responses = await Promise.allSettled(queries.map(apiJSON));
-    if (requestId !== currentRequest) return;
-    const all = new Map();
-    let successful = 0;
-    for (const result of responses) {
-      if (result.status !== "fulfilled") continue;
-      successful++;
-      for (const repo of (result.value.items || [])) {
-        if (!repo || !repo.id) continue;
-        all.set(repo.id, repoToProject(repo));
-      }
-    }
-    if (!successful && !projects.length) throw new Error("GitHub discovery is temporarily unavailable.");
-    projects = [...all.values()];
-    projects.sort((a,b) => new Date(b.updated)-new Date(a.updated));
-    await fetchReleaseData(requestId);
-    if (requestId !== currentRequest) return;
-    lastLoaded = Date.now();
-    setCache({projects,releases});
-    $("#lastUpdated").textContent = "Sources refreshed · just now";
-  } catch (err) {
-    activeError = err.message || "Could not load public sources.";
-    const cache = getCache();
-    if (cache && cache.projects) {
-      projects = cache.projects;
-      releases = cache.releases || [];
-    }
-  } finally {
-    if (requestId === currentRequest) {
-      loading = false;
-      renderAll();
-    }
-  }
+$("#chips").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(!b)return;st.plat=b.dataset.p;ls.set("mxz_plat",st.plat);renderChips();renderAll()});
+$("#svcFilters").addEventListener("click",e=>{const b=e.target.closest("[data-s]");if(!b)return;st.svc=b.dataset.s;renderChips();renderAll()});
+$("#cat").addEventListener("change",e=>{st.cat=e.target.value;ls.set("mxz_cat",st.cat);renderAll()});
+
+/* Vault */
+const vaultFiltered=()=>ITEMS.filter(i=>(st.plat==="all"||i.p.includes(st.plat))&&(st.cat==="all"||i.c===st.cat)&&mt([i.t,i.d,i.c,i.p.map(p=>PN[p]).join(" ")].join(" ")));
+function renderVault(){
+ const l=vaultFiltered();
+ $("#vaultCount").textContent=l.length+" resource"+(l.length===1?"":"s")+" shown";
+ $("#vaultGrid").innerHTML=l.length?l.map(i=>`<div class="col-md-6 col-xl-4"><div class="card-x">
+  <div class="d-flex justify-content-between align-items-start gap-2"><h3 class="mt-0"><a href="${esc(i.u)}"${ext(i.u)} data-rec="${esc(i.id)}">${esc(i.t)}</a></h3>
+  <button type="button" class="fav" data-fav="${esc(i.id)}" aria-pressed="${favs.includes(i.id)}" aria-label="${favs.includes(i.id)?"Remove favourite":"Add favourite"}: ${esc(i.t)}">${favs.includes(i.id)?"★":"☆"}</button></div>
+  <p>${esc(i.d)}</p><div><span class="tag">${esc(i.c)}</span>${i.p.map(p=>`<span class="tag">${esc(PN[p])}</span>`).join("")}</div></div></div>`).join("")
+  :`<div class="col-12"><div class="panel text-center muted">No resources match those filters. Try another platform or clear the search.</div></div>`;
 }
-async function fetchReleaseData(requestId) {
-  const candidates = projects.slice(0,12);
-  const results = await Promise.allSettled(candidates.map(async project => {
-    const data = await apiJSON(project.releases_url + "?per_page=1");
-    const item = data && data[0];
-    if (!item) return null;
-    return {
-      id: `${project.id}-${item.id}`,
-      projectId:project.id,
-      projectName:project.name,
-      full_name:project.full_name,
-      name:item.name || item.tag_name || "Release",
-      tag:item.tag_name || "",
-      body:(item.body || "").slice(0,500),
-      date:item.published_at || item.created_at,
-      url:item.html_url || project.releases_url,
-      projectUrl:project.url,
-      tags:project.tags,
-      source:"GitHub Releases",
-      prerelease:!!item.prerelease,
-      draft:!!item.draft
-    };
-  }));
-  if (requestId !== currentRequest) return;
-  releases = results.filter(r=>r.status==="fulfilled" && r.value).map(r=>r.value);
-  releases.sort((a,b)=>new Date(b.date)-new Date(a.date));
+
+/* Services */
+function renderServices(){
+ const l=SERV.filter(s=>(st.svc==="all"||s.cat===st.svc)&&mt([s.name,s.desc,s.label,s.price,...s.feats].join(" ")));
+ $("#svcEmpty").hidden=l.length>0;
+ $("#svcGrid").innerHTML=l.map(s=>`<div class="col-md-6 col-lg-4"><article class="card-x">
+  <div class="d-flex justify-content-between align-items-center"><div class="ic"><i class="fa-solid ${esc(s.icon)}"></i></div>
+  <div><span class="tag m-0">${esc(s.label)}</span><button type="button" class="fav" data-fav="${esc(s.id)}" aria-pressed="${favs.includes(s.id)}" aria-label="${favs.includes(s.id)?"Remove favourite":"Add favourite"}: ${esc(s.name)}">${favs.includes(s.id)?"★":"☆"}</button></div></div>
+  <h3>${esc(s.name)}</h3><p>${esc(s.desc)}</p>
+  <div class="d-flex justify-content-between align-items-center pt-3" style="border-top:1px solid var(--border)"><strong class="price">${esc(s.price)}</strong>
+  <button type="button" class="btn-xz btn-s" data-svc="${esc(s.id)}">View details</button></div></article></div>`).join("");
 }
-function matchesPlatform(item) {
-  if (platform === "all") return true;
-  return (item.tags || []).includes(platform);
+function openSvc(id){
+ const s=SERV.find(x=>x.id===id);if(!s)return;sel=s;addRecent(id);
+ $("#mTitle").textContent=s.name;$("#mPrice").textContent=s.price;$("#mDesc").textContent=s.desc;
+ $("#mList").innerHTML=s.feats.map(f=>`<li><i class="fa-solid fa-check"></i><span>${esc(f)}</span></li>`).join("");
+ $("#order").value=["Hi ModdingXZ, I'd like to ask about this service:","","Service: "+s.name,"Listed price: "+s.price,"Selected option: [add option]","Platform / console: [add platform]","Game version / firmware: [add if relevant]","","Is this currently available and compatible? Please confirm the final price and instructions before I pay."].join("\n");
+ bootstrap.Modal.getOrCreateInstance($("#svcModal")).show();
 }
-function matchesSearch(item) {
-  const q = $("#searchInput").value.trim().toLowerCase();
-  if (!q) return true;
-  return `${item.name} ${item.full_name || ""} ${item.description || ""} ${item.projectName || ""} ${(item.tags || []).join(" ")} ${item.language || ""}`.toLowerCase().includes(q);
-}
-function filteredProjects() {
-  let list = projects.filter(matchesPlatform).filter(matchesSearch);
-  const sort = $("#sortSelect").value;
-  if (sort==="stars") list.sort((a,b)=>b.stars-a.stars);
-  else if (sort==="new") list.sort((a,b)=>new Date(b.created)-new Date(a.created));
-  else list.sort((a,b)=>new Date(b.updated)-new Date(a.updated));
-  return list;
-}
-function filteredReleases() {
-  return releases.filter(matchesPlatform).filter(matchesSearch);
-}
-function isSaved(id) { return saved.some(item => String(item.id)===String(id)); }
-function isSeen(id) { return seen.includes(String(id)); }
-function saveProject(project) {
-  if (isSaved(project.id)) saved=saved.filter(item=>String(item.id)!==String(project.id));
-  else saved.unshift({
-    id:project.id,name:project.name,full_name:project.full_name,
-    description:project.description,url:project.url,stars:project.stars,
-    forks:project.forks,language:project.language,updated:project.updated,
-    created:project.created,tags:project.tags,source:project.source,
-    releases_url:project.releases_url
-  });
-  writeStore(SAVED_KEY,saved);
-  renderAll();
-}
-function markSeen(id) {
-  id=String(id);
-  if (!seen.includes(id)) seen.push(id);
-  if (seen.length>2000) seen=seen.slice(-1500);
-  writeStore(SEEN_KEY,seen);
-  renderStats();
-}
-function card(project, type="project") {
-  const id = type==="release" ? project.id : project.id;
-  const bookmarked = isSaved(project.projectId || project.id);
-  const viewed = isSeen(id);
-  const tags = project.tags || [];
-  const date = type==="release" ? project.date : project.updated;
-  const title = type==="release" ? `${project.projectName}: ${project.name}` : project.name;
-  const description = type==="release"
-    ? (project.body || `Release ${project.tag || ""} published by ${project.full_name}. Open the source for the release notes and downloads.`)
-    : project.description;
-  const url = type==="release" ? project.url : project.url;
-  const stars = project.stars;
-  return `<article class="col-md-6">
-   <div class="story">
-    <div class="story-top">
-     <span class="source-tag"><i class="bi bi-github"></i> ${escapeHTML(type==="release"?"RELEASE":"PROJECT")}</span>
-     <span class="${viewed?"muted":"status-tag"}">${viewed?"SEEN":`<i class="bi bi-circle-fill me-1" style="font-size:6px"></i>${timeAgo(date).toUpperCase()}`}</span>
-    </div>
-    <h3>${escapeHTML(title)}</h3>
-    <p>${escapeHTML(description || "No description supplied by the project author.")}</p>
-    <div class="d-flex flex-wrap gap-2 mb-3">
-     <span class="platform-label">${escapeHTML(labelPlatform(tags))}</span>
-     ${type==="release" && project.tag?`<span class="source-tag">${escapeHTML(project.tag)}</span>`:""}
-     ${type==="project" && project.language?`<span class="source-tag">${escapeHTML(project.language)}</span>`:""}
-    </div>
-    <div class="story-foot">
-     <div class="tiny muted">${type==="project"?`<i class="bi bi-star me-1"></i>${shortNumber(stars)} · <i class="bi bi-diagram-2 ms-1 me-1"></i>${shortNumber(project.forks)}`:`<i class="bi bi-clock me-1"></i>${timeAgo(date)}`}</div>
-     <div class="story-actions">
-      <button class="icon-btn ${bookmarked?"saved":""}" title="${bookmarked?"Remove bookmark":"Save project"}" aria-label="Save project" onclick="toggleSave('${escapeHTML(String(project.projectId || project.id))}')"><i class="bi ${bookmarked?"bi-bookmark-fill":"bi-bookmark"}"></i></button>
-      <button class="icon-btn ${viewed?"seen":""}" title="Mark as seen" aria-label="Mark as seen" onclick="markItemSeen('${escapeHTML(String(id))}')"><i class="bi bi-check2"></i></button>
-      <a class="icon-btn" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" title="Open source" aria-label="Open source" onclick="markItemSeen('${escapeHTML(String(id))}')"><i class="bi bi-arrow-up-right"></i></a>
-     </div>
-    </div>
-   </div>
-  </article>`;
-}
-function renderStats() {
-  $("#projectStat").textContent=shortNumber(projects.length);
-  $("#releaseStat").textContent=shortNumber(releases.length);
-  $("#savedStat").textContent=shortNumber(saved.length);
-  $("#savedNavCount").textContent=saved.length?`(${saved.length})`:"";
-  const unseen=projects.filter(p=>!isSeen(p.id)).length;
-  $("#unseenStat").textContent=shortNumber(unseen);
-}
-function renderFeed() {
-  const list=filteredProjects();
-  const visible=list.slice(0,visibleCount);
-  $("#feedTitle").textContent=platform==="all"?"What's happening":`${labelPlatform([platform])} discovery`;
-  $("#feedSubtitle").textContent=activeError?`Showing available data. ${activeError}`:"Public projects sorted using your selected order.";
-  $("#resultCount").textContent=`${list.length} projects`;
-  $("#feed").innerHTML=visible.length?visible.map(p=>card(p)).join(""):`<div class="col-12"><div class="panel empty"><i class="bi bi-search"></i><h3 class="mt-3 text-white fs-6">No projects found</h3><p class="tiny">${activeError?escapeHTML(activeError):"Try another search or platform filter."}</p><button class="btn btn-quiet" onclick="resetFilters()">Reset filters</button></div></div>`;
-  $("#loadMoreBtn").hidden=list.length<=visibleCount;
-}
-function renderReleases() {
-  const list=filteredReleases();
-  $("#releaseFeed").innerHTML=list.length?list.map(r=>card(r,"release")).join(""):`<div class="col-12"><div class="panel empty"><i class="bi bi-box-seam"></i><h3 class="mt-3 text-white fs-6">No release links available yet</h3><p class="tiny">Release links are retrieved from the discovered public GitHub projects. Some projects do not publish releases.</p><button class="btn btn-quiet" onclick="refreshFeed()">Try again</button></div></div>`;
-}
-function renderSaved() {
-  const q=$("#searchInput").value.trim().toLowerCase();
-  const list=saved.filter(p=>matchesPlatform(p)).filter(p=>!q||`${p.name} ${p.full_name} ${p.description}`.toLowerCase().includes(q));
-  $("#savedFeed").innerHTML=list.length?list.map(p=>card(p)).join(""):`<div class="col-12"><div class="panel empty"><i class="bi bi-bookmark"></i><h3 class="mt-3 text-white fs-6">Your watchlist starts here</h3><p class="tiny">Save projects from Discover and they will appear here on this device.</p><button class="btn btn-xz" onclick="setPage('discover')">Discover projects</button></div></div>`;
-}
-function renderAll() {
-  renderStats();
-  renderFeed();
-  renderReleases();
-  renderSaved();
-}
-window.toggleSave = function(id) {
-  const project=projects.find(p=>String(p.id)===String(id)) || saved.find(p=>String(p.id)===String(id));
-  if(project) saveProject(project);
-};
-window.markItemSeen = function(id) { markSeen(id); renderAll(); };
-window.setPlatform = function(value) {
-  platform=value;
-  $$("#platformFilters [data-platform]").forEach(btn=>btn.classList.toggle("active",btn.dataset.platform===value));
-  visibleCount=PAGE_SIZE;
-  renderAll();
-  setPage("discover");
-};
-window.setPage = function(value) {
-  page=value;
-  const sections={discover:"#discoverPage",releases:"#releasesPage",games:"#gamesPage",saved:"#savedPage"};
-  Object.entries(sections).forEach(([key,selector])=>$(selector).hidden=key!==value);
-  $$("[data-page]").forEach(el=>el.classList.toggle("active",el.dataset.page===value));
-  if(value==="releases") renderReleases();
-  if(value==="saved") renderSaved();
-  if(value==="discover") renderFeed();
-  window.scrollTo({top:0,behavior:"smooth"});
-};
-window.loadMore = function() { visibleCount+=PAGE_SIZE; renderFeed(); };
-window.refreshFeed = function() {
-  localStorage.removeItem(CACHE_KEY);
-  lastLoaded=0;
-  fetchProjects(true);
-};
-window.resetFilters = function() {
-  $("#searchInput").value="";
-  platform="all";
-  visibleCount=PAGE_SIZE;
-  $$("#platformFilters [data-platform]").forEach(btn=>btn.classList.toggle("active",btn.dataset.platform==="all"));
-  renderAll();
-};
-window.clearCache = function() {
-  localStorage.removeItem(CACHE_KEY);
-  $("#lastUpdated").textContent="Local feed cache cleared";
-};
-window.exportSaved = function() {
-  const blob=new Blob([JSON.stringify(saved,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url;a.download="moddingxz-watchlist.json";a.click();
-  URL.revokeObjectURL(url);
-};
-$$("[data-page]").forEach(el=>el.addEventListener("click",e=>{
-  const target=el.dataset.page;
-  if(target){e.preventDefault();setPage(target);}
-}));
-$$("[data-platform]").forEach(el=>el.addEventListener("click",()=>setPlatform(el.dataset.platform)));
-$("#searchInput").addEventListener("input",()=>{
-  visibleCount=PAGE_SIZE;
-  renderAll();
+$("#copyOrder").addEventListener("click",async()=>{
+ const t=$("#order");
+ try{await navigator.clipboard.writeText(t.value);toast("Enquiry copied. Paste it into Telegram support.")}
+ catch(e){t.focus();t.select();try{toast(document.execCommand("copy")?"Enquiry copied.":"Select the text and copy it manually.")}catch(x){toast("Select the text and copy it manually.")}}
 });
-$("#sortSelect").addEventListener("change",()=>{
-  if(projects.length) {
-    // Sorting uses the already loaded project set; no API call needed.
-    renderAll();
-  } else fetchProjects();
+
+/* Delegated clicks (favourites, details, recents) */
+document.addEventListener("click",e=>{
+ const f=e.target.closest("[data-fav]");if(f){toggleFav(f.dataset.fav);return}
+ const s=e.target.closest("[data-svc]");if(s){openSvc(s.dataset.svc);return}
+ const r=e.target.closest("[data-rec]");if(r)addRecent(r.dataset.rec);
 });
-const cached=hydrateCache();
-if(lastVisit) {
-  $("#feedSubtitle").textContent=`Welcome back. ${projects.filter(p=>!isSeen(p.id)).length} projects are still unseen in your current feed.`;
+
+/* My XZ */
+function mini(ids,box,msg){
+ box.innerHTML=ids.length?ids.map(id=>{const i=lookup(id);return i.u?`<div class="row-i"><a href="${esc(i.u)}"${ext(i.u)} data-rec="${esc(i.id)}">${esc(i.t)}</a><span class="tag m-0">${esc(i.c)}</span></div>`
+  :`<div class="row-i"><button type="button" class="linkbtn" data-svc="${esc(i.id)}">${esc(i.name)}</button><span class="tag m-0">Service</span></div>`}).join(""):`<p class="muted mb-0">${msg}</p>`;
 }
-localStorage.setItem(LAST_KEY,String(Date.now()));
-if(!cached || Date.now()-(cached.cachedAt||0)>CACHE_TTL) fetchProjects();
-else {
-  // Refresh in the background while cached content stays immediately usable.
-  setTimeout(()=>fetchProjects(),800);
+function renderMine(){mini(favs,$("#favList"),"No favourites yet. Tap ☆ on any resource or service.");mini(recs,$("#recList"),"Nothing viewed yet.")}
+
+/* Global search */
+function renderResults(){
+ const box=$("#results"),q=st.q.trim();box.innerHTML="";if(q.length<2)return;
+ const h=[];
+ vaultFiltered().forEach(i=>h.push({t:i.t,u:i.u,k:"Tool Vault",id:i.id}));
+ SERV.filter(s=>mt([s.name,s.desc,...s.feats].join(" "))).forEach(s=>h.push({t:s.name,k:"Service",svc:s.id}));
+ if(st.plat==="all"){
+  news.filter(n=>mt(n.t)).slice(0,5).forEach(n=>h.push({t:n.t,u:n.u,k:"Daily (unverified)"}));
+  rels.filter(r=>mt(r.name+" "+r.tag)).forEach(r=>h.push({t:r.name+" "+r.tag,u:r.u,k:"Release Radar"}));
+ }
+ box.innerHTML=`<div class="panel"><div class="small2 muted mb-1">${h.length} result${h.length===1?"":"s"} for “${esc(q)}”</div>`+
+  (h.length?h.slice(0,14).map(x=>`<div class="row-i">${x.svc?`<button type="button" class="linkbtn" data-svc="${esc(x.svc)}">${esc(x.t)}</button>`:`<a href="${esc(x.u)}"${ext(x.u)}${x.id?` data-rec="${esc(x.id)}"`:""}>${esc(x.t)}</a>`}<span class="tag m-0">${esc(x.k)}</span></div>`).join(""):`<p class="mb-0">No results. Try fewer words, or ask in the Telegram community.</p>`)+`</div>`;
 }
+function renderRecentSearches(){
+ const rs=ls.get("mxz_searches",[]);
+ $("#recentSearches").innerHTML=rs.length?`<span class="small2 muted">Recent:</span>`+rs.map(s=>`<button type="button" class="chip" data-rs="${esc(s)}">${esc(s)}</button>`).join(""):"";
+}
+$("#recentSearches").addEventListener("click",e=>{const b=e.target.closest("[data-rs]");if(b){$("#q").value=b.dataset.rs;st.q=b.dataset.rs;renderAll()}});
+function saveSearch(){const q=st.q.trim();if(q.length<2)return;ls.set("mxz_searches",[q].concat(ls.get("mxz_searches",[]).filter(x=>x!==q)).slice(0,5));renderRecentSearches()}
+const qi=$("#q");
+qi.addEventListener("input",e=>{st.q=e.target.value;renderAll()});
+qi.addEventListener("keydown",e=>{if(e.key==="Enter")saveSearch();if(e.key==="Escape"){qi.value="";st.q="";renderAll();qi.blur()}});
+qi.addEventListener("change",saveSearch);
+document.addEventListener("keydown",e=>{if(e.key==="/"&&!["INPUT","TEXTAREA","SELECT"].includes(e.target.tagName)){e.preventDefault();qi.focus();window.scrollTo({top:0})}});
+function renderAll(){renderVault();renderServices();renderMine();renderResults()}
+
+/* Network helpers */
+async function getJSON(url){
+ const c=new AbortController(),t=setTimeout(()=>c.abort(),9000);
+ try{const r=await fetch(url,{signal:c.signal,headers:{Accept:"application/json"}});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json()}finally{clearTimeout(t)}
+}
+const cached=(k,ttl)=>{const c=ls.get(k,null);return c&&Date.now()-c.t<ttl?c.v:null};
+const safeGH=u=>{try{const x=new URL(u);return x.protocol==="https:"&&x.hostname==="github.com"?x.href:null}catch(e){return null}};
+
+/* Daily: Reddit */
+async function loadNews(){
+ const box=$("#news");
+ try{
+  let p=cached("mxz_news",15*60*1000);
+  if(!p){
+   const j=await getJSON("https://www.reddit.com/r/callofduty+emulation+CODZombies/new.json?limit=30&raw_json=1");
+   p=(j.data.children||[]).map(c=>c.data).filter(d=>d&&d.title&&typeof d.permalink==="string"&&d.permalink.startsWith("/r/")&&!d.over_18)
+    .map(d=>({t:String(d.title).slice(0,200),u:"https://www.reddit.com"+d.permalink,s:"r/"+d.subreddit,d:d.created_utc*1000}));
+   ls.set("mxz_news",{t:Date.now(),v:p});
+  }
+  if(!p.length)throw new Error("empty");
+  news=p;
+  box.innerHTML=p.slice(0,10).map(n=>`<div class="row-i d-block"><a href="${esc(n.u)}" target="_blank" rel="noopener noreferrer">${esc(n.t)}</a><div class="small2 muted">${esc(n.s)} · ${esc(fmt(n.d))} · community report</div></div>`).join("");
+ }catch(e){
+  box.innerHTML=`<p class="mb-2">Couldn't load community reports. The source may be unavailable or rate-limiting this browser.</p><a href="https://www.reddit.com/r/callofduty/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan)">Open r/callofduty directly</a>`;
+ }
+ renderResults();
+}
+
+/* Radar: GitHub latest releases */
+async function loadRadar(){
+ const rows=await Promise.all(ITEMS.filter(i=>i.repo).map(async i=>{
+  const k="mxz_rel_"+i.repo,h=cached(k,30*60*1000);if(h)return h;
+  try{
+   const j=await getJSON("https://api.github.com/repos/"+i.repo+"/releases/latest");
+   const v={name:i.t,tag:String(j.tag_name||j.name||"release").slice(0,60),d:j.published_at||j.created_at,u:safeGH(j.html_url)||i.u,ok:1};
+   ls.set(k,{t:Date.now(),v});return v;
+  }catch(e){return{name:i.t,ok:0}}
+ }));
+ rels=rows.filter(r=>r.ok).sort((a,b)=>new Date(b.d)-new Date(a.d));
+ const bad=rows.filter(r=>!r.ok);
+ $("#radarList").innerHTML=(rels.length?rels.map(r=>`<div class="row-i"><div><a href="${esc(r.u)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a> <span class="tag ms-1">${esc(r.tag)}</span></div><span class="small2 muted">Published ${esc(fmt(r.d))}</span></div>`).join(""):`<p class="mb-2">Couldn't reach the GitHub API (or it's rate-limiting this browser). Try again later.</p>`)+
+  (bad.length?`<p class="small2 muted mt-2 mb-0">No release data for: ${esc(bad.map(b=>b.name).join(", "))} (no published release, or the request failed).</p>`:"");
+ renderResults();
+}
+
+/* Your GitHub projects */
+async function loadRepos(){
+ const b=$("#refreshRepos"),s=$("#repoStatus");
+ b.disabled=true;b.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> Loading';s.textContent="Checking public GitHub repositories…";
+ try{
+  const r=await getJSON("https://api.github.com/users/MrJasonDEX/repos?sort=updated&per_page=9&type=public");
+  if(!Array.isArray(r)||!r.length)throw new Error("none");
+  $("#repoGrid").innerHTML=r.map(x=>{const u=safeGH(x.html_url);return u?`<div class="col-md-6 col-xl-4"><a class="card-x" href="${esc(u)}" target="_blank" rel="noopener noreferrer"><h3 class="mt-0"><i class="fa-brands fa-github me-2"></i>${esc(x.name)}</h3><p>${esc(x.description||"No description supplied.")}</p><div class="small2 muted">${esc(x.language||"Project")} · ★ ${Number(x.stargazers_count||0)} · Updated ${esc(fmt(x.updated_at))}</div></a></div>`:""}).join("");
+  s.textContent="Showing "+r.length+" public repositories, most recently updated first. Data from GitHub.";
+ }catch(e){s.textContent="Live repository data is unavailable right now. Use the featured project links or open GitHub directly."}
+ finally{b.disabled=false;b.innerHTML='<i class="fa-solid fa-rotate"></i> Refresh projects'}
+}
+$("#refreshRepos").addEventListener("click",loadRepos);
+
+$("#clearMine").addEventListener("click",()=>{
+ if(!confirm("Clear favourites, recents, searches and saved filters from this browser?"))return;
+ ["mxz_favs","mxz_recent","mxz_searches","mxz_plat","mxz_cat"].forEach(k=>{try{localStorage.removeItem(k)}catch(e){}});
+ favs=[];recs=[];st.plat="all";st.cat="all";renderChips();renderRecentSearches();renderAll();
+});
+
+/* Navigation: close mobile menu, highlight current section */
+document.querySelectorAll("#mainNav a[href^='#']").forEach(a=>a.addEventListener("click",()=>{const n=$("#mainNav");if(n.classList.contains("show"))bootstrap.Collapse.getOrCreateInstance(n).hide()}));
+const nl=[...document.querySelectorAll(".navbar .nav-link[href^='#']")];
+if("IntersectionObserver"in window){
+ const o=new IntersectionObserver(es=>{const v=es.filter(x=>x.isIntersecting)[0];if(v)nl.forEach(l=>l.classList.toggle("active",l.getAttribute("href")==="#"+v.target.id))},{rootMargin:"-25% 0px -60% 0px"});
+ nl.forEach(l=>{const s=document.querySelector(l.getAttribute("href"));if(s)o.observe(s)});
+}
+
+$("#year").textContent=new Date().getFullYear();
+renderChips();renderRecentSearches();renderAll();loadNews();loadRadar();
 })();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
