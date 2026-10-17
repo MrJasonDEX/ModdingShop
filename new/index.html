@@ -3,271 +3,532 @@
 <html lang="en-GB">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090611">
-<meta name="description" content="ModdingXZ — your community hub for gaming mods, mod menus, trainers, tools, homebrew, game modifications, tutorials and community releases across PC and consoles.">
-<title>ModdingXZ | All Gaming Mods & Tools</title>
+<meta name="description" content="ModdingXZ Gaming Hub: discover gaming mods, open-source tools, modding projects, Minecraft mods, game updates, trainers and community resources.">
+<title>ModdingXZ // Gaming Modding Network</title>
 <style>
 :root {
-  --bg:#08060e;--panel:#110c1b;--panel2:#191126;
-  --purple:#a855f7;--pink:#ec4899;--text:#f7f2ff;
-  --muted:#a89bb9;--border:#30213f;--green:#4ade80;
+  --bg:#08060e;--panel:#110d1b;--panel2:#191126;
+  --border:#30213f;--purple:#a855f7;--pink:#ec4899;
+  --text:#f8f3ff;--muted:#a99bb9;--green:#4ade80;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(ellipse at top,#241038,transparent 40%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body{margin:0;background:radial-gradient(ellipse at 50% -10%,#301345 0,transparent 42%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
 a{color:inherit;text-decoration:none}
 button,input,select{font:inherit}
 button{cursor:pointer}
-.wrap{width:min(1200px,92%);margin:auto}
-header{position:sticky;top:0;z-index:10;background:#090611ed;backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
-nav{min-height:70px;display:flex;justify-content:space-between;align-items:center;gap:16px}
-.logo{font-size:23px;font-weight:950;letter-spacing:-1px}
-.logo span,.accent{color:#c084fc}
-.links{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
-.links a{font-size:13px;color:var(--muted)}
-.links a:hover{color:white}
-.btn{display:inline-flex;justify-content:center;align-items:center;gap:7px;background:var(--panel2);border:1px solid var(--border);color:white;padding:11px 15px;border-radius:10px;font-size:13px;font-weight:800}
-.btn:hover{border-color:var(--purple);transform:translateY(-2px)}
+.wrap{width:min(1240px,93%);margin:auto}
+header{position:sticky;top:0;z-index:20;background:#090611ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+nav{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:70px}
+.logo{font-weight:1000;font-size:23px;letter-spacing:-1px}
+.logo span,.purple{color:#c084fc}
+.navlinks{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.navlinks a{font-size:12px;color:var(--muted)}
+.navlinks a:hover{color:white}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;color:white;font-size:12px;font-weight:800}
+.btn:hover{border-color:var(--purple);transform:translateY(-1px)}
 .btn.primary{background:linear-gradient(120deg,#7c3aed,#c026d3);border:0}
-.hero{padding:76px 0 38px}
-.pill{display:inline-block;padding:7px 12px;border:1px solid #54316c;background:#180e24;border-radius:99px;color:#d8b4fe;font-size:11px;font-weight:850;letter-spacing:1px}
-h1{font-size:clamp(43px,8vw,82px);letter-spacing:-4px;line-height:.99;margin:24px 0 18px}
+.hero{padding:72px 0 34px}
+.eyebrow{display:inline-block;padding:7px 11px;background:#1a1027;border:1px solid #53346c;border-radius:99px;color:#d8b4fe;font-size:10px;letter-spacing:1.3px;font-weight:900}
+h1{font-size:clamp(43px,8vw,84px);line-height:.97;letter-spacing:-4px;margin:24px 0 18px}
 .gradient{background:linear-gradient(90deg,#c084fc,#f0abfc,#fb7185);color:transparent;background-clip:text}
-.hero p{max-width:720px;color:var(--muted);line-height:1.8;font-size:15px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero p{max-width:730px;color:var(--muted);font-size:15px;line-height:1.85}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:23px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:30px 0}
-.stat,.card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:15px}
-.stat{padding:18px}
-.stat strong{display:block;font-size:24px}
-.stat span{font-size:12px;color:var(--muted)}
-section{padding:35px 0}
-.head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:20px}
-h2{font-size:26px;letter-spacing:-1px;margin:0 0 7px}
-.desc{font-size:13px;color:var(--muted);line-height:1.7;margin:0}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.card{padding:19px;transition:.2s}
-.card:hover{transform:translateY(-3px);border-color:#7840a4}
-.cardhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.gameicon{width:43px;height:43px;border-radius:12px;display:grid;place-items:center;background:#28143a;border:1px solid #4c2b66;font-size:21px}
-.tag{font-size:10px;color:#d8b4fe;border:1px solid var(--border);padding:5px 7px;border-radius:6px;text-transform:uppercase;font-weight:850}
-.card h3{font-size:17px;margin:16px 0 8px}
-.card p{font-size:13px;color:var(--muted);line-height:1.7;min-height:60px}
-.cardfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px solid var(--border);padding-top:13px;margin-top:15px}
-.cardfoot small{font-size:11px;color:var(--muted)}
-.search{display:grid;grid-template-columns:1fr 190px 160px;gap:10px;margin-bottom:17px}
-.field{width:100%;background:#100c19;color:white;border:1px solid var(--border);border-radius:10px;padding:12px;outline:none}
+.stat,.panel,.card{background:var(--panel);border:1px solid var(--border);border-radius:15px}
+.stat{padding:17px}
+.stat strong{font-size:23px;display:block}
+.stat span{font-size:11px;color:var(--muted)}
+section{padding:30px 0}
+.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:17px}
+h2{font-size:25px;letter-spacing:-.8px;margin:0 0 7px}
+.sub{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
+.panel{padding:19px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 15px}
+.field{min-width:0;width:100%;padding:12px;background:#0c0913;border:1px solid var(--border);border-radius:9px;color:white;outline:none}
 .field:focus{border-color:var(--purple)}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.filter{padding:8px 12px;border:1px solid var(--border);border-radius:99px;background:var(--panel);color:var(--muted);font-size:12px;font-weight:750}
-.filter.active,.filter:hover{color:white;border-color:var(--purple);background:#241235}
-.empty{grid-column:1/-1;padding:32px;text-align:center;color:var(--muted);border:1px dashed var(--border);border-radius:12px}
-.panel{padding:22px}
-.panel h3{margin:0 0 14px}
-.layout{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.item{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--border)}
-.item:last-child{border-bottom:0}
-.item strong{display:block;font-size:13px;margin-bottom:4px}
-.item span{font-size:12px;color:var(--muted);line-height:1.6}
-.status{width:8px;height:8px;background:var(--green);border-radius:50%;margin-top:5px;flex-shrink:0}
-.notice{padding:14px;border:1px solid #51346b;background:#180f24;color:#d9c7eb;border-radius:11px;font-size:12px;line-height:1.7;margin-top:15px}
-footer{margin-top:35px;border-top:1px solid var(--border);padding:30px 0 40px;color:var(--muted);font-size:12px}
+.searchrow{display:grid;grid-template-columns:1fr 190px;gap:10px;margin-bottom:14px}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.filter{padding:8px 11px;border:1px solid var(--border);border-radius:99px;background:var(--panel);color:var(--muted);font-size:11px;font-weight:800}
+.filter.active,.filter:hover{background:#291638;border-color:var(--purple);color:white}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.card{padding:17px;min-width:0;transition:.18s;overflow-wrap:anywhere}
+.card:hover{border-color:#7544a0;transform:translateY(-2px)}
+.cardtop{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.iconbox{width:39px;height:39px;display:grid;place-items:center;background:#29143b;border:1px solid #4c2a64;border-radius:11px;font-size:19px}
+.tag{font-size:9px;text-transform:uppercase;letter-spacing:.5px;font-weight:900;padding:5px 7px;border:1px solid var(--border);border-radius:6px;color:#d8b4fe}
+.card h3{font-size:15px;margin:15px 0 7px;line-height:1.4}
+.card p{font-size:12px;line-height:1.7;color:var(--muted);margin:0;min-height:57px}
+.cardfoot{border-top:1px solid var(--border);margin-top:14px;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cardfoot small{font-size:10px;color:var(--muted)}
+.cardfoot .btn{padding:7px 9px;font-size:10px;white-space:nowrap}
+.empty{grid-column:1/-1;border:1px dashed var(--border);border-radius:12px;padding:28px;text-align:center;color:var(--muted);font-size:13px}
+.apihead{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.apistatus{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:#777}
+.dot.live{background:var(--green)}
+.dot.error{background:#fb7185}
+.loading{padding:25px;text-align:center;color:var(--muted);font-size:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stack{display:grid;gap:10px}
+.listitem{display:flex;align-items:flex-start;gap:11px;padding:12px;border:1px solid var(--border);background:#0d0a14;border-radius:10px}
+.listitem .emoji{font-size:18px}
+.listitem strong{font-size:12px;display:block;line-height:1.5}
+.listitem p{font-size:11px;color:var(--muted);line-height:1.6;margin:4px 0}
+.meta{font-size:10px;color:var(--muted)}
+.apierror{font-size:12px;color:#fda4af;padding:15px;background:#210f1a;border-radius:9px;line-height:1.7}
+.apinote{font-size:11px;line-height:1.7;color:var(--muted);margin-top:12px}
+footer{margin-top:35px;padding:30px 0;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
 .foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,1fr)}.search{grid-template-columns:1fr 1fr}.search input{grid-column:1/-1}.links a:not(.btn){display:none}.layout{grid-template-columns:1fr}}
-@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding-top:52px}h1{letter-spacing:-2.5px}.head{align-items:flex-start;flex-direction:column}.search{grid-template-columns:1fr}.search input{grid-column:auto}}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.navlinks a:not(.join){display:none}}
+@media(max-width:540px){.grid{grid-template-columns:1fr}.searchrow{grid-template-columns:1fr}.hero{padding-top:50px}h1{letter-spacing:-2px}.sectionhead{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
 <header>
   <nav class="wrap">
     <a class="logo" href="#">MODDING<span>XZ</span></a>
-    <div class="links">
+    <div class="navlinks">
       <a href="#games">Games</a>
-      <a href="#platforms">Platforms</a>
-      <a href="#library">Mod Library</a>
-      <a href="#guides">Guides</a>
-      <a class="btn primary" href="https://t.me/moddingxz" target="_blank" rel="noopener">Join Telegram ↗</a>
+      <a href="#library">Mod library</a>
+      <a href="#opensource">Open source</a>
+      <a href="#updates">Updates</a>
+      <a class="btn primary join" href="https://t.me/moddingxz" target="_blank" rel="noopener">Join Telegram ↗</a>
     </div>
   </nav>
 </header>
 
 <main class="wrap">
 <section class="hero">
-  <span class="pill">⚡ THE GAMING MODDING COMMUNITY</span>
-  <h1>YOUR GAME.<br><span class="gradient">YOUR RULES.</span></h1>
-  <p>Welcome to ModdingXZ. Discover gaming mods, mod menus, trainers, save editors, custom firmware, homebrew, game tools and tutorials across PC and consoles. One community, loads of games, endless ways to customise your experience.</p>
+  <span class="eyebrow">⚡ THE COMMUNITY GAMING NETWORK</span>
+  <h1>GAME DIFFERENT.<br><span class="gradient">MOD EVERYTHING.</span></h1>
+  <p>Welcome to the ModdingXZ network. Discover gaming modifications, mod menus, trainers, open-source tools, Minecraft projects, console resources, game updates and developer releases — all in one place.</p>
   <div class="actions">
-    <a class="btn primary" href="#library">Explore Mod Library →</a>
-    <a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener">💬 Join the Community</a>
+    <a class="btn primary" href="#library">Explore the library →</a>
+    <a class="btn" href="#opensource">Discover live projects ↗</a>
+    <a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener">💬 Join the community</a>
   </div>
   <div class="stats">
-    <div class="stat"><strong>🎮 All Games</strong><span>Explore different gaming communities</span></div>
-    <div class="stat"><strong>🖥️ PC + Console</strong><span>Multiple platforms and setups</span></div>
-    <div class="stat"><strong>🧰 Tools</strong><span>Mods, utilities and editors</span></div>
-    <div class="stat"><strong>🆓 Free Resources</strong><span>Find free community resources</span></div>
+    <div class="stat"><strong>🎮 12+</strong><span>Featured game communities</span></div>
+    <div class="stat"><strong>🌐 Live APIs</strong><span>Public data where available</span></div>
+    <div class="stat"><strong>🧰 Open Source</strong><span>Discover community projects</span></div>
+    <div class="stat"><strong>🆓 Free</strong><span>No paid API key required for the feeds below</span></div>
   </div>
 </section>
 
 <section id="games">
-  <div class="head"><div><h2>Explore Games</h2><p class="desc">Pick your game and discover its modding resources.</p></div></div>
+  <div class="sectionhead"><div><h2>Gaming categories</h2><p class="sub">Choose a game to find relevant modding projects.</p></div></div>
+  <div class="filters" id="gameFilters"></div>
   <div class="grid" id="gameGrid"></div>
 </section>
 
-<section id="platforms">
-  <div class="head"><div><h2>Platforms & Modding</h2><p class="desc">Different platforms, different tools and compatibility.</p></div></div>
-  <div class="grid" id="platformGrid"></div>
-</section>
-
 <section id="library">
-  <div class="head"><div><h2>Modding Resource Library</h2><p class="desc">Search by game, resource type or platform. Resources marked community link need their actual URL added.</p></div></div>
-  <div class="search">
-    <input id="search" class="field" placeholder="Search games, tools, mods..." aria-label="Search resources">
-    <select id="gameFilter" class="field" aria-label="Filter by game"><option value="">All games</option></select>
-    <select id="platformFilter" class="field" aria-label="Filter by platform"><option value="">All platforms</option><option>PC</option><option>PlayStation</option><option>Xbox</option><option>Nintendo</option><option>Android</option></select>
+  <div class="sectionhead"><div><h2>Modding library</h2><p class="sub">Search resources across games, platforms and mod types.</p></div></div>
+  <div class="searchrow">
+    <input class="field" id="libSearch" placeholder="Search mods, tools, trainers, games..." aria-label="Search mod library">
+    <select class="field" id="platformFilter" aria-label="Filter platform">
+      <option value="">All platforms</option><option>PC</option><option>PlayStation</option><option>Xbox</option><option>Nintendo</option><option>Android</option>
+    </select>
   </div>
   <div class="filters" id="typeFilters"></div>
-  <div class="grid" id="resourceGrid"></div>
+  <div class="grid" id="libraryGrid"></div>
 </section>
 
-<section id="guides">
-  <div class="head"><div><h2>Guides & Community</h2><p class="desc">Start here if you're new to modding.</p></div></div>
-  <div class="layout">
+<section id="opensource">
+  <div class="sectionhead">
+    <div><h2>Live open-source projects</h2><p class="sub">Search GitHub for public gaming and modding repositories.</p></div>
+    <span class="apistatus"><span class="dot" id="githubDot"></span><span id="githubStatus">Not loaded</span></span>
+  </div>
+  <div class="panel">
+    <div class="searchrow">
+      <input class="field" id="repoSearch" value="game modding" placeholder="Search GitHub projects..." aria-label="Search GitHub">
+      <select class="field" id="repoSort" aria-label="Sort repositories">
+        <option value="stars">Most stars</option>
+        <option value="updated">Recently updated</option>
+        <option value="forks">Most forks</option>
+      </select>
+    </div>
+    <div class="filters" id="repoPresets">
+      <button class="filter active" data-query="game modding">Game modding</button>
+      <button class="filter" data-query="game trainer">Game trainers</button>
+      <button class="filter" data-query="save editor game">Save editors</button>
+      <button class="filter" data-query="minecraft mod">Minecraft mods</button>
+      <button class="filter" data-query="skyrim mod">Skyrim mods</button>
+      <button class="filter" data-query="game mod manager">Mod managers</button>
+      <button class="filter" data-query="playstation homebrew">PlayStation homebrew</button>
+      <button class="filter" data-query="emulator gaming">Emulation</button>
+    </div>
+    <div class="actions" style="margin:0 0 15px">
+      <button class="btn primary" id="repoGo">Search public projects ↗</button>
+      <button class="btn" id="repoReload">Refresh</button>
+    </div>
+    <div class="grid" id="repoGrid"><div class="loading">Search for public projects to get started.</div></div>
+    <p class="apinote">Source: GitHub REST API. Anonymous search has stricter rate limits than ordinary API requests. Results depend on GitHub indexing and search relevance.</p>
+  </div>
+</section>
+
+<section id="minecraft">
+  <div class="sectionhead">
+    <div><h2>Minecraft mod explorer</h2><p class="sub">Live projects from Modrinth's public API.</p></div>
+    <span class="apistatus"><span class="dot" id="modrinthDot"></span><span id="modrinthStatus">Not loaded</span></span>
+  </div>
+  <div class="panel">
+    <div class="searchrow">
+      <input class="field" id="mcSearch" value="performance" placeholder="Search Minecraft mods..." aria-label="Search Minecraft mods">
+      <select class="field" id="mcType">
+        <option value="mod">Mods</option><option value="modpack">Modpacks</option><option value="resourcepack">Resource packs</option><option value="shader">Shaders</option><option value="plugin">Plugins</option>
+      </select>
+    </div>
+    <div class="actions" style="margin:0 0 15px">
+      <button class="btn primary" id="mcGo">Search Modrinth ↗</button>
+      <button class="btn" id="mcReload">Refresh</button>
+    </div>
+    <div class="grid" id="mcGrid"><div class="loading">Search for Minecraft mods to load community projects.</div></div>
+    <p class="apinote">Source: Modrinth public API. Results link to the project's official Modrinth page. Check Minecraft versions and mod loaders before installing.</p>
+  </div>
+</section>
+
+<section id="updates">
+  <div class="sectionhead">
+    <div><h2>Game news & releases</h2><p class="sub">Discover public developer releases and game-related news.</p></div>
+  </div>
+  <div class="two">
     <div class="panel">
-      <h3>📚 Modding Guides</h3>
-      <div class="item"><span class="status"></span><div><strong>Getting Started</strong><span>Learn about modding basics, game versions, compatibility and safe file handling.</span></div></div>
-      <div class="item"><span class="status"></span><div><strong>PC Modding</strong><span>Mods, trainers, configuration tweaks, community patches and mod managers.</span></div></div>
-      <div class="item"><span class="status"></span><div><strong>Console Modding</strong><span>Learn about supported systems, homebrew, firmware compatibility and save tools.</span></div></div>
-      <div class="item"><span class="status"></span><div><strong>Installing Mods</strong><span>Back up original files, check requirements and follow the creator's installation instructions.</span></div></div>
-      <div class="item"><span class="status"></span><div><strong>Troubleshooting</strong><span>Fix version mismatches, missing dependencies, crashes and incompatible files.</span></div></div>
+      <div class="sectionhead">
+        <div><h2 style="font-size:19px">GitHub releases</h2><p class="sub">Latest releases from a repository you choose.</p></div>
+      </div>
+      <input class="field" id="releaseRepo" value="OpenRCT2/OpenRCT2" placeholder="owner/repository">
+      <div class="actions" style="margin:10px 0 15px">
+        <button class="btn primary" id="releaseGo">Load releases</button>
+      </div>
+      <div class="stack" id="releaseList"><div class="loading">Enter a public GitHub repository.</div></div>
+      <p class="apinote">For a specific tool, enter its GitHub owner/repository name. This feed does not claim that a release belongs to ModdingXZ.</p>
     </div>
     <div class="panel">
-      <h3>💜 ModdingXZ Community</h3>
-      <p class="desc">Get community updates, discover shared resources, ask questions and keep up with new releases.</p>
-      <div class="item"><span class="status"></span><div><strong>Telegram Community</strong><span>Announcements, free resources, updates and support.</span></div></div>
-      <div class="item"><span class="status"></span><div><strong>Community Releases</strong><span>Discover resources shared by modders and developers.</span></div></div>
-      <div class="item"><span class="status"></span><div><strong>Updates & Compatibility</strong><span>Check the game version, platform and release notes before installing anything.</span></div></div>
-      <a class="btn primary" style="width:100%;margin-top:15px" href="https://t.me/moddingxz" target="_blank" rel="noopener">Join ModdingXZ on Telegram ↗</a>
-      <div class="notice">Only download files from sources you trust. Back up saves first, scan files, and check online-game rules: some modifications can result in bans.</div>
+      <div class="sectionhead">
+        <div><h2 style="font-size:19px">Gaming & modding discussions</h2><p class="sub">Search recent public developer discussions.</p></div>
+      </div>
+      <input class="field" id="newsSearch" value="game modding" placeholder="Search gaming news...">
+      <div class="actions" style="margin:10px 0 15px">
+        <button class="btn primary" id="newsGo">Search discussions</button>
+      </div>
+      <div class="stack" id="newsList"><div class="loading">Search to load public discussions.</div></div>
+      <p class="apinote">Source: Hacker News Algolia search API. This is a technology discussion feed, not a dedicated gaming news wire.</p>
     </div>
+  </div>
+</section>
+
+<section id="community">
+  <div class="sectionhead"><div><h2>ModdingXZ community</h2><p class="sub">Tools, releases, guides and support from the community.</p></div></div>
+  <div class="grid">
+    <article class="card"><div class="cardtop"><div class="iconbox">🎯</div><span class="tag">Call of Duty</span></div><h3>COD modding</h3><p>Black Ops, Zombies, Modern Warfare, community tools, customisation and supported modding resources.</p><div class="cardfoot"><small>Community resources</small><a class="btn" href="https://t.me/moddingxz" target="_blank" rel="noopener">Explore ↗</a></div></article>
+    <article class="card"><div class="cardtop"><div class="iconbox">🚗</div><span class="tag">GTA</span></div><h3>GTA & FiveM</h3><p>Single-player mods, scripts, server development and community-created tools.</p><div class="cardfoot"><small>Mods & development</small><a class="btn" href="https://www.gta5-mods.com/" target="_blank" rel="noopener">Explore ↗</a></div></article>
+    <article class="card"><div class="cardtop"><div class="iconbox">🎮</div><span class="tag">Consoles</span></div><h3>Console modding</h3><p>Research system compatibility, homebrew, save management and official project documentation.</p><div class="cardfoot"><small>Research & guides</small><a class="btn" href="https://github.com/topics/console-modding" target="_blank" rel="noopener">Explore ↗</a></div></article>
+    <article class="card"><div class="cardtop"><div class="iconbox">🧰</div><span class="tag">PC</span></div><h3>Trainers & utilities</h3><p>Discover PC gaming utilities and trainers. Always verify downloads and check each game's rules.</p><div class="cardfoot"><small>PC resources</small><a class="btn" href="https://www.wemod.com/" target="_blank" rel="noopener">Explore ↗</a></div></article>
+    <article class="card"><div class="cardtop"><div class="iconbox">🧱</div><span class="tag">Creation</span></div><h3>Roblox development</h3><p>Create experiences, scripts and game mechanics using Roblox's supported developer tools.</p><div class="cardfoot"><small>Studio & Lua</small><a class="btn" href="https://create.roblox.com/" target="_blank" rel="noopener">Explore ↗</a></div></article>
+    <article class="card"><div class="cardtop"><div class="iconbox">💜</div><span class="tag">Community</span></div><h3>Join ModdingXZ</h3><p>Join our Telegram for community updates, free resources, new releases and support.</p><div class="cardfoot"><small>Official community</small><a class="btn primary" href="https://t.me/moddingxz" target="_blank" rel="noopener">Join ↗</a></div></article>
+  </div>
+  <div class="panel" style="margin-top:15px">
+    <h3 style="margin-top:0">Security & compatibility</h3>
+    <p class="sub">Check the original source, game version, platform and installation instructions before using a mod. Back up saves and original files. Never run an unknown executable just because it appears in a search result. Some mods violate online-game rules and may result in a ban. Only use tools on systems and accounts you are authorised to modify.</p>
   </div>
 </section>
 </main>
 
-<footer><div class="wrap foot"><span>© <span id="year"></span> MODDINGXZ · Built for the gaming community.</span><span><a href="https://t.me/moddingxz" target="_blank" rel="noopener">Telegram</a> · Community-driven resources</span></div></footer>
+<footer><div class="wrap foot"><span>© <span id="year"></span> MODDINGXZ — Built for the gaming community.</span><span><a href="https://t.me/moddingxz" target="_blank" rel="noopener">Telegram</a> · Public API powered · Community-driven</span></div></footer>
 
 <script>
-const TELEGRAM = "https://t.me/moddingxz";
+"use strict";
 
-const games = [
- {name:"Call of Duty",icon:"🎯",desc:"Black Ops, Modern Warfare, Zombies, custom lobbies, tools, stats and supported modding resources.",tags:["BO2","BO3","MW"],category:"Call of Duty"},
- {name:"Grand Theft Auto",icon:"🚗",desc:"GTA V, GTA Online-related resources, single-player mods, scripts, trainers and map add-ons.",tags:["GTA V","GTA IV"],category:"GTA"},
- {name:"Minecraft",icon:"⛏️",desc:"Modpacks, Forge, Fabric, resource packs, shaders, server tools and custom maps.",tags:["Java","Bedrock"],category:"Minecraft"},
- {name:"Fortnite",icon:"🪂",desc:"Creative resources, settings, community utilities and legitimate customisation guides.",tags:["PC","Console"],category:"Fortnite"},
- {name:"Red Dead Redemption",icon:"🤠",desc:"Single-player modifications, trainers and community tools where supported.",tags:["RDR2","RDR"],category:"RDR"},
- {name:"Elden Ring",icon:"⚔️",desc:"Single-player mods, randomisers, visual changes and mod compatibility resources.",tags:["PC","Mods"],category:"Elden Ring"},
- {name:"Cyberpunk 2077",icon:"🌆",desc:"Gameplay tweaks, scripts, character customisation, visuals and mod managers.",tags:["PC","Nexus"],category:"Cyberpunk"},
- {name:"The Sims",icon:"🏠",desc:"Custom content, gameplay mods, builds, presets and creator resources.",tags:["Sims 4","CC"],category:"The Sims"},
- {name:"FiveM / GTA RP",icon:"🚔",desc:"Server development, scripts, roleplay resources and legitimate server configuration.",tags:["FiveM","Scripts"],category:"FiveM"},
- {name:"Fallout",icon:"☢️",desc:"Community patches, quests, gameplay changes, texture packs and mod managers.",tags:["FO4","New Vegas"],category:"Fallout"},
- {name:"Skyrim",icon:"🐉",desc:"Quest mods, gameplay overhauls, visual improvements and load-order guides.",tags:["SE","AE"],category:"Skyrim"},
- {name:"Roblox",icon:"🧱",desc:"Studio development, Lua scripting, custom experiences and creator utilities.",tags:["Studio","Lua"],category:"Roblox"}
-];
-
-const platforms = [
- {name:"PC Gaming",icon:"🖥️",desc:"Mod managers, trainers, scripts, patches, save editors, configuration and performance tools."},
- {name:"PlayStation",icon:"🎮",desc:"Supported homebrew and firmware information, save utilities and console-specific guides."},
- {name:"Xbox",icon:"🟩",desc:"Console customisation information, supported game mods and PC-to-Xbox cross-platform resources."},
- {name:"Nintendo",icon:"🔴",desc:"Homebrew information, supported system resources, save management and community tools."},
- {name:"Android",icon:"📱",desc:"Game configuration, controller tools, supported mods and Android gaming utilities."},
- {name:"Emulation",icon:"👾",desc:"Emulators, front ends, controller setup, patches and game compatibility resources."}
-];
-
-// Add real, trusted URLs here. Empty URLs are deliberately not shown as fake downloads.
-const resources = [
- {title:"BO2 Modding Resources",game:"Call of Duty",platform:"PC",type:"Tools",desc:"A starting point for Black Ops 2 community tools, supported utilities and guides.",url:TELEGRAM},
- {title:"BO2 PC-to-PlayStation Relay",game:"Call of Duty",platform:"PlayStation",type:"Guides",desc:"Relay setup, network configuration, compatibility and troubleshooting.",url:"https://moddingxz.co.uk/relay.html"},
- {title:"Call of Duty Mod Menus",game:"Call of Duty",platform:"PC",type:"Mod Menus",desc:"Explore community menu projects and check game-version compatibility.",url:TELEGRAM},
- {title:"GTA V Modding Resources",game:"Grand Theft Auto",platform:"PC",type:"Tools",desc:"Discover single-player mods, scripts, trainers and installation guidance.",url:TELEGRAM},
- {title:"Minecraft Mods & Modpacks",game:"Minecraft",platform:"PC",type:"Mods",desc:"Explore modding communities, loaders, packs and setup resources.",url:"https://www.curseforge.com/minecraft"},
- {title:"Minecraft Mod Documentation",game:"Minecraft",platform:"PC",type:"Guides",desc:"Documentation and tutorials for building Minecraft modifications.",url:"https://docs.fabricmc.net/"},
- {title:"Cyberpunk 2077 Mods",game:"Cyberpunk 2077",platform:"PC",type:"Mods",desc:"Community-created mods, visual changes and gameplay enhancements.",url:"https://www.nexusmods.com/cyberpunk2077"},
- {title:"Skyrim Special Edition Mods",game:"Skyrim",platform:"PC",type:"Mods",desc:"Browse community mods and check each mod's requirements.",url:"https://www.nexusmods.com/skyrimspecialedition"},
- {title:"Fallout 4 Mods",game:"Fallout",platform:"PC",type:"Mods",desc:"Explore community mods, gameplay improvements and visual additions.",url:"https://www.nexusmods.com/fallout4"},
- {title:"Elden Ring Mods",game:"Elden Ring",platform:"PC",type:"Mods",desc:"Browse community projects and read compatibility and online-play warnings.",url:"https://www.nexusmods.com/eldenring"},
- {title:"The Sims 4 Mods",game:"The Sims",platform:"PC",type:"Mods",desc:"Explore custom content and gameplay modifications.",url:"https://www.curseforge.com/sims4"},
- {title:"Roblox Studio",game:"Roblox",platform:"PC",type:"Development",desc:"Create your own experiences using Roblox Studio and its scripting tools.",url:"https://create.roblox.com/"},
- {title:"PC Game Trainers",game:"All Games",platform:"PC",type:"Trainers",desc:"Research trainers from reputable sources and check compatibility before use.",url:"https://www.wemod.com/"},
- {title:"Nexus Mods Library",game:"All Games",platform:"PC",type:"Mods",desc:"A large catalogue of community-created PC game modifications.",url:"https://www.nexusmods.com/"},
- {title:"Open Source Game Tools",game:"All Games",platform:"PC",type:"Development",desc:"Find developer projects, utilities and open-source game tooling.",url:"https://github.com/topics/game-modding"},
- {title:"PlayStation Homebrew Research",game:"All Games",platform:"PlayStation",type:"Homebrew",desc:"Research console-specific support and compatibility from established communities.",url:"https://github.com/topics/playstation-homebrew"},
- {title:"Emulation Resources",game:"All Games",platform:"PC",type:"Emulation",desc:"Explore open-source emulator projects and their official documentation.",url:"https://github.com/topics/emulation"},
- {title:"Save Editors & Save Tools",game:"All Games",platform:"PC",type:"Save Editors",desc:"Find game-specific save tools and confirm supported game versions.",url:"https://github.com/topics/save-editor"},
- {title:"Game Patches & Fixes",game:"All Games",platform:"PC",type:"Patches",desc:"Search for community fixes and compatibility patches.",url:"https://github.com/topics/game-patch"}
-];
-
-const types = ["All","Mods","Tools","Mod Menus","Trainers","Save Editors","Patches","Homebrew","Guides","Development","Emulation"];
-let selectedType = "All";
-
-const safe = value => String(value).replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+/* MODDINGXZ PUBLIC API DASHBOARD
+   No private keys are embedded.
+   API results are cached locally to reduce requests.
+*/
+const $ = id => document.getElementById(id);
+const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 }[c]));
 
-function makeCard({name,title,icon="🧰",category,desc,tags=[],url,game,platform,type}){
- const heading = title || name;
- const label = type || category || platform || "Gaming";
- const sub = tags.length ? tags.join(" · ") : (platform || game || "Community resource");
- const link = url || TELEGRAM;
- return `<article class="card">
- <div class="cardhead"><div class="gameicon">${icon}</div><span class="tag">${safe(label)}</span></div>
- <h3>${safe(heading)}</h3><p>${safe(desc)}</p>
- <div class="cardfoot"><small>${safe(sub)}</small><a class="btn" href="${safe(link)}" target="_blank" rel="noopener">${url ? "Explore ↗" : "Community ↗"}</a></div>
- </article>`;
+const cache = new Map();
+
+async function getJSON(url, cacheSeconds=300) {
+  const cached = cache.get(url);
+  if (cached && Date.now() - cached.time < cacheSeconds*1000) return cached.data;
+
+  const response = await fetch(url, {
+    headers: {"Accept":"application/json"},
+    signal: AbortSignal.timeout(15000)
+  });
+
+  if (!response.ok) {
+    if (response.status === 403 || response.status === 429) {
+      throw new Error("API rate limit reached. Wait a little before trying again.");
+    }
+    if (response.status === 404) throw new Error("Resource not found. Check the name or search terms.");
+    throw new Error("API returned HTTP " + response.status + ".");
+  }
+
+  const data = await response.json();
+  cache.set(url, {time:Date.now(),data});
+  return data;
 }
 
-document.getElementById("gameGrid").innerHTML = games.map(g=>makeCard(g)).join("");
+function setStatus(name, state, message) {
+  const dot=$(name+"Dot"), label=$(name+"Status");
+  if(dot) dot.className="dot "+(state==="live"?"live":state==="error"?"error":"");
+  if(label) label.textContent=message;
+}
 
-document.getElementById("platformGrid").innerHTML = platforms.map(p=>makeCard({
- ...p,category:"Platform",tags:["Guides","Tools"]
-})).join("");
+function showError(target, error) {
+  $(target).innerHTML='<div class="apierror">'+escapeHTML(error.message || "Unable to load data.")+'</div>';
+}
 
-const gameFilter = document.getElementById("gameFilter");
-[...new Set(resources.map(r=>r.game))].sort().forEach(game=>{
- const option=document.createElement("option");
- option.value=game;option.textContent=game;gameFilter.appendChild(option);
+function makeCard({title,description,url,tag="Resource",icon="🧰",meta=""}) {
+  const safeUrl = validHttpUrl(url) ? url : "";
+  return `<article class="card">
+    <div class="cardtop"><div class="iconbox">${icon}</div><span class="tag">${escapeHTML(tag)}</span></div>
+    <h3>${escapeHTML(title)}</h3>
+    <p>${escapeHTML(description || "No description supplied by the source.")}</p>
+    <div class="cardfoot"><small>${escapeHTML(meta)}</small>
+    ${safeUrl?`<a class="btn" href="${escapeHTML(safeUrl)}" target="_blank" rel="noopener noreferrer">Open ↗</a>`:"<span class='meta'>No link available</span>"}
+    </div>
+  </article>`;
+}
+
+function validHttpUrl(value) {
+  try {
+    const url=new URL(value);
+    return url.protocol==="https:" || url.protocol==="http:";
+  } catch {return false;}
+}
+
+/* GAME CATEGORIES */
+const games = [
+ {name:"Call of Duty",icon:"🎯",desc:"Black Ops, Zombies, Modern Warfare, community tools, game modifications and supported customisation.",type:"FPS"},
+ {name:"Grand Theft Auto",icon:"🚗",desc:"GTA V, GTA IV, single-player modifications, scripts, maps and FiveM development.",type:"Open world"},
+ {name:"Minecraft",icon:"⛏️",desc:"Mods, modpacks, resource packs, shaders, loaders, plugins and servers.",type:"Sandbox"},
+ {name:"Fortnite",icon:"🪂",desc:"Creative development, supported settings, community resources and gameplay guides.",type:"Battle royale"},
+ {name:"Skyrim",icon:"🐉",desc:"Quest mods, graphics, gameplay overhauls and mod managers.",type:"RPG"},
+ {name:"Fallout",icon:"☢️",desc:"Community patches, quests, gameplay changes and visual mods.",type:"RPG"},
+ {name:"Cyberpunk 2077",icon:"🌆",desc:"Scripts, visual changes, gameplay modifications and utilities.",type:"RPG"},
+ {name:"Elden Ring",icon:"⚔️",desc:"Single-player modifications, randomisers, visual mods and guides.",type:"Action RPG"},
+ {name:"The Sims",icon:"🏠",desc:"Custom content, gameplay mods, builds and presets.",type:"Simulation"},
+ {name:"Roblox",icon:"🧱",desc:"Supported game creation, Studio tools, Lua scripting and developer resources.",type:"Creation"},
+ {name:"Red Dead Redemption",icon:"🤠",desc:"Single-player modifications and community-created resources where supported.",type:"Open world"},
+ {name:"Nintendo & Emulation",icon:"👾",desc:"Research emulator projects, game compatibility, homebrew and preservation tools.",type:"Platform"}
+];
+
+const categories=["All games",...games.map(g=>g.name)];
+let activeGame="All games", activeType="All";
+const resourceTypes=["All","Mods","Tools","Mod Menus","Trainers","Save Editors","Patches","Homebrew","Guides","Development","Emulation"];
+
+const resources = [
+ {title:"BO2 community resources",game:"Call of Duty",platform:"PC",type:"Tools",desc:"Discover Black Ops 2 tools and community guides.",url:"https://t.me/moddingxz",icon:"🎯"},
+ {title:"BO2 PC-to-PlayStation relay guide",game:"Call of Duty",platform:"PlayStation",type:"Guides",desc:"Relay setup, compatibility and network troubleshooting.",url:"https://moddingxz.co.uk/relay.html",icon:"🌐"},
+ {title:"COD mod menus & tools",game:"Call of Duty",platform:"PC",type:"Mod Menus",desc:"Explore community resources and check compatibility with your game version.",url:"https://t.me/moddingxz",icon:"🧰"},
+ {title:"GTA V modding",game:"Grand Theft Auto",platform:"PC",type:"Mods",desc:"Single-player modifications and community tools.",url:"https://www.gta5-mods.com/",icon:"🚗"},
+ {title:"GTA V script development",game:"Grand Theft Auto",platform:"PC",type:"Development",desc:"Explore script mods and developer resources.",url:"https://www.gta5-mods.com/scripts",icon:"💻"},
+ {title:"Minecraft mods",game:"Minecraft",platform:"PC",type:"Mods",desc:"Search for mods and community projects.",url:"https://modrinth.com/mods",icon:"⛏️"},
+ {title:"Minecraft modpacks",game:"Minecraft",platform:"PC",type:"Mods",desc:"Browse modpacks and installation requirements.",url:"https://modrinth.com/modpacks",icon:"📦"},
+ {title:"Skyrim Special Edition",game:"Skyrim",platform:"PC",type:"Mods",desc:"Browse community mods and compatibility notes.",url:"https://www.nexusmods.com/skyrimspecialedition",icon:"🐉"},
+ {title:"Fallout 4 mods",game:"Fallout",platform:"PC",type:"Mods",desc:"Explore community-created gameplay and visual changes.",url:"https://www.nexusmods.com/fallout4",icon:"☢️"},
+ {title:"Cyberpunk 2077 mods",game:"Cyberpunk 2077",platform:"PC",type:"Mods",desc:"Browse gameplay tweaks and visual enhancements.",url:"https://www.nexusmods.com/cyberpunk2077",icon:"🌆"},
+ {title:"Elden Ring mods",game:"Elden Ring",platform:"PC",type:"Mods",desc:"Check mod compatibility and online-play restrictions.",url:"https://www.nexusmods.com/eldenring",icon:"⚔️"},
+ {title:"Roblox Studio",game:"Roblox",platform:"PC",type:"Development",desc:"Official tools for creating Roblox experiences.",url:"https://create.roblox.com/",icon:"🧱"},
+ {title:"PC game trainers",game:"All games",platform:"PC",type:"Trainers",desc:"Research PC gaming trainers and check compatibility before use.",url:"https://www.wemod.com/",icon:"🧰"},
+ {title:"Open-source game modding",game:"All games",platform:"PC",type:"Development",desc:"Find public source code and community projects.",url:"https://github.com/topics/game-modding",icon:"💻"},
+ {title:"Save editor projects",game:"All games",platform:"PC",type:"Save Editors",desc:"Search for game-specific save editors and supported formats.",url:"https://github.com/topics/save-editor",icon:"💾"},
+ {title:"Console homebrew projects",game:"All games",platform:"PlayStation",type:"Homebrew",desc:"Explore public console homebrew repositories.",url:"https://github.com/topics/console-modding",icon:"🎮"},
+ {title:"Emulation projects",game:"Nintendo & Emulation",platform:"PC",type:"Emulation",desc:"Research open-source emulator software and documentation.",url:"https://github.com/topics/emulation",icon:"👾"},
+ {title:"Community game patches",game:"All games",platform:"PC",type:"Patches",desc:"Find community fixes and compatibility patches.",url:"https://github.com/topics/game-patch",icon:"🛠️"}
+];
+
+function renderGames() {
+  $("gameFilters").innerHTML=categories.map(name=>
+    `<button class="filter ${activeGame===name?"active":""}" data-game="${escapeHTML(name)}">${escapeHTML(name)}</button>`
+  ).join("");
+
+  const list=activeGame==="All games"?games:games.filter(g=>g.name===activeGame);
+  $("gameGrid").innerHTML=list.map(g=>makeCard({
+    title:g.name,description:g.desc,icon:g.icon,tag:g.type,
+    url:"https://github.com/topics/"+encodeURIComponent(g.name.toLowerCase().replaceAll(" ","-")),
+    meta:"Explore projects"
+  })).join("");
+}
+
+$("gameFilters").addEventListener("click",e=>{
+  const button=e.target.closest("[data-game]");
+  if(!button)return;
+  activeGame=button.dataset.game;
+  renderGames();
 });
 
-document.getElementById("typeFilters").innerHTML=types.map(type=>
- `<button type="button" class="filter ${type==="All"?"active":""}" data-type="${safe(type)}">${safe(type)}</button>`
+function renderLibrary() {
+  const query=$("libSearch").value.toLowerCase().trim();
+  const platform=$("platformFilter").value;
+  const filtered=resources.filter(r=>{
+    const text=[r.title,r.game,r.platform,r.type,r.desc].join(" ").toLowerCase();
+    return text.includes(query) &&
+      (!platform||r.platform===platform) &&
+      (activeType==="All"||r.type===activeType) &&
+      (activeGame==="All games"||r.game===activeGame||r.game==="All games");
+  });
+  $("libraryGrid").innerHTML=filtered.length?filtered.map(r=>makeCard({
+    title:r.title,description:r.desc,url:r.url,tag:r.type,icon:r.icon,
+    meta:r.game+" · "+r.platform
+  })).join(""):'<div class="empty">No matching resources. Try another search or filter.</div>';
+}
+
+$("typeFilters").innerHTML=resourceTypes.map(type=>
+  `<button class="filter ${type==="All"?"active":""}" data-type="${escapeHTML(type)}">${escapeHTML(type)}</button>`
 ).join("");
 
-document.getElementById("typeFilters").addEventListener("click",e=>{
- const btn=e.target.closest("button[data-type]");
- if(!btn)return;
- selectedType=btn.dataset.type;
- document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b===btn));
- renderResources();
+$("typeFilters").addEventListener("click",e=>{
+  const button=e.target.closest("[data-type]");
+  if(!button)return;
+  activeType=button.dataset.type;
+  document.querySelectorAll("#typeFilters [data-type]").forEach(b=>b.classList.toggle("active",b===button));
+  renderLibrary();
+});
+$("libSearch").addEventListener("input",renderLibrary);
+$("platformFilter").addEventListener("change",renderLibrary);
+
+const gameFilterButtons=$("gameFilters");
+gameFilterButtons.addEventListener("click",e=>{
+  if(e.target.closest("[data-game]")) renderLibrary();
 });
 
-function renderResources(){
- const query=document.getElementById("search").value.trim().toLowerCase();
- const game=gameFilter.value;
- const platform=document.getElementById("platformFilter").value;
- const filtered=resources.filter(r=>{
-  const matchesText=[r.title,r.game,r.platform,r.type,r.desc].join(" ").toLowerCase().includes(query);
-  return matchesText && (!game||r.game===game) &&
-   (!platform||r.platform===platform) &&
-   (selectedType==="All"||r.type===selectedType);
- });
- const grid=document.getElementById("resourceGrid");
- grid.innerHTML=filtered.length ? filtered.map(r=>makeCard({
-  ...r,icon:games.find(g=>g.name===r.game)?.icon || "🧰"
- })).join("") : `<div class="empty">No resources found. Try another search or filter.</div>`;
+/* GITHUB REPOSITORY SEARCH */
+async function searchRepos() {
+  const query=$("repoSearch").value.trim();
+  if(!query){$("repoGrid").innerHTML='<div class="empty">Enter a search term first.</div>';return;}
+
+  $("repoGrid").innerHTML='<div class="loading">Searching GitHub public repositories…</div>';
+  setStatus("github","loading","Searching…");
+
+  const sort=$("repoSort").value;
+  const url="https://api.github.com/search/repositories?q="+encodeURIComponent(query)+"&sort="+encodeURIComponent(sort)+"&order=desc&per_page=9";
+
+  try {
+    const data=await getJSON(url,180);
+    const repos=data.items||[];
+    if(!repos.length){
+      $("repoGrid").innerHTML='<div class="empty">No repositories found. Try a different search.</div>';
+    } else {
+      $("repoGrid").innerHTML=repos.map(r=>makeCard({
+        title:r.full_name,
+        description:r.description||"No description provided.",
+        url:r.html_url,
+        tag:r.language||"Repository",
+        icon:"⌘",
+        meta:"★ "+Number(r.stargazers_count||0).toLocaleString()+" · Forks "+Number(r.forks_count||0).toLocaleString()
+      })).join("");
+    }
+    setStatus("github","live",repos.length+" repositories loaded");
+  } catch(error) {
+    showError("repoGrid",error);
+    setStatus("github","error","Feed unavailable");
+  }
 }
-["search","gameFilter","platformFilter"].forEach(id=>
- document.getElementById(id).addEventListener(id==="search"?"input":"change",renderResources)
-);
-document.getElementById("year").textContent=new Date().getFullYear();
-renderResources();
+$("repoGo").addEventListener("click",searchRepos);
+$("repoReload").addEventListener("click",()=>{
+  cache.clear();searchRepos();
+});
+$("repoSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchRepos()});
+$("repoSort").addEventListener("change",searchRepos);
+
+$("repoPresets").addEventListener("click",e=>{
+  const button=e.target.closest("[data-query]");
+  if(!button)return;
+  $("repoSearch").value=button.dataset.query;
+  $("repoPresets").querySelectorAll("button").forEach(b=>b.classList.toggle("active",b===button));
+  searchRepos();
+});
+
+/* MODRINTH PROJECT SEARCH */
+async function searchModrinth() {
+  const query=$("mcSearch").value.trim();
+  const type=$("mcType").value;
+  $("mcGrid").innerHTML='<div class="loading">Searching Modrinth projects…</div>';
+  setStatus("modrinth","loading","Searching…");
+
+  const facets=JSON.stringify([[`project_type:${type}`]]);
+  const url="https://api.modrinth.com/v2/search?query="+encodeURIComponent(query)+"&facets="+encodeURIComponent(facets)+"&limit=9&index=relevance";
+
+  try {
+    const data=await getJSON(url,300);
+    const hits=data.hits||[];
+    $("mcGrid").innerHTML=hits.length?hits.map(p=>makeCard({
+      title:p.title||p.slug,
+      description:p.description||"No description supplied.",
+      url:"https://modrinth.com/"+encodeURIComponent(p.project_type||type)+"/"+encodeURIComponent(p.slug),
+      tag:p.project_type||type,
+      icon:"⛏️",
+      meta:"↓ "+Number(p.downloads||0).toLocaleString()+" downloads"
+    })).join(""):'<div class="empty">No projects found. Try another search.</div>';
+    setStatus("modrinth","live",hits.length+" projects loaded");
+  } catch(error) {
+    showError("mcGrid",error);
+    setStatus("modrinth","error","Feed unavailable");
+  }
+}
+$("mcGo").addEventListener("click",searchModrinth);
+$("mcReload").addEventListener("click",()=>{cache.clear();searchModrinth()});
+$("mcSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchModrinth()});
+$("mcType").addEventListener("change",searchModrinth);
+
+/* RELEASES FOR ANY PUBLIC GITHUB REPOSITORY */
+async function loadReleases() {
+  const repo=$("releaseRepo").value.trim();
+  if(!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) {
+    $("releaseList").innerHTML='<div class="apierror">Enter a repository in owner/name format.</div>';
+    return;
+  }
+  $("releaseList").innerHTML='<div class="loading">Loading repository releases…</div>';
+  try {
+    const data=await getJSON("https://api.github.com/repos/"+repo+"/releases?per_page=6",300);
+    $("releaseList").innerHTML=data.length?data.map(r=>`
+      <div class="listitem">
+        <div class="emoji">📦</div><div style="min-width:0">
+          <strong><a href="${escapeHTML(r.html_url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(r.name||r.tag_name||"Release")} ↗</a></strong>
+          <p>${escapeHTML((r.body||"No release notes provided.").slice(0,240))}</p>
+          <span class="meta">${escapeHTML(r.tag_name||"")}${r.published_at?" · "+escapeHTML(new Date(r.published_at).toLocaleDateString()):""}</span>
+        </div>
+      </div>`).join(""):'<div class="empty">No public releases found for this repository.</div>';
+  } catch(error) {showError("releaseList",error);}
+}
+$("releaseGo").addEventListener("click",loadReleases);
+$("releaseRepo").addEventListener("keydown",e=>{if(e.key==="Enter")loadReleases()});
+
+/* PUBLIC HACKER NEWS SEARCH */
+async function searchDiscussions() {
+  const query=$("newsSearch").value.trim();
+  if(!query){$("newsList").innerHTML='<div class="empty">Enter a search term.</div>';return;}
+  $("newsList").innerHTML='<div class="loading">Searching public discussions…</div>';
+
+  const url="https://hn.algolia.com/api/v1/search?query="+encodeURIComponent(query)+"&tags=story&hitsPerPage=7";
+
+  try {
+    const data=await getJSON(url,300);
+    const hits=data.hits||[];
+    $("newsList").innerHTML=hits.length?hits.map(item=>{
+      const link=validHttpUrl(item.url)?item.url:"https://news.ycombinator.com/item?id="+encodeURIComponent(item.objectID);
+      return `<div class="listitem"><div class="emoji">📰</div><div style="min-width:0">
+        <strong><a href="${escapeHTML(link)}" target="_blank" rel="noopener noreferrer">${escapeHTML(item.title||"Untitled discussion")} ↗</a></strong>
+        <p>${escapeHTML(item.author?"Posted by "+item.author:"Community post")} · ${Number(item.points||0)} points · ${Number(item.num_comments||0)} comments</p>
+      </div></div>`;
+    }).join(""):'<div class="empty">No discussions found.</div>';
+  } catch(error) {showError("newsList",error);}
+}
+$("newsGo").addEventListener("click",searchDiscussions);
+$("newsSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchDiscussions()});
+
+/* INITIALISE */
+$("year").textContent=new Date().getFullYear();
+renderGames();
+renderLibrary();
 </script>
 </body>
 </html>
