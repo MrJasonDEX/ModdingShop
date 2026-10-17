@@ -5,762 +5,542 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#090711">
-<meta name="description" content="Discover gaming mods, homebrew, open-source tools, mod loaders and community projects from across the internet.">
-<title>ModdingXZ — Community Discovery</title>
+<meta name="description" content="ModdingXZ Console Intelligence: discover console homebrew, open-source tools, project releases and community research.">
+<title>ModdingXZ | Console Intelligence</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
 <style>
-:root {
-  --bg:#090711;--panel:#100d19;--panel2:#171121;--border:#2b223a;
-  --purple:#a855f7;--purple2:#7c3aed;--text:#f7f3fc;
-  --muted:#a69bb7;--green:#4ade80;
+:root{
+ --bg:#090711;--panel:#110e1c;--panel2:#171225;--border:#2d2240;
+ --purple:#a855f7;--purple2:#7c3aed;--text:#f7f3ff;--muted:#a59ab9;
+ --green:#66e5aa;--red:#fb7185;--gold:#f5cc77;
 }
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at 50% -15%,#35164c 0,transparent 42%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
-a{color:inherit;text-decoration:none}
-.navbar{background:rgba(9,7,17,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}
-.brand{font-size:1.35rem;font-weight:950;letter-spacing:-.8px}
-.brand span,.purple{color:var(--purple)}
-.live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:7px;box-shadow:0 0 10px #4ade8055}
-.hero{padding:48px 0 25px}
-.eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:.7rem;color:#c084fc;font-weight:850}
-.hero h1{font-size:clamp(2.5rem,7vw,5rem);line-height:.99;font-weight:950;letter-spacing:-2.5px;margin:13px 0}
-.gradient{background:linear-gradient(90deg,#d8b4fe,#a855f7,#e879f9);background-clip:text;-webkit-background-clip:text;color:transparent}
-.muted{color:var(--muted)}
-.searchbox{display:flex;gap:8px;padding:8px;background:var(--panel);border:1px solid var(--border);border-radius:14px;max-width:850px;margin-top:25px}
-.searchbox input{min-width:0;flex:1;padding:10px;background:transparent;border:0;outline:none;color:white}
-.btn-purple{background:var(--purple2);border:1px solid #9560e8;color:white;border-radius:9px;padding:10px 15px;font-weight:800}
-.btn-purple:hover{background:#6d28d9;color:white}
-.btn-quiet{background:#171121;border:1px solid var(--border);color:#ddd3eb;border-radius:9px;padding:8px 12px}
-.btn-quiet:hover,.btn-quiet.active{background:#2b1740;color:white;border-color:#8b5cf6}
-.source-row,.topic-row,.tabs{display:flex;gap:8px;flex-wrap:wrap}
-.source-row{margin-top:18px}
-.statusbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:13px 15px;background:var(--panel);border:1px solid var(--border);border-radius:12px;font-size:.82rem}
-.stats-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
-.stat{padding:16px;background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--border);border-radius:12px}
-.stat strong{display:block;font-size:1.55rem;letter-spacing:-.5px}
-.stat span{font-size:.77rem;color:var(--muted)}
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:30px 0 15px}
-.section-head h2{font-size:1.35rem;font-weight:900;margin:4px 0}
-.filters{display:flex;gap:8px;flex-wrap:wrap}
-select{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:9px;padding:9px;max-width:100%}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.project{min-width:0;display:flex;flex-direction:column;background:linear-gradient(145deg,#171121,#0f0c17);border:1px solid var(--border);border-radius:15px;padding:17px;transition:transform .18s,border-color .18s}
-.project:hover{transform:translateY(-3px);border-color:#8350b4}
-.project-top{display:flex;align-items:center;gap:9px;min-width:0}
-.project-icon{height:38px;width:38px;flex-shrink:0;object-fit:cover;border-radius:10px;background:#281637;border:1px solid #38254c}
-.project-owner{min-width:0;font-size:.75rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.project-title{font-size:1rem;font-weight:850;line-height:1.35;margin:16px 0 8px;overflow-wrap:anywhere}
-.project-title a:hover{color:#d8b4fe}
-.project-desc{font-size:.83rem;line-height:1.55;color:#bdb2cc;overflow-wrap:anywhere;flex:1;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin:13px 0}
-.tag{font-size:.68rem;padding:4px 7px;border-radius:6px;background:#251633;border:1px solid #422b59;color:#d8b4fe}
-.source-tag{background:#171e2c;border-color:#303d53;color:#b8d4ff}
-.project-stats{display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid var(--border);padding:12px 0;color:var(--muted);font-size:.75rem}
-.project-actions{display:flex;gap:7px;margin-top:3px}
-.project-actions a{flex:1;text-align:center;font-size:.78rem;font-weight:800;padding:9px 5px;border:1px solid var(--border);border-radius:8px}
-.project-actions a:first-child{background:#28163e;border-color:#50336b}
-.project-actions a:hover{border-color:var(--purple)}
-.empty{padding:35px 18px;border:1px dashed #443153;border-radius:13px;text-align:center;color:var(--muted);grid-column:1/-1}
-.loader{height:29px;width:29px;border:2px solid #362344;border-top-color:var(--purple);border-radius:50%;animation:spin .7s linear infinite;margin:30px auto}
-@keyframes spin{to{transform:rotate(360deg)}}
-footer{margin-top:60px;border-top:1px solid var(--border);padding:25px 0;color:var(--muted);font-size:.8rem}
-footer a{color:#c084fc;text-decoration:underline}
-.note{padding:14px 16px;background:var(--panel);border:1px solid var(--border);border-radius:12px;font-size:.8rem;color:var(--muted);line-height:1.6}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){
- .hero{padding-top:36px}.grid{grid-template-columns:1fr}
- .searchbox{flex-wrap:wrap}.searchbox input{flex-basis:100%}
- .searchbox button{flex:1}.stats-grid{gap:7px}.stat{padding:12px}
- .stat strong{font-size:1.25rem}.project{padding:16px}
-}
+body{margin:0;background:radial-gradient(ellipse at 50% -15%,#35164d 0,transparent 45%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}a:hover{color:#d8b4fe}
+.navbar{background:#090711eF;border-bottom:1px solid var(--border);backdrop-filter:blur(15px)}
+.brand{font-weight:950;letter-spacing:-.8px;color:#fff!important}
+.brand span{color:var(--purple)}
+.brand-icon{display:inline-grid;place-items:center;width:35px;height:35px;background:linear-gradient(135deg,#c084fc,#6d28d9);border-radius:11px;margin-right:9px}
+.hero{padding:58px 0 32px}
+.eyebrow{display:inline-block;padding:7px 12px;border-radius:50px;background:#6b21a826;border:1px solid #7540a3;color:#d8b4fe;font-size:.75rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
+h1{font-size:clamp(2.3rem,7vw,4.6rem);font-weight:950;letter-spacing:-2.5px;line-height:1.04;margin:20px 0}
+.gradient{background:linear-gradient(90deg,#d8b4fe,#a855f7,#f0abfc);color:transparent;background-clip:text;-webkit-background-clip:text}
+.muted{color:var(--muted)}.small-muted{color:var(--muted);font-size:.83rem}
+.panel{background:linear-gradient(145deg,#151020,#100c19);border:1px solid var(--border);border-radius:16px}
+.stat{padding:16px;height:100%}.stat-number{font-size:1.55rem;font-weight:900}.stat-label{font-size:.76rem;color:var(--muted)}
+.section-title{font-weight:850;letter-spacing:-.6px}
+.btn-purple{background:linear-gradient(135deg,#9333ea,#6d28d9);border:1px solid #a855f7;color:#fff;font-weight:750}
+.btn-purple:hover{background:#a855f7;color:white}
+.btn-ghost{background:#171024;border:1px solid var(--border);color:#d8b4fe}
+.btn-ghost:hover,.btn-ghost.active{background:#6b21a833;border-color:#a855f7;color:white}
+.form-control,.form-select{background:#0c0914;color:white;border-color:var(--border)}
+.form-control::placeholder{color:#817590}
+.form-control:focus,.form-select:focus{background:#0c0914;color:white;border-color:var(--purple);box-shadow:0 0 0 .2rem #a855f725}
+.form-select option{background:#100c19}
+.console-tile{padding:18px;cursor:pointer;transition:.2s;height:100%;position:relative;overflow:hidden}
+.console-tile:hover{border-color:#9952d5;transform:translateY(-2px)}
+.console-tile.selected{border-color:var(--purple);background:linear-gradient(135deg,#32144a,#171024);box-shadow:0 0 0 1px #a855f755}
+.console-symbol{font-size:1.7rem;color:#d8b4fe;margin-bottom:12px}
+.console-name{font-weight:850}
+.console-desc{font-size:.78rem;color:var(--muted);margin-top:5px}
+.console-tile .check{position:absolute;top:13px;right:14px;color:#d8b4fe;display:none}
+.console-tile.selected .check{display:block}
+.tab-row{display:flex;gap:7px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:13px}
+.tab-btn{border:1px solid transparent;border-radius:10px;padding:10px 14px;background:transparent;color:var(--muted);font-weight:750}
+.tab-btn.active{background:#6b21a833;border-color:#6b369b;color:white}
+.project-card{height:100%;background:linear-gradient(145deg,#151021,#0e0b17);border:1px solid var(--border);border-radius:15px;display:flex;flex-direction:column;overflow:hidden;transition:.2s}
+.project-card:hover{transform:translateY(-3px);border-color:#8243bc;box-shadow:0 12px 35px #0005}
+.project-head{padding:17px 17px 0;display:flex;justify-content:space-between;gap:10px}
+.project-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#251632;border:1px solid #402957;font-size:1.2rem}
+.project-content{padding:16px;display:flex;flex-direction:column;flex:1}
+.project-name{font-size:1rem;font-weight:850;overflow-wrap:anywhere}
+.project-owner{font-size:.77rem;color:#c59ae9;margin-top:4px}
+.project-description{font-size:.84rem;line-height:1.65;color:var(--muted);margin:13px 0;overflow-wrap:anywhere}
+.pill{display:inline-block;background:#21152f;border:1px solid #3b2851;color:#d8b4fe;padding:4px 8px;border-radius:7px;font-size:.69rem;margin:0 4px 5px 0}
+.platform-badge{display:inline-block;background:#1b1427;border:1px solid var(--border);border-radius:50px;padding:5px 8px;color:#dfd0ef;font-size:.67rem;white-space:nowrap}
+.meta{display:flex;gap:12px;flex-wrap:wrap;font-size:.75rem;color:var(--muted)}
+.meta i{color:#c084fc}
+.card-actions{display:flex;gap:8px;margin-top:auto;padding-top:16px}
+.card-actions .btn{font-size:.8rem}
+.fav{width:36px;height:36px;border-radius:9px;background:#130e20;border:1px solid var(--border);color:var(--muted)}
+.fav.saved{color:#f0abfc;border-color:#a855f7}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:7px}
+.status-dot.warn{background:var(--gold)}.status-dot.error{background:var(--red)}
+.empty{border:1px dashed #443151;border-radius:15px;padding:40px 18px;text-align:center;color:var(--muted)}
+.empty i{display:block;font-size:2.4rem;color:#a855f7;margin-bottom:12px}
+.firmware-note{font-size:.8rem;line-height:1.6;border:1px solid #6c5125;background:#2c2111;color:#f6d99a;border-radius:11px;padding:12px}
+.release-item{padding:15px;border-bottom:1px solid var(--border)}
+.release-item:last-child{border-bottom:0}
+.release-item a{font-weight:800}
+footer{margin-top:55px;border-top:1px solid var(--border);padding:25px 0;color:var(--muted);font-size:.8rem}
+@media(max-width:575px){.hero{padding-top:40px}h1{letter-spacing:-1.5px}.stat{padding:12px}.stat-number{font-size:1.25rem}.console-tile{padding:13px}}
 </style>
 </head>
 
 <body>
-<nav class="navbar sticky-top">
- <div class="container py-2 d-flex align-items-center justify-content-between">
-  <a class="brand" href="#">MODDING<span>XZ</span></a>
-  <div class="d-flex align-items-center gap-3">
-   <span class="muted small d-none d-sm-inline"><span class="live-dot"></span>Community Pulse</span>
-   <a class="btn-quiet" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
+<nav class="navbar navbar-expand-lg sticky-top">
+ <div class="container py-1">
+  <a class="navbar-brand brand d-flex align-items-center" href="#">
+   <span class="brand-icon"><i class="bi bi-controller"></i></span>MODDING<span>XZ</span>
+  </a>
+  <button class="navbar-toggler btn-ghost" data-bs-toggle="collapse" data-bs-target="#nav" aria-label="Toggle menu"><i class="bi bi-list"></i></button>
+  <div class="collapse navbar-collapse" id="nav">
+   <div class="navbar-nav ms-auto align-items-lg-center gap-lg-3 py-3 py-lg-0">
+    <a class="nav-link text-white" href="#consoles">Consoles</a>
+    <a class="nav-link text-white" href="#explorer">Explorer</a>
+    <a class="nav-link text-white" href="#releases">Releases</a>
+    <a class="btn btn-purple btn-sm px-3" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-1"></i> Community</a>
+   </div>
   </div>
  </div>
 </nav>
 
-<main class="container">
- <header class="hero">
-  <div class="eyebrow">Gaming mods · Open source · Homebrew</div>
-  <h1>What's being<br><span class="gradient">built right now?</span></h1>
-  <p class="muted" style="max-width:720px">
-   Find projects, mods, tools and releases from across the gaming community.
-   Automatically discovered from public sources, all in one place.
+<header class="hero">
+ <div class="container">
+  <span class="eyebrow"><i class="bi bi-cpu me-1"></i> Console intelligence · v1.0</span>
+  <h1>Your console scene.<br><span class="gradient">One intelligence hub.</span></h1>
+  <p class="muted" style="max-width:690px;line-height:1.8">
+   Explore console homebrew, open-source tools, research and project releases.
+   Search public repositories, track useful projects and build your own watchlist.
   </p>
+  <div class="row g-3 mt-4">
+   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countProjects">0</div><div class="stat-label">Projects indexed locally</div></div></div>
+   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countReleases">0</div><div class="stat-label">Releases found</div></div></div>
+   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countSaved">0</div><div class="stat-label">Saved projects</div></div></div>
+   <div class="col-6 col-lg-3"><div class="panel stat"><div class="stat-number" id="countSources">4</div><div class="stat-label">Discovery searches</div></div></div>
+  </div>
+ </div>
+</header>
 
-  <form id="searchForm" class="searchbox">
-   <input id="searchInput" type="search" placeholder="Search BO2, PS5 homebrew, GTA, loaders, Minecraft..." aria-label="Search modding projects">
-   <button class="btn-purple" type="submit">Search</button>
-   <button class="btn-quiet" id="clearBtn" type="button">Clear</button>
+<main class="container pb-5">
+<section id="consoles" class="mb-5">
+ <div class="mb-3">
+  <h2 class="section-title h3 mb-1">Choose your platform</h2>
+  <p class="small-muted mb-0">Select a console category to personalise the discovery feed.</p>
+ </div>
+ <div class="row g-3">
+  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start selected" data-platform="all"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-grid-3x3-gap"></i></div><div class="console-name">All projects</div><div class="console-desc">Every discovered category</div></button></div>
+  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start" data-platform="playstation"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-playstation"></i></div><div class="console-name">PlayStation</div><div class="console-desc">PS4, PS5, Vita and more</div></button></div>
+  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start" data-platform="xbox"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-xbox"></i></div><div class="console-name">Xbox</div><div class="console-desc">Xbox homebrew and tools</div></button></div>
+  <div class="col-6 col-lg-3"><button class="panel console-tile w-100 text-start" data-platform="general"><i class="bi bi-check-circle-fill check"></i><div class="console-symbol"><i class="bi bi-terminal"></i></div><div class="console-name">General homebrew</div><div class="console-desc">Cross-platform projects</div></button></div>
+ </div>
+</section>
+
+<section class="mb-5" id="explorer">
+ <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3">
+  <div><h2 class="section-title h3 mb-1">Project intelligence</h2><p class="small-muted mb-0">Search community repositories and inspect their public metadata.</p></div>
+  <span class="small-muted" id="updated">Waiting for feeds…</span>
+ </div>
+
+ <div class="panel p-3 mb-3">
+  <form id="searchForm" class="row g-2">
+   <div class="col-12 col-lg">
+    <input id="searchInput" class="form-control" placeholder="Search: PS5 homebrew, Xbox tools, console research…" autocomplete="off">
+   </div>
+   <div class="col-6 col-lg-2">
+    <select id="kindFilter" class="form-select">
+     <option value="all">All types</option><option value="tool">Tools</option><option value="homebrew">Homebrew</option><option value="research">Research</option>
+    </select>
+   </div>
+   <div class="col-6 col-lg-2">
+    <select id="sortFilter" class="form-select">
+     <option value="updated">Recently updated</option><option value="stars">Most stars</option><option value="forks">Most forks</option><option value="created">Newest projects</option>
+    </select>
+   </div>
+   <div class="col-12 col-lg-auto"><button class="btn btn-purple w-100" type="submit"><i class="bi bi-search me-1"></i> Search</button></div>
   </form>
+ </div>
 
-  <div class="source-row" id="sourceFilters">
-   <button class="btn-quiet active" data-source="all">All sources</button>
-   <button class="btn-quiet" data-source="github">GitHub</button>
-   <button class="btn-quiet" data-source="modrinth">Modrinth</button>
-   <button class="btn-quiet" data-source="thunderstore">Thunderstore</button>
+ <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+  <div class="d-flex gap-2 flex-wrap">
+   <button class="btn btn-ghost active" data-mode="discover">Discover</button>
+   <button class="btn btn-ghost" data-mode="saved"><i class="bi bi-heart me-1"></i> Saved</button>
+   <button class="btn btn-ghost" data-mode="releases">Releases</button>
   </div>
+  <button class="btn btn-ghost btn-sm" id="refresh"><i class="bi bi-arrow-clockwise me-1"></i> Refresh data</button>
+ </div>
 
-  <div class="tabs mt-3" id="sortFilters">
-   <button class="btn-quiet active" data-sort="newest">Latest</button>
-   <button class="btn-quiet" data-sort="popular">Popular</button>
-   <button class="btn-quiet" data-sort="updated">Recently updated</button>
-  </div>
+ <div class="firmware-note mb-3">
+  <i class="bi bi-info-circle me-1"></i>
+  <strong>Compatibility notice:</strong> project descriptions and repository topics are community-provided.
+  Firmware numbers in search results are not verified compatibility guarantees. Confirm compatibility,
+  risks and installation requirements using the original developer documentation.
+ </div>
 
-  <div class="statusbar mt-3">
-   <span id="status"><span class="live-dot"></span>Connecting to public APIs...</span>
-   <span class="muted" id="updatedAt">Starting first scan</span>
-  </div>
+ <div class="small-muted mb-3" id="status" aria-live="polite"><span class="status-dot warn"></span>Loading public discovery feeds…</div>
+ <div id="results" class="row g-3">
+  <div class="col-12"><div class="empty"><i class="bi bi-arrow-repeat"></i>Connecting to public project feeds…</div></div>
+ </div>
+ <div class="text-center mt-4"><button id="more" class="btn btn-ghost d-none">Load more</button></div>
+</section>
 
-  <div class="stats-grid">
-   <div class="stat"><strong id="totalCount">—</strong><span>Projects discovered</span></div>
-   <div class="stat"><strong id="sourceCount">0/3</strong><span>Sources responding</span></div>
-   <div class="stat"><strong id="lastScan">—</strong><span>Last scan</span></div>
+<section id="releases" class="mb-5">
+ <div class="panel p-4">
+  <div class="d-flex align-items-start gap-3">
+   <div class="console-symbol"><i class="bi bi-box-seam"></i></div>
+   <div><h2 class="section-title h4 mb-1">Release watch</h2><p class="small-muted mb-0">Latest GitHub releases checked from selected discovered projects. Open release notes at their original source.</p></div>
   </div>
- </header>
+  <div class="mt-3" id="releaseList"><div class="small-muted">Release data will appear after project discovery.</div></div>
+ </div>
+</section>
 
- <section>
-  <div class="section-head">
-   <div>
-    <div class="eyebrow">The community feed</div>
-    <h2 id="feedTitle">Discover projects</h2>
-    <div class="muted small" id="feedSubtitle">Searching multiple public sources.</div>
-   </div>
-   <div class="filters">
-    <select id="gameFilter" aria-label="Filter by game or category">
-     <option value="all">All categories</option>
-     <option value="callofduty">Call of Duty / BO2</option>
-     <option value="playstation">PlayStation</option>
-     <option value="xbox">Xbox</option>
-     <option value="nintendo">Nintendo</option>
-     <option value="minecraft">Minecraft</option>
-     <option value="gta">GTA</option>
-     <option value="pc">PC modding</option>
-     <option value="homebrew">Homebrew</option>
-     <option value="tools">Tools / loaders</option>
-    </select>
-    <select id="typeFilter" aria-label="Filter by content type">
-     <option value="all">All content types</option>
-     <option value="mod">Mods</option>
-     <option value="modpack">Modpacks</option>
-     <option value="resourcepack">Resource packs</option>
-     <option value="shader">Shaders</option>
-     <option value="tool">Tools / source code</option>
-    </select>
-   </div>
-  </div>
-
-  <div id="errorNotice" class="note mb-3 d-none"></div>
-  <div id="projectGrid" class="grid" aria-live="polite"><div class="empty"><div class="loader"></div>Scanning community sources...</div></div>
-  <div class="text-center mt-4">
-   <button class="btn-quiet" id="moreBtn" type="button">Load more</button>
-   <button class="btn-purple ms-2" id="refreshBtn" type="button">↻ Refresh feeds</button>
-  </div>
- </section>
-
- <section class="mt-5">
-  <div class="section-head">
-   <div>
-    <div class="eyebrow">Jump into a topic</div>
-    <h2>Explore the modding scene</h2>
-   </div>
-  </div>
-  <div class="topic-row" id="topicButtons">
-   <button class="btn-quiet" data-query="Black Ops 2 modding">Black Ops 2</button>
-   <button class="btn-quiet" data-query="Call of Duty mod tools">Call of Duty</button>
-   <button class="btn-quiet" data-query="PlayStation homebrew">PlayStation</button>
-   <button class="btn-quiet" data-query="PS5 homebrew">PS5 homebrew</button>
-   <button class="btn-quiet" data-query="Xbox homebrew">Xbox</button>
-   <button class="btn-quiet" data-query="Nintendo Switch homebrew">Nintendo</button>
-   <button class="btn-quiet" data-query="GTA mods">GTA</button>
-   <button class="btn-quiet" data-query="Minecraft mod">Minecraft</button>
-   <button class="btn-quiet" data-query="game mod loader">Mod loaders</button>
-   <button class="btn-quiet" data-query="game reverse engineering">Game research</button>
-   <button class="btn-quiet" data-query="game mod menu">Mod menus</button>
-   <button class="btn-quiet" data-query="open source game tools">Open-source tools</button>
-  </div>
- </section>
-
- <section class="mt-5">
-  <div class="note">
-   <strong class="text-white">About this feed</strong><br>
-   ModdingXZ automatically searches public APIs and links to the original project pages.
-   Results are not endorsements, and downloads are not scanned for malware.
-   Search results depend on the data each platform exposes. A project's absence doesn't
-   mean it doesn't exist. Always check the creator, licence, source code and download
-   instructions before running files.
-  </div>
- </section>
+<section class="panel p-4 p-md-5 text-center">
+ <div class="console-symbol"><i class="bi bi-telegram"></i></div>
+ <h2 class="section-title h3">Powered by the community</h2>
+ <p class="small-muted mx-auto" style="max-width:610px">Discover projects here, follow their original developers and join ModdingXZ for community discussion, guides and updates.</p>
+ <a class="btn btn-purple px-4" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="bi bi-telegram me-2"></i>Join ModdingXZ</a>
+</section>
 </main>
 
-<footer>
- <div class="container d-flex flex-wrap justify-content-between gap-3">
-  <span>© <span id="year"></span> ModdingXZ · Community Discovery</span>
-  <span>
-   Data from <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>,
-   <a href="https://modrinth.com" target="_blank" rel="noopener noreferrer">Modrinth</a> and
-   <a href="https://thunderstore.io" target="_blank" rel="noopener noreferrer">Thunderstore</a>
-  </span>
- </div>
-</footer>
+<footer><div class="container d-flex flex-column flex-md-row justify-content-between gap-2"><div><strong class="text-white">MODDING<span style="color:#a855f7">XZ</span></strong> · Console Intelligence</div><div>Independent project. Not affiliated with Sony or Microsoft.</div><div>Public data from GitHub.</div></div></footer>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 (() => {
 "use strict";
 
-const GITHUB = "https://api.github.com";
-const MODRINTH = "https://api.modrinth.com/v2";
-const THUNDERSTORE_COMMUNITIES = [
-  "lethal-company",
-  "riskofrain2",
-  "valheim",
-  "content-warning"
+const API = "https://api.github.com";
+const PREFIX = "mxci:v1:";
+const TTL = 15 * 60 * 1000;
+const PAGE_SIZE = 12;
+
+const FEEDS = [
+ {name:"PlayStation homebrew",q:'("PS4" OR "PS5" OR "PS Vita" OR PlayStation) homebrew'},
+ {name:"Console tools",q:'(PS4 OR PS5 OR Xbox OR console) (tool OR toolkit OR utility)'},
+ {name:"Xbox projects",q:'Xbox (homebrew OR modding OR developer OR emulator)'},
+ {name:"Console research",q:'(PS4 OR PS5 OR Xbox OR PlayStation) (research OR reverse-engineering OR security)'}
 ];
 
-const CACHE_PREFIX = "xz-pulse-cache-v2:";
-const CACHE_MS = 5 * 60 * 1000;
-const REFRESH_MS = 15 * 60 * 1000;
-const PAGE_SIZE = 24;
-
 const state = {
-  source: "all",
-  sort: "newest",
-  query: "",
-  page: 1,
-  loading: false,
-  allItems: [],
-  sourceStatus: {github:"waiting",modrinth:"waiting",thunderstore:"waiting"},
-  sourceErrors: [],
-  lastScan: 0
+ projects:[], releases:[], platform:"all", kind:"all", mode:"discover",
+ search:"", sort:"updated", page:1, busy:false, releaseBusy:false,
+ lastUpdated:null, errors:[], request:0
 };
 
 const $ = id => document.getElementById(id);
 
-const grid = $("projectGrid");
-const status = $("status");
-const updatedAt = $("updatedAt");
-const moreBtn = $("moreBtn");
-const refreshBtn = $("refreshBtn");
-const errorNotice = $("errorNotice");
-
-const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, c => ({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-})[c]);
-
-function safeExternal(url) {
-  try {
-    const parsed = new URL(url);
-    if (parsed.protocol !== "https:") return "#";
-    const allowed = [
-      "github.com","modrinth.com","thunderstore.io",
-      "cdn.modrinth.com","thunderstore.io"
-    ];
-    if (!allowed.some(domain => parsed.hostname === domain ||
-        parsed.hostname.endsWith("." + domain))) return "#";
-    return parsed.href;
-  } catch { return "#"; }
+function getStore(key, fallback=null) {
+ try { const value=localStorage.getItem(key); return value?JSON.parse(value):fallback; }
+ catch { return fallback; }
 }
-
-function dateValue(value) {
-  const date = new Date(value || 0);
-  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+function putStore(key,value) {
+ try { localStorage.setItem(key,JSON.stringify(value)); } catch {}
 }
-
-function dateLabel(value) {
-  if (!value) return "Date unknown";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Date unknown";
-  return date.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
+function getCache(key,ttl=TTL) {
+ const item=getStore(PREFIX+key);
+ if(!item || !item.time || Date.now()-item.time>ttl) return null;
+ return item.value;
 }
+function setCache(key,value) { putStore(PREFIX+key,{time:Date.now(),value}); }
 
+function esc(value) {
+ return String(value ?? "").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ })[c]);
+}
+function urlSafe(value) {
+ try { const u=new URL(value); return u.protocol==="https:"?u.href:"#"; }
+ catch { return "#"; }
+}
+function fmt(n) {
+ return new Intl.NumberFormat("en-GB",{notation:"compact",maximumFractionDigits:1}).format(Number(n)||0);
+}
 function ago(value) {
-  const time = dateValue(value);
-  if (!time) return "date unknown";
-  const seconds = Math.max(0,Math.floor((Date.now()-time)/1000));
-  if (seconds < 60) return "just now";
-  if (seconds < 3600) return Math.floor(seconds/60)+"m ago";
-  if (seconds < 86400) return Math.floor(seconds/3600)+"h ago";
-  if (seconds < 2592000) return Math.floor(seconds/86400)+"d ago";
-  return dateLabel(value);
+ const n=new Date(value||0).getTime();
+ if(!n) return "Date unavailable";
+ const s=Math.max(0,Math.floor((Date.now()-n)/1000));
+ if(s<60)return "Just now";
+ if(s<3600)return Math.floor(s/60)+"m ago";
+ if(s<86400)return Math.floor(s/3600)+"h ago";
+ if(s<2592000)return Math.floor(s/86400)+"d ago";
+ return new Date(n).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 }
-
-function number(value) {
-  const n = Number(value || 0);
-  return n >= 1000000 ? (n/1000000).toFixed(1)+"m" :
-         n >= 1000 ? (n/1000).toFixed(1)+"k" : n.toLocaleString();
+function dateLabel(value) {
+ if(!value)return "Date unavailable";
+ const d=new Date(value);
+ return Number.isNaN(d.getTime())?"Date unavailable":d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 }
-
-function cacheRead(key) {
-  try {
-    const item = JSON.parse(localStorage.getItem(CACHE_PREFIX+key) || "null");
-    if (item && Date.now()-item.time < CACHE_MS) return item.data;
-  } catch {}
-  return null;
+function savedIds() {
+ const v=getStore("moddingxz-ci-saved",[]);
+ return Array.isArray(v)?v:[];
 }
+function saved(id) { return savedIds().includes(String(id)); }
 
-function cacheWrite(key,data) {
-  try {
-    localStorage.setItem(CACHE_PREFIX+key,JSON.stringify({time:Date.now(),data}));
-  } catch {}
+function setStatus(message,type="ok") {
+ $("status").innerHTML='<span class="status-dot '+(type==="error"?"error":type==="warn"?"warn":"")+'"></span>'+esc(message);
 }
-
-async function fetchJson(url,cacheKey,options={}) {
-  const cached = cacheRead(cacheKey);
-  if (cached !== null) return cached;
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(),12000);
-
-  try {
-    const response = await fetch(url,{
-      ...options,
-      signal:controller.signal,
-      headers:{
-        "Accept":"application/json",
-        ...(options.headers || {})
-      }
-    });
-
-    if (!response.ok) {
-      if (response.status===403 || response.status===429) {
-        const error = new Error("Rate limit reached. Cached data may still be available.");
-        error.rateLimited = true;
-        throw error;
-      }
-      throw new Error("API returned HTTP "+response.status);
-    }
-
-    const data = await response.json();
-    cacheWrite(cacheKey,data);
-    return data;
-  } finally {
-    clearTimeout(timeout);
-  }
+function classifyPlatform(repo) {
+ const t=[repo.full_name,repo.name,repo.description,...(repo.topics||[])].join(" ").toLowerCase();
+ if(/\bxbox\b|xbox360|xbox-one|xbox-series/.test(t))return "xbox";
+ if(/playstation|\bps[345]\b|psvita|ps-vita|\bpsp\b|orbis|goldhen|hen\b/.test(t))return "playstation";
+ return "general";
 }
-
-function makeSearchTerms() {
-  const q = state.query.trim();
-  if (q) return q;
-
-  const category = $("gameFilter").value;
-  const terms = {
-    all:"game modding OR homebrew OR mod loader",
-    callofduty:"Call of Duty OR Black Ops OR BO2",
-    playstation:"PlayStation OR PS4 OR PS5 homebrew",
-    xbox:"Xbox modding OR Xbox homebrew",
-    nintendo:"Nintendo Switch homebrew",
-    minecraft:"Minecraft mod",
-    gta:"GTA mod OR Grand Theft Auto mod",
-    pc:"PC game modding OR game mod loader",
-    homebrew:"homebrew OR jailbreak",
-    tools:"game modding tools OR mod loader"
-  };
-  return terms[category] || terms.all;
+function classifyKind(repo) {
+ const t=[repo.name,repo.description,...(repo.topics||[])].join(" ").toLowerCase();
+ if(/research|exploit|vulnerabilit|reverse.engineer|security|writeup/.test(t))return "research";
+ if(/homebrew|emulator|launcher|frontend|application|\.elf|payload/.test(t))return "homebrew";
+ return "tool";
 }
-
-function githubQuery() {
-  const terms = makeSearchTerms().replace(/\s+OR\s+/gi," ");
-  const params = new URLSearchParams({
-    q: terms + " fork:false",
-    sort: state.sort==="popular" ? "stars" : state.sort==="updated" ? "updated" : "created",
-    order:"desc",
-    per_page:String(PAGE_SIZE)
-  });
-  return GITHUB+"/search/repositories?"+params;
+function normalise(repo) {
+ return {
+  id:String(repo.id),name:repo.name||repo.full_name||"Untitled",
+  full_name:repo.full_name||"Unknown",owner:repo.owner?.login||"",
+  description:repo.description||"No project description provided.",
+  html_url:urlSafe(repo.html_url),
+  releases_url:urlSafe((repo.html_url||"")+"/releases"),
+  created_at:repo.created_at||null,updated_at:repo.updated_at||null,
+  stars:Number(repo.stargazers_count)||0,forks:Number(repo.forks_count)||0,
+  language:repo.language||"",topics:Array.isArray(repo.topics)?repo.topics.slice(0,8):[],
+  platform:classifyPlatform(repo),kind:classifyKind(repo)
+ };
 }
-
-async function getGithub() {
-  const url = githubQuery();
-  const data = await fetchJson(url,"github:"+url);
-  return (data.items || []).map(repo => ({
-    id:"github:"+repo.id,
-    source:"github",
-    sourceLabel:"GitHub",
-    title:repo.full_name || repo.name,
-    description:repo.description || "No description provided by the creator.",
-    creator:repo.owner?.login || "Unknown creator",
-    creatorUrl:repo.owner?.html_url || "https://github.com",
-    url:repo.html_url,
-    icon:repo.owner?.avatar_url || "",
-    created:repo.created_at,
-    updated:repo.pushed_at || repo.updated_at,
-    score:repo.stargazers_count || 0,
-    downloads:0,
-    language:repo.language || "Source code",
-    type:"tool",
-    tags:[repo.language,...(repo.topics || [])].filter(Boolean).slice(0,4),
-    detail:"★ "+number(repo.stargazers_count)+" stars ·⑂ "+number(repo.forks_count)+" forks"
-  }));
+async function fetchJSON(url) {
+ const res=await fetch(url,{headers:{
+  "Accept":"application/vnd.github+json",
+  "X-GitHub-Api-Version":"2022-11-28"
+ }});
+ if(!res.ok) {
+  if(res.status===403||res.status===429)throw new Error("GitHub API rate limit reached. Wait a little before trying again.");
+  throw new Error("GitHub request failed (HTTP "+res.status+").");
+ }
+ return res.json();
 }
-
-function modrinthSearchQuery() {
-  const params = new URLSearchParams({
-    query:makeSearchTerms(),
-    limit:"30",
-    index:state.sort==="popular" ? "downloads" : state.sort==="updated" ? "updated" : "newest"
-  });
-  return MODRINTH+"/search?"+params;
+async function feedSearch(feed) {
+ const key="feed:"+feed.q;
+ const cached=getCache(key);
+ if(cached)return cached;
+ const params=new URLSearchParams({q:feed.q+" in:name,description,readme",sort:"updated",order:"desc",per_page:"30"});
+ const data=await fetchJSON(API+"/search/repositories?"+params);
+ const items=(data.items||[]).map(normalise);
+ setCache(key,items);
+ return items;
 }
-
-async function getModrinth() {
-  const url = modrinthSearchQuery();
-  const data = await fetchJson(url,"modrinth:"+url);
-  return (data.hits || []).map(project => ({
-    id:"modrinth:"+project.project_id,
-    source:"modrinth",
-    sourceLabel:"Modrinth",
-    title:project.title || project.slug,
-    description:project.description || "No description provided by the creator.",
-    creator:project.author || "Community creator",
-    creatorUrl:"https://modrinth.com",
-    url:"https://modrinth.com/"+(project.project_type || "mod")+"/"+encodeURIComponent(project.slug || project.project_id),
-    icon:project.icon_url || "",
-    created:project.date_created,
-    updated:project.date_modified,
-    score:project.downloads || 0,
-    downloads:project.downloads || 0,
-    language:"Minecraft community",
-    type:project.project_type || "mod",
-    tags:(project.categories || []).slice(0,4),
-    detail:"↓ "+number(project.downloads)+" downloads · ♡ "+number(project.follows)+" follows"
-  }));
+function mergeProjects(items) {
+ const map=new Map(state.projects.map(p=>[p.id,p]));
+ items.forEach(p=>{if(p.html_url!=="#")map.set(p.id,p);});
+ state.projects=Array.from(map.values());
+ updateStats();
 }
-
-async function getThunderstoreCommunity(community) {
-  const url = "https://thunderstore.io/c/"+encodeURIComponent(community)+"/api/v1/package/";
-  const data = await fetchJson(url,"thunderstore:"+community);
-  if (!Array.isArray(data)) throw new Error("Unexpected Thunderstore response");
-
-  return data.map(pkg => {
-    const versions = Array.isArray(pkg.versions) ? pkg.versions : [];
-    const latest = versions[0] || {};
-    const fullName = (pkg.owner || "unknown")+"-"+(pkg.name || "package");
-
-    return {
-      id:"thunderstore:"+community+":"+(pkg.uuid4 || fullName),
-      source:"thunderstore",
-      sourceLabel:"Thunderstore",
-      title:pkg.name || fullName,
-      description:pkg.versions?.[0]?.description || pkg.name || "Community package",
-      creator:pkg.owner || "Community creator",
-      creatorUrl:"https://thunderstore.io/c/"+encodeURIComponent(community)+"/",
-      url:"https://thunderstore.io/c/"+encodeURIComponent(community)+"/p/"+
-        encodeURIComponent(pkg.owner || "unknown")+"/"+encodeURIComponent(pkg.name || "package")+"/",
-      icon:latest.icon || "",
-      created:latest.date_created || pkg.date_created,
-      updated:latest.date_updated || pkg.date_updated || latest.date_created,
-      score:latest.downloads || 0,
-      downloads:latest.downloads || 0,
-      language:community,
-      type:"mod",
-      tags:[community,...(pkg.categories || []).map(c=>c.name || c)].slice(0,4),
-      detail:"↓ "+number(latest.downloads)+" downloads · "+community,
-      community
-    };
-  });
-}
-
-async function getThunderstore() {
-  const results = await Promise.allSettled(
-    THUNDERSTORE_COMMUNITIES.map(getThunderstoreCommunity)
-  );
-
-  const packages = [];
-  const errors = [];
-
-  results.forEach((result,i) => {
-    if (result.status==="fulfilled") packages.push(...result.value);
-    else errors.push(THUNDERSTORE_COMMUNITIES[i]+": "+result.reason.message);
-  });
-
-  if (!packages.length) {
-    throw new Error(errors.join("; ") || "Thunderstore did not return packages.");
-  }
-
-  return packages;
-}
-
-function classify(item) {
-  const text = [
-    item.title,item.description,item.creator,item.language,
-    item.type,item.community,...(item.tags || [])
-  ].filter(Boolean).join(" ").toLowerCase();
-
-  const category = $("gameFilter").value;
-  const patterns = {
-    callofduty:/call.of.duty|\bcod\b|\bbo2\b|black.ops/,
-    playstation:/playstation|\bps[345]\b|ps4|ps5|ps3/,
-    xbox:/\bxbox\b/,
-    nintendo:/nintendo|switch/,
-    minecraft:/minecraft|fabric|forge|modrinth/,
-    gta:/\bgta\b|grand.theft.auto/,
-    pc:/pc|windows|linux|game.mod|modding/,
-    homebrew:/homebrew|jailbreak|payload/,
-    tools:/tool|loader|mod.menu|trainer|source.code/
-  };
-
-  if (category!=="all" && patterns[category] && !patterns[category].test(text)) return false;
-
-  const type = $("typeFilter").value;
-  if (type!=="all") {
-    if (type==="tool" && item.type!=="tool") return false;
-    if (type!=="tool" && item.type!==type) return false;
-  }
-
-  if (state.source!=="all" && item.source!==state.source) return false;
-  return true;
-}
-
-function sortedItems() {
-  const items = state.allItems.filter(classify);
-  if (state.sort==="popular") {
-    items.sort((a,b)=>(b.score||0)-(a.score||0));
-  } else if (state.sort==="updated") {
-    items.sort((a,b)=>dateValue(b.updated)-dateValue(a.updated));
-  } else {
-    items.sort((a,b)=>dateValue(b.created)-dateValue(a.created));
-  }
-  return items;
-}
-
-function itemCard(item) {
-  const url = safeExternal(item.url);
-  const creatorUrl = safeExternal(item.creatorUrl);
-  const icon = item.icon && /^https:\/\//.test(item.icon)
-    ? `<img class="project-icon" loading="lazy" referrerpolicy="no-referrer" src="${escapeHtml(item.icon)}" alt="">`
-    : `<div class="project-icon d-flex align-items-center justify-content-center purple fw-bold">XZ</div>`;
-
-  const tags = (item.tags || []).slice(0,4);
-  return `
-    <article class="project">
-      <div class="project-top">
-        ${icon}
-        <div class="min-w-0">
-          <div class="project-owner">
-            <a href="${creatorUrl}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.creator)}</a>
-          </div>
-          <div class="project-owner">${escapeHtml(item.sourceLabel)} · ${escapeHtml(ago(item.created))}</div>
-        </div>
-      </div>
-      <h3 class="project-title">
-        <a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a>
-      </h3>
-      <p class="project-desc">${escapeHtml(item.description)}</p>
-      <div class="tags">
-        <span class="tag source-tag">${escapeHtml(item.sourceLabel)}</span>
-        ${tags.map(tag=>`<span class="tag">${escapeHtml(tag)}</span>`).join("")}
-      </div>
-      <div class="project-stats">
-        <span>${escapeHtml(item.detail || "Community project")}</span>
-        <span>Updated ${escapeHtml(ago(item.updated))}</span>
-      </div>
-      <div class="project-actions">
-        <a href="${url}" target="_blank" rel="noopener noreferrer">View original ↗</a>
-      </div>
-    </article>`;
-}
-
-function render() {
-  const items = sortedItems();
-  $("totalCount").textContent = number(state.allItems.length);
-  const responding = Object.values(state.sourceStatus).filter(s=>s==="ok").length;
-  $("sourceCount").textContent = responding+"/3";
-
-  const titles = {
-    newest:"Latest community projects",
-    popular:"Popular community projects",
-    updated:"Recently updated projects"
-  };
-  $("feedTitle").textContent = titles[state.sort];
-  $("feedSubtitle").textContent = `${items.length} projects match your current filters.`;
-
-  const visible = items.slice(0,state.page*PAGE_SIZE);
-  if (!visible.length) {
-    grid.innerHTML = `<div class="empty">
-      <h3 class="h5 text-white">No matching projects found</h3>
-      <p class="mb-0">Try a different search, source or category.</p>
-    </div>`;
-  } else {
-    grid.innerHTML = visible.map(itemCard).join("");
-  }
-
-  moreBtn.classList.toggle("d-none",visible.length>=items.length);
-  moreBtn.disabled = state.loading;
-}
-
-function setStatus(message) {
-  status.textContent = message;
-}
-
-function showErrors(errors) {
-  if (!errors.length) {
-    errorNotice.classList.add("d-none");
-    errorNotice.textContent = "";
-    return;
-  }
-  errorNotice.classList.remove("d-none");
-  errorNotice.textContent = "Some sources could not be reached: "+errors.join(" · ")+
-    ". Other sources may still be available. Refresh later if needed.";
-}
-
 async function loadFeeds(force=false) {
-  if (state.loading) return;
-  state.loading = true;
-  refreshBtn.disabled = true;
-  refreshBtn.textContent = "Scanning...";
-  state.sourceErrors = [];
-
-  if (force) {
-    try {
-      const keys = [];
-      for (let i=0;i<localStorage.length;i++) {
-        const key=localStorage.key(i);
-        if (key && key.startsWith(CACHE_PREFIX)) keys.push(key);
-      }
-      keys.forEach(key=>localStorage.removeItem(key));
-    } catch {}
-  }
-
-  setStatus("Scanning public community sources...");
-  grid.innerHTML='<div class="empty"><div class="loader"></div>Discovering projects from public APIs...</div>';
-
-  const tasks = [
-    ["github",getGithub],
-    ["modrinth",getModrinth],
-    ["thunderstore",getThunderstore]
-  ];
-
-  try {
-    const results = await Promise.allSettled(tasks.map(([,fn])=>fn()));
-    const all = [];
-    results.forEach((result,index)=>{
-      const source = tasks[index][0];
-      if (result.status==="fulfilled") {
-        state.sourceStatus[source]="ok";
-        all.push(...result.value);
-      } else {
-        state.sourceStatus[source]="error";
-        state.sourceErrors.push(source+": "+(result.reason?.message || "Unavailable"));
-      }
-    });
-
-    // Deduplicate by source-specific ID.
-    const unique = new Map();
-    for (const item of all) unique.set(item.id,item);
-    state.allItems = [...unique.values()];
-    state.lastScan=Date.now();
-    $("lastScan").textContent=new Date().toLocaleTimeString([],{
-      hour:"2-digit",minute:"2-digit"
-    });
-    updatedAt.textContent="Last checked "+new Date().toLocaleTimeString();
-    setStatus(`${state.allItems.length} projects collected from ${Object.values(state.sourceStatus).filter(s=>s==="ok").length} sources`);
-    showErrors(state.sourceErrors);
-    state.page=1;
-    render();
-
-    if (!state.allItems.length) {
-      grid.innerHTML='<div class="empty">No source returned any projects. This may be a temporary API or network issue. Try refreshing later.</div>';
-    }
-  } catch(error) {
-    setStatus("Unable to load feeds");
-    showErrors([error.message || "Unexpected error"]);
-    grid.innerHTML='<div class="empty">The feeds could not be loaded. Check your connection and try again.</div>';
-  } finally {
-    state.loading=false;
-    refreshBtn.disabled=false;
-    refreshBtn.textContent="↻ Refresh feeds";
-    render();
-  }
-}
-
-function updateActiveButtons(selector,attribute,value) {
-  document.querySelectorAll(selector).forEach(button=>{
-    button.classList.toggle("active",button.dataset[attribute]===value);
+ if(state.busy)return;
+ state.busy=true;
+ const request=++state.request;
+ state.errors=[];
+ $("refresh").disabled=true;
+ $("refresh").innerHTML='<i class="bi bi-arrow-repeat me-1"></i>Refreshing…';
+ setStatus("Searching public repositories…","warn");
+ if(force) {
+  FEEDS.forEach(f=>{try{localStorage.removeItem(PREFIX+"feed:"+f.q);}catch{}});
+  try{localStorage.removeItem(PREFIX+"combined");}catch{}
+ }
+ try {
+  const results=await Promise.allSettled(FEEDS.map(feedSearch));
+  if(request!==state.request)return;
+  const found=[];
+  let success=0;
+  results.forEach((r,i)=>{
+   if(r.status==="fulfilled"){success++;found.push(...r.value);}
+   else state.errors.push(FEEDS[i].name);
   });
+  const unique=new Map();
+  found.forEach(p=>{
+   if(!unique.has(p.id)||new Date(p.updated_at||0)>new Date(unique.get(p.id).updated_at||0))unique.set(p.id,p);
+  });
+  if(unique.size)state.projects=Array.from(unique.values());
+  else if(!state.projects.length)state.projects=[];
+  state.lastUpdated=new Date();
+  setCache("combined",state.projects);
+  $("updated").textContent="Updated "+state.lastUpdated.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+  setStatus(success
+    ? state.errors.length ? "Some feeds loaded; "+state.errors.length+" failed." : "All "+success+" discovery feeds loaded."
+    : "Feeds unavailable. Showing any cached discoveries.",
+    success?(state.errors.length?"warn":"ok"):"error");
+  updateStats();
+  render();
+  await loadReleases(request);
+ } catch(e) {
+  setStatus(e.message||"Could not load feeds.","error");
+ } finally {
+  if(request===state.request) {
+   state.busy=false;
+   $("refresh").disabled=false;
+   $("refresh").innerHTML='<i class="bi bi-arrow-clockwise me-1"></i>Refresh data';
+  }
+ }
+}
+async function searchRemote(query) {
+ const trimmed=query.trim();
+ if(trimmed.length<2)return;
+ const key="query:"+trimmed.toLowerCase();
+ const cached=getCache(key);
+ if(cached){mergeProjects(cached);render();return;}
+ setStatus("Searching GitHub for "+trimmed+"…","warn");
+ try {
+  const q=trimmed+" (PS4 OR PS5 OR PlayStation OR Xbox OR homebrew OR console) in:name,description,readme";
+  const params=new URLSearchParams({q,sort:"updated",order:"desc",per_page:"25"});
+  const data=await fetchJSON(API+"/search/repositories?"+params);
+  const items=(data.items||[]).map(normalise);
+  setCache(key,items);
+  mergeProjects(items);
+  setStatus("Search complete. Check original project documentation for compatibility.","ok");
+ } catch(e) {
+  setStatus(e.message||"Search failed. Filtering loaded projects instead.","error");
+ }
+ render();
+}
+async function loadReleases(request) {
+ if(state.releaseBusy||!state.projects.length)return;
+ state.releaseBusy=true;
+ try {
+  const candidates=[...state.projects].sort((a,b)=>b.stars-a.stars).slice(0,8);
+  const results=await Promise.allSettled(candidates.map(async p=>{
+   const key="release:"+p.full_name;
+   const cached=getCache(key,30*60*1000);
+   if(cached!==null)return cached;
+   const parts=p.full_name.split("/").map(encodeURIComponent);
+   const data=await fetchJSON(API+"/repos/"+parts[0]+"/"+parts[1]+"/releases?per_page=3");
+   const releases=(Array.isArray(data)?data:[]).map(r=>({
+    id:String(r.id),repo:p.full_name,repoName:p.name,platform:p.platform,
+    name:r.name||r.tag_name||"Untitled release",tag:r.tag_name||"",
+    body:r.body||"",published_at:r.published_at||r.created_at||null,
+    html_url:urlSafe(r.html_url)
+   }));
+   setCache(key,releases);
+   return releases;
+  }));
+  if(request!==state.request)return;
+  const map=new Map();
+  results.forEach(r=>{if(r.status==="fulfilled")(r.value||[]).forEach(v=>map.set(v.id,v));});
+  state.releases=Array.from(map.values()).sort((a,b)=>new Date(b.published_at||0)-new Date(a.published_at||0));
+  updateStats();
+  render();
+ } catch(e) {
+  console.warn("Release loading failed",e);
+ } finally {state.releaseBusy=false;}
+}
+function platformName(p) {
+ return ({playstation:"PlayStation",xbox:"Xbox",general:"General homebrew"})[p]||"Console project";
+}
+function kindName(k) {
+ return ({tool:"Tool",homebrew:"Homebrew",research:"Research"})[k]||"Project";
+}
+function filteredProjects() {
+ let items=[...state.projects];
+ if(state.mode==="saved")items=items.filter(p=>saved(p.id));
+ if(state.kind!=="all")items=items.filter(p=>p.kind===state.kind);
+ if(state.platform!=="all")items=items.filter(p=>p.platform===state.platform);
+ const q=state.search.toLowerCase();
+ if(q)items=items.filter(p=>[p.name,p.full_name,p.description,p.language,p.platform,p.kind,...p.topics].join(" ").toLowerCase().includes(q));
+ if(state.sort==="stars")items.sort((a,b)=>b.stars-a.stars);
+ else if(state.sort==="forks")items.sort((a,b)=>b.forks-a.forks);
+ else if(state.sort==="created")items.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+ else items.sort((a,b)=>new Date(b.updated_at||0)-new Date(a.updated_at||0));
+ return items;
+}
+function filteredReleases() {
+ let items=[...state.releases];
+ if(state.platform!=="all")items=items.filter(r=>r.platform===state.platform);
+ const q=state.search.toLowerCase();
+ if(q)items=items.filter(r=>[r.name,r.repo,r.repoName,r.tag,r.body].join(" ").toLowerCase().includes(q));
+ return items;
+}
+function projectCard(p) {
+ const isSaved=saved(p.id);
+ const desc=p.description.length>190?p.description.slice(0,187)+"…":p.description;
+ const tags=p.topics.slice(0,4).map(t=>'<span class="pill">'+esc(t)+'</span>').join("");
+ return `<div class="col-md-6 col-xl-4"><article class="project-card">
+ <div class="project-head"><div class="project-icon"><i class="bi bi-github"></i></div>
+ <div class="d-flex flex-wrap gap-1 justify-content-end"><span class="platform-badge">${esc(platformName(p.platform))}</span><span class="platform-badge">${esc(kindName(p.kind))}</span></div></div>
+ <div class="project-content"><div class="project-name">${esc(p.name)}</div><div class="project-owner">${esc(p.full_name)}</div>
+ <p class="project-description">${esc(desc)}</p><div class="mb-2">${tags||'<span class="pill">Open source</span>'}</div>
+ <div class="meta mb-2"><span><i class="bi bi-star-fill me-1"></i>${fmt(p.stars)}</span><span><i class="bi bi-diagram-2 me-1"></i>${fmt(p.forks)}</span>${p.language?'<span><i class="bi bi-code-slash me-1"></i>'+esc(p.language)+'</span>':""}</div>
+ <div class="meta"><span><i class="bi bi-clock me-1"></i>Updated ${esc(ago(p.updated_at))}</span></div>
+ <div class="card-actions"><a class="btn btn-purple flex-grow-1" href="${esc(p.html_url)}" target="_blank" rel="noopener noreferrer">Open project <i class="bi bi-arrow-up-right ms-1"></i></a>
+ <a class="btn btn-ghost" href="${esc(p.releases_url)}" target="_blank" rel="noopener noreferrer" aria-label="View releases"><i class="bi bi-box-arrow-up-right"></i></a>
+ <button class="fav ${isSaved?"saved":""}" data-save="${esc(p.id)}" aria-label="${isSaved?"Unsave":"Save"} project"><i class="bi ${isSaved?"bi-heart-fill":"bi-heart"}"></i></button></div></div></article></div>`;
+}
+function releaseCard(r) {
+ const body=(r.body||"No release notes provided.").replace(/[#>*_`~\[\]()!]/g," ").replace(/\s+/g," ").trim();
+ return `<div class="col-md-6 col-xl-4"><article class="project-card"><div class="project-head"><div class="project-icon"><i class="bi bi-box-seam"></i></div><span class="platform-badge">${esc(platformName(r.platform))}</span></div>
+ <div class="project-content"><div class="project-name">${esc(r.name)}</div><div class="project-owner">${esc(r.repo)}</div>
+ <p class="project-description">${esc(body.slice(0,200))}${body.length>200?"…":""}</p>
+ <div class="meta mb-3"><span><i class="bi bi-tag me-1"></i>${esc(r.tag||"Release")}</span><span><i class="bi bi-calendar me-1"></i>${esc(dateLabel(r.published_at))}</span></div>
+ <div class="card-actions"><a class="btn btn-purple flex-grow-1" href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">View release <i class="bi bi-arrow-up-right ms-1"></i></a></div></div></article></div>`;
+}
+function empty(icon,title,desc) {
+ return `<div class="col-12"><div class="empty"><i class="bi ${icon}"></i><h3 class="h5 text-white">${esc(title)}</h3><p class="mb-0">${esc(desc)}</p></div></div>`;
+}
+function renderReleaseList() {
+ const items=filteredReleases().slice(0,6);
+ $("releaseList").innerHTML=items.length?items.map(r=>`<div class="release-item d-flex justify-content-between align-items-start gap-3"><div><a href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a><div class="small-muted mt-1">${esc(r.repo)} · ${esc(dateLabel(r.published_at))}</div></div><span class="platform-badge">${esc(platformName(r.platform))}</span></div>`).join(""):'<div class="small-muted py-3">No releases match your current filters yet. Refresh feeds or discover more projects first.</div>';
+}
+function render() {
+ const grid=$("results");
+ const isReleases=state.mode==="releases";
+ const items=isReleases?filteredReleases():filteredProjects();
+ const visible=items.slice(0,state.page*PAGE_SIZE);
+ $("resultsCount")?.remove();
+ if(!items.length) {
+  grid.innerHTML=empty(state.mode==="saved"?"bi-heart":"bi-search",state.mode==="saved"?"No saved projects yet":"No matching projects",state.mode==="saved"?"Tap the heart on a project to add it to your watchlist.":"Try another search or refresh the public feeds.");
+ } else grid.innerHTML=visible.map(p=>isReleases?releaseCard(p):projectCard(p)).join("");
+ $("more").classList.toggle("d-none",items.length<=visible.length);
+ $("more").textContent="Load more ("+(items.length-visible.length)+" remaining)";
+ document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===state.mode));
+ document.querySelectorAll("[data-platform]").forEach(b=>b.classList.toggle("selected",b.dataset.platform===state.platform));
+ renderReleaseList();
+}
+function updateStats() {
+ $("countProjects").textContent=fmt(state.projects.length);
+ $("countReleases").textContent=fmt(state.releases.length);
+ $("countSaved").textContent=fmt(savedIds().length);
 }
 
-$("searchForm").addEventListener("submit",event=>{
-  event.preventDefault();
-  state.query=$("searchInput").value.trim();
-  loadFeeds();
+$("searchForm").addEventListener("submit",async e=>{
+ e.preventDefault();
+ state.search=$("searchInput").value.trim();state.page=1;
+ render();
+ if(state.search.length>=2)await searchRemote(state.search);
 });
-
-$("clearBtn").addEventListener("click",()=>{
-  $("searchInput").value="";
-  state.query="";
-  $("gameFilter").value="all";
-  $("typeFilter").value="all";
-  state.source="all";
-  updateActiveButtons("[data-source]","source","all");
-  loadFeeds();
+let debounce;
+$("searchInput").addEventListener("input",()=>{
+ clearTimeout(debounce);
+ debounce=setTimeout(()=>{state.search=$("searchInput").value.trim();state.page=1;render();},180);
 });
-
-$("sourceFilters").addEventListener("click",event=>{
-  const button=event.target.closest("[data-source]");
-  if (!button) return;
-  state.source=button.dataset.source;
-  updateActiveButtons("[data-source]","source",state.source);
-  render();
+$("kindFilter").addEventListener("change",e=>{state.kind=e.target.value;state.page=1;render();});
+$("sortFilter").addEventListener("change",e=>{state.sort=e.target.value;state.page=1;render();});
+document.querySelectorAll("[data-platform]").forEach(b=>b.addEventListener("click",()=>{
+ state.platform=b.dataset.platform;state.page=1;render();
+}));
+document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>{
+ state.mode=b.dataset.mode;state.page=1;render();
+ if(state.mode==="releases"&&!state.releases.length)loadReleases(state.request);
+}));
+$("results").addEventListener("click",e=>{
+ const b=e.target.closest("[data-save]");
+ if(!b)return;
+ const id=String(b.dataset.save);
+ const ids=savedIds();
+ putStore("moddingxz-ci-saved",ids.includes(id)?ids.filter(x=>x!==id):[...ids,id]);
+ updateStats();render();
 });
+$("more").addEventListener("click",()=>{state.page++;render();});
+$("refresh").addEventListener("click",()=>loadFeeds(true));
 
-$("sortFilters").addEventListener("click",event=>{
-  const button=event.target.closest("[data-sort]");
-  if (!button) return;
-  state.sort=button.dataset.sort;
-  updateActiveButtons("[data-sort]","sort",state.sort);
-  loadFeeds();
-});
-
-$("gameFilter").addEventListener("change",()=>{
-  state.query="";
-  $("searchInput").value="";
-  loadFeeds();
-});
-
-$("typeFilter").addEventListener("change",render);
-
-$("topicButtons").addEventListener("click",event=>{
-  const button=event.target.closest("[data-query]");
-  if (!button) return;
-  state.query=button.dataset.query;
-  $("searchInput").value=state.query;
-  $("gameFilter").value="all";
-  state.page=1;
-  loadFeeds();
-  window.scrollTo({top:0,behavior:"smooth"});
-});
-
-moreBtn.addEventListener("click",()=>{
-  state.page++;
-  render();
-});
-
-refreshBtn.addEventListener("click",()=>loadFeeds(true));
-
-$("year").textContent=new Date().getFullYear();
-
-// First scan happens automatically when the page opens.
-loadFeeds();
-
-// Refresh public sources periodically while this page remains open.
-// This is browser-side refreshing, not a server-side crawler.
-setInterval(()=>{
-  if (!document.hidden && !state.loading) loadFeeds();
-},REFRESH_MS);
-
+const cache=getCache("combined",24*60*60*1000);
+if(Array.isArray(cache)&&cache.length) {
+ state.projects=cache;
+ state.lastUpdated=new Date();
+ $("updated").textContent="Showing cached projects";
+ updateStats();render();
+ setStatus("Showing cached discoveries while feeds refresh.","warn");
+}
+loadFeeds(false);
+setInterval(()=>{if(!document.hidden&&!state.busy)loadFeeds(false);},15*60*1000);
 document.addEventListener("visibilitychange",()=>{
-  if (!document.hidden && Date.now()-state.lastScan>REFRESH_MS && !state.loading) {
-    loadFeeds();
-  }
+ if(!document.hidden&&state.lastUpdated&&Date.now()-state.lastUpdated.getTime()>15*60*1000&&!state.busy)loadFeeds(false);
 });
 })();
 </script>
