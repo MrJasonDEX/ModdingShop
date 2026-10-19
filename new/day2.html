@@ -1,0 +1,1457 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090711">
+<meta name="description" content="ModdingXZ Console Radar — discover console modding projects, releases, homebrew and open-source research.">
+<title>Console Radar 2.0 | ModdingXZ</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#090711;
+  --panel:#110e1b;
+  --panel2:#171225;
+  --line:#2c2440;
+  --purple:#a855f7;
+  --purple2:#792cf2;
+  --text:#f7f3ff;
+  --muted:#9b93b0;
+  --green:#5ce0a0;
+  --red:#ff8585;
+  --yellow:#f5c66a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  margin:0;background:
+  radial-gradient(ellipse at 50% -20%,#32164e 0,transparent 44%),
+  var(--bg);color:var(--text);
+  font:13px Inter,sans-serif;min-height:100vh
+}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.brand{font:800 21px Orbitron,sans-serif;letter-spacing:-1px;white-space:nowrap}
+.brand span{color:var(--purple)}
+.topbar{
+  position:sticky;top:0;z-index:1000;
+  background:#090711ed;border-bottom:1px solid var(--line);
+  backdrop-filter:blur(18px)
+}
+.top-inner{min-height:67px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.nav-links{display:flex;align-items:center;gap:23px}
+.nav-links a{color:var(--muted);font-size:11px;font-weight:700}
+.nav-links a:hover{color:#fff}
+.btn-xz,.btn-quiet,.btn-danger-soft{
+  border-radius:10px;padding:10px 13px;display:inline-flex;
+  align-items:center;justify-content:center;gap:8px;
+  font-size:11px;font-weight:700;transition:.2s
+}
+.btn-xz{background:linear-gradient(130deg,#a855f7,#7025e8);border:1px solid #b87aff;color:white}
+.btn-xz:hover{color:white;filter:brightness(1.13);transform:translateY(-1px)}
+.btn-quiet{background:#151020;border:1px solid var(--line);color:#ded5ef}
+.btn-quiet:hover,.btn-quiet.active{border-color:#9655d4;background:#261638;color:white}
+.btn-danger-soft{background:#28151f;border:1px solid #5b2b43;color:#ffb7c9}
+.hero{padding:38px 0 26px}
+.eyebrow{display:flex;align-items:center;gap:9px;color:#c9a0ff;text-transform:uppercase;font-size:10px;letter-spacing:1.7px;font-weight:800}
+.dot{height:7px;width:7px;background:var(--green);border-radius:50%;box-shadow:0 0 12px #5ce0a0;display:inline-block}
+h1{font:800 clamp(31px,5vw,51px)/1.12 Orbitron,sans-serif;letter-spacing:-2px;margin:17px 0}
+.gradient{background:linear-gradient(90deg,#d8b4fe,#a855f7,#f0abfc);color:transparent;background-clip:text}
+.hero-copy{max-width:620px;color:var(--muted);font-size:13px;line-height:1.9}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.stats{display:flex;gap:27px;flex-wrap:wrap;margin-top:27px}
+.stat strong{font-size:21px;display:block}
+.stat span{font-size:10px;color:var(--muted)}
+.radar-art{
+  min-height:260px;height:100%;position:relative;overflow:hidden;
+  border:1px solid #493064;border-radius:21px;
+  display:grid;place-items:center;
+  background:radial-gradient(circle,#50216d 0,#251333 36%,#100b19 76%)
+}
+.radar-art:before,.radar-art:after,.radar-ring{
+  content:"";position:absolute;border:1px solid #b76df12c;border-radius:50%;
+  width:160px;height:160px
+}
+.radar-art:after{width:235px;height:235px}
+.radar-ring{width:310px;height:310px}
+.radar-sweep{
+  position:absolute;left:50%;bottom:50%;width:145px;height:145px;
+  transform-origin:bottom left;
+  background:linear-gradient(45deg,transparent 48%,#b26bf72c);
+  animation:sweep 8s linear infinite
+}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.radar-core{
+  z-index:2;width:76px;height:76px;display:grid;place-items:center;
+  border-radius:23px;background:linear-gradient(145deg,#bd72ff,#5b21b6);
+  box-shadow:0 0 70px #a855f765;font-size:28px
+}
+.radar-label{
+  position:absolute;z-index:3;padding:8px 10px;background:#150e22eF;
+  border:1px solid #654280;border-radius:9px;color:#e5ccff;
+  font-size:9px;font-weight:800
+}
+.rl1{left:5%;top:17%}.rl2{right:5%;top:22%}
+.rl3{left:5%;bottom:17%}.rl4{right:5%;bottom:14%}
+.section{padding:22px 0}
+.section-heading{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:17px}
+.section-title{font-size:19px;font-weight:800;margin:0;letter-spacing:-.5px}
+.sub{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid #28553f;background:#10231b;color:var(--green);padding:6px 9px;border-radius:30px;font-size:9px;font-weight:800;white-space:nowrap}
+.pill.purple{border-color:#50326d;background:#20132e;color:#d8b4fe}
+.pill.yellow{border-color:#5b4829;background:#282014;color:var(--yellow)}
+.pill.red{border-color:#64343b;background:#2b151b;color:var(--red)}
+.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:13px}
+.search{position:relative;flex:1;min-width:220px}
+.search i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#827893}
+.search input,.control{
+  width:100%;background:#100d19;border:1px solid var(--line);
+  color:#f8f4ff;border-radius:10px;padding:12px 13px;font-size:11px;outline:none
+}
+.search input{padding-left:39px}
+.search input:focus,.control:focus{border-color:var(--purple);box-shadow:0 0 0 3px #a855f71a}
+.control{width:auto;min-width:125px}
+.control option{background:#110e1b}
+.filter-row{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 19px}
+.filter{
+  border:1px solid var(--line);border-radius:9px;padding:9px 11px;
+  color:#b6accb;background:#100d19;font-size:10px;font-weight:700
+}
+.filter:hover,.filter.active{background:#28173b;border-color:#8c47c4;color:#f1dfff}
+.view-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.view-tab{border:1px solid var(--line);background:#100d19;color:#a99fbd;border-radius:9px;padding:10px 13px;font-size:11px;font-weight:800}
+.view-tab.active{color:white;background:#28163a;border-color:#8746be}
+.view-tab .count{margin-left:6px;background:#3a254c;border-radius:6px;padding:3px 5px;font-size:9px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:18px;align-items:start}
+.feed-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{
+  min-width:0;padding:16px;border:1px solid var(--line);border-radius:15px;
+  background:linear-gradient(150deg,#171323,#100d18);transition:.2s;
+  display:flex;flex-direction:column;animation:appear .22s ease both
+}
+@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.card:hover{border-color:#69428a;transform:translateY(-2px)}
+.card-top{display:flex;align-items:start;justify-content:space-between;gap:10px}
+.repo-icon{width:39px;height:39px;flex-shrink:0;border:1px solid #3d2a54;background:#251735;border-radius:11px;display:grid;place-items:center;color:#dbb9ff;font-size:16px}
+.icon-actions{display:flex;gap:4px}
+.icon-btn{border:1px solid transparent;background:transparent;color:#968ba9;padding:7px;border-radius:8px}
+.icon-btn:hover,.icon-btn.saved{color:#f0b8ff;background:#291839}
+.repo-title{font-size:13px;font-weight:800;margin:13px 0 7px;overflow-wrap:anywhere;line-height:1.6}
+.repo-title a:hover{color:#d8b4fe}
+.owner{color:#988cae;font-weight:500}
+.desc{font-size:11px;line-height:1.8;color:#a69db8;margin-bottom:12px;overflow-wrap:anywhere;min-height:55px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:13px}
+.tag{font-size:9px;color:#c8b2e2;background:#1d1529;border:1px solid #352543;border-radius:5px;padding:5px 7px}
+.tag.platform{background:#29173b;border-color:#4b2e66;color:#dfc1ff}
+.card-stats{display:flex;gap:13px;flex-wrap:wrap;color:#aaa0bc;font-size:10px}
+.card-stats i{color:#bd88ff;margin-right:4px}
+.card-foot{border-top:1px solid #2a2237;padding-top:11px;margin-top:auto}
+.updated{color:#827891;font-size:10px;margin-top:9px}
+.card-actions{display:flex;gap:7px;margin-top:12px}
+.card-actions a,.card-actions button{
+  flex:1;text-align:center;border:1px solid var(--line);background:#151020;
+  border-radius:8px;padding:9px 5px;font-size:10px;font-weight:700;color:#d7cce8
+}
+.card-actions .primary{background:#301a45;border-color:#593678;color:#f0ddff}
+.card-actions a:hover,.card-actions button:hover{border-color:var(--purple);color:white}
+.sidebar-box{padding:16px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(150deg,#171323,#100d18);margin-bottom:13px}
+.side-title{font-size:12px;font-weight:800;margin:0 0 13px}
+.trend-item{display:flex;align-items:start;gap:10px;padding:11px 0;border-bottom:1px solid #292136}
+.trend-item:last-child{border-bottom:0;padding-bottom:0}
+.trend-num{font:800 16px Orbitron,sans-serif;color:#bb82ff;min-width:22px}
+.trend-name{font-size:10px;font-weight:800;overflow-wrap:anywhere}
+.trend-meta{font-size:9px;color:var(--muted);margin-top:5px;line-height:1.7}
+.side-platform{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #292136;font-size:11px}
+.side-platform:last-child{border:0}
+.side-platform button{border:0;background:none;color:#d2c6e4;padding:0;text-align:left;font-weight:600}
+.side-platform button:hover{color:#d8b4fe}
+.platform-icon{display:inline-grid;place-items:center;width:28px;height:28px;margin-right:8px;border-radius:8px;background:#291938;color:#d8b4fe}
+.promo{padding:17px;border:1px solid #50316d;border-radius:15px;background:radial-gradient(circle at top right,#8b5cf62b,transparent 60%),#150e21;margin-bottom:13px}
+.promo h3{font-size:14px;font-weight:800;margin:12px 0 8px}
+.promo p,.small-note{font-size:10px;line-height:1.8;color:var(--muted)}
+.small-note{margin-top:12px}
+.empty{grid-column:1/-1;text-align:center;padding:38px 20px;background:#100d19;border:1px dashed #433453;border-radius:15px}
+.empty i{font-size:26px;color:#bc82ff;margin-bottom:14px}
+.empty h3{font-size:14px;font-weight:800}
+.empty p{color:var(--muted);font-size:11px;line-height:1.8}
+.skeleton{min-height:260px;border-radius:15px;border:1px solid var(--line);background:linear-gradient(110deg,#100d18 30%,#25182f 45%,#100d18 60%);background-size:200% 100%;animation:shine 1.4s linear infinite}
+@keyframes shine{to{background-position-x:-200%}}
+.release-card{padding:16px;border:1px solid var(--line);background:#14101e;border-radius:13px;margin-bottom:11px}
+.release-top{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.release-title{font-size:13px;font-weight:800;line-height:1.6;overflow-wrap:anywhere}
+.release-repo{font-size:10px;color:#ba91e8;margin-top:5px;overflow-wrap:anywhere}
+.release-body{font-size:11px;color:#a79db7;line-height:1.8;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+.release-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.release-actions a{font-size:10px;padding:8px 10px;border:1px solid var(--line);background:#1a1425;border-radius:8px;font-weight:700}
+.release-actions a:hover{border-color:var(--purple)}
+.modal-backdrop-xz{position:fixed;inset:0;z-index:1500;background:#05030bd9;display:none;align-items:center;justify-content:center;padding:18px}
+.modal-backdrop-xz.open{display:flex}
+.modal-xz{width:min(650px,100%);max-height:85vh;overflow:auto;border:1px solid #54376e;background:#110d1c;border-radius:17px;padding:22px;box-shadow:0 20px 100px #0009}
+.modal-header-xz{display:flex;align-items:start;justify-content:space-between;gap:15px}
+.modal-header-xz h2{font-size:18px;font-weight:800;overflow-wrap:anywhere}
+.modal-close{background:#21152e;color:white;border:1px solid var(--line);border-radius:8px;padding:8px 11px}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}
+.detail-item{padding:12px;border:1px solid var(--line);border-radius:10px;background:#171222}
+.detail-item span{display:block;font-size:9px;color:var(--muted);margin-bottom:6px}
+.detail-item strong{font-size:13px;overflow-wrap:anywhere}
+.toast{position:fixed;z-index:2000;bottom:20px;left:50%;transform:translateX(-50%);display:none;background:#251632;border:1px solid #74459c;color:white;padding:12px 16px;border-radius:10px;font-size:11px;box-shadow:0 12px 35px #0008;max-width:calc(100vw - 30px)}
+.footer{border-top:1px solid var(--line);margin-top:35px;padding:26px 0;color:#827891;font-size:10px}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.footer a{color:#c3addb}
+.footer a:hover{color:white}
+[hidden]{display:none!important}
+@media(max-width:1000px){
+ .layout{grid-template-columns:minmax(0,1fr) 250px;gap:12px}
+ .nav-links{gap:13px}
+}
+@media(max-width:767px){
+ .top-inner{min-height:60px}
+ .nav-links{display:none}
+ .hero{padding-top:28px}
+ h1{letter-spacing:-1.5px}
+ .radar-art{min-height:220px}
+ .layout{grid-template-columns:1fr}
+ .feed-grid{grid-template-columns:1fr}
+ .sidebar{display:grid;grid-template-columns:1fr}
+ .section-heading{align-items:start}
+ .toolbar .search{flex-basis:100%}
+ .toolbar .btn-quiet{flex:1}
+ .control{flex:1}
+ .stats{gap:20px}
+ .detail-grid{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="container">
+    <div class="top-inner">
+      <a href="#home" class="brand">MODDING<span>XZ</span></a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#home">Radar</a>
+        <a href="#workspace">Discover</a>
+        <a href="#workspace" id="navReleases">Releases</a>
+        <a href="#workspace" id="navSaved">Watchlist</a>
+        <a href="https://moddingxz.co.uk/new/index.html">Intelligence ↗</a>
+      </nav>
+      <a class="btn-xz" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-telegram"></i> Community
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="home">
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-7">
+        <div class="eyebrow"><span class="dot"></span> DAY 2 · CONSOLE RADAR 2.0</div>
+        <h1>YOUR NEXT<br><span class="gradient">DISCOVERY STARTS HERE.</span></h1>
+        <p class="hero-copy">
+          A community intelligence hub for console modding, homebrew, open-source
+          projects and releases. Discover projects, monitor changes and build your
+          own watchlist — powered by public GitHub data.
+        </p>
+        <div class="actions">
+          <a href="#workspace" class="btn-xz"><i class="fa-solid fa-satellite-dish"></i> Open Radar</a>
+          <button class="btn-quiet" id="heroWatchlist"><i class="fa-regular fa-bookmark"></i> My watchlist</button>
+          <button class="btn-quiet" id="heroExport"><i class="fa-solid fa-download"></i> Export data</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong id="statProjects">—</strong><span>Projects discovered</span></div>
+          <div class="stat"><strong id="statStars">—</strong><span>Combined stars</span></div>
+          <div class="stat"><strong id="statSaved">0</strong><span>Saved projects</span></div>
+          <div class="stat"><strong id="statReleases">0</strong><span>Releases loaded</span></div>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="radar-art" aria-label="Animated console radar">
+          <div class="radar-ring"></div><div class="radar-sweep"></div>
+          <span class="radar-label rl1"><i class="fa-brands fa-playstation"></i> PLAYSTATION</span>
+          <span class="radar-label rl2"><i class="fa-brands fa-xbox"></i> XBOX</span>
+          <span class="radar-label rl3"><i class="fa-solid fa-terminal"></i> HOMEBREW</span>
+          <span class="radar-label rl4"><i class="fa-brands fa-github"></i> OPEN SOURCE</span>
+          <div class="radar-core"><i class="fa-solid fa-satellite-dish"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-2" id="workspace">
+<div class="container">
+  <div class="section-heading">
+    <div>
+      <h2 class="section-title">Command Centre</h2>
+      <p class="sub">Search the community. Follow releases. Keep track of projects.</p>
+    </div>
+    <span class="pill" id="apiStatus"><span class="dot"></span> INITIALISING</span>
+  </div>
+
+  <div class="toolbar">
+    <div class="search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input id="searchInput" type="search" placeholder="Search projects, owners, descriptions, topics…" aria-label="Search projects">
+    </div>
+    <button class="btn-quiet" id="refreshBtn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+    <button class="btn-quiet" id="releasesBtn"><i class="fa-solid fa-box-open"></i> Get releases</button>
+  </div>
+
+  <div class="toolbar">
+    <select class="control" id="languageFilter" aria-label="Filter by language">
+      <option value="all">All languages</option>
+    </select>
+    <select class="control" id="ageFilter" aria-label="Filter by update age">
+      <option value="all">Any update date</option>
+      <option value="7">Updated in 7 days</option>
+      <option value="30">Updated in 30 days</option>
+      <option value="90">Updated in 90 days</option>
+      <option value="365">Updated in 1 year</option>
+    </select>
+    <select class="control" id="sortFilter" aria-label="Sort results">
+      <option value="updated">Recently updated</option>
+      <option value="stars">Most stars</option>
+      <option value="forks">Most forks</option>
+      <option value="name">Name A–Z</option>
+    </select>
+    <button class="btn-quiet" id="clearFilters"><i class="fa-solid fa-filter-circle-xmark"></i> Reset</button>
+  </div>
+
+  <div class="filter-row" id="platformFilters">
+    <button class="filter active" data-platform="all">🌐 Everything</button>
+    <button class="filter" data-platform="playstation">🎮 PlayStation</button>
+    <button class="filter" data-platform="xbox">🟢 Xbox</button>
+    <button class="filter" data-platform="nintendo">🟥 Nintendo</button>
+    <button class="filter" data-platform="homebrew">🛠️ Homebrew</button>
+    <button class="filter" data-platform="tools">⚙️ Tools & research</button>
+  </div>
+
+  <div class="view-tabs" id="viewTabs">
+    <button class="view-tab active" data-view="discover"><i class="fa-solid fa-compass"></i> Discover</button>
+    <button class="view-tab" data-view="trending"><i class="fa-solid fa-fire"></i> Trending</button>
+    <button class="view-tab" data-view="releases"><i class="fa-solid fa-box-open"></i> Releases <span class="count" id="releaseCount">0</span></button>
+    <button class="view-tab" data-view="watchlist"><i class="fa-regular fa-bookmark"></i> Watchlist <span class="count" id="watchCount">0</span></button>
+    <button class="view-tab" data-view="changes"><i class="fa-solid fa-arrows-rotate"></i> Changes</button>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
+        <div>
+          <div class="fw-bold" id="feedTitle" style="font-size:13px">Latest discoveries</div>
+          <div class="sub" id="feedSubtitle">Public repositories from multiple community searches.</div>
+        </div>
+        <span class="pill purple" id="resultCount">0 results</span>
+      </div>
+
+      <div class="feed-grid" id="projectFeed">
+        <div class="skeleton"></div><div class="skeleton"></div>
+      </div>
+
+      <div class="text-center py-4">
+        <button class="btn-quiet" id="loadMore" hidden><i class="fa-solid fa-plus"></i> Load more</button>
+      </div>
+      <p class="small-note" id="sourceNote">
+        Source: public GitHub API. Categories are estimated from repository metadata.
+        Release information is fetched separately and may be subject to API rate limits.
+      </p>
+    </div>
+
+    <aside class="sidebar">
+      <div class="sidebar-box">
+        <h3 class="side-title"><i class="fa-solid fa-fire" style="color:#c084fc"></i> Most starred</h3>
+        <div id="trendingList"><p class="sub">Waiting for project data…</p></div>
+        <p class="small-note">Ranking is based on stars among the projects currently discovered, not all of GitHub.</p>
+      </div>
+
+      <div class="sidebar-box">
+        <h3 class="side-title">Browse consoles</h3>
+        <div class="side-platform"><button data-side="playstation"><span class="platform-icon"><i class="fa-brands fa-playstation"></i></span>PlayStation</button><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="side-platform"><button data-side="xbox"><span class="platform-icon"><i class="fa-brands fa-xbox"></i></span>Xbox</button><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="side-platform"><button data-side="nintendo"><span class="platform-icon"><i class="fa-solid fa-gamepad"></i></span>Nintendo</button><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="side-platform"><button data-side="homebrew"><span class="platform-icon"><i class="fa-solid fa-terminal"></i></span>Homebrew</button><i class="fa-solid fa-chevron-right"></i></div>
+        <div class="side-platform"><button data-side="tools"><span class="platform-icon"><i class="fa-solid fa-screwdriver-wrench"></i></span>Tools & research</button><i class="fa-solid fa-chevron-right"></i></div>
+      </div>
+
+      <div class="promo">
+        <div class="eyebrow"><i class="fa-solid fa-bolt"></i> MODDINGXZ ECOSYSTEM</div>
+        <h3>Discovery is only the beginning.</h3>
+        <p>Explore Console Intelligence for another way to find console projects, tools and open-source releases.</p>
+        <a href="https://moddingxz.co.uk/new/index.html" class="btn-xz w-100">Open Console Intelligence <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </div>
+
+      <div class="sidebar-box">
+        <h3 class="side-title">Radar controls</h3>
+        <a class="d-block py-2" style="font-size:11px;color:#cdb8e8" href="https://github.com/explore" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github me-2"></i>Explore GitHub</a>
+        <a class="d-block py-2" style="font-size:11px;color:#cdb8e8" href="https://docs.github.com/en/rest" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-book me-2"></i>GitHub API docs</a>
+        <a class="d-block py-2" style="font-size:11px;color:#cdb8e8" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-telegram me-2"></i>ModdingXZ Telegram</a>
+        <button class="btn-quiet w-100 mt-3" id="clearCache"><i class="fa-solid fa-trash-can"></i> Clear cached data</button>
+        <p class="small-note">Your watchlist and change history stay in this browser. They are not synced to other devices.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div><div class="brand" style="font-size:15px;margin-bottom:7px">MODDING<span>XZ</span></div><div>Building, experimenting and learning together. 💜</div></div>
+      <div>Console Radar 2.0 · Powered by public GitHub data</div>
+      <div><a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram</a> · <a href="https://moddingxz.co.uk/new/index.html">Console Intelligence</a></div>
+    </div>
+    <p class="small-note mt-3">
+      ModdingXZ is an independent community project and is not affiliated with Sony,
+      Microsoft, Nintendo or GitHub. Project categories are heuristic estimates.
+      Repository descriptions, releases and assets are supplied by their maintainers.
+    </p>
+  </div>
+</footer>
+
+<div class="modal-backdrop-xz" id="detailBackdrop" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+  <div class="modal-xz">
+    <div class="modal-header-xz">
+      <div><div class="eyebrow mb-2">PROJECT INTELLIGENCE</div><h2 id="detailTitle">Project details</h2><div class="sub" id="detailFullName"></div></div>
+      <button class="modal-close" id="closeDetail" aria-label="Close details"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <p class="sub mt-3" id="detailDescription"></p>
+    <div class="detail-grid" id="detailGrid"></div>
+    <div class="tags mb-3" id="detailTags"></div>
+    <div class="actions">
+      <a class="btn-xz" id="detailRepo" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Repository</a>
+      <a class="btn-quiet" id="detailReleases" href="#" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-box-open"></i> Releases</a>
+      <button class="btn-quiet" id="detailSave"><i class="fa-regular fa-bookmark"></i> Save</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+"use strict";
+
+/* =========================================================
+   MODDINGXZ CONSOLE RADAR 2.0
+   Static hosting · public APIs · no backend
+========================================================= */
+
+const CONFIG = {
+  api: "https://api.github.com",
+  storage: "mxz_radar_v2",
+  cache: "mxz_radar_v2_cache",
+  changes: "mxz_radar_v2_changes",
+  cacheMs: 5 * 60 * 1000,
+  requestTimeout: 12000,
+  maxProjects: 120,
+  pageSize: 12,
+  releaseLimit: 8
+};
+
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+const state = {
+  projects: [],
+  releases: [],
+  saved: new Set(),
+  changes: [],
+  platform: "all",
+  view: "discover",
+  search: "",
+  language: "all",
+  age: "all",
+  sort: "updated",
+  visible: CONFIG.pageSize,
+  loading: false,
+  releaseLoading: false,
+  controller: null,
+  toastTimer: null,
+  activeDetail: null,
+  lastRefresh: null
+};
+
+const SEARCHES = [
+  "playstation homebrew",
+  "PS4 homebrew",
+  "PS5 homebrew",
+  "PS Vita homebrew",
+  "Xbox homebrew",
+  "Xbox 360 homebrew",
+  "Nintendo Switch homebrew",
+  "console modding tools",
+  "console firmware research",
+  "console emulator open source"
+];
+
+const ICONS = {
+  playstation: "fa-brands fa-playstation",
+  xbox: "fa-brands fa-xbox",
+  nintendo: "fa-solid fa-gamepad",
+  homebrew: "fa-solid fa-terminal",
+  tools: "fa-solid fa-screwdriver-wrench",
+  all: "fa-brands fa-github"
+};
+
+function readJSON(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || "null");
+    return value ?? fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+function writeJSON(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+    return true;
+  } catch {
+    notify("Browser storage is full or unavailable.");
+    return false;
+  }
+}
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[c]);
+}
+
+function safeURL(value) {
+  try {
+    const url = new URL(value);
+    return ["https:", "http:"].includes(url.protocol) ? url.href : "#";
+  } catch {
+    return "#";
+  }
+}
+
+function number(value) {
+  return new Intl.NumberFormat("en-GB", {
+    notation: Number(value) >= 10000 ? "compact" : "standard",
+    maximumFractionDigits: 1
+  }).format(Number(value) || 0);
+}
+
+function dateValue(value) {
+  const n = new Date(value || 0).getTime();
+  return Number.isFinite(n) ? n : 0;
+}
+
+function relativeDate(value) {
+  const time = dateValue(value);
+  if (!time) return "Date unavailable";
+  const mins = Math.max(0, Math.floor((Date.now() - time) / 60000));
+  if (mins < 1) return "Just now";
+  if (mins < 60) return `${mins}m ago`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days}d ago`;
+  return new Date(time).toLocaleDateString("en-GB", {
+    day: "numeric", month: "short", year: "numeric"
+  });
+}
+
+function notify(message) {
+  const toast = $("#toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+  clearTimeout(state.toastTimer);
+  state.toastTimer = setTimeout(() => toast.style.display = "none", 2800);
+}
+
+function setStatus(message, type = "normal") {
+  const element = $("#apiStatus");
+  const styles = {
+    ok: ["#10231b", "#28553f", "#5ce0a0"],
+    normal: ["#20132e", "#50326d", "#d8b4fe"],
+    warning: ["#282014", "#5b4829", "#f5c66a"],
+    error: ["#2b151b", "#64343b", "#ff8585"]
+  };
+  const [bg, border, color] = styles[type] || styles.normal;
+  element.style.background = bg;
+  element.style.borderColor = border;
+  element.style.color = color;
+  element.innerHTML = `<span class="dot" style="background:${color};box-shadow:none"></span> ${escapeHTML(message)}`;
+}
+
+function platformName(platform) {
+  return ({
+    playstation: "PlayStation",
+    xbox: "Xbox",
+    nintendo: "Nintendo",
+    homebrew: "Homebrew",
+    tools: "Tools & research"
+  })[platform] || "Community";
+}
+
+function platformIcon(platform) {
+  return ICONS[platform] || ICONS.all;
+}
+
+function classify(repo) {
+  const topics = Array.isArray(repo.topics) ? repo.topics : [];
+  const text = [
+    repo.name, repo.full_name, repo.description, ...topics
+  ].join(" ").toLowerCase();
+
+  if (/\b(ps4|ps5|ps3|ps2|psvita|ps vita|playstation|orbis|prospero|psp)\b/.test(text)) return "playstation";
+  if (/\b(xbox|xbox360|xbox 360|xbox one|xbox series)\b/.test(text)) return "xbox";
+  if (/\b(nintendo|switchroot|wiiu|wii u|3ds|joycon|joy-con|switch homebrew)\b/.test(text)) return "nintendo";
+
+  if (topics.some(t => ["homebrew", "homebrew-app", "homebrew-games"].includes(t)) ||
+      /\b(homebrew|libnx|libogc|libctru|devkitpro)\b/.test(text)) return "homebrew";
+
+  if (/\b(tool|tools|firmware|exploit|research|debug|payload|sdk|modding|mod menu|modmenu|injector|loader|jailbreak|reverse engineering)\b/.test(text)) return "tools";
+
+  return "homebrew";
+}
+
+function normalise(repo) {
+  return {
+    id: repo.id,
+    fullName: repo.full_name || "unknown/project",
+    name: repo.name || "Untitled",
+    owner: repo.owner?.login || "unknown",
+    description: repo.description || "No description provided by the maintainer.",
+    url: safeURL(repo.html_url),
+    stars: Number(repo.stargazers_count) || 0,
+    forks: Number(repo.forks_count) || 0,
+    issues: Number(repo.open_issues_count) || 0,
+    language: repo.language || "Other",
+    created: repo.created_at || null,
+    updated: repo.updated_at || null,
+    pushed: repo.pushed_at || null,
+    topics: Array.isArray(repo.topics) ? repo.topics.slice(0, 12) : [],
+    platform: classify(repo),
+    archived: Boolean(repo.archived),
+    license: repo.license?.spdx_id || "Not specified",
+    defaultBranch: repo.default_branch || "main",
+    releasesURL: safeURL(`${repo.html_url || ""}/releases`),
+    size: Number(repo.size) || 0,
+    forksURL: safeURL(`${repo.html_url || ""}/forks`),
+    issuesURL: safeURL(`${repo.html_url || ""}/issues`)
+  };
+}
+
+function cacheRead() {
+  const data = readJSON(CONFIG.cache, null);
+  if (!data || !Array.isArray(data.projects)) return null;
+  if (Date.now() - data.time > CONFIG.cacheMs) return null;
+  return data;
+}
+
+function saveCache() {
+  writeJSON(CONFIG.cache, {
+    time: Date.now(),
+    projects: state.projects,
+    releases: state.releases,
+    lastRefresh: state.lastRefresh
+  });
+}
+
+async function apiFetch(url, signal) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), CONFIG.requestTimeout);
+  const abort = () => controller.abort();
+
+  if (signal) {
+    if (signal.aborted) controller.abort();
+    else signal.addEventListener("abort", abort, { once: true });
+  }
+
+  try {
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: { Accept: "application/vnd.github+json" }
+    });
+
+    if (response.status === 403 || response.status === 429) {
+      const reset = response.headers.get("x-ratelimit-reset");
+      let extra = "";
+      if (reset && Number(reset) > 0) {
+        extra = ` Try again after ${new Date(Number(reset) * 1000).toLocaleTimeString("en-GB", {hour:"2-digit",minute:"2-digit"})}.`;
+      }
+      throw new Error("GitHub API rate limit reached." + extra);
+    }
+
+    if (!response.ok) throw new Error(`GitHub API returned ${response.status}.`);
+    return await response.json();
+  } finally {
+    clearTimeout(timer);
+    if (signal) signal.removeEventListener("abort", abort);
+  }
+}
+
+function searchURL(query) {
+  const params = new URLSearchParams({
+    q: `${query} in:name,description,topics`,
+    sort: "updated",
+    order: "desc",
+    per_page: "30"
+  });
+  return `${CONFIG.api}/search/repositories?${params}`;
+}
+
+async function searchRepositories(query, signal) {
+  const data = await apiFetch(searchURL(query), signal);
+  return (data.items || []).map(normalise);
+}
+
+function trackChanges(projects) {
+  const history = readJSON(CONFIG.changes, {});
+  const changes = [];
+
+  for (const project of projects) {
+    const previous = history[project.fullName];
+    const current = {
+      stars: project.stars,
+      forks: project.forks,
+      pushed: project.pushed,
+      updated: project.updated,
+      checked: Date.now()
+    };
+
+    if (previous) {
+      const starDelta = project.stars - (Number(previous.stars) || 0);
+      const forkDelta = project.forks - (Number(previous.forks) || 0);
+      const wasPushed = previous.pushed && project.pushed &&
+        dateValue(project.pushed) > dateValue(previous.pushed);
+
+      if (starDelta > 0 || forkDelta > 0 || wasPushed) {
+        changes.push({
+          fullName: project.fullName,
+          url: project.url,
+          platform: project.platform,
+          stars: project.stars,
+          starDelta,
+          forks: project.forks,
+          forkDelta,
+          pushed: project.pushed,
+          updated: project.updated,
+          type: wasPushed ? "push" : starDelta > 0 ? "stars" : "forks",
+          time: Date.now()
+        });
+      }
+    }
+
+    history[project.fullName] = current;
+  }
+
+  // Keep only a manageable history of known repositories.
+  const keys = Object.keys(history);
+  if (keys.length > 500) {
+    keys.sort((a, b) => (history[b].checked || 0) - (history[a].checked || 0));
+    for (const key of keys.slice(500)) delete history[key];
+  }
+
+  writeJSON(CONFIG.changes, history);
+
+  if (changes.length) {
+    const old = readJSON(CONFIG.storage + "_events", []);
+    const merged = [...changes, ...old].slice(0, 100);
+    writeJSON(CONFIG.storage + "_events", merged);
+  }
+
+  state.changes = readJSON(CONFIG.storage + "_events", []);
+}
+
+async function refreshProjects(force = false) {
+  if (state.loading) return;
+
+  if (!force) {
+    const cached = cacheRead();
+    if (cached) {
+      state.projects = cached.projects || [];
+      state.releases = cached.releases || [];
+      state.lastRefresh = cached.lastRefresh || cached.time;
+      renderAll();
+      setStatus("CACHED DATA", "ok");
+      refreshProjects(true);
+      return;
+    }
+  }
+
+  state.loading = true;
+  $("#refreshBtn").disabled = true;
+  $("#refreshBtn").innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scanning';
+  setStatus("SCANNING GITHUB", "normal");
+
+  if (!state.projects.length) {
+    $("#projectFeed").innerHTML = '<div class="skeleton"></div><div class="skeleton"></div>';
+  }
+
+  if (state.controller) state.controller.abort();
+  state.controller = new AbortController();
+  const signal = state.controller.signal;
+
+  const collected = new Map();
+  let failures = 0;
+  let lastError = null;
+
+  try {
+    // Sequential queries reduce the chance of hitting the public API limit.
+    for (let i = 0; i < SEARCHES.length; i++) {
+      if (signal.aborted) throw new DOMException("Cancelled", "AbortError");
+
+      try {
+        const repos = await searchRepositories(SEARCHES[i], signal);
+        for (const repo of repos) {
+          const previous = collected.get(repo.fullName);
+          if (!previous || repo.stars > previous.stars) {
+            collected.set(repo.fullName, repo);
+          }
+        }
+
+        state.projects = [...collected.values()].slice(0, CONFIG.maxProjects);
+        renderAll();
+        setStatus(`SCANNING ${i + 1}/${SEARCHES.length}`, "normal");
+      } catch (error) {
+        if (signal.aborted) throw error;
+        failures++;
+        lastError = error;
+      }
+
+      if (i < SEARCHES.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 250));
+      }
+    }
+
+    state.projects = [...collected.values()]
+      .sort((a, b) => dateValue(b.updated) - dateValue(a.updated))
+      .slice(0, CONFIG.maxProjects);
+
+    state.lastRefresh = Date.now();
+    trackChanges(state.projects);
+    saveCache();
+    renderAll();
+
+    if (!state.projects.length) {
+      setStatus("NO DATA", "error");
+      notify(lastError?.message || "No repository results were returned.");
+    } else if (failures) {
+      setStatus("PARTIAL RESULTS", "warning");
+      notify("Some GitHub searches failed. Results may be incomplete.");
+    } else {
+      setStatus("RADAR ONLINE", "ok");
+    }
+
+    $("#sourceNote").textContent =
+      `Last checked ${new Date(state.lastRefresh).toLocaleString("en-GB")}. ` +
+      "Data comes from public GitHub search. Categories are estimated and results are not exhaustive.";
+
+  } catch (error) {
+    if (error.name !== "AbortError") {
+      console.error(error);
+      setStatus("CONNECTION ISSUE", "error");
+      if (!state.projects.length) {
+        $("#projectFeed").innerHTML = `
+          <div class="empty">
+            <i class="fa-solid fa-satellite-dish"></i>
+            <h3>Radar temporarily offline</h3>
+            <p>${escapeHTML(error.message || "GitHub could not be reached.")}</p>
+            <button class="btn-xz" id="retryInline">Try again</button>
+          </div>`;
+        $("#retryInline")?.addEventListener("click", () => refreshProjects(true));
+      }
+    }
+  } finally {
+    state.loading = false;
+    $("#refreshBtn").disabled = false;
+    $("#refreshBtn").innerHTML = '<i class="fa-solid fa-rotate"></i> Refresh';
+  }
+}
+
+async function loadReleases(force = false) {
+  if (state.releaseLoading) return;
+  if (!state.projects.length) {
+    notify("Load project data first.");
+    return;
+  }
+
+  if (!force && state.releases.length) {
+    setView("releases");
+    return;
+  }
+
+  state.releaseLoading = true;
+  $("#releasesBtn").disabled = true;
+  $("#releasesBtn").innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading';
+
+  const releases = [];
+  const repos = [...state.projects]
+    .filter(p => !p.archived)
+    .sort((a, b) => b.stars - a.stars)
+    .slice(0, CONFIG.releaseLimit);
+
+  let failed = 0;
+
+  try {
+    for (let i = 0; i < repos.length; i++) {
+      const repo = repos[i];
+
+      try {
+        const url = `${CONFIG.api}/repos/${encodeURIComponent(repo.owner)}/${encodeURIComponent(repo.name)}/releases?per_page=5`;
+        const data = await apiFetch(url, state.controller?.signal);
+
+        for (const release of Array.isArray(data) ? data : []) {
+          if (release.draft) continue;
+
+          const assets = (release.assets || []).map(asset => ({
+            name: asset.name,
+            url: safeURL(asset.browser_download_url),
+            size: asset.size,
+            downloads: asset.download_count
+          }));
+
+          releases.push({
+            id: release.id,
+            repo: repo.fullName,
+            repoURL: repo.url,
+            platform: repo.platform,
+            name: release.name || release.tag_name || "Untitled release",
+            tag: release.tag_name || "",
+            body: (release.body || "No release notes provided.").slice(0, 1400),
+            url: safeURL(release.html_url),
+            published: release.published_at || release.created_at,
+            prerelease: Boolean(release.prerelease),
+            draft: Boolean(release.draft),
+            assets
+          });
+        }
+      } catch (error) {
+        failed++;
+        console.warn("Release lookup failed:", repo.fullName, error.message);
+      }
+
+      if (i < repos.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 220));
+      }
+    }
+
+    state.releases = releases.sort((a, b) => dateValue(b.published) - dateValue(a.published));
+    saveCache();
+    renderAll();
+    setView("releases");
+
+    if (failed) {
+      notify(`Loaded releases where available. ${failed} repository lookups failed.`);
+    } else {
+      notify(`Loaded ${state.releases.length} published releases.`);
+    }
+  } finally {
+    state.releaseLoading = false;
+    $("#releasesBtn").disabled = false;
+    $("#releasesBtn").innerHTML = '<i class="fa-solid fa-box-open"></i> Get releases';
+  }
+}
+
+function matchesFilters(project) {
+  if (state.view === "watchlist" && !state.saved.has(project.fullName)) return false;
+  if (state.platform !== "all" && project.platform !== state.platform) return false;
+
+  if (state.language !== "all" && project.language !== state.language) return false;
+
+  if (state.age !== "all") {
+    const cutoff = Date.now() - Number(state.age) * 86400000;
+    if (dateValue(project.updated) < cutoff) return false;
+  }
+
+  if (state.search) {
+    const text = [
+      project.fullName, project.name, project.owner,
+      project.description, project.language, project.platform,
+      ...project.topics
+    ].join(" ").toLowerCase();
+
+    if (!text.includes(state.search.toLowerCase())) return false;
+  }
+
+  return true;
+}
+
+function visibleProjects() {
+  let projects = state.projects.filter(matchesFilters);
+
+  if (state.view === "trending") {
+    projects.sort((a, b) => b.stars - a.stars);
+  } else if (state.sort === "stars") {
+    projects.sort((a, b) => b.stars - a.stars);
+  } else if (state.sort === "forks") {
+    projects.sort((a, b) => b.forks - a.forks);
+  } else if (state.sort === "name") {
+    projects.sort((a, b) => a.fullName.localeCompare(b.fullName));
+  } else {
+    projects.sort((a, b) => dateValue(b.updated) - dateValue(a.updated));
+  }
+
+  return projects;
+}
+
+function renderProject(project) {
+  const saved = state.saved.has(project.fullName);
+  const archived = project.archived
+    ? '<span class="tag">Archived</span>' : "";
+  const topics = project.topics.slice(0, 2)
+    .map(t => `<span class="tag">${escapeHTML(t)}</span>`).join("");
+
+  return `
+  <article class="card">
+    <div class="card-top">
+      <div class="repo-icon"><i class="${platformIcon(project.platform)}"></i></div>
+      <div class="icon-actions">
+        <button class="icon-btn ${saved ? "saved" : ""}" data-save="${escapeHTML(project.fullName)}"
+          aria-label="${saved ? "Remove bookmark" : "Save project"}" title="Toggle watchlist">
+          <i class="${saved ? "fa-solid" : "fa-regular"} fa-bookmark"></i>
+        </button>
+        <button class="icon-btn" data-detail="${escapeHTML(project.fullName)}" aria-label="View details" title="Project details">
+          <i class="fa-solid fa-circle-info"></i>
+        </button>
+      </div>
+    </div>
+    <h3 class="repo-title">
+      <a href="${escapeHTML(project.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(project.name)}</a>
+      <span class="owner"> / ${escapeHTML(project.owner)}</span>
+    </h3>
+    <p class="desc">${escapeHTML(project.description.length > 190 ? project.description.slice(0,187) + "…" : project.description)}</p>
+    <div class="tags">
+      <span class="tag platform">${escapeHTML(platformName(project.platform))}</span>
+      <span class="tag">${escapeHTML(project.language)}</span>${archived}${topics}
+    </div>
+    <div class="card-foot">
+      <div class="card-stats">
+        <span><i class="fa-solid fa-star"></i>${number(project.stars)}</span>
+        <span><i class="fa-solid fa-code-fork"></i>${number(project.forks)}</span>
+        <span><i class="fa-regular fa-circle-dot"></i>${number(project.issues)}</span>
+      </div>
+      <div class="updated"><i class="fa-regular fa-clock"></i> Updated ${escapeHTML(relativeDate(project.updated))}</div>
+      <div class="card-actions">
+        <a class="primary" href="${escapeHTML(project.url)}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Repository</a>
+        <a href="${escapeHTML(project.releasesURL)}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-box-open"></i> Releases</a>
+      </div>
+    </div>
+  </article>`;
+}
+
+function renderReleases() {
+  const feed = $("#projectFeed");
+  const releases = state.releases.filter(release => {
+    if (state.platform !== "all" && release.platform !== state.platform) return false;
+    if (state.search) {
+      const text = `${release.name} ${release.repo} ${release.tag} ${release.body}`.toLowerCase();
+      if (!text.includes(state.search.toLowerCase())) return false;
+    }
+    return true;
+  });
+
+  $("#feedTitle").textContent = "Published releases";
+  $("#feedSubtitle").textContent = "Actual release records retrieved from GitHub repositories.";
+  $("#resultCount").textContent = `${releases.length} releases`;
+  $("#loadMore").hidden = true;
+
+  if (!releases.length) {
+    feed.innerHTML = `<div class="empty">
+      <i class="fa-solid fa-box-open"></i>
+      <h3>No release data yet</h3>
+      <p>Fetch published releases from the repositories currently discovered. Release coverage depends on the available GitHub API results.</p>
+      <button class="btn-xz" id="loadReleaseEmpty">Fetch releases</button>
+    </div>`;
+    $("#loadReleaseEmpty")?.addEventListener("click", () => loadReleases(true));
+    return;
+  }
+
+  feed.innerHTML = `<div style="grid-column:1/-1">${
+    releases.slice(0, state.visible).map(release => `
+      <article class="release-card">
+        <div class="release-top">
+          <div>
+            <div class="release-title">${escapeHTML(release.name)}</div>
+            <div class="release-repo">${escapeHTML(release.repo)} · ${escapeHTML(release.tag)}</div>
+          </div>
+          <span class="pill ${release.prerelease ? "yellow" : "purple"}">${release.prerelease ? "PRE-RELEASE" : "PUBLISHED"}</span>
+        </div>
+        <div class="sub">${escapeHTML(platformName(release.platform))} · ${escapeHTML(relativeDate(release.published))}</div>
+        <div class="release-body">${escapeHTML(release.body)}</div>
+        <div class="release-actions">
+          <a href="${escapeHTML(release.url)}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Release page</a>
+          <a href="${escapeHTML(release.repoURL)}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> Repository</a>
+          ${release.assets.slice(0,3).map(asset => `<a href="${escapeHTML(asset.url)}" target="_blank" rel="noopener noreferrer" title="${escapeHTML(asset.name)}"><i class="fa-solid fa-download"></i> ${escapeHTML(asset.name.length > 24 ? asset.name.slice(0,21)+"…" : asset.name)}</a>`).join("")}
+        </div>
+      </article>`).join("")
+  }</div>`;
+
+  $("#loadMore").hidden = releases.length <= state.visible;
+  $("#loadMore").textContent = "Load more releases";
+}
+
+function renderChanges() {
+  const feed = $("#projectFeed");
+  let changes = state.changes.filter(change => {
+    if (state.platform !== "all" && change.platform !== state.platform) return false;
+    if (state.search && !change.fullName.toLowerCase().includes(state.search.toLowerCase())) return false;
+    return true;
+  });
+
+  $("#feedTitle").textContent = "Tracked changes";
+  $("#feedSubtitle").textContent = "Changes noticed when the radar checks a repository against a previous snapshot.";
+  $("#resultCount").textContent = `${changes.length} events`;
+  $("#loadMore").hidden = true;
+
+  if (!changes.length) {
+    feed.innerHTML = `<div class="empty">
+      <i class="fa-solid fa-arrows-rotate"></i>
+      <h3>No tracked changes yet</h3>
+      <p>Refresh the radar again later. Change tracking needs an earlier snapshot saved in this browser and cannot reconstruct historical activity.</p>
+      <button class="btn-xz" id="refreshChanges">Refresh radar</button>
+    </div>`;
+    $("#refreshChanges")?.addEventListener("click", () => refreshProjects(true));
+    return;
+  }
+
+  feed.innerHTML = `<div style="grid-column:1/-1">${
+    changes.slice(0, state.visible).map(change => {
+      let description = "Repository activity detected";
+      if (change.type === "stars") description = `Stars increased by ${change.starDelta}`;
+      if (change.type === "forks") description = `Fork count increased by ${change.forkDelta}`;
+      if (change.type === "push") description = "Repository push activity changed";
+
+      return `<article class="release-card">
+        <div class="release-top">
+          <div><div class="release-title">${escapeHTML(change.fullName)}</div><div class="release-repo">${escapeHTML(platformName(change.platform))}</div></div>
+          <span class="pill purple">${escapeHTML(change.type.toUpperCase())}</span>
+        </div>
+        <div class="sub">${escapeHTML(relativeDate(change.time))}</div>
+        <p class="desc mt-2 mb-2">${escapeHTML(description)}</p>
+        <div class="card-stats"><span><i class="fa-solid fa-star"></i>${number(change.stars)} stars</span><span><i class="fa-solid fa-code-fork"></i>${number(change.forks)} forks</span></div>
+        <div class="release-actions"><a href="${escapeHTML(change.url)}" target="_blank" rel="noopener noreferrer">Open repository ↗</a></div>
+      </article>`;
+    }).join("")
+  }</div>`;
+
+  $("#loadMore").hidden = changes.length <= state.visible;
+  $("#loadMore").textContent = "Load more changes";
+}
+
+function renderFeed() {
+  if (state.view === "releases") return renderReleases();
+  if (state.view === "changes") return renderChanges();
+
+  const projects = visibleProjects();
+  const visible = projects.slice(0, state.visible);
+  const feed = $("#projectFeed");
+
+  $("#feedTitle").textContent = state.view === "trending"
+    ? "Trending discoveries" : state.view === "watchlist"
+    ? "Your watchlist" : "Latest discoveries";
+
+  $("#feedSubtitle").textContent = state.view === "trending"
+    ? "Projects ranked by their observed GitHub star count."
+    : state.view === "watchlist"
+    ? "Projects you have saved in this browser."
+    : "Public repositories discovered from community-focused searches.";
+
+  $("#resultCount").textContent = `${projects.length} projects`;
+
+  if (!visible.length) {
+    const message = state.view === "watchlist"
+      ? "Bookmark projects to build your own console modding collection."
+      : state.projects.length
+      ? "Try another platform, language, date range or search term."
+      : "Refresh the radar to retrieve public GitHub results.";
+
+    feed.innerHTML = `<div class="empty">
+      <i class="fa-solid ${state.view === "watchlist" ? "fa-bookmark" : "fa-magnifying-glass"}"></i>
+      <h3>${state.view === "watchlist" ? "Your watchlist is empty" : "No matching projects"}</h3>
+      <p>${escapeHTML(message)}</p>
+      ${state.view === "watchlist" ? '<button class="btn-quiet" id="goDiscover">Discover projects</button>' : ""}
+    </div>`;
+    $("#goDiscover")?.addEventListener("click", () => setView("discover"));
+    $("#loadMore").hidden = true;
+    return;
+  }
+
+  feed.innerHTML = visible.map(renderProject).join("");
+  $("#loadMore").hidden = visible.length >= projects.length;
+  $("#loadMore").textContent = `Load more (${projects.length - visible.length} remaining)`;
+
+  feed.querySelectorAll("[data-save]").forEach(button => {
+    button.addEventListener("click", () => toggleSaved(button.dataset.save));
+  });
+
+  feed.querySelectorAll("[data-detail]").forEach(button => {
+    button.addEventListener("click", () => openDetail(button.dataset.detail));
+  });
+}
+
+function renderTrending() {
+  const projects = [...state.projects].sort((a,b) => b.stars-a.stars).slice(0,5);
+  if (!projects.length) {
+    $("#trendingList").innerHTML = '<p class="sub">Trending projects appear when repository data loads.</p>';
+    return;
+  }
+
+  $("#trendingList").innerHTML = projects.map((p,i) => `
+    <div class="trend-item">
+      <span class="trend-num">${String(i+1).padStart(2,"0")}</span>
+      <div style="min-width:0">
+        <a class="trend-name" href="${escapeHTML(p.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(p.fullName)}</a>
+        <div class="trend-meta"><i class="fa-solid fa-star" style="color:#c084fc"></i> ${number(p.stars)} stars · ${escapeHTML(platformName(p.platform))}</div>
+      </div>
+    </div>`).join("");
+}
+
+function renderLanguages() {
+  const select = $("#languageFilter");
+  const current = state.language;
+  const languages = [...new Set(state.projects.map(p => p.language))].sort((a,b)=>a.localeCompare(b));
+  select.innerHTML = '<option value="all">All languages</option>' +
+    languages.map(language => `<option value="${escapeHTML(language)}">${escapeHTML(language)}</option>`).join("");
+  select.value = languages.includes(current) ? current : "all";
+  state.language = select.value;
+}
+
+function renderStats() {
+  $("#statProjects").textContent = number(state.projects.length);
+  $("#statStars").textContent = number(state.projects.reduce((sum,p)=>sum+p.stars,0));
+  $("#statSaved").textContent = number(state.saved.size);
+  $("#statReleases").textContent = number(state.releases.length);
+  $("#watchCount").textContent = number(state.saved.size);
+  $("#releaseCount").textContent = number(state.releases.length);
+}
+
+function renderAll() {
+  renderLanguages();
+  renderFeed();
+  renderTrending();
+  renderStats();
+}
+
+function setView(view) {
+  state.view = view;
+  state.visible = CONFIG.pageSize;
+  $$(".view-tab").forEach(button => button.classList.toggle("active", button.dataset.view === view));
+  renderFeed();
+}
+
+function setPlatform(platform) {
+  state.platform = platform;
+  state.visible = CONFIG.pageSize;
+  $$(".filter").forEach(button => button.classList.toggle("active", button.dataset.platform === platform));
+  renderFeed();
+}
+
+function toggleSaved(fullName) {
+  if (state.saved.has(fullName)) {
+    state.saved.delete(fullName);
+    notify("Removed from your watchlist.");
+  } else {
+    state.saved.add(fullName);
+    notify("Saved to your watchlist.");
+  }
+
+  writeJSON(CONFIG.storage + "_saved", [...state.saved]);
+  renderAll();
+}
+
+function openDetail(fullName) {
+  const project = state.projects.find(p => p.fullName === fullName);
+  if (!project) return;
+  state.activeDetail = project;
+
+  $("#detailTitle").textContent = project.name;
+  $("#detailFullName").textContent = project.fullName;
+  $("#detailDescription").textContent = project.description;
+  $("#detailRepo").href = project.url;
+  $("#detailReleases").href = project.releasesURL;
+  $("#detailSave").innerHTML = state.saved.has(fullName)
+    ? '<i class="fa-solid fa-bookmark"></i> Remove saved'
+    : '<i class="fa-regular fa-bookmark"></i> Save project';
+
+  const details = [
+    ["Platform", platformName(project.platform)],
+    ["Language", project.language],
+    ["Stars", number(project.stars)],
+    ["Forks", number(project.forks)],
+    ["Open issues", number(project.issues)],
+    ["License", project.license],
+    ["Last updated", project.updated ? new Date(project.updated).toLocaleDateString("en-GB") : "Unknown"],
+    ["Repository status", project.archived ? "Archived" : "Not archived"]
+  ];
+
+  $("#detailGrid").innerHTML = details.map(([label,value]) => `
+    <div class="detail-item"><span>${escapeHTML(label)}</span><strong>${escapeHTML(value)}</strong></div>
+  `).join("");
+
+  $("#detailTags").innerHTML = project.topics.length
+    ? project.topics.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join("")
+    : '<span class="tag">No topics supplied</span>';
+
+  $("#detailBackdrop").classList.add("open");
+}
+
+function closeDetail() {
+  $("#detailBackdrop").classList.remove("open");
+  state.activeDetail = null;
+}
+
+function exportData() {
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    source: "ModdingXZ Console Radar",
+    projects: state.projects,
+    releases: state.releases,
+    watchlist: [...state.saved],
+    trackedChanges: state.changes
+  };
+
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `moddingxz-radar-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  notify("Radar data exported as JSON.");
+}
+
+function resetFilters() {
+  state.platform = "all";
+  state.search = "";
+  state.language = "all";
+  state.age = "all";
+  state.sort = "updated";
+  state.visible = CONFIG.pageSize;
+  $("#searchInput").value = "";
+  $("#languageFilter").value = "all";
+  $("#ageFilter").value = "all";
+  $("#sortFilter").value = "updated";
+  setPlatform("all");
+  renderAll();
+}
+
+// Platform filters
+$("#platformFilters").addEventListener("click", event => {
+  const button = event.target.closest("[data-platform]");
+  if (button) setPlatform(button.dataset.platform);
+});
+
+$$("[data-side]").forEach(button => {
+  button.addEventListener("click", () => {
+    setPlatform(button.dataset.side);
+    $("#workspace").scrollIntoView({behavior:"smooth"});
+  });
+});
+
+// Main views
+$("#viewTabs").addEventListener("click", event => {
+  const button = event.target.closest("[data-view]");
+  if (!button) return;
+  setView(button.dataset.view);
+});
+
+$("#navReleases").addEventListener("click", () => setView("releases"));
+$("#navSaved").addEventListener("click", () => setView("watchlist"));
+$("#heroWatchlist").addEventListener("click", () => {
+  setView("watchlist");
+  $("#workspace").scrollIntoView({behavior:"smooth"});
+});
+
+$("#searchInput").addEventListener("input", event => {
+  state.search = event.target.value;
+  state.visible = CONFIG.pageSize;
+  renderFeed();
+});
+
+$("#languageFilter").addEventListener("change", event => {
+  state.language = event.target.value;
+  state.visible = CONFIG.pageSize;
+  renderFeed();
+});
+
+$("#ageFilter").addEventListener("change", event => {
+  state.age = event.target.value;
+  state.visible = CONFIG.pageSize;
+  renderFeed();
+});
+
+$("#sortFilter").addEventListener("change", event => {
+  state.sort = event.target.value;
+  state.visible = CONFIG.pageSize;
+  renderFeed();
+});
+
+$("#clearFilters").addEventListener("click", resetFilters);
+$("#refreshBtn").addEventListener("click", () => refreshProjects(true));
+$("#releasesBtn").addEventListener("click", () => loadReleases(true));
+$("#heroExport").addEventListener("click", exportData);
+$("#loadMore").addEventListener("click", () => {
+  state.visible += CONFIG.pageSize;
+  renderFeed();
+});
+
+$("#closeDetail").addEventListener("click", closeDetail);
+$("#detailBackdrop").addEventListener("click", event => {
+  if (event.target === $("#detailBackdrop")) closeDetail();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeDetail();
+});
+
+$("#detailSave").addEventListener("click", () => {
+  if (state.activeDetail) toggleSaved(state.activeDetail.fullName);
+  if (state.activeDetail) openDetail(state.activeDetail.fullName);
+});
+
+$("#clearCache").addEventListener("click", () => {
+  localStorage.removeItem(CONFIG.cache);
+  state.releases = [];
+  renderAll();
+  notify("Cached project and release data cleared.");
+});
+
+$("#heroExport").addEventListener("click", exportData);
+$("#heroExport").addEventListener("click", () => {});
+$("#clearFilters").addEventListener("keydown", event => {
+  if (event.key === "Enter") resetFilters();
+});
+
+// Restore browser-local preferences and render cached results.
+state.saved = new Set(readJSON(CONFIG.storage + "_saved", []).filter(v => typeof v === "string"));
+state.changes = readJSON(CONFIG.storage + "_events", []);
+
+const cached = cacheRead();
+if (cached) {
+  state.projects = cached.projects || [];
+  state.releases = cached.releases || [];
+  state.lastRefresh = cached.lastRefresh || cached.time;
+  setStatus("CACHED DATA", "ok");
+  renderAll();
+} else {
+  renderStats();
+}
+
+refreshProjects(!cached);
+
+})();
+</script>
+</body>
+</html>
