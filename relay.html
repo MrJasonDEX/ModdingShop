@@ -8,10 +8,10 @@
   <meta name="color-scheme" content="dark">
 
   <title>BO2 Relay Guide | Modding XZ</title>
-  <meta name="description" content="The Modding XZ Black Ops 2 relay hub. Community updates, PC-to-console relay information, networking diagnostics, tools and troubleshooting.">
+  <meta name="description" content="The Modding XZ Black Ops 2 relay guide. Beginner-friendly setup instructions, UDP port forwarding, PC-to-console relay information, tools and troubleshooting.">
 
   <meta property="og:title" content="BO2 Relay Guide | Modding XZ">
-  <meta property="og:description" content="Black Ops 2 relay updates, PC-to-PS4/PS5 community resources and networking help.">
+  <meta property="og:description" content="Black Ops 2 relay updates, setup instructions, networking help and community tools.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://moddingxz.co.uk/relay.html">
 
@@ -176,6 +176,7 @@
       font-weight: 800;
       line-height: 1.4;
       cursor: pointer;
+      text-align: center;
       transition: transform .2s, background .2s, border-color .2s;
     }
 
@@ -766,7 +767,7 @@
         <div class="hero-copy">
           <div class="eyebrow">
             <span class="eyebrow-dot"></span>
-            Community testing · Updates in progress
+            Community testing · Beginner-friendly guide
           </div>
 
           <h1>
@@ -775,17 +776,22 @@
           </h1>
 
           <p class="hero-description">
-            PC-to-console relay information, BO2 compatibility updates, networking
-            diagnostics and community tools. Everything collected in one place by
-            <strong>Modding XZ</strong>.
+            Need help understanding the BO2 relay setup? Find the download post,
+            follow the networking guide, check your ports and work through common
+            connection problems — all in one place from <strong>Modding XZ</strong>.
           </p>
 
           <div class="hero-actions">
-            <a href="#updates" class="button button-primary">
-              <i class="bi bi-journal-code"></i> Read latest updates
+            <a href="https://t.me/ModdingXZ/24327"
+               class="button button-primary"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-download"></i> Download BO2 + New Tool
             </a>
-            <a href="#resources" class="button button-outline">
-              <i class="bi bi-grid"></i> Browse resources
+            <a href="#ports" class="button button-outline">
+              <i class="bi bi-router"></i> Port forwarding guide
+            </a>
+            <a href="#updates" class="button button-outline">
+              <i class="bi bi-journal-code"></i> Latest updates
             </a>
           </div>
 
@@ -807,15 +813,15 @@
       <div class="quick-grid">
         <div class="quick-item">
           <i class="bi bi-router"></i>
-          <div><strong>Networking</strong><span>Ports, NAT and traffic</span></div>
+          <div><strong>Networking</strong><span>UDP ports, NAT and router settings</span></div>
         </div>
         <div class="quick-item">
           <i class="bi bi-activity"></i>
-          <div><strong>Diagnostics</strong><span>Wireshark and errors</span></div>
+          <div><strong>Diagnostics</strong><span>Wireshark and connection errors</span></div>
         </div>
         <div class="quick-item">
           <i class="bi bi-controller"></i>
-          <div><strong>Community tools</strong><span>Resources and updates</span></div>
+          <div><strong>Community tools</strong><span>Downloads and announcements</span></div>
         </div>
       </div>
     </div>
@@ -823,11 +829,11 @@
 
   <div class="container">
     <div class="notice warning">
-      <strong><i class="bi bi-exclamation-triangle-fill"></i> Work in progress — setup support is unavailable</strong>
+      <strong><i class="bi bi-exclamation-triangle-fill"></i> Important — read before starting</strong>
       <p>
-        Relay and console-bridge compatibility is still being investigated. Not every tool,
-        client or configuration has been verified. Please do not message the Modding XZ support
-        bot expecting setup help. Updates will be posted on the Telegram channel.
+        Follow the instructions for the exact tool version you downloaded. Network settings
+        alone cannot guarantee a working connection. Setup support is currently unavailable;
+        updates and announcements will be posted on the Modding XZ Telegram channel.
       </p>
     </div>
 
@@ -855,26 +861,34 @@
           <h2 class="section-heading"><span class="section-number">01</span> Introduction</h2>
 
           <p>
-            Black Ops 2 relay methods can be affected by game updates, client compatibility,
-            relay implementations and network configuration. This guide separates community
-            findings from general networking advice.
+            This page explains the main things to check when setting up or troubleshooting
+            a Black Ops 2 relay. You do not need to understand all the technical terms at once.
+            Work through one section at a time and check the instructions included with your tool.
           </p>
 
-          <p>Use this page to find information about:</p>
+          <p>Use this guide to find:</p>
           <ul>
-            <li>Reported protocol and checksum changes.</li>
-            <li>PC relay networking and UDP port forwarding.</li>
-            <li>Windows Firewall and traffic diagnosis.</li>
-            <li>Wireshark filters and common connectivity problems.</li>
-            <li>Console-bridge testing and PSRelay community updates.</li>
-            <li>CGNAT, double NAT and possible VPS limitations.</li>
-            <li>Modding XZ tools, announcements and community resources.</li>
+            <li>The community-reported BO2 protocol and checksum changes.</li>
+            <li>The UDP ports requested for this relay setup.</li>
+            <li>How to find your PC's local IP address.</li>
+            <li>Where to enter port-forwarding rules on your router.</li>
+            <li>How to check Windows Firewall and network traffic.</li>
+            <li>What to investigate if the relay still does not connect.</li>
           </ul>
 
-          <div class="notice danger">
-            <strong>Remember</strong>
-            A port-forwarding rule does not guarantee that a relay will work. The correct
-            ports, tool implementation, client compatibility and return traffic all matter.
+          <div class="notice">
+            <strong>New to port forwarding?</strong>
+            Start with the download post, then read Section 04 slowly. You are directing
+            specific network traffic to your PC — you are not forwarding ports to your console
+            unless the documentation for your particular setup says otherwise.
+          </div>
+
+          <div class="hero-actions">
+            <a href="https://t.me/ModdingXZ/24327"
+               class="button button-primary"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-download"></i> Open Download Post
+            </a>
           </div>
         </section>
 
@@ -884,9 +898,9 @@
           <span class="status-label">Community-reported · Verify against your build</span>
 
           <p>
-            The following values were reported during community investigation of Black Ops 2
-            relay compatibility. Treat them as findings to verify, not proof that every client
-            or relay has been updated successfully.
+            These values were reported during community investigation of Black Ops 2 relay
+            compatibility. They are useful reference points, but do not prove that every
+            client or relay has been updated successfully.
           </p>
 
           <div class="table-wrap">
@@ -902,42 +916,58 @@
             </table>
           </div>
 
-          <h3>Relay investigation</h3>
+          <h3>What does this mean?</h3>
           <p>
-            Community members have also been investigating <code>relay.py</code> and related
-            compatibility problems. Changes to protocol-related values alone do not establish
-            that a particular relay implementation is fixed.
+            These are technical values associated with the game build and compatibility.
+            If a tool was created for a different build, it may need an update. Changing a
+            value alone does not guarantee that the rest of a relay will work.
           </p>
 
           <div class="notice">
-            <strong>Community credit</strong>
-            Thanks to J for helping with the relay investigation. Repeatable test results,
-            exact tool versions and clear error reports are more useful than unverified claims.
+            <strong>Community investigation</strong>
+            Relay implementations and console bridges may behave differently. Check the
+            exact version and release notes rather than assuming that all tools are compatible.
           </div>
 
-          <h3>Follow the latest announcements</h3>
+          <h3>Follow new announcements</h3>
           <p>
-            This page is a reference, not a real-time test monitor. Check Telegram for newer
-            reports, tool changes and release announcements.
+            This page is a guide, not a live test monitor. Check Telegram for newer reports,
+            tool changes and release announcements.
           </p>
+
           <a class="button button-primary" href="https://t.me/ModdingXZ"
              target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-telegram"></i> View Telegram updates
+            <i class="bi bi-telegram"></i> View Telegram Updates
           </a>
         </section>
 
         <section class="guide-section" id="requirements">
-          <h2 class="section-heading"><span class="section-number">03</span> Requirements</h2>
+          <h2 class="section-heading"><span class="section-number">03</span> What you need</h2>
 
           <ul>
             <li>A compatible Black Ops 2 PC client.</li>
-            <li>The intended relay tool and its documentation.</li>
+            <li>The intended relay tool and its instructions.</li>
             <li>Any dependencies specified by that tool.</li>
-            <li>Access to the router, if its configuration needs changing.</li>
+            <li>Access to your router settings, if forwarding is required.</li>
             <li>The local IPv4 address of the PC running the relay.</li>
-            <li>Wireshark and Npcap, if packet-level diagnosis is needed.</li>
-            <li>A network that permits the required traffic.</li>
+            <li>Wireshark and Npcap if you need to investigate network traffic.</li>
           </ul>
+
+          <div class="notice warning">
+            <strong>Download the files first</strong>
+            <p>
+              Open the Telegram post below and read the information attached to the release.
+              Make sure you understand which files belong to the game and which are the relay
+              tool before opening anything.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary"
+                 href="https://t.me/ModdingXZ/24327"
+                 target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-telegram"></i> BO2 + New Tool
+              </a>
+            </div>
+          </div>
 
           <div class="resource-grid">
             <article class="resource-card">
@@ -966,112 +996,193 @@
           <div class="notice warning">
             <strong>Download safely</strong>
             Only run files from sources you trust. Be cautious with old executables,
-            unexpected administrator requests and files that require disabling security software.
+            unexpected administrator requests and files that ask you to disable security software.
           </div>
         </section>
 
         <section class="guide-section" id="ports">
-          <h2 class="section-heading"><span class="section-number">04</span> Port forwarding</h2>
+          <h2 class="section-heading"><span class="section-number">04</span> Port forwarding — step by step</h2>
 
           <p>
-            Port forwarding directs certain incoming network traffic to a device on your local
-            network. The correct values depend on the relay implementation.
+            Port forwarding tells your router where to send certain incoming internet traffic.
+            For the setup described in this guide, configure the following UDP ports on the
+            router that connects your PC to the internet.
           </p>
 
           <div class="notice warning">
-            <strong><i class="bi bi-router"></i> Community-discussed port range</strong>
-            UDP <code>3060–3080</code> has been discussed for the relay setup. It is not a
-            universal requirement for every BO2 tool or client.
+            <strong><i class="bi bi-router"></i> Ports requested for this setup</strong>
+            <p>
+              Forward the UDP range <code>3060–3080</code> and the additional UDP port
+              <code>17376</code> to the local IP address of the PC running the relay.
+              These are the requested settings for this setup; if the tool's release
+              instructions specify different values, verify which configuration applies
+              to your exact build.
+            </p>
+          </div>
+
+          <h3>Port details</h3>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Rule</th><th>Protocol</th><th>Port or range</th><th>Destination</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>BO2 Relay</td>
+                  <td><code>UDP</code></td>
+                  <td><code>3060–3080</code></td>
+                  <td>Your relay PC's local IPv4</td>
+                </tr>
+                <tr>
+                  <td>Additional port</td>
+                  <td><code>UDP</code></td>
+                  <td><code>17376</code></td>
+                  <td>The same relay PC</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <div class="code-wrap">
-            <pre id="portRange">Protocol: UDP
-Port range: 3060-3080</pre>
-            <button class="copy-btn" type="button" data-copy="portRange">Copy</button>
+            <pre id="portRange">BO2 Relay — port range
+Protocol: UDP
+Ports: 3060-3080
+
+Additional rule
+Protocol: UDP
+Port: 17376
+
+Destination: YOUR-PC-LOCAL-IP</pre>
+            <button class="copy-btn" type="button" data-copy="portRange">Copy details</button>
           </div>
 
-          <h3>General router configuration</h3>
+          <h3>Step 1 — Find your PC's local IP address</h3>
           <ol>
-            <li>Open Command Prompt on the PC running the relay.</li>
-            <li>Run <code>ipconfig</code> and find the Default Gateway.</li>
-            <li>Enter the gateway address into your browser.</li>
-            <li>Sign in to your router and locate Port Forwarding, NAT or Virtual Server settings.</li>
-            <li>Use the protocol and ports required by your exact tool.</li>
-            <li>Set the destination to the correct local IPv4 address of the PC.</li>
-            <li>Save the rule and verify the configuration.</li>
+            <li>On the PC running the relay, open the Windows Start menu.</li>
+            <li>Type <strong>Command Prompt</strong> and open it.</li>
+            <li>Type <code>ipconfig</code> and press Enter.</li>
+            <li>Find the network adapter you are actually using — Wi-Fi or Ethernet.</li>
+            <li>Write down the <strong>IPv4 Address</strong>. This is the destination for your rules.</li>
           </ol>
 
-          <h3>Example rule</h3>
           <div class="code-wrap">
-            <pre id="exampleRule">Rule name: BO2Relay
+            <pre id="portIpconfig">ipconfig</pre>
+            <button class="copy-btn" type="button" data-copy="portIpconfig">Copy command</button>
+          </div>
+
+          <p>
+            Your IPv4 address may look similar to <code>192.168.1.100</code> or
+            <code>192.168.0.25</code>. Use the address shown on your own PC, not these examples.
+            Do not use the Default Gateway as the destination IP for your PC's forwarding rule.
+          </p>
+
+          <h3>Step 2 — Open your router settings</h3>
+          <ol>
+            <li>In the same Command Prompt window, find <strong>Default Gateway</strong>.</li>
+            <li>Type that address into your browser's address bar.</li>
+            <li>Sign in to your router using its administration details.</li>
+            <li>Look for <strong>Port Forwarding</strong>, <strong>NAT</strong> or <strong>Virtual Server</strong>.</li>
+          </ol>
+
+          <p class="muted small">
+            Router menus differ by manufacturer and internet provider. If you cannot find the
+            option, check your router's manual or your provider's instructions.
+          </p>
+
+          <h3>Step 3 — Add the UDP port range</h3>
+          <ol>
+            <li>Create a new rule called <code>BO2 Relay</code>.</li>
+            <li>Choose <strong>UDP</strong> as the protocol.</li>
+            <li>Enter <code>3060</code> as the starting port and <code>3080</code> as the ending port, if the router has separate fields.</li>
+            <li>Enter your PC's local IPv4 address as the destination.</li>
+            <li>Use the same internal port range unless your tool's instructions specify otherwise.</li>
+            <li>Save or apply the rule.</li>
+          </ol>
+
+          <h3>Step 4 — Add UDP port 17376</h3>
+          <ol>
+            <li>Create another rule, or add an individual port entry if your router supports it.</li>
+            <li>Name it <code>BO2 Relay 17376</code>.</li>
+            <li>Choose <strong>UDP</strong>.</li>
+            <li>Set the external and internal port to <code>17376</code>, unless the tool documentation specifies a different mapping.</li>
+            <li>Set the destination to the same PC's local IPv4 address.</li>
+            <li>Save or apply the rule.</li>
+          </ol>
+
+          <h3>Example configuration</h3>
+          <div class="code-wrap">
+            <pre id="exampleRule">Rule 1
+Name: BO2Relay
 Protocol: UDP
 External ports: 3060-3080
 Internal ports: 3060-3080
+Destination IP: YOUR-PC-LOCAL-IP
+
+Rule 2
+Name: BO2Relay17376
+Protocol: UDP
+External port: 17376
+Internal port: 17376
 Destination IP: YOUR-PC-LOCAL-IP</pre>
             <button class="copy-btn" type="button" data-copy="exampleRule">Copy example</button>
           </div>
 
-          <p class="muted small">
-            This is an illustrative example, not a universal configuration. Do not assume
-            every relay uses these ports or maps external and internal ports identically.
-          </p>
+          <div class="notice success">
+            <strong>Check before moving on</strong>
+            Both rules should use UDP and point to the PC running the relay. If the PC's local
+            IP changes later, your router rules may point to the wrong device. A DHCP reservation
+            can help keep that address consistent.
+          </div>
 
-          <h3>Already have UDP 3060–3080 forwarded?</h3>
-          <p>
-            If a valid rule already covers that UDP range and points to the correct PC,
-            you generally do not need additional overlapping rules for individual UDP ports
-            within the same range. Other protocols or ports may require separate rules.
-          </p>
-
-          <div class="notice">
-            <strong>Keep the destination address stable</strong>
-            A DHCP reservation can help prevent your PC receiving a different local IP,
-            which could otherwise leave the forwarding rule pointing to the wrong device.
+          <div class="notice warning">
+            <strong>Still not connecting?</strong>
+            Saving a rule does not guarantee that packets can reach your PC. Windows Firewall,
+            CGNAT, double NAT, the tool's configuration and remote network behaviour can all affect
+            the result. Continue to the troubleshooting section rather than opening random ports.
           </div>
         </section>
 
         <section class="guide-section" id="setup">
           <h2 class="section-heading"><span class="section-number">05</span> PC setup and firewall</h2>
 
-          <h3>Step 1 — Find your IPv4 address</h3>
-          <p>Open Command Prompt and run:</p>
+          <h3>Step 1 — Confirm your IP address</h3>
+          <p>
+            Open Command Prompt and run the command below. Use the IPv4 address under your
+            active Wi-Fi or Ethernet adapter.
+          </p>
 
           <div class="code-wrap">
             <pre id="ipconfig">ipconfig</pre>
             <button class="copy-btn" type="button" data-copy="ipconfig">Copy</button>
           </div>
 
-          <p>
-            Look under the active network adapter for IPv4 Address. It may resemble
-            <code>192.168.1.100</code>, but your own address will vary.
-          </p>
-
-          <h3>Step 2 — Verify the forwarding destination</h3>
-          <p>
-            Check the router rule against the PC's current local IP address. Confirm the
-            protocol and port values against documentation for the exact tool version.
-          </p>
-
-          <h3>Step 3 — Check Windows Firewall</h3>
+          <h3>Step 2 — Check Windows Firewall</h3>
           <ul>
-            <li>Check whether Windows Firewall has blocked the application.</li>
-            <li>Only allow applications you trust, using the appropriate network profile.</li>
-            <li>If a port rule is needed, make sure its protocol and ports are correct.</li>
-            <li>Keep Windows Firewall enabled rather than using permanent disabling as a workaround.</li>
+            <li>Open Windows Security and find Firewall and network protection.</li>
+            <li>Check whether the relay application has been blocked.</li>
+            <li>Only allow programs you trust, and use the appropriate network profile.</li>
+            <li>If you create a firewall rule, confirm the protocol and ports required by your tool.</li>
+            <li>Keep Windows Firewall enabled. Do not permanently disable it just to test a connection.</li>
           </ul>
 
-          <h3>Step 4 — Check the tool's own settings</h3>
+          <h3>Step 3 — Read the tool instructions</h3>
           <p>
-            Follow the documentation included with the exact build. Startup order, interface
-            selection, dependencies and command-line options can vary between implementations.
-            A filename such as <code>RUN_GUI.exe</code> alone does not establish which settings
-            are required.
+            Open the release post and any included readme or documentation. Check which file
+            starts the relay, whether extra dependencies are required, and whether the tool
+            has settings you need to configure.
+          </p>
+
+          <h3>Step 4 — Start testing</h3>
+          <p>
+            Follow the order specified by the tool's author. If the application displays an
+            error, record the exact message and tool version. Do not guess at command-line
+            options or run unknown programs as administrator.
           </p>
 
           <div class="notice warning">
-            <strong>Do not guess missing configuration</strong>
-            If a tool fails to start, record the exact error and version before changing settings.
-            Avoid running unknown programs as administrator.
+            <strong>One change at a time</strong>
+            If you change router rules, firewall settings and tool configuration all at once,
+            it becomes much harder to identify the real cause of a problem.
           </div>
         </section>
 
@@ -1079,8 +1190,9 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
           <h2 class="section-heading"><span class="section-number">06</span> Wireshark diagnostics</h2>
 
           <p>
-            Wireshark can help identify which packets are visible on your PC. Select the correct
-            network interface and start a capture while reproducing the issue.
+            Wireshark lets you inspect network traffic on your PC. It is useful when the relay
+            starts but a connection still fails. Choose the active network interface, begin a
+            capture and reproduce the problem.
           </p>
 
           <h3>Useful display filters</h3>
@@ -1103,29 +1215,35 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
             <button class="copy-btn" type="button" data-copy="filter3077">Copy</button>
           </div>
 
-          <p class="muted small">Traffic involving ports 3060–3080</p>
+          <p class="muted small">Traffic involving UDP ports 3060–3080</p>
           <div class="code-wrap">
             <pre id="filterRange">udp.port >= 3060 && udp.port <= 3080</pre>
             <button class="copy-btn" type="button" data-copy="filterRange">Copy</button>
           </div>
 
+          <p class="muted small">Traffic involving UDP port 17376</p>
+          <div class="code-wrap">
+            <pre id="filter17376">udp.port == 17376</pre>
+            <button class="copy-btn" type="button" data-copy="filter17376">Copy</button>
+          </div>
+
           <div class="table-wrap">
             <table>
               <thead>
-                <tr><th>Observation</th><th>Things to investigate</th></tr>
+                <tr><th>What you see</th><th>What to check next</th></tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>No relevant traffic is visible</td>
-                  <td>Capture interface, expected traffic, router forwarding, NAT or firewall.</td>
+                  <td>No relevant traffic appears</td>
+                  <td>Confirm the interface, filter, expected traffic and router destination.</td>
                 </tr>
                 <tr>
-                  <td>Packets arrive but the relay does not handle them</td>
-                  <td>Tool configuration, dependencies, interface selection or permissions.</td>
+                  <td>Packets reach the PC, but the relay does not respond</td>
+                  <td>Check the tool's settings, dependencies, firewall and compatibility.</td>
                 </tr>
                 <tr>
-                  <td>Traffic appears but the connection fails</td>
-                  <td>Return traffic, NAT behaviour, compatibility or remote network configuration.</td>
+                  <td>Packets appear, but the connection fails</td>
+                  <td>Investigate return traffic, NAT behaviour and compatibility between clients.</td>
                 </tr>
               </tbody>
             </table>
@@ -1133,8 +1251,8 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
 
           <div class="notice warning">
             <strong>Protect your privacy</strong>
-            Captures and logs may contain IP addresses and other identifying network information.
-            Redact them before sharing publicly. Never publish passwords, tokens or private keys.
+            Network captures can reveal IP addresses and other identifying information.
+            Redact these before sharing publicly. Never publish passwords, tokens or private keys.
           </div>
         </section>
 
@@ -1143,24 +1261,25 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
 
           <h3>What is CGNAT?</h3>
           <p>
-            Carrier-grade NAT means your ISP may place your connection behind an additional
-            shared NAT layer. In that situation, forwarding a port on your own router may not
-            make the service reachable from the public internet.
+            Some internet providers place customers behind an additional shared network layer.
+            This is called carrier-grade NAT, or CGNAT. If your connection uses CGNAT, a port
+            forwarding rule on your own router may not be enough to make your PC reachable
+            from outside your home network.
           </p>
 
           <h3>How to investigate</h3>
           <ol>
-            <li>Find your router's WAN or Internet IPv4 address.</li>
-            <li>Compare it with the public IPv4 address reported by a reputable IP-checking service.</li>
-            <li>If they differ, investigate CGNAT, upstream routers or other network arrangements.</li>
+            <li>Open your router's status or Internet page.</li>
+            <li>Find its WAN or Internet IPv4 address.</li>
+            <li>Compare that address with the public IPv4 shown by a reputable IP-checking service.</li>
+            <li>If they differ, investigate CGNAT, an upstream router or another network arrangement.</li>
           </ol>
 
           <p>
             Private IPv4 ranges include <code>10.0.0.0/8</code>,
             <code>172.16.0.0/12</code> and <code>192.168.0.0/16</code>.
-            The shared address range associated with CGNAT is
-            <code>100.64.0.0/10</code>. Address comparisons are useful clues, not definitive
-            proof of your network topology.
+            The shared address range associated with CGNAT is <code>100.64.0.0/10</code>.
+            Address comparisons are clues, not definitive proof of your network topology.
           </p>
 
           <h3>Example double NAT layout</h3>
@@ -1176,17 +1295,17 @@ PC running the relay</pre>
           </div>
 
           <p>
-            If your own router is behind an ISP gateway, the upstream device may also be
-            performing NAT. The correct solution depends on which device controls the public
-            connection and what configuration options are available.
+            If your PC connects through two routers, forwarding may need to be configured on
+            both devices. The right solution depends on which device receives the public
+            connection and which options your provider supports.
           </p>
 
           <h3>Would a VPS help?</h3>
           <p>
-            A VPS can provide a public endpoint, but renting one does not automatically solve
-            CGNAT. The necessary tunnel, routing and forwarding must be configured for the
-            application. A technology such as WireGuard may be suitable for some network
-            designs, but it requires configuration on both ends.
+            A VPS may provide a public endpoint, but renting one does not automatically solve
+            CGNAT. The necessary tunnel, routing and port forwarding must be configured correctly.
+            A VPN tunnel such as WireGuard can be suitable for some network designs, but it
+            requires configuration at both ends.
           </p>
         </section>
 
@@ -1196,35 +1315,35 @@ PC running the relay</pre>
           <div class="notice success">
             <strong><i class="bi bi-check-circle"></i> Community testing report</strong>
             A bridge setup involving PSRelay and UDP ports 3060–3080 has been reported working
-            in testing. This is a community report, not a guarantee that the method works with
-            every console, client, network or tool build.
+            in testing. This is a community report, not a guarantee that it works with every
+            console, client, network or tool build.
           </div>
 
           <p>
             The community has been investigating relay behaviour and compatibility following
-            reported BO2 changes. Existing statistics tools and bridge tools may not behave
-            identically, even when used with the same network configuration.
+            reported BO2 changes. Tools that display statistics and tools that bridge traffic
+            may behave differently even when used on the same network.
           </p>
 
-          <h3>Current reported limitations</h3>
+          <h3>Reported limitations</h3>
           <ul>
             <li>Compatibility can vary between tool versions and configurations.</li>
             <li>Some statistics tools may not support the same bridging behaviour.</li>
             <li>Player names or related information may display incorrectly.</li>
-            <li>The current method has been described as cumbersome.</li>
-            <li>A separate tool has been reported as needing fixes before wider release.</li>
+            <li>Some configurations have been described as cumbersome.</li>
+            <li>Tools may require further fixes before wider release.</li>
           </ul>
 
           <div class="notice warning">
-            <strong>Setup instructions are not being offered yet</strong>
-            Modding XZ is not currently offering setup support for this method. Please do not
-            message the support bot expecting individual setup assistance. Any new instructions
-            or releases will be announced when ready.
+            <strong>Setup support is not available yet</strong>
+            Modding XZ is not currently offering individual setup support for this method.
+            Please do not message the support bot expecting help configuring your PC or console.
+            New instructions and releases will be announced on Telegram when available.
           </div>
 
           <a class="button button-primary" href="https://t.me/ModdingXZ"
              target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-telegram"></i> Follow bridge updates
+            <i class="bi bi-telegram"></i> Follow Bridge Updates
           </a>
         </section>
 
@@ -1232,64 +1351,75 @@ PC running the relay</pre>
           <h2 class="section-heading"><span class="section-number">09</span> Troubleshooting</h2>
 
           <details>
-            <summary>My forwarding rule is saved, but the relay still does not work.</summary>
+            <summary>I've forwarded the ports, but the relay still doesn't work.</summary>
             <p>
-              Check the destination IP, protocol, ports and active network interface. Investigate
-              CGNAT or double NAT, then capture traffic to see whether packets reach the PC.
-              A saved router rule does not guarantee end-to-end connectivity.
+              Check that UDP ports 3060–3080 and UDP port 17376 point to the correct local PC IP.
+              Check Windows Firewall and the tool's instructions. If the problem continues,
+              investigate CGNAT or double NAT and use Wireshark to see whether traffic reaches
+              your PC. Forwarding alone does not guarantee a working connection.
             </p>
           </details>
 
           <details>
-            <summary>I already forwarded UDP 3060–3080. Do I need separate rules?</summary>
+            <summary>Do I need two port-forwarding rules?</summary>
             <p>
-              Usually not for individual UDP ports already covered by a correct range rule pointing
-              to the correct PC. Follow the exact tool's documentation for any additional ports
-              or protocols.
+              For this guide, the requested configuration is one UDP range rule covering
+              3060–3080 and a separate UDP rule for 17376. A router that supports a range and
+              individual ports may let you configure these in different ways, but both sets
+              of ports must be covered by the intended rules.
+            </p>
+          </details>
+
+          <details>
+            <summary>Which IP address do I enter into my router?</summary>
+            <p>
+              Enter the local IPv4 address of the PC running the relay. Use
+              <code>ipconfig</code> in Command Prompt to find it. Do not enter the Default
+              Gateway as the destination for the PC rule.
+            </p>
+          </details>
+
+          <details>
+            <summary>My PC's IP address starts with 192.168 or 10. Is that wrong?</summary>
+            <p>
+              No. These are common private local-network addresses. The router forwards traffic
+              to your PC using its local IP address. Your PC's local IP is different from your
+              public internet IP.
             </p>
           </details>
 
           <details>
             <summary>Wireshark shows no relevant packets.</summary>
             <p>
-              Confirm you selected the active interface and are reproducing the issue while
-              capturing. Check the filter, forwarding destination, firewall and NAT configuration.
-              Also consider whether the expected traffic is actually being sent.
+              Confirm you selected the active network interface and are reproducing the problem
+              during the capture. Check your display filter, forwarding destination and firewall.
+              Also consider whether the expected traffic is being sent in the first place.
             </p>
           </details>
 
           <details>
-            <summary>The relay starts, but the game does not connect.</summary>
+            <summary>The relay opens, but the game doesn't connect.</summary>
             <p>
-              A running application does not prove that the connection is working. Check the
-              compatibility of the client and tool versions, inspect traffic and verify the
-              configuration against the documentation for that exact build.
+              A running application does not prove that the connection works. Verify the client
+              and tool versions, review the configuration and inspect traffic. Compatibility,
+              return traffic and network restrictions can all affect the result.
             </p>
           </details>
 
           <details>
-            <summary>Can an online UDP port checker confirm that everything works?</summary>
+            <summary>Can an online UDP port checker confirm everything is working?</summary>
             <p>
-              Not necessarily. UDP applications may not respond to arbitrary probes, so a
-              checker can return inconclusive results. Application-specific tests and packet
-              captures are generally more useful for diagnosing the actual traffic.
+              Not necessarily. UDP applications may not respond to arbitrary probes, so an
+              online checker can give inconclusive results. Application-specific tests and
+              packet captures are usually more useful for diagnosing the actual traffic.
             </p>
           </details>
 
           <details>
             <summary>Does a VPS automatically bypass CGNAT?</summary>
             <p>
-              No. A VPS can provide a public endpoint, but the required tunnel, routing and
-              forwarding must be correctly configured.
-            </p>
-          </details>
-
-          <details>
-            <summary>Player names or statistics are incorrect.</summary>
-            <p>
-              Record the client and tool versions and establish whether the issue occurs with
-              the original tool or only during bridging. Redact identifying information from
-              logs and captures before sharing them.
+              No. A VPS may provide a public endpoint, but the tunnel, routing and forwarding
+              must be correctly configured for the application.
             </p>
           </details>
 
@@ -1297,8 +1427,8 @@ PC running the relay</pre>
             <summary>Where can I get setup help?</summary>
             <p>
               Individual setup support for this method is not currently available through
-              Modding XZ. Check the community channel for announcements and any updated
-              documentation when it becomes available.
+              Modding XZ. Check the Telegram channel for announcements and updated documentation
+              when it becomes available.
             </p>
           </details>
         </section>
@@ -1307,8 +1437,8 @@ PC running the relay</pre>
           <h2 class="section-heading"><span class="section-number">10</span> Diagnostic checklist</h2>
 
           <p class="muted small">
-            Tick off each check as you complete it. Progress is saved locally in this browser
-            when storage is available.
+            Work through the checks one at a time. Tick each box when you have completed it.
+            Your progress is saved in this browser when local storage is available.
           </p>
 
           <div class="progress-track" role="progressbar"
@@ -1321,10 +1451,10 @@ PC running the relay</pre>
           <p class="muted small" id="checkCount" aria-live="polite">0 of 8 checks complete</p>
 
           <div class="checklist" id="checklistItems">
-            <label><input type="checkbox" data-check="0"><span>I have confirmed the client and relay build.</span></label>
-            <label><input type="checkbox" data-check="1"><span>I have identified the PC's local IPv4 address.</span></label>
-            <label><input type="checkbox" data-check="2"><span>I have checked the router forwarding destination.</span></label>
-            <label><input type="checkbox" data-check="3"><span>The protocol and ports match the tool documentation.</span></label>
+            <label><input type="checkbox" data-check="0"><span>I have confirmed the client and relay version.</span></label>
+            <label><input type="checkbox" data-check="1"><span>I have found the PC's local IPv4 address.</span></label>
+            <label><input type="checkbox" data-check="2"><span>I have forwarded UDP ports 3060–3080 to the correct PC.</span></label>
+            <label><input type="checkbox" data-check="3"><span>I have added UDP port 17376 to the correct PC.</span></label>
             <label><input type="checkbox" data-check="4"><span>I have checked Windows Firewall.</span></label>
             <label><input type="checkbox" data-check="5"><span>I have investigated possible CGNAT or double NAT.</span></label>
             <label><input type="checkbox" data-check="6"><span>I have checked the active interface and traffic in Wireshark.</span></label>
@@ -1333,7 +1463,7 @@ PC running the relay</pre>
 
           <div class="hero-actions">
             <button class="button button-outline" id="resetChecklist" type="button">
-              <i class="bi bi-arrow-counterclockwise"></i> Reset checklist
+              <i class="bi bi-arrow-counterclockwise"></i> Reset Checklist
             </button>
           </div>
         </section>
@@ -1342,11 +1472,20 @@ PC running the relay</pre>
           <h2 class="section-heading"><span class="section-number">11</span> Tools and resources</h2>
 
           <p>
-            Community posts and external links are provided for reference. Their inclusion does
-            not independently verify file safety, compatibility or availability.
+            These links are provided as references to community posts and external resources.
+            Their inclusion does not independently verify file safety, compatibility or availability.
           </p>
 
           <div class="resource-grid">
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-download"></i></div>
+              <span class="tag">Featured download</span>
+              <h3>BO2 + New Tool</h3>
+              <p>Open the Modding XZ Telegram post for the game files and new tool information.</p>
+              <a class="resource-link" href="https://t.me/ModdingXZ/24327"
+                 target="_blank" rel="noopener noreferrer">Open download post <i class="bi bi-arrow-up-right"></i></a>
+            </article>
+
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-tools"></i></div>
               <span class="tag">Community resource</span>
@@ -1369,7 +1508,7 @@ PC running the relay</pre>
               <div class="resource-icon"><i class="bi bi-controller"></i></div>
               <span class="tag">External link</span>
               <h3>Black Ops 2 PC files</h3>
-              <p>Verify the source and your rights to access and use any files obtained.</p>
+              <p>Check the source and make sure you have the right to access and use any files obtained.</p>
               <a class="resource-link" href="https://buzzheavier.com/turbm180v9i6"
                  target="_blank" rel="noopener noreferrer">Open external resource <i class="bi bi-arrow-up-right"></i></a>
             </article>
@@ -1404,7 +1543,7 @@ PC running the relay</pre>
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-globe2"></i></div>
               <span class="tag">Official community</span>
-              <h3>Modding XZ website</h3>
+              <h3>Modding XZ Website</h3>
               <p>Visit the website for community information and other resources.</p>
               <a class="resource-link" href="https://moddingxz.co.uk"
                  target="_blank" rel="noopener noreferrer">Visit website <i class="bi bi-arrow-up-right"></i></a>
@@ -1414,7 +1553,7 @@ PC running the relay</pre>
               <div class="resource-icon"><i class="bi bi-telegram"></i></div>
               <span class="tag">Updates and announcements</span>
               <h3>Modding XZ Telegram</h3>
-              <p>Check community posts for announcements and future updates.</p>
+              <p>Check the community channel for announcements and future releases.</p>
               <a class="resource-link" href="https://t.me/ModdingXZ"
                  target="_blank" rel="noopener noreferrer">Join the channel <i class="bi bi-arrow-up-right"></i></a>
             </article>
@@ -1431,15 +1570,16 @@ PC running the relay</pre>
           <h2 class="section-heading"><span class="section-number">12</span> Final notes</h2>
 
           <p>
-            This guide is a community reference, not a guarantee that any specific relay
-            configuration works. Network settings are only one part of the picture;
-            compatibility, tool behaviour and return traffic can also affect the result.
+            The main things to check are the correct tool version, the PC's local IP address,
+            both sets of UDP ports, Windows Firewall and the traffic reaching your PC.
+            If those checks do not solve the problem, NAT restrictions or compatibility may
+            be involved.
           </p>
 
           <p>
-            When documenting a problem, record the exact error, Windows version, client and
-            relay build, router configuration and what you observed in Wireshark. Remove
-            personal network information before sharing screenshots or captures.
+            When recording a problem, note the exact error, Windows version, client and relay
+            build, router configuration and what you observed in Wireshark. Remove personal
+            network information before sharing screenshots or captures.
           </p>
 
           <div class="notice danger">
@@ -1455,7 +1595,7 @@ PC running the relay</pre>
               <i class="bi bi-telegram"></i> Join Modding XZ
             </a>
             <a class="button button-outline" href="https://moddingxz.co.uk">
-              <i class="bi bi-globe"></i> Main website
+              <i class="bi bi-globe"></i> Main Website
             </a>
           </div>
         </section>
@@ -1493,7 +1633,6 @@ PC running the relay</pre>
 
       $('#year').textContent = new Date().getFullYear();
 
-      // Clipboard with a manual-selection fallback.
       let toastTimer;
 
       function showToast(message) {
@@ -1507,6 +1646,7 @@ PC running the relay</pre>
         }, 2400);
       }
 
+      // Copy buttons.
       $$('[data-copy]').forEach(button => {
         button.addEventListener('click', async () => {
           const target = document.getElementById(button.dataset.copy);
@@ -1534,8 +1674,8 @@ PC running the relay</pre>
         });
       });
 
-      // Checklist progress and optional local persistence.
-      const STORAGE_KEY = 'moddingxz-relay-checklist-v1';
+      // Checklist progress and local persistence.
+      const STORAGE_KEY = 'moddingxz-relay-checklist-v2';
       const checks = $$('#checklistItems input[type="checkbox"]');
       const progress = $('#checkProgress');
       const count = $('#checkCount');
@@ -1548,7 +1688,7 @@ PC running the relay</pre>
             JSON.stringify(checks.map(input => input.checked))
           );
         } catch {
-          // Checklist still works for the current page session.
+          // The checklist remains usable for the current page session.
         }
       }
 
