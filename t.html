@@ -1,2516 +1,1803 @@
 
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#08060f">
-    <meta name="color-scheme" content="dark">
-
-    <title>ModdingXZ — Enter the Next Level</title>
-
-    <meta name="description" content="Explore ModdingXZ: gaming, modding tools, community projects and resources. Join our Telegram community and help us reach 5K.">
-    <meta property="og:title" content="ModdingXZ — Enter the Next Level">
-    <meta property="og:description" content="Gaming. Modding. Community. Discover the next level with ModdingXZ.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://moddingxz.co.uk/">
-    <link rel="canonical" href="https://moddingxz.co.uk/">
-
-    <!-- External fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- External Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- External Font Awesome icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-
-    <!-- External AOS scroll animation library -->
-    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
-    <style>
-        /* ==========================================
-           MODDINGXZ — DESIGN SYSTEM
-        ========================================== */
-
-        :root {
-            --bg: #08060f;
-            --bg-2: #0c0915;
-            --panel: #100c1a;
-            --panel-2: #151020;
-            --purple: #9b5cff;
-            --purple-2: #7536d3;
-            --purple-light: #d1b4ff;
-            --text: #f8f6ff;
-            --muted: #a59cb7;
-            --border: rgba(193, 157, 255, .15);
-            --radius: 22px;
-            --content: 1160px;
-            --nav-height: 74px;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: calc(var(--nav-height) + 18px);
-            background: var(--bg);
-        }
-
-        body {
-            margin: 0;
-            min-width: 320px;
-            overflow-x: clip;
-            background:
-                radial-gradient(ellipse at 50% -15%, rgba(117,54,211,.15), transparent 50%),
-                var(--bg);
-            color: var(--text);
-            font-family: "Inter", sans-serif;
-            line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        ::selection {
-            color: white;
-            background: #7536d3;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button,
-        a {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        button {
-            font: inherit;
-        }
-
-        img,
-        svg,
-        canvas {
-            max-width: 100%;
-        }
-
-        .container-xl {
-            width: min(100% - 40px, var(--content));
-            padding-right: 0;
-            padding-left: 0;
-        }
-
-        .font-display {
-            font-family: "Orbitron", sans-serif;
-        }
-
-        .purple {
-            color: var(--purple-light);
-        }
-
-        .gradient-text {
-            color: var(--purple-light);
-            background: linear-gradient(100deg, #fff 0%, #d4b5ff 43%, #985aff 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section {
-            padding: 100px 0;
-        }
-
-        .section-heading {
-            max-width: 680px;
-            margin-bottom: 42px;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            margin-bottom: 17px;
-            color: var(--purple-light);
-            font-family: "Orbitron", sans-serif;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .eyebrow::before {
-            width: 23px;
-            height: 2px;
-            background: var(--purple);
-            content: "";
-        }
-
-        .section-title {
-            margin: 0 0 16px;
-            font-size: clamp(2rem, 5vw, 3.35rem);
-            font-weight: 900;
-            line-height: 1.12;
-            letter-spacing: -1.8px;
-            overflow-wrap: anywhere;
-        }
-
-        .section-description {
-            max-width: 580px;
-            margin: 0;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.9;
-        }
-
-        /* ==========================================
-           REUSABLE BUTTONS
-        ========================================== */
-
-        .btn-primary-xz,
-        .btn-secondary-xz {
-            min-height: 48px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 13px 19px;
-            border-radius: 13px;
-            font-size: 13px;
-            font-weight: 800;
-            text-align: center;
-            transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
-        }
-
-        .btn-primary-xz {
-            border: 1px solid rgba(219, 196, 255, .23);
-            background: linear-gradient(135deg, #a96aff, #7137ce);
-            color: #fff;
-            box-shadow: 0 7px 25px rgba(116, 54, 211, .2);
-        }
-
-        .btn-primary-xz:hover {
-            color: #fff;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 34px rgba(116, 54, 211, .35);
-        }
-
-        .btn-secondary-xz {
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,.025);
-            color: #eee7fa;
-        }
-
-        .btn-secondary-xz:hover {
-            color: white;
-            border-color: rgba(190, 145, 255, .45);
-            background: rgba(155, 92, 255, .08);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary-xz:focus-visible,
-        .btn-secondary-xz:focus-visible,
-        .nav-link-xz:focus-visible,
-        .icon-button:focus-visible {
-            outline: 2px solid var(--purple-light);
-            outline-offset: 4px;
-        }
-
-        /* ==========================================
-           TOP PROGRESS BAR
-        ========================================== */
-
-        .reading-progress {
-            position: fixed;
-            z-index: 2000;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #7137ce, #d1b4ff);
-            box-shadow: 0 0 15px rgba(155,92,255,.7);
-            pointer-events: none;
-        }
-
-        /* ==========================================
-           NAVIGATION
-        ========================================== */
-
-        .site-nav {
-            position: sticky;
-            z-index: 1500;
-            top: 0;
-            height: var(--nav-height);
-            border-bottom: 1px solid rgba(255,255,255,.065);
-            background: rgba(8,6,15,.82);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        .nav-inner {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .brand {
-            min-width: 0;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: white;
-            font-size: 17px;
-            font-weight: 900;
-            letter-spacing: -.5px;
-        }
-
-        .brand-mark {
-            width: 38px;
-            height: 38px;
-            flex-shrink: 0;
-            display: grid;
-            place-items: center;
-            border: 1px solid rgba(220,198,255,.23);
-            border-radius: 12px;
-            background: linear-gradient(140deg, #a96aff, #5929a7);
-            color: white;
-            box-shadow: 0 0 25px rgba(127,67,221,.23);
-        }
-
-        .brand-xz {
-            color: var(--purple-light);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .nav-link-xz {
-            padding: 10px 12px;
-            border-radius: 9px;
-            color: #bcb3cb;
-            font-size: 12px;
-            font-weight: 700;
-            transition: color .2s ease, background .2s ease;
-        }
-
-        .nav-link-xz:hover,
-        .nav-link-xz.active {
-            color: white;
-            background: rgba(255,255,255,.045);
-        }
-
-        .nav-join {
-            min-height: 40px;
-            padding: 10px 15px;
-            font-size: 12px;
-        }
-
-        .menu-toggle {
-            width: 44px;
-            height: 44px;
-            flex-shrink: 0;
-            display: none;
-            place-items: center;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--panel);
-            color: white;
-            font-size: 19px;
-            cursor: pointer;
-        }
-
-        /* ==========================================
-           HERO
-        ========================================== */
-
-        .hero {
-            position: relative;
-            isolation: isolate;
-            min-height: 670px;
-            display: flex;
-            align-items: center;
-            padding: 92px 0 55px;
-        }
-
-        #particles-js {
-            position: absolute;
-            z-index: -1;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            opacity: .55;
-        }
-
-        .hero-grid {
-            position: absolute;
-            z-index: -2;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(185,145,255,.055) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(185,145,255,.055) 1px, transparent 1px);
-            background-size: 55px 55px;
-            mask-image: linear-gradient(to bottom, black, transparent 90%);
-            pointer-events: none;
-        }
-
-        .hero-glow {
-            position: absolute;
-            z-index: -1;
-            top: 5%;
-            right: -180px;
-            width: min(650px, 85vw);
-            aspect-ratio: 1;
-            border-radius: 50%;
-            background: rgba(116,54,211,.15);
-            filter: blur(100px);
-            pointer-events: none;
-        }
-
-        .hero-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
-            align-items: center;
-            gap: 35px;
-        }
-
-        .hero-copy {
-            min-width: 0;
-        }
-
-        .hero-label {
-            max-width: 100%;
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 12px;
-            margin-bottom: 26px;
-            border: 1px solid rgba(179,129,255,.25);
-            border-radius: 100px;
-            background: rgba(130,70,220,.08);
-            color: #d8c5ff;
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            background: #bd96ff;
-            box-shadow: 0 0 12px #9b5cff;
-            animation: dot-pulse 2s infinite;
-        }
-
-        .hero h1 {
-            max-width: 720px;
-            margin: 0 0 22px;
-            font-size: clamp(2.7rem, 6.1vw, 5.4rem);
-            font-weight: 900;
-            line-height: .99;
-            letter-spacing: -3.7px;
-            overflow-wrap: anywhere;
-        }
-
-        .hero-subline {
-            min-height: 1.6em;
-            margin: 0 0 22px;
-            color: #d4c0ff;
-            font-size: clamp(17px, 2.4vw, 25px);
-            font-weight: 800;
-            line-height: 1.45;
-        }
-
-        .typed-cursor {
-            color: var(--purple-light);
-        }
-
-        .hero-description {
-            max-width: 570px;
-            margin: 0 0 28px;
-            color: #aaa1ba;
-            font-size: 14px;
-            line-height: 1.95;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 11px;
-        }
-
-        .hero-proof {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px 20px;
-            margin-top: 29px;
-            color: #a59bb6;
-            font-size: 11px;
-        }
-
-        .hero-proof span {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .hero-proof i {
-            color: var(--purple-light);
-        }
-
-        /* Hero visual */
-
-        .hero-visual {
-            position: relative;
-            min-width: 0;
-            min-height: 390px;
-            display: grid;
-            place-items: center;
-        }
-
-        .orbit {
-            position: absolute;
-            width: min(330px, 75vw);
-            aspect-ratio: 1;
-            border: 1px solid rgba(179,129,255,.19);
-            border-radius: 50%;
-            animation: orbit-spin 38s linear infinite;
-        }
-
-        .orbit::before,
-        .orbit::after {
-            position: absolute;
-            inset: 23px;
-            border: 1px solid rgba(179,129,255,.14);
-            border-radius: 50%;
-            content: "";
-        }
-
-        .orbit::after {
-            inset: 54px;
-            border-style: dashed;
-            border-color: rgba(179,129,255,.16);
-        }
-
-        .orbit-dot {
-            position: absolute;
-            top: 35px;
-            left: 45px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #c8a3ff;
-            box-shadow: 0 0 20px #9b5cff;
-        }
-
-        .hero-core {
-            position: relative;
-            z-index: 2;
-            width: 145px;
-            aspect-ratio: 1;
-            display: grid;
-            place-items: center;
-            border: 1px solid rgba(210,180,255,.36);
-            border-radius: 37px;
-            background: linear-gradient(145deg, #2a1944, #110b1c);
-            box-shadow: 0 0 90px rgba(117,54,211,.24), inset 0 0 30px rgba(166,107,255,.08);
-            color: #d5baff;
-            font-size: 54px;
-            transform: rotate(-8deg);
-            animation: core-float 5s ease-in-out infinite;
-        }
-
-        .hero-core i {
-            transform: rotate(8deg);
-        }
-
-        .floating-card {
-            position: absolute;
-            z-index: 3;
-            max-width: calc(100% - 10px);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 14px;
-            border: 1px solid rgba(184,142,255,.22);
-            border-radius: 13px;
-            background: rgba(15,10,25,.94);
-            box-shadow: 0 15px 35px rgba(0,0,0,.25);
-            color: #eee6fa;
-            font-size: 11px;
-            font-weight: 800;
-            backdrop-filter: blur(12px);
-        }
-
-        .floating-card i {
-            color: var(--purple-light);
-        }
-
-        .floating-card small {
-            display: block;
-            color: var(--muted);
-            font-size: 9px;
-            font-weight: 500;
-        }
-
-        .floating-card-top {
-            top: 42px;
-            right: -2px;
-        }
-
-        .floating-card-bottom {
-            bottom: 38px;
-            left: -5px;
-        }
-
-        /* ==========================================
-           ROAD TO 5K
-        ========================================== */
-
-        .road-wrap {
-            position: relative;
-            z-index: 4;
-            margin-top: 14px;
-        }
-
-        .road-card {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 25px 27px;
-            border: 1px solid rgba(175,124,255,.24);
-            border-radius: 20px;
-            background:
-                radial-gradient(ellipse at 100% 0%, rgba(126,62,220,.17), transparent 52%),
-                linear-gradient(130deg, #130e20, #0d0915);
-        }
-
-        .road-info {
-            min-width: 0;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .road-icon {
-            width: 47px;
-            height: 47px;
-            flex-shrink: 0;
-            display: grid;
-            place-items: center;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            background: rgba(155,92,255,.1);
-            color: var(--purple-light);
-            font-size: 19px;
-        }
-
-        .road-card h2 {
-            margin: 0 0 4px;
-            font-size: 15px;
-            font-weight: 900;
-        }
-
-        .road-card p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 11px;
-        }
-
-        .road-target {
-            flex-shrink: 0;
-            color: var(--purple-light);
-            font-family: "Orbitron", sans-serif;
-            font-size: clamp(20px, 3vw, 28px);
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
-        .road-target span {
-            display: block;
-            margin-top: 2px;
-            color: #a49ab5;
-            font-family: "Inter", sans-serif;
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-align: right;
-        }
-
-        /* ==========================================
-           DISCOVERY CARDS
-        ========================================== */
-
-        .discover-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 15px;
-        }
-
-        .discover-card {
-            position: relative;
-            min-width: 0;
-            min-height: 270px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            background: linear-gradient(145deg, #141020, #0e0a17);
-            transition: transform .28s ease, border-color .28s ease, background .28s ease;
-        }
-
-        .discover-card::after {
-            position: absolute;
-            right: -60px;
-            bottom: -70px;
-            width: 150px;
-            aspect-ratio: 1;
-            border: 1px solid rgba(180,132,255,.08);
-            border-radius: 50%;
-            box-shadow: 0 0 0 20px rgba(180,132,255,.025), 0 0 0 40px rgba(180,132,255,.018);
-            content: "";
-            pointer-events: none;
-        }
-
-        .discover-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(177,125,255,.43);
-            background: linear-gradient(145deg, #1a1229, #100b19);
-        }
-
-        .discover-icon {
-            width: 49px;
-            height: 49px;
-            display: grid;
-            place-items: center;
-            margin-bottom: 23px;
-            border: 1px solid rgba(175,126,255,.22);
-            border-radius: 15px;
-            background: rgba(155,92,255,.1);
-            color: var(--purple-light);
-            font-size: 19px;
-            transition: transform .28s ease;
-        }
-
-        .discover-card:hover .discover-icon {
-            transform: rotate(-5deg) scale(1.06);
-        }
-
-        .discover-card h3 {
-            margin: 0 0 10px;
-            font-size: 16px;
-            font-weight: 850;
-        }
-
-        .discover-card p {
-            margin: 0 0 22px;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.85;
-        }
-
-        .discover-link {
-            position: relative;
-            z-index: 1;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: auto;
-            color: var(--purple-light);
-            font-size: 11px;
-            font-weight: 850;
-        }
-
-        .discover-link i {
-            transition: transform .2s ease;
-        }
-
-        .discover-card:hover .discover-link i {
-            transform: translateX(4px);
-        }
-
-        /* ==========================================
-           FEATURED PROJECT
-        ========================================== */
-
-        .featured {
-            position: relative;
-            overflow: hidden;
-            padding: clamp(25px, 5vw, 53px);
-            border: 1px solid rgba(175,124,255,.23);
-            border-radius: 27px;
-            background:
-                radial-gradient(ellipse at 100% 0%, rgba(116,54,211,.21), transparent 48%),
-                linear-gradient(145deg, #151020, #0c0914);
-        }
-
-        .featured-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 10px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(175,124,255,.24);
-            border-radius: 8px;
-            background: rgba(155,92,255,.08);
-            color: var(--purple-light);
-            font-size: 9px;
-            font-weight: 900;
-            letter-spacing: 1.3px;
-            text-transform: uppercase;
-        }
-
-        .featured h3 {
-            max-width: 600px;
-            margin: 0 0 17px;
-            font-size: clamp(2rem, 4.5vw, 3.4rem);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -1.8px;
-        }
-
-        .featured-copy {
-            max-width: 570px;
-            color: #b0a6c0;
-            font-size: 13px;
-            line-height: 1.95;
-        }
-
-        .feature-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 23px 0 28px;
-        }
-
-        .feature-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 8px 10px;
-            border: 1px solid var(--border);
-            border-radius: 9px;
-            background: rgba(255,255,255,.025);
-            color: #d9d0e7;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .feature-tag i {
-            color: var(--purple-light);
-        }
-
-        .featured-art {
-            position: relative;
-            min-height: 280px;
-            display: grid;
-            place-items: center;
-        }
-
-        .art-ring {
-            position: absolute;
-            width: min(255px, 72vw);
-            aspect-ratio: 1;
-            border: 1px solid rgba(186,142,255,.22);
-            border-radius: 50%;
-            animation: orbit-spin 32s linear infinite;
-        }
-
-        .art-ring::before,
-        .art-ring::after {
-            position: absolute;
-            inset: 20px;
-            border: 1px solid rgba(186,142,255,.15);
-            border-radius: 50%;
-            content: "";
-        }
-
-        .art-ring::after {
-            inset: 46px;
-            border-style: dashed;
-        }
-
-        .art-core {
-            position: relative;
-            z-index: 2;
-            width: 112px;
-            aspect-ratio: 1;
-            display: grid;
-            place-items: center;
-            border: 1px solid rgba(206,176,255,.35);
-            border-radius: 30px;
-            background: linear-gradient(145deg, #2b1946, #130d20);
-            box-shadow: 0 0 65px rgba(117,54,211,.25);
-            color: #d7bfff;
-            font-size: 43px;
-            transform: rotate(-8deg);
-        }
-
-        .art-core i {
-            transform: rotate(8deg);
-        }
-
-        .art-chip {
-            position: absolute;
-            z-index: 3;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            background: rgba(15,10,25,.95);
-            color: #eee6fa;
-            font-size: 10px;
-            font-weight: 800;
-        }
-
-        .art-chip i {
-            color: var(--purple-light);
-        }
-
-        .art-chip-one {
-            top: 25px;
-            right: -3px;
-        }
-
-        .art-chip-two {
-            bottom: 25px;
-            left: -2px;
-        }
-
-        /* ==========================================
-           HOW WE WORK / VALUES
-        ========================================== */
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 15px;
-        }
-
-        .value-card {
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,.075);
-            border-radius: 18px;
-            background: rgba(255,255,255,.018);
-        }
-
-        .value-card i {
-            display: inline-block;
-            margin-bottom: 19px;
-            color: var(--purple-light);
-            font-size: 22px;
-        }
-
-        .value-card h3 {
-            margin: 0 0 10px;
-            font-size: 15px;
-            font-weight: 850;
-        }
-
-        .value-card p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.9;
-        }
-
-        /* ==========================================
-           TELEGRAM CTA
-        ========================================== */
-
-        .community-panel {
-            position: relative;
-            overflow: hidden;
-            padding: clamp(35px, 7vw, 72px) 24px;
-            border: 1px solid rgba(175,124,255,.25);
-            border-radius: 28px;
-            background:
-                radial-gradient(ellipse at 50% 0%, rgba(123,66,216,.24), transparent 65%),
-                #100b19;
-            text-align: center;
-        }
-
-        .telegram-icon {
-            width: 58px;
-            height: 58px;
-            display: grid;
-            place-items: center;
-            margin: 0 auto 24px;
-            border: 1px solid rgba(220,198,255,.23);
-            border-radius: 19px;
-            background: linear-gradient(135deg, #a96aff, #7137ce);
-            box-shadow: 0 12px 38px rgba(117,54,211,.28);
-            color: white;
-            font-size: 25px;
-        }
-
-        .community-panel .eyebrow {
-            justify-content: center;
-        }
-
-        .community-panel .eyebrow::before {
-            display: none;
-        }
-
-        .community-panel h2 {
-            max-width: 760px;
-            margin: 0 auto 17px;
-            font-size: clamp(2rem, 5.5vw, 3.8rem);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            overflow-wrap: anywhere;
-        }
-
-        .community-panel p {
-            max-width: 560px;
-            margin: 0 auto 27px;
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.95;
-        }
-
-        .community-actions {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .community-note {
-            display: block;
-            margin-top: 21px;
-            color: #8f859f;
-            font-size: 10px;
-        }
-
-        /* ==========================================
-           FOOTER
-        ========================================== */
-
-        .site-footer {
-            padding: 35px 0 calc(35px + env(safe-area-inset-bottom));
-            border-top: 1px solid rgba(255,255,255,.06);
-        }
-
-        .footer-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 25px;
-        }
-
-        .footer-copy {
-            max-width: 350px;
-            margin: 11px 0 0;
-            color: var(--muted);
-            font-size: 11px;
-            line-height: 1.9;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            gap: 13px 18px;
-        }
-
-        .footer-links a {
-            color: #a59bb5;
-            font-size: 11px;
-            font-weight: 600;
-            transition: color .2s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--purple-light);
-        }
-
-        .footer-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 28px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,.06);
-            color: #81778f;
-            font-size: 10px;
-        }
-
-        /* ==========================================
-           MOBILE QUICK-JOIN BAR
-        ========================================== */
-
-        .mobile-join {
-            position: fixed;
-            z-index: 1400;
-            right: 12px;
-            bottom: calc(12px + env(safe-area-inset-bottom));
-            left: 12px;
-            display: none;
-            padding: 8px;
-            border: 1px solid rgba(175,124,255,.26);
-            border-radius: 16px;
-            background: rgba(13,9,22,.93);
-            box-shadow: 0 12px 35px rgba(0,0,0,.38);
-            backdrop-filter: blur(18px);
-        }
-
-        .mobile-join .btn-primary-xz {
-            width: 100%;
-            min-height: 46px;
-        }
-
-        /* ==========================================
-           BACK TO TOP
-        ========================================== */
-
-        .back-top {
-            position: fixed;
-            z-index: 1300;
-            right: 22px;
-            bottom: 22px;
-            width: 43px;
-            height: 43px;
-            display: grid;
-            place-items: center;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-            background: #171023;
-            color: white;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(8px);
-            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
-        }
-
-        .back-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        /* ==========================================
-           ANIMATIONS
-        ========================================== */
-
-        @keyframes dot-pulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(155,92,255,.35);
-            }
-            50% {
-                box-shadow: 0 0 0 6px rgba(155,92,255,0);
-            }
-        }
-
-        @keyframes orbit-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes core-float {
-            0%, 100% { translate: 0 0; }
-            50% { translate: 0 -10px; }
-        }
-
-        /* ==========================================
-           TABLETS
-        ========================================== */
-
-        @media (max-width: 1000px) {
-            :root {
-                --nav-height: 68px;
-            }
-
-            .nav-links {
-                gap: 2px;
-            }
-
-            .nav-link-xz {
-                padding: 9px 8px;
-                font-size: 11px;
-            }
-
-            .hero-layout {
-                grid-template-columns: minmax(0, 1.1fr) minmax(230px, .9fr);
-                gap: 16px;
-            }
-
-            .hero h1 {
-                font-size: clamp(2.6rem, 6vw, 4.5rem);
-                letter-spacing: -2.8px;
-            }
-
-            .hero-visual {
-                min-height: 330px;
-            }
-
-            .hero-core {
-                width: 120px;
-                border-radius: 31px;
-                font-size: 45px;
-            }
-
-            .orbit {
-                width: min(285px, 37vw);
-            }
-
-            .discover-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .discover-card {
-                min-height: 235px;
-            }
-        }
-
-        /* ==========================================
-           MOBILE NAVIGATION
-        ========================================== */
-
-        @media (max-width: 760px) {
-            .container-xl {
-                width: calc(100% - 34px);
-            }
-
-            .section {
-                padding: 70px 0;
-            }
-
-            .section-heading {
-                margin-bottom: 29px;
-            }
-
-            .site-nav {
-                z-index: 1500;
-            }
-
-            .menu-toggle {
-                display: grid;
-            }
-
-            .nav-links {
-                position: fixed;
-                z-index: 1500;
-                top: var(--nav-height);
-                right: 0;
-                left: 0;
-                height: calc(100dvh - var(--nav-height));
-                height: calc(100vh - var(--nav-height));
-                height: calc(100dvh - var(--nav-height));
-                display: flex;
-                align-items: stretch;
-                flex-direction: column;
-                gap: 7px;
-                padding: 22px 22px calc(110px + env(safe-area-inset-bottom));
-                border-top: 1px solid var(--border);
-                background: rgba(8,6,15,.98);
-                overflow-y: auto;
-                visibility: hidden;
-                opacity: 0;
-                transform: translateY(-8px);
-                pointer-events: none;
-                transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
-            }
-
-            .nav-links.open {
-                visibility: visible;
-                opacity: 1;
-                transform: translateY(0);
-                pointer-events: auto;
-            }
-
-            .nav-link-xz {
-                display: flex;
-                align-items: center;
-                min-height: 48px;
-                padding: 12px 14px;
-                border: 1px solid rgba(255,255,255,.045);
-                border-radius: 12px;
-                background: rgba(255,255,255,.02);
-                font-size: 14px;
-            }
-
-            .nav-join {
-                min-height: 48px;
-                margin-top: 8px;
-            }
-
-            .hero {
-                min-height: 0;
-                padding: 62px 0 34px;
-            }
-
-            .hero-layout {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 0;
-            }
-
-            .hero-copy {
-                text-align: center;
-            }
-
-            .hero-label {
-                justify-content: center;
-                max-width: 100%;
-                font-size: 9px;
-                letter-spacing: .7px;
-            }
-
-            .hero h1 {
-                max-width: 570px;
-                margin-right: auto;
-                margin-left: auto;
-                font-size: clamp(2.55rem, 11.6vw, 4.6rem);
-                letter-spacing: -2.5px;
-                line-height: 1.02;
-            }
-
-            .hero-subline {
-                min-height: 3em;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin: 0 auto 18px;
-                font-size: clamp(16px, 5vw, 22px);
-            }
-
-            .hero-description {
-                margin-right: auto;
-                margin-left: auto;
-                font-size: 13px;
-            }
-
-            .hero-actions {
-                display: grid;
-                grid-template-columns: minmax(0, 1fr);
-                gap: 10px;
-                max-width: 390px;
-                margin: 0 auto;
-            }
-
-            .hero-actions a {
-                width: 100%;
-                min-height: 49px;
-            }
-
-            .hero-proof {
-                justify-content: center;
-                gap: 11px 15px;
-                margin-top: 23px;
-                font-size: 10px;
-            }
-
-            .hero-visual {
-                min-height: 290px;
-                margin-top: 15px;
-            }
-
-            .orbit {
-                width: min(260px, 72vw);
-            }
-
-            .hero-core {
-                width: 105px;
-                border-radius: 28px;
-                font-size: 39px;
-            }
-
-            .floating-card-top {
-                top: 20px;
-                right: 0;
-            }
-
-            .floating-card-bottom {
-                bottom: 17px;
-                left: 0;
-            }
-
-            .road-card {
-                align-items: flex-start;
-                flex-direction: column;
-                gap: 17px;
-                padding: 21px;
-            }
-
-            .road-info {
-                align-items: flex-start;
-            }
-
-            .road-card h2 {
-                font-size: 13px;
-            }
-
-            .road-card p {
-                line-height: 1.7;
-            }
-
-            .road-target {
-                padding-left: 61px;
-                font-size: 24px;
-            }
-
-            .road-target span {
-                text-align: left;
-            }
-
-            .discover-grid {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 12px;
-            }
-
-            .discover-card {
-                min-height: 0;
-                padding: 22px;
-            }
-
-            .discover-icon {
-                margin-bottom: 17px;
-            }
-
-            .discover-card p {
-                margin-bottom: 18px;
-            }
-
-            .featured {
-                padding: 25px 21px;
-                border-radius: 22px;
-            }
-
-            .featured h3 {
-                font-size: clamp(1.9rem, 9vw, 2.7rem);
-                letter-spacing: -1.3px;
-            }
-
-            .featured-art {
-                min-height: 250px;
-                margin-top: 7px;
-            }
-
-            .art-ring {
-                width: min(225px, 65vw);
-            }
-
-            .art-core {
-                width: 98px;
-                border-radius: 26px;
-                font-size: 37px;
-            }
-
-            .art-chip-one {
-                top: 18px;
-                right: -3px;
-            }
-
-            .art-chip-two {
-                bottom: 18px;
-                left: -3px;
-            }
-
-            .values-grid {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 11px;
-            }
-
-            .value-card {
-                display: grid;
-                grid-template-columns: 35px minmax(0, 1fr);
-                column-gap: 12px;
-                padding: 20px;
-            }
-
-            .value-card i {
-                grid-row: span 2;
-                margin-bottom: 0;
-                padding-top: 2px;
-            }
-
-            .value-card h3 {
-                margin-bottom: 6px;
-            }
-
-            .community-panel {
-                padding: 37px 20px;
-                border-radius: 22px;
-            }
-
-            .community-panel h2 {
-                font-size: clamp(2rem, 9.2vw, 3.2rem);
-                letter-spacing: -1.5px;
-            }
-
-            .community-actions {
-                display: grid;
-                grid-template-columns: minmax(0, 1fr);
-            }
-
-            .community-actions a {
-                width: 100%;
-            }
-
-            .footer-top {
-                flex-direction: column;
-            }
-
-            .footer-links {
-                justify-content: flex-start;
-                gap: 15px 20px;
-            }
-
-            .mobile-join {
-                display: block;
-            }
-
-            .back-top {
-                right: 17px;
-                bottom: calc(82px + env(safe-area-inset-bottom));
-            }
-
-            .site-footer {
-                padding-bottom: calc(112px + env(safe-area-inset-bottom));
-            }
-        }
-
-        @media (max-width: 370px) {
-            .container-xl {
-                width: calc(100% - 26px);
-            }
-
-            .brand {
-                gap: 7px;
-                font-size: 15px;
-            }
-
-            .brand-mark {
-                width: 35px;
-                height: 35px;
-            }
-
-            .hero h1 {
-                font-size: 2.45rem;
-                letter-spacing: -2px;
-            }
-
-            .hero-proof {
-                gap: 9px;
-                font-size: 9px;
-            }
-
-            .floating-card {
-                gap: 7px;
-                padding: 10px;
-                font-size: 9px;
-            }
-
-            .road-card {
-                padding: 17px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                animation-duration: .01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: .01ms !important;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090711">
+  <meta name="color-scheme" content="dark">
+
+  <title>ModdingXZ — Gaming, Modding & Community</title>
+
+  <meta name="description"
+        content="Discover ModdingXZ — gaming tools, console modding resources, guides and a growing gaming community. Join us on Telegram.">
+
+  <meta property="og:title" content="ModdingXZ — Enter the Community">
+  <meta property="og:description" content="Tools, gaming resources and a community built around modding. Join ModdingXZ.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://moddingxz.co.uk/">
+
+  <link rel="canonical" href="https://moddingxz.co.uk/">
+
+  <!-- External fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- External Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+    crossorigin="anonymous">
+
+  <!-- External Font Awesome icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- External AOS animation library -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+  <style>
+    :root {
+      --bg: #090711;
+      --bg-soft: #100d1c;
+      --panel: #141020;
+      --panel-hover: #1b142b;
+      --purple: #a855f7;
+      --purple-light: #c084fc;
+      --purple-dark: #7026c7;
+      --text: #f8f7ff;
+      --muted: #a49bb8;
+      --border: rgba(192, 132, 252, .15);
+      --green: #65f2a5;
+      --radius: 18px;
+      --page-width: 1120px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+      background: var(--bg);
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      width: 100%;
+      min-width: 320px;
+      overflow-x: clip;
+      background:
+        radial-gradient(ellipse at 50% -15%, rgba(112, 38, 199, .19), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--purple-light);
+      outline-offset: 4px;
+    }
+
+    img,
+    svg {
+      max-width: 100%;
+    }
+
+    .page-width {
+      width: min(var(--page-width), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .text-muted-custom {
+      color: var(--muted);
+    }
+
+    .purple {
+      color: var(--purple-light);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d5b4ff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 20px;
+      height: 2px;
+      border-radius: 10px;
+      background: var(--purple);
+    }
+
+    .gradient-text {
+      color: var(--purple-light);
+      background: linear-gradient(100deg, #fff 0%, #d8b4fe 35%, #a855f7 72%, #7c3aed 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-heading {
+      margin: 8px 0 10px;
+      font-size: clamp(25px, 5vw, 37px);
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: -1.4px;
+    }
+
+    .section-copy {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* Header */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(9, 7, 17, .92);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      min-height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: linear-gradient(140deg, #c084fc, #7026c7);
+      color: white;
+      box-shadow: 0 0 24px rgba(168, 85, 247, .25);
+      font-family: "Orbitron", sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .brand-name {
+      font-family: "Orbitron", sans-serif;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -.4px;
+    }
+
+    .brand-name span {
+      color: var(--purple-light);
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 23px;
+    }
+
+    .desktop-nav > a:not(.btn-join) {
+      color: #c1b8d0;
+      font-size: 12px;
+      font-weight: 700;
+      transition: color .2s;
+    }
+
+    .desktop-nav > a:not(.btn-join):hover {
+      color: white;
+    }
+
+    .btn-join {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 0 17px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      background: linear-gradient(120deg, #a855f7, #7c3aed);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 5px 22px rgba(124,58,237,.2);
+      transition: transform .2s, box-shadow .2s, filter .2s;
+    }
+
+    .btn-join:hover {
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 9px 30px rgba(124,58,237,.35);
+      filter: brightness(1.08);
+    }
+
+    .menu-toggle {
+      width: 43px;
+      height: 43px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+      color: white;
+      font-size: 19px;
+    }
+
+    .mobile-menu {
+      display: none;
+      padding: 0 0 15px;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      gap: 5px;
+    }
+
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 45px;
+      padding: 10px 13px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      color: #ddd5eb;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .mobile-menu a:hover {
+      background: var(--panel);
+      border-color: var(--border);
+    }
+
+    /* Small announcement strip */
+
+    .announcement {
+      padding: 9px 12px;
+      border-bottom: 1px solid rgba(168,85,247,.13);
+      background: rgba(112,38,199,.08);
+      text-align: center;
+      color: #d9c5f5;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .announcement a {
+      color: white;
+      text-decoration: underline;
+      text-decoration-color: rgba(192,132,252,.7);
+      text-underline-offset: 3px;
+    }
+
+    .announcement .live-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(101,242,165,.6);
+    }
+
+    /* Hero */
+
+    .hero {
+      position: relative;
+      padding: 58px 0 38px;
+      isolation: isolate;
+    }
+
+    .hero::before {
+      position: absolute;
+      z-index: -1;
+      top: 10px;
+      left: 50%;
+      width: min(700px, 100%);
+      height: 360px;
+      content: "";
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, rgba(124,58,237,.17), transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 820px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(192,132,252,.22);
+      border-radius: 100px;
+      background: rgba(168,85,247,.08);
+      color: #e4ceff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .hero-pill i {
+      color: var(--purple-light);
+    }
+
+    .hero h1 {
+      margin: 21px 0 17px;
+      font-size: clamp(36px, 7.5vw, 70px);
+      line-height: 1.04;
+      font-weight: 900;
+      letter-spacing: clamp(-3px, -.065em, -1px);
+    }
+
+    .hero h1 .type-line {
+      display: block;
+      min-height: 1.15em;
+      margin-top: 5px;
+      font-size: .73em;
+      letter-spacing: -.04em;
+    }
+
+    #typed-text {
+      color: var(--purple-light);
+    }
+
+    .typed-cursor {
+      color: #d8b4fe;
+      font-weight: 400;
+    }
+
+    .hero-description {
+      max-width: 510px;
+      margin: 0 auto;
+      color: #b3a9c5;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .hero-actions .btn-join {
+      min-height: 48px;
+      padding-inline: 21px;
+      font-size: 13px;
+    }
+
+    .btn-secondary-custom {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 0 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+      color: #eee8f8;
+      font-size: 12px;
+      font-weight: 800;
+      transition: background .2s, border-color .2s;
+    }
+
+    .btn-secondary-custom:hover {
+      color: white;
+      background: rgba(168,85,247,.09);
+      border-color: rgba(192,132,252,.35);
+    }
+
+    .hero-proof {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 23px;
+      color: #a99ebc;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .hero-proof span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-proof i {
+      color: var(--green);
+      font-size: 11px;
+    }
+
+    /* Visual showcase */
+
+    .showcase {
+      position: relative;
+      overflow: hidden;
+      margin-top: 33px;
+      padding: 17px;
+      border: 1px solid rgba(192,132,252,.18);
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(124,58,237,.16), transparent 60%),
+        linear-gradient(145deg, #151020, #0e0b17);
+      box-shadow: 0 22px 70px rgba(0,0,0,.18);
+      text-align: left;
+    }
+
+    .showcase-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 13px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .showcase-brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: "Orbitron", sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .showcase-brand i {
+      color: var(--purple-light);
+    }
+
+    .showcase-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #b8aeca;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .showcase-status i {
+      color: var(--green);
+      font-size: 7px;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .showcase-item {
+      min-width: 0;
+      padding: 13px 10px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 13px;
+      background: rgba(255,255,255,.025);
+      transition: background .2s, transform .2s;
+    }
+
+    .showcase-item:hover {
+      transform: translateY(-3px);
+      background: rgba(168,85,247,.07);
+    }
+
+    .showcase-icon {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 10px;
+      border: 1px solid rgba(192,132,252,.15);
+      border-radius: 11px;
+      background: rgba(168,85,247,.1);
+      color: #d8b4fe;
+      font-size: 15px;
+    }
+
+    .showcase-item strong {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .showcase-item small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    /* Main sections */
+
+    .section {
+      padding: 37px 0;
+    }
+
+    .section-header {
+      margin-bottom: 20px;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .resource-card {
+      position: relative;
+      min-width: 0;
+      min-height: 175px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(25,19,40,.97), rgba(16,12,26,.97));
+      transition: transform .22s, border-color .22s, background .22s;
+    }
+
+    .resource-card::after {
+      position: absolute;
+      right: -32px;
+      bottom: -45px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      content: "";
+      background: rgba(124,58,237,.07);
+      filter: blur(4px);
+      pointer-events: none;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(192,132,252,.42);
+      background: linear-gradient(145deg, #20162f, #130e20);
+    }
+
+    .resource-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 15px;
+      border: 1px solid rgba(192,132,252,.19);
+      border-radius: 13px;
+      background: rgba(168,85,247,.1);
+      color: #d8b4fe;
+      font-size: 17px;
+    }
+
+    .resource-card h3 {
+      margin: 0 0 5px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -.3px;
+    }
+
+    .resource-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: auto;
+      padding-top: 15px;
+      color: #d7b4ff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .resource-link i {
+      transition: transform .2s;
+    }
+
+    .resource-card:hover .resource-link i {
+      transform: translateX(4px);
+    }
+
+    /* Featured game */
+
+    .featured-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+      gap: 20px;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(192,132,252,.2);
+      border-radius: 20px;
+      background:
+        radial-gradient(ellipse at 100% 0%, rgba(124,58,237,.2), transparent 55%),
+        linear-gradient(140deg, #191125, #100c1b);
+    }
+
+    .featured-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .featured-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 9px;
+      border: 1px solid rgba(192,132,252,.2);
+      border-radius: 7px;
+      background: rgba(168,85,247,.09);
+      color: #d8b4fe;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .featured-card h3 {
+      margin: 14px 0 9px;
+      font-size: clamp(23px, 4vw, 33px);
+      font-weight: 900;
+      letter-spacing: -1.2px;
+      line-height: 1.12;
+    }
+
+    .featured-card p {
+      max-width: 460px;
+      margin: 0;
+      color: #b5abc7;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+
+    .feature-tags span {
+      padding: 5px 9px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 8px;
+      background: rgba(255,255,255,.035);
+      color: #d6cde3;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .featured-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 21px;
+    }
+
+    .featured-visual {
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .featured-orb {
+      position: relative;
+      width: min(100%, 220px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(192,132,252,.2);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(168,85,247,.22), rgba(112,38,199,.05) 52%, transparent 70%);
+    }
+
+    .featured-orb::before,
+    .featured-orb::after {
+      position: absolute;
+      inset: 13%;
+      border: 1px solid rgba(192,132,252,.22);
+      border-radius: 50%;
+      content: "";
+      animation: orbit 18s linear infinite;
+    }
+
+    .featured-orb::after {
+      inset: 0;
+      border-style: dashed;
+      opacity: .6;
+      animation-duration: 30s;
+      animation-direction: reverse;
+    }
+
+    .featured-orb i {
+      color: #d8b4fe;
+      font-size: clamp(42px, 7vw, 66px);
+      filter: drop-shadow(0 0 22px rgba(168,85,247,.55));
+    }
+
+    @keyframes orbit {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Why ModdingXZ */
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .benefit {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 15px;
+      background: rgba(255,255,255,.022);
+    }
+
+    .benefit i {
+      margin-bottom: 11px;
+      color: var(--purple-light);
+      font-size: 19px;
+    }
+
+    .benefit h3 {
+      margin: 0 0 5px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .benefit p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    /* Final CTA */
+
+    .cta-section {
+      padding: 34px 0 45px;
+    }
+
+    .cta-panel {
+      position: relative;
+      padding: 29px 22px;
+      overflow: hidden;
+      border: 1px solid rgba(192,132,252,.23);
+      border-radius: 21px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(168,85,247,.19), transparent 65%),
+        #120d1f;
+      text-align: center;
+    }
+
+    .cta-panel h2 {
+      margin: 11px 0;
+      font-size: clamp(26px, 5vw, 39px);
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      line-height: 1.13;
+    }
+
+    .cta-panel p {
+      max-width: 450px;
+      margin: 0 auto;
+      color: #b6abc9;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .cta-panel .btn-join {
+      margin-top: 19px;
+      min-height: 49px;
+      padding-inline: 22px;
+    }
+
+    /* Footer */
+
+    .site-footer {
+      padding: 22px 0 92px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .footer-copy {
+      margin-top: 7px;
+      color: #8e849f;
+      font-size: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .footer-links a {
+      color: #a99fba;
+      font-size: 16px;
+      transition: color .2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--purple-light);
+    }
+
+    /* Persistent mobile Telegram button */
+
+    .mobile-join-bar {
+      position: fixed;
+      z-index: 990;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: none;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(192,132,252,.17);
+      background: rgba(9,7,17,.95);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+    }
+
+    .mobile-join-bar .btn-join {
+      width: 100%;
+      min-height: 47px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    /* Back-to-top */
+
+    .back-top {
+      position: fixed;
+      right: 18px;
+      bottom: 22px;
+      z-index: 900;
+      width: 41px;
+      height: 41px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #171123;
+      color: white;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(8px);
+      transition: .2s;
+    }
+
+    .back-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Tablet */
+
+    @media (max-width: 850px) {
+      .page-width {
+        width: min(100% - 32px, 680px);
+      }
+
+      .desktop-nav {
+        gap: 14px;
+      }
+
+      .desktop-nav > a:not(.btn-join) {
+        font-size: 11px;
+      }
+
+      .featured-card {
+        grid-template-columns: minmax(0, 1fr) 180px;
+        padding: 20px;
+        gap: 12px;
+      }
+
+      .featured-orb {
+        width: 170px;
+      }
+    }
+
+    /* Phones */
+
+    @media (max-width: 600px) {
+      html {
+        scroll-padding-top: 74px;
+      }
+
+      body {
+        font-size: 14px;
+      }
+
+      .page-width {
+        width: calc(100% - 28px);
+      }
+
+      .nav-inner {
+        min-height: 58px;
+      }
+
+      .brand-mark {
+        width: 33px;
+        height: 33px;
+      }
+
+      .brand-name {
+        font-size: 13px;
+      }
+
+      .desktop-nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .announcement {
+        padding: 8px 10px;
+        font-size: 10px;
+        line-height: 1.55;
+      }
+
+      .hero {
+        padding: 35px 0 24px;
+      }
+
+      .hero-pill {
+        font-size: 9px;
+        letter-spacing: .7px;
+        padding: 7px 10px;
+      }
+
+      .hero h1 {
+        margin: 17px 0 13px;
+        font-size: clamp(35px, 10.5vw, 49px);
+        letter-spacing: -2px;
+      }
+
+      .hero h1 .type-line {
+        min-height: 1.3em;
+        margin-top: 5px;
+        font-size: .68em;
+        letter-spacing: -1.2px;
+      }
+
+      .hero-description {
+        max-width: 390px;
+        font-size: 13px;
+        line-height: 1.75;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 9px;
+        margin-top: 20px;
+      }
+
+      .hero-actions a {
+        width: 100%;
+        min-height: 47px;
+      }
+
+      .hero-proof {
+        gap: 8px 13px;
+        margin-top: 16px;
+        font-size: 10px;
+      }
+
+      .showcase {
+        margin-top: 22px;
+        padding: 12px;
+        border-radius: 16px;
+      }
+
+      .showcase-grid {
+        gap: 7px;
+        margin-top: 10px;
+      }
+
+      .showcase-item {
+        padding: 10px 8px;
+        border-radius: 11px;
+      }
+
+      .showcase-icon {
+        width: 31px;
+        height: 31px;
+        margin-bottom: 8px;
+        font-size: 13px;
+      }
+
+      .showcase-item strong {
+        font-size: 10px;
+        line-height: 1.4;
+      }
+
+      .showcase-item small {
+        font-size: 9px;
+        line-height: 1.45;
+      }
+
+      .showcase-status {
+        font-size: 8px;
+      }
+
+      .section {
+        padding: 25px 0;
+      }
+
+      .section-header {
+        margin-bottom: 15px;
+      }
+
+      .section-heading {
+        font-size: 27px;
+        letter-spacing: -1px;
+      }
+
+      .section-copy {
+        font-size: 12px;
+        line-height: 1.75;
+      }
+
+      .resource-grid {
+        gap: 9px;
+      }
+
+      .resource-card {
+        min-height: 165px;
+        padding: 13px;
+        border-radius: 14px;
+      }
+
+      .resource-icon {
+        width: 37px;
+        height: 37px;
+        margin-bottom: 11px;
+        border-radius: 11px;
+        font-size: 15px;
+      }
+
+      .resource-card h3 {
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .resource-card p {
+        font-size: 11px;
+        line-height: 1.6;
+      }
+
+      .resource-link {
+        gap: 5px;
+        padding-top: 12px;
+        font-size: 10px;
+      }
+
+      .featured-card {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 17px;
+        padding: 18px;
+        border-radius: 17px;
+      }
+
+      .featured-card h3 {
+        font-size: 27px;
+      }
+
+      .featured-card p {
+        font-size: 12px;
+      }
+
+      .featured-visual {
+        display: none;
+      }
+
+      .featured-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .featured-actions a {
+        width: 100%;
+        min-height: 45px;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .benefit {
+        display: grid;
+        grid-template-columns: 32px minmax(0, 1fr);
+        column-gap: 10px;
+        padding: 13px;
+      }
+
+      .benefit i {
+        grid-row: 1 / span 2;
+        margin: 3px 0 0;
+        font-size: 18px;
+      }
+
+      .benefit h3 {
+        font-size: 12px;
+      }
+
+      .benefit p {
+        font-size: 11px;
+      }
+
+      .cta-section {
+        padding: 25px 0 30px;
+      }
+
+      .cta-panel {
+        padding: 25px 17px;
+        border-radius: 17px;
+      }
+
+      .cta-panel h2 {
+        font-size: 29px;
+        letter-spacing: -1px;
+      }
+
+      .cta-panel p {
+        font-size: 12px;
+      }
+
+      .site-footer {
+        padding: 20px 0 100px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+      }
+
+      .footer-links {
+        gap: 13px;
+      }
+
+      .mobile-join-bar {
+        display: block;
+      }
+
+      .back-top {
+        right: 14px;
+        bottom: 75px;
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .page-width {
+        width: calc(100% - 22px);
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero h1 .type-line {
+        font-size: .65em;
+      }
+
+      .showcase-item {
+        padding: 9px 6px;
+      }
+
+      .resource-card {
+        padding: 11px;
+      }
+
+      .resource-card h3 {
+        font-size: 12px;
+      }
+
+      .resource-card p {
+        font-size: 10px;
+      }
+    }
+
+    /* Accessibility: honour reduced motion preferences */
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  <!-- Navigation -->
+  <header class="site-header">
+    <div class="page-width">
+      <div class="nav-inner">
 
-    <!-- ==========================================
-         NAVIGATION
-    ========================================== -->
+        <a class="brand" href="#home" aria-label="ModdingXZ home">
+          <span class="brand-mark">XZ</span>
+          <span class="brand-name">MODDING<span>XZ</span></span>
+        </a>
 
-    <header class="site-nav">
-        <nav class="container-xl nav-inner" aria-label="Main navigation">
+        <nav class="desktop-nav" aria-label="Main navigation">
+          <a href="#discover">Discover</a>
+          <a href="#featured">Featured</a>
+          <a href="#community">Community</a>
+          <a class="btn-join" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-telegram"></i>
+            Join Telegram
+          </a>
+        </nav>
 
-            <a href="#home" class="brand" aria-label="ModdingXZ home">
-                <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
-                <span>MODDING<span class="brand-xz">XZ</span></span>
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="mobileMenu"
+          aria-expanded="false">
+          <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+
+      </div>
+
+      <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+        <a href="#discover">Discover resources <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#featured">Featured tools <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#community">Our community <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="https://moddingxz.co.uk/new/index.html">Latest project <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+          Join our Telegram <i class="fa-brands fa-telegram"></i>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Announcement -->
+  <div class="announcement">
+    <span class="live-dot"></span>
+    Growing together — <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Road to 5K community</a>
+  </div>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="page-width">
+        <div class="hero-content">
+
+          <div class="hero-pill" data-aos="fade-up">
+            <i class="fa-solid fa-bolt"></i>
+            Gaming • Modding • Community
+          </div>
+
+          <h1 data-aos="fade-up" data-aos-delay="70">
+            YOUR NEXT LEVEL
+            <span class="type-line">
+              <span id="typed-text">STARTS HERE.</span>
+            </span>
+          </h1>
+
+          <p class="hero-description" data-aos="fade-up" data-aos-delay="130">
+            Discover gaming tools, console resources and guides.
+            Connect with a community that loves gaming and modding.
+            Welcome to ModdingXZ.
+          </p>
+
+          <div class="hero-actions" data-aos="fade-up" data-aos-delay="180">
+            <a class="btn-join" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-telegram"></i>
+              Join the community
+              <i class="fa-solid fa-arrow-right"></i>
             </a>
 
-            <button
-                class="menu-toggle"
-                id="menuToggle"
-                type="button"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                aria-controls="navigationLinks"
-            >
-                <i class="fa-solid fa-bars"></i>
-            </button>
+            <a class="btn-secondary-custom" href="#discover">
+              <i class="fa-solid fa-compass"></i>
+              Explore ModdingXZ
+            </a>
+          </div>
 
-            <div class="nav-links" id="navigationLinks">
-                <a class="nav-link-xz" href="#home">Home</a>
-                <a class="nav-link-xz" href="#discover">Discover</a>
-                <a class="nav-link-xz" href="#featured">Featured</a>
-                <a class="nav-link-xz" href="#community">Community</a>
+          <div class="hero-proof" data-aos="fade-up" data-aos-delay="220">
+            <span><i class="fa-solid fa-check-circle"></i> Gaming resources</span>
+            <span><i class="fa-solid fa-check-circle"></i> Community driven</span>
+            <span><i class="fa-solid fa-check-circle"></i> Always evolving</span>
+          </div>
 
-                <a
-                    class="btn-primary-xz nav-join"
-                    href="https://t.me/moddingxz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <i class="fa-brands fa-telegram"></i>
-                    Join Telegram
-                </a>
+          <!-- Compact feature panel -->
+          <div class="showcase" data-aos="fade-up" data-aos-delay="100">
+            <div class="showcase-top">
+              <div class="showcase-brand">
+                <i class="fa-solid fa-cube"></i>
+                THE MODDINGXZ HUB
+              </div>
+
+              <div class="showcase-status">
+                <i class="fa-solid fa-circle"></i>
+                EXPLORE WHAT'S AVAILABLE
+              </div>
             </div>
 
-        </nav>
-    </header>
+            <div class="showcase-grid">
 
-
-    <main>
-
-        <!-- ==========================================
-             HERO
-        ========================================== -->
-
-        <section class="hero" id="home">
-            <div class="hero-grid"></div>
-            <div class="hero-glow"></div>
-            <div id="particles-js" aria-hidden="true"></div>
-
-            <div class="container-xl">
-
-                <div class="hero-layout">
-
-                    <div class="hero-copy" data-aos="fade-up">
-
-                        <div class="hero-label">
-                            <span class="status-dot"></span>
-                            Gaming / Modding / Community
-                        </div>
-
-                        <h1>
-                            ENTER THE
-                            <span class="gradient-text">NEXT LEVEL.</span>
-                        </h1>
-
-                        <p class="hero-subline">
-                            We build around
-                            <span id="typedText" class="ms-2"></span>
-                        </p>
-
-                        <p class="hero-description">
-                            Welcome to ModdingXZ. Discover gaming resources,
-                            explore modding projects and connect with a community
-                            that shares your interests. One place to start exploring.
-                        </p>
-
-                        <div class="hero-actions">
-
-                            <a
-                                href="https://t.me/moddingxz"
-                                class="btn-primary-xz"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <i class="fa-brands fa-telegram"></i>
-                                Join the Community
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                            <a href="#discover" class="btn-secondary-xz">
-                                <i class="fa-solid fa-compass"></i>
-                                Explore the Platform
-                            </a>
-
-                        </div>
-
-                        <div class="hero-proof">
-                            <span><i class="fa-solid fa-gamepad"></i> Gaming focused</span>
-                            <span><i class="fa-solid fa-users"></i> Community driven</span>
-                            <span><i class="fa-solid fa-bolt"></i> Always evolving</span>
-                        </div>
-
-                    </div>
-
-
-                    <!-- Animated visual -->
-
-                    <div class="hero-visual" data-aos="zoom-in" data-aos-delay="100" aria-label="Animated ModdingXZ visual">
-
-                        <div class="orbit">
-                            <span class="orbit-dot"></span>
-                        </div>
-
-                        <div class="hero-core">
-                            <i class="fa-solid fa-gamepad"></i>
-                        </div>
-
-                        <div class="floating-card floating-card-top">
-                            <i class="fa-solid fa-terminal"></i>
-                            <span>
-                                MODDINGXZ
-                                <small>Discover what's possible</small>
-                            </span>
-                        </div>
-
-                        <div class="floating-card floating-card-bottom">
-                            <i class="fa-solid fa-code"></i>
-                            <span>
-                                BUILT FOR ENTHUSIASTS
-                                <small>Tools · Projects · Community</small>
-                            </span>
-                        </div>
-
-                    </div>
-
+              <a class="showcase-item" href="https://moddingxz.co.uk/t.html">
+                <div class="showcase-icon">
+                  <i class="fa-solid fa-screwdriver-wrench"></i>
                 </div>
+                <strong>Tools</strong>
+                <small>Discover resources</small>
+              </a>
 
-
-                <!-- Road to 5K -->
-
-                <div class="road-wrap" data-aos="fade-up">
-
-                    <div class="road-card">
-
-                        <div class="road-info">
-                            <div class="road-icon">
-                                <i class="fa-solid fa-flag-checkered"></i>
-                            </div>
-
-                            <div>
-                                <h2>THE ROAD TO 5K</h2>
-                                <p>Help spread the word and grow ModdingXZ.</p>
-                            </div>
-                        </div>
-
-                        <div class="road-target">
-                            5,000
-                            <span>OUR NEXT MILESTONE</span>
-                        </div>
-
-                    </div>
-
+              <a class="showcase-item" href="https://moddingxz.co.uk/games.html">
+                <div class="showcase-icon">
+                  <i class="fa-solid fa-gamepad"></i>
                 </div>
+                <strong>Games</strong>
+                <small>Browse game pages</small>
+              </a>
+
+              <a class="showcase-item" href="https://moddingxz.co.uk/Hosts/index.html">
+                <div class="showcase-icon">
+                  <i class="fa-solid fa-server"></i>
+                </div>
+                <strong>Hosts</strong>
+                <small>Explore host resources</small>
+              </a>
 
             </div>
-        </section>
-
-
-        <!-- ==========================================
-             DISCOVER
-        ========================================== -->
-
-        <section class="section" id="discover">
-            <div class="container-xl">
-
-                <div class="section-heading" data-aos="fade-up">
-                    <div class="eyebrow">Explore ModdingXZ</div>
-
-                    <h2 class="section-title">
-                        Your next discovery
-                        <span class="gradient-text">starts here.</span>
-                    </h2>
-
-                    <p class="section-description">
-                        Jump straight into the parts of ModdingXZ you want to explore.
-                        Find resources, browse games and keep connected.
-                    </p>
-                </div>
-
-
-                <div class="discover-grid">
-
-                    <a
-                        href="https://moddingxz.co.uk/t.html"
-                        class="discover-card"
-                        data-aos="fade-up"
-                    >
-                        <div class="discover-icon">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                        </div>
-
-                        <h3>Tools & Resources</h3>
-
-                        <p>
-                            Explore the tools, modding resources and projects
-                            currently available through ModdingXZ.
-                        </p>
-
-                        <span class="discover-link">
-                            Explore tools <i class="fa-solid fa-arrow-right"></i>
-                        </span>
-                    </a>
-
-
-                    <a
-                        href="https://moddingxz.co.uk/games.html"
-                        class="discover-card"
-                        data-aos="fade-up"
-                        data-aos-delay="60"
-                    >
-                        <div class="discover-icon">
-                            <i class="fa-solid fa-gamepad"></i>
-                        </div>
-
-                        <h3>Games & Guides</h3>
-
-                        <p>
-                            Browse gaming resources, guides and information
-                            for the titles covered on our platform.
-                        </p>
-
-                        <span class="discover-link">
-                            Browse games <i class="fa-solid fa-arrow-right"></i>
-                        </span>
-                    </a>
-
-
-                    <a
-                        href="https://moddingxz.co.uk/Hosts/index.html"
-                        class="discover-card"
-                        data-aos="fade-up"
-                        data-aos-delay="120"
-                    >
-                        <div class="discover-icon">
-                            <i class="fa-solid fa-server"></i>
-                        </div>
-
-                        <h3>Hosts & Setup</h3>
-
-                        <p>
-                            Find our host-related resources and platform
-                            information in one dedicated section.
-                        </p>
-
-                        <span class="discover-link">
-                            View resources <i class="fa-solid fa-arrow-right"></i>
-                        </span>
-                    </a>
-
-
-                    <a
-                        href="https://t.me/moddingxz"
-                        class="discover-card"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        data-aos="fade-up"
-                        data-aos-delay="180"
-                    >
-                        <div class="discover-icon">
-                            <i class="fa-brands fa-telegram"></i>
-                        </div>
-
-                        <h3>Telegram Community</h3>
-
-                        <p>
-                            Follow community announcements, discover updates
-                            and join the conversation.
-                        </p>
-
-                        <span class="discover-link">
-                            Join Telegram <i class="fa-solid fa-arrow-right"></i>
-                        </span>
-                    </a>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- ==========================================
-             FEATURED
-        ========================================== -->
-
-        <section class="section pt-0" id="featured">
-            <div class="container-xl">
-
-                <div class="featured" data-aos="fade-up">
-
-                    <div class="row align-items-center g-4">
-
-                        <div class="col-lg-7">
-
-                            <div class="featured-label">
-                                <i class="fa-solid fa-fire"></i>
-                                Featured project
-                            </div>
-
-                            <h3>
-                                BLACK OPS 2.
-                                <span class="gradient-text">Still exploring.</span>
-                            </h3>
-
-                            <p class="featured-copy">
-                                Check out the Black Ops 2 resources available
-                                through ModdingXZ, including Zombies and
-                                multiplayer-related projects. Availability and
-                                compatibility can change, so check the latest
-                                information before using any tool.
-                            </p>
-
-                            <div class="feature-tags">
-                                <span class="feature-tag">
-                                    <i class="fa-solid fa-skull"></i>
-                                    Zombies
-                                </span>
-
-                                <span class="feature-tag">
-                                    <i class="fa-solid fa-crosshairs"></i>
-                                    Multiplayer
-                                </span>
-
-                                <span class="feature-tag">
-                                    <i class="fa-solid fa-wrench"></i>
-                                    Tools & Mods
-                                </span>
-                            </div>
-
-                            <a href="https://moddingxz.co.uk/t.html" class="btn-primary-xz">
-                                Explore BO2 Resources
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
-
-
-                        <div class="col-lg-5">
-
-                            <div class="featured-art" aria-hidden="true">
-
-                                <div class="art-ring"></div>
-
-                                <div class="art-core">
-                                    <i class="fa-solid fa-gamepad"></i>
-                                </div>
-
-                                <div class="art-chip art-chip-one">
-                                    <i class="fa-solid fa-bolt"></i>
-                                    Gaming tools
-                                </div>
-
-                                <div class="art-chip art-chip-two">
-                                    <i class="fa-solid fa-code"></i>
-                                    Modding projects
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- ==========================================
-             COMMUNITY VALUES
-        ========================================== -->
-
-        <section class="section pt-0">
-            <div class="container-xl">
-
-                <div class="section-heading" data-aos="fade-up">
-                    <div class="eyebrow">The ModdingXZ approach</div>
-
-                    <h2 class="section-title">
-                        More than just
-                        <span class="gradient-text">a link.</span>
-                    </h2>
-
-                    <p class="section-description">
-                        A community-led platform for discovering resources,
-                        sharing updates and keeping up with changing projects.
-                    </p>
-                </div>
-
-
-                <div class="values-grid">
-
-                    <article class="value-card" data-aos="fade-up">
-                        <i class="fa-solid fa-bell"></i>
-
-                        <h3>Stay in the loop</h3>
-
-                        <p>
-                            Check Telegram for announcements, releases and
-                            changes shared by the community.
-                        </p>
-                    </article>
-
-
-                    <article class="value-card" data-aos="fade-up" data-aos-delay="80">
-                        <i class="fa-solid fa-compass"></i>
-
-                        <h3>Find something new</h3>
-
-                        <p>
-                            Explore different resources and projects without
-                            having to hunt through every page.
-                        </p>
-                    </article>
-
-
-                    <article class="value-card" data-aos="fade-up" data-aos-delay="160">
-                        <i class="fa-solid fa-people-group"></i>
-
-                        <h3>Grow together</h3>
-
-                        <p>
-                            Join a community of gaming and modding enthusiasts
-                            and help us work towards the next milestone.
-                        </p>
-                    </article>
-
-                </div>
-
-            </div>
-        </section>
-
-
-        <!-- ==========================================
-             FINAL TELEGRAM CTA
-        ========================================== -->
-
-        <section class="section pt-0" id="community">
-            <div class="container-xl">
-
-                <div class="community-panel" data-aos="zoom-in">
-
-                    <div class="telegram-icon">
-                        <i class="fa-brands fa-telegram"></i>
-                    </div>
-
-                    <div class="eyebrow">Your next move</div>
-
-                    <h2>
-                        Ready to join
-                        <span class="gradient-text">the community?</span>
-                    </h2>
-
-                    <p>
-                        Join ModdingXZ on Telegram, see what's happening
-                        and help us push towards 5K. Like what we're building?
-                        Share it with a mate.
-                    </p>
-
-                    <div class="community-actions">
-
-                        <a
-                            href="https://t.me/moddingxz"
-                            class="btn-primary-xz"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i class="fa-brands fa-telegram"></i>
-                            Join ModdingXZ
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
-                        <a
-                            href="https://t.me/ModdingXZ_Support_Bot"
-                            class="btn-secondary-xz"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <i class="fa-solid fa-headset"></i>
-                            Support
-                        </a>
-
-                        <button
-                            type="button"
-                            class="btn-secondary-xz"
-                            id="shareButton"
-                        >
-                            <i class="fa-solid fa-share-nodes"></i>
-                            Share Website
-                        </button>
-
-                    </div>
-
-                    <span class="community-note" id="shareMessage" aria-live="polite">
-                        Gaming · Modding · Community
-                    </span>
-
-                </div>
-
-            </div>
-        </section>
-
-    </main>
-
-
-    <!-- ==========================================
-         FOOTER
-    ========================================== -->
-
-    <footer class="site-footer">
-        <div class="container-xl">
-
-            <div class="footer-top">
-
-                <div>
-                    <a href="#home" class="brand">
-                        <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
-                        <span>MODDING<span class="brand-xz">XZ</span></span>
-                    </a>
-
-                    <p class="footer-copy">
-                        Gaming, modding and community.
-                        Discover the resources and projects available
-                        across ModdingXZ.
-                    </p>
-                </div>
-
-
-                <div class="footer-links">
-                    <a href="https://moddingxz.co.uk/t.html">Tools</a>
-                    <a href="https://moddingxz.co.uk/games.html">Games</a>
-                    <a href="https://moddingxz.co.uk/Hosts/index.html">Hosts</a>
-                    <a href="https://moddingxz.co.uk/new/index.html">Explore</a>
-                    <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram</a>
-                    <a href="https://www.tiktok.com/@moddingx1" target="_blank" rel="noopener noreferrer">TikTok</a>
-                    <a href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer">Support</a>
-                </div>
-
-            </div>
-
-
-            <div class="footer-bottom">
-                <span>© <span id="currentYear"></span> ModdingXZ. All rights reserved.</span>
-                <span>Built for the community <i class="fa-solid fa-heart purple"></i></span>
-            </div>
+          </div>
 
         </div>
-    </footer>
+      </div>
+    </section>
 
+    <!-- Discover -->
+    <section class="section" id="discover">
+      <div class="page-width">
 
-    <!-- MOBILE QUICK-JOIN BAR -->
+        <div class="section-header" data-aos="fade-up">
+          <span class="eyebrow">Explore the hub</span>
+          <h2 class="section-heading">Everything starts <span class="gradient-text">here.</span></h2>
+          <p class="section-copy">
+            No complicated menus. Pick what you're looking for and get straight to it.
+          </p>
+        </div>
 
-    <div class="mobile-join">
-        <a
-            href="https://t.me/moddingxz"
-            class="btn-primary-xz"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <div class="resource-grid">
+
+          <a class="resource-card" href="https://moddingxz.co.uk/t.html" data-aos="fade-up">
+            <div class="resource-icon">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <h3>Tools & Resources</h3>
+            <p>Find available gaming tools, modding resources and projects.</p>
+            <span class="resource-link">Explore tools <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <a class="resource-card" href="https://moddingxz.co.uk/games.html" data-aos="fade-up" data-aos-delay="40">
+            <div class="resource-icon">
+              <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <h3>Games & Guides</h3>
+            <p>Browse game-related pages, guides and useful information.</p>
+            <span class="resource-link">Browse games <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <a class="resource-card" href="https://moddingxz.co.uk/Hosts/index.html" data-aos="fade-up" data-aos-delay="80">
+            <div class="resource-icon">
+              <i class="fa-solid fa-server"></i>
+            </div>
+            <h3>Host Resources</h3>
+            <p>Explore the available console host and service resources.</p>
+            <span class="resource-link">View hosts <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+          <a class="resource-card" href="https://moddingxz.co.uk/new/index.html" data-aos="fade-up" data-aos-delay="120">
+            <div class="resource-icon">
+              <i class="fa-solid fa-flask"></i>
+            </div>
+            <h3>New Projects</h3>
+            <p>Check out what we're experimenting with and building next.</p>
+            <span class="resource-link">See the project <i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured section -->
+    <section class="section" id="featured">
+      <div class="page-width">
+
+        <div class="section-header" data-aos="fade-up">
+          <span class="eyebrow">In the spotlight</span>
+          <h2 class="section-heading">Made for the <span class="gradient-text">community.</span></h2>
+          <p class="section-copy">
+            Discover featured resources without making the whole website depend on one game.
+          </p>
+        </div>
+
+        <article class="featured-card" data-aos="fade-up">
+
+          <div class="featured-copy">
+            <span class="featured-label">
+              <i class="fa-solid fa-star"></i>
+              Featured resource
+            </span>
+
+            <h3>Black Ops 2<br><span class="gradient-text">Modding Hub</span></h3>
+
+            <p>
+              Looking for BO2 tools and resources? Explore the current collection
+              covering Zombies, multiplayer and related modding projects.
+              Availability and compatibility can change as games and tools are updated.
+            </p>
+
+            <div class="feature-tags">
+              <span>Zombies</span>
+              <span>Multiplayer</span>
+              <span>Community resources</span>
+            </div>
+
+            <div class="featured-actions">
+              <a class="btn-join" href="https://moddingxz.co.uk/t.html">
+                Explore BO2 resources
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+
+              <a class="btn-secondary-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-telegram"></i>
+                Community
+              </a>
+            </div>
+          </div>
+
+          <div class="featured-visual" aria-hidden="true">
+            <div class="featured-orb">
+              <i class="fa-solid fa-gamepad"></i>
+            </div>
+          </div>
+
+        </article>
+      </div>
+    </section>
+
+    <!-- Community -->
+    <section class="section" id="community">
+      <div class="page-width">
+
+        <div class="section-header" data-aos="fade-up">
+          <span class="eyebrow">Why ModdingXZ?</span>
+          <h2 class="section-heading">Built around <span class="gradient-text">the community.</span></h2>
+          <p class="section-copy">
+            More than a list of links. A place to discover projects, share interests and keep exploring.
+          </p>
+        </div>
+
+        <div class="benefits">
+
+          <div class="benefit" data-aos="fade-up">
+            <i class="fa-solid fa-users"></i>
+            <h3>A great community</h3>
+            <p>Connect with other gamers and people interested in modding.</p>
+          </div>
+
+          <div class="benefit" data-aos="fade-up" data-aos-delay="50">
+            <i class="fa-solid fa-compass"></i>
+            <h3>Easy to explore</h3>
+            <p>Quick access to tools, game pages and useful resources.</p>
+          </div>
+
+          <div class="benefit" data-aos="fade-up" data-aos-delay="100">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <h3>Always evolving</h3>
+            <p>New ideas and projects can be added as the community grows.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Final call to action -->
+    <section class="cta-section">
+      <div class="page-width">
+
+        <div class="cta-panel" data-aos="zoom-in">
+          <span class="eyebrow">Your next step</span>
+
+          <h2>Don't just watch.<br><span class="gradient-text">Be part of it.</span></h2>
+
+          <p>
+            Join ModdingXZ on Telegram, meet the community and discover what's available.
+            We're working towards the next milestone together.
+          </p>
+
+          <a class="btn-join" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
             <i class="fa-brands fa-telegram"></i>
-            Join ModdingXZ on Telegram
+            Join ModdingXZ
             <i class="fa-solid fa-arrow-right"></i>
-        </a>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="page-width">
+      <div class="footer-inner">
+
+        <div>
+          <a class="brand" href="#home">
+            <span class="brand-mark">XZ</span>
+            <span class="brand-name">MODDING<span>XZ</span></span>
+          </a>
+
+          <div class="footer-copy">
+            Gaming. Modding. Community.<br>
+            © <span id="currentYear"></span> ModdingXZ.
+          </div>
+        </div>
+
+        <div class="footer-links">
+          <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer" aria-label="Telegram community">
+            <i class="fa-brands fa-telegram"></i>
+          </a>
+
+          <a href="https://www.tiktok.com/@moddingx1" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+
+          <a href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer" aria-label="Support">
+            <i class="fa-solid fa-headset"></i>
+          </a>
+        </div>
+
+      </div>
     </div>
+  </footer>
 
-
-    <!-- BACK TO TOP -->
-
-    <a href="#home" class="back-top" id="backTop" aria-label="Back to top">
-        <i class="fa-solid fa-arrow-up"></i>
+  <!-- Fixed mobile CTA -->
+  <div class="mobile-join-bar">
+    <a class="btn-join" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
+      <i class="fa-brands fa-telegram"></i>
+      Join the ModdingXZ community
+      <i class="fa-solid fa-arrow-right"></i>
     </a>
-
-
-    <!-- ==========================================
-         EXTERNAL JAVASCRIPT LIBRARIES
-    ========================================== -->
-
-    <!-- Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Typed.js: external typewriter library -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
-
-    <!-- AOS: external scroll animation library -->
-    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-    <!-- particles.js: external animated background -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
-
-    <!-- ==========================================
-         MODDINGXZ MAIN JAVASCRIPT
-    ========================================== -->
-
-    <script>
-        (() => {
-            "use strict";
-
-            const reducedMotion = window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-            ).matches;
-
-            /* --------------------------------------
-               1. DYNAMIC COPYRIGHT YEAR
-            -------------------------------------- */
-
-            const year = document.getElementById("currentYear");
-
-            if (year) {
-                year.textContent = new Date().getFullYear();
-            }
-
-
-            /* --------------------------------------
-               2. TYPEWRITER EFFECT — TYPED.JS
-            -------------------------------------- */
-
-            const typedElement = document.getElementById("typedText");
-
-            if (typedElement && window.Typed) {
-                if (reducedMotion) {
-                    typedElement.textContent = "gaming, modding & community";
-                } else {
-                    new Typed("#typedText", {
-                        strings: [
-                            "gaming.",
-                            "modding.",
-                            "community.",
-                            "new ideas.",
-                            "what comes next."
-                        ],
-                        typeSpeed: 55,
-                        backSpeed: 28,
-                        backDelay: 1300,
-                        startDelay: 250,
-                        loop: true,
-                        showCursor: true,
-                        cursorChar: "|",
-                        smartBackspace: true,
-                        fadeOut: false
-                    });
-                }
-            } else if (typedElement) {
-                typedElement.textContent = "gaming, modding & community.";
-            }
-
-
-            /* --------------------------------------
-               3. SCROLL ANIMATIONS — AOS
-            -------------------------------------- */
-
-            if (window.AOS) {
-                AOS.init({
-                    duration: reducedMotion ? 0 : 650,
-                    easing: "ease-out-cubic",
-                    once: true,
-                    offset: 35,
-                    disable: reducedMotion
-                });
-            }
-
-
-            /* --------------------------------------
-               4. PARTICLE BACKGROUND
-            -------------------------------------- */
-
-            const particleHost = document.getElementById("particles-js");
-
-            if (
-                particleHost &&
-                window.particlesJS &&
-                !reducedMotion &&
-                window.innerWidth > 600
-            ) {
-                window.particlesJS("particles-js", {
-                    particles: {
-                        number: {
-                            value: 38,
-                            density: {
-                                enable: true,
-                                value_area: 900
-                            }
-                        },
-                        color: {
-                            value: "#a878ff"
-                        },
-                        shape: {
-                            type: "circle"
-                        },
-                        opacity: {
-                            value: 0.38,
-                            random: true,
-                            anim: {
-                                enable: false
-                            }
-                        },
-                        size: {
-                            value: 2.5,
-                            random: true
-                        },
-                        line_linked: {
-                            enable: true,
-                            distance: 140,
-                            color: "#8252c8",
-                            opacity: 0.17,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 0.7,
-                            direction: "none",
-                            random: true,
-                            straight: false,
-                            out_mode: "out",
-                            bounce: false
-                        }
-                    },
-                    interactivity: {
-                        detect_on: "canvas",
-                        events: {
-                            onhover: {
-                                enable: true,
-                                mode: "grab"
-                            },
-                            onclick: {
-                                enable: false
-                            },
-                            resize: true
-                        },
-                        modes: {
-                            grab: {
-                                distance: 130,
-                                line_linked: {
-                                    opacity: 0.3
-                                }
-                            }
-                        }
-                    },
-                    retina_detect: true
-                });
-            }
-
-
-            /* --------------------------------------
-               5. MOBILE NAVIGATION
-            -------------------------------------- */
-
-            const menuToggle = document.getElementById("menuToggle");
-            const navigation = document.getElementById("navigationLinks");
-            const menuIcon = menuToggle
-                ? menuToggle.querySelector("i")
-                : null;
-
-            function setMenu(open) {
-                if (!menuToggle || !navigation) return;
-
-                navigation.classList.toggle("open", open);
-                document.body.classList.toggle("menu-open", open);
-                menuToggle.setAttribute("aria-expanded", String(open));
-                menuToggle.setAttribute(
-                    "aria-label",
-                    open ? "Close navigation menu" : "Open navigation menu"
-                );
-
-                if (menuIcon) {
-                    menuIcon.className = open
-                        ? "fa-solid fa-xmark"
-                        : "fa-solid fa-bars";
-                }
-            }
-
-            if (menuToggle && navigation) {
-                menuToggle.addEventListener("click", () => {
-                    const isOpen =
-                        menuToggle.getAttribute("aria-expanded") === "true";
-
-                    setMenu(!isOpen);
-                });
-
-                navigation.querySelectorAll("a").forEach(link => {
-                    link.addEventListener("click", () => setMenu(false));
-                });
-
-                document.addEventListener("keydown", event => {
-                    if (event.key === "Escape") {
-                        setMenu(false);
-                    }
-                });
-
-                document.addEventListener("click", event => {
-                    if (
-                        navigation.classList.contains("open") &&
-                        !navigation.contains(event.target) &&
-                        !menuToggle.contains(event.target)
-                    ) {
-                        setMenu(false);
-                    }
-                });
-
-                window.addEventListener("resize", () => {
-                    if (window.innerWidth > 760) {
-                        setMenu(false);
-                    }
-                });
-            }
-
-
-            /* --------------------------------------
-               6. SCROLL PROGRESS + BACK TO TOP
-            -------------------------------------- */
-
-            const progressBar = document.getElementById("readingProgress");
-            const backTop = document.getElementById("backTop");
-            let scrollQueued = false;
-
-            function updateScrollUI() {
-                const scrollable = document.documentElement.scrollHeight -
-                    window.innerHeight;
-
-                const progress = scrollable > 0
-                    ? (window.scrollY / scrollable) * 100
-                    : 0;
-
-                if (progressBar) {
-                    progressBar.style.width =
-                        Math.min(100, Math.max(0, progress)) + "%";
-                }
-
-                if (backTop) {
-                    backTop.classList.toggle("visible", window.scrollY > 450);
-                }
-
-                scrollQueued = false;
-            }
-
-            window.addEventListener("scroll", () => {
-                if (!scrollQueued) {
-                    scrollQueued = true;
-                    window.requestAnimationFrame(updateScrollUI);
-                }
-            }, { passive: true });
-
-            updateScrollUI();
-
-
-            /* --------------------------------------
-               7. ACTIVE NAVIGATION SECTION
-            -------------------------------------- */
-
-            const sectionLinks = [
-                ...document.querySelectorAll(
-                    '.nav-link-xz[href^="#"]'
-                )
-            ];
-
-            const observedSections = sectionLinks
-                .map(link => document.querySelector(link.getAttribute("href")))
-                .filter(Boolean);
-
-            if ("IntersectionObserver" in window && observedSections.length) {
-                const sectionObserver = new IntersectionObserver(entries => {
-                    entries.forEach(entry => {
-                        if (!entry.isIntersecting) return;
-
-                        sectionLinks.forEach(link => {
-                            const active =
-                                link.getAttribute("href") === "#" + entry.target.id;
-
-                            link.classList.toggle("active", active);
-
-                            if (active) {
-                                link.setAttribute("aria-current", "location");
-                            } else {
-                                link.removeAttribute("aria-current");
-                            }
-                        });
-                    });
-                }, {
-                    rootMargin: "-25% 0px -60% 0px",
-                    threshold: 0
-                });
-
-                observedSections.forEach(section => {
-                    sectionObserver.observe(section);
-                });
-            }
-
-
-            /* --------------------------------------
-               8. SHARE WEBSITE
-            -------------------------------------- */
-
-            const shareButton = document.getElementById("shareButton");
-            const shareMessage = document.getElementById("shareMessage");
-
-            if (shareButton && shareMessage) {
-                shareButton.addEventListener("click", async () => {
-                    const shareData = {
-                        title: "ModdingXZ",
-                        text: "Check out ModdingXZ — gaming, modding and community.",
-                        url: "https://moddingxz.co.uk/"
-                    };
-
-                    try {
-                        if (navigator.share) {
-                            await navigator.share(shareData);
-                            shareMessage.textContent = "Thanks for sharing ModdingXZ!";
-                            return;
-                        }
-
-                        if (navigator.clipboard && window.isSecureContext) {
-                            await navigator.clipboard.writeText(shareData.url);
-                            shareMessage.textContent = "Website link copied. Share it with a mate!";
-                            return;
-                        }
-
-                        const temporaryInput = document.createElement("textarea");
-                        temporaryInput.value = shareData.url;
-                        temporaryInput.setAttribute("readonly", "");
-                        temporaryInput.style.position = "fixed";
-                        temporaryInput.style.opacity = "0";
-
-                        document.body.appendChild(temporaryInput);
-                        temporaryInput.select();
-
-                        const copied = document.execCommand("copy");
-                        temporaryInput.remove();
-
-                        shareMessage.textContent = copied
-                            ? "Website link copied. Share it with a mate!"
-                            : "Visit moddingxz.co.uk to share the website.";
-
-                    } catch (error) {
-                        if (error && error.name === "AbortError") {
-                            return;
-                        }
-
-                        shareMessage.textContent =
-                            "Share the link: moddingxz.co.uk";
-                    }
-                });
-            }
-
-        })();
-    </script>
+  </div>
+
+  <!-- Back to top -->
+  <button class="back-top" id="backTop" type="button" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <!-- External JavaScript libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+2scQbITxI"
+          crossorigin="anonymous"></script>
+
+  <script src="https://unpkg.com/typed.js@3.0.0/dist/typed.umd.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    "use strict";
+
+    /* ==========================================
+       MODDINGXZ - MAIN JAVASCRIPT
+       Everything stays inside this HTML file.
+    ========================================== */
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    /* Mobile menu */
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+    const menuIcon = document.getElementById("menuIcon");
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation menu");
+      menuIcon.className = "fa-solid fa-bars";
+    }
+
+    menuToggle.addEventListener("click", function () {
+      const isOpen = mobileMenu.classList.toggle("open");
+
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+      );
+
+      menuIcon.className = isOpen
+        ? "fa-solid fa-xmark"
+        : "fa-solid fa-bars";
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMobileMenu);
+    });
+
+    document.addEventListener("click", function (event) {
+      if (
+        mobileMenu.classList.contains("open") &&
+        !mobileMenu.contains(event.target) &&
+        !menuToggle.contains(event.target)
+      ) {
+        closeMobileMenu();
+      }
+    });
+
+    /* Typewriter effect - powered by Typed.js */
+    const typedElement = document.getElementById("typed-text");
+
+    if (
+      typeof Typed !== "undefined" &&
+      typedElement &&
+      !prefersReducedMotion
+    ) {
+      typedElement.textContent = "";
+
+      new Typed("#typed-text", {
+        strings: [
+          "STARTS HERE.",
+          "LEVELS UP.",
+          "GOES FURTHER.",
+          "NEVER STANDS STILL."
+        ],
+        typeSpeed: 48,
+        backSpeed: 24,
+        backDelay: 1450,
+        startDelay: 250,
+        loop: true,
+        smartBackspace: true,
+        showCursor: true,
+        cursorChar: "|",
+        contentType: "null",
+        onBegin: function () {
+          typedElement.setAttribute("aria-label", "ModdingXZ starts here");
+        }
+      });
+    }
+
+    /* Scroll reveal animations - powered by AOS */
+    if (typeof AOS !== "undefined") {
+      AOS.init({
+        once: true,
+        duration: prefersReducedMotion ? 0 : 500,
+        easing: "ease-out-cubic",
+        offset: 30,
+        delay: 0,
+        disable: prefersReducedMotion
+      });
+    }
+
+    /* Footer year */
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+
+    /* Back-to-top visibility */
+    const backTop = document.getElementById("backTop");
+
+    function updateBackTop() {
+      if (window.scrollY > 400) {
+        backTop.classList.add("visible");
+      } else {
+        backTop.classList.remove("visible");
+      }
+    }
+
+    window.addEventListener("scroll", updateBackTop, { passive: true });
+    updateBackTop();
+
+    backTop.addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? "auto" : "smooth"
+      });
+    });
+
+    /* Close menu if screen changes to desktop */
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 600) {
+        closeMobileMenu();
+      }
+    });
+
+    /* Recalculate scroll animations if fonts/layout finish loading */
+    window.addEventListener("load", function () {
+      if (typeof AOS !== "undefined") {
+        AOS.refresh();
+      }
+    });
+  </script>
 
 </body>
 </html>
