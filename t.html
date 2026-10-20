@@ -1,1445 +1,1761 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#090711">
-  <meta name="color-scheme" content="dark">
-
-  <title>ModdingXZ — Join the Community</title>
-  <meta name="description" content="Join ModdingXZ for gaming, console modding, tools, releases and community updates. Nearly 3,000 members and growing. Join us on Telegram.">
-  <meta property="og:title" content="ModdingXZ — Gaming. Modding. Community.">
-  <meta property="og:description" content="Nearly 3K members. One community. Join ModdingXZ on Telegram and stay up to date with gaming tools and releases.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://moddingxz.co.uk/">
-  <meta name="twitter:card" content="summary">
-
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23090711'/%3E%3Cpath d='M22 25h56L56 45l22 30H57L43 55 32 75H15l21-33z' fill='%23a855f7'/%3E%3C/svg%3E">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #090711;
-      --surface: #100d1a;
-      --surface-2: #171126;
-      --purple: #a855f7;
-      --purple-light: #c084fc;
-      --pink: #ec4899;
-      --text: #f8f7fc;
-      --muted: #a49bb6;
-      --border: rgba(192, 132, 252, .16);
-      --green: #65e6ad;
-      --radius: 22px;
-      --container: 1120px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 95px;
-    }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(ellipse at 80% 0%, rgba(115, 45, 185, .15), transparent 34rem),
-        radial-gradient(ellipse at 0% 38%, rgba(91, 36, 140, .09), transparent 28rem),
-        var(--bg);
-      color: var(--text);
-      font-family: "DM Sans", sans-serif;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      opacity: .16;
-      background-image: radial-gradient(rgba(255,255,255,.18) .6px, transparent .6px);
-      background-size: 20px 20px;
-      mask-image: linear-gradient(to bottom, black, transparent 75%);
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid var(--purple-light);
-      outline-offset: 5px;
-    }
-
-    .container-xl-custom {
-      width: min(var(--container), calc(100% - 40px));
-      margin-inline: auto;
-    }
-
-    .display-font, h1, h2, h3, h4 {
-      font-family: "Space Grotesk", sans-serif;
-      letter-spacing: -.045em;
-    }
-
-    .muted { color: var(--muted); }
-
-    .gradient-text {
-      color: var(--purple-light);
-      background: linear-gradient(100deg, #d8b4fe, #a855f7 48%, #ec4899);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      font-size: .74rem;
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      color: #d8b4fe;
-      font-weight: 800;
-    }
-
-    .eyebrow::before {
-      content: "";
-      height: 2px;
-      width: 20px;
-      background: var(--purple);
-      border-radius: 10px;
-    }
-
-    .announcement {
-      background: linear-gradient(90deg, #241333, #151020 50%, #25112c);
-      border-bottom: 1px solid var(--border);
-      text-align: center;
-      padding: 9px 15px;
-      font-size: .8rem;
-      color: #e9d5ff;
-    }
-
-    .announcement a {
-      font-weight: 800;
-      margin-left: 5px;
-      color: white;
-    }
-
-    .announcement a:hover { color: var(--purple-light); }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(9, 7, 17, .82);
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-
-    .nav-inner {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      flex-shrink: 0;
-    }
-
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 41px;
-      height: 41px;
-      border-radius: 13px;
-      background: linear-gradient(145deg, #c084fc, #7828ce 65%, #4c1d95);
-      box-shadow: 0 6px 25px rgba(168,85,247,.2);
-      color: white;
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 800;
-      font-size: 1.2rem;
-      letter-spacing: -.08em;
-    }
-
-    .brand-name {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: -.04em;
-    }
-
-    .brand-sub {
-      display: block;
-      color: var(--muted);
-      font-size: .65rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      line-height: 1.2;
-      margin-top: 2px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 27px;
-    }
-
-    .nav-links > a:not(.btn-primary-custom) {
-      color: #c3bbd1;
-      font-size: .88rem;
-      font-weight: 600;
-      transition: color .2s;
-    }
-
-    .nav-links > a:not(.btn-primary-custom):hover { color: white; }
-
-    .btn-primary-custom,
-    .btn-secondary-custom {
-      min-height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border-radius: 13px;
-      padding: 0 20px;
-      font-size: .9rem;
-      font-weight: 800;
-      transition: transform .2s, box-shadow .2s, border-color .2s, background .2s;
-      border: 1px solid transparent;
-      cursor: pointer;
-    }
-
-    .btn-primary-custom {
-      color: white;
-      background: linear-gradient(105deg, #9333ea, #a855f7 55%, #c026d3);
-      box-shadow: 0 8px 28px rgba(147, 51, 234, .23);
-    }
-
-    .btn-primary-custom:hover {
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 35px rgba(168, 85, 247, .36);
-    }
-
-    .btn-secondary-custom {
-      color: white;
-      border-color: rgba(255,255,255,.13);
-      background: rgba(255,255,255,.035);
-    }
-
-    .btn-secondary-custom:hover {
-      color: white;
-      border-color: rgba(192,132,252,.55);
-      background: rgba(168,85,247,.08);
-      transform: translateY(-2px);
-    }
-
-    .telegram-icon {
-      width: 19px;
-      height: 19px;
-      flex-shrink: 0;
-    }
-
-    .hero {
-      position: relative;
-      padding: 92px 0 75px;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "XZ";
-      position: absolute;
-      z-index: -1;
-      right: -30px;
-      top: 55px;
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 800;
-      font-size: clamp(14rem, 33vw, 30rem);
-      line-height: .9;
-      letter-spacing: -.12em;
-      color: rgba(192,132,252,.025);
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.12fr .88fr;
-      align-items: center;
-      gap: 65px;
-    }
-
-    .hero h1 {
-      font-size: clamp(3.15rem, 6.7vw, 6rem);
-      font-weight: 800;
-      line-height: .99;
-      margin: 22px 0;
-    }
-
-    .hero-copy {
-      max-width: 550px;
-      font-size: 1.05rem;
-      color: #b9b0c9;
-      line-height: 1.8;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 29px;
-    }
-
-    .hero-actions .btn-primary-custom { min-height: 55px; padding-inline: 23px; }
-
-    .trust-line {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 9px;
-      color: #a99fb8;
-      font-size: .79rem;
-      margin-top: 24px;
-    }
-
-    .trust-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 12px rgba(101,230,173,.6);
-    }
-
-    .hero-panel {
-      position: relative;
-      border: 1px solid rgba(192,132,252,.22);
-      border-radius: 26px;
-      padding: 28px;
-      background:
-        radial-gradient(ellipse at 100% 0%, rgba(147,51,234,.15), transparent 60%),
-        linear-gradient(145deg, rgba(25,18,39,.96), rgba(13,10,22,.97));
-      box-shadow: 0 30px 100px rgba(0,0,0,.26), inset 0 1px rgba(255,255,255,.035);
-      overflow: hidden;
-    }
-
-    .panel-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 27px;
-    }
-
-    .panel-label {
-      font-size: .75rem;
-      color: #c5bad5;
-      font-weight: 700;
-      letter-spacing: .09em;
-      text-transform: uppercase;
-    }
-
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 10px;
-      border-radius: 50px;
-      border: 1px solid rgba(101,230,173,.19);
-      color: #9af0c8;
-      background: rgba(101,230,173,.06);
-      font-size: .69rem;
-      font-weight: 800;
-    }
-
-    .live-badge::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-
-    .member-number {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(3.6rem, 7vw, 5.1rem);
-      font-weight: 800;
-      letter-spacing: -.075em;
-      line-height: 1.1;
-    }
-
-    .member-description {
-      margin-top: 7px;
-      color: #c6bbd5;
-      font-size: .93rem;
-    }
-
-    .progress-wrap { margin: 24px 0 11px; }
-
-    .progress-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      color: #aaa0b8;
-      font-size: .75rem;
-      margin-bottom: 10px;
-    }
-
-    .progress-track {
-      height: 7px;
-      overflow: hidden;
-      border-radius: 20px;
-      background: rgba(255,255,255,.075);
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 59%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #7e22ce, #c084fc, #ec4899);
-      box-shadow: 0 0 18px rgba(168,85,247,.45);
-      animation: fill-in 1.5s ease-out both;
-    }
-
-    .panel-divider {
-      height: 1px;
-      background: rgba(255,255,255,.08);
-      margin: 24px 0;
-    }
-
-    .panel-perks {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px 12px;
-    }
-
-    .perk {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      color: #d9d1e5;
-      font-size: .81rem;
-      line-height: 1.45;
-    }
-
-    .perk-icon {
-      display: grid;
-      place-items: center;
-      width: 32px;
-      height: 32px;
-      flex-shrink: 0;
-      border-radius: 10px;
-      background: rgba(168,85,247,.12);
-      border: 1px solid rgba(192,132,252,.12);
-      color: #d8b4fe;
-      font-size: .95rem;
-    }
-
-    .panel-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-top: 26px;
-      font-size: .75rem;
-      color: var(--muted);
-    }
-
-    .panel-bottom strong { color: #f0e8fb; }
-
-    .section {
-      padding: 80px 0;
-    }
-
-    .section-heading {
-      max-width: 650px;
-      margin-bottom: 36px;
-    }
-
-    .section-heading h2 {
-      font-size: clamp(2.15rem, 4.3vw, 3.5rem);
-      line-height: 1.08;
-      font-weight: 800;
-      margin: 14px 0;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      max-width: 570px;
-      margin-bottom: 0;
-    }
-
-    .benefit-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .benefit-card {
-      position: relative;
-      min-height: 220px;
-      padding: 25px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: linear-gradient(150deg, rgba(24,18,37,.9), rgba(14,11,22,.8));
-      transition: transform .25s, border-color .25s, background .25s;
-    }
-
-    .benefit-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(192,132,252,.4);
-      background: linear-gradient(150deg, rgba(35,23,54,.95), rgba(17,12,27,.95));
-    }
-
-    .benefit-icon {
-      width: 45px;
-      height: 45px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      color: #e9d5ff;
-      background: linear-gradient(145deg, rgba(168,85,247,.22), rgba(168,85,247,.06));
-      border: 1px solid rgba(192,132,252,.14);
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-
-    .benefit-card h3 {
-      font-size: 1.17rem;
-      font-weight: 700;
-      letter-spacing: -.025em;
-      margin-bottom: 9px;
-    }
-
-    .benefit-card p {
-      color: var(--muted);
-      font-size: .88rem;
-      margin: 0;
-      line-height: 1.7;
-    }
-
-    .join-strip {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 29px 32px;
-      margin-top: 25px;
-      border: 1px solid rgba(192,132,252,.23);
-      border-radius: var(--radius);
-      background:
-        radial-gradient(ellipse at 100% 0%, rgba(168,85,247,.16), transparent 55%),
-        rgba(19,13,30,.85);
-      overflow: hidden;
-    }
-
-    .join-strip h3 {
-      font-size: 1.45rem;
-      margin-bottom: 5px;
-      font-weight: 800;
-    }
-
-    .join-strip p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .88rem;
-    }
-
-    .join-strip .btn-primary-custom { flex-shrink: 0; }
-
-    .release-section {
-      background: linear-gradient(180deg, transparent, rgba(19,13,29,.62), transparent);
-      border-top: 1px solid rgba(255,255,255,.035);
-      border-bottom: 1px solid rgba(255,255,255,.035);
-    }
-
-    .release-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 29px;
-    }
-
-    .release-header .section-heading { margin-bottom: 0; }
-
-    .news-status {
-      font-size: .76rem;
-      color: #b4a9c4;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      white-space: nowrap;
-    }
-
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .news-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 235px;
-      padding: 23px;
-      border: 1px solid rgba(255,255,255,.075);
-      border-radius: 19px;
-      background: rgba(16,12,26,.8);
-      transition: transform .22s, border-color .22s;
-    }
-
-    .news-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(192,132,252,.35);
-    }
-
-    .news-tag {
-      display: inline-flex;
-      align-self: flex-start;
-      color: #d8b4fe;
-      font-size: .69rem;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 17px;
-    }
-
-    .news-card h3 {
-      font-size: 1.16rem;
-      line-height: 1.4;
-      font-weight: 700;
-      margin-bottom: 10px;
-      overflow-wrap: anywhere;
-    }
-
-    .news-card p {
-      font-size: .83rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .news-card a {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: #d8b4fe;
-      font-size: .82rem;
-      font-weight: 800;
-      margin-top: auto;
-    }
-
-    .news-card a:hover { color: white; }
-
-    .news-footnote {
-      color: #8f859f;
-      font-size: .76rem;
-      margin-top: 18px;
-    }
-
-    .resources-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .resource-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 205px;
-      padding: 24px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: rgba(19,14,30,.76);
-      transition: transform .22s, border-color .22s;
-    }
-
-    .resource-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(192,132,252,.42);
-    }
-
-    .resource-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    .resource-icon {
-      font-size: 1.3rem;
-      width: 43px;
-      height: 43px;
-      display: grid;
-      place-items: center;
-      border-radius: 13px;
-      background: rgba(168,85,247,.12);
-    }
-
-    .resource-arrow { color: #a89ab8; font-size: 1.1rem; }
-
-    .resource-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .resource-card p {
-      color: var(--muted);
-      font-size: .84rem;
-      margin: 0;
-    }
-
-    .resource-card .resource-link {
-      margin-top: auto;
-      padding-top: 20px;
-      color: #d8b4fe;
-      font-size: .82rem;
-      font-weight: 800;
-    }
-
-    .final-cta {
-      position: relative;
-      padding: 57px 25px;
-      border-radius: 27px;
-      border: 1px solid rgba(192,132,252,.27);
-      text-align: center;
-      background:
-        radial-gradient(ellipse at 50% 0%, rgba(147,51,234,.22), transparent 65%),
-        linear-gradient(145deg, #151020, #0d0a16);
-      overflow: hidden;
-    }
-
-    .final-cta h2 {
-      max-width: 700px;
-      margin: 15px auto;
-      font-size: clamp(2.35rem, 5vw, 4rem);
-      line-height: 1.06;
-      font-weight: 800;
-    }
-
-    .final-cta p {
-      max-width: 560px;
-      margin: 0 auto;
-      color: #b4a9c4;
-    }
-
-    .final-cta .hero-actions {
-      justify-content: center;
-      margin-top: 27px;
-    }
-
-    .final-cta .fine-print {
-      font-size: .75rem;
-      color: #8f859f;
-      margin-top: 18px;
-    }
-
-    footer {
-      padding: 32px 0 95px;
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-      border-top: 1px solid rgba(255,255,255,.075);
-      padding-top: 27px;
-    }
-
-    .footer-copy {
-      font-size: .77rem;
-      color: #93899f;
-      margin-top: 10px;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 19px;
-    }
-
-    .footer-links a {
-      font-size: .8rem;
-      color: #b2a8c0;
-    }
-
-    .footer-links a:hover { color: white; }
-
-    .mobile-join {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 12px;
-      right: 12px;
-      bottom: calc(12px + env(safe-area-inset-bottom));
-      padding: 8px;
-      border: 1px solid rgba(192,132,252,.2);
-      border-radius: 17px;
-      background: rgba(13,10,22,.91);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 12px 40px rgba(0,0,0,.4);
-    }
-
-    .mobile-join .btn-primary-custom { width: 100%; min-height: 48px; }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(101,230,173,.3); }
-      50% { opacity: .7; box-shadow: 0 0 0 5px rgba(101,230,173,0); }
-    }
-
-    @keyframes fill-in {
-      from { width: 0; }
-      to { width: 59%; }
-    }
-
-    @media (min-width: 1300px) {
-      .hero { padding-top: 110px; }
-    }
-
-    @media (max-width: 991px) {
-      .nav-links { gap: 17px; }
-      .nav-links > a:not(.btn-primary-custom) { font-size: .82rem; }
-      .hero-grid { gap: 30px; }
-      .hero { padding-top: 72px; }
-      .hero h1 { font-size: clamp(3.1rem, 7vw, 4.7rem); }
-      .hero-panel { padding: 23px; }
-      .benefit-grid, .news-grid, .resources-grid { grid-template-columns: repeat(2, 1fr); }
-      .news-card:last-child, .resource-card:last-child { grid-column: auto; }
-    }
-
-    @media (max-width: 767px) {
-      .container-xl-custom { width: min(100% - 32px, var(--container)); }
-      .announcement { font-size: .72rem; }
-      .nav-inner { min-height: 66px; }
-      .brand-mark { width: 37px; height: 37px; }
-      .nav-links > a:not(.btn-primary-custom) { display: none; }
-      .nav-links .btn-primary-custom { min-height: 42px; padding-inline: 13px; font-size: .78rem; }
-      .hero { padding: 58px 0 42px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 34px; }
-      .hero h1 { font-size: clamp(3.2rem, 13vw, 5.3rem); margin: 18px 0; }
-      .hero-copy { font-size: .96rem; }
-      .hero-actions { display: grid; grid-template-columns: 1fr; }
-      .hero-actions a { width: 100%; }
-      .trust-line { line-height: 1.8; }
-      .hero-panel { padding: 22px; }
-      .member-number { font-size: 4.2rem; }
-      .section { padding: 57px 0; }
-      .section-heading { margin-bottom: 26px; }
-      .section-heading h2 { font-size: 2.45rem; }
-      .benefit-grid, .news-grid, .resources-grid { grid-template-columns: 1fr; }
-      .benefit-card { min-height: auto; padding: 22px; }
-      .news-card { min-height: 200px; }
-      .resource-card { min-height: 185px; }
-      .join-strip { align-items: flex-start; flex-direction: column; padding: 25px; }
-      .join-strip .btn-primary-custom { width: 100%; }
-      .release-header { align-items: flex-start; flex-direction: column; gap: 17px; }
-      .release-header .section-heading { margin-bottom: 0; }
-      .final-cta { padding: 42px 20px; }
-      .final-cta h2 { font-size: 2.7rem; }
-      .final-cta .hero-actions { display: grid; }
-      .footer-inner { align-items: flex-start; flex-direction: column; }
-      .mobile-join { display: block; }
-      footer { padding-bottom: 110px; }
-    }
-
-    @media (max-width: 380px) {
-      .brand-name { font-size: .94rem; }
-      .brand-sub { font-size: .58rem; }
-      .nav-links .btn-primary-custom { padding-inline: 10px; }
-      .panel-perks { grid-template-columns: 1fr; }
-      .member-number { font-size: 3.65rem; }
-      .hero h1 { font-size: 3.05rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-      .reveal { opacity: 1; transform: none; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#08060f">
+
+    <title>ModdingXZ — Gaming, Modding & Community</title>
+
+    <meta name="description"
+          content="Welcome to ModdingXZ. Discover gaming tools, modding resources, community projects and updates. Join us on the Road to 5K.">
+
+    <meta property="og:title" content="ModdingXZ — Gaming & Modding">
+    <meta property="og:description"
+          content="Discover tools, explore projects and join the ModdingXZ community. Road to 5K.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://moddingxz.co.uk/">
+
+    <link rel="canonical" href="https://moddingxz.co.uk/">
+
+    <!-- External CSS: Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- External icons -->
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- External fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- External animation library -->
+    <link
+        href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        /* =========================================
+           MODDINGXZ — MAIN STYLES
+        ========================================= */
+
+        :root {
+            --bg: #08060f;
+            --bg-soft: #0d0a17;
+            --surface: #110d1e;
+            --surface-hover: #171027;
+            --purple: #9b5cff;
+            --purple-light: #c29aff;
+            --purple-dark: #7138ce;
+            --text: #f8f6ff;
+            --muted: #a39bb5;
+            --border: rgba(190, 150, 255, 0.14);
+            --radius: 22px;
+            --max-width: 1180px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            background:
+                radial-gradient(
+                    ellipse at 15% 0%,
+                    rgba(113, 56, 206, 0.16),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    ellipse at 90% 35%,
+                    rgba(155, 92, 255, 0.08),
+                    transparent 38%
+                );
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::selection {
+            color: white;
+            background: #7138ce;
+        }
+
+        .container-xl {
+            max-width: var(--max-width);
+        }
+
+        .text-purple {
+            color: var(--purple-light);
+        }
+
+        .font-display {
+            font-family: "Orbitron", sans-serif;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            color: var(--purple-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .section-label::before {
+            content: "";
+            width: 23px;
+            height: 2px;
+            background: var(--purple);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 900;
+            line-height: 1.12;
+            letter-spacing: -1.5px;
+        }
+
+        .section-description {
+            max-width: 610px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            padding: 17px 0;
+            background: rgba(8, 6, 15, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(255,255,255,0.055);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            color: white;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            font-size: 19px;
+        }
+
+        .brand-icon {
+            width: 39px;
+            height: 39px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: linear-gradient(135deg, #a66bff, #5725aa);
+            color: white;
+            box-shadow: 0 5px 24px rgba(128, 68, 222, 0.25);
+        }
+
+        .brand-xz {
+            color: var(--purple-light);
+        }
+
+        .navbar .nav-link {
+            color: #bcb4ca;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 13px !important;
+            transition: color .2s ease;
+        }
+
+        .navbar .nav-link:hover {
+            color: white;
+        }
+
+        .navbar-toggler {
+            border: 1px solid var(--border);
+            color: white;
+            box-shadow: none !important;
+        }
+
+        .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        /* Buttons */
+
+        .btn-xz {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 13px 21px;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #a66bff, #7138ce);
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                filter .25s ease;
+        }
+
+        .btn-xz:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(126, 61, 219, .28);
+            filter: brightness(1.1);
+        }
+
+        .btn-xz-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 13px 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: rgba(255,255,255,.025);
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all .25s ease;
+        }
+
+        .btn-xz-outline:hover {
+            color: white;
+            background: rgba(155,92,255,.1);
+            border-color: rgba(155,92,255,.45);
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+
+        .hero {
+            position: relative;
+            min-height: 680px;
+            display: flex;
+            align-items: center;
+            padding: 110px 0 85px;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: .17;
+            background-image:
+                linear-gradient(rgba(180,140,255,.09) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(180,140,255,.09) 1px, transparent 1px);
+            background-size: 58px 58px;
+            mask-image: linear-gradient(to bottom, black, transparent 90%);
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 90px;
+            right: -150px;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            background: rgba(116, 48, 210, .14);
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            margin-bottom: 26px;
+            border: 1px solid rgba(176,125,255,.24);
+            border-radius: 100px;
+            background: rgba(135,75,225,.08);
+            color: #d8c1ff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .8px;
+            text-transform: uppercase;
+        }
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #b58aff;
+            box-shadow: 0 0 12px #9b5cff;
+            animation: pulse 1.8s infinite;
+        }
+
+        .hero h1 {
+            max-width: 780px;
+            margin-bottom: 24px;
+            font-size: clamp(2.8rem, 7.6vw, 5.7rem);
+            line-height: .99;
+            letter-spacing: -4px;
+            font-weight: 900;
+        }
+
+        .hero h1 .gradient-text {
+            display: block;
+            background: linear-gradient(
+                100deg,
+                #ffffff 5%,
+                #c49aff 48%,
+                #8e52f1 95%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 590px;
+            margin-bottom: 30px;
+            color: #b2a9c1;
+            font-size: clamp(14px, 2vw, 16px);
+            line-height: 1.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .hero-proof {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-top: 34px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .hero-proof span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-proof i {
+            color: var(--purple-light);
+        }
+
+        /* Road to 5K */
+
+        .road-card {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+            padding: 27px 30px;
+            margin-top: 22px;
+            border: 1px solid rgba(174,120,255,.22);
+            border-radius: var(--radius);
+            background:
+                radial-gradient(
+                    circle at 100% 0%,
+                    rgba(128,65,215,.19),
+                    transparent 45%
+                ),
+                linear-gradient(135deg, #120d20, #0d0a17);
+        }
+
+        .road-card::after {
+            content: "5K";
+            position: absolute;
+            right: 20%;
+            top: -48px;
+            font-family: "Orbitron", sans-serif;
+            font-size: 145px;
+            font-weight: 800;
+            color: rgba(180,130,255,.035);
+            pointer-events: none;
+        }
+
+        .road-heading {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .road-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: rgba(155,92,255,.13);
+            color: #c9a9ff;
+            font-size: 20px;
+        }
+
+        .road-heading h2 {
+            font-size: 17px;
+            font-weight: 900;
+            margin: 0 0 4px;
+        }
+
+        .road-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .road-target {
+            position: relative;
+            z-index: 1;
+            color: var(--purple-light);
+            font-family: "Orbitron", sans-serif;
+            font-size: 23px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        /* Feature cards */
+
+        .feature-card {
+            position: relative;
+            height: 100%;
+            min-height: 245px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 27px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: linear-gradient(145deg, #120e1d, #0d0a15);
+            transition:
+                transform .3s ease,
+                border-color .3s ease,
+                background .3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(168,110,255,.42);
+            background: linear-gradient(145deg, #191129, #100b1a);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 23px;
+            border: 1px solid rgba(166,107,255,.18);
+            border-radius: 16px;
+            background: rgba(155,92,255,.1);
+            color: #c6a3ff;
+            font-size: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            margin-bottom: 22px;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .feature-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            margin-top: auto;
+            color: var(--purple-light);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .feature-link i {
+            transition: transform .2s ease;
+        }
+
+        .feature-card:hover .feature-link i {
+            transform: translateX(5px);
+        }
+
+        /* Featured section */
+
+        .featured-panel {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(26px, 5vw, 55px);
+            border: 1px solid rgba(170,115,255,.22);
+            border-radius: 28px;
+            background:
+                radial-gradient(
+                    ellipse at 100% 0%,
+                    rgba(113,56,206,.23),
+                    transparent 52%
+                ),
+                linear-gradient(140deg, #151020, #0c0913);
+        }
+
+        .featured-panel::after {
+            content: "";
+            position: absolute;
+            right: -75px;
+            bottom: -130px;
+            width: 310px;
+            height: 310px;
+            border-radius: 50%;
+            border: 1px solid rgba(177,132,255,.1);
+            box-shadow:
+                0 0 0 30px rgba(177,132,255,.025),
+                0 0 0 60px rgba(177,132,255,.02);
+            pointer-events: none;
+        }
+
+        .featured-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 11px;
+            margin-bottom: 19px;
+            border: 1px solid rgba(173,124,255,.25);
+            border-radius: 8px;
+            color: #c9aaff;
+            background: rgba(155,92,255,.08);
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .featured-panel h3 {
+            max-width: 550px;
+            margin-bottom: 17px;
+            font-size: clamp(1.9rem, 4vw, 3rem);
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+        }
+
+        .featured-panel p {
+            max-width: 550px;
+            color: #b0a6c0;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .feature-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin: 24px 0 28px;
+        }
+
+        .feature-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 11px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: rgba(255,255,255,.025);
+            color: #d8d0e5;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .feature-pill i {
+            color: var(--purple-light);
+        }
+
+        .featured-visual {
+            position: relative;
+            z-index: 1;
+            min-height: 260px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .visual-orbit {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border: 1px solid rgba(179,131,255,.2);
+            border-radius: 50%;
+            animation: rotate 35s linear infinite;
+        }
+
+        .visual-orbit::before,
+        .visual-orbit::after {
+            content: "";
+            position: absolute;
+            border: 1px solid rgba(179,131,255,.15);
+            border-radius: 50%;
+        }
+
+        .visual-orbit::before {
+            inset: 22px;
+        }
+
+        .visual-orbit::after {
+            inset: 48px;
+        }
+
+        .visual-core {
+            position: relative;
+            z-index: 2;
+            width: 125px;
+            height: 125px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(204,177,255,.35);
+            border-radius: 35px;
+            background: linear-gradient(145deg, #2b1948, #130d21);
+            box-shadow:
+                0 0 65px rgba(131,68,225,.23),
+                inset 0 0 30px rgba(166,107,255,.1);
+            color: #d8c1ff;
+            font-size: 46px;
+            transform: rotate(-8deg);
+        }
+
+        .visual-core i {
+            transform: rotate(8deg);
+        }
+
+        .floating-chip {
+            position: absolute;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 13px;
+            border: 1px solid rgba(180,140,255,.2);
+            border-radius: 12px;
+            background: rgba(17,12,29,.94);
+            box-shadow: 0 12px 30px rgba(0,0,0,.2);
+            color: #e2d7f5;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .floating-chip i {
+            color: var(--purple-light);
+        }
+
+        .chip-one {
+            top: 25px;
+            right: 0;
+        }
+
+        .chip-two {
+            bottom: 24px;
+            left: 0;
+        }
+
+        /* Why section */
+
+        .reason-card {
+            padding: 25px;
+            height: 100%;
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 18px;
+            background: rgba(255,255,255,.018);
+        }
+
+        .reason-card i {
+            margin-bottom: 18px;
+            color: var(--purple-light);
+            font-size: 22px;
+        }
+
+        .reason-card h3 {
+            margin-bottom: 9px;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .reason-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        /* Community CTA */
+
+        .community-cta {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(35px, 7vw, 75px) 25px;
+            border: 1px solid rgba(176,126,255,.25);
+            border-radius: 28px;
+            text-align: center;
+            background:
+                radial-gradient(
+                    ellipse at 50% 0%,
+                    rgba(123,66,216,.24),
+                    transparent 65%
+                ),
+                #100b19;
+        }
+
+        .community-cta h2 {
+            max-width: 750px;
+            margin: 0 auto 18px;
+            font-size: clamp(2rem, 5vw, 3.7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .community-cta p {
+            max-width: 540px;
+            margin: 0 auto 28px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .telegram-symbol {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 23px;
+            border-radius: 19px;
+            background: linear-gradient(135deg, #a66bff, #7138ce);
+            color: white;
+            font-size: 25px;
+            box-shadow: 0 10px 40px rgba(130,70,220,.25);
+        }
+
+        /* Footer */
+
+        .site-footer {
+            padding: 35px 0 100px;
+            border-top: 1px solid rgba(255,255,255,.06);
+        }
+
+        .footer-brand {
+            color: white;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .footer-text {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 17px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            font-size: 12px;
+            transition: color .2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--purple-light);
+        }
+
+        .footer-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,.06);
+            color: #777083;
+            font-size: 11px;
+        }
+
+        /* Mobile join bar */
+
+        .mobile-join {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            right: 12px;
+            bottom: 12px;
+            left: 12px;
+            padding: 9px;
+            border: 1px solid rgba(175,125,255,.25);
+            border-radius: 16px;
+            background: rgba(13,9,22,.94);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 10px 40px rgba(0,0,0,.4);
+        }
+
+        .mobile-join .btn-xz {
+            width: 100%;
+            padding: 12px;
+        }
+
+        /* Back to top */
+
+        .back-to-top {
+            position: fixed;
+            right: 22px;
+            bottom: 25px;
+            z-index: 999;
+            width: 43px;
+            height: 43px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: #171023;
+            color: white;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all .25s ease;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Animations */
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(155,92,255,.45);
+            }
+            50% {
+                box-shadow: 0 0 0 6px rgba(155,92,255,0);
+            }
+        }
+
+        @keyframes rotate {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+
+        @media (max-width: 991px) {
+            .hero {
+                min-height: auto;
+                padding-top: 90px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2.5px;
+            }
+
+            .section-padding {
+                padding: 75px 0;
+            }
+
+            .featured-visual {
+                min-height: 300px;
+                margin-top: 25px;
+            }
+
+            .navbar-collapse {
+                padding: 15px 0 5px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .hero {
+                padding-top: 72px;
+                padding-bottom: 48px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.65rem, 12vw, 4.4rem);
+                letter-spacing: -2.5px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-actions {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions a {
+                width: 100%;
+            }
+
+            .hero-proof {
+                gap: 12px 16px;
+            }
+
+            .road-card {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 23px;
+            }
+
+            .road-target {
+                padding-left: 63px;
+            }
+
+            .section-padding {
+                padding: 65px 0;
+            }
+
+            .feature-card {
+                min-height: 220px;
+            }
+
+            .featured-visual {
+                min-height: 265px;
+            }
+
+            .visual-orbit {
+                width: 220px;
+                height: 220px;
+            }
+
+            .visual-core {
+                width: 105px;
+                height: 105px;
+                font-size: 38px;
+            }
+
+            .chip-one {
+                right: -4px;
+            }
+
+            .chip-two {
+                left: -4px;
+            }
+
+            .mobile-join {
+                display: block;
+            }
+
+            .back-to-top {
+                right: 18px;
+                bottom: 85px;
+            }
+
+            .site-footer {
+                padding-bottom: 115px;
+            }
+
+            .footer-bottom {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="announcement">
-    🟣 We're nearly at 3,000 members!
-    <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">
-      Help us reach 5K <span aria-hidden="true">↗</span>
-    </a>
-  </div>
 
-  <header class="topbar">
-    <div class="container-xl-custom nav-inner">
-      <a class="brand" href="#home" aria-label="ModdingXZ home">
-        <span class="brand-mark">XZ</span>
-        <span>
-          <span class="brand-name">MODDING<span class="gradient-text">XZ</span></span>
-          <span class="brand-sub">Gaming · Modding · Community</span>
-        </span>
-      </a>
+    <!-- =========================================
+         NAVIGATION
+    ========================================== -->
 
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="#community">Community</a>
-        <a href="#updates">Updates</a>
-        <a href="#resources">Resources</a>
-        <a class="btn-primary-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer" data-cta="nav">
-          <svg class="telegram-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M21.8 4.2 18.5 20c-.25 1.12-.91 1.4-1.85.87l-5.1-3.76-2.46 2.37c-.27.27-.5.5-1.02.5l.36-5.2 9.46-8.55c.41-.36-.09-.56-.64-.2L5.55 13.4.52 11.83c-1.1-.35-1.12-1.1.23-1.64L20.4 2.6c.91-.33 1.71.22 1.4 1.6Z"/>
-          </svg>
-          Join Telegram
+    <nav class="navbar navbar-expand-lg sticky-top" aria-label="Main navigation">
+        <div class="container-xl px-3 px-lg-4">
+
+            <a class="navbar-brand" href="#home" aria-label="ModdingXZ home">
+                <span class="brand-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </span>
+
+                <span>MODDING<span class="brand-xz">XZ</span></span>
+            </a>
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavigation"
+                aria-controls="mainNavigation"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNavigation">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#discover">Discover</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#featured">Featured</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#community">Community</a>
+                    </li>
+
+                    <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                        <a
+                            class="btn-xz"
+                            href="https://t.me/moddingxz"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-telegram"></i>
+                            Join Telegram
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <main>
+
+        <section class="hero" id="home">
+            <div class="hero-grid"></div>
+            <div class="hero-glow"></div>
+
+            <div class="container-xl px-3 px-lg-4">
+                <div class="row align-items-center">
+
+                    <div class="col-lg-10" data-aos="fade-up">
+
+                        <div class="hero-badge">
+                            <span class="live-dot"></span>
+                            Gaming. Modding. Community.
+                        </div>
+
+                        <h1>
+                            YOUR NEXT
+                            <span class="gradient-text">LEVEL STARTS HERE.</span>
+                        </h1>
+
+                        <p class="hero-description">
+                            Welcome to ModdingXZ — a community built around
+                            gaming, modding and discovering what's possible.
+                            Explore tools, check out projects and stay connected
+                            with the latest community updates.
+                        </p>
+
+                        <div class="hero-actions">
+
+                            <a
+                                href="https://t.me/moddingxz"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-xz"
+                            >
+                                <i class="fa-brands fa-telegram"></i>
+                                Join the Community
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                            <a href="#discover" class="btn-xz-outline">
+                                <i class="fa-solid fa-compass"></i>
+                                Explore ModdingXZ
+                            </a>
+
+                        </div>
+
+                        <div class="hero-proof">
+                            <span>
+                                <i class="fa-solid fa-users"></i>
+                                Great community
+                            </span>
+
+                            <span>
+                                <i class="fa-solid fa-gamepad"></i>
+                                Gaming focused
+                            </span>
+
+                            <span>
+                                <i class="fa-solid fa-bolt"></i>
+                                Always evolving
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ROAD TO 5K -->
+
+                <div class="road-card" data-aos="fade-up" data-aos-delay="100">
+
+                    <div class="road-heading">
+                        <div class="road-icon">
+                            <i class="fa-solid fa-flag-checkered"></i>
+                        </div>
+
+                        <div>
+                            <h2>THE ROAD TO 5K</h2>
+                            <p>Help us grow the ModdingXZ community.</p>
+                        </div>
+                    </div>
+
+                    <div class="road-target">
+                        5,000 <i class="fa-solid fa-arrow-trend-up"></i>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================
+             DISCOVER
+        ========================================== -->
+
+        <section class="section-padding" id="discover">
+            <div class="container-xl px-3 px-lg-4">
+
+                <div class="mb-5" data-aos="fade-up">
+                    <div class="section-label">Explore the platform</div>
+
+                    <h2 class="section-title mb-3">
+                        Find your next <span class="text-purple">favourite.</span>
+                    </h2>
+
+                    <p class="section-description">
+                        Start exploring. From gaming tools to useful guides,
+                        there's plenty to discover across ModdingXZ.
+                    </p>
+                </div>
+
+                <div class="row g-3 g-lg-4">
+
+                    <!-- Tools -->
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up">
+                        <a
+                            href="https://moddingxz.co.uk/t.html"
+                            class="feature-card"
+                        >
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                            </div>
+
+                            <h3>Tools & Resources</h3>
+
+                            <p>
+                                Explore available tools, modding resources
+                                and projects in one place.
+                            </p>
+
+                            <span class="feature-link">
+                                Explore tools
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Games -->
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="70">
+                        <a
+                            href="https://moddingxz.co.uk/games.html"
+                            class="feature-card"
+                        >
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+
+                            <h3>Games & Guides</h3>
+
+                            <p>
+                                Find game-related resources, helpful guides
+                                and information worth checking out.
+                            </p>
+
+                            <span class="feature-link">
+                                Browse games
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Hosts -->
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="140">
+                        <a
+                            href="https://moddingxz.co.uk/Hosts/index.html"
+                            class="feature-card"
+                        >
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-server"></i>
+                            </div>
+
+                            <h3>Hosts & Setup</h3>
+
+                            <p>
+                                Visit the hosts section for relevant resources
+                                and platform information.
+                            </p>
+
+                            <span class="feature-link">
+                                View hosts
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Community -->
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="210">
+                        <a
+                            href="https://t.me/moddingxz"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="feature-card"
+                        >
+                            <div class="feature-icon">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+
+                            <h3>Our Community</h3>
+
+                            <p>
+                                Join the conversation, keep up with updates
+                                and connect with fellow enthusiasts.
+                            </p>
+
+                            <span class="feature-link">
+                                Join Telegram
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================
+             FEATURED PROJECT
+        ========================================== -->
+
+        <section class="section-padding pt-0" id="featured">
+            <div class="container-xl px-3 px-lg-4">
+
+                <div class="featured-panel" data-aos="fade-up">
+
+                    <div class="row align-items-center g-4">
+
+                        <div class="col-lg-7">
+
+                            <div class="featured-tag">
+                                <i class="fa-solid fa-fire"></i>
+                                Featured on ModdingXZ
+                            </div>
+
+                            <h3>
+                                Black Ops 2.
+                                <span class="text-purple">More ways to play.</span>
+                            </h3>
+
+                            <p>
+                                Check out our Black Ops 2 tools and resources,
+                                including Zombies and multiplayer-related
+                                projects. Explore what's available and keep
+                                an eye on updates as projects evolve.
+                            </p>
+
+                            <div class="feature-pills">
+
+                                <span class="feature-pill">
+                                    <i class="fa-solid fa-skull"></i>
+                                    Zombies
+                                </span>
+
+                                <span class="feature-pill">
+                                    <i class="fa-solid fa-crosshairs"></i>
+                                    Multiplayer
+                                </span>
+
+                                <span class="feature-pill">
+                                    <i class="fa-solid fa-wrench"></i>
+                                    Tools & Mods
+                                </span>
+
+                            </div>
+
+                            <a
+                                href="https://moddingxz.co.uk/t.html"
+                                class="btn-xz"
+                            >
+                                Explore BO2 Resources
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+
+                        </div>
+
+                        <div class="col-lg-5">
+
+                            <div class="featured-visual" aria-hidden="true">
+
+                                <div class="visual-orbit"></div>
+
+                                <div class="visual-core">
+                                    <i class="fa-solid fa-gamepad"></i>
+                                </div>
+
+                                <div class="floating-chip chip-one">
+                                    <i class="fa-solid fa-bolt"></i>
+                                    Gaming Resources
+                                </div>
+
+                                <div class="floating-chip chip-two">
+                                    <i class="fa-solid fa-code"></i>
+                                    Modding Projects
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =========================================
+             COMMUNITY BENEFITS
+        ========================================== -->
+
+        <section class="section-padding pt-0">
+            <div class="container-xl px-3 px-lg-4">
+
+                <div class="mb-5" data-aos="fade-up">
+
+                    <div class="section-label">Why ModdingXZ?</div>
+
+                    <h2 class="section-title mb-3">
+                        Built around <span class="text-purple">the community.</span>
+                    </h2>
+
+                    <p class="section-description">
+                        A place to discover projects, follow updates
+                        and keep exploring the gaming and modding scene.
+                    </p>
+
+                </div>
+
+                <div class="row g-3">
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up">
+                        <div class="reason-card">
+                            <i class="fa-solid fa-bell"></i>
+
+                            <h3>Community Updates</h3>
+
+                            <p>
+                                Keep up with announcements, new releases
+                                and changes as they happen.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="70">
+                        <div class="reason-card">
+                            <i class="fa-solid fa-compass"></i>
+
+                            <h3>Discover More</h3>
+
+                            <p>
+                                Explore different tools, resources and
+                                projects from across the platform.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="140">
+                        <div class="reason-card">
+                            <i class="fa-solid fa-people-group"></i>
+
+                            <h3>Great Community</h3>
+
+                            <p>
+                                Join other gaming and modding enthusiasts
+                                who share similar interests.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="210">
+                        <div class="reason-card">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+
+                            <h3>Always Evolving</h3>
+
+                            <p>
+                                New ideas, changing projects and fresh
+                                opportunities to explore.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- =========================================
+             COMMUNITY CALL TO ACTION
+        ========================================== -->
+
+        <section class="section-padding pt-0" id="community">
+            <div class="container-xl px-3 px-lg-4">
+
+                <div class="community-cta" data-aos="zoom-in">
+
+                    <div class="telegram-symbol">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+
+                    <div class="section-label justify-content-center">
+                        Join ModdingXZ
+                    </div>
+
+                    <h2>
+                        Be part of the
+                        <span class="text-purple">next level.</span>
+                    </h2>
+
+                    <p>
+                        Come and join the community, explore what's available
+                        and help us on the Road to 5K. Every join, share
+                        and bit of support helps us grow.
+                    </p>
+
+                    <a
+                        href="https://t.me/moddingxz"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="btn-xz"
+                    >
+                        <i class="fa-brands fa-telegram"></i>
+                        Join the Telegram Community
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <div class="mt-4">
+                        <span class="text-secondary small">
+                            Gaming • Modding • Community
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer class="site-footer">
+        <div class="container-xl px-3 px-lg-4">
+
+            <div class="row align-items-start g-4">
+
+                <div class="col-lg-5">
+
+                    <a class="footer-brand" href="#home">
+                        MODDING<span class="brand-xz">XZ</span>
+                    </a>
+
+                    <p class="footer-text">
+                        Gaming, modding and community — all in one place.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-7">
+
+                    <div class="footer-links justify-content-lg-end">
+
+                        <a href="https://moddingxz.co.uk/t.html">
+                            Tools
+                        </a>
+
+                        <a href="https://moddingxz.co.uk/games.html">
+                            Games
+                        </a>
+
+                        <a href="https://moddingxz.co.uk/Hosts/index.html">
+                            Hosts
+                        </a>
+
+                        <a href="https://moddingxz.co.uk/new/index.html">
+                            Explore
+                        </a>
+
+                        <a
+                            href="https://t.me/ModdingXZ_Support_Bot"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Support
+                        </a>
+
+                        <a
+                            href="https://www.tiktok.com/@moddingx1"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            TikTok
+                        </a>
+
+                        <a
+                            href="https://t.me/moddingxz"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Telegram
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <span>
+                    © <span id="currentYear"></span> ModdingXZ.
+                    All rights reserved.
+                </span>
+
+                <span>
+                    Made for the gaming community
+                    <i class="fa-solid fa-heart text-purple"></i>
+                </span>
+
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- MOBILE JOIN BAR -->
+
+    <div class="mobile-join">
+        <a
+            href="https://t.me/moddingxz"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-xz"
+        >
+            <i class="fa-brands fa-telegram"></i>
+            Join ModdingXZ on Telegram
+            <i class="fa-solid fa-arrow-right"></i>
         </a>
-      </nav>
     </div>
-  </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="container-xl-custom hero-grid">
-        <div class="reveal">
-          <span class="eyebrow">Your next gaming community</span>
-          <h1>Gaming is better when you're <span class="gradient-text">in the know.</span></h1>
-          <p class="hero-copy">
-            Tools, modding releases, gaming updates and a community that shares what matters.
-            Get connected with ModdingXZ on Telegram — and don't miss what's dropping next.
-          </p>
 
-          <div class="hero-actions">
-            <a class="btn-primary-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer" data-cta="hero">
-              <svg class="telegram-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M21.8 4.2 18.5 20c-.25 1.12-.91 1.4-1.85.87l-5.1-3.76-2.46 2.37c-.27.27-.5.5-1.02.5l.36-5.2 9.46-8.55c.41-.36-.09-.56-.64-.2L5.55 13.4.52 11.83c-1.1-.35-1.12-1.1.23-1.64L20.4 2.6c.91-.33 1.71.22 1.4 1.6Z"/>
-              </svg>
-              Join the Telegram
-              <span aria-hidden="true">↗</span>
-            </a>
-            <a class="btn-secondary-custom" href="#community">Explore the community <span aria-hidden="true">↓</span></a>
-          </div>
+    <!-- BACK TO TOP -->
 
-          <div class="trust-line">
-            <span class="trust-dot" aria-hidden="true"></span>
-            <span>Nearly 3K members</span>
-            <span aria-hidden="true">·</span>
-            <span>Console modding</span>
-            <span aria-hidden="true">·</span>
-            <span>Gaming tools and releases</span>
-          </div>
-        </div>
-
-        <aside class="hero-panel reveal" aria-label="ModdingXZ community milestone">
-          <div class="panel-top">
-            <span class="panel-label">The community</span>
-            <span class="live-badge">Growing together</span>
-          </div>
-
-          <div class="member-number gradient-text">NEARLY<br>3K<span style="font-size:.45em">+</span></div>
-          <div class="member-description">Members and counting. Next stop: 5,000.</div>
-
-          <div class="progress-wrap">
-            <div class="progress-meta">
-              <span>Road to 5K</span>
-              <span>Milestone progress</span>
-            </div>
-            <div class="progress-track" role="img" aria-label="Illustrative progress towards the 5,000-member goal">
-              <div class="progress-fill"></div>
-            </div>
-          </div>
-
-          <div class="panel-divider"></div>
-
-          <div class="panel-perks">
-            <div class="perk">
-              <span class="perk-icon" aria-hidden="true">⚡</span>
-              <span>New tools and releases</span>
-            </div>
-            <div class="perk">
-              <span class="perk-icon" aria-hidden="true">🎮</span>
-              <span>Console and COD modding</span>
-            </div>
-            <div class="perk">
-              <span class="perk-icon" aria-hidden="true">🔎</span>
-              <span>Useful gaming discoveries</span>
-            </div>
-            <div class="perk">
-              <span class="perk-icon" aria-hidden="true">🤝</span>
-              <span>A community of gamers</span>
-            </div>
-          </div>
-
-          <div class="panel-bottom">
-            <span>Be part of the next milestone.</span>
-            <strong>#ModdingXZ</strong>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section" id="community">
-      <div class="container-xl-custom">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Why ModdingXZ?</span>
-          <h2>More than a link.<br><span class="gradient-text">A community.</span></h2>
-          <p>Find your next tool, catch a release, discover something new and stay connected with the gaming scene.</p>
-        </div>
-
-        <div class="benefit-grid">
-          <article class="benefit-card reveal">
-            <div class="benefit-icon" aria-hidden="true">⚡</div>
-            <h3>Tools and releases</h3>
-            <p>Keep an eye on new tools, updates, methods and community releases as they're shared.</p>
-          </article>
-
-          <article class="benefit-card reveal">
-            <div class="benefit-icon" aria-hidden="true">🎮</div>
-            <h3>COD and console modding</h3>
-            <p>Explore Black Ops 2, Zombies, multiplayer tools and other console-related projects.</p>
-          </article>
-
-          <article class="benefit-card reveal">
-            <div class="benefit-icon" aria-hidden="true">🛰️</div>
-            <h3>Stay in the loop</h3>
-            <p>One place to catch community posts, new discoveries and the updates you don't want to miss.</p>
-          </article>
-
-          <article class="benefit-card reveal">
-            <div class="benefit-icon" aria-hidden="true">🧰</div>
-            <h3>Useful resources</h3>
-            <p>Explore the website, guides, downloads and other projects from the ModdingXZ community.</p>
-          </article>
-
-          <article class="benefit-card reveal">
-            <div class="benefit-icon" aria-hidden="true">💬</div>
-            <h3>Community first</h3>
-            <p>Join the conversation, share discoveries and help the community keep moving forward.</p>
-          </article>
-
-          <article class="benefit-card reveal">
-            <div class="benefit-icon" aria-hidden="true">🚀</div>
-            <h3>Help us reach 5K</h3>
-            <p>We're nearly at 3,000 members. Every new member helps grow the community and its reach.</p>
-          </article>
-        </div>
-
-        <div class="join-strip reveal">
-          <div>
-            <h3>You're only one click away.</h3>
-            <p>Join the Telegram community and see what's happening for yourself.</p>
-          </div>
-          <a class="btn-primary-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer" data-cta="community-strip">
-            <svg class="telegram-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M21.8 4.2 18.5 20c-.25 1.12-.91 1.4-1.85.87l-5.1-3.76-2.46 2.37c-.27.27-.5.5-1.02.5l.36-5.2 9.46-8.55c.41-.36-.09-.56-.64-.2L5.55 13.4.52 11.83c-1.1-.35-1.12-1.1.23-1.64L20.4 2.6c.91-.33 1.71.22 1.4 1.6Z"/>
-            </svg>
-            Count me in
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section release-section" id="updates">
-      <div class="container-xl-custom">
-        <div class="release-header">
-          <div class="section-heading reveal">
-            <span class="eyebrow">The latest</span>
-            <h2>Don't miss the <span class="gradient-text">next drop.</span></h2>
-            <p>Check the latest community updates, tools and gaming news.</p>
-          </div>
-          <span class="news-status" id="newsStatus">Community updates</span>
-        </div>
-
-        <div class="news-grid" id="newsGrid">
-          <article class="news-card reveal">
-            <span class="news-tag">Featured tool</span>
-            <h3>Black Ops 2 — Zombies and Multiplayer</h3>
-            <p>Check out the ModdingXZ tools page for the latest information on the BO2 tool release.</p>
-            <a href="https://moddingxz.co.uk/t.html">Explore the tools <span aria-hidden="true">→</span></a>
-          </article>
-
-          <article class="news-card reveal">
-            <span class="news-tag">Community</span>
-            <h3>New posts, updates and releases</h3>
-            <p>Join Telegram to catch community announcements and see what's being shared.</p>
-            <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">See Telegram <span aria-hidden="true">↗</span></a>
-          </article>
-
-          <article class="news-card reveal">
-            <span class="news-tag">Explore</span>
-            <h3>Discover the ModdingXZ website</h3>
-            <p>Browse more resources, gaming content and other pages from the community.</p>
-            <a href="https://moddingxz.co.uk/">Explore the website <span aria-hidden="true">→</span></a>
-          </article>
-        </div>
-
-        <p class="news-footnote">
-          Gaming news is provided as an optional extra. For ModdingXZ announcements and releases, join the Telegram channel.
-        </p>
-      </div>
-    </section>
-
-    <section class="section" id="resources">
-      <div class="container-xl-custom">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Explore more</span>
-          <h2>Your next stop in <span class="gradient-text">ModdingXZ.</span></h2>
-          <p>Useful links from around the community. Telegram remains the best place to follow announcements.</p>
-        </div>
-
-        <div class="resources-grid">
-          <a class="resource-card reveal" href="https://moddingxz.co.uk/t.html">
-            <div class="resource-top">
-              <span class="resource-icon" aria-hidden="true">🧪</span>
-              <span class="resource-arrow" aria-hidden="true">↗</span>
-            </div>
-            <h3>Tools and guides</h3>
-            <p>Explore the tool page, guides and featured gaming projects.</p>
-            <span class="resource-link">Open tools →</span>
-          </a>
-
-          <a class="resource-card reveal" href="https://moddingxz.co.uk/games.html">
-            <div class="resource-top">
-              <span class="resource-icon" aria-hidden="true">🎮</span>
-              <span class="resource-arrow" aria-hidden="true">↗</span>
-            </div>
-            <h3>Games</h3>
-            <p>Visit the games page and explore the available content.</p>
-            <span class="resource-link">Browse games →</span>
-          </a>
-
-          <a class="resource-card reveal" href="https://moddingxz.co.uk/Hosts/index.html">
-            <div class="resource-top">
-              <span class="resource-icon" aria-hidden="true">🌐</span>
-              <span class="resource-arrow" aria-hidden="true">↗</span>
-            </div>
-            <h3>Hosts and resources</h3>
-            <p>Visit the dedicated hosts page for available resources.</p>
-            <span class="resource-link">View resources →</span>
-          </a>
-
-          <a class="resource-card reveal" href="https://moddingxz.co.uk/new/index.html">
-            <div class="resource-top">
-              <span class="resource-icon" aria-hidden="true">✨</span>
-              <span class="resource-arrow" aria-hidden="true">↗</span>
-            </div>
-            <h3>What's new?</h3>
-            <p>Check out the newer ModdingXZ website experience.</p>
-            <span class="resource-link">Take a look →</span>
-          </a>
-
-          <a class="resource-card reveal" href="https://www.tiktok.com/@moddingx1" target="_blank" rel="noopener noreferrer">
-            <div class="resource-top">
-              <span class="resource-icon" aria-hidden="true">▶</span>
-              <span class="resource-arrow" aria-hidden="true">↗</span>
-            </div>
-            <h3>ModdingXZ on TikTok</h3>
-            <p>See video updates, clips and promotional posts.</p>
-            <span class="resource-link">Watch videos →</span>
-          </a>
-
-          <a class="resource-card reveal" href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer">
-            <div class="resource-top">
-              <span class="resource-icon" aria-hidden="true">🛟</span>
-              <span class="resource-arrow" aria-hidden="true">↗</span>
-            </div>
-            <h3>Support</h3>
-            <p>Use the ModdingXZ support bot for support-related enquiries.</p>
-            <span class="resource-link">Open support →</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container-xl-custom">
-        <div class="final-cta reveal">
-          <span class="eyebrow">The next milestone starts here</span>
-          <h2>Nearly 3K strong.<br><span class="gradient-text">Let's make it 5K.</span></h2>
-          <p>Join the community, keep up with releases and help us grow ModdingXZ. If you're into gaming and modding, come have a look.</p>
-
-          <div class="hero-actions">
-            <a class="btn-primary-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer" data-cta="final">
-              <svg class="telegram-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M21.8 4.2 18.5 20c-.25 1.12-.91 1.4-1.85.87l-5.1-3.76-2.46 2.37c-.27.27-.5.5-1.02.5l.36-5.2 9.46-8.55c.41-.36-.09-.56-.64-.2L5.55 13.4.52 11.83c-1.1-.35-1.12-1.1.23-1.64L20.4 2.6c.91-.33 1.71.22 1.4 1.6Z"/>
-              </svg>
-              Join ModdingXZ on Telegram
-              <span aria-hidden="true">↗</span>
-            </a>
-          </div>
-
-          <p class="fine-print">Free to join. Stay connected. Be part of the community.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container-xl-custom footer-inner">
-      <div>
-        <a class="brand" href="#home">
-          <span class="brand-mark">XZ</span>
-          <span>
-            <span class="brand-name">MODDING<span class="gradient-text">XZ</span></span>
-            <span class="brand-sub">Gaming · Modding · Community</span>
-          </span>
-        </a>
-        <div class="footer-copy">
-          © <span id="year"></span> ModdingXZ. Built for the community.
-        </div>
-      </div>
-
-      <div class="footer-links">
-        <a href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer">Telegram</a>
-        <a href="https://www.tiktok.com/@moddingx1" target="_blank" rel="noopener noreferrer">TikTok</a>
-        <a href="https://moddingxz.co.uk/" rel="noopener noreferrer">Website</a>
-        <a href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener noreferrer">Support</a>
-      </div>
-    </div>
-  </footer>
-
-  <div class="mobile-join" aria-label="Join ModdingXZ">
-    <a class="btn-primary-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener noreferrer" data-cta="mobile-sticky">
-      <svg class="telegram-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M21.8 4.2 18.5 20c-.25 1.12-.91 1.4-1.85.87l-5.1-3.76-2.46 2.37c-.27.27-.5.5-1.02.5l.36-5.2 9.46-8.55c.41-.36-.09-.56-.64-.2L5.55 13.4.52 11.83c-1.1-.35-1.12-1.1.23-1.64L20.4 2.6c.91-.33 1.71.22 1.4 1.6Z"/>
-      </svg>
-      Join the Telegram community
-      <span aria-hidden="true">↗</span>
+    <a href="#home" class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
     </a>
-  </div>
 
-  <script>
-    "use strict";
 
-    /*
-      MODDINGXZ CONFIGURATION
-      -----------------------
-      The Telegram community is the primary conversion goal.
-      Telegram does not provide a reliable public member-count API
-      for this page, so the milestone text is intentionally manual.
-    */
+    <!-- =========================================
+         EXTERNAL JAVASCRIPT LIBRARIES
+    ========================================== -->
 
-    const CONFIG = {
-      telegram: "https://t.me/moddingxz",
-      support: "https://t.me/ModdingXZ_Support_Bot",
-      website: "https://moddingxz.co.uk/",
-      tools: "https://moddingxz.co.uk/t.html",
-      games: "https://moddingxz.co.uk/games.html",
-      hosts: "https://moddingxz.co.uk/Hosts/index.html",
-      updates: "https://moddingxz.co.uk/new/index.html",
-      tiktok: "https://www.tiktok.com/@moddingx1",
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-      /*
-        Optional live gaming news:
-        Steam's public news endpoint does not require an API key.
-        The page remains fully usable if the request fails.
-      */
-      steamApps: [
-        { id: 202990, name: "Call of Duty: Black Ops II" },
-        { id: 311210, name: "Call of Duty: Black Ops III" }
-      ],
+    <!-- AOS animation library -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
-      newsPerGame: 2,
-      requestTimeout: 6500
-    };
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    <!-- =========================================
+         MODDINGXZ — MAIN JAVASCRIPT
+    ========================================== -->
 
-    // Add subtle reveal animations without requiring a JavaScript library.
-    const revealElements = document.querySelectorAll(".reveal");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    <script>
+        (() => {
+            "use strict";
 
-    if ("IntersectionObserver" in window && !reducedMotion) {
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08 });
+            /* Initialise animations */
 
-      revealElements.forEach(element => revealObserver.observe(element));
-    } else {
-      revealElements.forEach(element => element.classList.add("visible"));
-    }
+            if (window.AOS) {
+                AOS.init({
+                    duration: 700,
+                    easing: "ease-out-cubic",
+                    once: true,
+                    offset: 45,
+                    disable: window.matchMedia(
+                        "(prefers-reduced-motion: reduce)"
+                    ).matches
+                });
+            }
 
-    /*
-      Keep Telegram conversion links easy to identify for future analytics.
-      No personal information is collected or sent to a server here.
-      Local browser click counts are deliberately not presented as global stats.
-    */
-    document.querySelectorAll("[data-cta]").forEach(link => {
-      link.addEventListener("click", () => {
-        try {
-          const key = "moddingxz_cta_clicks";
-          const clicks = JSON.parse(localStorage.getItem(key) || "{}");
-          const label = link.dataset.cta || "unknown";
-          clicks[label] = (Number(clicks[label]) || 0) + 1;
-          localStorage.setItem(key, JSON.stringify(clicks));
-        } catch (_) {
-          // Continue to Telegram even if local storage is unavailable.
-        }
-      });
-    });
+            /* Dynamic copyright year */
 
-    // Escape untrusted API text before placing it into HTML.
-    function escapeHTML(value) {
-      return String(value ?? "").replace(/[&<>"']/g, character => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      })[character]);
-    }
+            const yearElement = document.getElementById("currentYear");
 
-    function safeHttpUrl(value) {
-      try {
-        const url = new URL(value);
-        return url.protocol === "https:" || url.protocol === "http:"
-          ? url.href
-          : CONFIG.website;
-      } catch (_) {
-        return CONFIG.website;
-      }
-    }
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
 
-    function truncateText(value, maxLength = 170) {
-      const text = String(value || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
-      if (text.length <= maxLength) return text;
-      return text.slice(0, maxLength).replace(/\s+\S*$/, "") + "…";
-    }
+            /* Back-to-top button */
 
-    function formatDate(timestamp) {
-      if (!timestamp) return "";
-      const date = new Date(timestamp * 1000);
-      if (Number.isNaN(date.getTime())) return "";
-      return new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "short",
-        year: "numeric"
-      }).format(date);
-    }
+            const backToTop = document.getElementById("backToTop");
 
-    function renderNewsCards(items) {
-      const grid = document.getElementById("newsGrid");
+            const updateBackToTop = () => {
+                if (!backToTop) return;
 
-      if (!items.length) return;
+                backToTop.classList.toggle(
+                    "visible",
+                    window.scrollY > 500
+                );
+            };
 
-      grid.innerHTML = items.map(item => {
-        const title = escapeHTML(item.title);
-        const summary = escapeHTML(truncateText(item.contents || item.summary || "Open the article to read more.", 165));
-        const url = escapeHTML(safeHttpUrl(item.url));
-        const game = escapeHTML(item.game || "Gaming news");
-        const date = item.date ? ` · ${escapeHTML(item.date)}` : "";
+            window.addEventListener(
+                "scroll",
+                updateBackToTop,
+                { passive: true }
+            );
 
-        return `
-          <article class="news-card reveal visible">
-            <span class="news-tag">${game}${date}</span>
-            <h3>${title}</h3>
-            <p>${summary}</p>
-            <a href="${url}" target="_blank" rel="noopener noreferrer">
-              Read update <span aria-hidden="true">↗</span>
-            </a>
-          </article>
-        `;
-      }).join("");
-    }
+            updateBackToTop();
 
-    async function fetchWithTimeout(url, timeoutMs) {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), timeoutMs);
+            /* Close mobile navigation after selecting a link */
 
-      try {
-        const response = await fetch(url, {
-          signal: controller.signal,
-          headers: { "Accept": "application/json" }
-        });
+            const navigation = document.getElementById("mainNavigation");
 
-        if (!response.ok) {
-          throw new Error("News request failed: " + response.status);
-        }
+            if (navigation && window.bootstrap) {
+                navigation.querySelectorAll("a.nav-link").forEach(link => {
+                    link.addEventListener("click", () => {
+                        if (
+                            window.innerWidth < 992 &&
+                            navigation.classList.contains("show")
+                        ) {
+                            const collapse = bootstrap.Collapse.getOrCreateInstance(
+                                navigation
+                            );
 
-        return await response.json();
-      } finally {
-        clearTimeout(timeout);
-      }
-    }
+                            collapse.hide();
+                        }
+                    });
+                });
+            }
 
-    async function loadGamingNews() {
-      const status = document.getElementById("newsStatus");
+            /* Smooth anchor navigation fallback */
 
-      try {
-        const requests = CONFIG.steamApps.map(async app => {
-          const url = new URL("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/");
-          url.searchParams.set("appid", String(app.id));
-          url.searchParams.set("count", String(CONFIG.newsPerGame));
-          url.searchParams.set("maxlength", "350");
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener("click", event => {
+                    const targetId = link.getAttribute("href");
 
-          const result = await fetchWithTimeout(url.href, CONFIG.requestTimeout);
-          const newsItems = result?.appnews?.newsitems || [];
+                    if (!targetId || targetId === "#") return;
 
-          return newsItems.map(item => ({
-            title: item.title,
-            contents: item.contents,
-            url: item.url,
-            date: formatDate(item.date),
-            game: app.name
-          }));
-        });
+                    const target = document.querySelector(targetId);
 
-        const results = await Promise.allSettled(requests);
-        const items = results
-          .filter(result => result.status === "fulfilled")
-          .flatMap(result => result.value)
-          .filter(item => item.title && item.url)
-          .sort((a, b) => {
-            const dateA = Date.parse(a.date || "") || 0;
-            const dateB = Date.parse(b.date || "") || 0;
-            return dateB - dateA;
-          })
-          .slice(0, 3);
+                    if (!target) return;
 
-        if (items.length) {
-          renderNewsCards(items);
-          status.textContent = "Gaming news · Live feed";
-        } else {
-          status.textContent = "Community updates";
-        }
-      } catch (error) {
-        // Keep the hand-picked ModdingXZ cards visible if the API is unavailable.
-        status.textContent = "Community updates";
-      }
-    }
+                    event.preventDefault();
 
-    loadGamingNews();
-  </script>
+                    target.scrollIntoView({
+                        behavior: window.matchMedia(
+                            "(prefers-reduced-motion: reduce)"
+                        ).matches ? "auto" : "smooth",
+                        block: "start"
+                    });
+                });
+            });
+
+        })();
+    </script>
+
 </body>
 </html>
