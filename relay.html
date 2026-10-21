@@ -4,55 +4,79 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080611">
+  <meta name="theme-color" content="#090611">
   <meta name="color-scheme" content="dark">
 
-  <title>BO2 Relay Hub | ModdingXZ</title>
-  <meta name="description" content="The ModdingXZ Black Ops 2 Relay Hub. Explore community updates, UDP port forwarding, PC networking, Wireshark filters, troubleshooting and relay resources.">
-  <meta property="og:title" content="BO2 Relay Hub | ModdingXZ">
-  <meta property="og:description" content="Black Ops 2 relay guide, networking tutorials and community resources from ModdingXZ.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://moddingxz.co.uk/relay.html">
-  <link rel="canonical" href="https://moddingxz.co.uk/relay.html">
+  <title>BO2 Relay Guide | ModdingXZ</title>
+  <meta name="description" content="ModdingXZ Black Ops 2 relay guide, network diagnostics, port forwarding, Wireshark, NAT troubleshooting and community resources.">
+  <meta name="robots" content="index,follow">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #080611;
-      --surface: #100c1b;
-      --surface2: #151020;
-      --surface3: #1b1228;
+      --bg: #090611;
+      --bg-soft: #0d0a17;
+      --panel: #110d1d;
+      --panel-hover: #171025;
       --purple: #a855f7;
-      --pink: #d946ef;
-      --lavender: #d8b4fe;
-      --text: #f8f7ff;
-      --muted: #a9a1b9;
-      --border: rgba(192,132,252,.19);
-      --green: #4ade80;
-      --yellow: #fbbf24;
+      --purple-light: #c084fc;
+      --purple-dark: #6d28d9;
+      --text: #f7f3ff;
+      --muted: #a79bbd;
+      --border: rgba(192,132,252,.16);
+      --green: #a3e635;
       --red: #fb7185;
-      --radius: 17px;
-      --max: 1240px;
+      --radius: 18px;
+      --nav-height: 72px;
     }
 
-    *, *::before, *::after { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 90px;
+      scroll-padding-top: 100px;
     }
 
     body {
       margin: 0;
-      overflow-x: hidden;
-      background: var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(ellipse at 75% 5%, rgba(112,39,180,.13), transparent 35%),
+        radial-gradient(ellipse at 0% 35%, rgba(83,38,146,.08), transparent 35%),
+        var(--bg);
       font-family: Inter, system-ui, sans-serif;
-      line-height: 1.75;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .13;
+      background-image:
+        linear-gradient(rgba(168,85,247,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(168,85,247,.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    a { color: var(--purple-light); }
+    a:hover { color: #e9d5ff; }
+
+    button, input, select { font: inherit; }
+
+    button:focus-visible, a:focus-visible,
+    input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--purple-light);
+      outline-offset: 3px;
     }
 
     ::selection {
@@ -60,2093 +84,2789 @@
       color: white;
     }
 
-    a { color: #d8b4fe; text-decoration: none; }
-    a:hover { color: white; }
-
-    img, svg { max-width: 100%; }
-    button, input { font: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-
-    a:focus-visible, button:focus-visible,
-    input:focus-visible, summary:focus-visible {
-      outline: 2px solid #e879f9;
-      outline-offset: 4px;
-    }
-
-    code {
-      color: #e9b5ff;
-      overflow-wrap: anywhere;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 36px));
-      margin-inline: auto;
-    }
-
-    /* Background */
-
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 80% 8%, rgba(126,34,206,.2), transparent 38%),
-        radial-gradient(ellipse at 8% 65%, rgba(88,28,135,.12), transparent 35%),
-        var(--bg);
-    }
-
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-      opacity: .1;
-      background-image:
-        linear-gradient(rgba(168,85,247,.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(168,85,247,.15) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
-    }
-
-    .ambient-glow {
-      position: fixed;
-      width: 340px;
-      height: 340px;
-      z-index: -1;
-      border-radius: 50%;
-      background: rgba(147,51,234,.07);
-      filter: blur(95px);
-      pointer-events: none;
-      animation: ambientFloat 13s ease-in-out infinite alternate;
-    }
-
-    .ambient-glow.one { top: 12%; right: -190px; }
-    .ambient-glow.two { bottom: 5%; left: -220px; animation-delay: -5s; }
-
-    @keyframes ambientFloat {
-      from { transform: translate(0,-20px) scale(.9); }
-      to { transform: translate(-35px,30px) scale(1.15); }
-    }
-
-    /* Reading progress */
-
     .reading-progress {
       position: fixed;
-      inset: 0 0 auto;
-      z-index: 300;
+      top: 0;
+      left: 0;
+      z-index: 2000;
       height: 3px;
-      pointer-events: none;
+      width: 0%;
+      background: linear-gradient(90deg, #7c3aed, #d8b4fe);
+      box-shadow: 0 0 14px rgba(168,85,247,.65);
     }
 
-    .reading-progress-fill {
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg,#7e22ce,#d946ef,#c084fc);
-      box-shadow: 0 0 15px rgba(217,70,239,.65);
-    }
-
-    /* Navigation */
-
-    .navbar {
+    .topbar {
       position: sticky;
       top: 0;
-      z-index: 100;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      background: rgba(8,6,17,.86);
+      z-index: 1000;
+      min-height: var(--nav-height);
+      background: rgba(9,6,17,.86);
       backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      transition: background .25s, box-shadow .25s;
-    }
-
-    .navbar.scrolled {
-      background: rgba(8,6,17,.97);
-      box-shadow: 0 10px 35px rgba(0,0,0,.22);
+      border-bottom: 1px solid var(--border);
     }
 
     .nav-inner {
-      min-height: 72px;
+      max-width: 1440px;
+      min-height: var(--nav-height);
+      padding: 0 24px;
+      margin: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 20px;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
+      gap: 12px;
       color: white;
-      font-size: 1.08rem;
+      text-decoration: none;
       font-weight: 900;
-      letter-spacing: -.8px;
+      letter-spacing: -.04em;
+      font-size: 1.1rem;
       white-space: nowrap;
     }
 
-    .brand:hover { color: white; }
-
-    .brand-icon {
-      width: 39px;
-      height: 39px;
+    .brand-mark {
+      width: 38px;
+      height: 38px;
       display: grid;
       place-items: center;
-      border: 1px solid var(--border);
       border-radius: 12px;
-      background: rgba(168,85,247,.12);
-      color: #d8a4ff;
-      font-size: 1.2rem;
-      box-shadow: inset 0 0 15px rgba(168,85,247,.08);
+      background: linear-gradient(145deg, #a855f7, #4c1d95);
+      box-shadow: 0 0 25px rgba(168,85,247,.2);
+      font-family: Orbitron, sans-serif;
+      font-size: .8rem;
     }
 
-    .brand-xz { color: #c084fc; }
+    .brand span:last-child em {
+      color: var(--purple-light);
+      font-style: normal;
+    }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
     }
 
-    .nav-links > a:not(.button) {
-      color: #c7bdd7;
-      font-size: .81rem;
-      font-weight: 700;
+    .nav-links a {
+      color: #c9bed8;
+      text-decoration: none;
+      font-size: .84rem;
+      font-weight: 600;
       transition: color .2s;
     }
 
-    .nav-links > a:not(.button):hover { color: white; }
+    .nav-links a:hover { color: white; }
 
-    .button {
-      min-height: 43px;
+    .nav-telegram {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 10px 16px;
-      border: 1px solid transparent;
+      gap: 8px;
+      padding: 10px 15px;
       border-radius: 11px;
+      background: rgba(168,85,247,.13);
+      border: 1px solid var(--border);
+      color: #e9d5ff !important;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 43px;
+      height: 43px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
       color: white;
-      font-size: .84rem;
-      font-weight: 800;
-      line-height: 1.4;
-      cursor: pointer;
-      text-align: center;
-      transition: transform .2s, background .2s, border-color .2s, box-shadow .2s;
+      font-size: 1.3rem;
     }
-
-    .button:hover {
-      transform: translateY(-2px);
-      color: white;
-    }
-
-    .button:active { transform: scale(.98); }
-
-    .button-primary {
-      border-color: rgba(216,164,255,.55);
-      background: linear-gradient(110deg,#7e22ce,#a855f7);
-      box-shadow: 0 8px 26px rgba(168,85,247,.17);
-    }
-
-    .button-primary:hover {
-      box-shadow: 0 10px 30px rgba(168,85,247,.32);
-    }
-
-    .button-outline {
-      border-color: rgba(255,255,255,.14);
-      background: rgba(255,255,255,.025);
-      color: #eee8f8;
-    }
-
-    .button-outline:hover {
-      border-color: var(--purple);
-      background: rgba(168,85,247,.1);
-    }
-
-    /* Hero */
 
     .hero {
-      position: relative;
-      padding: 76px 0 42px;
-      background: radial-gradient(ellipse at 50% 0%,rgba(126,34,206,.16),transparent 60%);
-    }
-
-    .hero-grid {
+      max-width: 1240px;
+      margin: auto;
+      padding: clamp(60px, 9vw, 112px) 24px 58px;
       display: grid;
-      grid-template-columns: 1.18fr .82fr;
+      grid-template-columns: minmax(0, 1.35fr) minmax(250px, .65fr);
       align-items: center;
-      gap: 30px;
-    }
-
-    .hero-copy { animation: enter .8s cubic-bezier(.2,.8,.2,1) both; }
-
-    @keyframes enter {
-      from { opacity: 0; transform: translateY(22px); }
-      to { opacity: 1; transform: translateY(0); }
+      gap: 48px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      background: rgba(168,85,247,.08);
-      color: #e9b5ff;
-      font-size: .68rem;
+      gap: 10px;
+      color: var(--purple-light);
+      font-size: .74rem;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: .17em;
       text-transform: uppercase;
     }
 
-    .eyebrow-dot {
-      width: 7px;
-      height: 7px;
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
       border-radius: 50%;
-      background: var(--yellow);
-      box-shadow: 0 0 10px rgba(251,191,36,.5);
-      animation: dotPulse 1.8s infinite;
+      box-shadow: 0 0 14px rgba(163,230,53,.7);
+      animation: pulse 2s infinite;
     }
 
-    @keyframes dotPulse {
-      50% { opacity: .55; box-shadow: 0 0 17px rgba(251,191,36,.8); }
-    }
-
-    h1 {
-      margin: 25px 0 18px;
-      font-family: Orbitron, Inter, sans-serif;
-      font-size: clamp(2.8rem,6.3vw,5.2rem);
+    .hero h1 {
+      max-width: 760px;
+      margin: 22px 0 18px;
+      font-size: clamp(2.5rem, 6.5vw, 5.4rem);
+      line-height: 1.03;
+      letter-spacing: -.065em;
       font-weight: 900;
-      letter-spacing: -.075em;
-      line-height: 1.05;
     }
 
     .gradient-text {
-      background: linear-gradient(100deg,#c084fc,#e879f9,#9333ea);
-      background-size: 200% auto;
-      background-clip: text;
+      color: var(--purple-light);
+      background: linear-gradient(100deg, #c084fc, #9333ea, #e9d5ff);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: gradientShift 6s ease-in-out infinite alternate;
     }
 
-    @keyframes gradientShift {
-      to { background-position: 100% center; }
-    }
-
-    .typewriter-line {
-      min-height: 1.7em;
-      margin: 0 0 10px;
-      color: #e9b5ff;
-      font-family: Orbitron, Inter, sans-serif;
-      font-size: clamp(.7rem,1.4vw,.9rem);
-      font-weight: 700;
-      letter-spacing: .07em;
+    .type-line {
+      display: block;
+      min-height: 1.5em;
+      color: #cbb8e7;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      font-weight: 600;
+      letter-spacing: -.02em;
     }
 
     .cursor {
       display: inline-block;
-      width: 2px;
-      height: 1em;
-      margin-left: 4px;
-      vertical-align: -2px;
-      background: #e879f9;
-      animation: blink .8s steps(2,start) infinite;
+      color: var(--purple-light);
+      animation: blink .8s steps(2, start) infinite;
     }
 
-    @keyframes blink { to { visibility: hidden; } }
-
     .hero-description {
-      max-width: 640px;
+      max-width: 650px;
+      margin: 24px 0 28px;
       color: var(--muted);
-      font-size: .98rem;
+      font-size: 1rem;
       line-height: 1.9;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-xz {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       gap: 10px;
-      margin-top: 24px;
+      min-height: 48px;
+      padding: 13px 19px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      font-size: .88rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s, filter .2s, border-color .2s;
     }
 
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      margin-top: 25px;
-      color: var(--muted);
-      font-size: .76rem;
+    .btn-xz:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
     }
 
-    .hero-meta i { color: #d8a4ff; margin-right: 5px; }
+    .btn-primary-xz {
+      color: white;
+      background: linear-gradient(135deg, #9333ea, #6d28d9);
+      box-shadow: 0 9px 30px rgba(109,40,217,.22);
+    }
+
+    .btn-outline-xz {
+      color: #e9d5ff;
+      border-color: var(--border);
+      background: rgba(255,255,255,.025);
+    }
 
     .hero-art {
-      position: relative;
-      min-height: 320px;
+      min-height: 300px;
       display: grid;
       place-items: center;
+      position: relative;
       isolation: isolate;
-      animation: artEnter 1s .1s both;
     }
 
-    @keyframes artEnter {
-      from { opacity: 0; transform: scale(.9) rotate(3deg); }
-      to { opacity: 1; transform: scale(1) rotate(0); }
-    }
-
-    .orb {
+    .orbital {
       position: absolute;
-      z-index: -1;
-      width: 280px;
-      height: 280px;
+      width: min(280px, 80vw);
+      aspect-ratio: 1;
+      border: 1px solid rgba(192,132,252,.25);
       border-radius: 50%;
-      background: radial-gradient(circle,rgba(168,85,247,.25),transparent 70%);
-      filter: blur(8px);
-      animation: orbPulse 5s ease-in-out infinite alternate;
+      animation: rotate 24s linear infinite;
     }
 
-    @keyframes orbPulse {
-      to { transform: scale(1.13); opacity: .8; }
-    }
-
-    .orbit {
+    .orbital::before, .orbital::after {
+      content: "";
       position: absolute;
-      width: 315px;
-      height: 125px;
-      border: 1px solid rgba(216,164,255,.42);
       border-radius: 50%;
-      animation: orbitSpin 18s linear infinite;
     }
 
-    .orbit.two {
-      width: 275px;
-      height: 105px;
-      border-color: rgba(192,38,255,.35);
-      animation: orbitSpinReverse 23s linear infinite;
+    .orbital::before {
+      width: 12px;
+      height: 12px;
+      top: 16%;
+      left: 17%;
+      background: var(--purple-light);
+      box-shadow: 0 0 24px var(--purple);
     }
 
-    @keyframes orbitSpin {
-      from { transform: rotate(-30deg); }
-      to { transform: rotate(330deg); }
+    .orbital::after {
+      width: 7px;
+      height: 7px;
+      bottom: 12%;
+      right: 20%;
+      background: #e9d5ff;
+      box-shadow: 0 0 16px var(--purple-light);
     }
 
-    @keyframes orbitSpinReverse {
-      from { transform: rotate(38deg); }
-      to { transform: rotate(-322deg); }
+    .orbital.orbital-two {
+      width: 220px;
+      border-style: dashed;
+      animation-direction: reverse;
+      animation-duration: 32s;
     }
 
-    .logo-art {
-      width: 175px;
-      height: 175px;
+    .xz-core {
+      width: 160px;
+      height: 160px;
       display: grid;
       place-items: center;
-      border: 1px solid rgba(216,164,255,.4);
-      border-radius: 35px;
-      background: linear-gradient(145deg,#29123f,#0c0916 75%);
-      box-shadow: 0 0 45px rgba(168,85,247,.18),inset 0 0 30px rgba(168,85,247,.08);
-      font-family: Orbitron, Inter, sans-serif;
-      font-size: 4.5rem;
+      border-radius: 38px;
+      background: linear-gradient(145deg, rgba(168,85,247,.2), rgba(17,13,29,.95));
+      border: 1px solid rgba(192,132,252,.38);
+      box-shadow: 0 0 70px rgba(168,85,247,.18), inset 0 0 35px rgba(168,85,247,.1);
+      font-family: Orbitron, sans-serif;
+      font-size: 3rem;
       font-weight: 900;
-      letter-spacing: -8px;
-      transform: rotate(-7deg);
-      animation: logoFloat 5s ease-in-out infinite;
+      letter-spacing: -.12em;
+      animation: float 5s ease-in-out infinite;
     }
 
-    .logo-art span {
-      margin-right: 8px;
-      background: linear-gradient(135deg,white,#d946ef 65%,#9333ea);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    @keyframes logoFloat {
-      50% { transform: translateY(-9px) rotate(-4deg); }
-    }
-
-    /* Feature cards */
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
-      gap: 13px;
-      margin-top: 20px;
-    }
-
-    .feature-card {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      padding: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(17,13,32,.76);
-      transition: transform .25s,border-color .25s,background .25s;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(192,132,252,.5);
-      background: rgba(30,18,47,.9);
-    }
-
-    .feature-card > i {
-      flex-shrink: 0;
-      color: #d8a4ff;
-      font-size: 1.5rem;
-    }
-
-    .feature-card strong { display: block; font-size: .83rem; }
-    .feature-card span { display: block; color: var(--muted); font-size: .73rem; line-height: 1.5; }
-
-    /* Notice panels */
-
-    .notice {
-      margin: 17px 0;
-      padding: 16px 18px;
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--purple);
-      border-radius: 12px;
-      background: rgba(17,13,32,.88);
-      color: #dcd3e9;
-      font-size: .88rem;
-    }
-
-    .notice strong {
-      display: block;
-      margin-bottom: 5px;
-      color: white;
-    }
-
-    .notice p { margin: 0; }
-    .notice.warning { border-left-color: var(--yellow); }
-    .notice.success { border-left-color: var(--green); }
-    .notice.danger { border-left-color: var(--red); }
-
-    .status-label {
-      display: inline-block;
-      margin-bottom: 9px;
-      padding: 4px 8px;
-      border: 1px solid rgba(251,191,36,.25);
-      border-radius: 50px;
-      background: rgba(251,191,36,.07);
-      color: #fcd34d;
-      font-size: .66rem;
-      font-weight: 800;
-      letter-spacing: .6px;
+    .hero-art-caption {
+      position: absolute;
+      bottom: 0;
+      color: #8f80a6;
+      font-size: .68rem;
+      letter-spacing: .18em;
       text-transform: uppercase;
     }
 
-    /* Guide layout */
+    .notice {
+      max-width: 1192px;
+      margin: 0 auto 38px;
+      padding: 15px 18px;
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      border: 1px solid rgba(192,132,252,.2);
+      background: rgba(168,85,247,.065);
+      border-radius: 14px;
+    }
 
-    .layout {
+    .notice i { color: var(--purple-light); font-size: 1.15rem; }
+    .notice strong { display: block; font-size: .88rem; margin-bottom: 3px; }
+    .notice p { margin: 0; color: var(--muted); font-size: .82rem; }
+
+    .quick-grid {
+      max-width: 1192px;
+      margin: 0 auto 65px;
+      padding: 0 0;
       display: grid;
-      grid-template-columns: 225px minmax(0,1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .quick-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px;
+      background: linear-gradient(145deg, rgba(23,16,37,.9), rgba(13,10,23,.9));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-decoration: none;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(192,132,252,.45);
+    }
+
+    .quick-icon {
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: var(--purple-light);
+      background: rgba(168,85,247,.13);
+      font-size: 1.2rem;
+    }
+
+    .quick-card strong { display: block; color: var(--text); font-size: .9rem; }
+    .quick-card small { display: block; color: var(--muted); font-size: .76rem; }
+
+    .page-layout {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px 90px;
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
       align-items: start;
-      gap: 22px;
-      padding: 25px 0 65px;
+      gap: 36px;
     }
 
     .sidebar {
       position: sticky;
-      top: 91px;
-      max-height: calc(100vh - 112px);
+      top: calc(var(--nav-height) + 20px);
+      max-height: calc(100vh - var(--nav-height) - 35px);
       overflow-y: auto;
-      padding: 16px;
+      padding: 17px 12px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(16,12,27,.96);
+      border-radius: 17px;
+      background: rgba(17,13,29,.75);
       scrollbar-width: thin;
-      scrollbar-color: #49305e transparent;
+      scrollbar-color: #55317a transparent;
     }
 
     .sidebar-title {
-      margin: 0 0 12px;
-      color: #d8a4ff;
-      font-size: .7rem;
-      font-weight: 900;
-      letter-spacing: 1.4px;
+      padding: 0 10px 12px;
+      color: #8e7da5;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
 
     .sidebar a {
-      display: block;
-      margin: 2px 0;
-      padding: 8px 9px;
-      border-left: 2px solid transparent;
-      border-radius: 0 8px 8px 0;
-      color: var(--muted);
-      font-size: .77rem;
-      line-height: 1.5;
-      transition: background .15s,color .15s,border-color .15s,padding .15s;
-    }
-
-    .sidebar a:hover,.sidebar a.active {
-      padding-left: 12px;
-      border-left-color: #c084fc;
-      background: rgba(168,85,247,.11);
-      color: white;
-    }
-
-    main { min-width: 0; }
-
-    .guide-section {
-      scroll-margin-top: 92px;
-      margin-bottom: 20px;
-      padding: 26px;
-      border: 1px solid rgba(168,85,247,.18);
-      border-radius: var(--radius);
-      background: linear-gradient(145deg,rgba(20,14,36,.97),rgba(10,8,20,.97));
-      box-shadow: 0 12px 35px rgba(0,0,0,.1);
-      transition: border-color .3s,box-shadow .3s;
-    }
-
-    .guide-section:hover {
-      border-color: rgba(168,85,247,.3);
-      box-shadow: 0 16px 40px rgba(0,0,0,.15);
-    }
-
-    .section-heading {
       display: flex;
+      gap: 11px;
       align-items: center;
-      gap: 12px;
-      margin: 0 0 19px;
-      font-size: 1.28rem;
-      font-weight: 900;
-      line-height: 1.4;
-      letter-spacing: -.035em;
-    }
-
-    .section-number {
-      width: 39px;
-      height: 39px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: rgba(168,85,247,.1);
-      color: #d8a4ff;
+      padding: 10px;
+      margin: 2px 0;
+      border-radius: 10px;
+      color: #b5a8c8;
       font-size: .8rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s, background .2s;
     }
 
-    h3 { margin: 24px 0 9px; font-size: 1rem; font-weight: 800; }
-    p { color: #d4cadd; }
-    ul,ol { padding-left: 23px; color: #d4cadd; }
-    li { margin: 6px 0; }
-    li::marker { color: #c084fc; }
-    .muted { color: var(--muted) !important; }
-    .small { font-size: .82rem; }
+    .sidebar a span {
+      width: 20px;
+      flex: 0 0 20px;
+      color: #79658f;
+      font-size: .7rem;
+      font-weight: 800;
+    }
 
-    /* Code and copy */
+    .sidebar a:hover, .sidebar a.active {
+      color: white;
+      background: rgba(168,85,247,.12);
+    }
+
+    .sidebar a.active span { color: var(--purple-light); }
+
+    .content { min-width: 0; }
+
+    .content-section {
+      margin: 0 0 28px;
+      padding: clamp(22px, 4vw, 36px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(17,13,29,.94), rgba(13,10,23,.88));
+      scroll-margin-top: 95px;
+    }
+
+    .section-kicker {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--purple-light);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .content-section h2 {
+      margin: 0 0 18px;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      line-height: 1.2;
+      letter-spacing: -.045em;
+      font-weight: 850;
+    }
+
+    .content-section h3 {
+      margin: 26px 0 10px;
+      font-size: 1.06rem;
+      font-weight: 750;
+    }
+
+    .content-section h4 {
+      font-size: .95rem;
+      font-weight: 750;
+      margin: 20px 0 8px;
+    }
+
+    .content-section p, .content-section li {
+      color: #c2b7d1;
+      font-size: .9rem;
+      line-height: 1.85;
+    }
+
+    .content-section p:last-child { margin-bottom: 0; }
+
+    .content-section li { margin-bottom: 6px; }
+    .content-section ul, .content-section ol { padding-left: 22px; }
+
+    .callout {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin: 18px 0;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--purple);
+      border-radius: 12px;
+      background: rgba(168,85,247,.055);
+    }
+
+    .callout > i { margin-top: 2px; color: var(--purple-light); }
+    .callout p { margin: 0; font-size: .84rem; }
+    .callout.warning { border-left-color: #fbbf24; }
+    .callout.warning > i { color: #fbbf24; }
+    .callout.danger { border-left-color: var(--red); }
+    .callout.danger > i { color: var(--red); }
 
     .code-wrap {
       position: relative;
-      margin: 12px 0 17px;
+      margin: 15px 0 20px;
     }
 
     pre {
+      overflow-x: auto;
       margin: 0;
-      padding: 16px 104px 16px 15px;
-      overflow-wrap: anywhere;
+      padding: 20px;
+      border: 1px solid rgba(192,132,252,.14);
+      border-radius: 12px;
+      background: #08060e;
+      color: #d8b4fe;
+      font-size: .83rem;
+      line-height: 1.8;
       white-space: pre-wrap;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #07050c;
-      color: #e9d5ff;
-      font: .83rem/1.7 Consolas,Monaco,monospace;
-      tab-size: 2;
+      overflow-wrap: anywhere;
+    }
+
+    code {
+      color: #d8b4fe;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: .9em;
     }
 
     .copy-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: #211630;
-      color: #eee5ff;
-      font-size: .72rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: background .2s,border-color .2s,transform .2s;
-    }
-
-    .copy-btn:hover { background: #39204f; border-color: #a855f7; }
-    .copy-btn:active { transform: scale(.96); }
-
-    /* Tables */
-
-    .table-wrap {
-      width: 100%;
-      margin: 14px 0;
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      scrollbar-width: thin;
-      scrollbar-color: #49305e #100c1b;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      color: #ded5e7;
-      font-size: .82rem;
-    }
-
-    th,td {
-      min-width: 100px;
-      padding: 12px;
-      text-align: left;
-      vertical-align: top;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      background: rgba(168,85,247,.1);
-      color: #e9d5ff;
-      font-weight: 800;
-    }
-
-    tbody tr { transition: background .2s; }
-    tbody tr:hover { background: rgba(168,85,247,.045); }
-    tr:last-child td { border-bottom: 0; }
-
-    /* Resource cards */
-
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 13px;
-    }
-
-    .resource-card {
-      position: relative;
-      min-width: 0;
-      padding: 18px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      background: rgba(168,85,247,.04);
-      transition: transform .25s,border-color .25s,background .25s,box-shadow .25s;
-    }
-
-    .resource-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -110%;
-      width: 70%;
-      height: 1px;
-      background: linear-gradient(90deg,transparent,#d8a4ff,transparent);
-      transition: left .6s;
-    }
-
-    .resource-card:hover::before { left: 140%; }
-
-    .resource-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(168,85,247,.55);
-      background: rgba(168,85,247,.08);
-      box-shadow: 0 12px 30px rgba(0,0,0,.14);
-    }
-
-    .resource-icon {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 12px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: rgba(168,85,247,.1);
-      color: #d8a4ff;
-      font-size: 1.15rem;
-      transition: transform .25s,background .25s;
-    }
-
-    .resource-card:hover .resource-icon {
-      transform: rotate(-5deg) scale(1.05);
-      background: rgba(168,85,247,.18);
-    }
-
-    .tag {
-      display: inline-block;
-      margin-bottom: 8px;
-      padding: 4px 8px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      background: rgba(168,85,247,.08);
-      color: #d8a4ff;
-      font-size: .66rem;
-      font-weight: 800;
-    }
-
-    .resource-card h3 { margin: 0 0 6px; font-size: .96rem; }
-    .resource-card p { margin: 0 0 12px; color: var(--muted); font-size: .81rem; }
-    .resource-link { font-size: .82rem; font-weight: 800; }
-
-    /* Troubleshooting search */
-
-    .faq-tools { margin-bottom: 12px; }
-
-    .faq-search {
-      width: 100%;
-      min-height: 46px;
-      padding: 11px 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: rgba(7,5,12,.8);
-      color: white;
-      font-size: .87rem;
-    }
-
-    .faq-search::placeholder { color: #8f849f; }
-
-    .faq-search:focus {
-      border-color: #a855f7;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(168,85,247,.1);
-    }
-
-    .faq-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .mini-button {
+      top: 9px;
+      right: 9px;
       padding: 7px 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      background: rgba(168,85,247,.06);
+      background: #171025;
       color: #e9d5ff;
-      font-size: .75rem;
-      font-weight: 800;
+      font-size: .72rem;
+      font-weight: 700;
       cursor: pointer;
-      transition: background .2s;
     }
 
-    .mini-button:hover { background: rgba(168,85,247,.17); }
+    .copy-btn:hover { background: #28163e; }
 
-    details {
-      padding: 15px 0;
-      border-bottom: 1px solid rgba(255,255,255,.07);
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 13px;
+      margin: 18px 0;
     }
 
-    details:last-child { border-bottom: 0; }
-
-    summary {
-      color: #f1eaff;
-      font-weight: 800;
-      cursor: pointer;
-      line-height: 1.6;
+    .info-box {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: rgba(0,0,0,.14);
     }
 
-    summary::marker { color: #c084fc; }
-    details p { margin: 10px 0 0; font-size: .89rem; }
-
-    .faq-empty {
-      padding: 14px;
-      border: 1px dashed var(--border);
-      border-radius: 10px;
+    .info-box small {
+      display: block;
       color: var(--muted);
-      font-size: .85rem;
+      font-size: .76rem;
+      margin-bottom: 7px;
     }
 
-    /* Footer and floating controls */
-
-    .footer {
-      padding: 30px 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-      background: rgba(8,6,17,.85);
+    .info-box strong {
+      display: block;
+      color: var(--purple-light);
+      font-size: 1rem;
+      overflow-wrap: anywhere;
     }
 
-    .footer-inner {
+    .table-responsive {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 18px 0;
+    }
+
+    .xz-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: .82rem;
+    }
+
+    .xz-table th, .xz-table td {
+      padding: 13px 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(192,132,252,.1);
+      color: #c7bdd4;
+      vertical-align: top;
+    }
+
+    .xz-table th {
+      color: #e9d5ff;
+      background: rgba(168,85,247,.08);
+      font-weight: 750;
+    }
+
+    .xz-table tr:last-child td { border-bottom: 0; }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 7px;
+      background: rgba(168,85,247,.12);
+      color: #d8b4fe;
+      font-size: .73rem;
+      font-weight: 700;
+    }
+
+    /* Network diagnostics */
+
+    .net-intro {
+      color: var(--muted);
+      margin-bottom: 23px;
+    }
+
+    .net-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 15px;
+    }
+
+    .net-card {
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid rgba(192,132,252,.17);
+      border-radius: 15px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(168,85,247,.08), transparent 45%),
+        rgba(0,0,0,.15);
+    }
+
+    .net-card.wide { grid-column: 1 / -1; }
+
+    .net-card-head {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 17px;
+    }
+
+    .net-card h3 {
+      margin: 0 !important;
+      font-size: 1rem !important;
+    }
+
+    .net-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 39px;
+      border-radius: 11px;
+      color: var(--purple-light);
+      background: rgba(168,85,247,.12);
+      font-size: 1.2rem;
+    }
+
+    .net-label {
+      color: var(--purple-light);
+      font-size: .63rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+    }
+
+    .net-muted {
+      margin: 0 0 16px !important;
+      color: var(--muted) !important;
+      font-size: .8rem !important;
+    }
+
+    .net-value {
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(0,0,0,.22);
+      color: var(--purple-light);
+      font: 750 1.12rem ui-monospace, SFMono-Regular, Consolas, monospace;
+      overflow-wrap: anywhere;
+      margin-bottom: 12px;
+    }
+
+    .net-actions {
+      display: flex;
       flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .net-btn {
+      min-height: 42px;
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255,255,255,.035);
+      color: var(--text);
+      font-size: .78rem;
+      font-weight: 750;
+      cursor: pointer;
+      transition: transform .2s, filter .2s;
+    }
+
+    .net-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      filter: brightness(1.12);
+    }
+
+    .net-btn.primary {
+      background: linear-gradient(135deg,#9333ea,#6d28d9);
+      color: white;
+      border-color: transparent;
+    }
+
+    .net-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+    .net-status {
+      min-height: 20px;
+      margin: 12px 0 0 !important;
+      font-size: .76rem !important;
+      color: var(--muted) !important;
+      overflow-wrap: anywhere;
+    }
+
+    .net-status.error { color: #fda4af !important; }
+    .net-status.success { color: #bef264 !important; }
+
+    .net-data-list { margin: 0; }
+
+    .net-data-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(192,132,252,.1);
+      font-size: .78rem;
+    }
+
+    .net-data-row:last-child { border-bottom: 0; }
+    .net-data-row span { color: var(--muted); }
+    .net-data-row strong {
+      color: var(--text);
+      text-align: right;
+      max-width: 62%;
+      overflow-wrap: anywhere;
+    }
+
+    .net-input-label {
+      display: block;
+      margin: 0 0 8px;
+      color: #e9d5ff;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .net-input, .net-select {
+      width: 100%;
+      min-width: 0;
+      min-height: 45px;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0a0712;
+      color: var(--text);
+      font-size: .84rem;
+    }
+
+    .net-input::placeholder { color: #776a89; }
+
+    .net-input-row {
+      display: flex;
+      gap: 9px;
+    }
+
+    .net-input-row .net-input { flex: 1; }
+
+    .net-result {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px;
+      margin-top: 15px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: rgba(0,0,0,.2);
+    }
+
+    .net-result-icon {
+      width: 35px;
+      height: 35px;
+      flex: 0 0 35px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: rgba(168,85,247,.13);
+      color: var(--purple-light);
+    }
+
+    .net-result strong { display: block; font-size: .84rem; }
+    .net-result p {
+      margin: 4px 0 0 !important;
+      color: var(--muted) !important;
+      font-size: .77rem !important;
+      line-height: 1.65 !important;
+    }
+
+    .net-result[data-state="success"] { border-color: rgba(163,230,53,.25); }
+    .net-result[data-state="error"] { border-color: rgba(251,113,133,.28); }
+
+    .dns-answer {
+      display: grid;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .dns-record {
+      padding: 12px;
+      border-radius: 9px;
+      border: 1px solid rgba(192,132,252,.12);
+      background: rgba(0,0,0,.19);
+      font: .77rem/1.6 ui-monospace, SFMono-Regular, Consolas, monospace;
+      color: #d8b4fe;
+      overflow-wrap: anywhere;
+    }
+
+    .net-footnote {
+      margin: 15px 0 0 !important;
+      color: #9385a7 !important;
+      font-size: .73rem !important;
+      line-height: 1.7 !important;
+    }
+
+    /* Troubleshooting */
+
+    .faq-search-wrap { margin: 16px 0 18px; }
+
+    .faq-search {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 15px;
+      color: var(--text);
+      background: #0a0712;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+    }
+
+    .faq-search::placeholder { color: #837495; }
+
+    .faq-item {
+      margin: 10px 0;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(0,0,0,.13);
+      overflow: hidden;
+    }
+
+    .faq-item[hidden] { display: none; }
+
+    .faq-item summary {
+      position: relative;
+      cursor: pointer;
+      list-style: none;
+      padding: 16px 44px 16px 16px;
+      color: #e9d5ff;
+      font-size: .86rem;
+      font-weight: 750;
+    }
+
+    .faq-item summary::-webkit-details-marker { display: none; }
+
+    .faq-item summary::after {
+      content: "+";
+      position: absolute;
+      right: 17px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--purple-light);
+      font-size: 1.2rem;
+    }
+
+    .faq-item[open] summary::after { content: "−"; }
+
+    .faq-answer { padding: 0 16px 16px; }
+    .faq-answer p { margin: 0; font-size: .84rem; }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .resource-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: rgba(0,0,0,.14);
+      text-decoration: none;
+      transition: transform .2s, border-color .2s;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(192,132,252,.4);
+    }
+
+    .resource-card i {
+      color: var(--purple-light);
+      font-size: 1.15rem;
+    }
+
+    .resource-card strong {
+      display: block;
+      color: var(--text);
+      font-size: .83rem;
+    }
+
+    .resource-card small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: .73rem;
+      line-height: 1.6;
+    }
+
+    .footer {
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,.16);
+    }
+
+    .footer-inner {
+      max-width: 1192px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       gap: 20px;
     }
 
-    .footer-text { color: #89819f; font-size: .75rem; }
+    .footer p { margin: 0; color: var(--muted); font-size: .78rem; }
+    .footer a { text-decoration: none; }
 
-    .toast-message {
+    .back-top {
       position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 250;
-      max-width: calc(100% - 36px);
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #211630;
-      color: white;
-      font-size: .83rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,.3);
-      animation: toastIn .25s ease-out;
-    }
-
-    .toast-message[hidden] { display: none; }
-
-    @keyframes toastIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .back-to-top {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 120;
-      width: 44px;
-      height: 44px;
+      right: 22px;
+      bottom: 22px;
+      z-index: 900;
+      width: 45px;
+      height: 45px;
       display: grid;
       place-items: center;
       border: 1px solid var(--border);
       border-radius: 13px;
-      background: rgba(25,16,39,.94);
-      color: white;
-      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      background: rgba(23,16,37,.95);
+      color: #e9d5ff;
+      box-shadow: 0 8px 25px rgba(0,0,0,.3);
       opacity: 0;
       visibility: hidden;
       transform: translateY(8px);
-      transition: opacity .2s,visibility .2s,transform .2s,border-color .2s;
-      cursor: pointer;
+      transition: opacity .2s, transform .2s, visibility .2s;
     }
 
-    .back-to-top.visible {
+    .back-top.visible {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
 
-    .back-to-top:hover { border-color: #a855f7; }
-
-    .mobile-bottom { display: none; }
-
-    /* Reveal animation */
-
-    .js-reveal {
+    .toast-box {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 3000;
+      max-width: calc(100% - 30px);
+      padding: 12px 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #1b112b;
+      color: #f3e8ff;
+      font-size: .83rem;
+      box-shadow: 0 10px 35px rgba(0,0,0,.35);
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .55s ease,transform .55s cubic-bezier(.2,.8,.2,1);
+      pointer-events: none;
+      transform: translate(-50%, 12px);
+      transition: opacity .2s, transform .2s;
     }
 
-    .js-reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .toast-box.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
 
-    /* Tablet */
+    .mobile-overlay { display: none; }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: .45; }
+    }
+
+    @keyframes blink {
+      to { visibility: hidden; }
+    }
+
+    @keyframes rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 1150px) {
+      .hero, .quick-grid, .notice { margin-left: 24px; margin-right: 24px; }
+      .quick-grid { padding: 0; }
+      .page-layout { gap: 22px; grid-template-columns: 215px minmax(0,1fr); }
+      .nav-links { gap: 15px; }
+    }
 
     @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-art { min-height: 245px; }
-      .hero-copy { max-width: 760px; }
-      .layout { grid-template-columns: 1fr; }
-
+      .hero { grid-template-columns: minmax(0,1fr); padding-top: 65px; }
+      .hero-art { display: none; }
+      .quick-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .page-layout { grid-template-columns: minmax(0,1fr); }
       .sidebar {
         position: static;
         max-height: none;
-      }
-
-      .sidebar-links {
         display: grid;
-        grid-template-columns: repeat(3,minmax(0,1fr));
+        grid-template-columns: repeat(2,minmax(0,1fr));
         gap: 3px;
       }
-
-      .nav-links > a:not(.button) { display: none; }
+      .sidebar-title { grid-column: 1/-1; }
+      .nav-links a:not(.nav-telegram) { display: none; }
     }
-
-    /* Mobile */
 
     @media (max-width: 600px) {
-      html { scroll-padding-top: 74px; }
+      :root { --nav-height: 62px; }
 
-      .container { width: calc(100% - 28px); }
-      .nav-inner { min-height: 64px; }
+      .nav-inner { padding: 0 14px; gap: 10px; }
+      .brand { font-size: 1rem; }
+      .brand-mark { width: 35px; height: 35px; }
+      .nav-telegram { padding: 9px 10px; font-size: .76rem !important; }
+      .mobile-menu-btn { display: inline-grid; place-items: center; }
+      .nav-links { gap: 8px; }
 
-      .brand { gap: 7px; font-size: .96rem; }
-      .brand-icon { width: 35px; height: 35px; }
+      .hero { margin: 0; padding: 52px 18px 35px; }
+      .hero h1 { font-size: clamp(2.45rem, 12vw, 4rem); }
+      .hero-description { font-size: .91rem; margin: 19px 0 23px; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .hero-actions .btn-xz { width: 100%; }
+      .type-line { min-height: 3em; }
 
-      .nav-links { gap: 0; }
-      .nav-links .button { min-height: 39px; padding: 8px 11px; font-size: .74rem; }
-
-      .hero { padding: 45px 0 25px; }
-
-      h1 {
-        font-size: clamp(2.3rem,10.5vw,4rem);
-        letter-spacing: -.065em;
+      .notice { margin: 0 14px 25px; padding: 14px; }
+      .quick-grid {
+        margin: 0 14px 38px;
+        grid-template-columns: minmax(0,1fr);
+        gap: 10px;
       }
+      .quick-card { padding: 15px; }
+      .page-layout { padding: 0 14px 60px; gap: 20px; }
 
-      .eyebrow { padding: 7px 10px; font-size: .6rem; letter-spacing: .5px; }
-      .typewriter-line { font-size: .68rem; letter-spacing: .025em; }
-      .hero-description { font-size: .91rem; line-height: 1.8; }
-
-      .hero-art { min-height: 215px; margin-top: -8px; }
-      .logo-art { width: 135px; height: 135px; border-radius: 27px; font-size: 3.6rem; }
-      .orb { width: 220px; height: 220px; }
-      .orbit { width: 240px; height: 95px; }
-      .orbit.two { width: 220px; }
-
-      .feature-grid { grid-template-columns: 1fr; gap: 8px; }
-      .feature-card { padding: 12px 13px; }
-
-      .sidebar { padding: 13px; }
-      .sidebar-links { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .sidebar a { padding: 8px 7px; font-size: .71rem; }
-
-      .layout { padding-top: 15px; padding-bottom: 35px; }
-      .guide-section { padding: 18px; margin-bottom: 14px; border-radius: 14px; }
-      .section-heading { align-items: flex-start; gap: 10px; font-size: 1.12rem; }
-      .section-number { width: 34px; height: 34px; border-radius: 9px; }
-
-      .resource-grid { grid-template-columns: 1fr; }
-
-      pre { padding: 48px 12px 13px; font-size: .77rem; }
-      .copy-btn { top: 7px; right: 7px; }
-
-      .hero-actions { gap: 9px; }
-      .hero-actions .button { flex: 1 1 auto; }
-      .hero-actions .button-primary { flex-basis: 100%; }
-
-      .notice { padding: 14px; font-size: .84rem; }
-      .faq-tools { flex-direction: column; }
-
-      .footer-inner { justify-content: center; text-align: center; }
-
-      .back-to-top {
-        right: 13px;
-        bottom: 76px;
-        width: 40px;
-        height: 40px;
-      }
-
-      .mobile-bottom {
+      .sidebar {
+        display: none;
+        grid-template-columns: minmax(0,1fr);
         position: fixed;
-        right: 12px;
-        bottom: 12px;
-        left: 12px;
-        z-index: 110;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        padding: 7px;
-        border: 1px solid rgba(192,132,252,.25);
-        border-radius: 15px;
-        background: rgba(12,8,22,.93);
-        box-shadow: 0 10px 35px rgba(0,0,0,.35);
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        transform: translateY(100px);
+        top: var(--nav-height);
+        left: 0;
+        bottom: 0;
+        width: min(330px, 88vw);
+        max-height: none;
+        overflow-y: auto;
+        z-index: 1500;
+        border-radius: 0 17px 0 0;
+        background: #100b1b;
+        padding: 18px;
+        box-shadow: 20px 0 60px rgba(0,0,0,.4);
+      }
+
+      .sidebar.open { display: block; }
+      .sidebar-title { padding-top: 8px; }
+      .sidebar a { padding: 12px; font-size: .86rem; }
+
+      .mobile-overlay {
+        display: block;
+        position: fixed;
+        inset: var(--nav-height) 0 0;
+        z-index: 1400;
+        background: rgba(0,0,0,.65);
         opacity: 0;
-        pointer-events: none;
-        transition: transform .25s,opacity .25s;
+        visibility: hidden;
+        transition: opacity .2s, visibility .2s;
       }
 
-      .mobile-bottom.visible {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
+      .mobile-overlay.open { opacity: 1; visibility: visible; }
 
-      .mobile-bottom .button { min-height: 41px; padding: 8px; font-size: .73rem; }
-      .footer { padding-bottom: 95px; }
-      .toast-message { right: 12px; bottom: 76px; }
-    }
-
-    @media (max-width: 360px) {
-      .container { width: calc(100% - 22px); }
-      .brand { font-size: .86rem; }
-      .nav-links .button { padding: 7px 8px; font-size: .68rem; }
-      .guide-section { padding: 15px; }
+      .content-section { padding: 22px 17px; margin-bottom: 16px; border-radius: 15px; }
+      .content-section p, .content-section li { font-size: .86rem; }
+      .info-grid, .resource-grid, .net-grid { grid-template-columns: minmax(0,1fr); }
+      .net-card.wide { grid-column: auto; }
+      .net-card { padding: 16px; }
+      .net-input-row { flex-direction: column; }
+      .net-input-row .net-btn { width: 100%; }
+      .table-responsive { overflow-x: auto; }
+      .xz-table { min-width: 450px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .back-top { right: 14px; bottom: 14px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,*::before,*::after {
-        scroll-behavior: auto !important;
+      *, *::before, *::after {
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
         transition-duration: .01ms !important;
       }
-
-      .js-reveal { opacity: 1; transform: none; }
     }
   </style>
 </head>
 
 <body>
-  <div class="reading-progress" aria-hidden="true">
-    <div class="reading-progress-fill" id="readingProgress"></div>
-  </div>
+  <div class="reading-progress" id="readingProgress"></div>
 
-  <div class="background" aria-hidden="true"></div>
-  <div class="grid-bg" aria-hidden="true"></div>
-  <div class="ambient-glow one" aria-hidden="true"></div>
-  <div class="ambient-glow two" aria-hidden="true"></div>
-
-  <nav class="navbar" id="navbar" aria-label="Main navigation">
-    <div class="container nav-inner">
-      <a href="https://moddingxz.co.uk" class="brand" aria-label="ModdingXZ home">
-        <span class="brand-icon"><i class="bi bi-lightning-charge-fill"></i></span>
-        MODDING <span class="brand-xz">XZ</span>
+  <header class="topbar">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="ModdingXZ home">
+        <span class="brand-mark">XZ</span>
+        <span>MODDING<em>XZ</em></span>
       </a>
 
-      <div class="nav-links">
-        <a href="#updates">Updates</a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#updates">BO2 Updates</a>
         <a href="#ports">Networking</a>
+        <a href="#diagnostics">Diagnostics</a>
         <a href="#troubleshooting">Troubleshooting</a>
-        <a class="button button-primary" href="https://t.me/ModdingXZ"
-           target="_blank" rel="noopener noreferrer">
-          <i class="bi bi-telegram"></i> Join Telegram
+        <a class="nav-telegram" href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer">
+          <i class="bi bi-telegram"></i> Telegram
         </a>
-      </div>
-    </div>
-  </nav>
+      </nav>
 
-  <header class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            COMMUNITY GUIDE · BO2 RELAY
-          </div>
-
-          <h1>BLACK OPS 2<br><span class="gradient-text">RELAY HUB.</span></h1>
-
-          <div class="typewriter-line">
-            <span id="typewriter">PC RELAY • NETWORKING • COMMUNITY TOOLS</span><span class="cursor" aria-hidden="true"></span>
-          </div>
-
-          <p class="hero-description">
-            Everything in one place for the Black Ops 2 relay setup.
-            Explore community updates, follow the networking guide, find useful
-            tools and troubleshoot connection issues with ModdingXZ.
-          </p>
-
-          <div class="hero-actions">
-            <a href="https://t.me/ModdingXZ/24327" class="button button-primary"
-               target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-download"></i> BO2 + New Tool
-            </a>
-            <a href="#ports" class="button button-outline">
-              <i class="bi bi-router"></i> Port Forwarding
-            </a>
-            <a href="#resources" class="button button-outline">
-              <i class="bi bi-grid"></i> All Resources
-            </a>
-          </div>
-
-          <div class="hero-meta">
-            <span><i class="bi bi-controller"></i> Black Ops 2</span>
-            <span><i class="bi bi-pc-display"></i> PC Relay</span>
-            <span><i class="bi bi-people"></i> Community-led</span>
-          </div>
-        </div>
-
-        <div class="hero-art" aria-hidden="true">
-          <div class="orb"></div>
-          <div class="orbit"></div>
-          <div class="orbit two"></div>
-          <div class="logo-art"><span>XZ</span></div>
-        </div>
-      </div>
-
-      <div class="feature-grid">
-        <a class="feature-card" href="#ports">
-          <i class="bi bi-router"></i>
-          <div><strong>Networking</strong><span>UDP ports, NAT and router settings</span></div>
-        </a>
-        <a class="feature-card" href="#wireshark">
-          <i class="bi bi-activity"></i>
-          <div><strong>Diagnostics</strong><span>Wireshark filters and packet checks</span></div>
-        </a>
-        <a class="feature-card" href="#resources">
-          <i class="bi bi-controller"></i>
-          <div><strong>Community tools</strong><span>Downloads, releases and resources</span></div>
-        </a>
-      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"
+              type="button" aria-label="Open guide navigation"
+              aria-expanded="false" aria-controls="sidebar">
+        <i class="bi bi-list"></i>
+      </button>
     </div>
   </header>
 
-  <div class="container">
-    <div class="notice warning js-reveal">
-      <strong><i class="bi bi-exclamation-triangle-fill"></i> Before you begin</strong>
-      <p>
-        Use the instructions for your exact tool version. Network settings alone cannot
-        guarantee a working connection. Individual setup support is currently unavailable;
-        follow the ModdingXZ Telegram channel for announcements.
-      </p>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <main id="home">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">
+          <span class="live-dot"></span>
+          MODDINGXZ COMMUNITY GUIDE
+        </div>
+
+        <h1>
+          BLACK OPS 2<br>
+          <span class="gradient-text">RELAY HUB.</span>
+        </h1>
+
+        <span class="type-line">
+          <span id="typewriter">Your relay setup starts here.</span><span class="cursor">_</span>
+        </span>
+
+        <p class="hero-description">
+          A community guide to BO2 relay networking, PC setup, port forwarding,
+          packet analysis and troubleshooting — with built-in network utilities
+          to help investigate common connection problems.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn-xz btn-primary-xz"
+             href="https://t.me/ModdingXZ/24327"
+             target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-tools"></i> BO2 + New Tool
+          </a>
+
+          <a class="btn-xz btn-outline-xz" href="#ports">
+            <i class="bi bi-router"></i> Port Guide
+          </a>
+
+          <a class="btn-xz btn-outline-xz" href="#diagnostics">
+            <i class="bi bi-activity"></i> Network Diagnostics
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="orbital"></div>
+        <div class="orbital orbital-two"></div>
+        <div class="xz-core">XZ</div>
+        <div class="hero-art-caption">GAMING · MODDING · COMMUNITY</div>
+      </div>
+    </section>
+
+    <div class="notice">
+      <i class="bi bi-info-circle-fill"></i>
+      <div>
+        <strong>Before you begin</strong>
+        <p>
+          This is a community-maintained guide. Network setups vary, and
+          community-reported values may change after game or tool updates.
+          Dedicated setup support is currently unavailable; check the
+          <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer">ModdingXZ Telegram</a>
+          for announcements.
+        </p>
+      </div>
     </div>
 
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="sidebar-title">EXPLORE THE GUIDE</div>
-        <nav class="sidebar-links" aria-label="Guide sections">
-          <a href="#intro">01 · Introduction</a>
-          <a href="#updates">02 · BO2 Updates</a>
-          <a href="#requirements">03 · Requirements</a>
-          <a href="#ports">04 · Port Forwarding</a>
-          <a href="#setup">05 · PC Setup</a>
-          <a href="#wireshark">06 · Wireshark</a>
-          <a href="#nat">07 · CGNAT & NAT</a>
-          <a href="#console">08 · Console Bridge</a>
-          <a href="#troubleshooting">09 · Troubleshooting</a>
-          <a href="#resources">10 · Resources</a>
-          <a href="#final-notes">11 · Final Notes</a>
-        </nav>
+    <div class="quick-grid">
+      <a class="quick-card" href="#updates">
+        <span class="quick-icon"><i class="bi bi-arrow-repeat"></i></span>
+        <span>
+          <strong>BO2 Update Notes</strong>
+          <small>Community-reported values</small>
+        </span>
+      </a>
+
+      <a class="quick-card" href="#ports">
+        <span class="quick-icon"><i class="bi bi-router"></i></span>
+        <span>
+          <strong>Port Forwarding</strong>
+          <small>Router and firewall setup</small>
+        </span>
+      </a>
+
+      <a class="quick-card" href="#diagnostics">
+        <span class="quick-icon"><i class="bi bi-activity"></i></span>
+        <span>
+          <strong>Network Diagnostics</strong>
+          <small>IP, DNS and website checks</small>
+        </span>
+      </a>
+    </div>
+
+    <div class="page-layout">
+      <aside class="sidebar" id="sidebar" aria-label="Guide contents">
+        <div class="sidebar-title">Guide contents</div>
+        <a href="#intro"><span>01</span> Introduction</a>
+        <a href="#updates"><span>02</span> BO2 Update Notes</a>
+        <a href="#requirements"><span>03</span> Requirements</a>
+        <a href="#ports"><span>04</span> Port Forwarding</a>
+        <a href="#pc-setup"><span>05</span> PC Setup</a>
+        <a href="#wireshark"><span>06</span> Wireshark</a>
+        <a href="#nat"><span>07</span> NAT & CGNAT</a>
+        <a href="#bridge"><span>08</span> Console Bridge</a>
+        <a href="#diagnostics"><span>09</span> Diagnostics</a>
+        <a href="#troubleshooting"><span>10</span> Troubleshooting</a>
+        <a href="#resources"><span>11</span> Resources</a>
+        <a href="#final-notes"><span>12</span> Final Notes</a>
       </aside>
 
-      <main>
-        <section class="guide-section js-reveal" id="intro">
-          <h2 class="section-heading"><span class="section-number">01</span> Introduction</h2>
+      <div class="content">
+
+        <section class="content-section" id="intro">
+          <span class="section-kicker">01 / Getting started</span>
+          <h2>Welcome to the BO2 Relay Guide</h2>
 
           <p>
-            This page explains the main things to check when setting up or troubleshooting
-            a Black Ops 2 relay. You do not need to understand every technical term at once.
-            Work through the relevant section and check the instructions included with your tool.
+            This page brings together the networking concepts and community
+            resources commonly discussed when setting up a Black Ops 2 relay
+            environment. Use it as a reference rather than a guarantee that
+            every setup will work the same way.
           </p>
 
-          <p>Inside this guide you'll find:</p>
-          <ul>
-            <li>Community-reported BO2 protocol and checksum changes.</li>
-            <li>UDP ports and router-forwarding instructions.</li>
-            <li>How to find the local IPv4 address of your PC.</li>
-            <li>Windows Firewall and Wireshark troubleshooting.</li>
-            <li>Information about CGNAT, double NAT and relay bridges.</li>
-            <li>Downloads and useful external resources.</li>
-          </ul>
+          <p>
+            A relay setup can involve the game, a PC-side tool, your local
+            network, router rules and the console. A problem at any one of
+            these points can stop a connection from working.
+          </p>
 
-          <div class="notice">
-            <strong>New to port forwarding?</strong>
-            Start with the download post, then read Section 04. You are directing
-            specific network traffic to your PC — not automatically forwarding ports
-            to your console.
+          <div class="callout">
+            <i class="bi bi-lightbulb-fill"></i>
+            <p>
+              <strong>Best approach:</strong> change one setting at a time,
+              record the original value, and test again. This makes it easier
+              to identify which change affected the connection.
+            </p>
           </div>
 
-          <a href="https://t.me/ModdingXZ/24327" class="button button-primary"
-             target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-telegram"></i> Open BO2 Download Post
-          </a>
+          <h3>What this guide covers</h3>
+          <ul>
+            <li>Community-reported BO2 update information.</li>
+            <li>Local IP addresses, router forwarding and firewall basics.</li>
+            <li>Wireshark filters for investigating UDP traffic.</li>
+            <li>Common NAT, double-NAT and CGNAT limitations.</li>
+            <li>Network diagnostics using publicly accessible APIs.</li>
+            <li>Common issues and links to the original community resources.</li>
+          </ul>
         </section>
 
-        <section class="guide-section js-reveal" id="updates">
-          <h2 class="section-heading"><span class="section-number">02</span> BO2 Update Findings</h2>
-
-          <span class="status-label">Community-reported · Verify your build</span>
+        <section class="content-section" id="updates">
+          <span class="section-kicker">02 / Community information</span>
+          <h2>BO2 Update Notes</h2>
 
           <p>
-            These values were reported during community investigation of Black Ops 2 relay
-            compatibility. They are reference points, not a guarantee that every client or
-            relay has been updated successfully.
+            The values below were reported by the community during previous
+            BO2 tool compatibility discussions. They are reference information,
+            not a live game-status feed or confirmation that a particular tool
+            currently works.
           </p>
 
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Value</th><th>Previous</th><th>Reported newer value</th></tr></thead>
+          <div class="table-responsive">
+            <table class="xz-table">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Previously reported</th>
+                  <th>Reported update</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td>Network protocol</td><td><code>2095</code></td><td><code>2097</code></td></tr>
-                <tr><td>Netfield checksum</td><td><code>1437611153</code></td><td><code>1607312467</code></td></tr>
-                <tr><td>Playlist value</td><td><code>1735</code></td><td><code>1735</code> — unchanged</td></tr>
+                <tr>
+                  <td>Protocol</td>
+                  <td><code>2095</code></td>
+                  <td><code>2097</code></td>
+                </tr>
+                <tr>
+                  <td>Netfield checksum</td>
+                  <td><code>1437611153</code></td>
+                  <td><code>1607312467</code></td>
+                </tr>
+                <tr>
+                  <td>Playlist</td>
+                  <td><code>1735</code></td>
+                  <td><code>1735</code> — unchanged in that report</td>
+                </tr>
               </tbody>
             </table>
           </div>
 
-          <h3>What does this mean?</h3>
-          <p>
-            These are technical values associated with a game build and its compatibility.
-            If a tool was created for a different build, it may require an update. Changing
-            one value does not guarantee that the rest of the relay will work.
-          </p>
-
-          <div class="notice">
-            <strong>Check the exact release</strong>
-            Relay implementations and console bridges may behave differently. Check the
-            tool's release notes instead of assuming all tools are compatible.
+          <div class="callout warning">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <p>
+              <strong>Compatibility warning:</strong> game updates, platform
+              versions and individual tools can differ. Verify values against
+              a current, trusted source before using them. Do not assume that
+              changing a value alone fixes compatibility.
+            </p>
           </div>
 
-          <a class="button button-primary" href="https://t.me/ModdingXZ"
+          <a class="btn-xz btn-outline-xz"
+             href="https://t.me/ModdingXZ/24327"
              target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-telegram"></i> Follow BO2 Announcements
+            <i class="bi bi-telegram"></i> View BO2 tool post
           </a>
         </section>
 
-        <section class="guide-section js-reveal" id="requirements">
-          <h2 class="section-heading"><span class="section-number">03</span> Requirements</h2>
+        <section class="content-section" id="requirements">
+          <span class="section-kicker">03 / Before setup</span>
+          <h2>Requirements</h2>
 
-          <ul>
-            <li>A compatible Black Ops 2 PC client.</li>
-            <li>The intended relay tool and its instructions.</li>
-            <li>Any dependencies specified by that tool.</li>
-            <li>Access to your router settings if forwarding is required.</li>
-            <li>The local IPv4 address of the PC running the relay.</li>
-            <li>Wireshark and Npcap if you need to investigate network traffic.</li>
-          </ul>
+          <p>Check the basics before changing router or game settings.</p>
 
-          <div class="notice warning">
-            <strong><i class="bi bi-shield-check"></i> Download safely</strong>
-            Open the release post and read its instructions before running anything.
-            Only use files from sources you trust. Be cautious with unknown executables,
-            unexpected administrator requests and files that ask you to disable security software.
+          <div class="info-grid">
+            <div class="info-box">
+              <small>PC</small>
+              <strong>Windows + network access</strong>
+            </div>
+            <div class="info-box">
+              <small>Network</small>
+              <strong>Router or gateway access</strong>
+            </div>
+            <div class="info-box">
+              <small>Analysis</small>
+              <strong>Wireshark + Npcap if needed</strong>
+            </div>
+            <div class="info-box">
+              <small>Reference</small>
+              <strong>Correct tool version</strong>
+            </div>
           </div>
 
-          <div class="resource-grid">
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-activity"></i></div>
-              <span class="tag">Network analysis</span>
-              <h3>Wireshark</h3>
-              <p>Inspect packets and investigate whether traffic reaches your PC.</p>
-              <a class="resource-link" href="https://www.wireshark.org/download.html"
-                 target="_blank" rel="noopener noreferrer">Official downloads <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-diagram-3"></i></div>
-              <span class="tag">Capture driver</span>
-              <h3>Npcap</h3>
-              <p>Windows packet-capture driver commonly used by Wireshark.</p>
-              <a class="resource-link" href="https://nmap.org/npcap/"
-                 target="_blank" rel="noopener noreferrer">Official website <i class="bi bi-arrow-up-right"></i></a>
-            </article>
+          <h3>Know your network first</h3>
+          <ul>
+            <li>Know whether the PC uses Wi-Fi or Ethernet.</li>
+            <li>Identify the router or gateway providing the connection.</li>
+            <li>Find the PC's local IPv4 address.</li>
+            <li>Check whether another router or ISP gateway sits upstream.</li>
+            <li>Use tools and files only from sources you trust.</li>
+          </ul>
+
+          <div class="callout">
+            <i class="bi bi-shield-check"></i>
+            <p>
+              Only change networks and devices you own or have permission to
+              administer. Avoid disabling your firewall completely or opening
+              unrelated ports to the internet.
+            </p>
           </div>
         </section>
 
-        <section class="guide-section js-reveal" id="ports">
-          <h2 class="section-heading"><span class="section-number">04</span> Port Forwarding</h2>
+        <section class="content-section" id="ports">
+          <span class="section-kicker">04 / Router configuration</span>
+          <h2>Port Forwarding</h2>
 
           <p>
-            Port forwarding tells your router where to send specific incoming network traffic.
-            For the configuration described here, forward the UDP range
-            <code>3060–3080</code> and the additional UDP port <code>17376</code>
-            to the local IP address of the PC running the relay.
+            Port forwarding directs selected incoming traffic from your router
+            to a particular device on your local network. It does not by itself
+            guarantee that a game, relay tool or remote peer can connect.
           </p>
 
-          <div class="notice warning">
-            <strong><i class="bi bi-router"></i> Ports for this setup</strong>
-            These are the requested settings for this guide. If your particular tool's
-            release instructions specify different ports, verify which configuration applies
-            to your exact build.
-          </div>
+          <h3>Community-referenced ports</h3>
+          <p>
+            The following ports appeared in previous ModdingXZ community
+            discussions. Treat them as reference values for the specific
+            setup being discussed, not universal requirements for every BO2
+            installation.
+          </p>
 
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Rule</th><th>Protocol</th><th>Port or range</th><th>Destination</th></tr></thead>
+          <div class="table-responsive">
+            <table class="xz-table">
+              <thead>
+                <tr>
+                  <th>Port / range</th>
+                  <th>Protocol</th>
+                  <th>Context</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr><td>BO2 Relay</td><td><code>UDP</code></td><td><code>3060–3080</code></td><td>Relay PC local IPv4</td></tr>
-                <tr><td>Additional port</td><td><code>UDP</code></td><td><code>17376</code></td><td>Relay PC local IPv4</td></tr>
+                <tr>
+                  <td><code>3060–3080</code></td>
+                  <td><span class="pill">UDP</span></td>
+                  <td>Previously referenced relay-related range.</td>
+                </tr>
+                <tr>
+                  <td><code>17376</code></td>
+                  <td><span class="pill">UDP</span></td>
+                  <td>Additional port referenced in community guidance.</td>
+                </tr>
+                <tr>
+                  <td><code>3074</code></td>
+                  <td><span class="pill">UDP</span></td>
+                  <td>Port used as a traffic filter example.</td>
+                </tr>
+                <tr>
+                  <td><code>3077</code></td>
+                  <td><span class="pill">UDP</span></td>
+                  <td>Port used as a relay traffic filter example.</td>
+                </tr>
               </tbody>
             </table>
           </div>
 
-          <h3>Port configuration</h3>
-          <div class="code-wrap">
-            <pre id="portRange">BO2 Relay
-Protocol: UDP
-Ports: 3060-3080
-
-Additional rule
-Protocol: UDP
-Port: 17376
-
-Destination: YOUR-PC-LOCAL-IP</pre>
-            <button class="copy-btn" type="button" data-copy="portRange">Copy details</button>
+          <div class="callout warning">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <p>
+              Confirm the ports and protocols required by the exact tool version
+              you're using. Do not forward a range simply because it appears
+              here if the application does not need it.
+            </p>
           </div>
 
-          <h3>Step 1 — Find your local IP address</h3>
-          <ol>
-            <li>On the PC running the relay, open the Windows Start menu.</li>
-            <li>Search for <strong>Command Prompt</strong> and open it.</li>
-            <li>Type <code>ipconfig</code> and press Enter.</li>
-            <li>Find your active Wi-Fi or Ethernet adapter.</li>
-            <li>Write down its <strong>IPv4 Address</strong>.</li>
-          </ol>
+          <h3>Find your local IPv4 address</h3>
+          <p>On Windows, open Command Prompt and run:</p>
 
           <div class="code-wrap">
-            <pre id="ipconfigCommand">ipconfig</pre>
-            <button class="copy-btn" type="button" data-copy="ipconfigCommand">Copy command</button>
+            <pre><code>ipconfig</code></pre>
+            <button class="copy-btn" type="button" data-copy="ipconfig">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
 
           <p>
-            Your address may look like <code>192.168.1.100</code> or
-            <code>192.168.0.25</code>. Those are examples only — use the address shown
-            on your own PC. Do not use the Default Gateway as the destination address.
+            Look for <code>IPv4 Address</code> under the adapter actually
+            being used. It may look like <code>192.168.1.25</code> or
+            <code>192.168.0.25</code>. Your address may be different.
           </p>
 
-          <h3>Step 2 — Open your router settings</h3>
+          <h3>General router setup</h3>
           <ol>
-            <li>In Command Prompt, find <strong>Default Gateway</strong>.</li>
-            <li>Enter that address into your browser's address bar.</li>
-            <li>Sign in to the router administration page.</li>
-            <li>Look for <strong>Port Forwarding</strong>, <strong>NAT</strong> or <strong>Virtual Server</strong>.</li>
+            <li>Sign in to your router's administration interface.</li>
+            <li>Find the section named Port Forwarding, NAT or Virtual Server.</li>
+            <li>Choose the correct local device address.</li>
+            <li>Enter only the required port or range and protocol.</li>
+            <li>Save the rule and check that the local device address has not changed.</li>
+            <li>Test the application and inspect traffic if it still fails.</li>
           </ol>
 
-          <p class="muted small">
-            Router menus differ by manufacturer and internet provider. Consult your router
-            manual or provider's instructions if you cannot find the setting.
+          <div class="callout">
+            <i class="bi bi-info-circle-fill"></i>
+            <p>
+              Router interfaces vary. Use your router manufacturer's official
+              instructions if the menu names or fields differ. A forwarding
+              rule does not create a listening service if the application
+              is not actually listening on that port.
+            </p>
+          </div>
+
+          <h3>Windows Firewall</h3>
+          <p>
+            If the application is blocked, review the relevant Windows
+            Defender Firewall rule. Prefer a narrowly scoped rule for the
+            specific application or required port instead of turning the
+            firewall off entirely.
           </p>
-
-          <h3>Step 3 — Add the UDP range</h3>
-          <ol>
-            <li>Create a rule named <code>BO2 Relay</code>.</li>
-            <li>Select <strong>UDP</strong> as the protocol.</li>
-            <li>Enter <code>3060</code> as the starting port and <code>3080</code> as the ending port, if separate fields are available.</li>
-            <li>Enter your PC's local IPv4 address as the destination.</li>
-            <li>Use the same internal range unless the tool instructions specify otherwise.</li>
-            <li>Save or apply the rule.</li>
-          </ol>
-
-          <h3>Step 4 — Add UDP port 17376</h3>
-          <ol>
-            <li>Create a second rule or add an individual port entry.</li>
-            <li>Name it <code>BO2 Relay 17376</code>.</li>
-            <li>Select <strong>UDP</strong>.</li>
-            <li>Set the external and internal port to <code>17376</code>, unless the tool documentation specifies otherwise.</li>
-            <li>Use the same PC's local IPv4 address.</li>
-            <li>Save or apply the rule.</li>
-          </ol>
-
-          <h3>Example router rules</h3>
-          <div class="code-wrap">
-            <pre id="exampleRules">Rule 1
-Name: BO2Relay
-Protocol: UDP
-External ports: 3060-3080
-Internal ports: 3060-3080
-Destination IP: YOUR-PC-LOCAL-IP
-
-Rule 2
-Name: BO2Relay17376
-Protocol: UDP
-External port: 17376
-Internal port: 17376
-Destination IP: YOUR-PC-LOCAL-IP</pre>
-            <button class="copy-btn" type="button" data-copy="exampleRules">Copy example</button>
-          </div>
-
-          <div class="notice success">
-            <strong>Important</strong>
-            Both rules should point to the PC running the relay. If your PC's local IP changes,
-            your router may forward traffic to the wrong device. A DHCP reservation can help
-            keep the address consistent.
-          </div>
-
-          <div class="notice warning">
-            <strong>Forwarding does not guarantee connectivity</strong>
-            Windows Firewall, CGNAT, double NAT, the tool's configuration and remote network
-            behaviour can all affect the result. Continue to the troubleshooting section if
-            the connection still fails.
-          </div>
         </section>
 
-        <section class="guide-section js-reveal" id="setup">
-          <h2 class="section-heading"><span class="section-number">05</span> PC Setup & Firewall</h2>
+        <section class="content-section" id="pc-setup">
+          <span class="section-kicker">05 / PC networking</span>
+          <h2>PC Setup</h2>
 
-          <h3>Find your PC's IPv4 address</h3>
           <p>
-            Open Command Prompt, run the command below and find the IPv4 address under
-            your active Wi-Fi or Ethernet adapter.
+            Start with a stable network connection and confirm that the
+            intended application is running. If the tool has its own network
+            configuration, use the instructions supplied by that tool's
+            developer rather than guessing at its settings.
           </p>
 
+          <h3>Useful Windows commands</h3>
+
+          <h4>View IP configuration</h4>
           <div class="code-wrap">
-            <pre id="ipconfigAgain">ipconfig</pre>
-            <button class="copy-btn" type="button" data-copy="ipconfigAgain">Copy</button>
+            <pre><code>ipconfig /all</code></pre>
+            <button class="copy-btn" type="button" data-copy="ipconfig /all">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
 
-          <h3>Check Windows Firewall</h3>
-          <ul>
-            <li>Open Windows Security and select Firewall and network protection.</li>
-            <li>Check whether the relay application has been blocked.</li>
-            <li>Only allow programs you trust, using the appropriate network profile.</li>
-            <li>If you create a firewall rule, verify the required protocol and ports.</li>
-            <li>Keep Windows Firewall enabled. Do not permanently disable it just to test connectivity.</li>
-          </ul>
-
-          <h3>Read the tool instructions</h3>
-          <p>
-            Check the release post and any included documentation. Confirm which file starts
-            the relay, whether dependencies are needed, and whether there are settings you
-            need to configure.
-          </p>
-
-          <h3>Test one change at a time</h3>
-          <p>
-            Follow the tool author's instructions. If the application displays an error,
-            record the exact message and version. Avoid guessing command-line options or
-            running unknown programs as administrator.
-          </p>
-
-          <div class="notice warning">
-            <strong>Keep your testing organised</strong>
-            Changing router rules, firewall settings and tool configuration simultaneously
-            makes it much harder to identify the real cause of a problem.
+          <h4>View routing information</h4>
+          <div class="code-wrap">
+            <pre><code>route print</code></pre>
+            <button class="copy-btn" type="button" data-copy="route print">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
+
+          <h4>View active network connections</h4>
+          <div class="code-wrap">
+            <pre><code>netstat -ano</code></pre>
+            <button class="copy-btn" type="button" data-copy="netstat -ano">
+              <i class="bi bi-copy"></i> Copy
+            </button>
+          </div>
+
+          <p>
+            These commands display local network configuration and connections.
+            They do not automatically prove that a remote UDP port is reachable.
+            Avoid sharing output publicly without checking it for private
+            addresses or other information you do not want to disclose.
+          </p>
         </section>
 
-        <section class="guide-section js-reveal" id="wireshark">
-          <h2 class="section-heading"><span class="section-number">06</span> Wireshark Diagnostics</h2>
+        <section class="content-section" id="wireshark">
+          <span class="section-kicker">06 / Traffic analysis</span>
+          <h2>Wireshark</h2>
 
           <p>
-            Wireshark lets you inspect network traffic on your PC. Select the active network
-            interface, begin a capture and reproduce the connection problem. You can then
-            apply a display filter to narrow down what you see.
+            Wireshark captures and inspects network packets. It can help you
+            determine whether traffic appears on the PC's network interface
+            and whether replies are visible. It cannot decrypt arbitrary
+            encrypted traffic or guarantee that a game connection is valid.
+          </p>
+
+          <p>
+            Download Wireshark from the official website. On Windows, its
+            installer commonly offers Npcap, which is used to capture packets.
           </p>
 
           <h3>Useful display filters</h3>
+          <p>Copy a filter into Wireshark's display filter bar.</p>
 
-          <p class="muted small">All UDP traffic</p>
           <div class="code-wrap">
-            <pre id="filterUdp">udp</pre>
-            <button class="copy-btn" type="button" data-copy="filterUdp">Copy</button>
+            <pre><code>udp</code></pre>
+            <button class="copy-btn" type="button" data-copy="udp">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
 
-          <p class="muted small">Traffic involving UDP port 3074</p>
           <div class="code-wrap">
-            <pre id="filter3074">udp.port == 3074</pre>
-            <button class="copy-btn" type="button" data-copy="filter3074">Copy</button>
+            <pre><code>udp.port == 3074</code></pre>
+            <button class="copy-btn" type="button" data-copy="udp.port == 3074">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
 
-          <p class="muted small">Traffic involving UDP port 3077</p>
           <div class="code-wrap">
-            <pre id="filter3077">udp.port == 3077</pre>
-            <button class="copy-btn" type="button" data-copy="filter3077">Copy</button>
+            <pre><code>udp.port == 3077</code></pre>
+            <button class="copy-btn" type="button" data-copy="udp.port == 3077">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
 
-          <p class="muted small">Traffic involving UDP ports 3060–3080</p>
           <div class="code-wrap">
-            <pre id="filterRange">udp.port >= 3060 && udp.port <= 3080</pre>
-            <button class="copy-btn" type="button" data-copy="filterRange">Copy</button>
+            <pre><code>udp.port >= 3060 && udp.port <= 3080</code></pre>
+            <button class="copy-btn" type="button" data-copy="udp.port >= 3060 && udp.port <= 3080">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
 
-          <p class="muted small">Traffic involving UDP port 17376</p>
           <div class="code-wrap">
-            <pre id="filter17376">udp.port == 17376</pre>
-            <button class="copy-btn" type="button" data-copy="filter17376">Copy</button>
+            <pre><code>udp.port == 17376</code></pre>
+            <button class="copy-btn" type="button" data-copy="udp.port == 17376">
+              <i class="bi bi-copy"></i> Copy
+            </button>
           </div>
 
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Observation</th><th>What to investigate</th></tr></thead>
-              <tbody>
-                <tr><td>No relevant traffic appears</td><td>Confirm the interface, filter, expected traffic and router destination.</td></tr>
-                <tr><td>Packets reach the PC but the relay does not respond</td><td>Check tool settings, dependencies, firewall and compatibility.</td></tr>
-                <tr><td>Packets appear but the connection fails</td><td>Investigate return traffic, NAT behaviour and client compatibility.</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="notice warning">
-            <strong>Protect your privacy</strong>
-            Network captures can reveal IP addresses and identifying information. Redact these
-            before sharing publicly. Never publish passwords, tokens or private keys.
-          </div>
-        </section>
-
-        <section class="guide-section js-reveal" id="nat">
-          <h2 class="section-heading"><span class="section-number">07</span> CGNAT, Double NAT & VPS</h2>
-
-          <h3>What is CGNAT?</h3>
-          <p>
-            Some internet providers place customers behind an additional shared network layer
-            called carrier-grade NAT (CGNAT). If your connection uses CGNAT, forwarding a port
-            on your own router may not be enough to make your PC reachable from outside your home.
-          </p>
-
-          <h3>How to investigate</h3>
-          <ol>
-            <li>Open your router's status or Internet page.</li>
-            <li>Find its WAN or Internet IPv4 address.</li>
-            <li>Compare it with the public IPv4 shown by a reputable IP-checking service.</li>
-            <li>If the addresses differ, investigate CGNAT, an upstream router or another network arrangement.</li>
-          </ol>
-
-          <p>
-            Private IPv4 ranges include <code>10.0.0.0/8</code>,
-            <code>172.16.0.0/12</code> and <code>192.168.0.0/16</code>.
-            The shared address range associated with CGNAT is <code>100.64.0.0/10</code>.
-            Address comparisons are useful clues, but they do not definitively identify your topology.
-          </p>
-
-          <h3>Example double NAT layout</h3>
-          <div class="code-wrap">
-            <pre id="natDiagram">INTERNET
-   |
-ISP ROUTER / GATEWAY
-   |
-YOUR OWN ROUTER
-   |
-PC RUNNING THE RELAY</pre>
-            <button class="copy-btn" type="button" data-copy="natDiagram">Copy diagram</button>
-          </div>
-
-          <p>
-            If your PC connects through two routers, forwarding may need to be configured on
-            both devices. The right solution depends on which device receives the public
-            connection and which options your provider supports.
-          </p>
-
-          <h3>Would a VPS help?</h3>
-          <p>
-            A VPS may provide a public endpoint, but renting one does not automatically solve
-            CGNAT. The necessary tunnel, routing and port forwarding must be configured correctly.
-            A tunnel such as WireGuard can suit some network designs, but it requires setup at both ends.
-          </p>
-        </section>
-
-        <section class="guide-section js-reveal" id="console">
-          <h2 class="section-heading"><span class="section-number">08</span> PC-to-Console Bridge</h2>
-
-          <div class="notice success">
-            <strong><i class="bi bi-check-circle"></i> Community testing report</strong>
-            A bridge setup involving PSRelay and UDP ports 3060–3080 has been reported working
-            in testing. This is a community report, not a guarantee that it works with every
-            console, client, network or tool version.
-          </div>
-
-          <p>
-            The community has been investigating relay behaviour and compatibility following
-            reported BO2 changes. Tools that display statistics and tools that bridge traffic
-            may behave differently even on the same network.
-          </p>
-
-          <h3>Reported limitations</h3>
+          <h3>What to look for</h3>
           <ul>
-            <li>Compatibility can vary between tool versions and configurations.</li>
-            <li>Some statistics tools may not support the same bridging behaviour.</li>
-            <li>Player names or related information may display incorrectly.</li>
-            <li>Some configurations have been described as cumbersome.</li>
-            <li>Tools may need further fixes before wider release.</li>
+            <li>Whether packets appear when you perform the action being tested.</li>
+            <li>Whether the traffic uses the expected network interface.</li>
+            <li>Whether replies are visible or only outbound traffic appears.</li>
+            <li>Whether the source and destination ports match your current setup.</li>
           </ul>
 
-          <div class="notice warning">
-            <strong>Setup support is currently unavailable</strong>
-            ModdingXZ is not currently offering individual setup support for this method.
-            Please do not message the support bot expecting help configuring your PC or console.
-            New instructions and releases will be announced on Telegram when available.
+          <div class="callout warning">
+            <i class="bi bi-shield-exclamation"></i>
+            <p>
+              Packet captures can contain IP addresses, account identifiers
+              and other sensitive data. Do not publish full captures unless
+              you have reviewed and sanitised them.
+            </p>
+          </div>
+        </section>
+
+        <section class="content-section" id="nat">
+          <span class="section-kicker">07 / Network limitations</span>
+          <h2>NAT, Double NAT & CGNAT</h2>
+
+          <h3>What is NAT?</h3>
+          <p>
+            Network Address Translation allows devices on a private network
+            to share a public-facing connection. Router forwarding rules can
+            direct selected incoming traffic to a local device, provided the
+            upstream network and firewall permit it.
+          </p>
+
+          <h3>Double NAT</h3>
+          <p>
+            Double NAT can happen when your own router sits behind another
+            router or ISP gateway. A forwarding rule on only one device may
+            not be enough if traffic also needs to pass through the upstream
+            device.
+          </p>
+
+          <h3>CGNAT</h3>
+          <p>
+            Some internet providers place customers behind Carrier-Grade NAT.
+            In that situation, the public IP address may be shared across
+            multiple customers, and ordinary forwarding on your home router
+            may not allow unsolicited incoming connections to reach your device.
+          </p>
+
+          <div class="callout">
+            <i class="bi bi-info-circle-fill"></i>
+            <p>
+              Compare your router's WAN address with the public IP shown by
+              the diagnostic tool below. A difference can indicate upstream
+              NAT, although VPNs, proxies and other network arrangements can
+              also explain it.
+            </p>
           </div>
 
-          <a class="button button-primary" href="https://t.me/ModdingXZ"
+          <h3>What can you do?</h3>
+          <ul>
+            <li>Check whether your ISP supplied a separate gateway and router.</li>
+            <li>Ask your ISP whether your connection uses CGNAT.</li>
+            <li>Ask whether a public IPv4 address or supported alternative is available.</li>
+            <li>Do not assume that a VPN or VPS automatically fixes every relay problem.</li>
+          </ul>
+        </section>
+
+        <section class="content-section" id="bridge">
+          <span class="section-kicker">08 / Community information</span>
+          <h2>PC-to-Console Bridge</h2>
+
+          <p>
+            Previous community discussions have covered PC-to-console relay
+            arrangements and tool compatibility. The exact procedure depends
+            on the application, console, game build and network environment.
+          </p>
+
+          <div class="callout warning">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <p>
+              A PC bridge, a relay utility and a router's port-forwarding rules
+              are different parts of a network setup. One being configured
+              correctly does not guarantee that the others are working.
+            </p>
+          </div>
+
+          <h3>When something does not connect</h3>
+          <ul>
+            <li>Confirm that the software and game versions are compatible.</li>
+            <li>Check that the PC and console are on the intended networks.</li>
+            <li>Confirm that the relevant application is running and has permission to use the network.</li>
+            <li>Use packet capture to observe traffic rather than assuming the cause.</li>
+            <li>Review the tool developer's documentation for its specific configuration.</li>
+          </ul>
+
+          <p>
+            Dedicated setup support is currently unavailable. Keep an eye on
+            the ModdingXZ Telegram channel for announcements and updates.
+          </p>
+
+          <a class="btn-xz btn-outline-xz"
+             href="https://t.me/ModdingXZ"
              target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-telegram"></i> Follow Bridge Updates
+            <i class="bi bi-telegram"></i> ModdingXZ Telegram
           </a>
         </section>
 
-        <section class="guide-section js-reveal" id="troubleshooting">
-          <h2 class="section-heading"><span class="section-number">09</span> Troubleshooting Centre</h2>
+        <!-- ONLY NEW FEATURE: NETWORK DIAGNOSTICS -->
+        <section class="content-section" id="diagnostics">
+          <span class="section-kicker">09 / Interactive network utilities</span>
+          <h2>Network Diagnostics</h2>
 
-          <p>
-            Search the common problems below. Open a question to see what to investigate next.
+          <p class="net-intro">
+            Use these tools to look up your public IP, retrieve approximate
+            IP information, query public DNS records and check HTTP website
+            availability. Results are provided by third-party services.
           </p>
 
-          <div class="faq-tools">
-            <input
-              type="search"
-              class="faq-search"
-              id="faqSearch"
-              placeholder="Search ports, IP address, firewall, NAT..."
-              aria-label="Search troubleshooting questions"
-              autocomplete="off">
+          <div class="net-grid">
+
+            <!-- Public IP -->
+            <article class="net-card">
+              <div class="net-card-head">
+                <span class="net-icon"><i class="bi bi-globe2"></i></span>
+                <span class="net-label">PUBLIC IP</span>
+              </div>
+
+              <h3>Your external IP</h3>
+              <p class="net-muted">
+                The public IP address visible to an external service.
+              </p>
+
+              <div class="net-value" id="ipValue">Not checked</div>
+
+              <div class="net-actions">
+                <button class="net-btn primary" id="ipCheckBtn" type="button">
+                  <i class="bi bi-arrow-repeat"></i> Check IP
+                </button>
+                <button class="net-btn" id="ipCopyBtn" type="button" disabled>
+                  <i class="bi bi-copy"></i> Copy
+                </button>
+              </div>
+
+              <p class="net-status" id="ipStatus" role="status" aria-live="polite">
+                Your IP is only requested when you press the button.
+              </p>
+            </article>
+
+            <!-- IP information -->
+            <article class="net-card">
+              <div class="net-card-head">
+                <span class="net-icon"><i class="bi bi-pin-map"></i></span>
+                <span class="net-label">IP INFORMATION</span>
+              </div>
+
+              <h3>Connection details</h3>
+              <p class="net-muted">
+                Approximate details associated with the public IP.
+              </p>
+
+              <div class="net-data-list">
+                <div class="net-data-row">
+                  <span>Location</span>
+                  <strong id="ipLocation">—</strong>
+                </div>
+                <div class="net-data-row">
+                  <span>Organisation</span>
+                  <strong id="ipOrg">—</strong>
+                </div>
+                <div class="net-data-row">
+                  <span>Timezone</span>
+                  <strong id="ipTimezone">—</strong>
+                </div>
+              </div>
+
+              <p class="net-status" id="ipInfoStatus" role="status" aria-live="polite">
+                Run the IP lookup to load available information.
+              </p>
+            </article>
+
+            <!-- DNS lookup -->
+            <article class="net-card wide">
+              <div class="net-card-head">
+                <span class="net-icon"><i class="bi bi-diagram-3"></i></span>
+                <span class="net-label">DNS LOOKUP</span>
+              </div>
+
+              <h3>Check DNS records</h3>
+              <p class="net-muted">
+                Query a public DNS resolver for records associated with a domain.
+                This does not change your device's DNS settings.
+              </p>
+
+              <form id="dnsForm">
+                <label class="net-input-label" for="dnsDomain">Domain name</label>
+
+                <div class="net-input-row">
+                  <input class="net-input" id="dnsDomain"
+                         type="text" maxlength="253"
+                         placeholder="example.com"
+                         autocomplete="off" required>
+
+                  <select class="net-select" id="dnsType"
+                          aria-label="DNS record type" style="max-width:105px">
+                    <option value="A">A</option>
+                    <option value="AAAA">AAAA</option>
+                    <option value="MX">MX</option>
+                    <option value="TXT">TXT</option>
+                    <option value="NS">NS</option>
+                    <option value="CNAME">CNAME</option>
+                  </select>
+
+                  <button class="net-btn primary" id="dnsBtn" type="submit">
+                    Look up
+                  </button>
+                </div>
+              </form>
+
+              <div class="net-result" id="dnsResult" data-state="idle">
+                <div class="net-result-icon"><i class="bi bi-search"></i></div>
+                <div>
+                  <strong>Ready to query</strong>
+                  <p>Enter a domain and choose the record type.</p>
+                </div>
+              </div>
+
+              <div class="dns-answer" id="dnsAnswers"></div>
+
+              <p class="net-footnote">
+                Uses Cloudflare's public DNS-over-HTTPS JSON endpoint.
+                A missing answer can mean no record of that type exists,
+                the domain does not resolve, or the resolver returned an error.
+              </p>
+            </article>
+
+            <!-- Website status -->
+            <article class="net-card wide">
+              <div class="net-card-head">
+                <span class="net-icon"><i class="bi bi-activity"></i></span>
+                <span class="net-label">HTTP STATUS</span>
+              </div>
+
+              <h3>Website availability</h3>
+              <p class="net-muted">
+                Check whether a public website responds to an external HTTP request.
+              </p>
+
+              <form id="siteForm">
+                <label class="net-input-label" for="siteUrl">Website address</label>
+
+                <div class="net-input-row">
+                  <input class="net-input" id="siteUrl"
+                         type="text" maxlength="2000"
+                         placeholder="https://moddingxz.co.uk"
+                         autocomplete="url" required>
+
+                  <button class="net-btn primary" id="siteBtn" type="submit">
+                    Check website
+                  </button>
+                </div>
+              </form>
+
+              <div class="net-result" id="siteResult" data-state="idle">
+                <div class="net-result-icon"><i class="bi bi-globe"></i></div>
+                <div>
+                  <strong>Ready to test</strong>
+                  <p>Enter a public website address to start.</p>
+                </div>
+              </div>
+
+              <p class="net-footnote">
+                The check is performed by a third-party service, not directly
+                from your own router. It does not test BO2, UDP port forwarding,
+                your console, or whether a game server accepts connections.
+                The service has usage limits and may be unavailable.
+              </p>
+            </article>
           </div>
 
-          <div class="faq-actions">
-            <button type="button" class="mini-button" id="expandFaq">Expand all</button>
-            <button type="button" class="mini-button" id="collapseFaq">Collapse all</button>
+          <div class="callout warning">
+            <i class="bi bi-shield-exclamation"></i>
+            <p>
+              <strong>Privacy:</strong> these requests share the information
+              necessary with the selected API providers. IP-based location
+              is approximate. Do not share your public IP or packet captures
+              unnecessarily.
+            </p>
           </div>
+        </section>
 
-          <p class="muted small" id="faqCount" aria-live="polite">9 troubleshooting topics</p>
+        <section class="content-section" id="troubleshooting">
+          <span class="section-kicker">10 / Common problems</span>
+          <h2>Troubleshooting</h2>
+
+          <p>
+            Search the questions below to narrow down common network issues.
+            These suggestions are starting points, not definitive diagnoses.
+          </p>
+
+          <div class="faq-search-wrap">
+            <input class="faq-search" id="faqSearch"
+                   type="search" placeholder="Search problems, e.g. CGNAT, ports, Wireshark…"
+                   aria-label="Search troubleshooting questions">
+          </div>
 
           <div id="faqList">
             <details class="faq-item">
-              <summary>I've forwarded the ports, but the relay still doesn't work.</summary>
-              <p>
-                Check that UDP ports 3060–3080 and UDP port 17376 point to the correct local
-                PC IP. Check Windows Firewall and the tool's instructions. If the problem
-                continues, investigate CGNAT or double NAT and use Wireshark to see whether
-                traffic reaches your PC. Forwarding alone does not guarantee a working connection.
-              </p>
+              <summary>The relay or tool will not connect</summary>
+              <div class="faq-answer">
+                <p>
+                  Confirm the game and tool versions, check that the application
+                  is running, verify the network interface and review any
+                  firewall prompts. Use Wireshark to see whether relevant
+                  traffic appears. A failure to connect can have several causes.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>Do I need two port-forwarding rules?</summary>
-              <p>
-                For this guide, the requested configuration is one UDP range rule covering
-                3060–3080 and a separate UDP rule for 17376. Routers handle rules differently,
-                but both sets of ports must be covered by the intended configuration.
-              </p>
+              <summary>Port forwarding does not seem to work</summary>
+              <div class="faq-answer">
+                <p>
+                  Check that the forwarding rule points to the correct local
+                  IPv4 address and uses the required protocol. Make sure the
+                  application is listening and consider whether another router
+                  or CGNAT sits upstream. A generic online port checker may
+                  not be able to test UDP correctly.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>Which IP address do I enter into my router?</summary>
-              <p>
-                Enter the local IPv4 address of the PC running the relay. Use
-                <code>ipconfig</code> in Command Prompt to find it. Do not enter the
-                Default Gateway as the destination for your PC's rule.
-              </p>
+              <summary>My public IP differs from the router's WAN IP</summary>
+              <div class="faq-answer">
+                <p>
+                  This can indicate double NAT, CGNAT, a VPN or another upstream
+                  network arrangement. Compare the addresses with your VPN
+                  status in mind and ask your ISP whether CGNAT is used.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>My PC's IP starts with 192.168 or 10. Is that wrong?</summary>
-              <p>
-                No. These are common private local-network addresses. Your router forwards
-                traffic to the PC using its local IP. That address is different from your
-                public internet IP.
-              </p>
+              <summary>Wireshark shows no packets</summary>
+              <div class="faq-answer">
+                <p>
+                  Confirm that you selected the interface actually carrying
+                  the traffic, start capture before repeating the action,
+                  and try a broader filter such as <code>udp</code>. Check
+                  that Npcap is installed if needed. No packets in the chosen
+                  capture does not prove that no traffic exists elsewhere.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>Wireshark shows no relevant packets.</summary>
-              <p>
-                Confirm you selected the active network interface and are reproducing the
-                problem during capture. Check your display filter, forwarding destination and
-                firewall. Also consider whether the expected traffic is being sent at all.
-              </p>
+              <summary>I see outgoing packets but no replies</summary>
+              <div class="faq-answer">
+                <p>
+                  Possible causes include a remote endpoint that does not
+                  respond, incorrect destination details, filtering, NAT
+                  behaviour or a reply arriving through another interface.
+                  Capture traffic at the relevant point before deciding
+                  where the problem lies.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>The relay opens, but the game doesn't connect.</summary>
-              <p>
-                A running application does not prove the connection works. Verify client and
-                tool versions, review configuration and inspect traffic. Compatibility,
-                return traffic and network restrictions can all affect the result.
-              </p>
+              <summary>The public IP lookup failed</summary>
+              <div class="faq-answer">
+                <p>
+                  The API may be temporarily unavailable, your network may
+                  block the request, or your browser may be offline. Try again
+                  later or visit the provider's official site directly.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>Can an online UDP port checker confirm everything?</summary>
-              <p>
-                Not necessarily. UDP applications may not respond to arbitrary probes, so an
-                online checker can give inconclusive results. Application-specific tests and
-                packet captures are often more useful for diagnosing actual traffic.
-              </p>
+              <summary>The DNS lookup returns no records</summary>
+              <div class="faq-answer">
+                <p>
+                  Check the spelling and chosen record type. A domain may have
+                  an A record but no AAAA record, for example. Some DNS
+                  answers can also be affected by DNSSEC validation, caching
+                  and resolver behaviour.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>Does a VPS automatically bypass CGNAT?</summary>
-              <p>
-                No. A VPS may provide a public endpoint, but the tunnel, routing and forwarding
-                must be correctly configured for the application.
-              </p>
+              <summary>The website checker says the site is down</summary>
+              <div class="faq-answer">
+                <p>
+                  The target may block the checking service, time out, redirect
+                  unexpectedly or be temporarily unavailable. Try the site
+                  in your own browser. An external HTTP check is not a complete
+                  measurement of your local internet connection.
+                </p>
+              </div>
             </details>
 
             <details class="faq-item">
-              <summary>Where can I get setup help?</summary>
-              <p>
-                Individual setup support for this method is not currently available through
-                ModdingXZ. Check the Telegram channel for announcements and updated documentation.
-              </p>
+              <summary>Everything looks correct, but BO2 still does not work</summary>
+              <div class="faq-answer">
+                <p>
+                  Networking is only one part of compatibility. Check the
+                  game build, tool version, console environment and current
+                  developer documentation. Community-reported values may
+                  be outdated and should be independently verified.
+                </p>
+              </div>
             </details>
           </div>
 
-          <div class="faq-empty" id="faqEmpty" hidden>
-            No matching questions. Try searching for “ports”, “IP”, “firewall” or “CGNAT”.
-          </div>
+          <p class="net-status" id="faqCount" aria-live="polite"></p>
         </section>
 
-        <section class="guide-section js-reveal" id="resources">
-          <h2 class="section-heading"><span class="section-number">10</span> Tools & Resources</h2>
+        <section class="content-section" id="resources">
+          <span class="section-kicker">11 / Useful links</span>
+          <h2>Resources</h2>
 
           <p>
-            Useful community posts and external resources, gathered in one place.
-            Their inclusion does not independently verify file safety, compatibility or availability.
+            These links point to the community posts and official tool pages
+            referenced by this guide. Always verify the source and download
+            files at your own discretion.
           </p>
 
           <div class="resource-grid">
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-download"></i></div>
-              <span class="tag">Featured download</span>
-              <h3>BO2 + New Tool</h3>
-              <p>Open the ModdingXZ Telegram post for the game files and tool information.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ/24327" target="_blank" rel="noopener noreferrer">Open download post <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-tools"></i></div>
-              <span class="tag">Community resource</span>
-              <h3>Volt RTM</h3>
-              <p>ModdingXZ Telegram resource post.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ/21143" target="_blank" rel="noopener noreferrer">Open Telegram post <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-lightning-charge"></i></div>
-              <span class="tag">Relay tool</span>
-              <h3>1-click Relay</h3>
-              <p>Community post for the relay tool and its intended use.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ/21071" target="_blank" rel="noopener noreferrer">Open relay post <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-controller"></i></div>
-              <span class="tag">External link</span>
-              <h3>Black Ops 2 PC Files</h3>
-              <p>Check the source and ensure you have the right to access and use any files obtained.</p>
-              <a class="resource-link" href="https://buzzheavier.com/turbm180v9i6" target="_blank" rel="noopener noreferrer">Open external resource <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-activity"></i></div>
-              <span class="tag">Official tool</span>
-              <h3>Wireshark</h3>
-              <p>Network analyser for diagnosing traffic and connectivity.</p>
-              <a class="resource-link" href="https://www.wireshark.org/download.html" target="_blank" rel="noopener noreferrer">Official downloads <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-diagram-3"></i></div>
-              <span class="tag">Official tool</span>
-              <h3>Npcap</h3>
-              <p>Windows packet-capture driver commonly used by Wireshark.</p>
-              <a class="resource-link" href="https://nmap.org/npcap/" target="_blank" rel="noopener noreferrer">Official website <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-code-square"></i></div>
-              <span class="tag">Community project</span>
-              <h3>GSC Injector Project</h3>
-              <p>GitLab project from the original resource list.</p>
-              <a class="resource-link" href="https://gitlab.com/Spet001/msclients" target="_blank" rel="noopener noreferrer">Open GitLab <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-globe2"></i></div>
-              <span class="tag">Community website</span>
-              <h3>ModdingXZ Website</h3>
-              <p>Visit the main website for other community resources.</p>
-              <a class="resource-link" href="https://moddingxz.co.uk" target="_blank" rel="noopener noreferrer">Visit website <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-telegram"></i></div>
-              <span class="tag">Announcements</span>
-              <h3>ModdingXZ Telegram</h3>
-              <p>Follow the community channel for announcements and future releases.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer">Join the channel <i class="bi bi-arrow-up-right"></i></a>
-            </article>
-          </div>
-
-          <div class="notice warning">
-            <strong>External downloads</strong>
-            Check files before running them. Use official or authorised sources where possible,
-            and only download or redistribute files you are entitled to access and share.
-          </div>
-        </section>
-
-        <section class="guide-section js-reveal" id="final-notes">
-          <h2 class="section-heading"><span class="section-number">11</span> Final Notes</h2>
-
-          <p>
-            The main things to investigate are the correct tool version, your PC's local IP,
-            both sets of UDP ports, Windows Firewall and whether traffic reaches your PC.
-            If those checks do not solve the problem, NAT restrictions or compatibility may be involved.
-          </p>
-
-          <p>
-            When recording a problem, note the exact error, Windows version, client and relay
-            build, router configuration and what you observed in Wireshark. Remove personal
-            network information before sharing screenshots or captures.
-          </p>
-
-          <div class="notice danger">
-            <strong><i class="bi bi-info-circle"></i> ModdingXZ support status</strong>
-            Setup support is not currently available for this method. Please avoid sending
-            repeated setup requests to the support bot. Further information will be announced
-            when testing and documentation are ready.
-          </div>
-
-          <div class="hero-actions">
-            <a class="button button-primary" href="https://t.me/ModdingXZ"
+            <a class="resource-card" href="https://moddingxz.co.uk"
                target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-telegram"></i> Join ModdingXZ
+              <i class="bi bi-globe2"></i>
+              <span>
+                <strong>ModdingXZ Website</strong>
+                <small>Community hub and resources.</small>
+              </span>
             </a>
-            <a class="button button-outline" href="https://moddingxz.co.uk">
-              <i class="bi bi-globe"></i> Main Website
+
+            <a class="resource-card" href="https://t.me/ModdingXZ"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-telegram"></i>
+              <span>
+                <strong>ModdingXZ Telegram</strong>
+                <small>Community announcements.</small>
+              </span>
             </a>
-            <a class="button button-outline" href="#intro">
-              <i class="bi bi-arrow-up"></i> Back to Guide
+
+            <a class="resource-card" href="https://t.me/ModdingXZ/24327"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-tools"></i>
+              <span>
+                <strong>BO2 + New Tool</strong>
+                <small>Community tool post.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://t.me/ModdingXZ/21143"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-controller"></i>
+              <span>
+                <strong>Volt RTM</strong>
+                <small>Previously shared tool post.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://t.me/ModdingXZ/21071"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-lightning-charge"></i>
+              <span>
+                <strong>1-click Relay</strong>
+                <small>Previously shared relay post.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://buzzheavier.com/turbm180v9i6"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-file-earmark-zip"></i>
+              <span>
+                <strong>BO2 PC Files</strong>
+                <small>Community-shared download link; verify files before use.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://www.wireshark.org/download.html"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-activity"></i>
+              <span>
+                <strong>Wireshark</strong>
+                <small>Official packet analysis download.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://nmap.org/npcap/"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-diagram-3"></i>
+              <span>
+                <strong>Npcap</strong>
+                <small>Official packet capture driver.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://gitlab.com/Spet001/msclients"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-git"></i>
+              <span>
+                <strong>GSC Injector Project</strong>
+                <small>Project source repository.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://www.ipify.org/"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-globe"></i>
+              <span>
+                <strong>ipify API</strong>
+                <small>Public IP API documentation.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-search"></i>
+              <span>
+                <strong>Cloudflare DNS API</strong>
+                <small>DNS-over-HTTPS documentation.</small>
+              </span>
+            </a>
+
+            <a class="resource-card" href="https://domainee.dev/free-apis/website-status-checker"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-check2-circle"></i>
+              <span>
+                <strong>Website Status API</strong>
+                <small>Documentation for the external HTTP checker.</small>
+              </span>
             </a>
           </div>
         </section>
-      </main>
+
+        <section class="content-section" id="final-notes">
+          <span class="section-kicker">12 / Before you go</span>
+          <h2>Final Notes</h2>
+
+          <p>
+            Network problems are easier to investigate when you separate
+            local configuration, router behaviour, ISP limitations and
+            application compatibility. Make one change at a time and use
+            evidence from the relevant device or network interface.
+          </p>
+
+          <p>
+            The network diagnostics on this page are optional utilities,
+            not an official BO2 status checker. Public IP, DNS and website
+            status results cannot establish whether a relay is compatible
+            with your game or whether UDP forwarding is working.
+          </p>
+
+          <div class="callout">
+            <i class="bi bi-telegram"></i>
+            <p>
+              Follow <a href="https://t.me/ModdingXZ"
+              target="_blank" rel="noopener noreferrer">ModdingXZ on Telegram</a>
+              for community announcements and updates to the guide.
+            </p>
+          </div>
+
+          <a href="#home" class="btn-xz btn-primary-xz">
+            <i class="bi bi-arrow-up"></i> Back to top
+          </a>
+        </section>
+
+      </div>
     </div>
-  </div>
+  </main>
 
   <footer class="footer">
-    <div class="container footer-inner">
-      <a href="https://moddingxz.co.uk" class="brand">
-        MODDING <span class="brand-xz">XZ</span>
+    <div class="footer-inner">
+      <a class="brand" href="#home">
+        <span class="brand-mark">XZ</span>
+        <span>MODDING<em>XZ</em></span>
       </a>
 
-      <div class="footer-text">
-        &copy; <span id="year"></span> ModdingXZ. All rights reserved.<br>
-        Community guide · Compatibility may change.
-      </div>
+      <p>
+        © <span id="currentYear"></span> ModdingXZ.
+        Community guide; not affiliated with Activision.
+      </p>
 
-      <a class="button button-outline" href="https://t.me/ModdingXZ"
-         target="_blank" rel="noopener noreferrer">
+      <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener noreferrer">
         <i class="bi bi-telegram"></i> Telegram
       </a>
     </div>
   </footer>
 
-  <button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
+  <button class="back-top" id="backTop" type="button"
+          aria-label="Back to top">
     <i class="bi bi-arrow-up"></i>
   </button>
 
-  <div class="mobile-bottom" id="mobileBottom" aria-label="Quick links">
-    <a class="button button-primary" href="https://t.me/ModdingXZ/24327" target="_blank" rel="noopener noreferrer">
-      <i class="bi bi-download"></i> Download Post
-    </a>
-    <a class="button button-outline" href="#ports">
-      <i class="bi bi-router"></i> Port Guide
-    </a>
-  </div>
-
-  <div id="toast" class="toast-message" role="status" aria-live="polite" hidden></div>
+  <div class="toast-box" id="toastBox" role="status" aria-live="polite"></div>
 
   <script>
-    (() => {
-      'use strict';
+  (() => {
+    "use strict";
 
-      const $ = (selector, root = document) => root.querySelector(selector);
-      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const $ = id => document.getElementById(id);
 
-      /* Footer year */
+    // Footer year
+    $("currentYear").textContent = new Date().getFullYear();
 
-      const year = $('#year');
-      if (year) year.textContent = new Date().getFullYear();
+    // Typewriter effect
+    const typeTarget = $("typewriter");
+    const phrases = [
+      "Your relay setup starts here.",
+      "Understand your network.",
+      "Investigate connection issues.",
+      "Gaming. Modding. Community."
+    ];
 
-      /* Toast notifications */
+    let phraseIndex = 0;
+    let charIndex = phrases[0].length;
+    let deleting = false;
 
-      let toastTimer;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      function typeLoop() {
+        const phrase = phrases[phraseIndex];
 
-      function showToast(message) {
-        const toast = $('#toast');
-        if (!toast) return;
-
-        toast.textContent = message;
-        toast.hidden = false;
-
-        clearTimeout(toastTimer);
-        toastTimer = window.setTimeout(() => {
-          toast.hidden = true;
-        }, 2300);
-      }
-
-      /* Typewriter */
-
-      const typewriter = $('#typewriter');
-
-      if (typewriter && !reducedMotion) {
-        const phrases = [
-          'PC RELAY • NETWORKING • COMMUNITY TOOLS',
-          'BLACK OPS 2 • COMMUNITY TESTING',
-          'PORT FORWARDING • DIAGNOSTICS • GUIDES',
-          'POWERED BY THE MODDINGXZ COMMUNITY'
-        ];
-
-        let phraseIndex = 0;
-        let characterIndex = phrases[0].length;
-        let deleting = false;
-
-        typewriter.textContent = phrases[0];
-
-        function typeLoop() {
-          const phrase = phrases[phraseIndex];
-          characterIndex += deleting ? -1 : 1;
-          typewriter.textContent = phrase.slice(0, characterIndex);
-
-          let delay = deleting ? 23 : 42;
-
-          if (!deleting && characterIndex >= phrase.length) {
-            deleting = true;
-            delay = 1700;
-          } else if (deleting && characterIndex <= 0) {
-            deleting = false;
-            phraseIndex = (phraseIndex + 1) % phrases.length;
-            delay = 260;
-          }
-
-          window.setTimeout(typeLoop, delay);
+        if (deleting) {
+          charIndex--;
+        } else {
+          charIndex++;
         }
 
-        window.setTimeout(() => {
+        typeTarget.textContent = phrase.slice(0, charIndex);
+
+        let delay = deleting ? 35 : 65;
+
+        if (!deleting && charIndex >= phrase.length) {
           deleting = true;
-          typeLoop();
-        }, 1700);
+          delay = 1600;
+        } else if (deleting && charIndex <= 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          delay = 300;
+        }
+
+        setTimeout(typeLoop, delay);
       }
 
-      /* Copy buttons with clipboard fallback */
+      setTimeout(typeLoop, 1800);
+    }
 
-      $$('[data-copy]').forEach(button => {
-        button.addEventListener('click', async () => {
-          const target = document.getElementById(button.dataset.copy);
-          if (!target) return;
+    // Toast notifications
+    let toastTimer;
 
-          const text = target.innerText;
+    function toast(message) {
+      const box = $("toastBox");
+      box.textContent = message;
+      box.classList.add("show");
 
-          try {
-            if (!navigator.clipboard || !window.isSecureContext) {
-              throw new Error('Clipboard unavailable');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => box.classList.remove("show"), 2200);
+    }
+
+    // Copy buttons
+    async function copyText(value) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(value);
+        } else {
+          const temp = document.createElement("textarea");
+          temp.value = value;
+          temp.setAttribute("readonly", "");
+          temp.style.position = "fixed";
+          temp.style.opacity = "0";
+          document.body.appendChild(temp);
+          temp.select();
+
+          const ok = document.execCommand("copy");
+          temp.remove();
+
+          if (!ok) throw new Error("Copy unavailable");
+        }
+
+        toast("Copied to clipboard");
+      } catch {
+        toast("Copy failed — select the text and copy it manually");
+      }
+    }
+
+    document.querySelectorAll("[data-copy]").forEach(button => {
+      button.addEventListener("click", () => {
+        copyText(button.dataset.copy);
+      });
+    });
+
+    // Mobile navigation drawer
+    const sidebar = $("sidebar");
+    const menuButton = $("mobileMenuBtn");
+    const overlay = $("mobileOverlay");
+
+    function closeMenu() {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open guide navigation");
+      menuButton.innerHTML = '<i class="bi bi-list"></i>';
+      document.body.style.overflow = "";
+    }
+
+    function openMenu() {
+      sidebar.classList.add("open");
+      overlay.classList.add("open");
+      menuButton.setAttribute("aria-expanded", "true");
+      menuButton.setAttribute("aria-label", "Close guide navigation");
+      menuButton.innerHTML = '<i class="bi bi-x-lg"></i>';
+      document.body.style.overflow = "hidden";
+    }
+
+    menuButton.addEventListener("click", () => {
+      sidebar.classList.contains("open") ? closeMenu() : openMenu();
+    });
+
+    overlay.addEventListener("click", closeMenu);
+
+    sidebar.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 600) closeMenu();
+    });
+
+    // Reading progress and back-to-top
+    const progress = $("readingProgress");
+    const backTop = $("backTop");
+
+    function updateScrollUI() {
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const percent = maxScroll > 0
+        ? (window.scrollY / maxScroll) * 100
+        : 0;
+
+      progress.style.width = Math.min(100, percent) + "%";
+      backTop.classList.toggle("visible", window.scrollY > 500);
+    }
+
+    window.addEventListener("scroll", updateScrollUI, { passive: true });
+    updateScrollUI();
+
+    backTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Active section navigation
+    const sections = Array.from(
+      document.querySelectorAll(".content-section[id]")
+    );
+
+    const navLinks = Array.from(
+      sidebar.querySelectorAll('a[href^="#"]')
+    );
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+
+          navLinks.forEach(link => {
+            const active = link.getAttribute("href") === "#" + entry.target.id;
+            link.classList.toggle("active", active);
+
+            if (active && window.innerWidth > 600) {
+              link.setAttribute("aria-current", "location");
+            } else {
+              link.removeAttribute("aria-current");
             }
-
-            await navigator.clipboard.writeText(text);
-
-            const original = button.textContent;
-            button.innerHTML = '<i class="bi bi-check2"></i> Copied';
-            showToast('Copied to clipboard.');
-
-            window.setTimeout(() => {
-              button.textContent = original;
-            }, 1400);
-          } catch {
-            const range = document.createRange();
-            range.selectNodeContents(target);
-
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-
-            showToast('Text selected. Copy it manually.');
-          }
-        });
-      });
-
-      /* Searchable troubleshooting */
-
-      const faqSearch = $('#faqSearch');
-      const faqItems = $$('.faq-item');
-      const faqEmpty = $('#faqEmpty');
-      const faqCount = $('#faqCount');
-
-      function filterFaq() {
-        const query = (faqSearch?.value || '').trim().toLowerCase();
-        let visible = 0;
-
-        faqItems.forEach(item => {
-          const matches = item.textContent.toLowerCase().includes(query);
-          item.hidden = !matches;
-          if (matches) visible++;
-        });
-
-        if (faqEmpty) faqEmpty.hidden = visible !== 0;
-
-        if (faqCount) {
-          faqCount.textContent =
-            `${visible} troubleshooting ${visible === 1 ? 'topic' : 'topics'}`;
-        }
-      }
-
-      faqSearch?.addEventListener('input', filterFaq);
-
-      $('#expandFaq')?.addEventListener('click', () => {
-        faqItems.forEach(item => {
-          if (!item.hidden) item.open = true;
-        });
-      });
-
-      $('#collapseFaq')?.addEventListener('click', () => {
-        faqItems.forEach(item => {
-          item.open = false;
-        });
-      });
-
-      /* Scroll progress, navigation and floating buttons */
-
-      const readingProgress = $('#readingProgress');
-      const navbar = $('#navbar');
-      const backToTop = $('#backToTop');
-      const mobileBottom = $('#mobileBottom');
-
-      let scrollTicking = false;
-
-      function updateScrollUI() {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-        const percent = scrollable > 0 ? scrollTop / scrollable * 100 : 0;
-
-        if (readingProgress) {
-          readingProgress.style.width = Math.min(100, Math.max(0, percent)) + '%';
-        }
-
-        navbar?.classList.toggle('scrolled', scrollTop > 12);
-        backToTop?.classList.toggle('visible', scrollTop > 550);
-        mobileBottom?.classList.toggle('visible', scrollTop > 400);
-
-        scrollTicking = false;
-      }
-
-      window.addEventListener('scroll', () => {
-        if (!scrollTicking) {
-          window.requestAnimationFrame(updateScrollUI);
-          scrollTicking = true;
-        }
-      }, { passive: true });
-
-      updateScrollUI();
-
-      backToTop?.addEventListener('click', () => {
-        window.scrollTo({
-          top: 0,
-          behavior: reducedMotion ? 'auto' : 'smooth'
-        });
-      });
-
-      /* Highlight current guide section */
-
-      const sections = $$('main section[id]');
-      const sidebarLinks = $$('.sidebar a');
-
-      function setActiveLink(id) {
-        sidebarLinks.forEach(link => {
-          const active = link.getAttribute('href') === '#' + id;
-          link.classList.toggle('active', active);
-
-          if (active) link.setAttribute('aria-current', 'location');
-          else link.removeAttribute('aria-current');
-        });
-      }
-
-      if ('IntersectionObserver' in window) {
-        const sectionObserver = new IntersectionObserver(entries => {
-          const visibleEntries = entries
-            .filter(entry => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-          if (visibleEntries.length) {
-            setActiveLink(visibleEntries[0].target.id);
-          }
-        }, {
-          rootMargin: '-12% 0px -65% 0px',
-          threshold: [0,.15,.35,.6]
-        });
-
-        sections.forEach(section => sectionObserver.observe(section));
-      }
-
-      /* Reveal content on scroll */
-
-      const revealItems = $$('.js-reveal');
-
-      if ('IntersectionObserver' in window && !reducedMotion) {
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
           });
-        }, {
-          threshold: .06,
-          rootMargin: '0px 0px -30px 0px'
+        });
+      }, {
+        rootMargin: "-20% 0px -65% 0px",
+        threshold: 0
+      });
+
+      sections.forEach(section => observer.observe(section));
+    }
+
+    // Troubleshooting search
+    const faqSearch = $("faqSearch");
+    const faqItems = Array.from(document.querySelectorAll(".faq-item"));
+    const faqCount = $("faqCount");
+
+    function filterFAQs() {
+      const query = faqSearch.value.trim().toLowerCase();
+      let visible = 0;
+
+      faqItems.forEach(item => {
+        const matches = item.textContent.toLowerCase().includes(query);
+        item.hidden = !matches;
+
+        if (matches) visible++;
+        if (!matches) item.open = false;
+      });
+
+      faqCount.textContent = query
+        ? `${visible} matching question${visible === 1 ? "" : "s"}`
+        : `${faqItems.length} troubleshooting questions`;
+    }
+
+    faqSearch.addEventListener("input", filterFAQs);
+    filterFAQs();
+
+    // API utilities
+    async function fetchJSON(url, options = {}, timeout = 12000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeout);
+
+      try {
+        const response = await fetch(url, {
+          ...options,
+          signal: controller.signal
         });
 
-        revealItems.forEach(item => revealObserver.observe(item));
-      } else {
-        revealItems.forEach(item => item.classList.add('is-visible'));
+        if (!response.ok) {
+          throw new Error(`Request failed (${response.status})`);
+        }
+
+        return await response.json();
+      } finally {
+        clearTimeout(timer);
       }
-    })();
+    }
+
+    function setStatus(element, message, state = "") {
+      element.textContent = message;
+      element.classList.remove("error", "success");
+
+      if (state) element.classList.add(state);
+    }
+
+    // Public IP + approximate IP details
+    let currentIP = "";
+
+    $("ipCheckBtn").addEventListener("click", async () => {
+      const button = $("ipCheckBtn");
+      const copyButton = $("ipCopyBtn");
+      const status = $("ipStatus");
+      const infoStatus = $("ipInfoStatus");
+
+      button.disabled = true;
+      copyButton.disabled = true;
+      button.innerHTML = '<i class="bi bi-arrow-repeat"></i> Checking…';
+
+      $("ipValue").textContent = "Checking…";
+      setStatus(status, "Contacting public IP services…");
+      setStatus(infoStatus, "Loading available details…");
+
+      ["ipLocation", "ipOrg", "ipTimezone"].forEach(id => {
+        $(id).textContent = "Loading…";
+      });
+
+      try {
+        const results = await Promise.allSettled([
+          fetchJSON("https://api.ipify.org?format=json"),
+          fetchJSON("https://ipapi.co/json/")
+        ]);
+
+        const ipData = results[0].status === "fulfilled"
+          ? results[0].value : null;
+
+        const infoData = results[1].status === "fulfilled"
+          ? results[1].value : null;
+
+        currentIP = (ipData && ipData.ip) ||
+          (infoData && infoData.ip) || "";
+
+        if (currentIP) {
+          $("ipValue").textContent = currentIP;
+          copyButton.disabled = false;
+          setStatus(status, "Public IP retrieved.", "success");
+        } else {
+          $("ipValue").textContent = "Unavailable";
+          setStatus(
+            status,
+            "Unable to retrieve your IP. The service may be unavailable.",
+            "error"
+          );
+        }
+
+        if (infoData && !infoData.error) {
+          const location = [
+            infoData.city,
+            infoData.region,
+            infoData.country_name
+          ].filter(Boolean).join(", ");
+
+          $("ipLocation").textContent = location || "Not provided";
+          $("ipOrg").textContent = infoData.org || "Not provided";
+          $("ipTimezone").textContent = infoData.timezone || "Not provided";
+
+          setStatus(
+            infoStatus,
+            "Approximate information supplied by ipapi.co.",
+            "success"
+          );
+        } else {
+          ["ipLocation", "ipOrg", "ipTimezone"].forEach(id => {
+            $(id).textContent = "Unavailable";
+          });
+
+          setStatus(
+            infoStatus,
+            "IP information could not be retrieved. The IP lookup may still work.",
+            "error"
+          );
+        }
+
+        if (!currentIP && results.every(r => r.status === "rejected")) {
+          setStatus(
+            status,
+            "Both services failed. Check your connection and try again.",
+            "error"
+          );
+        }
+      } catch {
+        $("ipValue").textContent = "Unavailable";
+        setStatus(status, "The IP lookup failed. Try again later.", "error");
+        setStatus(infoStatus, "IP details are unavailable.", "error");
+      } finally {
+        button.disabled = false;
+        button.innerHTML = '<i class="bi bi-arrow-repeat"></i> Check IP';
+      }
+    });
+
+    $("ipCopyBtn").addEventListener("click", () => {
+      if (currentIP) copyText(currentIP);
+    });
+
+    // DNS lookup via Cloudflare DNS-over-HTTPS JSON API
+    const dnsForm = $("dnsForm");
+    const dnsButton = $("dnsBtn");
+    const dnsResult = $("dnsResult");
+    const dnsAnswers = $("dnsAnswers");
+
+    function showResult(element, state, title, description, icon) {
+      element.dataset.state = state;
+      element.replaceChildren();
+
+      const symbol = document.createElement("div");
+      symbol.className = "net-result-icon";
+      symbol.innerHTML = `<i class="bi ${icon}"></i>`;
+
+      const content = document.createElement("div");
+      const heading = document.createElement("strong");
+      const detail = document.createElement("p");
+
+      heading.textContent = title;
+      detail.textContent = description;
+
+      content.append(heading, detail);
+      element.append(symbol, content);
+    }
+
+    function validDomain(value) {
+      let domain = value.trim().toLowerCase();
+
+      if (domain.endsWith(".")) domain = domain.slice(0, -1);
+      if (!domain || domain.length > 253) return null;
+
+      // Keep this field to ordinary domain names, not URLs or IP addresses.
+      if (domain.includes("/") || domain.includes(":") ||
+          domain.includes("@") || domain.includes(" ")) return null;
+
+      const labels = domain.split(".");
+      if (labels.length < 2) return null;
+
+      const labelPattern =
+        /^(?!-)[a-z0-9-]{1,63}(?<!-)$/i;
+
+      if (!labels.every(label => labelPattern.test(label))) return null;
+
+      // Avoid local/internal-only domain suffixes.
+      const lastLabel = labels[labels.length - 1];
+      if (["local", "localhost", "internal", "test", "invalid"].includes(lastLabel)) {
+        return null;
+      }
+
+      return domain;
+    }
+
+    dnsForm.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const domain = validDomain($("dnsDomain").value);
+      const type = $("dnsType").value;
+
+      dnsAnswers.replaceChildren();
+
+      if (!domain) {
+        showResult(
+          dnsResult, "error", "Invalid domain",
+          "Enter a public domain name, such as example.com.",
+          "bi-exclamation-circle"
+        );
+        return;
+      }
+
+      dnsButton.disabled = true;
+      dnsButton.textContent = "Looking up…";
+
+      showResult(
+        dnsResult, "loading", "Querying DNS",
+        `Looking up ${type} records for ${domain}.`,
+        "bi-arrow-repeat"
+      );
+
+      try {
+        const endpoint = new URL("https://cloudflare-dns.com/dns-query");
+        endpoint.searchParams.set("name", domain);
+        endpoint.searchParams.set("type", type);
+
+        const data = await fetchJSON(endpoint.toString(), {
+          headers: { "Accept": "application/dns-json" }
+        });
+
+        const dnsStatus = Number(data.Status);
+
+        if (dnsStatus !== 0) {
+          const descriptions = {
+            1: "Format error",
+            2: "DNS server failure",
+            3: "Domain name does not exist",
+            5: "Query refused"
+          };
+
+          showResult(
+            dnsResult, "error", "DNS query returned an error",
+            descriptions[dnsStatus] || `DNS response code: ${dnsStatus}`,
+            "bi-exclamation-circle"
+          );
+          return;
+        }
+
+        const answers = Array.isArray(data.Answer) ? data.Answer : [];
+
+        if (!answers.length) {
+          showResult(
+            dnsResult, "success", "Query completed — no answer records",
+            `No ${type} records were returned for ${domain}.`,
+            "bi-info-circle"
+          );
+          return;
+        }
+
+        showResult(
+          dnsResult, "success", `${answers.length} record${answers.length === 1 ? "" : "s"} found`,
+          `${type} records returned for ${domain}.`,
+          "bi-check-circle"
+        );
+
+        answers.slice(0, 30).forEach(answer => {
+          const record = document.createElement("div");
+          record.className = "dns-record";
+          record.textContent =
+            `${answer.name || domain}  ·  TTL ${answer.TTL ?? "?"}\n${answer.data || ""}`;
+          dnsAnswers.appendChild(record);
+        });
+      } catch (error) {
+        showResult(
+          dnsResult, "error", "DNS lookup failed",
+          error.name === "AbortError"
+            ? "The DNS request timed out. Try again."
+            : "The resolver may be unavailable or your network may block the request.",
+          "bi-exclamation-circle"
+        );
+      } finally {
+        dnsButton.disabled = false;
+        dnsButton.textContent = "Look up";
+      }
+    });
+
+    // Website status via Domainee public API
+    const siteForm = $("siteForm");
+    const siteButton = $("siteBtn");
+    const siteResult = $("siteResult");
+
+    function validatePublicWebsite(raw) {
+      let url;
+
+      try {
+        url = new URL(/^https?:\/\//i.test(raw) ? raw : "https://" + raw);
+      } catch {
+        return null;
+      }
+
+      if (!["http:", "https:"].includes(url.protocol)) return null;
+      if (url.username || url.password) return null;
+      if (!url.hostname || !url.hostname.includes(".")) return null;
+
+      const hostname = url.hostname.toLowerCase();
+
+      if (
+        hostname === "localhost" ||
+        hostname.endsWith(".localhost") ||
+        hostname.endsWith(".local") ||
+        hostname.endsWith(".internal") ||
+        hostname.endsWith(".test")
+      ) return null;
+
+      // Reject common non-public IPv4 literals and all IPv6 literals.
+      if (hostname.startsWith("[") || hostname.includes(":")) return null;
+
+      const ipv4 = hostname.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+
+      if (ipv4) {
+        const parts = ipv4.slice(1).map(Number);
+        if (parts.some(part => part < 0 || part > 255)) return null;
+
+        const [a, b] = parts;
+
+        const privateOrSpecial =
+          a === 0 ||
+          a === 10 ||
+          a === 127 ||
+          (a === 169 && b === 254) ||
+          (a === 172 && b >= 16 && b <= 31) ||
+          (a === 192 && b === 168) ||
+          (a === 100 && b >= 64 && b <= 127) ||
+          a >= 224;
+
+        if (privateOrSpecial) return null;
+      }
+
+      return url;
+    }
+
+    siteForm.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const url = validatePublicWebsite($("siteUrl").value.trim());
+
+      if (!url) {
+        showResult(
+          siteResult, "error", "Invalid public website",
+          "Enter a public HTTP or HTTPS domain. Local addresses and private IPv4 addresses are not accepted.",
+          "bi-exclamation-circle"
+        );
+        return;
+      }
+
+      siteButton.disabled = true;
+      siteButton.textContent = "Checking…";
+
+      showResult(
+        siteResult, "loading", "Checking website",
+        "Waiting for the external status service.",
+        "bi-arrow-repeat"
+      );
+
+      try {
+        const endpoint = new URL(
+          "https://api.domainee.dev/v1/tools/website-status-checker"
+        );
+        endpoint.searchParams.set("url", url.href);
+
+        const result = await fetchJSON(endpoint.toString(), {}, 15000);
+
+        if (!result.ok || !result.data) {
+          throw new Error(
+            result.error && result.error.message
+              ? result.error.message
+              : "The status service could not complete the check."
+          );
+        }
+
+        const data = result.data;
+        const isUp = data.up === true;
+        const code = data.status
+          ? `HTTP ${data.status}${data.statusText ? " " + data.statusText : ""}`
+          : "No HTTP status returned";
+
+        const time = Number.isFinite(data.responseTimeMs)
+          ? ` · ${data.responseTimeMs} ms`
+          : "";
+
+        showResult(
+          siteResult,
+          isUp ? "success" : "error",
+          isUp ? "Website responded" : "Website may be unavailable",
+          `${code}${time}. This is an external HTTP check, not a UDP or BO2 test.`,
+          isUp ? "bi-check-circle" : "bi-exclamation-circle"
+        );
+      } catch (error) {
+        showResult(
+          siteResult, "error", "Website check failed",
+          error.message || "The service may be unavailable or rate-limited. Try again later.",
+          "bi-exclamation-circle"
+        );
+      } finally {
+        siteButton.disabled = false;
+        siteButton.textContent = "Check website";
+      }
+    });
+  })();
   </script>
 </body>
 </html>
