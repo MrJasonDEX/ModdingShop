@@ -1,0 +1,2103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090811">
+  <meta name="description" content="The ModdingXZ Black Ops 2 Console Bridge setup guide. Step-by-step PC setup, UDP port forwarding, Windows Firewall, Wireshark and troubleshooting for Zombies and Multiplayer.">
+
+  <title>BO2 Console Bridge Guide | ModdingXZ</title>
+
+  <!-- External CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #090811;
+      --surface: #100e1b;
+      --surface-2: #171327;
+      --border: rgba(178, 142, 255, .16);
+      --purple: #a879ff;
+      --purple-2: #8052f5;
+      --text: #f5f2ff;
+      --muted: #aaa4be;
+      --green: #5de6ad;
+      --red: #ff718b;
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 75% 0%, rgba(112, 57, 202, .15), transparent 42%),
+        radial-gradient(ellipse at 0% 35%, rgba(76, 42, 150, .10), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { color: #d2baff; }
+
+    button, input { font: inherit; }
+
+    ::selection {
+      background: rgba(168, 121, 255, .4);
+      color: white;
+    }
+
+    .top-progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      height: 3px;
+      width: 0;
+      background: linear-gradient(90deg, #7650ff, #d4a6ff);
+      z-index: 2000;
+      box-shadow: 0 0 16px rgba(168, 121, 255, .7);
+    }
+
+    .navbar {
+      background: rgba(9, 8, 17, .86);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      min-height: 72px;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: white !important;
+      font-family: Orbitron, sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: .5px;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      color: white;
+      background: linear-gradient(140deg, #a879ff, #6333d6);
+      box-shadow: 0 0 22px rgba(136, 83, 255, .25);
+    }
+
+    .navbar .nav-link {
+      color: #c7bfdc;
+      font-size: .86rem;
+      font-weight: 600;
+      padding: 10px 13px !important;
+    }
+
+    .navbar .nav-link:hover { color: white; }
+
+    .btn-xz {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 12px 17px;
+      color: white;
+      background: linear-gradient(135deg, #9663ff, #6d42db);
+      font-size: .9rem;
+      font-weight: 750;
+      transition: transform .2s, box-shadow .2s, filter .2s;
+    }
+
+    .btn-xz:hover {
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 9px 28px rgba(128, 82, 245, .25);
+      filter: brightness(1.1);
+    }
+
+    .btn-xz-outline {
+      background: rgba(255,255,255,.025);
+      border-color: var(--border);
+    }
+
+    .btn-xz-outline:hover { background: var(--surface-2); }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      padding: 100px 0 60px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 340px;
+      height: 340px;
+      top: 25px;
+      right: 5%;
+      border-radius: 50%;
+      background: rgba(126, 69, 255, .10);
+      filter: blur(90px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #d0b7ff;
+      background: rgba(144, 96, 255, .09);
+      border: 1px solid rgba(168, 121, 255, .24);
+      border-radius: 100px;
+      padding: 7px 12px;
+      font-size: .74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(93, 230, 173, .8);
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--text);
+      letter-spacing: -.035em;
+    }
+
+    h1 {
+      margin: 23px 0 18px;
+      font-family: Orbitron, sans-serif;
+      font-size: clamp(2.3rem, 7vw, 4.7rem);
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -.06em;
+    }
+
+    .gradient-text {
+      color: #c3a1ff;
+      background: linear-gradient(100deg, #d9c3ff, #a879ff 45%, #8052f5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      color: var(--muted);
+      max-width: 610px;
+      font-size: 1.06rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 27px;
+    }
+
+    .hero-art {
+      position: relative;
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orb {
+      width: 220px;
+      height: 220px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(185, 148, 255, .42);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(133, 82, 245, .18), rgba(9, 8, 17, .05) 68%);
+      box-shadow: 0 0 70px rgba(123, 72, 243, .16), inset 0 0 45px rgba(123, 72, 243, .09);
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .orb-inner {
+      width: 140px;
+      height: 140px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(200, 172, 255, .4);
+      border-radius: 34px;
+      background: linear-gradient(145deg, #241747, #100d1c);
+      transform: rotate(-8deg);
+      font-family: Orbitron, sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #d9c4ff;
+      text-shadow: 0 0 25px rgba(168, 121, 255, .6);
+    }
+
+    .orbit {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border: 1px dashed rgba(168, 121, 255, .26);
+      border-radius: 50%;
+      animation: spin 30s linear infinite;
+    }
+
+    .orbit::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      left: 34px;
+      width: 10px;
+      height: 10px;
+      background: #d6bdff;
+      border-radius: 50%;
+      box-shadow: 0 0 18px #a879ff;
+    }
+
+    .hero-tag {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: rgba(16, 14, 27, .92);
+      color: #e3d7ff;
+      font-size: .75rem;
+      font-weight: 750;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25);
+    }
+
+    .hero-tag.one { top: 22px; right: 0; }
+    .hero-tag.two { bottom: 25px; left: 0; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .quick-facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 38px;
+    }
+
+    .fact {
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(18, 15, 30, .8);
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 1.1rem;
+      color: white;
+      letter-spacing: -.03em;
+    }
+
+    .fact span {
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      padding: 17px 19px;
+      border: 1px solid rgba(168, 121, 255, .22);
+      border-radius: 15px;
+      background: rgba(116, 74, 204, .075);
+      color: #d8cbed;
+      font-size: .9rem;
+    }
+
+    .notice > i {
+      color: var(--purple);
+      font-size: 1.2rem;
+    }
+
+    .notice strong { color: white; }
+
+    .section-heading {
+      margin-bottom: 27px;
+    }
+
+    .section-heading h2 {
+      margin: 13px 0 9px;
+      font-size: clamp(1.65rem, 4vw, 2.3rem);
+      font-weight: 800;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      max-width: 690px;
+      margin-bottom: 0;
+    }
+
+    .setup-shell {
+      display: grid;
+      grid-template-columns: 255px minmax(0, 1fr);
+      align-items: start;
+      gap: 25px;
+      margin-top: 42px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 94px;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(16, 14, 27, .88);
+    }
+
+    .sidebar-label {
+      margin: 0 0 13px 9px;
+      color: #9389aa;
+      font-size: .69rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .step-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .step-nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      color: #bdb5d0;
+      font-size: .82rem;
+      font-weight: 600;
+      transition: background .2s, color .2s;
+    }
+
+    .step-nav a:hover,
+    .step-nav a.active {
+      color: white;
+      background: rgba(145, 96, 255, .13);
+    }
+
+    .step-nav .nav-number {
+      display: grid;
+      place-items: center;
+      flex: 0 0 27px;
+      width: 27px;
+      height: 27px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: .72rem;
+    }
+
+    .step-nav a.active .nav-number {
+      border-color: rgba(168, 121, 255, .55);
+      background: rgba(168, 121, 255, .2);
+      color: #dfccff;
+    }
+
+    .sidebar-help {
+      margin-top: 17px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.025);
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .sidebar-help strong {
+      display: block;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .content { min-width: 0; }
+
+    .guide-step {
+      position: relative;
+      padding: clamp(20px, 4vw, 32px);
+      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, rgba(21, 17, 36, .96), rgba(13, 11, 22, .96));
+      scroll-margin-top: 96px;
+      transition: border-color .25s, transform .25s;
+    }
+
+    .guide-step:hover { border-color: rgba(168, 121, 255, .32); }
+
+    .step-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 17px;
+    }
+
+    .step-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 48px;
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(168, 121, 255, .28);
+      border-radius: 14px;
+      color: #d4bdff;
+      background: rgba(137, 87, 242, .12);
+      font-size: 1.3rem;
+    }
+
+    .step-kicker {
+      color: #b49bdf;
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+    }
+
+    .guide-step h3 {
+      margin: 2px 0 0;
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+
+    .guide-step p { color: #c0b9d1; }
+
+    .guide-step p:last-child { margin-bottom: 0; }
+
+    .guide-step ol,
+    .guide-step ul {
+      padding-left: 1.3rem;
+      color: #c9c2d9;
+    }
+
+    .guide-step li { padding: 3px 0; }
+
+    .guide-step li::marker { color: var(--purple); }
+
+    .callout {
+      padding: 14px 16px;
+      margin: 18px 0;
+      border-left: 3px solid var(--purple);
+      border-radius: 0 12px 12px 0;
+      background: rgba(145, 96, 255, .075);
+      color: #d6cce9;
+      font-size: .87rem;
+    }
+
+    .callout strong { color: white; }
+
+    .callout.warning {
+      border-left-color: #ffbd69;
+      background: rgba(255, 189, 105, .07);
+    }
+
+    .callout.success {
+      border-left-color: var(--green);
+      background: rgba(93, 230, 173, .06);
+    }
+
+    .port-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .port-card {
+      padding: 19px;
+      border: 1px solid rgba(168, 121, 255, .24);
+      border-radius: 15px;
+      background: rgba(137, 87, 242, .07);
+    }
+
+    .port-card span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: .76rem;
+    }
+
+    .port-value {
+      font-family: Orbitron, sans-serif;
+      font-weight: 800;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      color: #e2d2ff;
+      overflow-wrap: anywhere;
+    }
+
+    .copy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      padding: 12px 13px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 12px;
+      background: #090811;
+    }
+
+    .copy-row code {
+      color: #d9c6ff;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: .83rem;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 8px 10px;
+      background: #171327;
+      color: #e2d4ff;
+      font-size: .75rem;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover { background: #27203d; }
+
+    .copy-btn:focus-visible,
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid #c9a9ff;
+      outline-offset: 3px;
+    }
+
+    .mini-label {
+      display: block;
+      margin: 17px 0 7px;
+      color: #c9b3f3;
+      font-size: .75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    .instruction-list {
+      list-style: none;
+      padding: 0 !important;
+      counter-reset: instruction;
+    }
+
+    .instruction-list li {
+      position: relative;
+      padding: 11px 12px 11px 43px !important;
+      margin: 7px 0;
+      border: 1px solid rgba(255,255,255,.055);
+      border-radius: 11px;
+      background: rgba(255,255,255,.018);
+      counter-increment: instruction;
+    }
+
+    .instruction-list li::before {
+      content: counter(instruction);
+      position: absolute;
+      top: 10px;
+      left: 11px;
+      display: grid;
+      place-items: center;
+      width: 23px;
+      height: 23px;
+      border-radius: 7px;
+      background: rgba(145, 96, 255, .16);
+      color: #ddc9ff;
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    .api-panel {
+      padding: 19px;
+      margin-top: 18px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .api-result {
+      display: none;
+      margin-top: 13px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(93, 230, 173, .07);
+      color: #bff9df;
+      overflow-wrap: anywhere;
+      font-size: .85rem;
+    }
+
+    .api-result.show { display: block; }
+
+    .btn-xz:disabled {
+      opacity: .65;
+      cursor: wait;
+      transform: none;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .resource-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      min-width: 0;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: rgba(255,255,255,.02);
+      transition: transform .2s, border-color .2s, background .2s;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(168, 121, 255, .4);
+      background: rgba(145, 96, 255, .05);
+    }
+
+    .resource-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 40px;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: rgba(145, 96, 255, .12);
+      color: #d5c0ff;
+      font-size: 1.2rem;
+    }
+
+    .resource-card strong {
+      display: block;
+      color: white;
+      font-size: .88rem;
+      margin-bottom: 3px;
+    }
+
+    .resource-card small {
+      display: block;
+      color: var(--muted);
+      font-size: .76rem;
+      line-height: 1.5;
+    }
+
+    .resource-card .resource-arrow {
+      margin-left: auto;
+      color: #9381b7;
+    }
+
+    .faq-search {
+      position: relative;
+      margin-bottom: 17px;
+    }
+
+    .faq-search i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: #a99abd;
+    }
+
+    .faq-search input {
+      width: 100%;
+      padding: 14px 15px 14px 43px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: white;
+      background: #100e1b;
+    }
+
+    .faq-search input::placeholder { color: #847b98; }
+
+    .accordion-item {
+      overflow: hidden;
+      margin-bottom: 9px;
+      border: 1px solid var(--border) !important;
+      border-radius: 12px !important;
+      background: rgba(255,255,255,.02);
+    }
+
+    .accordion-button {
+      gap: 10px;
+      padding: 16px;
+      color: #eee8ff;
+      background: transparent;
+      font-size: .9rem;
+      font-weight: 700;
+      box-shadow: none !important;
+    }
+
+    .accordion-button:not(.collapsed) {
+      color: white;
+      background: rgba(145, 96, 255, .08);
+    }
+
+    .accordion-button::after {
+      filter: invert(1) grayscale(1);
+      opacity: .7;
+    }
+
+    .accordion-body {
+      padding: 16px;
+      color: #beb6d0;
+      font-size: .87rem;
+    }
+
+    .accordion-body p:last-child { margin-bottom: 0; }
+
+    .faq-item[hidden] { display: none !important; }
+
+    .quick-flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+      margin: 17px 0;
+    }
+
+    .flow-node {
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(145, 96, 255, .07);
+      color: #dfd1ff;
+      font-size: .79rem;
+      font-weight: 700;
+    }
+
+    .flow-arrow { color: #8972b9; }
+
+    .footer {
+      margin-top: 65px;
+      padding: 34px 0;
+      border-top: 1px solid var(--border);
+      background: rgba(5, 4, 10, .55);
+    }
+
+    .footer p, .footer small { color: var(--muted); }
+
+    .footer-brand {
+      font-family: Orbitron, sans-serif;
+      font-weight: 800;
+      color: white;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      color: white;
+      background: rgba(26, 20, 43, .94);
+      box-shadow: 0 6px 25px rgba(0,0,0,.25);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity .2s, transform .2s;
+    }
+
+    .back-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .toast-container { z-index: 3000; }
+
+    .toast {
+      border: 1px solid var(--border);
+      background: #171327;
+      color: white;
+    }
+
+    .toast-body { font-size: .85rem; }
+
+    @media (max-width: 991px) {
+      .hero { padding-top: 72px; }
+      .setup-shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .step-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .sidebar-help { display: none; }
+      .hero-art { min-height: 280px; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding-top: 54px; }
+      .hero-art { min-height: 255px; }
+      .orb { width: 175px; height: 175px; }
+      .orb-inner { width: 112px; height: 112px; font-size: 2.2rem; }
+      .orbit { width: 225px; height: 225px; }
+      .hero-tag.one { right: -2px; }
+      .hero-tag.two { left: -2px; }
+      .quick-facts { grid-template-columns: 1fr; gap: 8px; }
+      .fact { display: flex; align-items: center; justify-content: space-between; }
+      .fact strong { font-size: .95rem; }
+      .step-nav { grid-template-columns: 1fr; }
+      .port-panel, .resource-grid { grid-template-columns: 1fr; }
+      .guide-step { padding: 19px; }
+      .step-top { gap: 11px; }
+      .step-icon { flex-basis: 42px; width: 42px; height: 42px; }
+      .guide-step h3 { font-size: 1.13rem; }
+      .copy-row { align-items: flex-start; }
+      .copy-row code { font-size: .76rem; }
+      .copy-btn { padding: 8px; }
+      .hero-buttons .btn-xz { flex: 1 1 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-progress" id="topProgress"></div>
+
+  <nav class="navbar navbar-expand-lg fixed-top" aria-label="Main navigation">
+    <div class="container">
+      <a class="navbar-brand" href="#home">
+        <span class="brand-mark"><i class="bi bi-controller"></i></span>
+        MODDINGXZ
+      </a>
+
+      <button class="navbar-toggler border-secondary" type="button"
+        data-bs-toggle="collapse" data-bs-target="#mainNav"
+        aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list text-white fs-3"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#setup">Setup guide</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ports">Ports</a></li>
+          <li class="nav-item"><a class="nav-link" href="#troubleshooting">Troubleshooting</a></li>
+          <li class="nav-item"><a class="nav-link" href="#downloads">Downloads</a></li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn-xz" href="https://t.me/ModdingXZ" target="_blank" rel="noopener">
+              <i class="bi bi-telegram"></i> Telegram
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="home">
+    <header class="hero">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-7">
+            <div class="eyebrow">
+              <span class="live-dot"></span>
+              Community setup guide
+            </div>
+
+            <h1>
+              BLACK OPS 2<br>
+              <span class="gradient-text" id="typewriter">CONSOLE BRIDGE</span>
+            </h1>
+
+            <p class="hero-description">
+              Get your PC ready to host BO2 Custom Games using the ModdingXZ
+              Console Bridge. Follow each step in order, from port forwarding
+              to launching Zombies or Multiplayer.
+            </p>
+
+            <div class="hero-buttons">
+              <a class="btn-xz" href="#setup">
+                <i class="bi bi-play-circle"></i> Start setup
+              </a>
+              <a class="btn-xz btn-xz-outline"
+                href="https://buzzheavier.com/turbm180v9i6"
+                target="_blank" rel="noopener">
+                <i class="bi bi-download"></i> BO2 PC files
+              </a>
+            </div>
+
+            <div class="quick-facts">
+              <div class="fact">
+                <strong>Zombies + MP</strong>
+                <span><i class="bi bi-controller"></i> Both modes</span>
+              </div>
+              <div class="fact">
+                <strong>UDP 3060–3080</strong>
+                <span><i class="bi bi-diagram-3"></i> Port range</span>
+              </div>
+              <div class="fact">
+                <strong>UDP 17376</strong>
+                <span><i class="bi bi-plug"></i> Additional port</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="hero-art" aria-hidden="true">
+              <div class="orbit"></div>
+              <div class="orb">
+                <div class="orb-inner">XZ</div>
+              </div>
+              <div class="hero-tag one">
+                <i class="bi bi-shield-check"></i> Setup guide
+              </div>
+              <div class="hero-tag two">
+                <i class="bi bi-lightning-charge"></i> Step by step
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice mt-4">
+          <i class="bi bi-info-circle-fill"></i>
+          <div>
+            <strong>Before you begin:</strong> this guide is for the PC running
+            the Console Bridge. Forward the ports to that PC, not directly to
+            the console. Router menus vary by manufacturer, and setup support
+            is not currently guaranteed.
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="container pb-4" id="ports">
+      <div class="section-heading">
+        <span class="eyebrow">Your port settings</span>
+        <h2>Know exactly what to enter</h2>
+        <p>
+          You need two forwarding entries: one for the UDP range and one for
+          the additional UDP port. You do not need to enter every port in the range separately.
+        </p>
+      </div>
+
+      <div class="port-panel">
+        <div class="port-card">
+          <span>Rule 1 · UDP range</span>
+          <div class="port-value">3060–3080</div>
+          <div class="copy-row">
+            <code>3060-3080</code>
+            <button class="copy-btn" data-copy="3060-3080">
+              <i class="bi bi-copy"></i> Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="port-card">
+          <span>Rule 2 · Additional UDP port</span>
+          <div class="port-value">17376</div>
+          <div class="copy-row">
+            <code>17376</code>
+            <button class="copy-btn" data-copy="17376">
+              <i class="bi bi-copy"></i> Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Important:</strong> use UDP for both entries, unless the tool's
+        own documentation specifically tells you otherwise. The port range
+        and the additional port are separate rules on routers that cannot
+        represent both in one entry.
+      </div>
+    </section>
+
+    <section class="container pb-5" id="setup">
+      <div class="section-heading">
+        <span class="eyebrow">Follow in order</span>
+        <h2>Your setup, one step at a time.</h2>
+        <p>
+          Start at Step 1 and work down the page. Each step tells you what to
+          do and what to look for before moving on.
+        </p>
+      </div>
+
+      <div class="setup-shell">
+        <aside class="sidebar">
+          <div class="sidebar-label">Setup navigation</div>
+          <nav class="step-nav" id="stepNav" aria-label="Guide steps">
+            <a href="#step1" class="active"><span class="nav-number">01</span> Find your PC IP</a>
+            <a href="#step2"><span class="nav-number">02</span> Forward the ports</a>
+            <a href="#step3"><span class="nav-number">03</span> Windows Firewall</a>
+            <a href="#step4"><span class="nav-number">04</span> Install Wireshark</a>
+            <a href="#step5"><span class="nav-number">05</span> Apply the filter</a>
+            <a href="#step6"><span class="nav-number">06</span> Run the bridge</a>
+            <a href="#step7"><span class="nav-number">07</span> Launch BO2</a>
+            <a href="#step8"><span class="nav-number">08</span> Test your connection</a>
+            <a href="#step9"><span class="nav-number">09</span> Fix common errors</a>
+            <a href="#downloads"><span class="nav-number">10</span> Downloads</a>
+            <a href="#troubleshooting"><span class="nav-number">11</span> Troubleshooting</a>
+          </nav>
+
+          <div class="sidebar-help">
+            <strong><i class="bi bi-lightbulb"></i> Getting stuck?</strong>
+            Open Troubleshooting at the bottom, or visit the ModdingXZ Telegram channel for updates.
+          </div>
+        </aside>
+
+        <div class="content">
+          <!-- STEP 1 -->
+          <article class="guide-step" id="step1">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-pc-display"></i></div>
+              <div>
+                <div class="step-kicker">Step 01 · Windows</div>
+                <h3>Find your PC's IPv4 address</h3>
+              </div>
+            </div>
+
+            <p>
+              First, find the local IP address of the Windows PC where you
+              intend to run the Console Bridge. This is the address your
+              router will forward traffic to.
+            </p>
+
+            <ol class="instruction-list">
+              <li>On your keyboard, press <strong>Windows + R</strong>.</li>
+              <li>Type <code>cmd</code> and press Enter.</li>
+              <li>In the Command Prompt window, type <code>ipconfig</code> and press Enter.</li>
+              <li>Find the adapter you actually use: Wi-Fi or Ethernet.</li>
+              <li>Look for <strong>IPv4 Address</strong> and write it down.</li>
+            </ol>
+
+            <div class="copy-row">
+              <code>ipconfig</code>
+              <button class="copy-btn" data-copy="ipconfig"><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <div class="callout">
+              <strong>Example:</strong> <code>192.168.1.100</code> is an example
+              address only. Use the IPv4 address shown on your own PC.
+            </div>
+
+            <p>
+              <strong>Before continuing:</strong> make sure you have the IPv4
+              address for the correct network adapter. Do not use the
+              Default Gateway address as the PC address.
+            </p>
+          </article>
+
+          <!-- STEP 2 -->
+          <article class="guide-step" id="step2">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-router"></i></div>
+              <div>
+                <div class="step-kicker">Step 02 · Router</div>
+                <h3>Forward the UDP ports</h3>
+              </div>
+            </div>
+
+            <p>
+              Sign in to your router and look for a page called
+              <strong>Port Forwarding</strong>, <strong>NAT</strong>,
+              <strong>Virtual Server</strong> or similar.
+            </p>
+
+            <ol class="instruction-list">
+              <li>Open your router's administration page.</li>
+              <li>Find the port forwarding section.</li>
+              <li>Create a rule for UDP ports <strong>3060–3080</strong>.</li>
+              <li>Create a second rule for UDP port <strong>17376</strong>.</li>
+              <li>For both rules, enter the PC IPv4 address you found in Step 1.</li>
+              <li>Save or apply the rules.</li>
+            </ol>
+
+            <span class="mini-label">Rule 1 — UDP range</span>
+            <div class="copy-row">
+              <code>Name: MODDING XZ BO2 BRIDGE
+Protocol: UDP
+External/start port: 3060
+External/end port: 3080
+Internal/start port: 3060
+Internal/end port: 3080
+Destination IP: YOUR PC IPv4</code>
+              <button class="copy-btn" data-copy="Name: MODDING XZ BO2 BRIDGE
+Protocol: UDP
+External/start port: 3060
+External/end port: 3080
+Internal/start port: 3060
+Internal/end port: 3080
+Destination IP: YOUR PC IPv4"><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <span class="mini-label">Rule 2 — Additional port</span>
+            <div class="copy-row">
+              <code>Name: MODDING XZ BO2 BRIDGE 17376
+Protocol: UDP
+External port: 17376
+Internal port: 17376
+Destination IP: YOUR PC IPv4</code>
+              <button class="copy-btn" data-copy="Name: MODDING XZ BO2 BRIDGE 17376
+Protocol: UDP
+External port: 17376
+Internal port: 17376
+Destination IP: YOUR PC IPv4"><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <div class="callout warning">
+              <strong>Do not forward these to the console.</strong>
+              Both rules should point to the PC running the Console Bridge.
+              If your router uses separate start and end fields, use 3060 and
+              3080 for the range rule. If it has one range field, enter
+              <code>3060-3080</code>.
+            </div>
+
+            <p>
+              If possible, reserve the PC's local IP in your router's DHCP
+              settings so the address does not change later. Router settings
+              differ, so use your router manufacturer's instructions if the
+              labels do not match.
+            </p>
+          </article>
+
+          <!-- STEP 3 -->
+          <article class="guide-step" id="step3">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-shield-lock"></i></div>
+              <div>
+                <div class="step-kicker">Step 03 · Windows security</div>
+                <h3>Allow the ports through Windows Firewall</h3>
+              </div>
+            </div>
+
+            <p>
+              The router forwards traffic to your PC, but Windows Firewall
+              may still block it. Add inbound UDP rules for both port entries.
+            </p>
+
+            <ol class="instruction-list">
+              <li>Open the Windows Start menu.</li>
+              <li>Search for <strong>PowerShell</strong>.</li>
+              <li>Right-click it and choose <strong>Run as administrator</strong>.</li>
+              <li>Copy and run the first command below.</li>
+              <li>Copy and run the second command below.</li>
+            </ol>
+
+            <span class="mini-label">Allow UDP 3060–3080</span>
+            <div class="copy-row">
+              <code>New-NetFirewallRule -DisplayName "Modding XZ BO2 Bridge UDP 3060-3080" -Direction Inbound -Protocol UDP -LocalPort 3060-3080 -Action Allow</code>
+              <button class="copy-btn" data-copy='New-NetFirewallRule -DisplayName "Modding XZ BO2 Bridge UDP 3060-3080" -Direction Inbound -Protocol UDP -LocalPort 3060-3080 -Action Allow'><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <span class="mini-label">Allow UDP 17376</span>
+            <div class="copy-row">
+              <code>New-NetFirewallRule -DisplayName "Modding XZ BO2 Bridge UDP 17376" -Direction Inbound -Protocol UDP -LocalPort 17376 -Action Allow</code>
+              <button class="copy-btn" data-copy='New-NetFirewallRule -DisplayName "Modding XZ BO2 Bridge UDP 17376" -Direction Inbound -Protocol UDP -LocalPort 17376 -Action Allow'><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <div class="callout success">
+              <strong>What this does:</strong> creates inbound Windows Firewall
+              rules for the specified UDP ports. Only run commands you
+              understand, and only on the PC you administer.
+            </div>
+          </article>
+
+          <!-- STEP 4 -->
+          <article class="guide-step" id="step4">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-activity"></i></div>
+              <div>
+                <div class="step-kicker">Step 04 · Network analysis</div>
+                <h3>Install Wireshark and Npcap</h3>
+              </div>
+            </div>
+
+            <p>
+              Wireshark lets you inspect network packets so you can see whether
+              traffic is appearing while you use the bridge.
+            </p>
+
+            <ol class="instruction-list">
+              <li>Download Wireshark using the official link below.</li>
+              <li>Run the installer.</li>
+              <li>Install Npcap when the installer prompts you, if it is not already installed.</li>
+              <li>Open Wireshark after installation.</li>
+              <li>Select the adapter carrying your connection: Wi-Fi or Ethernet.</li>
+              <li>Start capturing packets on that adapter.</li>
+            </ol>
+
+            <div class="resource-grid">
+              <a class="resource-card" href="https://www.wireshark.org/download.html" target="_blank" rel="noopener">
+                <span class="resource-icon"><i class="bi bi-download"></i></span>
+                <span>
+                  <strong>Download Wireshark</strong>
+                  <small>Official Wireshark website</small>
+                </span>
+                <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+              </a>
+
+              <a class="resource-card" href="https://nmap.org/npcap/" target="_blank" rel="noopener">
+                <span class="resource-icon"><i class="bi bi-box-arrow-in-down"></i></span>
+                <span>
+                  <strong>Download Npcap</strong>
+                  <small>Packet capture driver for Windows</small>
+                </span>
+                <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+              </a>
+            </div>
+
+            <div class="callout">
+              <strong>Tip:</strong> if you see several adapters, choose the one
+              whose packet counter increases when you use your network.
+            </div>
+          </article>
+
+          <!-- STEP 5 -->
+          <article class="guide-step" id="step5">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-funnel"></i></div>
+              <div>
+                <div class="step-kicker">Step 05 · Wireshark</div>
+                <h3>Apply the BO2 port filter</h3>
+              </div>
+            </div>
+
+            <p>
+              Wireshark has a display-filter bar near the top. Use it to show
+              packets associated with the bridge's configured ports.
+            </p>
+
+            <ol class="instruction-list">
+              <li>Make sure packet capture is running.</li>
+              <li>Click the display-filter bar at the top.</li>
+              <li>Paste the filter below.</li>
+              <li>Press Enter to apply it.</li>
+            </ol>
+
+            <span class="mini-label">Full bridge filter</span>
+            <div class="copy-row">
+              <code>(udp.port >= 3060 && udp.port <= 3080) || udp.port == 17376</code>
+              <button class="copy-btn" data-copy="(udp.port >= 3060 && udp.port <= 3080) || udp.port == 17376"><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <span class="mini-label">Range only</span>
+            <div class="copy-row">
+              <code>udp.port >= 3060 && udp.port <= 3080</code>
+              <button class="copy-btn" data-copy="udp.port >= 3060 && udp.port <= 3080"><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <span class="mini-label">Additional port only</span>
+            <div class="copy-row">
+              <code>udp.port == 17376</code>
+              <button class="copy-btn" data-copy="udp.port == 17376"><i class="bi bi-copy"></i> Copy</button>
+            </div>
+
+            <div class="callout">
+              <strong>Seeing no packets?</strong> Check the adapter, make sure
+              capture is running, and generate traffic by starting the bridge
+              and using BO2. An empty display does not, by itself, prove that
+              the router is misconfigured.
+            </div>
+          </article>
+
+          <!-- STEP 6 -->
+          <article class="guide-step" id="step6">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-box-seam"></i></div>
+              <div>
+                <div class="step-kicker">Step 06 · Console Bridge</div>
+                <h3>Download and run the bridge</h3>
+              </div>
+            </div>
+
+            <ol class="instruction-list">
+              <li>Get the Console Bridge files from the official ModdingXZ post or project link.</li>
+              <li>Extract the downloaded archive if it is compressed.</li>
+              <li>Read any included instructions before launching the tool.</li>
+              <li>Run the bridge on the same PC whose IPv4 address you forwarded in Step 2.</li>
+              <li>Keep the bridge running while testing BO2.</li>
+            </ol>
+
+            <div class="callout warning">
+              <strong>Only use files you trust.</strong> Scan downloads with
+              your security software and verify the source. Do not disable
+              Windows security protections just because an executable asks you to.
+            </div>
+
+            <a class="btn-xz mt-2" href="https://t.me/ModdingXZ" target="_blank" rel="noopener">
+              <i class="bi bi-telegram"></i> Find ModdingXZ tool posts
+            </a>
+          </article>
+
+          <!-- STEP 7 -->
+          <article class="guide-step" id="step7">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-controller"></i></div>
+              <div>
+                <div class="step-kicker">Step 07 · In-game test</div>
+                <h3>Start BO2 and test a Custom Game</h3>
+              </div>
+            </div>
+
+            <p>Once the network setup and bridge are ready, test the game in this order.</p>
+
+            <ol class="instruction-list">
+              <li>Open Wireshark and start the capture using your filter.</li>
+              <li>Launch the ModdingXZ Console Bridge.</li>
+              <li>Start Black Ops 2 on the relevant PC/console setup.</li>
+              <li>Open either <strong>Multiplayer</strong> or <strong>Zombies</strong>.</li>
+              <li>Create the Custom Game or lobby as required by the tool's instructions.</li>
+              <li>Ask your friend to try connecting.</li>
+              <li>Watch Wireshark to see whether matching UDP packets appear during the test.</li>
+            </ol>
+
+            <div class="callout success">
+              <strong>Both modes:</strong> this guide is intended for
+              Black Ops 2 Zombies and Multiplayer. The exact in-game steps
+              may differ depending on the tool and game configuration.
+            </div>
+          </article>
+
+          <!-- STEP 8 -->
+          <article class="guide-step" id="step8">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-globe2"></i></div>
+              <div>
+                <div class="step-kicker">Step 08 · Network diagnostics</div>
+                <h3>Check your public IP and understand port testing</h3>
+              </div>
+            </div>
+
+            <p>
+              Your public IP is the address your internet connection presents
+              to external services. This is different from the local IPv4
+              address you found in Step 1.
+            </p>
+
+            <div class="api-panel">
+              <div class="d-flex align-items-start gap-3">
+                <div class="step-icon"><i class="bi bi-cloud-arrow-down"></i></div>
+                <div>
+                  <h4 class="h6 fw-bold mb-1">Public IP lookup</h4>
+                  <p class="small mb-0">
+                    Fetch your public IP using a third-party network utility API.
+                  </p>
+                </div>
+              </div>
+
+              <button class="btn-xz mt-3" id="checkIp" type="button">
+                <i class="bi bi-search"></i> Show my public IP
+              </button>
+
+              <div class="api-result" id="ipResult" role="status" aria-live="polite"></div>
+
+              <p class="small mt-3 mb-0">
+                This request sends a connection to the external API, which can
+                see your public IP. Do not share the result publicly unless
+                you intend to.
+              </p>
+            </div>
+
+            <div class="callout warning mt-3">
+              <strong>UDP port-check limitation:</strong> an external TCP port
+              checker cannot confirm that your UDP bridge ports work.
+              UDP often has no simple open/closed response. The most useful
+              test is to run the bridge and capture the actual traffic while
+              a friend attempts to connect.
+            </div>
+
+            <a href="https://portchecker.io/docs" target="_blank" rel="noopener">
+              Read PortChecker API documentation <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+
+            <p class="mt-3">
+              If your public IP appears to be shared with other customers or
+              your router's WAN address differs from your public IP, ask your
+              ISP whether you are behind CGNAT. Port forwarding may not work
+              normally behind CGNAT without an appropriate public-IP solution.
+            </p>
+          </article>
+
+          <!-- STEP 9 -->
+          <article class="guide-step" id="step9">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-wrench-adjustable-circle"></i></div>
+              <div>
+                <div class="step-kicker">Step 09 · Troubleshooting</div>
+                <h3>Fix common BO2 errors</h3>
+              </div>
+            </div>
+
+            <h4 class="h6 fw-bold mt-4">XGameRuntime failed — 0x80040154</h4>
+            <p>
+              This error can indicate a missing or unregistered Windows
+              component, but the cause depends on the game files and system
+              configuration. Check the ModdingXZ post for the specific fix
+              supplied for this setup.
+            </p>
+            <a class="btn-xz btn-xz-outline" href="https://t.me/ModdingXZ" target="_blank" rel="noopener">
+              <i class="bi bi-telegram"></i> Find the XGameRuntime fix
+            </a>
+
+            <hr class="border-secondary my-4">
+
+            <h4 class="h6 fw-bold">BO2 d3d11.dll error</h4>
+            <p>
+              If your error matches the issue covered by the ModdingXZ
+              Telegram post, check the supplied DLL files and instructions.
+              Back up the original file before making any change, and do not
+              download replacement DLLs from untrusted sites.
+            </p>
+            <a class="btn-xz btn-xz-outline" href="https://t.me/ModdingXZ" target="_blank" rel="noopener">
+              <i class="bi bi-file-earmark-code"></i> Find the BO2 DLL post
+            </a>
+
+            <hr class="border-secondary my-4">
+
+            <h4 class="h6 fw-bold">Bridge is running but nobody can connect?</h4>
+            <ol>
+              <li>Confirm both UDP forwarding entries point to your PC.</li>
+              <li>Check both Windows Firewall rules.</li>
+              <li>Verify the bridge is running and using the expected ports.</li>
+              <li>Capture packets using the filter from Step 5.</li>
+              <li>Check for CGNAT or double NAT if external connections still fail.</li>
+            </ol>
+          </article>
+
+          <!-- QUICK FLOW -->
+          <article class="guide-step">
+            <div class="step-top">
+              <div class="step-icon"><i class="bi bi-signpost-split"></i></div>
+              <div>
+                <div class="step-kicker">Quick reference</div>
+                <h3>The whole process at a glance</h3>
+              </div>
+            </div>
+
+            <div class="quick-flow" aria-label="Setup flow">
+              <span class="flow-node">Find PC IPv4</span>
+              <i class="bi bi-arrow-right flow-arrow"></i>
+              <span class="flow-node">Forward UDP ports</span>
+              <i class="bi bi-arrow-right flow-arrow"></i>
+              <span class="flow-node">Allow Firewall</span>
+              <i class="bi bi-arrow-right flow-arrow"></i>
+              <span class="flow-node">Wireshark</span>
+              <i class="bi bi-arrow-right flow-arrow"></i>
+              <span class="flow-node">Run Bridge</span>
+              <i class="bi bi-arrow-right flow-arrow"></i>
+              <span class="flow-node">Launch BO2</span>
+              <i class="bi bi-arrow-right flow-arrow"></i>
+              <span class="flow-node">Test connection</span>
+            </div>
+
+            <p class="small mt-3">
+              Port reminder: UDP 3060–3080 <strong>plus</strong> UDP 17376.
+              Forward both to the PC running the bridge.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOADS -->
+    <section class="container pb-5" id="downloads">
+      <div class="section-heading">
+        <span class="eyebrow">Useful resources</span>
+        <h2>Downloads and links</h2>
+        <p>Official tools, the supplied BO2 PC files and ModdingXZ community resources.</p>
+      </div>
+
+      <div class="resource-grid">
+        <a class="resource-card" href="https://buzzheavier.com/turbm180v9i6" target="_blank" rel="noopener">
+          <span class="resource-icon"><i class="bi bi-controller"></i></span>
+          <span>
+            <strong>Black Ops 2 PC files</strong>
+            <small>Open the supplied BO2 PC files link. Verify the source and contents before running files.</small>
+          </span>
+          <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+        </a>
+
+        <a class="resource-card" href="https://www.wireshark.org/download.html" target="_blank" rel="noopener">
+          <span class="resource-icon"><i class="bi bi-activity"></i></span>
+          <span>
+            <strong>Wireshark</strong>
+            <small>Official network packet analyser download.</small>
+          </span>
+          <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+        </a>
+
+        <a class="resource-card" href="https://nmap.org/npcap/" target="_blank" rel="noopener">
+          <span class="resource-icon"><i class="bi bi-diagram-3"></i></span>
+          <span>
+            <strong>Npcap</strong>
+            <small>Windows packet capture driver.</small>
+          </span>
+          <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+        </a>
+
+        <a class="resource-card" href="https://moddingxz.co.uk" target="_blank" rel="noopener">
+          <span class="resource-icon"><i class="bi bi-globe"></i></span>
+          <span>
+            <strong>ModdingXZ website</strong>
+            <small>Visit the main ModdingXZ site.</small>
+          </span>
+          <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+        </a>
+
+        <a class="resource-card" href="https://t.me/ModdingXZ" target="_blank" rel="noopener">
+          <span class="resource-icon"><i class="bi bi-telegram"></i></span>
+          <span>
+            <strong>ModdingXZ Telegram</strong>
+            <small>Community announcements, releases and tool posts.</small>
+          </span>
+          <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+        </a>
+
+        <a class="resource-card" href="https://portchecker.io/docs" target="_blank" rel="noopener">
+          <span class="resource-icon"><i class="bi bi-code-slash"></i></span>
+          <span>
+            <strong>PortChecker API docs</strong>
+            <small>Read the API documentation and its port-check limitations.</small>
+          </span>
+          <i class="bi bi-box-arrow-up-right resource-arrow"></i>
+        </a>
+      </div>
+
+      <div class="notice mt-4">
+        <i class="bi bi-shield-exclamation"></i>
+        <div>
+          <strong>Downloads and fixes:</strong> links to specific Console Bridge,
+          XGameRuntime and DLL posts should be added here once their exact URLs
+          are confirmed. This page does not invent direct download links.
+        </div>
+      </div>
+    </section>
+
+    <!-- TROUBLESHOOTING -->
+    <section class="container pb-5" id="troubleshooting">
+      <div class="section-heading">
+        <span class="eyebrow">Need a hand?</span>
+        <h2>Common questions</h2>
+        <p>Search the questions below to find the problem closest to yours.</p>
+      </div>
+
+      <div class="faq-search">
+        <i class="bi bi-search"></i>
+        <input type="search" id="faqSearch"
+          placeholder="Search: ports, firewall, Wireshark, CGNAT..."
+          aria-label="Search troubleshooting questions">
+      </div>
+
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead1">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq1"
+              aria-expanded="false" aria-controls="faq1">
+              <i class="bi bi-diagram-3"></i>
+              Do I enter every port from 3060 to 3080?
+            </button>
+          </h3>
+          <div id="faq1" class="accordion-collapse collapse"
+            aria-labelledby="faqHead1" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              No. If your router supports port ranges, enter 3060 as the start
+              and 3080 as the end in one UDP rule. Create a separate UDP rule
+              for port 17376.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead2">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq2"
+              aria-expanded="false" aria-controls="faq2">
+              <i class="bi bi-pc-display"></i>
+              Should I forward the ports to my PC or console?
+            </button>
+          </h3>
+          <div id="faq2" class="accordion-collapse collapse"
+            aria-labelledby="faqHead2" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Forward them to the PC running the ModdingXZ Console Bridge.
+              Use that PC's local IPv4 address.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead3">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq3"
+              aria-expanded="false" aria-controls="faq3">
+              <i class="bi bi-shield-lock"></i>
+              I added the router rules but it still doesn't work.
+            </button>
+          </h3>
+          <div id="faq3" class="accordion-collapse collapse"
+            aria-labelledby="faqHead3" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Check that the destination IPv4 is correct, both UDP rules are
+              saved, Windows Firewall allows the ports, and the bridge is
+              running. If the router's WAN address is behind CGNAT or another
+              router, normal port forwarding may not be enough.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead4">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq4"
+              aria-expanded="false" aria-controls="faq4">
+              <i class="bi bi-funnel"></i>
+              Why does Wireshark show no packets?
+            </button>
+          </h3>
+          <div id="faq4" class="accordion-collapse collapse"
+            aria-labelledby="faqHead4" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Confirm that capture is running on the correct Wi-Fi or Ethernet
+              adapter, then start the bridge and generate game traffic. Try
+              the broad filter <code>udp</code> temporarily. If packets appear
+              under that filter but not the bridge filter, check which ports
+              are actually being used.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead5">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq5"
+              aria-expanded="false" aria-controls="faq5">
+              <i class="bi bi-globe2"></i>
+              What is CGNAT?
+            </button>
+          </h3>
+          <div id="faq5" class="accordion-collapse collapse"
+            aria-labelledby="faqHead5" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Carrier-grade NAT is when an ISP shares a public IPv4 address
+              among customers. Your router may not have a directly reachable
+              public IPv4 address, so incoming connections may not reach your
+              router even when forwarding rules look correct. Ask your ISP
+              whether you have CGNAT and what options they offer.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead6">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq6"
+              aria-expanded="false" aria-controls="faq6">
+              <i class="bi bi-controller"></i>
+              Does this guide cover Zombies and Multiplayer?
+            </button>
+          </h3>
+          <div id="faq6" class="accordion-collapse collapse"
+            aria-labelledby="faqHead6" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Yes. The guide is intended for Black Ops 2 Zombies and
+              Multiplayer. Follow the instructions supplied with the specific
+              Console Bridge version for any mode-specific requirements.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead7">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq7"
+              aria-expanded="false" aria-controls="faq7">
+              <i class="bi bi-plug"></i>
+              Can a website automatically confirm that my UDP ports are open?
+            </button>
+          </h3>
+          <div id="faq7" class="accordion-collapse collapse"
+            aria-labelledby="faqHead7" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Not reliably with a generic TCP port-check API. UDP does not
+              always respond to probes, so a checker can report an ambiguous
+              result even when a service is running. Use the bridge and
+              Wireshark while testing a real connection.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead8">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq8"
+              aria-expanded="false" aria-controls="faq8">
+              <i class="bi bi-exclamation-triangle"></i>
+              I get XGameRuntime failed or 0x80040154.
+            </button>
+          </h3>
+          <div id="faq8" class="accordion-collapse collapse"
+            aria-labelledby="faqHead8" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Check the instructions for the specific error and your Windows
+              and game setup. Visit the ModdingXZ Telegram channel to locate
+              the relevant fix post. Avoid downloading replacement system
+              files from untrusted websites.
+              <p class="mt-3">
+                <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener">
+                  Open ModdingXZ Telegram <i class="bi bi-box-arrow-up-right"></i>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item">
+          <h3 class="accordion-header" id="faqHead9">
+            <button class="accordion-button collapsed" type="button"
+              data-bs-toggle="collapse" data-bs-target="#faq9"
+              aria-expanded="false" aria-controls="faq9">
+              <i class="bi bi-file-earmark-code"></i>
+              I get a d3d11.dll error.
+            </button>
+          </h3>
+          <div id="faq9" class="accordion-collapse collapse"
+            aria-labelledby="faqHead9" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Follow the instructions for the exact error and game version.
+              If using a replacement DLL from a trusted ModdingXZ post, back
+              up the original file first and follow the supplied instructions.
+              Do not replace DLLs with random copies from file-download sites.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p id="noFaqResults" class="text-secondary mt-3" hidden>
+        No matching questions. Try another search term.
+      </p>
+    </section>
+
+    <section class="container pb-5">
+      <div class="guide-step text-center">
+        <div class="step-icon mx-auto mb-3"><i class="bi bi-telegram"></i></div>
+        <h2 class="h3 fw-bold">Follow ModdingXZ for updates</h2>
+        <p class="mx-auto" style="max-width:600px">
+          Keep up with BO2 tools, community releases and guide updates.
+          Tool requirements and ports can change between versions, so check
+          the relevant release instructions.
+        </p>
+        <a class="btn-xz mt-2" href="https://t.me/ModdingXZ" target="_blank" rel="noopener">
+          <i class="bi bi-telegram"></i> Visit ModdingXZ
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <div class="col-md-6">
+          <div class="footer-brand"><i class="bi bi-controller"></i> MODDINGXZ</div>
+          <p class="small mt-2 mb-0">
+            Community-made Black Ops 2 Console Bridge setup guide.
+          </p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="https://moddingxz.co.uk" target="_blank" rel="noopener">Website</a>
+          <span class="text-secondary mx-2">·</span>
+          <a href="https://t.me/ModdingXZ" target="_blank" rel="noopener">Telegram</a>
+          <p class="small mt-2 mb-0">© <span id="year"></span> ModdingXZ</p>
+        </div>
+      </div>
+      <p class="small mt-3 mb-0">
+        Community information only. Your router, ISP, firewall and game
+        configuration may affect the result. External services are operated
+        by their respective providers.
+      </p>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" type="button" aria-label="Back to top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
+    <div class="toast" id="siteToast" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastMessage">Copied.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto"
+          data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- External JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+      $("#year").textContent = new Date().getFullYear();
+
+      // Toast notifications
+      const toastElement = $("#siteToast");
+      const toastMessage = $("#toastMessage");
+      const siteToast = window.bootstrap
+        ? bootstrap.Toast.getOrCreateInstance(toastElement, { delay: 2400 })
+        : null;
+
+      function notify(message) {
+        toastMessage.textContent = message;
+        if (siteToast) {
+          siteToast.show();
+        } else {
+          toastElement.classList.add("show");
+        }
+      }
+
+      // Copy helper with fallback for older browsers
+      async function copyText(text) {
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const area = document.createElement("textarea");
+            area.value = text;
+            area.setAttribute("readonly", "");
+            area.style.position = "fixed";
+            area.style.opacity = "0";
+            document.body.appendChild(area);
+            area.select();
+
+            const copied = document.execCommand("copy");
+            area.remove();
+
+            if (!copied) throw new Error("Copy unavailable");
+          }
+
+          notify("Copied to clipboard.");
+        } catch {
+          notify("Copy failed. Please select and copy the text manually.");
+        }
+      }
+
+      $$("[data-copy]").forEach(button => {
+        button.addEventListener("click", () => {
+          copyText(button.getAttribute("data-copy") || "");
+        });
+      });
+
+      // Scroll progress and back-to-top button
+      const progress = $("#topProgress");
+      const backTop = $("#backTop");
+
+      function updateScrollUI() {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = scrollable > 0
+          ? (window.scrollY / scrollable) * 100
+          : 0;
+
+        progress.style.width = percent + "%";
+        backTop.classList.toggle("visible", window.scrollY > 500);
+      }
+
+      window.addEventListener("scroll", updateScrollUI, { passive: true });
+      updateScrollUI();
+
+      backTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Active step navigation
+      const navLinks = $$("#stepNav a");
+      const sections = navLinks
+        .map(link => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+          const visible = entries
+            .filter(entry => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (!visible) return;
+
+          navLinks.forEach(link => {
+            const active = link.getAttribute("href") === "#" + visible.target.id;
+            link.classList.toggle("active", active);
+
+            if (active) link.setAttribute("aria-current", "step");
+            else link.removeAttribute("aria-current");
+          });
+        }, {
+          rootMargin: "-18% 0px -65% 0px",
+          threshold: [0, .15, .4]
+        });
+
+        sections.forEach(section => observer.observe(section));
+      }
+
+      // Close mobile navigation after choosing a section
+      $$("#mainNav .nav-link").forEach(link => {
+        link.addEventListener("click", () => {
+          const nav = $("#mainNav");
+          if (nav.classList.contains("show") && window.bootstrap) {
+            bootstrap.Collapse.getOrCreateInstance(nav).hide();
+          }
+        });
+      });
+
+      // Search troubleshooting FAQs
+      const faqSearch = $("#faqSearch");
+      const faqItems = $$(".faq-item");
+      const noFaqResults = $("#noFaqResults");
+
+      faqSearch.addEventListener("input", () => {
+        const query = faqSearch.value.trim().toLowerCase();
+        let matches = 0;
+
+        faqItems.forEach(item => {
+          const isMatch = item.textContent.toLowerCase().includes(query);
+          item.hidden = !isMatch;
+          if (isMatch) matches++;
+        });
+
+        noFaqResults.hidden = matches !== 0;
+      });
+
+      // Public IP lookup API.
+      // This only shows the IP visible to the API; it does not test UDP ports.
+      const checkIpButton = $("#checkIp");
+      const ipResult = $("#ipResult");
+
+      checkIpButton.addEventListener("click", async () => {
+        checkIpButton.disabled = true;
+        checkIpButton.innerHTML = '<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Checking...';
+        ipResult.classList.add("show");
+        ipResult.textContent = "Contacting the public-IP service...";
+
+        try {
+          const response = await fetch("https://api.networktools.dev/v1/ip", {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+          });
+
+          if (!response.ok) throw new Error("The service returned an error.");
+
+          const data = await response.json();
+          if (!data || typeof data.ip !== "string" || !data.ip.trim()) {
+            throw new Error("No public IP was returned.");
+          }
+
+          const label = document.createElement("strong");
+          label.textContent = "Public IP: ";
+
+          const value = document.createElement("span");
+          value.textContent = data.ip;
+
+          const copyButton = document.createElement("button");
+          copyButton.type = "button";
+          copyButton.className = "copy-btn ms-2";
+          copyButton.innerHTML = '<i class="bi bi-copy"></i> Copy IP';
+          copyButton.addEventListener("click", () => copyText(data.ip));
+
+          ipResult.replaceChildren(label, value, copyButton);
+        } catch {
+          ipResult.textContent =
+            "Could not retrieve your public IP. The service may be unavailable or blocked. You can try again later.";
+        } finally {
+          checkIpButton.disabled = false;
+          checkIpButton.innerHTML = '<i class="bi bi-search"></i> Show my public IP';
+        }
+      });
+
+      // Typewriter hero text
+      const typewriter = $("#typewriter");
+      const words = ["CONSOLE BRIDGE", "ZOMBIES + MP", "MODDINGXZ GUIDE"];
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!reduceMotion) {
+        let wordIndex = 0;
+        let charIndex = words[0].length;
+        let deleting = true;
+
+        function type() {
+          const current = words[wordIndex];
+
+          if (deleting) {
+            charIndex--;
+            typewriter.textContent = current.slice(0, Math.max(0, charIndex));
+
+            if (charIndex <= 0) {
+              deleting = false;
+              wordIndex = (wordIndex + 1) % words.length;
+              window.setTimeout(type, 350);
+              return;
+            }
+
+            window.setTimeout(type, 38);
+          } else {
+            const next = words[wordIndex];
+            charIndex++;
+            typewriter.textContent = next.slice(0, charIndex);
+
+            if (charIndex >= next.length) {
+              deleting = true;
+              window.setTimeout(type, 1900);
+              return;
+            }
+
+            window.setTimeout(type, 65);
+          }
+        }
+
+        window.setTimeout(type, 2400);
+      }
+    })();
+  </script>
+</body>
+</html>
