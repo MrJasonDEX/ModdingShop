@@ -2,2033 +2,765 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080611">
-  <meta name="color-scheme" content="dark">
-
-  <title>BO2 Relay Guide & AIO RTE v7 | Modding XZ</title>
-  <meta name="description" content="Modding XZ Black Ops 2 relay guide, AIO RTE Tool v7 release, port forwarding, networking, downloads and troubleshooting.">
-
-  <meta property="og:title" content="BO2 Relay Guide & AIO RTE v7 | Modding XZ">
-  <meta property="og:description" content="Explore the BO2 AIO RTE Tool v7 release, supported game modes, relay setup, networking and community resources.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://moddingxz.co.uk/relay.html">
-
-  <link rel="canonical" href="https://moddingxz.co.uk/relay.html">
-  <link rel="icon" href="https://moddingxz.co.uk/favicon.ico">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #080611;
-      --panel: #100c1b;
-      --panel2: #151020;
-      --purple: #a855f7;
-      --pink: #d946ef;
-      --text: #f8f7ff;
-      --muted: #a9a1b9;
-      --border: rgba(192,132,252,.2);
-      --green: #4ade80;
-      --yellow: #fbbf24;
-      --red: #fb7185;
-      --radius: 16px;
-      --max: 1200px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-    }
-
-    body {
-      margin: 0;
-      overflow-x: hidden;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, system-ui, sans-serif;
-      line-height: 1.75;
-    }
-
-    body, button, input { font-family: Inter, system-ui, sans-serif; }
-
-    a { color: #d8a4ff; text-decoration: none; }
-    a:hover { color: white; }
-
-    button, a { -webkit-tap-highlight-color: transparent; }
-
-    button:focus-visible, a:focus-visible, summary:focus-visible,
-    input:focus-visible {
-      outline: 2px solid #e879f9;
-      outline-offset: 4px;
-    }
-
-    code {
-      color: #e9b5ff;
-      overflow-wrap: anywhere;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 36px));
-      margin-inline: auto;
-    }
-
-    .background {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      pointer-events: none;
-      background:
-        radial-gradient(ellipse at 80% 10%, rgba(126,34,206,.2), transparent 38%),
-        radial-gradient(ellipse at 10% 65%, rgba(88,28,135,.13), transparent 35%),
-        var(--bg);
-    }
-
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      opacity: .1;
-      background-image:
-        linear-gradient(rgba(168,85,247,.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(168,85,247,.15) 1px, transparent 1px);
-      background-size: 50px 50px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
-    }
-
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8,6,17,.92);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      backdrop-filter: blur(18px);
-    }
-
-    .nav-inner {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      color: white;
-      font-size: 1.13rem;
-      font-weight: 900;
-      letter-spacing: -1px;
-      white-space: nowrap;
-    }
-
-    .brand:hover { color: white; }
-
-    .brand-icon {
-      width: 39px;
-      height: 39px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: rgba(168,85,247,.12);
-      color: #d8a4ff;
-      font-size: 1.2rem;
-    }
-
-    .brand-xz { color: #c084fc; }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .nav-links > a:not(.button) {
-      color: #c7bdd7;
-      font-size: .82rem;
-      font-weight: 700;
-    }
-
-    .nav-links > a:hover { color: white; }
-
-    .button {
-      min-height: 43px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 10px 16px;
-      border: 1px solid transparent;
-      border-radius: 11px;
-      color: white;
-      font-size: .86rem;
-      font-weight: 800;
-      line-height: 1.4;
-      cursor: pointer;
-      text-align: center;
-      transition: transform .2s, background .2s, border-color .2s;
-    }
-
-    .button:hover { transform: translateY(-2px); }
-
-    .button-primary {
-      background: linear-gradient(110deg, #7e22ce, #a855f7);
-      border-color: #c084fc;
-      box-shadow: 0 8px 26px rgba(168,85,247,.16);
-    }
-
-    .button-primary:hover { color: white; }
-
-    .button-outline {
-      background: rgba(255,255,255,.025);
-      border-color: rgba(255,255,255,.14);
-      color: #eee8f8;
-    }
-
-    .button-outline:hover {
-      background: rgba(168,85,247,.1);
-      border-color: var(--purple);
-      color: white;
-    }
-
-    .hero {
-      padding: 75px 0 45px;
-      background: radial-gradient(ellipse at 50% 0%, rgba(126,34,206,.16), transparent 60%);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      align-items: center;
-      gap: 35px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      background: rgba(168,85,247,.08);
-      color: #e9b5ff;
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .eyebrow-dot {
-      width: 7px;
-      height: 7px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: var(--yellow);
-      box-shadow: 0 0 10px rgba(251,191,36,.5);
-    }
-
-    h1 {
-      margin: 25px 0 18px;
-      font-size: clamp(2.8rem, 6.4vw, 5.3rem);
-      font-weight: 900;
-      letter-spacing: -.075em;
-      line-height: .99;
-    }
-
-    .gradient-text {
-      background: linear-gradient(100deg, #c084fc, #e879f9, #9333ea);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-description {
-      max-width: 630px;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.9;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 25px;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 27px;
-      color: var(--muted);
-      font-size: .78rem;
-    }
-
-    .hero-meta i { color: #d8a4ff; margin-right: 5px; }
-
-    .hero-art {
-      min-height: 320px;
-      position: relative;
-      display: grid;
-      place-items: center;
-      isolation: isolate;
-    }
-
-    .orb {
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      z-index: -1;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(168,85,247,.25), transparent 70%);
-      filter: blur(8px);
-    }
-
-    .orbit {
-      position: absolute;
-      width: 315px;
-      height: 125px;
-      border: 1px solid rgba(216,164,255,.45);
-      border-radius: 50%;
-      transform: rotate(-30deg);
-    }
-
-    .orbit.two {
-      width: 275px;
-      height: 105px;
-      border-color: rgba(192,38,255,.35);
-      transform: rotate(38deg);
-    }
-
-    .logo-art {
-      width: 175px;
-      height: 175px;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(216,164,255,.4);
-      border-radius: 35px;
-      background: linear-gradient(145deg, #29123f, #0c0916 75%);
-      box-shadow: 0 0 45px rgba(168,85,247,.18), inset 0 0 30px rgba(168,85,247,.08);
-      font-size: 4.5rem;
-      font-weight: 900;
-      letter-spacing: -8px;
-      transform: rotate(-7deg);
-    }
-
-    .logo-art span {
-      margin-right: 8px;
-      background: linear-gradient(135deg, white, #d946ef 65%, #9333ea);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .quick-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .quick-item {
-      padding: 15px;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      background: rgba(17,13,32,.7);
-    }
-
-    .quick-item i {
-      display: block;
-      margin-bottom: 5px;
-      color: #d8a4ff;
-      font-size: 1.25rem;
-    }
-
-    .quick-item strong { display: block; font-size: .82rem; }
-    .quick-item span { color: var(--muted); font-size: .72rem; }
-
-    .notice {
-      margin: 17px 0;
-      padding: 16px 18px;
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--purple);
-      border-radius: 12px;
-      background: rgba(17,13,32,.88);
-      color: #dcd3e9;
-      font-size: .9rem;
-    }
-
-    .notice strong {
-      display: block;
-      margin-bottom: 5px;
-      color: white;
-    }
-
-    .notice p { margin: 0; }
-    .notice.warning { border-left-color: var(--yellow); }
-    .notice.success { border-left-color: var(--green); }
-    .notice.danger { border-left-color: var(--red); }
-
-    .status-label {
-      display: inline-block;
-      margin-bottom: 9px;
-      padding: 4px 8px;
-      border: 1px solid rgba(251,191,36,.25);
-      border-radius: 50px;
-      color: #fcd34d;
-      background: rgba(251,191,36,.07);
-      font-size: .67rem;
-      font-weight: 800;
-      letter-spacing: .6px;
-      text-transform: uppercase;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 220px minmax(0,1fr);
-      align-items: start;
-      gap: 22px;
-      padding: 25px 0 70px;
-    }
-
-    .sidebar {
-      position: sticky;
-      top: 92px;
-      padding: 17px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(16,12,27,.96);
-    }
-
-    .sidebar-title {
-      margin: 0 0 12px;
-      color: #d8a4ff;
-      font-size: .7rem;
-      font-weight: 900;
-      letter-spacing: 1.4px;
-    }
-
-    .sidebar a {
-      display: block;
-      margin: 2px 0;
-      padding: 8px 9px;
-      border-radius: 8px;
-      color: var(--muted);
-      font-size: .78rem;
-      line-height: 1.5;
-      transition: background .15s, color .15s;
-    }
-
-    .sidebar a:hover, .sidebar a.active {
-      background: rgba(168,85,247,.11);
-      color: white;
-    }
-
-    main { min-width: 0; }
-
-    .guide-section {
-      scroll-margin-top: 95px;
-      margin-bottom: 20px;
-      padding: 26px;
-      border: 1px solid rgba(168,85,247,.18);
-      border-radius: var(--radius);
-      background: linear-gradient(145deg, rgba(20,14,36,.97), rgba(10,8,20,.97));
-      box-shadow: 0 12px 35px rgba(0,0,0,.1);
-    }
-
-    .section-heading {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 0 0 19px;
-      font-size: 1.3rem;
-      font-weight: 900;
-      line-height: 1.4;
-      letter-spacing: -.035em;
-    }
-
-    .section-number {
-      width: 39px;
-      height: 39px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: rgba(168,85,247,.1);
-      color: #d8a4ff;
-      font-size: .8rem;
-    }
-
-    h3 {
-      margin: 24px 0 9px;
-      font-size: 1rem;
-      font-weight: 800;
-    }
-
-    p { color: #d4cadd; }
-    ul, ol { padding-left: 23px; color: #d4cadd; }
-    li { margin: 6px 0; }
-    .muted { color: var(--muted) !important; }
-    .small { font-size: .82rem; }
-
-    .code-wrap { position: relative; margin: 12px 0 17px; }
-
-    pre {
-      margin: 0;
-      padding: 16px 100px 16px 15px;
-      overflow-wrap: anywhere;
-      white-space: pre-wrap;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #07050c;
-      color: #e9d5ff;
-      font: .83rem/1.7 Consolas, Monaco, monospace;
-    }
-
-    .copy-btn {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 7px 10px;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      background: #211630;
-      color: #eee5ff;
-      font-size: .72rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .copy-btn:hover { background: #39204f; }
-
-    .table-wrap {
-      width: 100%;
-      margin: 14px 0;
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      color: #ded5e7;
-      font-size: .83rem;
-    }
-
-    th, td {
-      min-width: 100px;
-      padding: 12px;
-      text-align: left;
-      vertical-align: top;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      background: rgba(168,85,247,.1);
-      color: #e9d5ff;
-      font-weight: 800;
-    }
-
-    tr:last-child td { border-bottom: 0; }
-
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: 13px;
-    }
-
-    .resource-card {
-      min-width: 0;
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      background: rgba(168,85,247,.04);
-      transition: transform .2s, border-color .2s, background .2s;
-    }
-
-    .resource-card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(168,85,247,.55);
-      background: rgba(168,85,247,.08);
-    }
-
-    .resource-icon {
-      width: 40px;
-      height: 40px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 12px;
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      background: rgba(168,85,247,.1);
-      color: #d8a4ff;
-      font-size: 1.15rem;
-    }
-
-    .tag {
-      display: inline-block;
-      margin-bottom: 8px;
-      padding: 4px 8px;
-      border: 1px solid var(--border);
-      border-radius: 50px;
-      background: rgba(168,85,247,.08);
-      color: #d8a4ff;
-      font-size: .66rem;
-      font-weight: 800;
-    }
-
-    .resource-card h3 { margin: 0 0 6px; font-size: .96rem; }
-    .resource-card p { margin: 0 0 12px; color: var(--muted); font-size: .81rem; }
-    .resource-link { font-size: .82rem; font-weight: 800; }
-
-    /* Featured AIO RTE release */
-    .aio-feature {
-      position: relative;
-      overflow: hidden;
-      border-color: rgba(192,132,252,.4);
-      background:
-        radial-gradient(ellipse at 100% 0%, rgba(168,85,247,.16), transparent 55%),
-        linear-gradient(145deg, rgba(25,15,43,.98), rgba(10,8,20,.98));
-    }
-
-    .aio-feature::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #7e22ce, #e879f9, #7e22ce);
-    }
-
-    .aio-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    .release-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 11px;
-      border: 1px solid rgba(74,222,128,.28);
-      border-radius: 50px;
-      background: rgba(74,222,128,.07);
-      color: #86efac;
-      font-size: .7rem;
-      font-weight: 900;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-    }
-
-    .aio-intro {
-      max-width: 760px;
-      color: var(--muted);
-    }
-
-    .aio-download {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-top: 22px;
-      padding: 19px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: rgba(7,5,12,.55);
-    }
-
-    .aio-download-copy {
-      min-width: 0;
-      flex: 1 1 220px;
-    }
-
-    .aio-download-copy strong {
-      display: block;
-      color: white;
-      font-size: 1rem;
-    }
-
-    .aio-download-copy span {
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .aio-download .button {
-      flex: 0 1 auto;
-    }
-
-    .compatibility-list {
-      list-style: none;
-      padding: 0;
-      margin: 12px 0 0;
-    }
-
-    .compatibility-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      margin: 10px 0;
-      font-size: .85rem;
-    }
-
-    .compatibility-list i {
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
-    .supported { color: #4ade80; }
-    .unsupported { color: #fb7185; }
-
-    .checklist label {
-      display: flex;
-      align-items: flex-start;
-      gap: 11px;
-      padding: 11px 0;
-      border-bottom: 1px solid rgba(255,255,255,.055);
-      color: #d4cadd;
-      cursor: pointer;
-    }
-
-    .checklist label:last-child { border-bottom: 0; }
-
-    .checklist input {
-      flex-shrink: 0;
-      width: 17px;
-      height: 17px;
-      margin-top: 5px;
-      accent-color: #a855f7;
-    }
-
-    .checklist label:has(input:checked) span {
-      color: #9288a2;
-      text-decoration: line-through;
-    }
-
-    .progress-track {
-      height: 7px;
-      overflow: hidden;
-      margin: 10px 0;
-      border-radius: 30px;
-      background: #241a31;
-    }
-
-    .progress-fill {
-      width: 0;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #9333ea, #e879f9);
-      transition: width .2s;
-    }
-
-    details {
-      padding: 15px 0;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-
-    details:last-child { border-bottom: 0; }
-
-    summary {
-      color: #f1eaff;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    details p { margin: 10px 0 0; font-size: .9rem; }
-
-    .footer {
-      padding: 30px 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-      background: rgba(8,6,17,.85);
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-text { color: #89819f; font-size: .75rem; }
-
-    .toast-message {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 200;
-      max-width: calc(100% - 36px);
-      padding: 12px 16px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #211630;
-      color: white;
-      font-size: .83rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,.3);
-    }
-
-    .toast-message[hidden] { display: none; }
-
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-art { min-height: 240px; }
-      .hero-copy { max-width: 760px; }
-      .layout { grid-template-columns: 1fr; }
-      .sidebar { position: static; }
-      .sidebar-links {
-        display: grid;
-        grid-template-columns: repeat(3,minmax(0,1fr));
-        gap: 3px;
-      }
-      .nav-links > a:not(.button) { display: none; }
-    }
-
-    @media (max-width: 600px) {
-      .container { width: calc(100% - 28px); }
-      .nav-inner { min-height: 64px; }
-      .brand { font-size: 1rem; }
-      .brand-icon { width: 35px; height: 35px; }
-      .nav-links { gap: 0; }
-      .nav-links .button { min-height: 39px; padding: 8px 11px; font-size: .76rem; }
-      .hero { padding: 45px 0 25px; }
-      h1 { font-size: clamp(2.6rem,12vw,4rem); letter-spacing: -.065em; }
-      .hero-description { font-size: .92rem; }
-      .hero-art { min-height: 215px; }
-      .logo-art { width: 135px; height: 135px; font-size: 3.6rem; }
-      .orb { width: 220px; height: 220px; }
-      .orbit { width: 240px; height: 95px; }
-      .orbit.two { width: 220px; }
-      .quick-grid { grid-template-columns: 1fr; gap: 8px; }
-      .quick-item { display: flex; align-items: center; gap: 12px; padding: 11px 13px; }
-      .quick-item i { margin: 0; }
-      .quick-item span { display: block; }
-      .sidebar-links { grid-template-columns: repeat(2,minmax(0,1fr)); }
-      .layout { padding-top: 15px; }
-      .guide-section { padding: 18px; }
-      .section-heading { font-size: 1.13rem; }
-      .resource-grid { grid-template-columns: 1fr; }
-      pre { padding: 48px 12px 13px; font-size: .78rem; }
-      .copy-btn { top: 7px; right: 7px; }
-      .hero-actions .button { flex: 1 1 auto; }
-      .footer-inner { justify-content: center; text-align: center; }
-      .aio-download { align-items: stretch; }
-      .aio-download .button { width: 100%; }
-      .aio-header { align-items: flex-start; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#090711">
+<meta name="description" content="The ModdingXZ Black Ops 2 PC-to-console relay setup guide. Simple instructions, port forwarding and troubleshooting.">
+<title>BO2 Relay Guide | ModdingXZ</title>
+
+<!-- External CSS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#090711;
+ --panel:#12101d;
+ --panel2:#19152a;
+ --purple:#a979ff;
+ --pink:#df8aff;
+ --text:#f8f5ff;
+ --muted:#a59bb9;
+ --border:rgba(188,151,255,.16);
+ --green:#6aefb5;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Inter,system-ui,sans-serif;
+ overflow-x:hidden;
+}
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-2;
+ pointer-events:none;
+ background:
+ radial-gradient(ellipse at 75% 0%,#38205255,transparent 42%),
+ radial-gradient(ellipse at 0% 40%,#5a328222,transparent 40%);
+}
+body:after{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
+ opacity:.25;
+ background-image:linear-gradient(#b18aff0a 1px,transparent 1px),linear-gradient(90deg,#b18aff0a 1px,transparent 1px);
+ background-size:35px 35px;
+ mask-image:linear-gradient(#000,transparent 75%);
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+::selection{background:var(--purple);color:#fff}
+.container{max-width:1120px}
+.muted{color:var(--muted)}
+.purple{color:#c6a5ff}
+.gradient{
+ background:linear-gradient(110deg,#fff 5%,#c7a2ff 50%,#f1a0ff);
+ color:transparent;
+ background-clip:text;
+ -webkit-background-clip:text;
+}
+.eyebrow{
+ color:#c5a4ff;
+ font-size:.7rem;
+ font-weight:800;
+ letter-spacing:.17em;
+ text-transform:uppercase;
+}
+.progress-top{
+ position:fixed;
+ z-index:2000;
+ top:0;left:0;
+ width:0;height:3px;
+ background:linear-gradient(90deg,var(--purple),var(--pink));
+ box-shadow:0 0 12px #a979ff80;
+}
+.navbar{
+ background:#090711df;
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid var(--border);
+ min-height:68px;
+}
+.navbar-brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.05em}
+.brand-mark{
+ display:grid;place-items:center;
+ width:38px;height:38px;
+ border-radius:12px;
+ color:white;
+ background:linear-gradient(135deg,#bd8cff,#7042dc);
+ box-shadow:0 0 22px #a979ff30;
+}
+.navbar .nav-link{color:#bdb3d0;font-size:.82rem;font-weight:700}
+.navbar .nav-link:hover{color:white}
+.navbar-toggler{border-color:var(--border)}
+.navbar-toggler:focus{box-shadow:0 0 0 3px #a979ff25}
+.btn-primary-custom,.btn-secondary-custom{
+ display:inline-flex;align-items:center;justify-content:center;gap:9px;
+ padding:13px 17px;
+ border-radius:12px;
+ font-size:.85rem;font-weight:800;
+ transition:transform .2s,border-color .2s,background .2s;
+}
+.btn-primary-custom{
+ background:linear-gradient(120deg,#a979ff,#7546e6);
+ color:white;border:1px solid #d6c1ff30;
+ box-shadow:0 8px 24px #7546e625;
+}
+.btn-primary-custom:hover{color:white;transform:translateY(-2px);box-shadow:0 12px 30px #7546e645}
+.btn-secondary-custom{border:1px solid var(--border);background:#ffffff05;color:#f0e8ff}
+.btn-secondary-custom:hover{border-color:#a979ff90;color:white;background:#a979ff0d}
+.hero{position:relative;overflow:hidden;padding:85px 0 55px}
+.hero-orb{
+ position:absolute;pointer-events:none;z-index:-1;
+ width:350px;height:350px;border-radius:50%;
+ right:-130px;top:5px;
+ background:#a979ff12;
+ filter:blur(50px);
+}
+.hero-badge{
+ display:inline-flex;align-items:center;gap:8px;
+ border:1px solid #a979ff38;
+ background:#a979ff0c;
+ border-radius:100px;
+ padding:8px 12px;
+ font-size:.7rem;font-weight:800;letter-spacing:.07em;
+ color:#d9c3ff;
+}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px #6aefb580}
+.hero h1{
+ margin:25px 0 20px;
+ font-size:clamp(3rem,8vw,6.1rem);
+ line-height:.99;
+ font-weight:900;
+ letter-spacing:-.085em;
+}
+.type-line{display:inline-block;min-height:1.05em}
+.cursor{color:var(--pink);animation:blink .85s steps(2,start) infinite}
+@keyframes blink{to{visibility:hidden}}
+.hero-copy{max-width:580px;font-size:1rem;line-height:1.9;color:#b9b0ca}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:11px;margin-top:25px}
+.hero-note{font-size:.75rem;color:var(--muted);margin-top:20px}
+.hero-note i{color:var(--green)}
+.hero-visual{
+ position:relative;
+ padding:23px;
+ border:1px solid #b38aff30;
+ border-radius:23px;
+ background:linear-gradient(145deg,#1b1530f2,#100d1bf5);
+ box-shadow:0 28px 80px #0004,inset 0 1px #ffffff08;
+}
+.terminal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.terminal-dots{display:flex;gap:6px}
+.terminal-dots span{width:7px;height:7px;border-radius:50%;background:#6b5c7e}
+.terminal-dots span:first-child{background:#ff7e9c}
+.terminal-dots span:nth-child(2){background:#ffd17b}
+.terminal-dots span:nth-child(3){background:#6aefb5}
+.terminal-title{font-size:.68rem;color:#9d91b1;letter-spacing:.1em}
+.terminal-body{
+ margin-top:22px;padding:18px;
+ border-radius:14px;border:1px solid var(--border);
+ background:#090711;
+ font: .78rem/2 "SFMono-Regular",Consolas,monospace;
+ overflow-wrap:anywhere;
+}
+.terminal-muted{color:#756984}
+.terminal-purple{color:#c6a5ff}
+.terminal-green{color:var(--green)}
+.terminal-line{display:flex;gap:9px}
+.terminal-line .symbol{color:#7b62ad}
+.terminal-footer{display:flex;justify-content:space-between;gap:10px;margin-top:17px;font-size:.72rem;color:var(--muted)}
+.section{padding:72px 0}
+.section-heading{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;letter-spacing:-.07em;line-height:1.1}
+.section-copy{color:var(--muted);font-size:.93rem;line-height:1.85;max-width:650px}
+.panel{
+ background:linear-gradient(145deg,#171327ed,#100e1bf7);
+ border:1px solid var(--border);
+ border-radius:20px;
+}
+.panel-pad{padding:24px}
+.requirement-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:28px}
+.requirement{
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:20px;
+ background:#ffffff03;
+ transition:transform .2s,border-color .2s;
+}
+.requirement:hover{transform:translateY(-3px);border-color:#a979ff70}
+.icon-box{
+ width:43px;height:43px;border-radius:12px;
+ display:grid;place-items:center;
+ color:#d3baff;background:#a979ff16;
+ border:1px solid #a979ff26;
+ font-size:1.15rem;
+}
+.requirement h3{font-size:.91rem;font-weight:800;margin:15px 0 8px}
+.requirement p{font-size:.79rem;line-height:1.8;color:var(--muted);margin:0}
+.step-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr);gap:24px;align-items:start}
+.steps{display:grid;gap:12px}
+.step{
+ display:flex;gap:15px;
+ padding:20px;
+ border:1px solid var(--border);
+ border-radius:16px;
+ background:#ffffff03;
+ transition:border-color .2s,background .2s;
+}
+.step:hover{border-color:#a979ff55;background:#a979ff05}
+.step-num{
+ flex:0 0 39px;width:39px;height:39px;
+ display:grid;place-items:center;
+ border-radius:12px;
+ background:#a979ff18;border:1px solid #a979ff24;
+ color:#d3baff;font:700 .78rem Orbitron,monospace;
+}
+.step h3{font-size:.94rem;font-weight:800;margin:5px 0 9px}
+.step p{font-size:.82rem;line-height:1.85;color:var(--muted);margin:0}
+.code-row{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ padding:11px 12px;margin-top:10px;
+ border:1px solid var(--border);border-radius:11px;background:#090711;
+}
+.code-row code{color:#d3baff;font-size:.83rem;overflow-wrap:anywhere;white-space:normal}
+.copy-btn{
+ display:inline-flex;align-items:center;gap:6px;
+ padding:8px 10px;flex-shrink:0;
+ border-radius:8px;border:1px solid var(--border);
+ background:#201731;color:#eee5ff;
+ font-size:.72rem;font-weight:800;
+}
+.copy-btn:hover{border-color:var(--purple)}
+.info-note{
+ border-left:3px solid var(--purple);
+ border-radius:0 12px 12px 0;
+ background:#a979ff0b;
+ padding:14px 15px;
+ font-size:.79rem;line-height:1.85;color:#c9c0d7;
+}
+.info-note strong{color:#fff}
+.progress-bar-custom{height:7px;border-radius:100px;background:#2b233b;overflow:hidden}
+.progress-bar-custom div{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--pink));transition:width .25s}
+.check-item{
+ display:flex;gap:11px;align-items:flex-start;
+ padding:14px 0;border-bottom:1px solid #ffffff0b;
+ font-size:.82rem;line-height:1.65;color:#ddd5e9;
+}
+.check-item:last-child{border-bottom:0}
+.check-item input{accent-color:var(--purple);width:17px;height:17px;margin-top:3px;flex-shrink:0}
+.check-item:has(input:checked) span{color:#827991;text-decoration:line-through}
+.accordion{
+ --bs-accordion-bg:transparent;
+ --bs-accordion-color:var(--text);
+ --bs-accordion-border-color:var(--border);
+ --bs-accordion-btn-color:var(--text);
+ --bs-accordion-btn-bg:transparent;
+ --bs-accordion-active-bg:#a979ff0c;
+ --bs-accordion-active-color:#fff;
+ --bs-accordion-btn-focus-box-shadow:none;
+ --bs-accordion-btn-icon-filter:invert(1);
+}
+.accordion-item{background:#ffffff03!important;border:1px solid var(--border)!important;border-radius:13px!important;overflow:hidden;margin-bottom:10px}
+.accordion-button{font-size:.85rem;font-weight:750;padding:17px}
+.accordion-body{padding-top:0;color:var(--muted);font-size:.82rem;line-height:1.85}
+.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.resource-card{
+ padding:20px;display:flex;flex-direction:column;
+ border:1px solid var(--border);border-radius:16px;
+ background:linear-gradient(145deg,#171327,#100e1b);
+ transition:transform .2s,border-color .2s;
+}
+.resource-card:hover{transform:translateY(-3px);border-color:#a979ff66}
+.resource-card h3{font-size:.93rem;font-weight:800;margin:16px 0 9px}
+.resource-card p{font-size:.79rem;line-height:1.8;color:var(--muted);flex:1}
+.resource-card a{font-size:.79rem;font-weight:800;color:#c7a5ff}
+.resource-card a:hover{color:white}
+.footer{padding:28px 0;border-top:1px solid var(--border);font-size:.76rem;color:var(--muted)}
+.footer a{color:#c7a5ff}
+#backTop{
+ position:fixed;right:17px;bottom:20px;z-index:1000;
+ width:43px;height:43px;border:1px solid #7553a8;
+ border-radius:13px;background:#201631;color:white;
+ opacity:0;pointer-events:none;transform:translateY(7px);transition:.2s;
+}
+#backTop.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+.mobile-bar{display:none}
+.toast{background:#1b1630;border:1px solid #60478e;color:white}
+.toast .btn-close{filter:invert(1)}
+@media(max-width:991px){
+ .hero{padding:62px 0 42px}
+ .hero-visual{margin-top:5px}
+ .step-layout{grid-template-columns:1fr}
+ .resource-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:575px){
+ .section{padding:53px 0}
+ .hero{padding:43px 0 34px}
+ .hero h1{font-size:clamp(2.8rem,13vw,4.1rem)}
+ .hero-buttons .btn-primary-custom,.hero-buttons .btn-secondary-custom{width:100%}
+ .hero-visual{padding:16px;border-radius:18px}
+ .terminal-body{padding:13px;font-size:.73rem}
+ .requirement-grid{grid-template-columns:1fr;gap:10px}
+ .requirement{padding:16px;display:grid;grid-template-columns:43px 1fr;column-gap:13px}
+ .requirement .icon-box{grid-row:span 2}
+ .requirement h3{margin:2px 0 5px}
+ .requirement p{grid-column:2}
+ .step{padding:15px;gap:11px}
+ .step-num{width:34px;height:34px;flex-basis:34px}
+ .panel-pad{padding:17px}
+ .resource-grid{grid-template-columns:1fr}
+ .mobile-bar{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;
+  position:fixed;left:0;right:0;bottom:0;z-index:1100;
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  background:#0d0a17ed;backdrop-filter:blur(18px);
+  border-top:1px solid var(--border);
+ }
+ .mobile-bar a{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:5px 2px;font-size:.65rem;font-weight:750;color:#c4b8d9;
+ }
+ .mobile-bar i{font-size:1.1rem;color:#c7a5ff}
+ body{padding-bottom:78px}
+ #backTop{bottom:89px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+</style>
 </head>
 
 <body>
-  <div class="background" aria-hidden="true"></div>
-  <div class="grid-bg" aria-hidden="true"></div>
+<div class="progress-top" id="pageProgress"></div>
 
-  <nav class="navbar" aria-label="Main navigation">
-    <div class="container nav-inner">
-      <a href="https://moddingxz.co.uk" class="brand">
-        <span class="brand-icon"><i class="bi bi-lightning-charge-fill"></i></span>
-        MODDING <span class="brand-xz">XZ</span>
-      </a>
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+ <div class="container">
+  <a class="navbar-brand" href="#home" aria-label="ModdingXZ home">
+   <span class="brand-mark"><i class="bi bi-controller"></i></span>
+   <span>MODDING<span class="purple">XZ</span></span>
+  </a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Open navigation">
+   <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="mainNav">
+   <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2 mt-3 mt-lg-0">
+    <li class="nav-item"><a class="nav-link" href="#requirements">Requirements</a></li>
+    <li class="nav-item"><a class="nav-link" href="#guide">Setup guide</a></li>
+    <li class="nav-item"><a class="nav-link" href="#troubleshooting">Troubleshooting</a></li>
+    <li class="nav-item ms-lg-2"><a class="btn-primary-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener"><i class="bi bi-telegram"></i> Community</a></li>
+   </ul>
+  </div>
+ </div>
+</nav>
 
-      <div class="nav-links">
-        <a href="#updates">Updates</a>
-        <a href="#aio-rte">AIO RTE v7</a>
-        <a href="#ports">Networking</a>
-        <a href="#troubleshooting">Troubleshooting</a>
-        <a class="button button-primary" href="https://t.me/ModdingXZ"
-           target="_blank" rel="noopener noreferrer">
-          <i class="bi bi-telegram"></i> Join Telegram
-        </a>
-      </div>
+<header class="hero" id="home">
+ <div class="hero-orb"></div>
+ <div class="container">
+  <div class="row align-items-center g-4">
+   <div class="col-lg-7" data-aos="fade-up">
+    <div class="hero-badge"><span class="badge-dot"></span> THE MODDINGXZ HOW-TO GUIDE</div>
+    <h1><span class="gradient">BLACK OPS 2</span><br><span class="type-line" id="typewriter">RELAY GUIDE</span><span class="cursor">_</span></h1>
+    <p class="hero-copy">Trying to get the PC-to-console relay working? Follow the steps below, configure the required ports and work through the checks if something isn't connecting.</p>
+    <div class="hero-buttons">
+     <a class="btn-primary-custom" href="#guide"><i class="bi bi-play-fill"></i> Start the guide <i class="bi bi-arrow-down-short"></i></a>
+     <a class="btn-secondary-custom" href="#troubleshooting"><i class="bi bi-wrench-adjustable"></i> Having problems?</a>
     </div>
-  </nav>
-
-  <header class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow">
-            <span class="eyebrow-dot"></span>
-            Community testing · BO2 tools and guides
-          </div>
-
-          <h1>
-            BLACK OPS 2<br>
-            <span class="gradient-text">RELAY HUB.</span>
-          </h1>
-
-          <p class="hero-description">
-            Your place for BO2 relay information, tool releases, networking guides
-            and troubleshooting. Check out the new <strong>AIO RTE Tool v7</strong>,
-            explore its features and find the resources you need — all from
-            <strong>Modding XZ</strong>.
-          </p>
-
-          <div class="hero-actions">
-            <a href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
-               class="button button-primary"
-               target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-download"></i> Download AIO RTE v7
-            </a>
-            <a href="https://t.me/ModdingXZ/24327"
-               class="button button-outline"
-               target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-controller"></i> BO2 + New Tool
-            </a>
-            <a href="#ports" class="button button-outline">
-              <i class="bi bi-router"></i> Port forwarding
-            </a>
-          </div>
-
-          <div class="hero-meta">
-            <span><i class="bi bi-controller"></i> Black Ops 2</span>
-            <span><i class="bi bi-pc-display"></i> PC relay</span>
-            <span><i class="bi bi-people"></i> Community-led</span>
-          </div>
-        </div>
-
-        <div class="hero-art" aria-hidden="true">
-          <div class="orb"></div>
-          <div class="orbit"></div>
-          <div class="orbit two"></div>
-          <div class="logo-art"><span>XZ</span></div>
-        </div>
-      </div>
-
-      <div class="quick-grid">
-        <div class="quick-item">
-          <i class="bi bi-rocket-takeoff"></i>
-          <div><strong>AIO RTE v7</strong><span>New release and feature highlights</span></div>
-        </div>
-        <div class="quick-item">
-          <i class="bi bi-router"></i>
-          <div><strong>Networking</strong><span>UDP ports, NAT and router settings</span></div>
-        </div>
-        <div class="quick-item">
-          <i class="bi bi-controller"></i>
-          <div><strong>Community tools</strong><span>Downloads and announcements</span></div>
-        </div>
-      </div>
+    <div class="hero-note"><i class="bi bi-check-circle-fill me-1"></i> Clear instructions. No account needed. Progress saved on your device.</div>
+   </div>
+   <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
+    <div class="hero-visual">
+     <div class="terminal-top">
+      <div class="terminal-dots"><span></span><span></span><span></span></div>
+      <span class="terminal-title">MODDINGXZ / RELAY.GUIDE</span>
+     </div>
+     <div class="terminal-body">
+      <div class="terminal-muted">// Your relay setup, simplified</div>
+      <div class="terminal-line"><span class="symbol">›</span><span>Guide status: <span class="terminal-green">READY</span></span></div>
+      <div class="terminal-line"><span class="symbol">›</span><span>Protocol: <span class="terminal-purple">UDP</span></span></div>
+      <div class="terminal-line"><span class="symbol">›</span><span>Port range: <span class="terminal-purple">3060–3080</span></span></div>
+      <div class="terminal-line"><span class="symbol">›</span><span>Additional port: <span class="terminal-purple">17376</span></span></div>
+      <div class="terminal-line"><span class="symbol">›</span><span>Setup checklist: <span class="terminal-green" id="terminalStatus">0% COMPLETE</span></span></div>
+      <div class="terminal-line mt-2"><span class="terminal-green">✓ Follow each step to get started.</span></div>
+     </div>
+     <div class="terminal-footer"><span><i class="bi bi-phone me-1"></i> Mobile friendly</span><span>GUIDE 01 / 01</span></div>
     </div>
-  </header>
-
-  <div class="container">
-    <div class="notice warning">
-      <strong><i class="bi bi-exclamation-triangle-fill"></i> Important — read before starting</strong>
-      <p>
-        Follow the instructions for the exact tool version you downloaded. Network settings
-        alone cannot guarantee a working connection. Setup support is currently unavailable;
-        updates and announcements will be posted on the Modding XZ Telegram channel.
-      </p>
-    </div>
-
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="sidebar-title">GUIDE CONTENTS</div>
-        <nav class="sidebar-links" aria-label="Guide contents">
-          <a href="#intro">01 · Introduction</a>
-          <a href="#updates">02 · BO2 updates</a>
-          <a href="#aio-rte">03 · AIO RTE v7</a>
-          <a href="#requirements">04 · Requirements</a>
-          <a href="#ports">05 · Port forwarding</a>
-          <a href="#setup">06 · PC setup</a>
-          <a href="#wireshark">07 · Wireshark</a>
-          <a href="#nat">08 · CGNAT and NAT</a>
-          <a href="#console">09 · Console bridge</a>
-          <a href="#troubleshooting">10 · Troubleshooting</a>
-          <a href="#checklist">11 · Checklist</a>
-          <a href="#resources">12 · Resources</a>
-          <a href="#faq">13 · Final notes</a>
-        </nav>
-      </aside>
-
-      <main>
-        <section class="guide-section" id="intro">
-          <h2 class="section-heading"><span class="section-number">01</span> Introduction</h2>
-
-          <p>
-            This page explains the main things to check when setting up or troubleshooting
-            a Black Ops 2 relay. You do not need to understand all the technical terms at once.
-            Work through one section at a time and check the instructions included with your tool.
-          </p>
-
-          <p>Use this guide to find:</p>
-          <ul>
-            <li>The community-reported BO2 protocol and checksum changes.</li>
-            <li>The latest AIO RTE Tool v7 release information.</li>
-            <li>The UDP ports requested for this relay setup.</li>
-            <li>How to find your PC's local IP address.</li>
-            <li>Where to enter port-forwarding rules on your router.</li>
-            <li>How to check Windows Firewall and network traffic.</li>
-            <li>What to investigate if the relay still does not connect.</li>
-          </ul>
-
-          <div class="notice">
-            <strong>New to port forwarding?</strong>
-            Start with the download post, then read the port-forwarding section slowly.
-            You are directing specific network traffic to your PC — you are not forwarding
-            ports to your console unless the documentation for your particular setup says otherwise.
-          </div>
-
-          <div class="hero-actions">
-            <a href="https://t.me/ModdingXZ/24327"
-               class="button button-primary"
-               target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-download"></i> Open BO2 Download Post
-            </a>
-            <a href="#aio-rte" class="button button-outline">
-              <i class="bi bi-rocket-takeoff"></i> Explore AIO RTE v7
-            </a>
-          </div>
-        </section>
-
-        <section class="guide-section" id="updates">
-          <h2 class="section-heading"><span class="section-number">02</span> Latest BO2 findings</h2>
-
-          <span class="status-label">Community-reported · Verify against your build</span>
-
-          <p>
-            These values were reported during community investigation of Black Ops 2 relay
-            compatibility. They are useful reference points, but do not prove that every
-            client or relay has been updated successfully.
-          </p>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Value</th><th>Previous</th><th>Reported newer value</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>Network protocol</td><td><code>2095</code></td><td><code>2097</code></td></tr>
-                <tr><td>Netfield checksum</td><td><code>1437611153</code></td><td><code>1607312467</code></td></tr>
-                <tr><td>Playlist value</td><td><code>1735</code></td><td><code>1735</code> — unchanged</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>What does this mean?</h3>
-          <p>
-            These are technical values associated with the game build and compatibility.
-            If a tool was created for a different build, it may need an update. Changing a
-            value alone does not guarantee that the rest of a relay will work.
-          </p>
-
-          <div class="notice">
-            <strong>Community investigation</strong>
-            Relay implementations and console bridges may behave differently. Check the
-            exact version and release notes rather than assuming that all tools are compatible.
-          </div>
-
-          <h3>Follow new announcements</h3>
-          <p>
-            This page is a guide, not a live test monitor. Check Telegram for newer reports,
-            tool changes and release announcements.
-          </p>
-
-          <a class="button button-primary" href="https://t.me/ModdingXZ"
-             target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-telegram"></i> View Telegram Updates
-          </a>
-        </section>
-
-        <!-- NEW FEATURED RELEASE -->
-        <section class="guide-section aio-feature" id="aio-rte">
-          <div class="aio-header">
-            <div>
-              <div class="eyebrow">
-                <span class="eyebrow-dot" style="background:#4ade80;box-shadow:0 0 10px rgba(74,222,128,.5)"></span>
-                New release · Version 7
-              </div>
-              <h2 class="section-heading" style="margin-top:16px">
-                <span class="section-number"><i class="bi bi-rocket-takeoff"></i></span>
-                BO2 AIO RTE Tool v7
-              </h2>
-            </div>
-            <span class="release-pill"><i class="bi bi-check-circle-fill"></i> Out now</span>
-          </div>
-
-          <p class="aio-intro">
-            🛸 The BO2 AIO RTE Tool v7 is out! This release brings updated stats imports,
-            Zombies controls, 10+ infection fixes, relay improvements and new host options.
-            Check the supported game modes below before downloading.
-          </p>
-
-          <div class="notice warning">
-            <strong><i class="bi bi-controller"></i> Supported games</strong>
-            <ul class="compatibility-list">
-              <li><i class="bi bi-check-circle-fill supported"></i> RSG Multiplayer</li>
-              <li><i class="bi bi-check-circle-fill supported"></i> RSG Zombies</li>
-              <li><i class="bi bi-check-circle-fill supported"></i> MS Multiplayer</li>
-              <li><i class="bi bi-x-circle-fill unsupported"></i> MS Zombies is not supported</li>
-            </ul>
-          </div>
-
-          <div class="resource-grid">
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-tag-fill"></i></div>
-              <span class="tag">CUSTOMISATION</span>
-              <h3>AFK Clan Tag Editor</h3>
-              <p>
-                Assign any combination of supported tool mods to a clan tag
-                of your choice.
-              </p>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-bar-chart-line-fill"></i></div>
-              <span class="tag">STATS EDITOR</span>
-              <h3>Stats Editor imports</h3>
-              <p>
-                Import Multiplayer stats and custom class names from
-                bo2.statseditor.com. Zombies codes now import Career,
-                Co-op and Versus stats together.
-              </p>
-              <a class="resource-link"
-                 href="https://bo2.statseditor.com/"
-                 target="_blank" rel="noopener noreferrer">
-                Open Stats Editor <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-joystick"></i></div>
-              <span class="tag">ZOMBIES UPGRADES</span>
-              <h3>Improved Zombies controls</h3>
-              <p>
-                Improved Blue Eyes tally handling, with new Co-op
-                and Versus stat controls.
-              </p>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-lightning-charge-fill"></i></div>
-              <span class="tag">10+ INFECTIONS</span>
-              <h3>Infection fixes</h3>
-              <p>
-                Fixes for FOV, Body Hue, World Hue, Big Ranks and more.
-              </p>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-router-fill"></i></div>
-              <span class="tag">RELAY IMPROVEMENTS</span>
-              <h3>Better relay stability</h3>
-              <p>
-                Fixed the 64-bit Windows connection error and improved
-                stability in busy lobbies.
-              </p>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-shield-check"></i></div>
-              <span class="tag">LIVE HOST CONTROLS</span>
-              <h3>Kick All and immunity</h3>
-              <p>
-                New live host options, including Kick All and immunity
-                controls for supported sessions.
-              </p>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-bullseye"></i></div>
-              <span class="tag">LEGIT STATS</span>
-              <h3>Generated stat presets</h3>
-              <p>
-                Try generated legit-stat presets such as
-                <strong>Sniper Comp</strong> and
-                <strong>All-Round Cracked</strong>.
-              </p>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-moon-stars-fill"></i></div>
-              <span class="tag">ZOMBIES AFK LOBBY</span>
-              <h3>Custom AFK lobby settings</h3>
-              <p>
-                Customise which mods are applied when players join,
-                then automatically kick them when the job is done.
-              </p>
-            </article>
-          </div>
-
-          <div class="aio-download">
-            <div class="aio-download-copy">
-              <strong><i class="bi bi-download"></i> BO2 AIO RTE Tool v7</strong>
-              <span>Open the MediaFire download page for the release.</span>
-            </div>
-            <a class="button button-primary"
-               href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
-               target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-cloud-download-fill"></i> Download v7
-              <i class="bi bi-arrow-up-right"></i>
-            </a>
-          </div>
-
-          <p class="muted small">
-            Compatibility and features are based on the supplied release information.
-            Check the release documentation for the exact supported builds and requirements.
-          </p>
-        </section>
-
-        <section class="guide-section" id="requirements">
-          <h2 class="section-heading"><span class="section-number">04</span> What you need</h2>
-
-          <ul>
-            <li>A compatible Black Ops 2 PC client.</li>
-            <li>The intended relay tool and its instructions.</li>
-            <li>Any dependencies specified by that tool.</li>
-            <li>Access to your router settings, if forwarding is required.</li>
-            <li>The local IPv4 address of the PC running the relay.</li>
-            <li>Wireshark and Npcap if you need to investigate network traffic.</li>
-          </ul>
-
-          <div class="notice warning">
-            <strong>Download the files first</strong>
-            <p>
-              Open the Telegram post and read the information attached to the release.
-              Make sure you understand which files belong to the game and which are the relay
-              tool before opening anything.
-            </p>
-            <div class="hero-actions">
-              <a class="button button-primary"
-                 href="https://t.me/ModdingXZ/24327"
-                 target="_blank" rel="noopener noreferrer">
-                <i class="bi bi-telegram"></i> BO2 + New Tool
-              </a>
-              <a class="button button-outline"
-                 href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
-                 target="_blank" rel="noopener noreferrer">
-                <i class="bi bi-download"></i> AIO RTE v7
-              </a>
-            </div>
-          </div>
-
-          <div class="resource-grid">
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-activity"></i></div>
-              <span class="tag">Network analysis</span>
-              <h3>Wireshark</h3>
-              <p>Inspect network packets and investigate whether traffic reaches your PC.</p>
-              <a class="resource-link" href="https://www.wireshark.org/download.html"
-                 target="_blank" rel="noopener noreferrer">
-                Official downloads <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-diagram-3"></i></div>
-              <span class="tag">Capture driver</span>
-              <h3>Npcap</h3>
-              <p>Windows packet-capture driver commonly used by Wireshark.</p>
-              <a class="resource-link" href="https://nmap.org/npcap/"
-                 target="_blank" rel="noopener noreferrer">
-                Official website <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-          </div>
-
-          <div class="notice warning">
-            <strong>Download safely</strong>
-            Only run files from sources you trust. Be cautious with old executables,
-            unexpected administrator requests and files that ask you to disable security software.
-          </div>
-        </section>
-
-        <section class="guide-section" id="ports">
-          <h2 class="section-heading"><span class="section-number">05</span> Port forwarding — step by step</h2>
-
-          <p>
-            Port forwarding tells your router where to send certain incoming internet traffic.
-            For the setup described in this guide, configure the following UDP ports on the
-            router that connects your PC to the internet.
-          </p>
-
-          <div class="notice warning">
-            <strong><i class="bi bi-router"></i> Ports requested for this setup</strong>
-            <p>
-              Forward UDP ports <code>3060–3080</code> and the additional UDP port
-              <code>17376</code> to the local IP address of the PC running the relay.
-              If the tool's release instructions specify different values, verify which
-              configuration applies to your exact build.
-            </p>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Rule</th><th>Protocol</th><th>Port or range</th><th>Destination</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>BO2 Relay</td><td><code>UDP</code></td><td><code>3060–3080</code></td><td>Your relay PC's local IPv4</td></tr>
-                <tr><td>Additional port</td><td><code>UDP</code></td><td><code>17376</code></td><td>The same relay PC</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="code-wrap">
-            <pre id="portRange">BO2 Relay — port range
-Protocol: UDP
-Ports: 3060-3080
-
-Additional rule
-Protocol: UDP
-Port: 17376
-
-Destination: YOUR-PC-LOCAL-IP</pre>
-            <button class="copy-btn" type="button" data-copy="portRange">Copy details</button>
-          </div>
-
-          <h3>Step 1 — Find your PC's local IP address</h3>
-          <ol>
-            <li>On the PC running the relay, open the Windows Start menu.</li>
-            <li>Type <strong>Command Prompt</strong> and open it.</li>
-            <li>Type <code>ipconfig</code> and press Enter.</li>
-            <li>Find the network adapter you are actually using — Wi-Fi or Ethernet.</li>
-            <li>Write down the <strong>IPv4 Address</strong>.</li>
-          </ol>
-
-          <div class="code-wrap">
-            <pre id="portIpconfig">ipconfig</pre>
-            <button class="copy-btn" type="button" data-copy="portIpconfig">Copy command</button>
-          </div>
-
-          <p>
-            Your IPv4 address may look similar to <code>192.168.1.100</code> or
-            <code>192.168.0.25</code>. Use the address shown on your own PC, not these examples.
-            Do not use the Default Gateway as the destination IP for your PC's forwarding rule.
-          </p>
-
-          <h3>Step 2 — Open your router settings</h3>
-          <ol>
-            <li>In Command Prompt, find <strong>Default Gateway</strong>.</li>
-            <li>Type that address into your browser's address bar.</li>
-            <li>Sign in using your router's administration details.</li>
-            <li>Look for <strong>Port Forwarding</strong>, <strong>NAT</strong> or <strong>Virtual Server</strong>.</li>
-          </ol>
-
-          <p class="muted small">
-            Router menus differ by manufacturer and internet provider. If you cannot find the
-            option, check your router's manual or your provider's instructions.
-          </p>
-
-          <h3>Step 3 — Add the UDP port range</h3>
-          <ol>
-            <li>Create a new rule called <code>BO2 Relay</code>.</li>
-            <li>Choose <strong>UDP</strong> as the protocol.</li>
-            <li>Enter <code>3060</code> as the starting port and <code>3080</code> as the ending port, if available.</li>
-            <li>Enter your PC's local IPv4 address as the destination.</li>
-            <li>Use the same internal port range unless the tool's instructions specify otherwise.</li>
-            <li>Save or apply the rule.</li>
-          </ol>
-
-          <h3>Step 4 — Add UDP port 17376</h3>
-          <ol>
-            <li>Create another rule or individual port entry.</li>
-            <li>Name it <code>BO2 Relay 17376</code>.</li>
-            <li>Choose <strong>UDP</strong>.</li>
-            <li>Set external and internal port to <code>17376</code>, unless the tool specifies otherwise.</li>
-            <li>Set the destination to the same PC's local IPv4 address.</li>
-            <li>Save or apply the rule.</li>
-          </ol>
-
-          <div class="code-wrap">
-            <pre id="exampleRule">Rule 1
-Name: BO2Relay
-Protocol: UDP
-External ports: 3060-3080
-Internal ports: 3060-3080
-Destination IP: YOUR-PC-LOCAL-IP
-
-Rule 2
-Name: BO2Relay17376
-Protocol: UDP
-External port: 17376
-Internal port: 17376
-Destination IP: YOUR-PC-LOCAL-IP</pre>
-            <button class="copy-btn" type="button" data-copy="exampleRule">Copy example</button>
-          </div>
-
-          <div class="notice success">
-            <strong>Check before moving on</strong>
-            Both rules should use UDP and point to the PC running the relay. A DHCP reservation
-            can help keep your PC's local address consistent.
-          </div>
-
-          <div class="notice warning">
-            <strong>Still not connecting?</strong>
-            Windows Firewall, CGNAT, double NAT, tool configuration and remote network behaviour
-            can all affect the result. Continue to troubleshooting rather than opening random ports.
-          </div>
-        </section>
-
-        <section class="guide-section" id="setup">
-          <h2 class="section-heading"><span class="section-number">06</span> PC setup and firewall</h2>
-
-          <h3>Step 1 — Confirm your IP address</h3>
-          <p>Run the following command and use the IPv4 address under your active adapter.</p>
-
-          <div class="code-wrap">
-            <pre id="ipconfig">ipconfig</pre>
-            <button class="copy-btn" type="button" data-copy="ipconfig">Copy</button>
-          </div>
-
-          <h3>Step 2 — Check Windows Firewall</h3>
-          <ul>
-            <li>Open Windows Security and find Firewall and network protection.</li>
-            <li>Check whether the relay application has been blocked.</li>
-            <li>Only allow programs you trust and use the appropriate network profile.</li>
-            <li>If you create a firewall rule, confirm the protocol and ports required by your tool.</li>
-            <li>Keep Windows Firewall enabled.</li>
-          </ul>
-
-          <h3>Step 3 — Read the tool instructions</h3>
-          <p>
-            Open the release post and any included readme or documentation. Check which file
-            starts the relay, whether extra dependencies are required and whether the tool
-            has settings you need to configure.
-          </p>
-
-          <h3>Step 4 — Start testing</h3>
-          <p>
-            Follow the order specified by the tool's author. If the application displays an
-            error, record the exact message and tool version. Do not guess at command-line
-            options or run unknown programs as administrator.
-          </p>
-
-          <div class="notice warning">
-            <strong>One change at a time</strong>
-            If you change router rules, firewall settings and tool configuration all at once,
-            it becomes much harder to identify the real cause of a problem.
-          </div>
-        </section>
-
-        <section class="guide-section" id="wireshark">
-          <h2 class="section-heading"><span class="section-number">07</span> Wireshark diagnostics</h2>
-
-          <p>
-            Wireshark lets you inspect network traffic on your PC. Choose the active network
-            interface, begin a capture and reproduce the problem.
-          </p>
-
-          <h3>Useful display filters</h3>
-
-          <p class="muted small">All UDP packets</p>
-          <div class="code-wrap">
-            <pre id="filterUdp">udp</pre>
-            <button class="copy-btn" type="button" data-copy="filterUdp">Copy</button>
-          </div>
-
-          <p class="muted small">Traffic involving UDP port 3074</p>
-          <div class="code-wrap">
-            <pre id="filter3074">udp.port == 3074</pre>
-            <button class="copy-btn" type="button" data-copy="filter3074">Copy</button>
-          </div>
-
-          <p class="muted small">Traffic involving UDP port 3077</p>
-          <div class="code-wrap">
-            <pre id="filter3077">udp.port == 3077</pre>
-            <button class="copy-btn" type="button" data-copy="filter3077">Copy</button>
-          </div>
-
-          <p class="muted small">Traffic involving UDP ports 3060–3080</p>
-          <div class="code-wrap">
-            <pre id="filterRange">udp.port >= 3060 && udp.port <= 3080</pre>
-            <button class="copy-btn" type="button" data-copy="filterRange">Copy</button>
-          </div>
-
-          <p class="muted small">Traffic involving UDP port 17376</p>
-          <div class="code-wrap">
-            <pre id="filter17376">udp.port == 17376</pre>
-            <button class="copy-btn" type="button" data-copy="filter17376">Copy</button>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>What you see</th><th>What to check next</th></tr>
-              </thead>
-              <tbody>
-                <tr><td>No relevant traffic appears</td><td>Confirm the interface, filter, expected traffic and router destination.</td></tr>
-                <tr><td>Packets reach the PC, but the relay does not respond</td><td>Check tool settings, dependencies, firewall and compatibility.</td></tr>
-                <tr><td>Packets appear, but the connection fails</td><td>Investigate return traffic, NAT behaviour and compatibility.</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="notice warning">
-            <strong>Protect your privacy</strong>
-            Network captures can reveal IP addresses and identifying information. Redact these
-            before sharing publicly. Never publish passwords, tokens or private keys.
-          </div>
-        </section>
-
-        <section class="guide-section" id="nat">
-          <h2 class="section-heading"><span class="section-number">08</span> CGNAT, double NAT and VPS</h2>
-
-          <h3>What is CGNAT?</h3>
-          <p>
-            Some internet providers place customers behind an additional shared network layer.
-            This is called carrier-grade NAT, or CGNAT. If your connection uses CGNAT, a port
-            forwarding rule on your own router may not be enough to make your PC reachable
-            from outside your home network.
-          </p>
-
-          <h3>How to investigate</h3>
-          <ol>
-            <li>Open your router's status or Internet page.</li>
-            <li>Find its WAN or Internet IPv4 address.</li>
-            <li>Compare that address with the public IPv4 shown by a reputable IP-checking service.</li>
-            <li>If they differ, investigate CGNAT, an upstream router or another network arrangement.</li>
-          </ol>
-
-          <p>
-            Private IPv4 ranges include <code>10.0.0.0/8</code>,
-            <code>172.16.0.0/12</code> and <code>192.168.0.0/16</code>.
-            The shared address range associated with CGNAT is <code>100.64.0.0/10</code>.
-            Address comparisons are clues, not definitive proof of your network topology.
-          </p>
-
-          <h3>Example double NAT layout</h3>
-          <div class="code-wrap">
-            <pre id="natDiagram">Internet
-   |
-ISP router / gateway
-   |
-Your own router
-   |
-PC running the relay</pre>
-            <button class="copy-btn" type="button" data-copy="natDiagram">Copy diagram</button>
-          </div>
-
-          <p>
-            If your PC connects through two routers, forwarding may need to be configured on
-            both devices. The right solution depends on which device receives the public
-            connection and which options your provider supports.
-          </p>
-
-          <h3>Would a VPS help?</h3>
-          <p>
-            A VPS may provide a public endpoint, but renting one does not automatically solve
-            CGNAT. The necessary tunnel, routing and port forwarding must be configured correctly.
-          </p>
-        </section>
-
-        <section class="guide-section" id="console">
-          <h2 class="section-heading"><span class="section-number">09</span> PC-to-console bridge</h2>
-
-          <div class="notice success">
-            <strong><i class="bi bi-check-circle"></i> Community testing report</strong>
-            A bridge setup involving PSRelay and UDP ports 3060–3080 has been reported working
-            in testing. This is a community report, not a guarantee that it works with every
-            console, client, network or tool build.
-          </div>
-
-          <p>
-            The community has been investigating relay behaviour and compatibility following
-            reported BO2 changes. Tools that display statistics and tools that bridge traffic
-            may behave differently even when used on the same network.
-          </p>
-
-          <h3>Reported limitations</h3>
-          <ul>
-            <li>Compatibility can vary between tool versions and configurations.</li>
-            <li>Some statistics tools may not support the same bridging behaviour.</li>
-            <li>Player names or related information may display incorrectly.</li>
-            <li>Some configurations have been described as cumbersome.</li>
-            <li>Tools may require further fixes before wider release.</li>
-          </ul>
-
-          <div class="notice warning">
-            <strong>Setup support is not available yet</strong>
-            Modding XZ is not currently offering individual setup support for this method.
-            Please do not message the support bot expecting help configuring your PC or console.
-            New instructions and releases will be announced on Telegram when available.
-          </div>
-
-          <a class="button button-primary" href="https://t.me/ModdingXZ"
-             target="_blank" rel="noopener noreferrer">
-            <i class="bi bi-telegram"></i> Follow Bridge Updates
-          </a>
-        </section>
-
-        <section class="guide-section" id="troubleshooting">
-          <h2 class="section-heading"><span class="section-number">10</span> Troubleshooting</h2>
-
-          <details>
-            <summary>I've forwarded the ports, but the relay still doesn't work.</summary>
-            <p>
-              Check that UDP ports 3060–3080 and UDP port 17376 point to the correct local PC IP.
-              Check Windows Firewall and the tool's instructions. If the problem continues,
-              investigate CGNAT or double NAT and use Wireshark to see whether traffic reaches
-              your PC.
-            </p>
-          </details>
-
-          <details>
-            <summary>Do I need two port-forwarding rules?</summary>
-            <p>
-              For this guide, the requested configuration is one UDP range rule covering
-              3060–3080 and a separate UDP rule for 17376. Both sets of ports must be covered
-              by the intended rules.
-            </p>
-          </details>
-
-          <details>
-            <summary>Which IP address do I enter into my router?</summary>
-            <p>
-              Enter the local IPv4 address of the PC running the relay. Use
-              <code>ipconfig</code> in Command Prompt to find it. Do not enter the Default
-              Gateway as the destination for the PC rule.
-            </p>
-          </details>
-
-          <details>
-            <summary>My PC's IP address starts with 192.168 or 10. Is that wrong?</summary>
-            <p>
-              No. These are common private local-network addresses. Your PC's local IP is
-              different from your public internet IP.
-            </p>
-          </details>
-
-          <details>
-            <summary>Wireshark shows no relevant packets.</summary>
-            <p>
-              Confirm you selected the active network interface and are reproducing the problem
-              during the capture. Check your display filter, forwarding destination and firewall.
-            </p>
-          </details>
-
-          <details>
-            <summary>The relay opens, but the game doesn't connect.</summary>
-            <p>
-              A running application does not prove that the connection works. Verify the client
-              and tool versions, review the configuration and inspect traffic. Compatibility,
-              return traffic and network restrictions can all affect the result.
-            </p>
-          </details>
-
-          <details>
-            <summary>Can an online UDP port checker confirm everything is working?</summary>
-            <p>
-              Not necessarily. UDP applications may not respond to arbitrary probes, so an
-              online checker can give inconclusive results. Application-specific tests and
-              packet captures are usually more useful.
-            </p>
-          </details>
-
-          <details>
-            <summary>Does a VPS automatically bypass CGNAT?</summary>
-            <p>
-              No. A VPS may provide a public endpoint, but the tunnel, routing and forwarding
-              must be correctly configured for the application.
-            </p>
-          </details>
-
-          <details>
-            <summary>Where can I get setup help?</summary>
-            <p>
-              Individual setup support for this method is not currently available through
-              Modding XZ. Check the Telegram channel for announcements and updated documentation.
-            </p>
-          </details>
-        </section>
-
-        <section class="guide-section" id="checklist">
-          <h2 class="section-heading"><span class="section-number">11</span> Diagnostic checklist</h2>
-
-          <p class="muted small">
-            Work through the checks one at a time. Tick each box when completed.
-            Your progress is saved in this browser when local storage is available.
-          </p>
-
-          <div class="progress-track" role="progressbar"
-               aria-label="Diagnostic checklist progress"
-               aria-valuemin="0" aria-valuemax="8" aria-valuenow="0"
-               id="progressBar">
-            <div class="progress-fill" id="checkProgress"></div>
-          </div>
-
-          <p class="muted small" id="checkCount" aria-live="polite">0 of 8 checks complete</p>
-
-          <div class="checklist" id="checklistItems">
-            <label><input type="checkbox" data-check="0"><span>I have confirmed the client and relay version.</span></label>
-            <label><input type="checkbox" data-check="1"><span>I have found the PC's local IPv4 address.</span></label>
-            <label><input type="checkbox" data-check="2"><span>I have forwarded UDP ports 3060–3080 to the correct PC.</span></label>
-            <label><input type="checkbox" data-check="3"><span>I have added UDP port 17376 to the correct PC.</span></label>
-            <label><input type="checkbox" data-check="4"><span>I have checked Windows Firewall.</span></label>
-            <label><input type="checkbox" data-check="5"><span>I have investigated possible CGNAT or double NAT.</span></label>
-            <label><input type="checkbox" data-check="6"><span>I have checked the active interface and traffic in Wireshark.</span></label>
-            <label><input type="checkbox" data-check="7"><span>I have recorded the exact error and tests completed.</span></label>
-          </div>
-
-          <div class="hero-actions">
-            <button class="button button-outline" id="resetChecklist" type="button">
-              <i class="bi bi-arrow-counterclockwise"></i> Reset Checklist
-            </button>
-          </div>
-        </section>
-
-        <section class="guide-section" id="resources">
-          <h2 class="section-heading"><span class="section-number">12</span> Tools and resources</h2>
-
-          <p>
-            These links are provided as references to community posts and external resources.
-            Their inclusion does not independently verify file safety, compatibility or availability.
-          </p>
-
-          <div class="resource-grid">
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-rocket-takeoff"></i></div>
-              <span class="tag">NEW RELEASE · V7</span>
-              <h3>BO2 AIO RTE Tool v7</h3>
-              <p>New stats imports, Zombies upgrades, infection fixes and relay improvements.</p>
-              <a class="resource-link"
-                 href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
-                 target="_blank" rel="noopener noreferrer">
-                Download v7 <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-download"></i></div>
-              <span class="tag">FEATURED DOWNLOAD</span>
-              <h3>BO2 + New Tool</h3>
-              <p>Open the Modding XZ Telegram post for the game files and new tool information.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ/24327"
-                 target="_blank" rel="noopener noreferrer">
-                Open download post <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-tools"></i></div>
-              <span class="tag">COMMUNITY RESOURCE</span>
-              <h3>Volt RTM</h3>
-              <p>Modding XZ Telegram resource post.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ/21143"
-                 target="_blank" rel="noopener noreferrer">
-                Open Telegram post <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-lightning-charge"></i></div>
-              <span class="tag">RELAY TOOL</span>
-              <h3>1-click Relay</h3>
-              <p>Community post for the relay tool and its intended use.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ/21071"
-                 target="_blank" rel="noopener noreferrer">
-                Open relay post <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-bar-chart-line"></i></div>
-              <span class="tag">STATS EDITOR</span>
-              <h3>BO2 Stats Editor</h3>
-              <p>Open the Stats Editor website referenced in the AIO RTE v7 release.</p>
-              <a class="resource-link" href="https://bo2.statseditor.com/"
-                 target="_blank" rel="noopener noreferrer">
-                Open Stats Editor <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-controller"></i></div>
-              <span class="tag">EXTERNAL LINK</span>
-              <h3>Black Ops 2 PC files</h3>
-              <p>Check the source and make sure you have the right to access and use any files obtained.</p>
-              <a class="resource-link" href="https://buzzheavier.com/turbm180v9i6"
-                 target="_blank" rel="noopener noreferrer">
-                Open external resource <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-activity"></i></div>
-              <span class="tag">OFFICIAL TOOL</span>
-              <h3>Wireshark</h3>
-              <p>Network analyser for diagnosing traffic and connectivity.</p>
-              <a class="resource-link" href="https://www.wireshark.org/download.html"
-                 target="_blank" rel="noopener noreferrer">
-                Official downloads <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-diagram-3"></i></div>
-              <span class="tag">OFFICIAL TOOL</span>
-              <h3>Npcap</h3>
-              <p>Windows packet-capture driver commonly used by Wireshark.</p>
-              <a class="resource-link" href="https://nmap.org/npcap/"
-                 target="_blank" rel="noopener noreferrer">
-                Official website <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-code-square"></i></div>
-              <span class="tag">COMMUNITY PROJECT</span>
-              <h3>GSC injector project</h3>
-              <p>GitLab project link from the original resource list.</p>
-              <a class="resource-link" href="https://gitlab.com/Spet001/msclients"
-                 target="_blank" rel="noopener noreferrer">
-                Open GitLab <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-globe2"></i></div>
-              <span class="tag">OFFICIAL COMMUNITY</span>
-              <h3>Modding XZ Website</h3>
-              <p>Visit the website for community information and other resources.</p>
-              <a class="resource-link" href="https://moddingxz.co.uk"
-                 target="_blank" rel="noopener noreferrer">
-                Visit website <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-
-            <article class="resource-card">
-              <div class="resource-icon"><i class="bi bi-telegram"></i></div>
-              <span class="tag">UPDATES AND ANNOUNCEMENTS</span>
-              <h3>Modding XZ Telegram</h3>
-              <p>Check the community channel for announcements and future releases.</p>
-              <a class="resource-link" href="https://t.me/ModdingXZ"
-                 target="_blank" rel="noopener noreferrer">
-                Join the channel <i class="bi bi-arrow-up-right"></i>
-              </a>
-            </article>
-          </div>
-
-          <div class="notice warning">
-            <strong>External downloads</strong>
-            Check files before running them. Use official or authorised sources where possible,
-            and only download or redistribute game files you are entitled to access and share.
-          </div>
-        </section>
-
-        <section class="guide-section" id="faq">
-          <h2 class="section-heading"><span class="section-number">13</span> Final notes</h2>
-
-          <p>
-            The main things to check are the correct tool version, the PC's local IP address,
-            both sets of UDP ports, Windows Firewall and the traffic reaching your PC.
-            If those checks do not solve the problem, NAT restrictions or compatibility may
-            be involved.
-          </p>
-
-          <p>
-            For AIO RTE v7, check the supported game modes carefully: RSG Multiplayer,
-            RSG Zombies and MS Multiplayer are listed as supported, while MS Zombies is
-            not supported according to the supplied release information.
-          </p>
-
-          <p>
-            When recording a problem, note the exact error, Windows version, client and relay
-            build, router configuration and what you observed in Wireshark. Remove personal
-            network information before sharing screenshots or captures.
-          </p>
-
-          <div class="notice danger">
-            <strong><i class="bi bi-info-circle"></i> Modding XZ support status</strong>
-            Setup support is not currently available for this method. Please avoid sending
-            repeated messages to the support bot about setup. Further information will be
-            announced when testing and documentation are ready.
-          </div>
-
-          <div class="hero-actions">
-            <a class="button button-primary"
-               href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
-               target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-download"></i> Download AIO RTE v7
-            </a>
-            <a class="button button-outline" href="https://t.me/ModdingXZ"
-               target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-telegram"></i> Join Modding XZ
-            </a>
-            <a class="button button-outline" href="https://moddingxz.co.uk">
-              <i class="bi bi-globe"></i> Main Website
-            </a>
-          </div>
-        </section>
-      </main>
-    </div>
+   </div>
+  </div>
+ </div>
+</header>
+
+<main>
+<section class="section pt-4" id="requirements">
+ <div class="container">
+  <div data-aos="fade-up">
+   <div class="eyebrow mb-2">BEFORE YOU START</div>
+   <h2 class="section-heading">Get the basics <span class="gradient">ready.</span></h2>
+   <p class="section-copy mt-3">Have these ready before changing your network settings. The exact relay program and game versions you need depend on the method you're following.</p>
+  </div>
+  <div class="requirement-grid">
+   <article class="requirement" data-aos="fade-up">
+    <div class="icon-box"><i class="bi bi-pc-display"></i></div>
+    <h3>Windows PC</h3>
+    <p>Your PC must be connected to the same local network as your router. Use a wired connection if possible.</p>
+   </article>
+   <article class="requirement" data-aos="fade-up" data-aos-delay="60">
+    <div class="icon-box"><i class="bi bi-controller"></i></div>
+    <h3>Console and game</h3>
+    <p>Have Black Ops 2 ready and check that the relay method supports your platform and game version.</p>
+   </article>
+   <article class="requirement" data-aos="fade-up" data-aos-delay="120">
+    <div class="icon-box"><i class="bi bi-router"></i></div>
+    <h3>Router access</h3>
+    <p>You'll need access to your router settings if the relay method requires port forwarding.</p>
+   </article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="guide">
+ <div class="container">
+  <div class="mb-4" data-aos="fade-up">
+   <div class="eyebrow mb-2">FOLLOW IN ORDER</div>
+   <h2 class="section-heading">Your relay <span class="gradient">setup.</span></h2>
+   <p class="section-copy mt-3">Work through each stage. Router menus differ by manufacturer, so the wording on your screen might not match exactly.</p>
   </div>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <a href="https://moddingxz.co.uk" class="brand">
-        MODDING <span class="brand-xz">XZ</span>
-      </a>
+  <div class="step-layout">
+   <div class="steps">
+    <article class="step" data-aos="fade-up">
+     <div class="step-num">01</div>
+     <div>
+      <h3>Find your PC's local IP address</h3>
+      <p>On your PC, open Command Prompt and run this command. Find the active network adapter, its IPv4 address and the default gateway.</p>
+      <div class="code-row"><code>ipconfig</code><button class="copy-btn" type="button" data-copy="ipconfig"><i class="bi bi-copy"></i> Copy</button></div>
+     </div>
+    </article>
 
-      <div class="footer-text">
-        &copy; <span id="year"></span> Modding XZ. All rights reserved.<br>
-        Community guide · Compatibility may change.
-      </div>
+    <article class="step" data-aos="fade-up">
+     <div class="step-num">02</div>
+     <div>
+      <h3>Open your router settings</h3>
+      <p>Enter your default gateway address in your browser and sign in to your router. Find <strong>Port Forwarding</strong>, <strong>Virtual Server</strong> or a similarly named option.</p>
+     </div>
+    </article>
 
-      <a class="button button-outline" href="https://t.me/ModdingXZ"
-         target="_blank" rel="noopener noreferrer">
-        <i class="bi bi-telegram"></i> Telegram
-      </a>
+    <article class="step" data-aos="fade-up">
+     <div class="step-num">03</div>
+     <div>
+      <h3>Add the required UDP ports</h3>
+      <p>For the relay method covered by this guide, the port details provided are below. Use your PC's local IPv4 as the destination and confirm the specific relay tool requires these ports.</p>
+      <div class="code-row"><code>UDP 3060–3080</code><button class="copy-btn" type="button" data-copy="3060-3080"><i class="bi bi-copy"></i> Copy</button></div>
+      <div class="code-row"><code>UDP 17376</code><button class="copy-btn" type="button" data-copy="17376"><i class="bi bi-copy"></i> Copy</button></div>
+      <p class="mt-3">If your router doesn't accept a range, create individual rules only if required by your setup. Don't add unrelated ports.</p>
+     </div>
+    </article>
+
+    <article class="step" data-aos="fade-up">
+     <div class="step-num">04</div>
+     <div>
+      <h3>Check Windows Firewall</h3>
+      <p>Make sure Windows hasn't blocked the relay program. If necessary, allow the specific app or create a narrowly scoped rule for the required ports. Keep your firewall enabled.</p>
+     </div>
+    </article>
+
+    <article class="step" data-aos="fade-up">
+     <div class="step-num">05</div>
+     <div>
+      <h3>Launch and test the relay</h3>
+      <p>Follow the instructions supplied with your relay tool, check that your game and tool versions are compatible, then test the connection. A port-forwarding rule alone does not guarantee the relay will work.</p>
+     </div>
+    </article>
+
+    <div class="info-note">
+     <strong><i class="bi bi-info-circle me-1"></i> Important:</strong>
+     If your router's WAN address is behind CGNAT or another router, forwarding rules may not be enough. Contact your ISP or check your network setup if you still can't connect.
     </div>
-  </footer>
+   </div>
 
-  <div id="toast" class="toast-message" role="status"
-       aria-live="polite" hidden></div>
+   <aside class="panel panel-pad" data-aos="fade-up" data-aos-delay="80">
+    <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+     <div><div class="eyebrow mb-1">YOUR PROGRESS</div><strong>Setup checklist</strong></div>
+     <span class="purple fw-bold" id="progressLabel">0%</span>
+    </div>
+    <div class="progress-bar-custom"><div id="progressFill"></div></div>
+    <p class="muted mt-3 mb-2" style="font-size:.75rem" id="checkCount">0 of 5 complete</p>
+    <div>
+     <label class="check-item"><input type="checkbox" data-check="ip"><span>Found my PC's IPv4 address.</span></label>
+     <label class="check-item"><input type="checkbox" data-check="router"><span>Opened my router settings.</span></label>
+     <label class="check-item"><input type="checkbox" data-check="ports"><span>Checked and configured the required UDP ports.</span></label>
+     <label class="check-item"><input type="checkbox" data-check="firewall"><span>Checked the Windows Firewall rules.</span></label>
+     <label class="check-item"><input type="checkbox" data-check="test"><span>Launched the tool and tested the connection.</span></label>
+    </div>
+    <div class="d-flex justify-content-between align-items-center gap-2 mt-3">
+     <span class="muted" style="font-size:.7rem">Saved on this device</span>
+     <button class="btn-secondary-custom" type="button" id="resetChecks" style="padding:8px 11px;font-size:.72rem">Reset</button>
+    </div>
+    <div class="info-note mt-4">Stuck? You can jump to the troubleshooting section without losing your progress.</div>
+    <a href="#troubleshooting" class="btn-primary-custom w-100 mt-3">Troubleshoot <i class="bi bi-arrow-down"></i></a>
+   </aside>
+  </div>
+ </div>
+</section>
 
-  <script>
-    (() => {
-      'use strict';
+<section class="section" id="troubleshooting">
+ <div class="container">
+  <div class="row g-4">
+   <div class="col-lg-4" data-aos="fade-up">
+    <div class="eyebrow mb-2">NEED A HAND?</div>
+    <h2 class="section-heading">Let's fix <span class="gradient">it.</span></h2>
+    <p class="section-copy mt-3">Start with the symptom that matches what you're seeing. These are the most common network checks.</p>
+    <a href="https://t.me/moddingxz" target="_blank" rel="noopener" class="btn-secondary-custom mt-2"><i class="bi bi-telegram"></i> ModdingXZ Telegram</a>
+   </div>
+   <div class="col-lg-8" data-aos="fade-up" data-aos-delay="80">
+    <div class="accordion" id="faq">
+     <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq1">I've forwarded the ports, but it still doesn't work</button></h3>
+      <div class="accordion-collapse collapse" id="faq1" data-bs-parent="#faq"><div class="accordion-body">Check the destination IPv4, UDP protocol, port values and Windows Firewall. Make sure the relay program is actually running and listening. Some routers also need the PC's IP reserved so it doesn't change.</div></div>
+     </div>
+     <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq2">I can't find port forwarding in my router</button></h3>
+      <div class="accordion-collapse collapse" id="faq2" data-bs-parent="#faq"><div class="accordion-body">Look for Virtual Server, NAT, Advanced Network or Port Mapping. The location varies by router. Search your router manufacturer's official support page for your model.</div></div>
+     </div>
+     <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq3">Could my ISP be blocking port forwarding?</button></h3>
+      <div class="accordion-collapse collapse" id="faq3" data-bs-parent="#faq"><div class="accordion-body">Your connection may use CGNAT, or there may be another router between your router and the internet. Compare your router's WAN IPv4 address with the public address shown by a trusted IP-check service. If they differ, ask your ISP about your connection type.</div></div>
+     </div>
+     <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq4">The tool stopped working after a game update</button></h3>
+      <div class="accordion-collapse collapse" id="faq4" data-bs-parent="#faq"><div class="accordion-body">The game update may have changed compatibility. Check the tool's latest release notes and supported game versions before changing your network configuration.</div></div>
+     </div>
+     <div class="accordion-item">
+      <h3 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#faq5">Should I disable my firewall or open every port?</button></h3>
+      <div class="accordion-collapse collapse" id="faq5" data-bs-parent="#faq"><div class="accordion-body">No. Keep the firewall enabled and expose only the ports the relay actually requires. Broad rules can leave your PC unnecessarily exposed.</div></div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
 
-      const $ = (selector, root = document) => root.querySelector(selector);
-      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+<section class="section pt-4" id="resources">
+ <div class="container">
+  <div class="mb-4" data-aos="fade-up">
+   <div class="eyebrow mb-2">USEFUL LINKS</div>
+   <h2 class="section-heading">Everything you <span class="gradient">need.</span></h2>
+   <p class="section-copy mt-3">Just the relevant links — no extra clutter.</p>
+  </div>
+  <div class="resource-grid">
+   <article class="resource-card" data-aos="fade-up">
+    <div class="icon-box"><i class="bi bi-telegram"></i></div>
+    <h3>ModdingXZ Community</h3>
+    <p>Find community announcements, updates and shared tool releases.</p>
+    <a href="https://t.me/moddingxz" target="_blank" rel="noopener">Open Telegram <i class="bi bi-arrow-up-right"></i></a>
+   </article>
+   <article class="resource-card" data-aos="fade-up" data-aos-delay="60">
+    <div class="icon-box"><i class="bi bi-activity"></i></div>
+    <h3>Wireshark</h3>
+    <p>Official packet-capture software that can help investigate network problems.</p>
+    <a href="https://www.wireshark.org/download.html" target="_blank" rel="noopener">Official download <i class="bi bi-arrow-up-right"></i></a>
+   </article>
+   <article class="resource-card" data-aos="fade-up" data-aos-delay="120">
+    <div class="icon-box"><i class="bi bi-globe2"></i></div>
+    <h3>ModdingXZ Website</h3>
+    <p>Return to the main ModdingXZ hub for community tools and other resources.</p>
+    <a href="https://moddingxz.co.uk/" target="_blank" rel="noopener">Visit website <i class="bi bi-arrow-up-right"></i></a>
+   </article>
+  </div>
+ </div>
+</section>
 
-      $('#year').textContent = new Date().getFullYear();
+<section class="section pt-0">
+ <div class="container">
+  <div class="panel panel-pad" data-aos="fade-up">
+   <div class="row align-items-center g-3">
+    <div class="col-lg-8">
+     <div class="eyebrow mb-2">STILL STUCK?</div>
+     <h2 class="section-heading">Get help from the <span class="gradient">community.</span></h2>
+     <p class="section-copy mt-3 mb-0">When asking for help, include your platform, game version, relay tool version, the error you're getting and what you've already tried. Never post passwords or unredacted private network details.</p>
+    </div>
+    <div class="col-lg-4 d-grid">
+     <a href="https://t.me/moddingxz" target="_blank" rel="noopener" class="btn-primary-custom"><i class="bi bi-telegram"></i> Join ModdingXZ</a>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+</main>
 
-      let toastTimer;
+<footer class="footer">
+ <div class="container d-flex flex-column flex-md-row justify-content-between gap-2">
+  <div><strong class="text-white">MODDING<span class="purple">XZ</span></strong><div class="mt-1">Black Ops 2 Relay Guide</div></div>
+  <div class="text-md-end">Community guide · Third-party tools belong to their respective creators.<br><span id="year"></span> ModdingXZ</div>
+ </div>
+</footer>
 
-      function showToast(message) {
-        const toast = $('#toast');
-        toast.textContent = message;
-        toast.hidden = false;
+<nav class="mobile-bar" aria-label="Quick navigation">
+ <a href="#home"><i class="bi bi-house"></i><span>Home</span></a>
+ <a href="#guide"><i class="bi bi-list-ol"></i><span>Setup guide</span></a>
+ <a href="#troubleshooting"><i class="bi bi-wrench-adjustable"></i><span>Help</span></a>
+</nav>
 
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => {
-          toast.hidden = true;
-        }, 2400);
-      }
+<button id="backTop" aria-label="Back to top" type="button"><i class="bi bi-arrow-up"></i></button>
 
-      // Copy buttons.
-      $$('[data-copy]').forEach(button => {
-        button.addEventListener('click', async () => {
-          const target = document.getElementById(button.dataset.copy);
-          if (!target) return;
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index:3000">
+ <div class="toast" id="siteToast" role="status" aria-live="polite">
+  <div class="d-flex"><div class="toast-body" id="toastText">Copied!</div><button class="btn-close me-2 m-auto" type="button" data-bs-dismiss="toast" aria-label="Close"></button></div>
+ </div>
+</div>
 
-          const text = target.innerText;
+<!-- External JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
-          try {
-            if (!navigator.clipboard || !window.isSecureContext) {
-              throw new Error('Clipboard unavailable');
-            }
+<script>
+(() => {
+"use strict";
+const $ = (selector, root=document) => root.querySelector(selector);
+const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-            await navigator.clipboard.writeText(text);
-            showToast('Copied to clipboard.');
-          } catch {
-            const range = document.createRange();
-            range.selectNodeContents(target);
+$("#year").textContent = new Date().getFullYear();
 
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
+// Typewriter effect
+const typeTarget = $("#typewriter");
+const phrases = ["RELAY GUIDE", "STEP BY STEP", "GET CONNECTED"];
+let phraseIndex = 0;
+let charIndex = phrases[0].length;
+let deleting = true;
 
-            showToast('Text selected. Copy it manually.');
-          }
-        });
-      });
+function typeWriter() {
+ if (reducedMotion) return;
+ const current = phrases[phraseIndex];
 
-      // Checklist progress and local persistence.
-      const STORAGE_KEY = 'moddingxz-relay-checklist-v2';
-      const checks = $$('#checklistItems input[type="checkbox"]');
-      const progress = $('#checkProgress');
-      const count = $('#checkCount');
-      const progressBar = $('#progressBar');
+ if (deleting) {
+  charIndex--;
+  typeTarget.textContent = current.slice(0, Math.max(0,charIndex));
+  if (charIndex <= 0) {
+   deleting = false;
+   phraseIndex = (phraseIndex + 1) % phrases.length;
+  }
+  setTimeout(typeWriter, 40);
+ } else {
+  const next = phrases[phraseIndex];
+  charIndex++;
+  typeTarget.textContent = next.slice(0,charIndex);
+  if (charIndex >= next.length) {
+   deleting = true;
+   setTimeout(typeWriter, 1500);
+  } else {
+   setTimeout(typeWriter, 78);
+  }
+ }
+}
+if (!reducedMotion) setTimeout(typeWriter, 1800);
 
-      function saveChecks() {
-        try {
-          localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(checks.map(input => input.checked))
-          );
-        } catch {
-          // Checklist remains usable for this page session.
-        }
-      }
+// Scroll animations are optional: the guide remains usable without them.
+if (window.AOS) {
+ AOS.init({duration:600, once:true, offset:35, disable:reducedMotion});
+}
 
-      function updateChecklist(save = true) {
-        const done = checks.filter(input => input.checked).length;
-        const percentage = checks.length ? done / checks.length * 100 : 0;
+// Copy buttons
+let toast;
+try { toast = new bootstrap.Toast($("#siteToast"), {delay:2000}); } catch {}
 
-        progress.style.width = percentage + '%';
-        count.textContent = `${done} of ${checks.length} checks complete`;
-        progressBar.setAttribute('aria-valuenow', String(done));
+function showToast(message) {
+ $("#toastText").textContent = message;
+ if (toast) toast.show();
+}
 
-        if (save) saveChecks();
-      }
+$$("[data-copy]").forEach(button => {
+ button.addEventListener("click", async () => {
+  const text = button.dataset.copy;
+  try {
+   await navigator.clipboard.writeText(text);
+   showToast("Copied: " + text);
+  } catch {
+   const input = document.createElement("textarea");
+   input.value = text;
+   input.style.position = "fixed";
+   input.style.opacity = "0";
+   document.body.appendChild(input);
+   input.select();
+   let copied = false;
+   try { copied = document.execCommand("copy"); } catch {}
+   input.remove();
+   showToast(copied ? "Copied: " + text : "Copy unavailable — please copy manually: " + text);
+  }
+ });
+});
 
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+// Reading progress and back-to-top button
+function handleScroll() {
+ const maxScroll = document.documentElement.scrollHeight - innerHeight;
+ const percent = maxScroll > 0 ? (scrollY / maxScroll) * 100 : 0;
+ $("#pageProgress").style.width = percent + "%";
+ $("#backTop").classList.toggle("show", scrollY > 450);
+}
+addEventListener("scroll", handleScroll, {passive:true});
+handleScroll();
+$("#backTop").addEventListener("click", () => {
+ window.scrollTo({top:0,behavior:reducedMotion ? "auto" : "smooth"});
+});
 
-        if (Array.isArray(saved)) {
-          checks.forEach((input, index) => {
-            input.checked = saved[index] === true;
-          });
-        }
-      } catch {
-        // Continue with unchecked items if storage is unavailable.
-      }
+// Close the mobile navigation after selecting a section.
+$$('#mainNav a[href^="#"]').forEach(link => {
+ link.addEventListener("click", () => {
+  const nav = $("#mainNav");
+  if (nav.classList.contains("show") && window.bootstrap) {
+   bootstrap.Collapse.getOrCreateInstance(nav).hide();
+  }
+ });
+});
 
-      checks.forEach(input => {
-        input.addEventListener('change', () => updateChecklist());
-      });
+// Checklist: saved locally in this browser only.
+const STORAGE_KEY = "moddingxz-relay-checklist-v1";
+const checkboxes = $$("[data-check]");
 
-      $('#resetChecklist').addEventListener('click', () => {
-        checks.forEach(input => input.checked = false);
-        updateChecklist();
-        showToast('Checklist reset.');
-      });
+function readSavedState() {
+ try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+ catch { return {}; }
+}
 
-      updateChecklist(false);
+function updateChecklist(save=true) {
+ const state = {};
+ checkboxes.forEach(box => state[box.dataset.check] = box.checked);
 
-      // Highlight the section currently being viewed.
-      const sections = $$('main section[id]');
-      const links = $$('.sidebar a');
+ if (save) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch {}
+ }
 
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(entries => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
+ const completed = checkboxes.filter(box => box.checked).length;
+ const percent = Math.round(completed / checkboxes.length * 100);
 
-            links.forEach(link => {
-              const active = link.getAttribute('href') === '#' + entry.target.id;
-              link.classList.toggle('active', active);
+ $("#progressFill").style.width = percent + "%";
+ $("#progressLabel").textContent = percent + "%";
+ $("#checkCount").textContent = `${completed} of ${checkboxes.length} complete`;
+ $("#terminalStatus").textContent = percent + "% COMPLETE";
+}
 
-              if (active) link.setAttribute('aria-current', 'location');
-              else link.removeAttribute('aria-current');
-            });
-          });
-        }, {
-          rootMargin: '-15% 0px -70% 0px',
-          threshold: 0
-        });
+const saved = readSavedState();
+checkboxes.forEach(box => {
+ box.checked = Boolean(saved[box.dataset.check]);
+ box.addEventListener("change", () => updateChecklist());
+});
+updateChecklist(false);
 
-        sections.forEach(section => observer.observe(section));
-      }
-    })();
-  </script>
+$("#resetChecks").addEventListener("click", () => {
+ checkboxes.forEach(box => box.checked = false);
+ updateChecklist();
+ showToast("Checklist reset.");
+});
+})();
+</script>
 </body>
 </html>
