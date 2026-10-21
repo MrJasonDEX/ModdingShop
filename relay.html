@@ -7,11 +7,11 @@
   <meta name="theme-color" content="#080611">
   <meta name="color-scheme" content="dark">
 
-  <title>BO2 Relay Guide | Modding XZ</title>
-  <meta name="description" content="The Modding XZ Black Ops 2 relay guide. Beginner-friendly setup instructions, UDP port forwarding, PC-to-console relay information, tools and troubleshooting.">
+  <title>BO2 Relay Guide & AIO RTE v7 | Modding XZ</title>
+  <meta name="description" content="Modding XZ Black Ops 2 relay guide, AIO RTE Tool v7 release, port forwarding, networking, downloads and troubleshooting.">
 
-  <meta property="og:title" content="BO2 Relay Guide | Modding XZ">
-  <meta property="og:description" content="Black Ops 2 relay updates, setup instructions, networking help and community tools.">
+  <meta property="og:title" content="BO2 Relay Guide & AIO RTE v7 | Modding XZ">
+  <meta property="og:description" content="Explore the BO2 AIO RTE Tool v7 release, supported game modes, relay setup, networking and community resources.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://moddingxz.co.uk/relay.html">
 
@@ -20,7 +20,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <style>
@@ -45,7 +45,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 100px;
+      scroll-padding-top: 90px;
     }
 
     body {
@@ -595,6 +595,109 @@
     .resource-card p { margin: 0 0 12px; color: var(--muted); font-size: .81rem; }
     .resource-link { font-size: .82rem; font-weight: 800; }
 
+    /* Featured AIO RTE release */
+    .aio-feature {
+      position: relative;
+      overflow: hidden;
+      border-color: rgba(192,132,252,.4);
+      background:
+        radial-gradient(ellipse at 100% 0%, rgba(168,85,247,.16), transparent 55%),
+        linear-gradient(145deg, rgba(25,15,43,.98), rgba(10,8,20,.98));
+    }
+
+    .aio-feature::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #7e22ce, #e879f9, #7e22ce);
+    }
+
+    .aio-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .release-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border: 1px solid rgba(74,222,128,.28);
+      border-radius: 50px;
+      background: rgba(74,222,128,.07);
+      color: #86efac;
+      font-size: .7rem;
+      font-weight: 900;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .aio-intro {
+      max-width: 760px;
+      color: var(--muted);
+    }
+
+    .aio-download {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+      padding: 19px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(7,5,12,.55);
+    }
+
+    .aio-download-copy {
+      min-width: 0;
+      flex: 1 1 220px;
+    }
+
+    .aio-download-copy strong {
+      display: block;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .aio-download-copy span {
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .aio-download .button {
+      flex: 0 1 auto;
+    }
+
+    .compatibility-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+
+    .compatibility-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin: 10px 0;
+      font-size: .85rem;
+    }
+
+    .compatibility-list i {
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .supported { color: #4ade80; }
+    .unsupported { color: #fb7185; }
+
     .checklist label {
       display: flex;
       align-items: flex-start;
@@ -726,6 +829,9 @@
       .copy-btn { top: 7px; right: 7px; }
       .hero-actions .button { flex: 1 1 auto; }
       .footer-inner { justify-content: center; text-align: center; }
+      .aio-download { align-items: stretch; }
+      .aio-download .button { width: 100%; }
+      .aio-header { align-items: flex-start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -751,6 +857,7 @@
 
       <div class="nav-links">
         <a href="#updates">Updates</a>
+        <a href="#aio-rte">AIO RTE v7</a>
         <a href="#ports">Networking</a>
         <a href="#troubleshooting">Troubleshooting</a>
         <a class="button button-primary" href="https://t.me/ModdingXZ"
@@ -767,7 +874,7 @@
         <div class="hero-copy">
           <div class="eyebrow">
             <span class="eyebrow-dot"></span>
-            Community testing · Beginner-friendly guide
+            Community testing · BO2 tools and guides
           </div>
 
           <h1>
@@ -776,22 +883,25 @@
           </h1>
 
           <p class="hero-description">
-            Need help understanding the BO2 relay setup? Find the download post,
-            follow the networking guide, check your ports and work through common
-            connection problems — all in one place from <strong>Modding XZ</strong>.
+            Your place for BO2 relay information, tool releases, networking guides
+            and troubleshooting. Check out the new <strong>AIO RTE Tool v7</strong>,
+            explore its features and find the resources you need — all from
+            <strong>Modding XZ</strong>.
           </p>
 
           <div class="hero-actions">
-            <a href="https://t.me/ModdingXZ/24327"
+            <a href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
                class="button button-primary"
                target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-download"></i> Download BO2 + New Tool
+              <i class="bi bi-download"></i> Download AIO RTE v7
+            </a>
+            <a href="https://t.me/ModdingXZ/24327"
+               class="button button-outline"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-controller"></i> BO2 + New Tool
             </a>
             <a href="#ports" class="button button-outline">
-              <i class="bi bi-router"></i> Port forwarding guide
-            </a>
-            <a href="#updates" class="button button-outline">
-              <i class="bi bi-journal-code"></i> Latest updates
+              <i class="bi bi-router"></i> Port forwarding
             </a>
           </div>
 
@@ -812,12 +922,12 @@
 
       <div class="quick-grid">
         <div class="quick-item">
-          <i class="bi bi-router"></i>
-          <div><strong>Networking</strong><span>UDP ports, NAT and router settings</span></div>
+          <i class="bi bi-rocket-takeoff"></i>
+          <div><strong>AIO RTE v7</strong><span>New release and feature highlights</span></div>
         </div>
         <div class="quick-item">
-          <i class="bi bi-activity"></i>
-          <div><strong>Diagnostics</strong><span>Wireshark and connection errors</span></div>
+          <i class="bi bi-router"></i>
+          <div><strong>Networking</strong><span>UDP ports, NAT and router settings</span></div>
         </div>
         <div class="quick-item">
           <i class="bi bi-controller"></i>
@@ -843,16 +953,17 @@
         <nav class="sidebar-links" aria-label="Guide contents">
           <a href="#intro">01 · Introduction</a>
           <a href="#updates">02 · BO2 updates</a>
-          <a href="#requirements">03 · Requirements</a>
-          <a href="#ports">04 · Port forwarding</a>
-          <a href="#setup">05 · PC setup</a>
-          <a href="#wireshark">06 · Wireshark</a>
-          <a href="#nat">07 · CGNAT and NAT</a>
-          <a href="#console">08 · Console bridge</a>
-          <a href="#troubleshooting">09 · Troubleshooting</a>
-          <a href="#checklist">10 · Checklist</a>
-          <a href="#resources">11 · Resources</a>
-          <a href="#faq">12 · Final notes</a>
+          <a href="#aio-rte">03 · AIO RTE v7</a>
+          <a href="#requirements">04 · Requirements</a>
+          <a href="#ports">05 · Port forwarding</a>
+          <a href="#setup">06 · PC setup</a>
+          <a href="#wireshark">07 · Wireshark</a>
+          <a href="#nat">08 · CGNAT and NAT</a>
+          <a href="#console">09 · Console bridge</a>
+          <a href="#troubleshooting">10 · Troubleshooting</a>
+          <a href="#checklist">11 · Checklist</a>
+          <a href="#resources">12 · Resources</a>
+          <a href="#faq">13 · Final notes</a>
         </nav>
       </aside>
 
@@ -869,6 +980,7 @@
           <p>Use this guide to find:</p>
           <ul>
             <li>The community-reported BO2 protocol and checksum changes.</li>
+            <li>The latest AIO RTE Tool v7 release information.</li>
             <li>The UDP ports requested for this relay setup.</li>
             <li>How to find your PC's local IP address.</li>
             <li>Where to enter port-forwarding rules on your router.</li>
@@ -878,16 +990,19 @@
 
           <div class="notice">
             <strong>New to port forwarding?</strong>
-            Start with the download post, then read Section 04 slowly. You are directing
-            specific network traffic to your PC — you are not forwarding ports to your console
-            unless the documentation for your particular setup says otherwise.
+            Start with the download post, then read the port-forwarding section slowly.
+            You are directing specific network traffic to your PC — you are not forwarding
+            ports to your console unless the documentation for your particular setup says otherwise.
           </div>
 
           <div class="hero-actions">
             <a href="https://t.me/ModdingXZ/24327"
                class="button button-primary"
                target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-download"></i> Open Download Post
+              <i class="bi bi-download"></i> Open BO2 Download Post
+            </a>
+            <a href="#aio-rte" class="button button-outline">
+              <i class="bi bi-rocket-takeoff"></i> Explore AIO RTE v7
             </a>
           </div>
         </section>
@@ -941,8 +1056,147 @@
           </a>
         </section>
 
+        <!-- NEW FEATURED RELEASE -->
+        <section class="guide-section aio-feature" id="aio-rte">
+          <div class="aio-header">
+            <div>
+              <div class="eyebrow">
+                <span class="eyebrow-dot" style="background:#4ade80;box-shadow:0 0 10px rgba(74,222,128,.5)"></span>
+                New release · Version 7
+              </div>
+              <h2 class="section-heading" style="margin-top:16px">
+                <span class="section-number"><i class="bi bi-rocket-takeoff"></i></span>
+                BO2 AIO RTE Tool v7
+              </h2>
+            </div>
+            <span class="release-pill"><i class="bi bi-check-circle-fill"></i> Out now</span>
+          </div>
+
+          <p class="aio-intro">
+            🛸 The BO2 AIO RTE Tool v7 is out! This release brings updated stats imports,
+            Zombies controls, 10+ infection fixes, relay improvements and new host options.
+            Check the supported game modes below before downloading.
+          </p>
+
+          <div class="notice warning">
+            <strong><i class="bi bi-controller"></i> Supported games</strong>
+            <ul class="compatibility-list">
+              <li><i class="bi bi-check-circle-fill supported"></i> RSG Multiplayer</li>
+              <li><i class="bi bi-check-circle-fill supported"></i> RSG Zombies</li>
+              <li><i class="bi bi-check-circle-fill supported"></i> MS Multiplayer</li>
+              <li><i class="bi bi-x-circle-fill unsupported"></i> MS Zombies is not supported</li>
+            </ul>
+          </div>
+
+          <div class="resource-grid">
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-tag-fill"></i></div>
+              <span class="tag">CUSTOMISATION</span>
+              <h3>AFK Clan Tag Editor</h3>
+              <p>
+                Assign any combination of supported tool mods to a clan tag
+                of your choice.
+              </p>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-bar-chart-line-fill"></i></div>
+              <span class="tag">STATS EDITOR</span>
+              <h3>Stats Editor imports</h3>
+              <p>
+                Import Multiplayer stats and custom class names from
+                bo2.statseditor.com. Zombies codes now import Career,
+                Co-op and Versus stats together.
+              </p>
+              <a class="resource-link"
+                 href="https://bo2.statseditor.com/"
+                 target="_blank" rel="noopener noreferrer">
+                Open Stats Editor <i class="bi bi-arrow-up-right"></i>
+              </a>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-joystick"></i></div>
+              <span class="tag">ZOMBIES UPGRADES</span>
+              <h3>Improved Zombies controls</h3>
+              <p>
+                Improved Blue Eyes tally handling, with new Co-op
+                and Versus stat controls.
+              </p>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+              <span class="tag">10+ INFECTIONS</span>
+              <h3>Infection fixes</h3>
+              <p>
+                Fixes for FOV, Body Hue, World Hue, Big Ranks and more.
+              </p>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-router-fill"></i></div>
+              <span class="tag">RELAY IMPROVEMENTS</span>
+              <h3>Better relay stability</h3>
+              <p>
+                Fixed the 64-bit Windows connection error and improved
+                stability in busy lobbies.
+              </p>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-shield-check"></i></div>
+              <span class="tag">LIVE HOST CONTROLS</span>
+              <h3>Kick All and immunity</h3>
+              <p>
+                New live host options, including Kick All and immunity
+                controls for supported sessions.
+              </p>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-bullseye"></i></div>
+              <span class="tag">LEGIT STATS</span>
+              <h3>Generated stat presets</h3>
+              <p>
+                Try generated legit-stat presets such as
+                <strong>Sniper Comp</strong> and
+                <strong>All-Round Cracked</strong>.
+              </p>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-moon-stars-fill"></i></div>
+              <span class="tag">ZOMBIES AFK LOBBY</span>
+              <h3>Custom AFK lobby settings</h3>
+              <p>
+                Customise which mods are applied when players join,
+                then automatically kick them when the job is done.
+              </p>
+            </article>
+          </div>
+
+          <div class="aio-download">
+            <div class="aio-download-copy">
+              <strong><i class="bi bi-download"></i> BO2 AIO RTE Tool v7</strong>
+              <span>Open the MediaFire download page for the release.</span>
+            </div>
+            <a class="button button-primary"
+               href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-cloud-download-fill"></i> Download v7
+              <i class="bi bi-arrow-up-right"></i>
+            </a>
+          </div>
+
+          <p class="muted small">
+            Compatibility and features are based on the supplied release information.
+            Check the release documentation for the exact supported builds and requirements.
+          </p>
+        </section>
+
         <section class="guide-section" id="requirements">
-          <h2 class="section-heading"><span class="section-number">03</span> What you need</h2>
+          <h2 class="section-heading"><span class="section-number">04</span> What you need</h2>
 
           <ul>
             <li>A compatible Black Ops 2 PC client.</li>
@@ -956,7 +1210,7 @@
           <div class="notice warning">
             <strong>Download the files first</strong>
             <p>
-              Open the Telegram post below and read the information attached to the release.
+              Open the Telegram post and read the information attached to the release.
               Make sure you understand which files belong to the game and which are the relay
               tool before opening anything.
             </p>
@@ -965,6 +1219,11 @@
                  href="https://t.me/ModdingXZ/24327"
                  target="_blank" rel="noopener noreferrer">
                 <i class="bi bi-telegram"></i> BO2 + New Tool
+              </a>
+              <a class="button button-outline"
+                 href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
+                 target="_blank" rel="noopener noreferrer">
+                <i class="bi bi-download"></i> AIO RTE v7
               </a>
             </div>
           </div>
@@ -1001,7 +1260,7 @@
         </section>
 
         <section class="guide-section" id="ports">
-          <h2 class="section-heading"><span class="section-number">04</span> Port forwarding — step by step</h2>
+          <h2 class="section-heading"><span class="section-number">05</span> Port forwarding — step by step</h2>
 
           <p>
             Port forwarding tells your router where to send certain incoming internet traffic.
@@ -1012,33 +1271,21 @@
           <div class="notice warning">
             <strong><i class="bi bi-router"></i> Ports requested for this setup</strong>
             <p>
-              Forward the UDP range <code>3060–3080</code> and the additional UDP port
+              Forward UDP ports <code>3060–3080</code> and the additional UDP port
               <code>17376</code> to the local IP address of the PC running the relay.
-              These are the requested settings for this setup; if the tool's release
-              instructions specify different values, verify which configuration applies
-              to your exact build.
+              If the tool's release instructions specify different values, verify which
+              configuration applies to your exact build.
             </p>
           </div>
 
-          <h3>Port details</h3>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr><th>Rule</th><th>Protocol</th><th>Port or range</th><th>Destination</th></tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>BO2 Relay</td>
-                  <td><code>UDP</code></td>
-                  <td><code>3060–3080</code></td>
-                  <td>Your relay PC's local IPv4</td>
-                </tr>
-                <tr>
-                  <td>Additional port</td>
-                  <td><code>UDP</code></td>
-                  <td><code>17376</code></td>
-                  <td>The same relay PC</td>
-                </tr>
+                <tr><td>BO2 Relay</td><td><code>UDP</code></td><td><code>3060–3080</code></td><td>Your relay PC's local IPv4</td></tr>
+                <tr><td>Additional port</td><td><code>UDP</code></td><td><code>17376</code></td><td>The same relay PC</td></tr>
               </tbody>
             </table>
           </div>
@@ -1062,7 +1309,7 @@ Destination: YOUR-PC-LOCAL-IP</pre>
             <li>Type <strong>Command Prompt</strong> and open it.</li>
             <li>Type <code>ipconfig</code> and press Enter.</li>
             <li>Find the network adapter you are actually using — Wi-Fi or Ethernet.</li>
-            <li>Write down the <strong>IPv4 Address</strong>. This is the destination for your rules.</li>
+            <li>Write down the <strong>IPv4 Address</strong>.</li>
           </ol>
 
           <div class="code-wrap">
@@ -1078,9 +1325,9 @@ Destination: YOUR-PC-LOCAL-IP</pre>
 
           <h3>Step 2 — Open your router settings</h3>
           <ol>
-            <li>In the same Command Prompt window, find <strong>Default Gateway</strong>.</li>
+            <li>In Command Prompt, find <strong>Default Gateway</strong>.</li>
             <li>Type that address into your browser's address bar.</li>
-            <li>Sign in to your router using its administration details.</li>
+            <li>Sign in using your router's administration details.</li>
             <li>Look for <strong>Port Forwarding</strong>, <strong>NAT</strong> or <strong>Virtual Server</strong>.</li>
           </ol>
 
@@ -1093,23 +1340,22 @@ Destination: YOUR-PC-LOCAL-IP</pre>
           <ol>
             <li>Create a new rule called <code>BO2 Relay</code>.</li>
             <li>Choose <strong>UDP</strong> as the protocol.</li>
-            <li>Enter <code>3060</code> as the starting port and <code>3080</code> as the ending port, if the router has separate fields.</li>
+            <li>Enter <code>3060</code> as the starting port and <code>3080</code> as the ending port, if available.</li>
             <li>Enter your PC's local IPv4 address as the destination.</li>
-            <li>Use the same internal port range unless your tool's instructions specify otherwise.</li>
+            <li>Use the same internal port range unless the tool's instructions specify otherwise.</li>
             <li>Save or apply the rule.</li>
           </ol>
 
           <h3>Step 4 — Add UDP port 17376</h3>
           <ol>
-            <li>Create another rule, or add an individual port entry if your router supports it.</li>
+            <li>Create another rule or individual port entry.</li>
             <li>Name it <code>BO2 Relay 17376</code>.</li>
             <li>Choose <strong>UDP</strong>.</li>
-            <li>Set the external and internal port to <code>17376</code>, unless the tool documentation specifies a different mapping.</li>
+            <li>Set external and internal port to <code>17376</code>, unless the tool specifies otherwise.</li>
             <li>Set the destination to the same PC's local IPv4 address.</li>
             <li>Save or apply the rule.</li>
           </ol>
 
-          <h3>Example configuration</h3>
           <div class="code-wrap">
             <pre id="exampleRule">Rule 1
 Name: BO2Relay
@@ -1129,27 +1375,22 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
 
           <div class="notice success">
             <strong>Check before moving on</strong>
-            Both rules should use UDP and point to the PC running the relay. If the PC's local
-            IP changes later, your router rules may point to the wrong device. A DHCP reservation
-            can help keep that address consistent.
+            Both rules should use UDP and point to the PC running the relay. A DHCP reservation
+            can help keep your PC's local address consistent.
           </div>
 
           <div class="notice warning">
             <strong>Still not connecting?</strong>
-            Saving a rule does not guarantee that packets can reach your PC. Windows Firewall,
-            CGNAT, double NAT, the tool's configuration and remote network behaviour can all affect
-            the result. Continue to the troubleshooting section rather than opening random ports.
+            Windows Firewall, CGNAT, double NAT, tool configuration and remote network behaviour
+            can all affect the result. Continue to troubleshooting rather than opening random ports.
           </div>
         </section>
 
         <section class="guide-section" id="setup">
-          <h2 class="section-heading"><span class="section-number">05</span> PC setup and firewall</h2>
+          <h2 class="section-heading"><span class="section-number">06</span> PC setup and firewall</h2>
 
           <h3>Step 1 — Confirm your IP address</h3>
-          <p>
-            Open Command Prompt and run the command below. Use the IPv4 address under your
-            active Wi-Fi or Ethernet adapter.
-          </p>
+          <p>Run the following command and use the IPv4 address under your active adapter.</p>
 
           <div class="code-wrap">
             <pre id="ipconfig">ipconfig</pre>
@@ -1160,15 +1401,15 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
           <ul>
             <li>Open Windows Security and find Firewall and network protection.</li>
             <li>Check whether the relay application has been blocked.</li>
-            <li>Only allow programs you trust, and use the appropriate network profile.</li>
+            <li>Only allow programs you trust and use the appropriate network profile.</li>
             <li>If you create a firewall rule, confirm the protocol and ports required by your tool.</li>
-            <li>Keep Windows Firewall enabled. Do not permanently disable it just to test a connection.</li>
+            <li>Keep Windows Firewall enabled.</li>
           </ul>
 
           <h3>Step 3 — Read the tool instructions</h3>
           <p>
             Open the release post and any included readme or documentation. Check which file
-            starts the relay, whether extra dependencies are required, and whether the tool
+            starts the relay, whether extra dependencies are required and whether the tool
             has settings you need to configure.
           </p>
 
@@ -1187,12 +1428,11 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
         </section>
 
         <section class="guide-section" id="wireshark">
-          <h2 class="section-heading"><span class="section-number">06</span> Wireshark diagnostics</h2>
+          <h2 class="section-heading"><span class="section-number">07</span> Wireshark diagnostics</h2>
 
           <p>
-            Wireshark lets you inspect network traffic on your PC. It is useful when the relay
-            starts but a connection still fails. Choose the active network interface, begin a
-            capture and reproduce the problem.
+            Wireshark lets you inspect network traffic on your PC. Choose the active network
+            interface, begin a capture and reproduce the problem.
           </p>
 
           <h3>Useful display filters</h3>
@@ -1233,31 +1473,22 @@ Destination IP: YOUR-PC-LOCAL-IP</pre>
                 <tr><th>What you see</th><th>What to check next</th></tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>No relevant traffic appears</td>
-                  <td>Confirm the interface, filter, expected traffic and router destination.</td>
-                </tr>
-                <tr>
-                  <td>Packets reach the PC, but the relay does not respond</td>
-                  <td>Check the tool's settings, dependencies, firewall and compatibility.</td>
-                </tr>
-                <tr>
-                  <td>Packets appear, but the connection fails</td>
-                  <td>Investigate return traffic, NAT behaviour and compatibility between clients.</td>
-                </tr>
+                <tr><td>No relevant traffic appears</td><td>Confirm the interface, filter, expected traffic and router destination.</td></tr>
+                <tr><td>Packets reach the PC, but the relay does not respond</td><td>Check tool settings, dependencies, firewall and compatibility.</td></tr>
+                <tr><td>Packets appear, but the connection fails</td><td>Investigate return traffic, NAT behaviour and compatibility.</td></tr>
               </tbody>
             </table>
           </div>
 
           <div class="notice warning">
             <strong>Protect your privacy</strong>
-            Network captures can reveal IP addresses and other identifying information.
-            Redact these before sharing publicly. Never publish passwords, tokens or private keys.
+            Network captures can reveal IP addresses and identifying information. Redact these
+            before sharing publicly. Never publish passwords, tokens or private keys.
           </div>
         </section>
 
         <section class="guide-section" id="nat">
-          <h2 class="section-heading"><span class="section-number">07</span> CGNAT, double NAT and VPS</h2>
+          <h2 class="section-heading"><span class="section-number">08</span> CGNAT, double NAT and VPS</h2>
 
           <h3>What is CGNAT?</h3>
           <p>
@@ -1304,13 +1535,11 @@ PC running the relay</pre>
           <p>
             A VPS may provide a public endpoint, but renting one does not automatically solve
             CGNAT. The necessary tunnel, routing and port forwarding must be configured correctly.
-            A VPN tunnel such as WireGuard can be suitable for some network designs, but it
-            requires configuration at both ends.
           </p>
         </section>
 
         <section class="guide-section" id="console">
-          <h2 class="section-heading"><span class="section-number">08</span> PC-to-console bridge</h2>
+          <h2 class="section-heading"><span class="section-number">09</span> PC-to-console bridge</h2>
 
           <div class="notice success">
             <strong><i class="bi bi-check-circle"></i> Community testing report</strong>
@@ -1348,7 +1577,7 @@ PC running the relay</pre>
         </section>
 
         <section class="guide-section" id="troubleshooting">
-          <h2 class="section-heading"><span class="section-number">09</span> Troubleshooting</h2>
+          <h2 class="section-heading"><span class="section-number">10</span> Troubleshooting</h2>
 
           <details>
             <summary>I've forwarded the ports, but the relay still doesn't work.</summary>
@@ -1356,7 +1585,7 @@ PC running the relay</pre>
               Check that UDP ports 3060–3080 and UDP port 17376 point to the correct local PC IP.
               Check Windows Firewall and the tool's instructions. If the problem continues,
               investigate CGNAT or double NAT and use Wireshark to see whether traffic reaches
-              your PC. Forwarding alone does not guarantee a working connection.
+              your PC.
             </p>
           </details>
 
@@ -1364,9 +1593,8 @@ PC running the relay</pre>
             <summary>Do I need two port-forwarding rules?</summary>
             <p>
               For this guide, the requested configuration is one UDP range rule covering
-              3060–3080 and a separate UDP rule for 17376. A router that supports a range and
-              individual ports may let you configure these in different ways, but both sets
-              of ports must be covered by the intended rules.
+              3060–3080 and a separate UDP rule for 17376. Both sets of ports must be covered
+              by the intended rules.
             </p>
           </details>
 
@@ -1382,9 +1610,8 @@ PC running the relay</pre>
           <details>
             <summary>My PC's IP address starts with 192.168 or 10. Is that wrong?</summary>
             <p>
-              No. These are common private local-network addresses. The router forwards traffic
-              to your PC using its local IP address. Your PC's local IP is different from your
-              public internet IP.
+              No. These are common private local-network addresses. Your PC's local IP is
+              different from your public internet IP.
             </p>
           </details>
 
@@ -1393,7 +1620,6 @@ PC running the relay</pre>
             <p>
               Confirm you selected the active network interface and are reproducing the problem
               during the capture. Check your display filter, forwarding destination and firewall.
-              Also consider whether the expected traffic is being sent in the first place.
             </p>
           </details>
 
@@ -1411,7 +1637,7 @@ PC running the relay</pre>
             <p>
               Not necessarily. UDP applications may not respond to arbitrary probes, so an
               online checker can give inconclusive results. Application-specific tests and
-              packet captures are usually more useful for diagnosing the actual traffic.
+              packet captures are usually more useful.
             </p>
           </details>
 
@@ -1427,17 +1653,16 @@ PC running the relay</pre>
             <summary>Where can I get setup help?</summary>
             <p>
               Individual setup support for this method is not currently available through
-              Modding XZ. Check the Telegram channel for announcements and updated documentation
-              when it becomes available.
+              Modding XZ. Check the Telegram channel for announcements and updated documentation.
             </p>
           </details>
         </section>
 
         <section class="guide-section" id="checklist">
-          <h2 class="section-heading"><span class="section-number">10</span> Diagnostic checklist</h2>
+          <h2 class="section-heading"><span class="section-number">11</span> Diagnostic checklist</h2>
 
           <p class="muted small">
-            Work through the checks one at a time. Tick each box when you have completed it.
+            Work through the checks one at a time. Tick each box when completed.
             Your progress is saved in this browser when local storage is available.
           </p>
 
@@ -1469,7 +1694,7 @@ PC running the relay</pre>
         </section>
 
         <section class="guide-section" id="resources">
-          <h2 class="section-heading"><span class="section-number">11</span> Tools and resources</h2>
+          <h2 class="section-heading"><span class="section-number">12</span> Tools and resources</h2>
 
           <p>
             These links are provided as references to community posts and external resources.
@@ -1478,84 +1703,125 @@ PC running the relay</pre>
 
           <div class="resource-grid">
             <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-rocket-takeoff"></i></div>
+              <span class="tag">NEW RELEASE · V7</span>
+              <h3>BO2 AIO RTE Tool v7</h3>
+              <p>New stats imports, Zombies upgrades, infection fixes and relay improvements.</p>
+              <a class="resource-link"
+                 href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
+                 target="_blank" rel="noopener noreferrer">
+                Download v7 <i class="bi bi-arrow-up-right"></i>
+              </a>
+            </article>
+
+            <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-download"></i></div>
-              <span class="tag">Featured download</span>
+              <span class="tag">FEATURED DOWNLOAD</span>
               <h3>BO2 + New Tool</h3>
               <p>Open the Modding XZ Telegram post for the game files and new tool information.</p>
               <a class="resource-link" href="https://t.me/ModdingXZ/24327"
-                 target="_blank" rel="noopener noreferrer">Open download post <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Open download post <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-tools"></i></div>
-              <span class="tag">Community resource</span>
+              <span class="tag">COMMUNITY RESOURCE</span>
               <h3>Volt RTM</h3>
               <p>Modding XZ Telegram resource post.</p>
               <a class="resource-link" href="https://t.me/ModdingXZ/21143"
-                 target="_blank" rel="noopener noreferrer">Open Telegram post <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Open Telegram post <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-lightning-charge"></i></div>
-              <span class="tag">Relay tool</span>
+              <span class="tag">RELAY TOOL</span>
               <h3>1-click Relay</h3>
               <p>Community post for the relay tool and its intended use.</p>
               <a class="resource-link" href="https://t.me/ModdingXZ/21071"
-                 target="_blank" rel="noopener noreferrer">Open relay post <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Open relay post <i class="bi bi-arrow-up-right"></i>
+              </a>
+            </article>
+
+            <article class="resource-card">
+              <div class="resource-icon"><i class="bi bi-bar-chart-line"></i></div>
+              <span class="tag">STATS EDITOR</span>
+              <h3>BO2 Stats Editor</h3>
+              <p>Open the Stats Editor website referenced in the AIO RTE v7 release.</p>
+              <a class="resource-link" href="https://bo2.statseditor.com/"
+                 target="_blank" rel="noopener noreferrer">
+                Open Stats Editor <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-controller"></i></div>
-              <span class="tag">External link</span>
+              <span class="tag">EXTERNAL LINK</span>
               <h3>Black Ops 2 PC files</h3>
               <p>Check the source and make sure you have the right to access and use any files obtained.</p>
               <a class="resource-link" href="https://buzzheavier.com/turbm180v9i6"
-                 target="_blank" rel="noopener noreferrer">Open external resource <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Open external resource <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-activity"></i></div>
-              <span class="tag">Official tool</span>
+              <span class="tag">OFFICIAL TOOL</span>
               <h3>Wireshark</h3>
               <p>Network analyser for diagnosing traffic and connectivity.</p>
               <a class="resource-link" href="https://www.wireshark.org/download.html"
-                 target="_blank" rel="noopener noreferrer">Official downloads <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Official downloads <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-diagram-3"></i></div>
-              <span class="tag">Official tool</span>
+              <span class="tag">OFFICIAL TOOL</span>
               <h3>Npcap</h3>
               <p>Windows packet-capture driver commonly used by Wireshark.</p>
               <a class="resource-link" href="https://nmap.org/npcap/"
-                 target="_blank" rel="noopener noreferrer">Official website <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Official website <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-code-square"></i></div>
-              <span class="tag">Community project</span>
+              <span class="tag">COMMUNITY PROJECT</span>
               <h3>GSC injector project</h3>
               <p>GitLab project link from the original resource list.</p>
               <a class="resource-link" href="https://gitlab.com/Spet001/msclients"
-                 target="_blank" rel="noopener noreferrer">Open GitLab <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Open GitLab <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-globe2"></i></div>
-              <span class="tag">Official community</span>
+              <span class="tag">OFFICIAL COMMUNITY</span>
               <h3>Modding XZ Website</h3>
               <p>Visit the website for community information and other resources.</p>
               <a class="resource-link" href="https://moddingxz.co.uk"
-                 target="_blank" rel="noopener noreferrer">Visit website <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Visit website <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
 
             <article class="resource-card">
               <div class="resource-icon"><i class="bi bi-telegram"></i></div>
-              <span class="tag">Updates and announcements</span>
+              <span class="tag">UPDATES AND ANNOUNCEMENTS</span>
               <h3>Modding XZ Telegram</h3>
               <p>Check the community channel for announcements and future releases.</p>
               <a class="resource-link" href="https://t.me/ModdingXZ"
-                 target="_blank" rel="noopener noreferrer">Join the channel <i class="bi bi-arrow-up-right"></i></a>
+                 target="_blank" rel="noopener noreferrer">
+                Join the channel <i class="bi bi-arrow-up-right"></i>
+              </a>
             </article>
           </div>
 
@@ -1567,13 +1833,19 @@ PC running the relay</pre>
         </section>
 
         <section class="guide-section" id="faq">
-          <h2 class="section-heading"><span class="section-number">12</span> Final notes</h2>
+          <h2 class="section-heading"><span class="section-number">13</span> Final notes</h2>
 
           <p>
             The main things to check are the correct tool version, the PC's local IP address,
             both sets of UDP ports, Windows Firewall and the traffic reaching your PC.
             If those checks do not solve the problem, NAT restrictions or compatibility may
             be involved.
+          </p>
+
+          <p>
+            For AIO RTE v7, check the supported game modes carefully: RSG Multiplayer,
+            RSG Zombies and MS Multiplayer are listed as supported, while MS Zombies is
+            not supported according to the supplied release information.
           </p>
 
           <p>
@@ -1590,7 +1862,12 @@ PC running the relay</pre>
           </div>
 
           <div class="hero-actions">
-            <a class="button button-primary" href="https://t.me/ModdingXZ"
+            <a class="button button-primary"
+               href="https://www.mediafire.com/download_status.php?quickkey=w2oxogmxa0quh94&amp;origin=download"
+               target="_blank" rel="noopener noreferrer">
+              <i class="bi bi-download"></i> Download AIO RTE v7
+            </a>
+            <a class="button button-outline" href="https://t.me/ModdingXZ"
                target="_blank" rel="noopener noreferrer">
               <i class="bi bi-telegram"></i> Join Modding XZ
             </a>
@@ -1688,7 +1965,7 @@ PC running the relay</pre>
             JSON.stringify(checks.map(input => input.checked))
           );
         } catch {
-          // The checklist remains usable for the current page session.
+          // Checklist remains usable for this page session.
         }
       }
 
