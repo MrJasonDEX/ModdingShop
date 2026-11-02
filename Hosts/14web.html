@@ -3,53 +3,410 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#080510">
 
-    <title>PS4 14.00 WebKit Exploit | ModdingXZ</title>
+    <title>PS4 14.00 Jailbreak | ModdingXZ</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --purple: #941cff;
+            --purple-light: #bd70ff;
+            --background: #080510;
+            --card: #120b1e;
+            --white: #ffffff;
+            --muted: #aaa0b9;
+        }
+
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
-            width: 100%;
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            color: var(--white);
+            background:
+                radial-gradient(ellipse at 50% 0%, #321050 0%, transparent 48%),
+                radial-gradient(ellipse at 0% 100%, #1c0a32 0%, transparent 40%),
+                var(--background);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background: rgba(8,5,16,.88);
+            border-bottom: 1px solid rgba(148,28,255,.3);
+            padding: 18px 0;
+            backdrop-filter: blur(15px);
+        }
+
+        .brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 23px;
+            letter-spacing: -1px;
+            color: white;
+        }
+
+        .brand span {
+            color: var(--purple-light);
+        }
+
+        .status {
+            color: #c98aff;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 75px 15px 35px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            border: 1px solid rgba(189,112,255,.5);
+            background: rgba(148,28,255,.12);
+            color: #d6a6ff;
+            border-radius: 30px;
+            padding: 9px 17px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(35px, 7vw, 68px);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: var(--purple-light);
+            text-shadow: 0 0 35px rgba(148,28,255,.65);
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .choice-section {
+            max-width: 1050px;
+            margin: 35px auto 75px;
+            padding: 0 18px;
+        }
+
+        .choice-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .choice-heading h2 {
+            font-weight: 900;
+            font-size: 25px;
+        }
+
+        .choice-heading p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .choice-card {
             height: 100%;
+            position: relative;
+            background: linear-gradient(145deg, #1a1028, #0e0917);
+            border: 1px solid rgba(148,28,255,.35);
+            border-radius: 20px;
+            padding: 35px 27px;
+            text-align: center;
+            transition: .3s ease;
             overflow: hidden;
-            background: #080510;
         }
 
-        .exploit-frame {
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            inset: 0;
-            background: #080510;
+        .choice-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--purple-light);
+            box-shadow: 0 15px 45px rgba(148,28,255,.2);
         }
 
-        iframe {
+        .choice-icon {
+            width: 85px;
+            height: 85px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 22px;
+            font-size: 36px;
+            color: white;
+            background: linear-gradient(135deg, #7812df, #b44aff);
+            box-shadow: 0 0 30px rgba(148,28,255,.3);
+        }
+
+        .choice-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .choice-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+            min-height: 70px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+            margin: 22px 0;
+            text-align: left;
+        }
+
+        .features li {
+            color: #ded5e9;
+            font-size: 12px;
+            margin: 12px 0;
+        }
+
+        .features i {
+            color: var(--purple-light);
+            margin-right: 9px;
+        }
+
+        .choice-btn {
             display: block;
             width: 100%;
-            height: 100%;
+            padding: 16px 12px;
+            border-radius: 11px;
+            background: linear-gradient(100deg, #7612d8, #ae43ff);
+            color: white;
+            font-weight: 900;
+            text-decoration: none;
+            letter-spacing: .5px;
+            font-size: 13px;
+            transition: .25s;
             border: none;
-            background: #080510;
+        }
+
+        .choice-btn:hover {
+            color: white;
+            transform: scale(1.025);
+            box-shadow: 0 0 25px rgba(148,28,255,.5);
+        }
+
+        .recommended {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(148,28,255,.2);
+            color: #d6a6ff;
+            padding: 6px 10px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            border-radius: 20px;
+        }
+
+        .warning {
+            max-width: 750px;
+            margin: 0 auto 50px;
+            padding: 20px;
+            background: rgba(148,28,255,.08);
+            border: 1px solid rgba(148,28,255,.25);
+            border-radius: 13px;
+            text-align: center;
+            color: #c8b9d8;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            border-top: 1px solid rgba(148,28,255,.2);
+            color: #80748f;
+            font-size: 11px;
+        }
+
+        footer strong {
+            color: var(--purple-light);
+        }
+
+        @media(max-width: 576px) {
+            .hero {
+                padding-top: 55px;
+            }
+
+            .choice-card {
+                padding: 30px 22px;
+            }
+
+            .choice-card p {
+                min-height: auto;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="exploit-frame">
-        <iframe
-            src="http://ps4.sentrix.ac/raw13/jb.html?log=1&mem=1&slots=9100000&drain=12&hx1400=1&kv=1&fam=0&telemetry=0&stage3=1&stage4=1&stage5=1&stage6=1&stage7=1&stage8=1&stage9=1&stage10=1&goldhen=1&v=1793641890121"
-            title="PS4 14.00 WebKit Exploit"
-            allow="fullscreen"
-            allowfullscreen>
-        </iframe>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div class="brand">
+            MODDING<span>XZ</span>
+        </div>
+
+        <div class="status">
+            <i class="fa-solid fa-circle-check"></i>
+            PS4 14.00
+        </div>
     </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+
+    <div class="hero-label">
+        <i class="fa-brands fa-playstation"></i>
+        PLAYSTATION 4 JAILBREAK
+    </div>
+
+    <h1>
+        PS4 <span>14.00</span><br>
+        JAILBREAK
+    </h1>
+
+    <p>
+        Two ways to get started. Choose the method you want to use
+        and follow the relevant instructions.
+    </p>
+
+</section>
+
+<!-- Choices -->
+<section class="choice-section">
+
+    <div class="choice-heading">
+        <h2>HOW WOULD YOU LIKE TO START?</h2>
+        <p>Select your preferred jailbreak method below.</p>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- WEBKIT -->
+        <div class="col-md-6">
+
+            <div class="choice-card">
+
+                <div class="recommended">WEBKIT METHOD</div>
+
+                <div class="choice-icon">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+
+                <h3>WEBKIT EXPLOIT</h3>
+
+                <p>
+                    Launch the Sentrix WebKit exploit directly
+                    through your PS4 browser.
+                </p>
+
+                <ul class="features">
+                    <li><i class="fa-solid fa-check"></i> Browser-based exploit</li>
+                    <li><i class="fa-solid fa-check"></i> Sentrix exploit page</li>
+                    <li><i class="fa-solid fa-check"></i> GoldHEN payload option</li>
+                    <li><i class="fa-solid fa-check"></i> No disc required for this route</li>
+                </ul>
+
+                <a class="choice-btn"
+                   href="http://ps4.sentrix.ac/raw13/jb.html?log=1&amp;mem=1&amp;slots=9100000&amp;drain=12&amp;hx1400=1&amp;kv=1&amp;fam=0&amp;telemetry=0&amp;stage3=1&amp;stage4=1&amp;stage5=1&amp;stage6=1&amp;stage7=1&amp;stage8=1&amp;stage9=1&amp;stage10=1&amp;goldhen=1&amp;v=1793641890121">
+
+                    <i class="fa-solid fa-rocket"></i>
+                    LAUNCH WEBKIT EXPLOIT
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- DISC -->
+        <div class="col-md-6">
+
+            <div class="choice-card">
+
+                <div class="choice-icon">
+                    <i class="fa-solid fa-compact-disc"></i>
+                </div>
+
+                <h3>CREATE YOUR OWN DISC</h3>
+
+                <p>
+                    Prefer the disc method? Visit our Bonk-HEN
+                    guide and follow the instructions to create your disc.
+                </p>
+
+                <ul class="features">
+                    <li><i class="fa-solid fa-check"></i> Bonk-HEN instructions</li>
+                    <li><i class="fa-solid fa-check"></i> Download and preparation guide</li>
+                    <li><i class="fa-solid fa-check"></i> Requires a compatible disc burner</li>
+                    <li><i class="fa-solid fa-check"></i> Follow the disc installation tutorial</li>
+                </ul>
+
+                <a class="choice-btn"
+                   href="https://moddingxz.co.uk/Hosts/14.html#bonkhen">
+
+                    <i class="fa-solid fa-compact-disc"></i>
+                    CREATE YOUR OWN DISC
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Notice -->
+<div class="container">
+    <div class="warning">
+        <i class="fa-solid fa-circle-info"></i>
+        <strong> IMPORTANT:</strong>
+        Only use the method and firmware instructions that match
+        your console. Exploit compatibility and stability are not guaranteed.
+        Do not update your firmware without checking compatibility first.
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <strong>MODDINGXZ</strong>
+    <br>
+    YOUR PS4. YOUR MODS. YOUR COMMUNITY.
+    <br><br>
+    © 2026 ModdingXZ. All rights reserved.
+</footer>
 
 </body>
 </html>
