@@ -1,159 +1,1114 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#090510">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07050b">
 
-    <title>PS4 14.00 | ModdingXZ</title>
+    <title>MODDING XZ // PS4 14.00 JAILBREAK</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="../../pspulse.png">
+
+    <!-- Bootstrap 5.3.8 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
 
     <style>
+        :root {
+            --mx-bg: #07050b;
+            --mx-bg2: #0d0914;
+            --mx-panel: #110d19;
+            --mx-panel2: #171020;
+
+            --mx-purple: #9147ff;
+            --mx-purple2: #b06cff;
+            --mx-purple3: #d0a8ff;
+
+            --mx-border: #2a1d3d;
+            --mx-border2: #392750;
+
+            --mx-text: #f8f5ff;
+            --mx-muted: #aaa0b8;
+            --mx-dim: #70667d;
+
+            --mx-green: #55e6a5;
+            --mx-amber: #e5b85c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            background: var(--mx-bg);
+            scroll-behavior: smooth;
+        }
+
         body {
-            background: #090510;
-            color: white;
-            font-family: Arial, sans-serif;
             min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+
+            color: var(--mx-text);
+
+            background:
+                radial-gradient(
+                    circle at 50% -15%,
+                    rgba(145, 71, 255, .22),
+                    transparent 45%
+                ),
+                radial-gradient(
+                    circle at 100% 45%,
+                    rgba(145, 71, 255, .07),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    rgba(145, 71, 255, .025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(145, 71, 255, .025) 1px,
+                    transparent 1px
+                ),
+                var(--mx-bg);
+
+            background-size:
+                auto,
+                auto,
+                40px 40px,
+                40px 40px;
+
+            font-family:
+                Consolas,
+                "Liberation Mono",
+                monospace;
         }
 
-        .brand {
-            color: white;
-            font-size: 25px;
+        a {
+            color: inherit;
+        }
+
+        .mx-container {
+            max-width: 1100px;
+        }
+
+        /* HEADER */
+
+        .mx-navbar {
+            position: relative;
+
+            border: 1px solid var(--mx-border);
+            background: rgba(13, 9, 20, .93);
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, .35),
+                inset 0 -1px rgba(145, 71, 255, .08);
+        }
+
+        .mx-navbar::after {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+
+            height: 1px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--mx-purple),
+                transparent
+            );
+
+            opacity: .7;
+        }
+
+        .mx-logo {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: -.06em;
+            text-decoration: none;
+        }
+
+        .mx-logo span {
+            color: var(--mx-purple);
+        }
+
+        .mx-logo small {
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--mx-dim);
+
+            font-family: Consolas, monospace;
+            font-size: 8px;
+            font-weight: 400;
+            letter-spacing: .16em;
+        }
+
+        .mx-fw-status {
+            color: var(--mx-green);
+
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .mx-fw-status::before {
+            content: "●";
+            margin-right: 7px;
+        }
+
+        /* HERO */
+
+        .mx-hero {
+            position: relative;
+            padding: 85px 5px 35px;
+        }
+
+        .mx-hero::after {
+            content: "14.00";
+
+            position: absolute;
+            top: 35px;
+            right: 2%;
+
+            color: rgba(145, 71, 255, .035);
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(90px, 18vw, 190px);
+            font-weight: 900;
+            letter-spacing: -.09em;
+
+            pointer-events: none;
+        }
+
+        .mx-kicker {
+            position: relative;
+            z-index: 1;
+
+            color: var(--mx-purple3);
+
+            font-size: 11px;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+        }
+
+        .mx-kicker::before {
+            content: ">";
+            margin-right: 8px;
+
+            color: var(--mx-purple);
             font-weight: 900;
         }
 
-        .brand span {
-            color: #a855f7;
+        .mx-title {
+            position: relative;
+            z-index: 1;
+
+            margin: 15px 0 0;
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(48px, 8vw, 85px);
+            font-weight: 900;
+            line-height: .92;
+
+            letter-spacing: -.07em;
         }
 
-        .main {
+        .mx-title .purple {
+            color: var(--mx-purple);
+        }
+
+        .mx-title .white {
+            color: var(--mx-text);
+        }
+
+        .mx-subtitle {
+            position: relative;
+            z-index: 1;
+
             max-width: 650px;
-            margin: 100px auto;
-            padding: 20px;
+
+            margin: 23px auto 0;
+
+            color: var(--mx-muted);
+
+            font-size: 13px;
+            line-height: 1.8;
         }
 
-        h1 {
-            font-weight: 900;
-            font-size: clamp(32px, 6vw, 48px);
+        .mx-terminal {
+            position: relative;
+            z-index: 1;
+
+            margin-top: 20px;
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+            line-height: 1.9;
         }
 
-        h1 span {
-            color: #a855f7;
+        .mx-terminal b {
+            color: var(--mx-purple2);
+            font-weight: 400;
         }
 
-        .subtitle {
-            color: #aaa;
-            margin-bottom: 35px;
+        /* STATS */
+
+        .mx-stat {
+            min-width: 110px;
+
+            padding: 10px 14px;
+
+            border: 1px solid var(--mx-border);
+            background: rgba(17, 13, 25, .8);
         }
 
-        .option {
+        .mx-stat-label {
+            display: block;
+
+            color: var(--mx-dim);
+
+            font-size: 8px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .mx-stat-value {
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--mx-purple3);
+
+            font-size: 12px;
+        }
+
+        /* OPTIONS */
+
+        .mx-options {
+            margin-top: 25px;
+        }
+
+        .mx-section-heading {
+            margin-bottom: 15px;
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .mx-option {
+            position: relative;
+
             display: flex;
             align-items: center;
             gap: 18px;
-            background: #171020;
-            border: 1px solid #38204e;
-            border-radius: 12px;
-            padding: 22px;
-            margin-bottom: 15px;
-            color: white;
+
+            min-height: 125px;
+
+            padding: 23px;
+
+            border: 1px solid var(--mx-border);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .07),
+                    transparent 65%
+                ),
+                var(--mx-panel);
+
+            color: var(--mx-text);
+            text-align: left;
             text-decoration: none;
-            transition: .2s;
+
+            transition:
+                .2s ease,
+                transform .2s ease;
+
+            overflow: hidden;
         }
 
-        .option:hover {
-            background: #261437;
-            border-color: #a855f7;
-            color: white;
+        .mx-option:hover {
+            color: var(--mx-text);
+
+            border-color: var(--mx-purple);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .15),
+                    transparent 65%
+                ),
+                var(--mx-panel2);
+
             transform: translateY(-3px);
         }
 
-        .option i {
-            font-size: 32px;
-            color: #b76aff;
+        .mx-option.primary {
+            border-color: var(--mx-purple);
         }
 
-        .option h5 {
-            font-weight: 800;
-            margin: 0 0 5px;
+        .mx-option.primary::before {
+            content: "";
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+
+            width: 3px;
+
+            background: var(--mx-purple);
         }
 
-        .option p {
-            color: #aaa;
-            font-size: 13px;
+        .mx-option-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            width: 58px;
+            height: 58px;
+
+            border: 1px solid var(--mx-border2);
+            background: rgba(145, 71, 255, .08);
+
+            color: var(--mx-purple2);
+
+            font-size: 27px;
+        }
+
+        .mx-option-content {
+            min-width: 0;
+        }
+
+        .mx-option h3 {
+            margin: 0 0 7px;
+
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 19px;
+            font-weight: 900;
+            letter-spacing: -.03em;
+        }
+
+        .mx-option p {
             margin: 0;
+
+            color: var(--mx-muted);
+
+            font-size: 10px;
+            line-height: 1.7;
         }
 
-        .arrow {
+        .mx-option-meta {
+            display: block;
+
+            margin-top: 8px;
+
+            color: var(--mx-dim);
+
+            font-size: 8px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .mx-option-arrow {
             margin-left: auto;
-            font-size: 20px !important;
+
+            flex-shrink: 0;
+
+            color: var(--mx-dim);
+
+            font-size: 19px;
+            transition: .2s ease;
         }
 
-        footer {
-            color: #777;
-            font-size: 12px;
+        .mx-option:hover .mx-option-arrow {
+            color: var(--mx-purple2);
+            transform: translateX(4px);
+        }
+
+        .mx-option.primary .mx-option-arrow {
+            color: var(--mx-purple2);
+        }
+
+        .mx-recommended {
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            padding: 5px 10px;
+
+            background: rgba(145, 71, 255, .15);
+            border-left: 1px solid var(--mx-border);
+            border-bottom: 1px solid var(--mx-border);
+
+            color: var(--mx-purple3);
+
+            font-size: 8px;
+            letter-spacing: .12em;
+        }
+
+        /* INFORMATION */
+
+        .mx-info {
+            margin-top: 20px;
+
+            padding: 17px;
+
+            border: 1px solid var(--mx-border);
+            background: rgba(17, 13, 25, .75);
+        }
+
+        .mx-info-heading {
+            color: var(--mx-purple2);
+
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .mx-info-text {
+            margin-top: 8px;
+
+            color: var(--mx-muted);
+
+            font-size: 10px;
+            line-height: 1.8;
+        }
+
+        /* COMMUNITY */
+
+        .mx-community {
+            margin-top: 25px;
+
+            border: 1px solid var(--mx-border);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .09),
+                    transparent 55%
+                ),
+                var(--mx-panel);
+        }
+
+        .mx-community-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -.04em;
+        }
+
+        .mx-community-title span {
+            color: var(--mx-purple);
+        }
+
+        .mx-community-text {
+            max-width: 560px;
+
+            margin-top: 7px;
+
+            color: var(--mx-muted);
+
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .mx-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            min-height: 55px;
+
+            border: 1px solid var(--mx-border);
+            background: rgba(7, 5, 11, .55);
+
+            text-decoration: none;
+
+            transition: .15s ease;
+        }
+
+        .mx-link:hover,
+        .mx-link:focus {
+            color: inherit;
+
+            border-color: var(--mx-purple);
+            background: var(--mx-panel2);
+
+            outline: none;
+        }
+
+        .mx-link-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 31px;
+            height: 31px;
+
+            border: 1px solid var(--mx-border2);
+
+            color: var(--mx-purple2);
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .mx-link-name {
+            display: block;
+
+            color: var(--mx-text);
+
+            font-size: 11px;
+        }
+
+        .mx-link-meta {
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--mx-dim);
+
+            font-size: 8px;
+        }
+
+        .mx-link-arrow {
+            margin-left: auto;
+
+            color: var(--mx-dim);
+
+            font-size: 10px;
+        }
+
+        .mx-link:hover .mx-link-arrow {
+            color: var(--mx-purple2);
+        }
+
+        /* FOOTER */
+
+        .mx-footer {
+            margin-top: 25px;
+            padding: 13px 5px 8px;
+
+            border-top: 1px solid var(--mx-border);
+
+            color: var(--mx-dim);
+
+            font-size: 9px;
             text-align: center;
-            padding: 20px;
+        }
+
+        .mx-footer a {
+            color: var(--mx-muted);
+            text-decoration: none;
+        }
+
+        .mx-footer a:hover {
+            color: var(--mx-purple2);
+        }
+
+        .mx-footer-brand {
+            color: var(--mx-purple2);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 767.98px) {
+
+            .mx-hero {
+                padding: 60px 3px 25px;
+            }
+
+            .mx-hero::after {
+                top: 20px;
+                font-size: 90px;
+            }
+
+            .mx-title {
+                font-size: 49px;
+            }
+
+            .mx-subtitle {
+                font-size: 12px;
+            }
+
+            .mx-terminal {
+                font-size: 9px;
+            }
+
+            .mx-option {
+                min-height: 115px;
+                padding: 18px 14px;
+                gap: 12px;
+            }
+
+            .mx-option-icon {
+                width: 46px;
+                height: 46px;
+                font-size: 22px;
+            }
+
+            .mx-option h3 {
+                font-size: 16px;
+            }
+
+            .mx-option p {
+                font-size: 9px;
+            }
+
+            .mx-community-title {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<nav class="navbar py-3">
-    <div class="container">
-        <a class="navbar-brand brand" href="https://moddingxz.co.uk/">
-            MODDING<span>XZ</span>
-        </a>
-    </div>
-</nav>
+<div class="container mx-container py-3 py-md-4">
 
-<main class="main text-center">
+    <!-- MODDING XZ HEADER -->
 
-    <h1>PS4 <span>14.00</span></h1>
+    <header class="mx-navbar px-3 py-3">
 
-    <p class="subtitle">
-        How would you like to jailbreak your PS4?
-    </p>
+        <div class="d-flex align-items-center justify-content-between gap-3">
 
-    <!-- WEBKIT -->
-    <a class="option text-start"
-       href="https://moddingxz.co.uk/Hosts/14.00/index.html">
+            <a class="mx-logo" href="https://moddingxz.co.uk/">
 
-        <i class="bi bi-globe"></i>
+                MODDING <span>X</span><span>Z</span>
 
-        <div>
-            <h5>WEBKIT EXPLOIT</h5>
-            <p>Launch the browser exploit</p>
+                <small>
+                    PLAYSTATION MODDING
+                </small>
+
+            </a>
+
+            <div class="mx-fw-status">
+                PS4 FW 14.00
+            </div>
+
         </div>
 
-        <i class="bi bi-chevron-right arrow"></i>
-    </a>
+    </header>
 
-    <!-- DISC -->
-    <a class="option text-start"
-       href="https://moddingxz.co.uk/Hosts/14.html#bonkhen">
+    <main>
 
-        <i class="bi bi-disc"></i>
+        <!-- HERO -->
+
+        <section class="mx-hero text-center">
+
+            <div class="mx-kicker">
+                MODDING XZ // PS4 HOST SYSTEM
+            </div>
+
+            <h1 class="mx-title">
+                PS4 <span class="purple">14.00</span><br>
+                <span class="white">JAILBREAK</span>
+            </h1>
+
+            <p class="mx-subtitle">
+                Choose how you want to proceed with your PlayStation 4
+                firmware 14.00. Select one of the available methods below
+                to access the relevant Modding XZ guide or host.
+            </p>
+
+            <div class="mx-terminal">
+                <b>[ SYSTEM ]</b> Modding XZ PlayStation host system<br>
+                <b>[ FW ]</b> Firmware 14.00 information and methods<br>
+                <b>[ OPTIONS ]</b> Browser exploit / Disc-based method
+            </div>
+
+            <!-- STATS -->
+
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">
+                        Firmware
+                    </span>
+
+                    <span class="mx-stat-value">
+                        14.00
+                    </span>
+                </div>
+
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">
+                        Method 01
+                    </span>
+
+                    <span class="mx-stat-value">
+                        WEBKIT
+                    </span>
+                </div>
+
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">
+                        Method 02
+                    </span>
+
+                    <span class="mx-stat-value">
+                        DISC
+                    </span>
+                </div>
+
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">
+                        Platform
+                    </span>
+
+                    <span class="mx-stat-value">
+                        PS4
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- JAILBREAK OPTIONS -->
+
+        <section class="mx-options">
+
+            <div class="mx-section-heading">
+                <span style="color:var(--mx-purple)">//</span>
+                SELECT YOUR METHOD
+            </div>
+
+            <div class="row g-3">
+
+                <!-- WEBKIT -->
+
+                <div class="col-12">
+
+                    <a
+                        class="mx-option primary"
+                        href="https://moddingxz.co.uk/Hosts/14.00/index.html"
+                    >
+
+                        <span class="mx-recommended">
+                            METHOD 01
+                        </span>
+
+                        <span class="mx-option-icon">
+                            <i class="bi bi-globe2"></i>
+                        </span>
+
+                        <span class="mx-option-content">
+
+                            <h3>
+                                WEBKIT EXPLOIT
+                            </h3>
+
+                            <p>
+                                Access the PS4 browser-based exploit host
+                                and follow the available on-screen instructions.
+                            </p>
+
+                            <span class="mx-option-meta">
+                                BROWSER METHOD // EXPERIMENTAL
+                            </span>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right mx-option-arrow"></i>
+
+                    </a>
+
+                </div>
+
+                <!-- DISC -->
+
+                <div class="col-12">
+
+                    <a
+                        class="mx-option"
+                        href="https://moddingxz.co.uk/Hosts/14.html#bonkhen"
+                    >
+
+                        <span class="mx-option-icon">
+                            <i class="bi bi-disc"></i>
+                        </span>
+
+                        <span class="mx-option-content">
+
+                            <h3>
+                                CREATE YOUR OWN DISC
+                            </h3>
+
+                            <p>
+                                Follow the Bonk-HEN disc guide, including
+                                the required disc preparation and instructions.
+                            </p>
+
+                            <span class="mx-option-meta">
+                                DISC METHOD // BONK-HEN GUIDE
+                            </span>
+
+                        </span>
+
+                        <i class="bi bi-chevron-right mx-option-arrow"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- INFORMATION -->
+
+        <section class="mx-info">
+
+            <div class="mx-info-heading">
+                // IMPORTANT INFORMATION
+            </div>
+
+            <p class="mx-info-text mb-0">
+                These are separate methods with different requirements.
+                Read the relevant instructions before proceeding.
+                The browser-based method is experimental, and compatibility
+                and stability are not guaranteed.
+            </p>
+
+        </section>
+
+        <!-- COMMUNITY -->
+
+        <section class="mx-community p-3 p-md-4">
+
+            <div class="row g-4 align-items-center">
+
+                <div class="col-12 col-lg-5">
+
+                    <div class="mx-community-title">
+                        JOIN <span>MODDING XZ</span>
+                    </div>
+
+                    <p class="mx-community-text mb-0">
+                        Get the latest Modding XZ releases, updates,
+                        PlayStation modding news, tools and support.
+                        Follow the project and stay up to date.
+                    </p>
+
+                </div>
+
+                <div class="col-12 col-lg-7">
+
+                    <div class="row g-2">
+
+                        <!-- TELEGRAM -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://t.me/moddingxz"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    TG
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        Modding XZ
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        Official Telegram
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                        <!-- SUPPORT -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://t.me/ModdingXZ_Support_Bot"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    ?
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        Support
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        Modding XZ Support
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                        <!-- WEBSITE -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://moddingxz.co.uk"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    XZ
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        ModdingXZ.co.uk
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        Official Website
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                        <!-- TIKTOK -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://www.tiktok.com/@moddingx1"
+                                target="_blank"
+                                rel="noopener"
+                            >
+
+                                <span class="mx-link-icon">
+                                    TT
+                                </span>
+
+                                <span>
+
+                                    <span class="mx-link-name">
+                                        @moddingx1
+                                    </span>
+
+                                    <span class="mx-link-meta">
+                                        TikTok
+                                    </span>
+
+                                </span>
+
+                                <span class="mx-link-arrow">
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="mx-footer">
 
         <div>
-            <h5>CREATE YOUR OWN DISC</h5>
-            <p>Follow the Bonk-HEN disc guide</p>
+            <span class="mx-footer-brand">
+                MODDING XZ
+            </span>
+
+            // PLAYSTATION MODDING // PS4 HOST SYSTEM
         </div>
 
-        <i class="bi bi-chevron-right arrow"></i>
-    </a>
+        <div class="mt-1">
 
-</main>
+            Official community:
 
-<footer>
-    MODDINGXZ © 2026
-</footer>
+            <a href="https://t.me/moddingxz">
+                Telegram
+            </a>
+
+            //
+
+            <a href="https://moddingxz.co.uk">
+                ModdingXZ.co.uk
+            </a>
+
+        </div>
+
+        <div class="mt-2">
+            PS4 14.00 // JAILBREAK OPTIONS
+        </div>
+
+    </footer>
+
+</div>
+
+<!-- BOOTSTRAP JS -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
