@@ -1,501 +1,752 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#08060d">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#07050b">
 
-    <title>ModdingXZ | Afterglow PS4 Exploit</title>
+    <title>MODDING XZ // PS4 AFTERGLOW LAUNCHER</title>
 
-    <meta name="description" content="ModdingXZ Afterglow PS4 exploit launcher. Select PS4-HEN or GoldHEN for supported firmware 13.52 and 14.00.">
+    <link rel="icon" type="image/png" href="../../pspulse.png">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Bootstrap 5.3.8 -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
 
     <style>
         :root {
-            --bg: #08060d;
-            --panel: #100d18;
-            --panel-light: #171222;
-            --purple: #9147ff;
-            --purple-light: #b58aff;
-            --text: #f7f3ff;
-            --muted: #9690a5;
-            --border: rgba(177, 130, 255, .16);
+            --mx-bg: #07050b;
+            --mx-bg2: #0d0914;
+            --mx-panel: #110d19;
+            --mx-panel2: #171020;
+
+            --mx-purple: #9147ff;
+            --mx-purple2: #b06cff;
+            --mx-purple3: #d0a8ff;
+
+            --mx-border: #2a1d3d;
+            --mx-border2: #392750;
+
+            --mx-text: #f8f5ff;
+            --mx-muted: #aaa0b8;
+            --mx-dim: #70667d;
+
+            --mx-green: #55e6a5;
+            --mx-amber: #e5b85c;
         }
 
         * {
             box-sizing: border-box;
         }
 
+        html {
+            background: var(--mx-bg);
+            scroll-behavior: smooth;
+        }
+
         body {
             min-height: 100vh;
             margin: 0;
-            color: var(--text);
+            overflow-x: hidden;
+            color: var(--mx-text);
+
             background:
-                radial-gradient(ellipse at 50% 0%, rgba(126, 55, 220, .19), transparent 42%),
-                radial-gradient(ellipse at 100% 70%, rgba(84, 35, 150, .10), transparent 35%),
-                var(--bg);
-            font-family: Inter, system-ui, -apple-system, sans-serif;
+                radial-gradient(
+                    circle at 50% -15%,
+                    rgba(145, 71, 255, .22),
+                    transparent 45%
+                ),
+                radial-gradient(
+                    circle at 100% 45%,
+                    rgba(145, 71, 255, .07),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    rgba(145, 71, 255, .025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(145, 71, 255, .025) 1px,
+                    transparent 1px
+                ),
+                var(--mx-bg);
+
+            background-size:
+                auto,
+                auto,
+                40px 40px,
+                40px 40px;
+
+            font-family:
+                Consolas,
+                "Liberation Mono",
+                monospace;
         }
 
         a {
             color: inherit;
+        }
+
+        .mx-container {
+            max-width: 1100px;
+        }
+
+        /* HEADER */
+
+        .mx-navbar {
+            position: relative;
+            border: 1px solid var(--mx-border);
+            background: rgba(13, 9, 20, .93);
+
+            box-shadow:
+                0 15px 50px rgba(0, 0, 0, .35),
+                inset 0 -1px rgba(145, 71, 255, .08);
+        }
+
+        .mx-navbar::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 1px;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--mx-purple),
+                transparent
+            );
+
+            opacity: .7;
+        }
+
+        .mx-logo {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: -.06em;
             text-decoration: none;
         }
 
-        .navbar {
-            background: rgba(8, 6, 13, .78);
-            border-bottom: 1px solid var(--border);
-            backdrop-filter: blur(18px);
+        .mx-logo span {
+            color: var(--mx-purple);
         }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.12rem;
-            font-weight: 900;
-            letter-spacing: 1.5px;
+        .mx-logo small {
+            display: block;
+            margin-top: 2px;
+            color: var(--mx-dim);
+            font-family: Consolas, monospace;
+            font-size: 8px;
+            font-weight: 400;
+            letter-spacing: .16em;
         }
 
-        .brand-icon {
-            display: grid;
-            place-items: center;
-            width: 36px;
-            height: 36px;
-            color: white;
-            border-radius: 11px;
-            background: linear-gradient(135deg, #a66aff, #6020bd);
-            box-shadow: 0 0 25px rgba(145, 71, 255, .3);
-        }
-
-        .brand span {
-            color: var(--purple-light);
-        }
-
-        .nav-link-custom {
-            color: var(--muted);
-            font-size: .85rem;
-            transition: .2s;
-        }
-
-        .nav-link-custom:hover {
-            color: white;
-        }
-
-        .main-wrap {
-            width: 100%;
-            max-width: 850px;
-            margin: auto;
-            padding: 65px 18px 35px;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 13px;
-            border: 1px solid rgba(145, 71, 255, .3);
-            border-radius: 50px;
-            background: rgba(145, 71, 255, .09);
-            color: var(--purple-light);
-            font-size: .72rem;
-            font-weight: 800;
-            letter-spacing: 1.6px;
+        .mx-fw-status {
+            color: var(--mx-green);
+            font-size: 10px;
+            letter-spacing: .1em;
             text-transform: uppercase;
         }
 
-        .hero-title {
-            margin-top: 22px;
-            font-size: clamp(2.7rem, 8vw, 5rem);
-            line-height: .98;
-            font-weight: 950;
-            letter-spacing: -3px;
+        .mx-fw-status::before {
+            content: "●";
+            margin-right: 7px;
         }
 
-        .hero-title span {
-            color: var(--purple-light);
-            text-shadow: 0 0 35px rgba(145, 71, 255, .25);
+        /* HERO */
+
+        .mx-hero {
+            position: relative;
+            padding: 85px 5px 35px;
         }
 
-        .hero-subtitle {
-            max-width: 580px;
-            margin: 20px auto 0;
-            color: var(--muted);
-            font-size: .96rem;
-            line-height: 1.7;
+        .mx-hero::after {
+            content: "AFTERGLOW";
+            position: absolute;
+            top: 35px;
+            right: 2%;
+            color: rgba(145, 71, 255, .035);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(65px, 13vw, 145px);
+            font-weight: 900;
+            letter-spacing: -.09em;
+            pointer-events: none;
         }
 
-        .firmware-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
+        .mx-kicker {
+            position: relative;
+            z-index: 1;
+            color: var(--mx-purple3);
+            font-size: 11px;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+        }
+
+        .mx-kicker::before {
+            content: ">";
+            margin-right: 8px;
+            color: var(--mx-purple);
+            font-weight: 900;
+        }
+
+        .mx-title {
+            position: relative;
+            z-index: 1;
+            margin: 15px 0 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(48px, 8vw, 85px);
+            font-weight: 900;
+            line-height: .92;
+            letter-spacing: -.07em;
+        }
+
+        .mx-title .purple {
+            color: var(--mx-purple);
+        }
+
+        .mx-title .white {
+            color: var(--mx-text);
+        }
+
+        .mx-subtitle {
+            position: relative;
+            z-index: 1;
+            max-width: 650px;
+            margin: 23px auto 0;
+            color: var(--mx-muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .mx-terminal {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+            color: var(--mx-dim);
+            font-size: 10px;
+            line-height: 1.9;
+        }
+
+        .mx-terminal b {
+            color: var(--mx-purple2);
+            font-weight: 400;
+        }
+
+        /* STATS */
+
+        .mx-stat {
+            min-width: 110px;
+            padding: 10px 14px;
+            border: 1px solid var(--mx-border);
+            background: rgba(17, 13, 25, .8);
+        }
+
+        .mx-stat-label {
+            display: block;
+            color: var(--mx-dim);
+            font-size: 8px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .mx-stat-value {
+            display: block;
+            margin-top: 4px;
+            color: var(--mx-purple3);
+            font-size: 12px;
+        }
+
+        /* LAUNCHER */
+
+        .mx-launcher {
             margin-top: 25px;
+            padding: 22px;
+            border: 1px solid var(--mx-border);
+            background: rgba(17, 13, 25, .88);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, .2);
         }
 
-        .firmware-pill {
-            padding: 9px 16px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: rgba(255,255,255,.035);
-            color: #ddd1f5;
-            font-size: .8rem;
-            font-weight: 700;
+        .mx-section-heading {
+            margin-bottom: 15px;
+            color: var(--mx-dim);
+            font-size: 10px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
         }
 
-        .firmware-pill i {
-            margin-right: 6px;
-            color: #a879ff;
-        }
-
-        .launcher {
-            margin-top: 42px;
-            padding: 27px;
-            border: 1px solid rgba(170, 120, 255, .22);
-            border-radius: 22px;
-            background: linear-gradient(145deg, rgba(24, 18, 36, .97), rgba(12, 10, 18, .98));
-            box-shadow: 0 25px 80px rgba(0,0,0,.4), 0 0 50px rgba(110, 48, 190, .07);
-        }
-
-        .launcher-heading {
+        .mx-launcher-top {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
             gap: 12px;
-            margin-bottom: 23px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--mx-border);
         }
 
-        .launcher-heading h2 {
-            margin: 0;
-            font-size: 1.15rem;
-            font-weight: 850;
+        .mx-launcher-title {
+            color: var(--mx-text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            font-weight: 900;
         }
 
-        .live-status {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            color: #a9e8bd;
-            font-size: .7rem;
-            font-weight: 800;
-            letter-spacing: .8px;
+        .mx-ready {
+            color: var(--mx-green);
+            font-size: 9px;
+            letter-spacing: .1em;
         }
 
-        .live-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #48d887;
-            box-shadow: 0 0 12px #48d887;
+        .mx-ready::before {
+            content: "●";
+            margin-right: 6px;
         }
 
-        .payload-option {
+        /* PAYLOAD OPTIONS */
+
+        .mx-payload {
             position: relative;
             display: block;
             height: 100%;
             cursor: pointer;
         }
 
-        .payload-option input {
+        .mx-payload input {
             position: absolute;
             opacity: 0;
             pointer-events: none;
         }
 
-        .payload-card {
+        .mx-option {
             position: relative;
-            height: 100%;
-            min-height: 155px;
-            padding: 20px;
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            background: rgba(255,255,255,.025);
-            transition: .2s ease;
-        }
-
-        .payload-option:hover .payload-card {
-            border-color: rgba(180, 135, 255, .55);
-            transform: translateY(-2px);
-        }
-
-        .payload-option input:checked + .payload-card {
-            border-color: var(--purple);
-            background: linear-gradient(145deg, rgba(145, 71, 255, .17), rgba(145, 71, 255, .045));
-            box-shadow: inset 0 0 25px rgba(145, 71, 255, .06), 0 0 25px rgba(145, 71, 255, .08);
-        }
-
-        .payload-top {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 18px;
+            min-height: 125px;
+            padding: 23px;
+            border: 1px solid var(--mx-border);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .07),
+                    transparent 65%
+                ),
+                var(--mx-panel);
+
+            color: var(--mx-text);
+            text-align: left;
+            transition: .2s ease;
+            overflow: hidden;
         }
 
-        .payload-icon {
-            display: grid;
-            place-items: center;
-            width: 43px;
-            height: 43px;
-            border-radius: 12px;
-            background: rgba(145, 71, 255, .14);
-            color: #bd9aff;
-            font-size: 1.3rem;
+        .mx-payload:hover .mx-option {
+            border-color: var(--mx-purple);
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .15),
+                    transparent 65%
+                ),
+                var(--mx-panel2);
+            transform: translateY(-3px);
         }
 
-        .recommended {
-            padding: 5px 9px;
-            border-radius: 6px;
-            background: rgba(145, 71, 255, .2);
-            color: #c9aaff;
-            font-size: .62rem;
+        .mx-payload input:checked + .mx-option {
+            border-color: var(--mx-purple);
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .17),
+                    transparent 65%
+                ),
+                var(--mx-panel2);
+            box-shadow: inset 0 0 25px rgba(145, 71, 255, .05);
+        }
+
+        .mx-payload input:focus-visible + .mx-option {
+            outline: 2px solid var(--mx-purple3);
+            outline-offset: 3px;
+        }
+
+        .mx-option-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 58px;
+            height: 58px;
+            border: 1px solid var(--mx-border2);
+            background: rgba(145, 71, 255, .08);
+            color: var(--mx-purple2);
+            font-size: 27px;
+        }
+
+        .mx-option-content {
+            min-width: 0;
+        }
+
+        .mx-option h3 {
+            margin: 0 0 7px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 19px;
             font-weight: 900;
-            letter-spacing: .6px;
+            letter-spacing: -.03em;
         }
 
-        .payload-card h3 {
-            margin: 17px 0 5px;
-            font-size: 1.08rem;
-            font-weight: 850;
-        }
-
-        .payload-card p {
+        .mx-option p {
             margin: 0;
-            color: var(--muted);
-            font-size: .77rem;
-            line-height: 1.5;
+            color: var(--mx-muted);
+            font-size: 10px;
+            line-height: 1.7;
         }
 
-        .radio-indicator {
+        .mx-option-meta {
+            display: block;
+            margin-top: 8px;
+            color: var(--mx-dim);
+            font-size: 8px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .mx-option-arrow {
+            margin-left: auto;
+            flex-shrink: 0;
+            color: var(--mx-dim);
+            font-size: 19px;
+        }
+
+        .mx-payload input:checked + .mx-option .mx-option-arrow {
+            color: var(--mx-purple2);
+        }
+
+        .mx-payload input:checked + .mx-option .mx-option-icon {
+            border-color: var(--mx-purple);
+            color: var(--mx-purple3);
+        }
+
+        .mx-recommended {
             position: absolute;
-            right: 17px;
-            bottom: 17px;
-            width: 17px;
-            height: 17px;
-            border: 1px solid #665b79;
-            border-radius: 50%;
+            top: 0;
+            right: 0;
+            padding: 5px 10px;
+            background: rgba(145, 71, 255, .15);
+            border-left: 1px solid var(--mx-border);
+            border-bottom: 1px solid var(--mx-border);
+            color: var(--mx-purple3);
+            font-size: 8px;
+            letter-spacing: .12em;
         }
 
-        .payload-option input:checked + .payload-card .radio-indicator {
-            border: 5px solid var(--purple-light);
-            background: white;
+        .mx-stable {
+            color: var(--mx-green);
         }
 
-        .settings-row {
+        /* AUTOSTART */
+
+        .mx-settings {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 15px;
-            margin-top: 22px;
-            padding: 15px 16px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: rgba(255,255,255,.025);
-        }
-
-        .settings-title {
-            font-size: .84rem;
-            font-weight: 750;
-        }
-
-        .settings-description {
-            margin-top: 3px;
-            color: var(--muted);
-            font-size: .72rem;
-        }
-
-        .form-check-input {
-            width: 2.6em !important;
-            height: 1.35em;
-            margin: 0 !important;
-            cursor: pointer;
-            border-color: #625477;
-            background-color: #292235;
-        }
-
-        .form-check-input:checked {
-            border-color: var(--purple);
-            background-color: var(--purple);
-        }
-
-        .start-btn {
-            width: 100%;
-            margin-top: 21px;
+            margin-top: 18px;
             padding: 16px;
-            border: 0;
-            border-radius: 12px;
-            background: linear-gradient(110deg, #7934d5, #a05aff);
+            border: 1px solid var(--mx-border);
+            background: rgba(7, 5, 11, .55);
+        }
+
+        .mx-settings-title {
+            color: var(--mx-text);
+            font-size: 11px;
+        }
+
+        .mx-settings-description {
+            margin-top: 5px;
+            color: var(--mx-dim);
+            font-size: 9px;
+            line-height: 1.6;
+        }
+
+        .mx-switch {
+            flex-shrink: 0;
+            width: 39px !important;
+            height: 20px;
+            margin: 0 !important;
+            border: 1px solid var(--mx-border2) !important;
+            border-radius: 0 !important;
+            background-color: #21182d !important;
+            cursor: pointer;
+        }
+
+        .mx-switch:checked {
+            border-color: var(--mx-purple) !important;
+            background-color: var(--mx-purple) !important;
+        }
+
+        /* START BUTTON */
+
+        .mx-start {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 18px;
+            padding: 17px;
+            border: 1px solid var(--mx-purple);
+            border-radius: 0;
+            background: linear-gradient(100deg, #702bd0, #9147ff);
             color: white;
-            font-size: .9rem;
+            font-family: Consolas, monospace;
+            font-size: 12px;
             font-weight: 900;
-            letter-spacing: 1.5px;
-            box-shadow: 0 8px 30px rgba(126, 52, 213, .23);
-            transition: .2s;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            transition: .2s ease;
         }
 
-        .start-btn:hover {
+        .mx-start:hover {
+            border-color: var(--mx-purple3);
+            background: linear-gradient(100deg, #8439eb, #a76aff);
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(145, 71, 255, .35);
+            box-shadow: 0 0 25px rgba(145, 71, 255, .2);
         }
 
-        .start-btn:active {
+        .mx-start:active {
             transform: scale(.99);
         }
 
-        .countdown {
+        .mx-countdown {
             min-height: 22px;
             margin: 13px 0 0;
-            color: #c29cff;
-            font-size: .78rem;
-            font-weight: 700;
+            color: var(--mx-purple3);
+            font-size: 10px;
             text-align: center;
         }
 
-        .warning {
-            display: flex;
-            gap: 13px;
+        /* INFORMATION */
+
+        .mx-info {
             margin-top: 20px;
-            padding: 16px;
-            border: 1px solid rgba(255, 183, 77, .17);
-            border-radius: 12px;
-            background: rgba(255, 183, 77, .045);
-        }
-
-        .warning i {
-            color: #ffc16b;
-            font-size: 1.15rem;
-        }
-
-        .warning strong {
-            display: block;
-            margin-bottom: 3px;
-            color: #ffcf91;
-            font-size: .77rem;
-        }
-
-        .warning p {
-            margin: 0;
-            color: #aaa0b2;
-            font-size: .72rem;
-            line-height: 1.6;
-        }
-
-        .info-section {
-            margin-top: 40px;
-        }
-
-        .section-heading {
-            margin-bottom: 16px;
-            font-size: .95rem;
-            font-weight: 850;
-        }
-
-        .info-card {
-            height: 100%;
             padding: 17px;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            background: rgba(255,255,255,.025);
+            border: 1px solid var(--mx-border);
+            background: rgba(17, 13, 25, .75);
         }
 
-        .info-card i {
-            display: block;
-            margin-bottom: 11px;
-            color: #b58aff;
-            font-size: 1.3rem;
+        .mx-info-heading {
+            color: var(--mx-purple2);
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
         }
 
-        .info-card h3 {
-            font-size: .82rem;
-            font-weight: 800;
-        }
-
-        .info-card p {
-            margin: 0;
-            color: var(--muted);
-            font-size: .72rem;
-            line-height: 1.6;
-        }
-
-        .community {
-            margin-top: 35px;
-            padding: 23px;
-            border: 1px solid var(--border);
-            border-radius: 17px;
-            background: linear-gradient(120deg, rgba(145, 71, 255, .10), rgba(255,255,255,.02));
-            text-align: center;
-        }
-
-        .community h2 {
-            font-size: 1rem;
-            font-weight: 850;
-        }
-
-        .community p {
-            margin: 8px 0 17px;
-            color: var(--muted);
-            font-size: .77rem;
-        }
-
-        .community-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 9px;
-        }
-
-        .community-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 9px 13px;
-            border: 1px solid var(--border);
-            border-radius: 9px;
-            background: rgba(255,255,255,.04);
-            color: #e4d8fa;
-            font-size: .72rem;
-            font-weight: 750;
-            transition: .2s;
-        }
-
-        .community-link:hover {
-            border-color: var(--purple);
-            background: rgba(145, 71, 255, .12);
-            color: white;
-        }
-
-        footer {
-            margin-top: 40px;
-            padding: 22px 12px;
-            border-top: 1px solid var(--border);
-            color: #777084;
-            font-size: .7rem;
-            text-align: center;
+        .mx-info-text {
+            margin-top: 8px;
+            color: var(--mx-muted);
+            font-size: 10px;
             line-height: 1.8;
         }
 
-        footer strong {
-            color: #b58aff;
+        .mx-warning {
+            margin-top: 13px;
+            padding: 13px;
+            border: 1px solid rgba(229, 184, 92, .2);
+            background: rgba(229, 184, 92, .045);
+            color: var(--mx-amber);
+            font-size: 9px;
+            line-height: 1.8;
         }
 
-        @media (max-width: 576px) {
-            .main-wrap {
-                padding-top: 45px;
+        .mx-warning i {
+            margin-right: 6px;
+        }
+
+        /* COMMUNITY */
+
+        .mx-community {
+            margin-top: 25px;
+            border: 1px solid var(--mx-border);
+
+            background:
+                linear-gradient(
+                    110deg,
+                    rgba(145, 71, 255, .09),
+                    transparent 55%
+                ),
+                var(--mx-panel);
+        }
+
+        .mx-community-title {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: -.04em;
+        }
+
+        .mx-community-title span {
+            color: var(--mx-purple);
+        }
+
+        .mx-community-text {
+            max-width: 560px;
+            margin-top: 7px;
+            color: var(--mx-muted);
+            font-size: 10px;
+            line-height: 1.7;
+        }
+
+        .mx-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-height: 55px;
+            border: 1px solid var(--mx-border);
+            background: rgba(7, 5, 11, .55);
+            text-decoration: none;
+            transition: .15s ease;
+        }
+
+        .mx-link:hover,
+        .mx-link:focus {
+            color: inherit;
+            border-color: var(--mx-purple);
+            background: var(--mx-panel2);
+            outline: none;
+        }
+
+        .mx-link-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 31px;
+            height: 31px;
+            border: 1px solid var(--mx-border2);
+            color: var(--mx-purple2);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .mx-link-name {
+            display: block;
+            color: var(--mx-text);
+            font-size: 11px;
+        }
+
+        .mx-link-meta {
+            display: block;
+            margin-top: 2px;
+            color: var(--mx-dim);
+            font-size: 8px;
+        }
+
+        .mx-link-arrow {
+            margin-left: auto;
+            color: var(--mx-dim);
+            font-size: 10px;
+        }
+
+        .mx-link:hover .mx-link-arrow {
+            color: var(--mx-purple2);
+        }
+
+        /* FOOTER */
+
+        .mx-footer {
+            margin-top: 25px;
+            padding: 13px 5px 8px;
+            border-top: 1px solid var(--mx-border);
+            color: var(--mx-dim);
+            font-size: 9px;
+            text-align: center;
+            line-height: 1.9;
+        }
+
+        .mx-footer a {
+            color: var(--mx-muted);
+            text-decoration: none;
+        }
+
+        .mx-footer a:hover {
+            color: var(--mx-purple2);
+        }
+
+        .mx-footer-brand {
+            color: var(--mx-purple2);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 767.98px) {
+            .mx-hero {
+                padding: 60px 3px 25px;
             }
 
-            .launcher {
-                padding: 19px;
-                margin-top: 30px;
+            .mx-hero::after {
+                top: 20px;
+                font-size: 70px;
             }
 
-            .hero-title {
-                letter-spacing: -2px;
+            .mx-title {
+                font-size: 49px;
             }
 
-            .payload-card {
-                min-height: 145px;
+            .mx-subtitle {
+                font-size: 12px;
+            }
+
+            .mx-terminal {
+                font-size: 9px;
+            }
+
+            .mx-option {
+                min-height: 115px;
+                padding: 18px 14px;
+                gap: 12px;
+            }
+
+            .mx-option-icon {
+                width: 46px;
+                height: 46px;
+                font-size: 22px;
+            }
+
+            .mx-option h3 {
+                font-size: 16px;
+            }
+
+            .mx-option p {
+                font-size: 9px;
+            }
+
+            .mx-launcher {
+                padding: 16px;
+            }
+
+            .mx-community-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
             }
         }
     </style>
@@ -503,221 +754,439 @@
 
 <body>
 
-<nav class="navbar navbar-expand">
-    <div class="container">
-        <a class="brand" href="https://moddingxz.co.uk">
-            <span class="brand-icon"><i class="bi bi-controller"></i></span>
-            MODDING<span>XZ</span>
-        </a>
+<div class="container mx-container py-3 py-md-4">
 
-        <a class="nav-link-custom" href="https://t.me/moddingxz" target="_blank" rel="noopener">
-            <i class="bi bi-telegram"></i> Community
-        </a>
-    </div>
-</nav>
+    <!-- MODDING XZ HEADER -->
 
-<main class="main-wrap">
+    <header class="mx-navbar px-3 py-3">
+        <div class="d-flex align-items-center justify-content-between gap-3">
 
-    <section class="text-center">
+            <a class="mx-logo" href="https://moddingxz.co.uk/">
+                MODDING <span>X</span><span>Z</span>
 
-        <div class="eyebrow">
-            <i class="bi bi-lightning-charge-fill"></i>
-            Exploit launcher
-        </div>
+                <small>
+                    PLAYSTATION MODDING
+                </small>
+            </a>
 
-        <h1 class="hero-title">
-            PS4 <span>AFTERGLOW</span>
-        </h1>
-
-        <p class="hero-subtitle">
-            Select your preferred payload and launch the Afterglow
-            exploit environment. GoldHEN is selected by default.
-        </p>
-
-        <div class="firmware-row">
-            <div class="firmware-pill">
-                <i class="bi bi-check-circle-fill"></i> Firmware 13.52
+            <div class="mx-fw-status">
+                AFTERGLOW LAUNCHER
             </div>
-            <div class="firmware-pill">
-                <i class="bi bi-check-circle-fill"></i> Firmware 14.00
-            </div>
+
         </div>
+    </header>
 
-    </section>
+    <main>
 
-    <section class="launcher">
+        <!-- HERO -->
 
-        <div class="launcher-heading">
-            <h2><i class="bi bi-terminal me-2" style="color:#b58aff"></i>Payload launcher</h2>
-            <div class="live-status">
-                <span class="live-dot"></span>
-                READY
+        <section class="mx-hero text-center">
+
+            <div class="mx-kicker">
+                MODDING XZ // AFTERGLOW HOST SYSTEM
             </div>
-        </div>
 
-        <form class="pick" id="pick">
+            <h1 class="mx-title">
+                PS4 <span class="purple">AFTER</span><br>
+                <span class="white">GLOW</span>
+            </h1>
 
-            <div class="row g-3">
+            <p class="mx-subtitle">
+                Select your preferred payload and start the Afterglow
+                exploit launcher. Choose between PS4-HEN and GoldHEN
+                for the supported firmware versions listed below.
+            </p>
 
-                <div class="col-12 col-sm-6">
-                    <label class="payload-option">
-                        <input type="radio" name="payload" value="hen">
-                        <div class="payload-card">
-                            <div class="payload-top">
-                                <div class="payload-icon">
-                                    <i class="bi bi-cpu"></i>
-                                </div>
-                            </div>
+            <div class="mx-terminal">
+                <b>[ SYSTEM ]</b> Modding XZ PlayStation host system<br>
+                <b>[ HOST ]</b> Afterglow exploit launcher<br>
+                <b>[ PAYLOAD ]</b> PS4-HEN / GoldHEN
+            </div>
 
-                            <h3>PS4-HEN</h3>
-                            <p>Launch the standard PS4-HEN payload.</p>
+            <!-- STATS -->
 
-                            <span class="radio-indicator"></span>
-                        </div>
-                    </label>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">Firmware</span>
+                    <span class="mx-stat-value">13.52</span>
                 </div>
 
-                <div class="col-12 col-sm-6">
-                    <label class="payload-option">
-                        <input type="radio" name="payload" value="goldhen" checked>
-                        <div class="payload-card">
-                            <div class="payload-top">
-                                <div class="payload-icon">
-                                    <i class="bi bi-stars"></i>
-                                </div>
-                                <span class="recommended">RECOMMENDED</span>
-                            </div>
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">Firmware</span>
+                    <span class="mx-stat-value">14.00</span>
+                </div>
 
-                            <h3>GoldHEN</h3>
-                            <p>Choose GoldHEN as your preferred payload.</p>
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">Payloads</span>
+                    <span class="mx-stat-value">02 AVAILABLE</span>
+                </div>
 
-                            <span class="radio-indicator"></span>
-                        </div>
-                    </label>
+                <div class="mx-stat text-start">
+                    <span class="mx-stat-label">Autostart</span>
+                    <span class="mx-stat-value">5 SECONDS</span>
                 </div>
 
             </div>
 
-            <div class="settings-row">
-                <div>
-                    <div class="settings-title">
-                        <i class="bi bi-clock-history me-2" style="color:#b58aff"></i>
-                        Automatic start
+        </section>
+
+        <!-- PAYLOAD LAUNCHER -->
+
+        <section class="mx-launcher">
+
+            <div class="mx-launcher-top">
+
+                <div class="mx-launcher-title">
+                    <i class="bi bi-terminal me-2" style="color:var(--mx-purple2)"></i>
+                    PAYLOAD SELECTOR
+                </div>
+
+                <div class="mx-ready">
+                    READY
+                </div>
+
+            </div>
+
+            <form class="pick" id="pick">
+
+                <div class="mx-section-heading">
+                    <span style="color:var(--mx-purple)">//</span>
+                    SELECT YOUR PAYLOAD
+                </div>
+
+                <div class="row g-3">
+
+                    <!-- PS4-HEN -->
+
+                    <div class="col-12 col-md-6">
+
+                        <label class="mx-payload">
+
+                            <input
+                                type="radio"
+                                name="payload"
+                                value="hen"
+                            >
+
+                            <span class="mx-option">
+
+                                <span class="mx-option-icon">
+                                    <i class="bi bi-cpu" aria-hidden="true"></i>
+                                </span>
+
+                                <span class="mx-option-content">
+
+                                    <h3>PS4-HEN</h3>
+
+                                    <p>
+                                        Launch the standard PS4-HEN payload
+                                        through the Afterglow exploit.
+                                    </p>
+
+                                    <span class="mx-option-meta">
+                                        PAYLOAD 01 // HEN.BIN
+                                    </span>
+
+                                </span>
+
+                                <i class="bi bi-chevron-right mx-option-arrow"></i>
+
+                            </span>
+
+                        </label>
+
                     </div>
-                    <div class="settings-description">
-                        Automatically launch after a five-second countdown.
+
+                    <!-- GOLDHEN -->
+
+                    <div class="col-12 col-md-6">
+
+                        <label class="mx-payload">
+
+                            <input
+                                type="radio"
+                                name="payload"
+                                value="goldhen"
+                                checked
+                            >
+
+                            <span class="mx-option">
+
+                                <span class="mx-recommended">
+                                    RECOMMENDED
+                                </span>
+
+                                <span class="mx-option-icon">
+                                    <i class="bi bi-stars" aria-hidden="true"></i>
+                                </span>
+
+                                <span class="mx-option-content">
+
+                                    <h3>GOLDHEN</h3>
+
+                                    <p>
+                                        Select GoldHEN as your preferred
+                                        payload for the Afterglow launcher.
+                                    </p>
+
+                                    <span class="mx-option-meta mx-stable">
+                                        PAYLOAD 02 // GOLDHEN
+                                    </span>
+
+                                </span>
+
+                                <i class="bi bi-chevron-right mx-option-arrow"></i>
+
+                            </span>
+
+                        </label>
+
                     </div>
+
                 </div>
 
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="auto"
-                    name="autostart"
-                    checked
-                    aria-label="Enable automatic start"
-                >
+                <!-- AUTOSTART -->
+
+                <div class="mx-section-heading mt-4">
+                    <span style="color:var(--mx-purple)">//</span>
+                    LAUNCH SETTINGS
+                </div>
+
+                <div class="mx-settings">
+
+                    <div>
+                        <div class="mx-settings-title">
+                            <i class="bi bi-clock-history me-2" style="color:var(--mx-purple2)"></i>
+                            AUTOMATIC START
+                        </div>
+
+                        <div class="mx-settings-description">
+                            Automatically launch after a five-second countdown.
+                            Disable this to start manually.
+                        </div>
+                    </div>
+
+                    <input
+                        class="form-check-input mx-switch"
+                        type="checkbox"
+                        id="auto"
+                        name="autostart"
+                        checked
+                        aria-label="Enable automatic start"
+                    >
+
+                </div>
+
+                <!-- START -->
+
+                <button class="mx-start" type="submit">
+
+                    <i class="bi bi-play-fill"></i>
+
+                    START EXPLOIT
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </button>
+
+                <p
+                    class="mx-count"
+                    id="count"
+                    aria-live="polite"
+                    aria-atomic="true"
+                ></p>
+
+            </form>
+
+        </section>
+
+        <!-- INFORMATION -->
+
+        <section class="mx-info">
+
+            <div class="mx-info-heading">
+                // IMPORTANT INFORMATION
             </div>
 
-            <button class="start-btn" type="submit">
-                <i class="bi bi-play-fill me-2"></i>
-                START EXPLOIT
-            </button>
+            <p class="mx-info-text mb-0">
+                Select your preferred payload before starting. GoldHEN
+                is selected by default, but PS4-HEN is also available.
+                Your selection and autostart preference are remembered
+                by your browser.
+            </p>
 
-            <p class="count countdown" id="count" aria-live="polite" aria-atomic="true"></p>
-
-        </form>
-
-        <div class="warning" role="note">
-            <i class="bi bi-exclamation-triangle-fill"></i>
-            <div>
-                <strong>Experimental software</strong>
-                <p>
-                    Compatibility and successful execution are not guaranteed.
-                    Use at your own risk. Do not update your console while using
-                    an exploit environment.
-                </p>
+            <div class="mx-warning">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <strong>EXPERIMENTAL SOFTWARE:</strong>
+                Compatibility and successful execution are not guaranteed.
+                Use at your own risk. Keep your console on a supported firmware
+                and do not update while relying on an exploit.
             </div>
+
+        </section>
+
+        <!-- COMMUNITY -->
+
+        <section class="mx-community p-3 p-md-4">
+
+            <div class="row g-4 align-items-center">
+
+                <div class="col-12 col-lg-5">
+
+                    <div class="mx-community-title">
+                        JOIN <span>MODDING XZ</span>
+                    </div>
+
+                    <p class="mx-community-text mb-0">
+                        Get the latest Modding XZ releases, updates,
+                        PlayStation modding news, tools and support.
+                        Follow the project and stay up to date.
+                    </p>
+
+                </div>
+
+                <div class="col-12 col-lg-7">
+
+                    <div class="row g-2">
+
+                        <!-- TELEGRAM -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://t.me/moddingxz"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+
+                                <span class="mx-link-icon">TG</span>
+
+                                <span>
+                                    <span class="mx-link-name">Modding XZ</span>
+                                    <span class="mx-link-meta">Official Telegram</span>
+                                </span>
+
+                                <span class="mx-link-arrow">↗</span>
+
+                            </a>
+
+                        </div>
+
+                        <!-- SUPPORT -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://t.me/ModdingXZ_Support_Bot"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+
+                                <span class="mx-link-icon">?</span>
+
+                                <span>
+                                    <span class="mx-link-name">Support</span>
+                                    <span class="mx-link-meta">Modding XZ Support</span>
+                                </span>
+
+                                <span class="mx-link-arrow">↗</span>
+
+                            </a>
+
+                        </div>
+
+                        <!-- WEBSITE -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://moddingxz.co.uk"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+
+                                <span class="mx-link-icon">XZ</span>
+
+                                <span>
+                                    <span class="mx-link-name">ModdingXZ.co.uk</span>
+                                    <span class="mx-link-meta">Official Website</span>
+                                </span>
+
+                                <span class="mx-link-arrow">↗</span>
+
+                            </a>
+
+                        </div>
+
+                        <!-- TIKTOK -->
+
+                        <div class="col-12 col-sm-6">
+
+                            <a
+                                class="mx-link p-2 px-3"
+                                href="https://www.tiktok.com/@moddingx1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+
+                                <span class="mx-link-icon">TT</span>
+
+                                <span>
+                                    <span class="mx-link-name">@moddingx1</span>
+                                    <span class="mx-link-meta">TikTok</span>
+                                </span>
+
+                                <span class="mx-link-arrow">↗</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="mx-footer">
+
+        <div>
+            <span class="mx-footer-brand">MODDING XZ</span>
+            // AFTERGLOW // PS4 EXPLOIT LAUNCHER
         </div>
 
-    </section>
-
-    <section class="info-section">
-
-        <h2 class="section-heading">
-            <i class="bi bi-info-circle me-2" style="color:#b58aff"></i>
-            Before you start
-        </h2>
-
-        <div class="row g-3">
-
-            <div class="col-12 col-sm-4">
-                <div class="info-card">
-                    <i class="bi bi-controller"></i>
-                    <h3>Supported firmware</h3>
-                    <p>Designed for the listed firmware versions 13.52 and 14.00.</p>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-4">
-                <div class="info-card">
-                    <i class="bi bi-stars"></i>
-                    <h3>GoldHEN selected</h3>
-                    <p>GoldHEN is the default selection. You can switch to PS4-HEN.</p>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-4">
-                <div class="info-card">
-                    <i class="bi bi-arrow-repeat"></i>
-                    <h3>Remembered settings</h3>
-                    <p>Your payload and autostart preferences are saved in your browser.</p>
-                </div>
-            </div>
-
+        <div class="mt-1">
+            Original Afterglow launcher by
+            <span class="mx-footer-brand">well0nez / m0zz</span>
         </div>
 
-    </section>
-
-    <section class="community">
-
-        <h2>WELCOME TO MODDINGXZ</h2>
-
-        <p>
-            Stay up to date with the latest jailbreak news, releases,
-            tutorials and community updates.
-        </p>
-
-        <div class="community-links">
-
-            <a class="community-link" href="https://t.me/moddingxz" target="_blank" rel="noopener">
-                <i class="bi bi-telegram"></i> Telegram
-            </a>
-
-            <a class="community-link" href="https://t.me/ModdingXZ_Support_Bot" target="_blank" rel="noopener">
-                <i class="bi bi-headset"></i> Support
-            </a>
-
-            <a class="community-link" href="https://moddingxz.co.uk" target="_blank" rel="noopener">
-                <i class="bi bi-globe2"></i> Website
-            </a>
-
-            <a class="community-link" href="https://www.tiktok.com/@moddingx1" target="_blank" rel="noopener">
-                <i class="bi bi-tiktok"></i> TikTok
-            </a>
-
+        <div class="mt-1">
+            Modding XZ presentation and interface redesign.
         </div>
 
-    </section>
+        <div class="mt-2">
+            <a href="https://t.me/moddingxz">TELEGRAM</a>
+            //
+            <a href="https://moddingxz.co.uk">MODDINGXZ.CO.UK</a>
+        </div>
 
-</main>
+    </footer>
 
-<footer>
-    <div><strong>MODDINGXZ</strong> &copy; 2026</div>
-    <div>Original Afterglow launcher by well0nez / m0zz</div>
-    <div>ModdingXZ presentation and interface redesign.</div>
-</footer>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ORIGINAL AFTERGLOW LAUNCH LOGIC -->
 <script src="launch.js"></script>
 
 </body>
