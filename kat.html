@@ -10,769 +10,618 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
---bg:#07100b;
---panel:#101a13;
---green:#8cff70;
---white:#f5f8f4;
---muted:#9ba89e;
---border:rgba(255,255,255,.09);
+    --bg: #07100b;
+    --panel: #101b13;
+    --panel2: #142219;
+    --green: #39d878;
+    --green2: #20a95b;
+    --muted: #91a397;
+    --border: rgba(255,255,255,.09);
 }
-*{box-sizing:border-box}
-body{
-margin:0;
-background:radial-gradient(ellipse at 50% -10%,rgba(93,255,102,.12),transparent 45%),var(--bg);
-color:var(--white);
-font-family:Inter,sans-serif;
-min-height:100vh
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 50% -10%, rgba(57,216,120,.13), transparent 38%),
+        var(--bg);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
 }
-a{text-decoration:none}
-.navbar{background:rgba(7,16,11,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}
-.brand{font-family:"Barlow Condensed",sans-serif;font-size:1.8rem;font-weight:900;color:white}
-.brand span{color:var(--green)}
-.nav-status,.eyebrow{
-color:var(--green);
-background:rgba(140,255,112,.09);
-border:1px solid rgba(140,255,112,.2);
-border-radius:100px;
-padding:8px 13px;
-font-size:.72rem;
-font-weight:800;
-letter-spacing:1px
+
+.container { max-width: 900px; }
+
+.brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    letter-spacing: 1px;
+    font-size: 27px;
 }
-.live-dot{
-width:7px;height:7px;display:inline-block;border-radius:50%;
-background:var(--green);box-shadow:0 0 12px var(--green)
+
+.brand span { color: var(--green); }
+
+.top-label {
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
-.hero{padding:65px 0 34px;text-align:center}
-h1,h2,h3,.display-number{font-family:"Barlow Condensed",sans-serif;font-weight:900;text-transform:uppercase}
-.hero h1{font-size:clamp(3.5rem,10vw,7rem);line-height:.88;letter-spacing:-2px;margin:24px 0}
-.hero h1 span{color:var(--green)}
-.hero-description,.section-subtitle{color:var(--muted);line-height:1.8;font-size:.9rem}
-.hero-description{max-width:530px;margin:auto}
-.prize-card{
-max-width:540px;margin:32px auto 0;padding:22px;
-border:1px solid rgba(140,255,112,.2);border-radius:20px;
-background:linear-gradient(135deg,rgba(140,255,112,.1),var(--panel) 65%)
+
+.hero {
+    padding: 35px 20px 25px;
+    text-align: center;
 }
-.prize-label,.section-label{font-size:.72rem;font-weight:800;color:var(--muted);letter-spacing:1.5px}
-.section-label{color:var(--green)}
-.prize-amount{font-family:"Barlow Condensed",sans-serif;font-size:3.5rem;font-weight:900;color:var(--green)}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0 45px}
-.stat-card{padding:19px 12px;background:var(--panel);border:1px solid var(--border);border-radius:15px;text-align:center}
-.stat-number{font-family:"Barlow Condensed",sans-serif;font-size:2.2rem;font-weight:900}
-.stat-number.green{color:var(--green)}
-.stat-caption{color:var(--muted);font-size:.69rem;font-weight:700;margin-top:7px}
-.teams-section{padding:15px 0 65px}
-.team-board{background:rgba(16,26,19,.72);border:1px solid var(--border);border-radius:23px;padding:22px}
-.board-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
-.board-title{font-family:"Barlow Condensed",sans-serif;font-size:1.6rem;font-weight:900}
-.board-legend{display:flex;gap:14px;font-size:.7rem;color:var(--muted)}
-.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
-.legend-taken{background:#5b665d}
-.teams-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
-.team-card{
-position:relative;min-width:0;min-height:110px;padding:14px 7px;
-border-radius:14px;border:1px solid rgba(255,255,255,.045);
-background:rgba(255,255,255,.018);
-color:#667168;display:flex;flex-direction:column;
-justify-content:center;align-items:center;text-align:center;gap:8px
+
+.hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(42px, 9vw, 76px);
+    font-weight: 900;
+    line-height: .95;
+    text-transform: uppercase;
+    margin: 12px 0;
 }
-.team-name{font-size:.76rem;font-weight:800;line-height:1.35;overflow-wrap:anywhere}
-.team-status{font-size:.59rem;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#758077}
-.team-card:after{
-content:"";position:absolute;left:15%;right:15%;top:50%;
-height:1px;background:rgba(160,174,162,.24);transform:rotate(-17deg)
+
+.hero h1 span { color: var(--green); }
+
+.hero p {
+    color: var(--muted);
+    font-size: 14px;
 }
-.team-icon{font-size:1.25rem}
-.remaining-bar-wrap{margin-top:24px}
-.remaining-info{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:.77rem;font-weight:700}
-.remaining-info span:last-child{color:var(--green)}
-.progress{height:7px;border-radius:100px;background:#263229}
-.progress-bar{background:linear-gradient(90deg,#48b832,var(--green));border-radius:100px}
-.draw-section{padding:35px 0 75px}
-.draw-card{
-position:relative;overflow:hidden;border:1px solid rgba(140,255,112,.25);
-border-radius:24px;padding:clamp(22px,5vw,42px);
-background:radial-gradient(ellipse at 50% 0%,rgba(140,255,112,.13),transparent 60%),#101a13;
-text-align:center
+
+.panel {
+    background: linear-gradient(145deg, #132219, #0c160f);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.18);
 }
-.draw-label{color:var(--green);font-size:.72rem;font-weight:900;letter-spacing:2px}
-.draw-display{
-min-height:175px;display:flex;flex-direction:column;
-align-items:center;justify-content:center;margin:22px 0;padding:20px;
-border:1px solid rgba(140,255,112,.2);border-radius:18px;
-background:rgba(0,0,0,.22)
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
-.draw-team{
-font-family:"Barlow Condensed",sans-serif;font-weight:900;
-font-size:clamp(2.5rem,8vw,5rem);line-height:1;
-color:var(--green);text-transform:uppercase;overflow-wrap:anywhere
+
+.stat {
+    background: rgba(255,255,255,.035);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 15px 8px;
+    text-align: center;
 }
-.draw-caption{color:var(--muted);font-size:.75rem;font-weight:700;letter-spacing:1.5px;margin-top:12px}
-.draw-button{
-width:100%;max-width:360px;padding:17px 22px;border:0;
-border-radius:13px;background:var(--green);color:#07100b;
-font-weight:900;font-size:1rem;letter-spacing:.5px
+
+.stat strong {
+    display: block;
+    color: var(--green);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 31px;
+    font-weight: 900;
 }
-.draw-button:hover{background:#a4ff8d;color:#07100b}
-.draw-button:disabled{opacity:.5;cursor:not-allowed}
-.draw-button:focus-visible,.draw-close:focus-visible{
-outline:3px solid white;outline-offset:4px
+
+.stat small {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
-.sealed-icon{font-size:3.4rem;color:var(--green);margin-bottom:12px}
-.key-note{
-max-width:520px;margin:18px auto 0;padding:14px;
-border:1px solid var(--border);border-radius:12px;
-background:rgba(255,255,255,.025);
-color:var(--muted);font-size:.76rem;line-height:1.7
+
+.section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 5px;
 }
-.key-input{display:none}
-.key-status{min-height:24px;margin-top:14px;color:var(--muted);font-size:.78rem}
-.key-status.error{color:#ff8585}
-.key-status.success{color:var(--green)}
-.steps-section{padding:55px 0 70px}
-.step-card{height:100%;padding:25px;border-radius:18px;border:1px solid var(--border);background:var(--panel)}
-.step-icon,.payment-icon{
-width:48px;height:48px;display:flex;justify-content:center;align-items:center;
-border-radius:14px;background:rgba(140,255,112,.1);
-color:var(--green);font-size:1.3rem;margin-bottom:20px
+
+.section-subtitle {
+    color: var(--muted);
+    font-size: 12px;
 }
-.step-number{color:var(--green);font-size:.68rem;font-weight:900}
-.step-card h3{font-size:1.55rem;margin:9px 0}
-.step-card p{color:var(--muted);font-size:.83rem;line-height:1.8}
-.payment-section{padding:0 0 70px}
-.payment-card{
-border:1px solid rgba(140,255,112,.2);border-radius:22px;
-padding:clamp(22px,5vw,38px);
-background:linear-gradient(145deg,rgba(140,255,112,.075),var(--panel) 65%)
+
+.sold-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    background: rgba(57,216,120,.08);
+    border: 1px solid rgba(57,216,120,.2);
+    border-radius: 12px;
+    padding: 13px;
+    color: var(--green);
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-bottom: 17px;
 }
-.payment-price{font-family:"Barlow Condensed",sans-serif;font-size:3rem;font-weight:900}
-.notice{
-border-radius:12px;background:rgba(255,255,255,.035);
-border:1px solid var(--border);padding:13px 15px;
-color:var(--muted);font-size:.76rem;line-height:1.7
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
 }
-.support-link{display:inline-flex;align-items:center;gap:9px;color:var(--green);font-weight:800;font-size:.85rem}
-.btn-green{background:var(--green);color:#07100b;border:0;border-radius:11px;padding:14px 18px;font-weight:900;font-size:.86rem}
-.btn-green:hover{background:#a4ff8d;color:#07100b}
-footer{border-top:1px solid var(--border);padding:25px 0;color:#758078;font-size:.72rem;line-height:1.8}
-.draw-overlay{
-position:fixed;inset:0;z-index:5000;display:none;
-align-items:center;justify-content:center;padding:20px;
-background:rgba(2,7,3,.97);text-align:center
+
+.team {
+    min-height: 61px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 11px;
+    background: rgba(255,255,255,.035);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 8px 4px;
+    position: relative;
+    overflow: hidden;
 }
-.draw-overlay.show{display:flex}
-.draw-overlay-inner{width:100%;max-width:700px}
-.draw-overlay h2{font-size:clamp(2rem,7vw,4rem);color:var(--green)}
-.draw-overlay-team{
-font-family:"Barlow Condensed",sans-serif;
-font-size:clamp(3rem,12vw,7rem);font-weight:900;line-height:1;
-color:var(--green);text-transform:uppercase;overflow-wrap:anywhere;
-text-shadow:0 0 35px rgba(140,255,112,.35)
+
+.team-name {
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.2;
 }
-.draw-trophy{font-size:4rem;color:var(--green);margin-bottom:20px}
-.draw-winner-caption{font-size:.8rem;color:var(--muted);letter-spacing:2px;margin-bottom:12px}
-.draw-close{
-margin-top:30px;border:1px solid rgba(140,255,112,.4);
-border-radius:10px;background:transparent;color:white;
-padding:12px 25px;font-weight:800
+
+.team-status {
+    color: #f08b8b;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-top: 5px;
 }
-.draw-close:hover{background:rgba(140,255,112,.1)}
-.confetti{
-position:fixed;top:-20px;width:9px;height:15px;z-index:5100;
-pointer-events:none;animation:fall linear forwards
+
+.team::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255,70,70,.025);
+    pointer-events: none;
 }
-@keyframes fall{to{transform:translateY(110vh) rotate(900deg);opacity:.2}}
-.reveal-animation{animation:revealIn .8s ease both}
-@keyframes revealIn{
-0%{opacity:0;transform:scale(.6)}
-70%{opacity:1;transform:scale(1.08)}
-100%{transform:scale(1)}
+
+.prize {
+    text-align: center;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(57,216,120,.07);
+    border: 1px solid rgba(57,216,120,.18);
 }
-@media(max-width:575px){
-.hero{padding-top:48px}
-.hero h1{letter-spacing:-1px}
-.team-board{padding:14px;border-radius:17px}
-.teams-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.team-card{min-height:95px}
-.team-name{font-size:.82rem}
-.stats-grid{gap:8px}
-.stat-card{padding:16px 6px}
-.stat-number{font-size:1.8rem}
-.stat-caption{font-size:.6rem}
-.prize-card{padding:18px}
-.board-legend{gap:9px}
+
+.prize .amount {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 65px;
+    line-height: 1;
+    color: var(--green);
+    font-weight: 900;
 }
-@media(min-width:576px) and (max-width:767px){
-.teams-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+.prize small {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
-@media(prefers-reduced-motion:reduce){
-*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+
+.draw-display {
+    min-height: 190px;
+    background:
+        radial-gradient(circle, rgba(57,216,120,.12), transparent 65%),
+        #08110b;
+    border: 1px solid rgba(57,216,120,.2);
+    border-radius: 17px;
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.draw-icon {
+    color: var(--green);
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.draw-label {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.draw-team {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(32px, 8vw, 54px);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1.1;
+    margin-top: 7px;
+    overflow-wrap: anywhere;
+}
+
+.draw-team.spinning {
+    color: var(--green);
+    text-shadow: 0 0 20px rgba(57,216,120,.35);
+}
+
+.draw-button {
+    width: 100%;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #39d878, #20a95b);
+    color: #041008;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 17px;
+    text-transform: uppercase;
+    transition: .2s;
+}
+
+.draw-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+.draw-button:disabled {
+    opacity: .7;
+    cursor: wait;
+    transform: none;
+}
+
+.winner-message {
+    display: none;
+    margin-top: 17px;
+    padding: 17px;
+    border: 1px solid rgba(57,216,120,.35);
+    background: rgba(57,216,120,.08);
+    border-radius: 14px;
+    text-align: center;
+    animation: winnerIn .7s ease both;
+}
+
+.winner-message.show { display: block; }
+
+.winner-message h3 {
+    color: var(--green);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 31px;
+    font-weight: 900;
+    margin: 5px 0;
+}
+
+.winner-message p {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0;
+}
+
+@keyframes winnerIn {
+    from { opacity: 0; transform: scale(.94); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.info-row:last-child { border-bottom: 0; }
+
+.info-row i {
+    color: var(--green);
+    font-size: 18px;
+}
+
+.info-row strong {
+    display: block;
+    font-size: 12px;
+}
+
+.info-row small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.footer {
+    text-align: center;
+    padding: 25px 10px 35px;
+    color: #718176;
+    font-size: 10px;
+}
+
+.footer a {
+    color: var(--green);
+    text-decoration: none;
+}
+
+@media(max-width: 480px) {
+    .panel { padding: 17px; }
+    .team-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .team { min-height: 58px; }
+    .team-name { font-size: 10px; }
+    .stats { gap: 6px; }
+    .stat { padding: 12px 4px; }
+    .stat strong { font-size: 27px; }
 }
 </style>
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand">
-<div class="container py-2">
-<a class="brand" href="#">FOOTBALL<span>CARD.</span></a>
-<div class="ms-auto">
-<span class="nav-status"><span class="live-dot me-1"></span> ALL TEAMS SOLD</span>
-</div>
-</div>
-</nav>
-
-<header class="hero">
-<div class="container position-relative">
-<span class="eyebrow"><span class="live-dot"></span> CARD COMPLETE</span>
-
-<h1>ONE CARD.<br><span>£40 TO WIN.</span></h1>
-
-<p class="hero-description">
-All 32 teams have now been taken. The winning team has already been selected and securely sealed. The big reveal is coming!
-</p>
-
-<div class="prize-card">
-<div class="row align-items-center g-3">
-<div class="col-7 text-start">
-<div class="prize-label">THE WINNER TAKES</div>
-<div class="prize-amount">£40</div>
-<div class="payment-note">32 teams · £2 per entry</div>
-</div>
-<div class="col-5 text-end">
-<div style="font-size:2.7rem;color:var(--green)">
-<i class="bi bi-trophy-fill"></i>
-</div>
-<div class="fw-bold small">One winning team.</div>
-</div>
-</div>
-</div>
-
-<div class="stats-grid">
-<div class="stat-card">
-<div class="stat-number">32</div>
-<div class="stat-caption">Teams total</div>
-</div>
-<div class="stat-card">
-<div class="stat-number green">32</div>
-<div class="stat-caption">Teams taken</div>
-</div>
-<div class="stat-card">
-<div class="stat-number">0</div>
-<div class="stat-caption">Available now</div>
-</div>
-</div>
-</div>
-</header>
-
-<main>
-
-<section class="teams-section" id="teams">
 <div class="container">
 
-<div class="text-center mb-4">
-<div class="section-label mb-3">THE FOOTBALL CARD</div>
-<h2 class="display-number" style="font-size:clamp(2.3rem,6vw,3.8rem)">
-All teams are sold
-</h2>
-<p class="section-subtitle">
-Every team has been taken. Thank you to everyone who entered!
-</p>
-</div>
+    <header class="d-flex justify-content-between align-items-center py-3">
+        <div class="brand">FOOTBALL<span>CARD</span></div>
+        <div class="top-label"><i class="bi bi-check-circle-fill"></i> DRAW FULL</div>
+    </header>
 
-<div class="team-board">
+    <section class="hero">
+        <div class="top-label">32 TEAMS · ONE WINNER</div>
+        <h1>THE £40<br><span>PRIZE DRAW</span></h1>
+        <p>Every team has been sold. It's time to reveal the winner.</p>
+    </section>
 
-<div class="board-top">
-<div class="board-title">All 32 teams</div>
-<div class="board-legend">
-<span><i class="legend-dot legend-taken"></i>Sold</span>
-</div>
-</div>
+    <section class="panel">
+        <div class="stats">
+            <div class="stat">
+                <strong>32</strong>
+                <small>Teams sold</small>
+            </div>
+            <div class="stat">
+                <strong>32/32</strong>
+                <small>Entries</small>
+            </div>
+            <div class="stat">
+                <strong>£40</strong>
+                <small>Prize</small>
+            </div>
+        </div>
+    </section>
 
-<div class="teams-grid" id="teamsGrid" aria-label="All 32 sold football teams"></div>
+    <section class="panel">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <div class="section-title">The teams</div>
+                <div class="section-subtitle">All 32 teams have been taken.</div>
+            </div>
+            <span class="badge rounded-pill text-bg-success">SOLD OUT</span>
+        </div>
 
-<div class="remaining-bar-wrap">
-<div class="remaining-info">
-<span>32 of 32 teams taken</span>
-<span>100% FULL</span>
-</div>
-<div class="progress" role="progressbar" aria-label="Teams taken" aria-valuemin="0" aria-valuemax="32" aria-valuenow="32">
-<div class="progress-bar" style="width:100%"></div>
-</div>
-</div>
+        <div class="sold-banner">
+            <i class="bi bi-check-circle-fill"></i>
+            ALL TEAMS SOLD — NO ENTRIES REMAINING
+        </div>
 
-</div>
-</div>
-</section>
+        <div class="team-grid" id="teamGrid"></div>
+    </section>
 
-<!-- SEALED WINNER SECTION -->
+    <section class="panel">
+        <div class="section-title text-center">The prize</div>
+        <div class="prize mt-3 mb-3">
+            <div class="amount">£40</div>
+            <small>WINNER TAKES THE PRIZE</small>
+        </div>
 
-<section class="draw-section" id="winner-draw">
-<div class="container">
+        <div class="section-title text-center mb-3">The winner reveal</div>
 
-<div class="text-center mb-4">
-<div class="section-label mb-3">THE BIG MOMENT</div>
-<h2 class="display-number" style="font-size:clamp(2.5rem,7vw,4rem)">
-Who will win £40?
-</h2>
-<p class="section-subtitle">
-The winning team has already been chosen. Nobody can see the result until the reveal.
-</p>
-</div>
+        <div class="draw-display" aria-live="polite">
+            <div class="draw-icon"><i class="bi bi-trophy-fill"></i></div>
+            <div class="draw-label" id="drawLabel">Ready for the reveal?</div>
+            <div class="draw-team" id="drawTeam">GOOD LUCK!</div>
+        </div>
 
-<div class="draw-card">
+        <button class="draw-button mt-3" id="drawButton" type="button">
+            <i class="bi bi-play-circle-fill me-2"></i>
+            REVEAL THE WINNER
+        </button>
 
-<div class="draw-label">
-<i class="bi bi-lock-fill me-2"></i>THE £40 WINNER
-</div>
+        <div class="winner-message" id="winnerMessage">
+            <div class="top-label">THE WINNING TEAM</div>
+            <h3 id="winnerName"></h3>
+            <p>Congratulations! This is the winning team for the £40 draw.</p>
+        </div>
 
-<div class="draw-display" id="drawDisplay">
-<div class="sealed-icon">
-<i class="bi bi-shield-lock-fill"></i>
-</div>
-<div class="draw-team" id="drawTeamDisplay">???</div>
-<div class="draw-caption" id="drawCaption">WINNING TEAM SEALED</div>
-</div>
+        <p class="text-center mt-3 mb-0" style="color:var(--muted);font-size:10px;">
+            The reveal animation will always finish on the same selected team.
+        </p>
+    </section>
 
-<button type="button" class="draw-button" id="revealButton">
-<i class="bi bi-unlock-fill me-2"></i> REVEAL THE WINNER
-</button>
+    <section class="panel">
+        <div class="section-title">Draw information</div>
 
-<input
-type="file"
-id="keyFileInput"
-class="key-input"
-accept=".txt,.json,application/json,text/plain"
->
+        <div class="info-row">
+            <i class="bi bi-ticket-perforated-fill"></i>
+            <div>
+                <strong>32 entries</strong>
+                <small>Every team has been sold.</small>
+            </div>
+        </div>
 
-<div class="key-status" id="keyStatus" role="status" aria-live="polite">
-The winning team is encrypted. The private reveal key is required.
-</div>
+        <div class="info-row">
+            <i class="bi bi-cash-coin"></i>
+            <div>
+                <strong>£40 prize</strong>
+                <small>The winning entry receives the advertised prize.</small>
+            </div>
+        </div>
 
-<div class="key-note">
-<i class="bi bi-info-circle me-1"></i>
-The organiser must upload the private reveal key to unlock the result. The key is not stored on this website. Keep your private key file safe.
-</div>
+        <div class="info-row">
+            <i class="bi bi-trophy-fill"></i>
+            <div>
+                <strong>One winning team</strong>
+                <small>The reveal animation ends on the preselected winner.</small>
+            </div>
+        </div>
+    </section>
 
-</div>
-</div>
-</section>
+    <footer class="footer">
+        <div class="brand mb-2">FOOTBALL<span>CARD</span></div>
+        <div>Thank you to everyone who entered.</div>
+        <div class="mt-2">Good luck! 🏆</div>
+    </footer>
 
-<section class="steps-section">
-<div class="container">
-
-<div class="text-center mb-4">
-<div class="section-label mb-3">THE CARD IS COMPLETE</div>
-<h2 class="display-number" style="font-size:clamp(2.3rem,6vw,3.8rem)">
-What's next?
-</h2>
-<p class="section-subtitle">
-All entries are in. Now it's time to find out who wins.
-</p>
-</div>
-
-<div class="row g-3">
-
-<div class="col-md-4">
-<div class="step-card">
-<div class="step-icon"><i class="bi bi-check-circle-fill"></i></div>
-<div class="step-number">STEP 01</div>
-<h3>Card complete</h3>
-<p>All 32 teams have been taken and the card is now closed.</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="step-card">
-<div class="step-icon"><i class="bi bi-shield-lock-fill"></i></div>
-<div class="step-number">STEP 02</div>
-<h3>Winner sealed</h3>
-<p>One winning team has already been selected and encrypted for the surprise reveal.</p>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="step-card">
-<div class="step-icon"><i class="bi bi-trophy-fill"></i></div>
-<div class="step-number">STEP 03</div>
-<h3>The big reveal</h3>
-<p>The organiser will unlock the sealed result and reveal the £40 winning team.</p>
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
-<section class="payment-section" id="payment">
-<div class="container">
-<div class="payment-card">
-<div class="row align-items-center g-4">
-
-<div class="col-md-7">
-<div class="payment-icon"><i class="bi bi-check-circle-fill"></i></div>
-<div class="section-label mb-2">THANK YOU</div>
-<h2 class="display-number" style="font-size:clamp(2.3rem,6vw,3.8rem)">
-Every team sold!
-</h2>
-<p class="section-subtitle mb-3">
-A massive thank you to everyone who took part and supported the football card.
-</p>
-<div class="notice">
-<i class="bi bi-info-circle me-1"></i>
-The card is now closed. Please contact the organiser if you have any questions about your entry or the result.
-</div>
-</div>
-
-<div class="col-md-5">
-<div class="text-md-end">
-<div class="payment-note">TOTAL ADVERTISED PRIZE</div>
-<div class="payment-price">£40</div>
-<div class="mt-4">
-<a class="support-link" href="https://wa.me/qr/6FPHSGFTV3HCO1" target="_blank" rel="noopener noreferrer">
-<i class="bi bi-whatsapp"></i> Contact the organiser
-</a>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-</section>
-
-</main>
-
-<footer>
-<div class="container d-flex flex-column flex-md-row justify-content-between gap-3">
-<div>
-<div class="brand mb-1">FOOTBALL<span>CARD.</span></div>
-<div>£2 entry · £40 advertised prize</div>
-</div>
-
-<div class="text-md-end">
-<a class="support-link" href="https://wa.me/qr/6FPHSGFTV3HCO1" target="_blank" rel="noopener noreferrer">
-<i class="bi bi-whatsapp"></i> Contact the organiser
-</a>
-<div class="mt-2">Thank you for taking part.</div>
-</div>
-</div>
-</footer>
-
-<div class="draw-overlay" id="drawOverlay" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
-<div class="draw-overlay-inner">
-<div class="draw-trophy"><i class="bi bi-trophy-fill"></i></div>
-<h2 id="overlayTitle">THE WINNING TEAM IS...</h2>
-<div class="draw-winner-caption">THE £40 WINNER</div>
-<div class="draw-overlay-team" id="overlayWinner">???</div>
-<p class="payment-note mt-4">Congratulations to the winning team!</p>
-<button class="draw-close" id="closeDrawBtn" type="button">CLOSE REVEAL</button>
-</div>
 </div>
 
 <script>
-"use strict";
-
-/*
-  SEALED WINNER SYSTEM
-
-  The winner is already selected.
-  This page contains only encrypted data.
-  The separate private key file is needed to decrypt it.
-
-  Do not add your private key to this HTML file.
-*/
-
+/* ALL 32 TEAMS */
 const TEAMS = [
-"Newcastle UTD",
-"Aston Villa",
-"Man UTD",
-"Liverpool",
-"Leeds UTD",
-"Arsenal",
-"Middlesbrough",
-"Notts Forest",
-"Tottenham",
-"Wimbledon",
-"QPR",
-"Blackburn",
-"Everton",
-"West Ham",
-"Southampton",
-"Coventry",
-"Man City",
-"Birmingham",
-"Leicester",
-"Portsmouth",
-"Sunderland",
-"WBA",
-"Derby",
-"Celtic",
-"Swindon",
-"Wigan",
-"Rangers",
-"Preston",
-"Crystal Palace",
-"Sheffield UTD",
-"Aberdeen",
-"Hibernian"
+    "Aberdeen",
+    "Arsenal",
+    "Aston Villa",
+    "Barcelona",
+    "Celtic",
+    "Chelsea",
+    "Dundee",
+    "Dundee United",
+    "Everton",
+    "Fulham",
+    "Hearts",
+    "Hibernian",
+    "Liverpool",
+    "Manchester City",
+    "Manchester United",
+    "Newcastle United",
+    "Notts Forest",
+    "Rangers",
+    "Real Madrid",
+    "Southampton",
+    "St Mirren",
+    "Tottenham",
+    "West Ham",
+    "Wolves",
+    "Leeds United",
+    "Brighton",
+    "Crystal Palace",
+    "Brentford",
+    "Bournemouth",
+    "Burnley",
+    "Ipswich Town",
+    "Leicester City"
 ];
 
 /*
-  ENCRYPTED WINNER DATA
-  The winning team is not written in plain text here.
+  Fixed winner stored as Base64 so the team name is not
+  immediately obvious when casually viewing the source.
+
+  This is obfuscation, NOT secure encryption.
 */
+const FIXED_WINNER_CODE = "UHJlc3Rvbg==";
 
-const SEALED_WINNER = {
-  version: 1,
-  algorithm: "AES-256-GCM",
-  nonce: "HNOSNSlyJQSaPBDa",
-  ciphertext: "QiHU110BI3YLRkE6LkiYKvnXHi946Lw=",
-  aad: "Rk9PVEJBTEwtQ0FSRC1TRUFMRUQtV0lOTkVSLVYx"
-};
+function getFixedWinner() {
+    return atob(FIXED_WINNER_CODE);
+}
 
-const teamsGrid = document.getElementById("teamsGrid");
-const revealButton = document.getElementById("revealButton");
-const keyFileInput = document.getElementById("keyFileInput");
-const keyStatus = document.getElementById("keyStatus");
-const drawTeamDisplay = document.getElementById("drawTeamDisplay");
-const drawCaption = document.getElementById("drawCaption");
-const drawDisplay = document.getElementById("drawDisplay");
-const drawOverlay = document.getElementById("drawOverlay");
-const overlayWinner = document.getElementById("overlayWinner");
+/* Build the sold-out team grid */
+const teamGrid = document.getElementById("teamGrid");
 
-let winnerRevealed = false;
-
-/* DISPLAY ALL 32 TEAMS AS SOLD */
-
-function renderTeams() {
-  teamsGrid.replaceChildren();
-
-  TEAMS.forEach(team => {
+TEAMS.forEach(team => {
     const card = document.createElement("div");
-    card.className = "team-card";
+    card.className = "team";
 
-    const icon = document.createElement("span");
-    icon.className = "team-icon";
-    icon.innerHTML = '<i class="bi bi-shield-fill"></i>';
-
-    const name = document.createElement("span");
+    const name = document.createElement("div");
     name.className = "team-name";
     name.textContent = team;
 
-    const status = document.createElement("span");
+    const status = document.createElement("div");
     status.className = "team-status";
     status.textContent = "SOLD";
 
-    card.append(icon, name, status);
-    teamsGrid.appendChild(card);
-  });
-}
-
-/* BASE64 DECODER */
-
-function decodeBase64(value) {
-  const binary = atob(value);
-  const bytes = new Uint8Array(binary.length);
-
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i);
-  }
-
-  return bytes;
-}
-
-/* PRIVATE KEY FILE READER */
-
-async function readPrivateKey(file) {
-  const text = await file.text();
-  const data = JSON.parse(text);
-
-  if (
-    data.version !== 1 ||
-    data.algorithm !== "AES-256-GCM" ||
-    typeof data.key !== "string"
-  ) {
-    throw new Error("This is not the correct reveal key file.");
-  }
-
-  const rawKey = decodeBase64(data.key);
-
-  if (rawKey.length !== 32) {
-    throw new Error("The reveal key file is invalid.");
-  }
-
-  return crypto.subtle.importKey(
-    "raw",
-    rawKey,
-    { name: "AES-GCM" },
-    false,
-    ["decrypt"]
-  );
-}
-
-/* DECRYPT THE PRE-SELECTED TEAM */
-
-async function decryptWinner(file) {
-  if (!window.crypto || !window.crypto.subtle) {
-    throw new Error("Secure decryption is not supported in this browser. Open the website using HTTPS.");
-  }
-
-  const key = await readPrivateKey(file);
-
-  const nonce = decodeBase64(SEALED_WINNER.nonce);
-  const ciphertext = decodeBase64(SEALED_WINNER.ciphertext);
-  const aad = decodeBase64(SEALED_WINNER.aad);
-
-  const decrypted = await crypto.subtle.decrypt(
-    {
-      name: "AES-GCM",
-      iv: nonce,
-      additionalData: aad,
-      tagLength: 128
-    },
-    key,
-    ciphertext
-  );
-
-  const winner = new TextDecoder().decode(decrypted);
-
-  if (!TEAMS.includes(winner)) {
-    throw new Error("The decrypted result is not a valid team.");
-  }
-
-  return winner;
-}
-
-/* CONFETTI */
-
-function createConfetti() {
-  const symbols = ["🎉", "⚽", "🏆", "✨"];
-
-  for (let i = 0; i < 65; i++) {
-    const piece = document.createElement("div");
-    piece.className = "confetti";
-    piece.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    piece.style.left = Math.random() * 100 + "vw";
-    piece.style.fontSize = (12 + Math.random() * 15) + "px";
-    piece.style.animationDuration = (2.5 + Math.random() * 3) + "s";
-    piece.style.animationDelay = Math.random() * 1.2 + "s";
-
-    document.body.appendChild(piece);
-    setTimeout(() => piece.remove(), 6500);
-  }
-}
-
-/* WINNER REVEAL */
-
-function revealWinner(winner) {
-  winnerRevealed = true;
-
-  drawDisplay.innerHTML = "";
-
-  const team = document.createElement("div");
-  team.className = "draw-team reveal-animation";
-  team.textContent = winner;
-
-  const caption = document.createElement("div");
-  caption.className = "draw-caption";
-  caption.textContent = "WINNING TEAM";
-
-  drawDisplay.append(team, caption);
-
-  drawCaption.textContent = "DRAW COMPLETE";
-  drawTeamDisplay.textContent = winner;
-
-  overlayWinner.textContent = winner;
-
-  revealButton.disabled = true;
-  revealButton.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i> WINNER REVEALED';
-
-  keyStatus.textContent = "The winning team has been successfully revealed.";
-  keyStatus.className = "key-status success";
-
-  drawOverlay.classList.add("show");
-  document.body.style.overflow = "hidden";
-
-  createConfetti();
-}
-
-/* REVEAL BUTTON */
-
-revealButton.addEventListener("click", () => {
-  if (winnerRevealed) return;
-
-  if (!window.crypto || !window.crypto.subtle) {
-    keyStatus.textContent = "Secure decryption requires the website to be opened using HTTPS.";
-    keyStatus.className = "key-status error";
-    return;
-  }
-
-  keyFileInput.click();
+    card.appendChild(name);
+    card.appendChild(status);
+    teamGrid.appendChild(card);
 });
 
-/* PRIVATE KEY UPLOAD */
+/* Draw animation */
+const drawButton = document.getElementById("drawButton");
+const drawTeam = document.getElementById("drawTeam");
+const drawLabel = document.getElementById("drawLabel");
+const winnerMessage = document.getElementById("winnerMessage");
+const winnerName = document.getElementById("winnerName");
 
-keyFileInput.addEventListener("change", async () => {
-  const file = keyFileInput.files && keyFileInput.files[0];
+let drawing = false;
 
-  if (!file) return;
+function revealWinner() {
+    if (drawing) return;
 
-  revealButton.disabled = true;
-  revealButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i> DECRYPTING...';
+    drawing = true;
+    drawButton.disabled = true;
+    winnerMessage.classList.remove("show");
 
-  keyStatus.textContent = "Checking the private reveal key...";
-  keyStatus.className = "key-status";
+    drawLabel.textContent = "SELECTING THE WINNING TEAM...";
+    drawTeam.classList.add("spinning");
 
-  try {
-    const winner = await decryptWinner(file);
-    revealWinner(winner);
-  } catch (error) {
-    console.error("Winner decryption failed:", error);
+    const winner = getFixedWinner();
 
-    keyStatus.textContent =
-      error.name === "OperationError"
-        ? "Incorrect reveal key. The winning team remains sealed."
-        : (error.message || "Unable to decrypt the winning team.");
+    /*
+      The animation cycles through the teams in a random-looking
+      order, but the final result is always the fixed winner.
+    */
+    const animationTeams = [...TEAMS];
 
-    keyStatus.className = "key-status error";
+    for (let i = animationTeams.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [animationTeams[i], animationTeams[j]] =
+            [animationTeams[j], animationTeams[i]];
+    }
 
-    revealButton.disabled = false;
-    revealButton.innerHTML = '<i class="bi bi-unlock-fill me-2"></i> TRY AGAIN';
-  } finally {
-    keyFileInput.value = "";
-  }
-});
+    /* Ensure the final animation step is the fixed winner */
+    const sequence = animationTeams.filter(team => team !== winner);
+    sequence.push(winner);
 
-/* CLOSE REVEAL */
+    let index = 0;
+    let delay = 45;
 
-function closeWinnerReveal() {
-  drawOverlay.classList.remove("show");
-  document.body.style.overflow = "";
+    function nextStep() {
+        drawTeam.textContent = sequence[index];
+
+        if (index === sequence.length - 1) {
+            finishReveal(winner);
+            return;
+        }
+
+        index++;
+
+        /* Gradually slow the animation down */
+        delay = Math.min(delay * 1.17, 480);
+
+        setTimeout(nextStep, delay);
+    }
+
+    nextStep();
 }
 
-document.getElementById("closeDrawBtn").addEventListener("click", closeWinnerReveal);
+function finishReveal(winner) {
+    drawTeam.textContent = winner;
+    drawTeam.classList.remove("spinning");
 
-drawOverlay.addEventListener("click", event => {
-  if (event.target === drawOverlay) {
-    closeWinnerReveal();
-  }
-});
+    drawLabel.textContent = "WE HAVE A WINNER!";
+    winnerName.textContent = winner;
 
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape" && drawOverlay.classList.contains("show")) {
-    closeWinnerReveal();
-  }
-});
+    winnerMessage.classList.add("show");
 
-/* INITIALISE */
+    drawButton.disabled = false;
+    drawButton.innerHTML =
+        '<i class="bi bi-arrow-clockwise me-2"></i> REVEAL AGAIN';
 
-renderTeams();
+    drawing = false;
+}
+
+drawButton.addEventListener("click", revealWinner);
 </script>
 
 </body>
