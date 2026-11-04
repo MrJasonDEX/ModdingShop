@@ -2,1147 +2,624 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07100b">
-  <meta name="description" content="Pick one of the last two available teams on our football card. £2 entry to win £40.">
-  <title>Football Card | Last 2 Teams</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #07100b;
-      --panel: #101a13;
-      --panel-light: #17231a;
-      --green: #8cff70;
-      --green-dark: #43b72d;
-      --white: #f5f8f4;
-      --muted: #9ba89e;
-      --border: rgba(255,255,255,.09);
-      --red: #ff6666;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      background:
-        radial-gradient(ellipse at 50% -10%, rgba(93,255,102,.12), transparent 45%),
-        var(--bg);
-      color: var(--white);
-      font-family: Inter, sans-serif;
-      min-height: 100vh;
-    }
-
-    a { text-decoration: none; }
-
-    .navbar {
-      background: rgba(7,16,11,.88);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(14px);
-    }
-
-    .brand {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 1.8rem;
-      font-weight: 900;
-      letter-spacing: -.5px;
-      color: white;
-    }
-
-    .brand span { color: var(--green); }
-
-    .nav-status {
-      color: var(--green);
-      background: rgba(140,255,112,.09);
-      border: 1px solid rgba(140,255,112,.2);
-      border-radius: 100px;
-      padding: 7px 12px;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .6px;
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 65px 0 34px;
-    }
-
-    .hero::before {
-      content: "FOOTBALL";
-      position: absolute;
-      top: 5px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: "Barlow Condensed", sans-serif;
-      font-weight: 900;
-      font-size: clamp(6rem, 20vw, 15rem);
-      color: rgba(255,255,255,.018);
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 13px;
-      border: 1px solid rgba(140,255,112,.24);
-      border-radius: 100px;
-      background: rgba(140,255,112,.07);
-      color: var(--green);
-      font-size: .75rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      display: inline-block;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 12px var(--green);
-    }
-
-    h1, h2, h3, .display-number {
-      font-family: "Barlow Condensed", sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      line-height: .88;
-      letter-spacing: -2px;
-      margin: 24px 0;
-    }
-
-    .hero h1 span { color: var(--green); }
-
-    .hero-description {
-      color: var(--muted);
-      max-width: 530px;
-      line-height: 1.8;
-      margin: 0 auto;
-      font-size: .95rem;
-    }
-
-    .prize-card {
-      max-width: 540px;
-      margin: 32px auto 0;
-      padding: 22px;
-      border: 1px solid rgba(140,255,112,.2);
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(140,255,112,.1), rgba(16,26,19,.92) 65%);
-      box-shadow: 0 15px 60px rgba(0,0,0,.2);
-    }
-
-    .prize-label {
-      font-size: .72rem;
-      font-weight: 800;
-      color: var(--muted);
-      letter-spacing: 1.5px;
-    }
-
-    .prize-amount {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: var(--green);
-      line-height: 1;
-    }
-
-    .prize-entry {
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .section-heading {
-      font-size: clamp(2.3rem, 6vw, 3.8rem);
-      line-height: .98;
-      margin-bottom: 12px;
-    }
-
-    .section-subtitle {
-      color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.7;
-    }
-
-    .section-label {
-      color: var(--green);
-      font-size: .7rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1.7px;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 28px 0 45px;
-    }
-
-    .stat-card {
-      padding: 19px 12px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 2.2rem;
-      font-weight: 900;
-      line-height: 1;
-    }
-
-    .stat-number.green { color: var(--green); }
-
-    .stat-caption {
-      color: var(--muted);
-      font-size: .69rem;
-      font-weight: 700;
-      margin-top: 7px;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-    }
-
-    .teams-section { padding: 15px 0 65px; }
-
-    .team-board {
-      background: rgba(16,26,19,.72);
-      border: 1px solid var(--border);
-      border-radius: 23px;
-      padding: 22px;
-    }
-
-    .board-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-
-    .board-title {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 1.6rem;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .board-legend {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-size: .7rem;
-      color: var(--muted);
-    }
-
-    .legend-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 5px;
-    }
-
-    .legend-available { background: var(--green); }
-    .legend-taken { background: #5b665d; }
-
-    .teams-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 11px;
-    }
-
-    .team-card {
-      position: relative;
-      min-width: 0;
-      min-height: 110px;
-      padding: 14px 7px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: #121b15;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      gap: 8px;
-      transition: transform .2s, border-color .2s, background .2s;
-    }
-
-    .team-name {
-      font-size: .76rem;
-      font-weight: 800;
-      line-height: 1.35;
-      overflow-wrap: anywhere;
-    }
-
-    .team-status {
-      font-size: .59rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .team-card.taken {
-      background: rgba(255,255,255,.018);
-      color: #667168;
-      border-color: rgba(255,255,255,.045);
-    }
-
-    .team-card.taken .team-status { color: #758077; }
-
-    .team-card.taken::after {
-      content: "";
-      position: absolute;
-      left: 15%;
-      right: 15%;
-      top: 50%;
-      height: 1px;
-      background: rgba(160,174,162,.24);
-      transform: rotate(-17deg);
-      pointer-events: none;
-    }
-
-    .team-card.available {
-      background: linear-gradient(145deg, rgba(140,255,112,.12), rgba(140,255,112,.035));
-      border: 1px solid rgba(140,255,112,.5);
-      color: var(--white);
-      cursor: pointer;
-      box-shadow: inset 0 0 22px rgba(140,255,112,.025);
-    }
-
-    .team-card.available .team-status { color: var(--green); }
-
-    .team-card.available:hover {
-      transform: translateY(-3px);
-      border-color: var(--green);
-      background: rgba(140,255,112,.15);
-    }
-
-    .team-card.selected {
-      background: var(--green);
-      color: #07100b;
-      border-color: var(--green);
-      box-shadow: 0 0 25px rgba(140,255,112,.18);
-    }
-
-    .team-card.selected .team-status { color: #163d11; }
-
-    .team-card.selected .team-status::before {
-      content: "✓ ";
-    }
-
-    .team-card.selected .team-status { font-size: .58rem; }
-
-    .team-card:disabled {
-      cursor: not-allowed;
-    }
-
-    .team-icon {
-      font-size: 1.25rem;
-      line-height: 1;
-    }
-
-    .remaining-bar-wrap { margin-top: 24px; }
-
-    .remaining-info {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-      font-size: .77rem;
-      font-weight: 700;
-    }
-
-    .remaining-info span:last-child { color: var(--green); }
-
-    .progress {
-      height: 7px;
-      border-radius: 100px;
-      background: #263229;
-    }
-
-    .progress-bar {
-      background: linear-gradient(90deg, #48b832, var(--green));
-      border-radius: 100px;
-      transition: width .3s;
-    }
-
-    .selection-box {
-      display: none;
-      margin-top: 20px;
-      padding: 20px;
-      border: 1px solid rgba(140,255,112,.25);
-      border-radius: 16px;
-      background: rgba(140,255,112,.06);
-    }
-
-    .selection-box.show { display: block; }
-
-    .selection-team {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--green);
-      text-transform: uppercase;
-    }
-
-    .btn-green {
-      background: var(--green);
-      color: #07100b;
-      border: 0;
-      border-radius: 11px;
-      padding: 14px 18px;
-      font-weight: 900;
-      font-size: .86rem;
-      transition: .2s;
-    }
-
-    .btn-green:hover {
-      background: #a4ff8d;
-      color: #07100b;
-      transform: translateY(-1px);
-    }
-
-    .btn-green:disabled {
-      background: #49554b;
-      color: #9da89f;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .btn-outline-light {
-      border-radius: 11px;
-      padding: 12px 16px;
-      font-size: .85rem;
-      font-weight: 700;
-    }
-
-    .steps-section { padding: 55px 0 70px; }
-
-    .step-card {
-      height: 100%;
-      padding: 25px;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-    }
-
-    .step-icon {
-      width: 48px;
-      height: 48px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 14px;
-      background: rgba(140,255,112,.1);
-      color: var(--green);
-      font-size: 1.3rem;
-      margin-bottom: 20px;
-    }
-
-    .step-number {
-      color: var(--green);
-      font-size: .68rem;
-      font-weight: 900;
-      letter-spacing: 1.4px;
-    }
-
-    .step-card h3 {
-      font-size: 1.55rem;
-      margin: 9px 0;
-    }
-
-    .step-card p {
-      color: var(--muted);
-      font-size: .83rem;
-      line-height: 1.8;
-      margin-bottom: 0;
-    }
-
-    .payment-section { padding: 0 0 70px; }
-
-    .payment-card {
-      border: 1px solid rgba(140,255,112,.2);
-      border-radius: 22px;
-      padding: clamp(22px, 5vw, 38px);
-      background: linear-gradient(145deg, rgba(140,255,112,.075), var(--panel) 65%);
-    }
-
-    .payment-icon {
-      width: 55px;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 16px;
-      background: rgba(140,255,112,.12);
-      color: var(--green);
-      font-size: 1.6rem;
-    }
-
-    .payment-price {
-      font-family: "Barlow Condensed", sans-serif;
-      font-size: 3rem;
-      font-weight: 900;
-    }
-
-    .payment-note {
-      color: var(--muted);
-      font-size: .78rem;
-      line-height: 1.7;
-    }
-
-    .notice {
-      border-radius: 12px;
-      background: rgba(255,255,255,.035);
-      border: 1px solid var(--border);
-      padding: 13px 15px;
-      color: var(--muted);
-      font-size: .76rem;
-      line-height: 1.7;
-    }
-
-    .support-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      color: var(--green);
-      font-weight: 800;
-      font-size: .85rem;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 25px 0;
-      color: #758078;
-      font-size: .72rem;
-      line-height: 1.8;
-    }
-
-    .admin-trigger {
-      color: #667168;
-      cursor: pointer;
-      border: 0;
-      background: none;
-      font-size: .7rem;
-    }
-
-    .admin-trigger:hover { color: var(--green); }
-
-    .admin-panel {
-      display: none;
-      margin: 25px 0;
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      background: var(--panel);
-    }
-
-    .admin-panel.show { display: block; }
-
-    .admin-panel input {
-      background: #07100b;
-      border-color: var(--border);
-      color: white;
-    }
-
-    .admin-panel input:focus {
-      background: #07100b;
-      color: white;
-      border-color: var(--green);
-      box-shadow: none;
-    }
-
-    .admin-panel .form-text { color: var(--muted); }
-
-    .toast-message {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 2000;
-      background: var(--green);
-      color: #07100b;
-      border-radius: 12px;
-      padding: 13px 18px;
-      font-size: .82rem;
-      font-weight: 800;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transition: .25s;
-      width: max-content;
-      max-width: calc(100% - 30px);
-    }
-
-    .toast-message.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    @media (max-width: 575px) {
-      .hero { padding-top: 48px; }
-      .hero h1 { letter-spacing: -1px; }
-      .team-board { padding: 14px; border-radius: 17px; }
-      .teams-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
-      .team-card { min-height: 95px; }
-      .team-name { font-size: .82rem; }
-      .stats-grid { gap: 8px; }
-      .stat-card { padding: 16px 6px; }
-      .stat-number { font-size: 1.8rem; }
-      .stat-caption { font-size: .6rem; }
-      .prize-card { padding: 18px; }
-      .board-legend { gap: 9px; }
-    }
-
-    @media (min-width: 576px) and (max-width: 767px) {
-      .teams-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07100b">
+<meta name="description" content="Football Card - £40 prize draw">
+<title>Football Card | £40 Draw</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+--bg:#07100b;
+--panel:#101a13;
+--green:#8cff70;
+--white:#f5f8f4;
+--muted:#9ba89e;
+--border:rgba(255,255,255,.09);
+}
+*{box-sizing:border-box}
+body{
+margin:0;background:radial-gradient(ellipse at 50% -10%,rgba(93,255,102,.12),transparent 45%),var(--bg);
+color:var(--white);font-family:Inter,sans-serif;min-height:100vh
+}
+a{text-decoration:none}
+.navbar{background:rgba(7,16,11,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}
+.brand{font-family:"Barlow Condensed",sans-serif;font-size:1.8rem;font-weight:900;color:white}
+.brand span{color:var(--green)}
+.nav-status,.eyebrow{
+color:var(--green);background:rgba(140,255,112,.09);
+border:1px solid rgba(140,255,112,.2);border-radius:100px;
+padding:8px 13px;font-size:.72rem;font-weight:800;letter-spacing:1px
+}
+.live-dot{width:7px;height:7px;display:inline-block;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.hero{padding:65px 0 34px;text-align:center}
+h1,h2,h3,.display-number{font-family:"Barlow Condensed",sans-serif;font-weight:900;text-transform:uppercase}
+.hero h1{font-size:clamp(3.5rem,10vw,7rem);line-height:.88;letter-spacing:-2px;margin:24px 0}
+.hero h1 span{color:var(--green)}
+.hero-description,.section-subtitle{color:var(--muted);line-height:1.8;font-size:.9rem}
+.hero-description{max-width:530px;margin:auto}
+.prize-card{max-width:540px;margin:32px auto 0;padding:22px;border:1px solid rgba(140,255,112,.2);border-radius:20px;background:linear-gradient(135deg,rgba(140,255,112,.1),var(--panel) 65%)}
+.prize-label,.section-label{font-size:.72rem;font-weight:800;color:var(--muted);letter-spacing:1.5px}
+.section-label{color:var(--green)}
+.prize-amount{font-family:"Barlow Condensed",sans-serif;font-size:3.5rem;font-weight:900;color:var(--green)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0 45px}
+.stat-card{padding:19px 12px;background:var(--panel);border:1px solid var(--border);border-radius:15px;text-align:center}
+.stat-number{font-family:"Barlow Condensed",sans-serif;font-size:2.2rem;font-weight:900}
+.stat-number.green{color:var(--green)}
+.stat-caption{color:var(--muted);font-size:.69rem;font-weight:700;margin-top:7px}
+.teams-section{padding:15px 0 65px}
+.team-board{background:rgba(16,26,19,.72);border:1px solid var(--border);border-radius:23px;padding:22px}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.board-title{font-family:"Barlow Condensed",sans-serif;font-size:1.6rem;font-weight:900}
+.board-legend{display:flex;gap:14px;font-size:.7rem;color:var(--muted)}
+.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.legend-available{background:var(--green)}
+.legend-taken{background:#5b665d}
+.teams-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.team-card{position:relative;min-width:0;min-height:110px;padding:14px 7px;border-radius:14px;border:1px solid var(--border);background:#121b15;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px}
+.team-name{font-size:.76rem;font-weight:800;line-height:1.35;overflow-wrap:anywhere}
+.team-status{font-size:.59rem;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.team-card.taken{background:rgba(255,255,255,.018);color:#667168;border-color:rgba(255,255,255,.045)}
+.team-card.taken .team-status{color:#758077}
+.team-card.taken:after{content:"";position:absolute;left:15%;right:15%;top:50%;height:1px;background:rgba(160,174,162,.24);transform:rotate(-17deg)}
+.team-card.available{background:linear-gradient(145deg,rgba(140,255,112,.12),rgba(140,255,112,.035));border:1px solid rgba(140,255,112,.5);color:var(--white);cursor:pointer}
+.team-card.available .team-status{color:var(--green)}
+.team-card.available:hover{transform:translateY(-3px);border-color:var(--green)}
+.team-card.selected{background:var(--green);color:#07100b;border-color:var(--green)}
+.team-card.selected .team-status{color:#163d11}
+.team-icon{font-size:1.25rem}
+.remaining-bar-wrap{margin-top:24px}
+.remaining-info{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:.77rem;font-weight:700}
+.remaining-info span:last-child{color:var(--green)}
+.progress{height:7px;border-radius:100px;background:#263229}
+.progress-bar{background:linear-gradient(90deg,#48b832,var(--green));border-radius:100px}
+.selection-box{display:none;margin-top:20px;padding:20px;border:1px solid rgba(140,255,112,.25);border-radius:16px;background:rgba(140,255,112,.06)}
+.selection-box.show{display:block}
+.selection-team{font-family:"Barlow Condensed",sans-serif;font-size:2rem;font-weight:900;color:var(--green)}
+.btn-green{background:var(--green);color:#07100b;border:0;border-radius:11px;padding:14px 18px;font-weight:900;font-size:.86rem}
+.btn-green:hover{background:#a4ff8d;color:#07100b}
+.payment-note{color:var(--muted);font-size:.78rem;line-height:1.7}
+.steps-section{padding:55px 0 70px}
+.step-card{height:100%;padding:25px;border-radius:18px;border:1px solid var(--border);background:var(--panel)}
+.step-icon,.payment-icon{width:48px;height:48px;display:flex;justify-content:center;align-items:center;border-radius:14px;background:rgba(140,255,112,.1);color:var(--green);font-size:1.3rem;margin-bottom:20px}
+.step-number{color:var(--green);font-size:.68rem;font-weight:900}
+.step-card h3{font-size:1.55rem;margin:9px 0}
+.step-card p{color:var(--muted);font-size:.83rem;line-height:1.8}
+.payment-section{padding:0 0 70px}
+.payment-card{border:1px solid rgba(140,255,112,.2);border-radius:22px;padding:clamp(22px,5vw,38px);background:linear-gradient(145deg,rgba(140,255,112,.075),var(--panel) 65%)}
+.payment-price{font-family:"Barlow Condensed",sans-serif;font-size:3rem;font-weight:900}
+.notice{border-radius:12px;background:rgba(255,255,255,.035);border:1px solid var(--border);padding:13px 15px;color:var(--muted);font-size:.76rem;line-height:1.7}
+.support-link{display:inline-flex;align-items:center;gap:9px;color:var(--green);font-weight:800;font-size:.85rem}
+footer{border-top:1px solid var(--border);padding:25px 0;color:#758078;font-size:.72rem;line-height:1.8}
+.admin-trigger{color:#667168;cursor:pointer;border:0;background:none;font-size:.7rem}
+.admin-panel{display:none;margin:25px 0;padding:20px;border:1px solid var(--border);border-radius:15px;background:var(--panel)}
+.admin-panel.show{display:block}
+.toast-message{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;z-index:2000;background:var(--green);color:#07100b;border-radius:12px;padding:13px 18px;font-size:.82rem;font-weight:800;transition:.25s}
+.toast-message.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* WINNER DRAW */
+.draw-section{padding:35px 0 75px}
+.draw-card{position:relative;overflow:hidden;border:1px solid rgba(140,255,112,.25);border-radius:24px;padding:clamp(22px,5vw,42px);background:radial-gradient(ellipse at 50% 0%,rgba(140,255,112,.13),transparent 60%),#101a13;text-align:center}
+.draw-label{color:var(--green);font-size:.72rem;font-weight:900;letter-spacing:2px}
+.draw-display{min-height:175px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:22px 0;padding:20px;border:1px solid rgba(140,255,112,.2);border-radius:18px;background:rgba(0,0,0,.22)}
+.draw-team{font-family:"Barlow Condensed",sans-serif;font-weight:900;font-size:clamp(2.5rem,8vw,5rem);line-height:1;color:var(--green);text-transform:uppercase;overflow-wrap:anywhere}
+.draw-caption{color:var(--muted);font-size:.75rem;font-weight:700;letter-spacing:1.5px;margin-top:12px}
+.draw-button{width:100%;max-width:360px;padding:17px 22px;border:0;border-radius:13px;background:var(--green);color:#07100b;font-weight:900;font-size:1rem;letter-spacing:.5px}
+.draw-button:hover{background:#a4ff8d}
+.draw-button:disabled{opacity:.5;cursor:not-allowed}
+.draw-history{max-width:500px;margin:25px auto 0;text-align:left}
+.draw-history-item{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);font-size:.8rem}
+.draw-history-item strong{color:var(--green)}
+.draw-overlay{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(2,7,3,.97);text-align:center}
+.draw-overlay.show{display:flex}
+.draw-overlay-inner{width:100%;max-width:700px}
+.draw-overlay h2{font-size:clamp(2rem,7vw,4rem);color:var(--green)}
+.draw-overlay-team{font-family:"Barlow Condensed",sans-serif;font-size:clamp(3rem,12vw,7rem);font-weight:900;line-height:1;color:var(--green);text-transform:uppercase;overflow-wrap:anywhere;text-shadow:0 0 35px rgba(140,255,112,.35)}
+.draw-trophy{font-size:4rem;color:var(--green);margin-bottom:20px}
+.draw-winner-caption{font-size:.8rem;color:var(--muted);letter-spacing:2px;margin-bottom:12px}
+.draw-close{margin-top:30px;border:1px solid rgba(140,255,112,.4);border-radius:10px;background:transparent;color:white;padding:12px 25px;font-weight:800}
+.draw-close:hover{background:rgba(140,255,112,.1)}
+.confetti{position:fixed;top:-20px;width:9px;height:15px;z-index:5100;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(900deg);opacity:.2}}
+.spinning{animation:pulse .25s infinite alternate}
+@keyframes pulse{from{transform:scale(1);opacity:.7}to{transform:scale(1.06);opacity:1}}
+@media(max-width:575px){
+.hero{padding-top:48px}.hero h1{letter-spacing:-1px}
+.team-board{padding:14px;border-radius:17px}
+.teams-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.team-card{min-height:95px}.team-name{font-size:.82rem}
+.stats-grid{gap:8px}.stat-card{padding:16px 6px}
+.stat-number{font-size:1.8rem}.stat-caption{font-size:.6rem}
+.prize-card{padding:18px}.board-legend{gap:9px}
+}
+@media(min-width:576px) and (max-width:767px){.teams-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand">
-    <div class="container py-2">
-      <a class="brand" href="#">FOOTBALL<span>CARD.</span></a>
-      <div class="ms-auto">
-        <span class="nav-status"><span class="live-dot me-1"></span> LAST 2 TEAMS</span>
-      </div>
-    </div>
-  </nav>
-
-  <header class="hero text-center">
-    <div class="container position-relative">
-      <span class="eyebrow"><span class="live-dot"></span> FINAL TWO SPACES</span>
-
-      <h1>ONE CARD.<br><span>£40 TO WIN.</span></h1>
-
-      <p class="hero-description">
-        We're nearly there! Just two teams remain on the football card.
-        Pick your team, complete your entry and get involved.
-      </p>
-
-      <div class="prize-card">
-        <div class="row align-items-center g-3">
-          <div class="col-7 text-start">
-            <div class="prize-label">THE WINNER TAKES</div>
-            <div class="prize-amount">£40</div>
-            <div class="prize-entry">Just £2 per team entry</div>
-          </div>
-          <div class="col-5 text-end">
-            <div style="font-size:2.7rem;color:var(--green)">
-              <i class="bi bi-trophy-fill"></i>
-            </div>
-            <div class="fw-bold small">Your team. Your chance.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">32</div>
-          <div class="stat-caption">Teams total</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number green" id="remainingStat">2</div>
-          <div class="stat-caption">Available now</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" id="takenStat">30</div>
-          <div class="stat-caption">Teams taken</div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="teams-section" id="teams">
-      <div class="container">
-        <div class="text-center mb-4">
-          <div class="section-label mb-3">THE FOOTBALL CARD</div>
-          <h2 class="section-heading">Choose your team</h2>
-          <p class="section-subtitle">
-            Grey teams are taken. Green teams are available to select.
-          </p>
-        </div>
-
-        <div class="team-board">
-          <div class="board-top">
-            <div class="board-title">All 32 teams</div>
-            <div class="board-legend">
-              <span><i class="legend-dot legend-available"></i>Available</span>
-              <span><i class="legend-dot legend-taken"></i>Taken</span>
-            </div>
-          </div>
-
-          <div class="teams-grid" id="teamsGrid" aria-label="Football teams"></div>
-
-          <div class="remaining-bar-wrap">
-            <div class="remaining-info">
-              <span id="progressLabel">30 of 32 teams taken</span>
-              <span id="progressPercent">94% FULL</span>
-            </div>
-            <div class="progress" role="progressbar" aria-label="Teams taken" aria-valuemin="0" aria-valuemax="32" aria-valuenow="30">
-              <div class="progress-bar" id="progressBar" style="width:93.75%"></div>
-            </div>
-          </div>
-
-          <div class="selection-box" id="selectionBox" aria-live="polite">
-            <div class="section-label">YOUR SELECTED TEAM</div>
-            <div class="selection-team" id="selectedTeamName">Aberdeen</div>
-            <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mt-2">
-              <span class="payment-note">Entry fee: <strong class="text-white">£2.00</strong></span>
-              <button type="button" class="btn btn-outline-light btn-sm" id="changeTeamBtn">
-                Change team
-              </button>
-            </div>
-            <hr style="border-color:var(--border)">
-            <p class="payment-note mb-3">
-              Continue to Revolut to make your payment. Your selection is not confirmed for everyone until the organiser verifies it.
-            </p>
-            <a class="btn btn-green w-100" id="checkoutBtn" href="https://checkout.revolut.com/pay/ea9e4bf9-099d-4fa8-8a55-07b98c7c78d3" target="_blank" rel="noopener noreferrer">
-              <i class="bi bi-lock-fill me-2"></i>CONTINUE TO PAYMENT — £2
-            </a>
-          </div>
-
-          <div class="text-center mt-4">
-            <p class="payment-note mb-0">
-              <i class="bi bi-shield-check me-1"></i>
-              Please contact the organiser if you need help with your entry.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="steps-section">
-      <div class="container">
-        <div class="text-center mb-4">
-          <div class="section-label mb-3">THREE SIMPLE STEPS</div>
-          <h2 class="section-heading">How it works</h2>
-          <p class="section-subtitle">Get your entry sorted in just a few steps.</p>
-        </div>
-
-        <div class="row g-3">
-          <div class="col-md-4">
-            <div class="step-card">
-              <div class="step-icon"><i class="bi bi-hand-index-thumb"></i></div>
-              <div class="step-number">STEP 01</div>
-              <h3>Pick a team</h3>
-              <p>Choose Aberdeen or Hibernian from the two remaining spaces on the card.</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="step-card">
-              <div class="step-icon"><i class="bi bi-credit-card"></i></div>
-              <div class="step-number">STEP 02</div>
-              <h3>Pay £2</h3>
-              <p>Use the Revolut payment link and contact the organiser if you need help confirming your entry.</p>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="step-card">
-              <div class="step-icon"><i class="bi bi-trophy"></i></div>
-              <div class="step-number">STEP 03</div>
-              <h3>Await the result</h3>
-              <p>Once the card is complete, the organiser will confirm the draw arrangements and winner.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="payment-section" id="payment">
-      <div class="container">
-        <div class="payment-card">
-          <div class="row align-items-center g-4">
-            <div class="col-md-7">
-              <div class="payment-icon mb-3"><i class="bi bi-wallet2"></i></div>
-              <div class="section-label mb-2">SECURE CHECKOUT</div>
-              <h2 class="section-heading">Ready to enter?</h2>
-              <p class="section-subtitle mb-3">
-                Entry costs £2 per team. Select one of the available teams above to continue to the payment link.
-              </p>
-              <div class="notice">
-                <i class="bi bi-info-circle me-1"></i>
-                A payment alone does not update the public card automatically. The organiser must verify the payment and update the team availability.
-              </div>
-            </div>
-            <div class="col-md-5">
-              <div class="text-md-end">
-                <div class="payment-note">ENTRY PRICE</div>
-                <div class="payment-price">£2.00</div>
-                <a href="#teams" class="btn btn-green w-100 mt-2">
-                  <i class="bi bi-arrow-up-right-circle me-2"></i>SELECT YOUR TEAM
-                </a>
-                <div class="mt-4">
-                  <a class="support-link" href="https://wa.me/qr/6FPHSGFTV3HCO1" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp"></i> Need help? Message us
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="container mb-5">
-      <div class="admin-panel" id="adminPanel">
-        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
-          <h3 class="mb-0">Admin controls</h3>
-          <span class="nav-status">LOCAL BROWSER ONLY</span>
-        </div>
-        <p class="payment-note">
-          These controls only affect this browser. They do not update the card for other visitors.
-        </p>
-        <div class="d-flex gap-2 flex-wrap">
-          <button class="btn btn-outline-light btn-sm" id="resetCardBtn" type="button">
-            Restore original 30 taken / 2 available
-          </button>
-          <button class="btn btn-outline-light btn-sm" id="adminLogoutBtn" type="button">
-            Lock admin panel
-          </button>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="container d-flex flex-column flex-md-row justify-content-between gap-3">
-      <div>
-        <div class="brand mb-1">FOOTBALL<span>CARD.</span></div>
-        <div>£2 entry · £40 advertised prize</div>
-      </div>
-      <div class="text-md-end">
-        <a class="support-link" href="https://wa.me/qr/6FPHSGFTV3HCO1" target="_blank" rel="noopener noreferrer">
-          <i class="bi bi-whatsapp"></i> Contact the organiser
-        </a>
-        <div class="mt-2">Please check the organiser's terms and draw arrangements before entering.</div>
-        <button class="admin-trigger mt-1" id="adminTrigger" type="button">Organiser access</button>
-      </div>
-    </div>
-  </footer>
-
-  <div class="toast-message" id="toastMessage" role="status" aria-live="polite"></div>
-
-  <script>
-    "use strict";
-
-    /*
-      FOOTBALL CARD SETTINGS
-      This is a static website. Browser storage is not shared between visitors.
-      A backend/database is required for real-time shared team reservations.
-    */
-
-    const CONFIG = {
-      entryPrice: 2,
-      prize: 40,
-      checkoutUrl: "https://checkout.revolut.com/pay/ea9e4bf9-099d-4fa8-8a55-07b98c7c78d3",
-      supportUrl: "https://wa.me/qr/6FPHSGFTV3HCO1",
-
-      // Frontend-only password. It is visible to anyone who views the source.
-      // Replace this with proper server-side authentication before using for real sales.
-      adminPassword: "4cc5d035901",
-
-      storageKey: "football-card-v4"
-    };
-
-    const TEAMS = [
-      "Newcastle UTD",
-      "Aston Villa",
-      "Man UTD",
-      "Liverpool",
-      "Leeds UTD",
-      "Arsenal",
-      "Middlesbrough",
-      "Notts Forest",
-      "Tottenham",
-      "Wimbledon",
-      "QPR",
-      "Blackburn",
-      "Everton",
-      "West Ham",
-      "Southampton",
-      "Coventry",
-      "Man City",
-      "Birmingham",
-      "Leicester",
-      "Portsmouth",
-      "Sunderland",
-      "WBA",
-      "Derby",
-      "Celtic",
-      "Swindon",
-      "Wigan",
-      "Rangers",
-      "Preston",
-      "Crystal Palace",
-      "Sheffield UTD",
-      "Aberdeen",
-      "Hibernian"
-    ];
-
-    const DEFAULT_AVAILABLE = ["Aberdeen", "Hibernian"];
-
-    let selectedTeam = null;
-    let adminUnlocked = false;
-    let teamState = loadState();
-
-    const teamsGrid = document.getElementById("teamsGrid");
-    const selectionBox = document.getElementById("selectionBox");
-    const selectedTeamName = document.getElementById("selectedTeamName");
-    const checkoutBtn = document.getElementById("checkoutBtn");
-    const toastMessage = document.getElementById("toastMessage");
-
-    function createDefaultState() {
-      const state = {};
-
-      TEAMS.forEach(team => {
-        state[team] = DEFAULT_AVAILABLE.includes(team) ? "available" : "taken";
-      });
-
-      return state;
-    }
-
-    function loadState() {
-      try {
-        const stored = localStorage.getItem(CONFIG.storageKey);
-
-        if (!stored) {
-          const initial = createDefaultState();
-          localStorage.setItem(CONFIG.storageKey, JSON.stringify(initial));
-          return initial;
-        }
-
-        const parsed = JSON.parse(stored);
-        const clean = {};
-
-        TEAMS.forEach(team => {
-          clean[team] = parsed[team] === "available" ? "available" : "taken";
-        });
-
-        return clean;
-      } catch (error) {
-        return createDefaultState();
-      }
-    }
-
-    function saveState() {
-      try {
-        localStorage.setItem(CONFIG.storageKey, JSON.stringify(teamState));
-      } catch (error) {
-        showToast("Your browser could not save the card state.");
-      }
-    }
-
-    function showToast(message) {
-      toastMessage.textContent = message;
-      toastMessage.classList.add("show");
-
-      window.clearTimeout(showToast.timeout);
-      showToast.timeout = window.setTimeout(() => {
-        toastMessage.classList.remove("show");
-      }, 2800);
-    }
-
-    function renderTeams() {
-      teamsGrid.replaceChildren();
-
-      TEAMS.forEach(team => {
-        const available = teamState[team] === "available";
-        const isSelected = selectedTeam === team;
-
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = [
-          "team-card",
-          available ? "available" : "taken",
-          isSelected ? "selected" : ""
-        ].filter(Boolean).join(" ");
-
-        button.disabled = !available;
-        button.setAttribute("aria-pressed", String(isSelected));
-        button.setAttribute(
-          "aria-label",
-          team + (available ? ", available, select team" : ", taken")
-        );
-
-        const icon = document.createElement("span");
-        icon.className = "team-icon";
-        icon.innerHTML = available
-          ? '<i class="bi bi-shield-fill-check"></i>'
-          : '<i class="bi bi-shield-fill"></i>';
-
-        const name = document.createElement("span");
-        name.className = "team-name";
-        name.textContent = team;
-
-        const status = document.createElement("span");
-        status.className = "team-status";
-        status.textContent = isSelected
-          ? "Selected"
-          : available
-            ? "Available"
-            : "Taken";
-
-        button.append(icon, name, status);
-
-        if (available) {
-          button.addEventListener("click", () => selectTeam(team));
-        }
-
-        teamsGrid.appendChild(button);
-      });
-
-      updateStats();
-    }
-
-    function updateStats() {
-      const availableCount = TEAMS.filter(
-        team => teamState[team] === "available"
-      ).length;
-
-      const takenCount = TEAMS.length - availableCount;
-      const percent = Math.round((takenCount / TEAMS.length) * 100);
-
-      document.getElementById("remainingStat").textContent = availableCount;
-      document.getElementById("takenStat").textContent = takenCount;
-      document.getElementById("progressLabel").textContent =
-        `${takenCount} of ${TEAMS.length} teams taken`;
-      document.getElementById("progressPercent").textContent =
-        `${percent}% FULL`;
-      document.getElementById("progressBar").style.width = `${percent}%`;
-
-      document.querySelector(".progress").setAttribute("aria-valuenow", takenCount);
-
-      if (availableCount === 0) {
-        document.getElementById("progressLabel").textContent = "All teams are taken";
-      }
-    }
-
-    function selectTeam(team) {
-      if (teamState[team] !== "available") {
-        showToast("That team is no longer available.");
-        return;
-      }
-
-      selectedTeam = team;
-      selectedTeamName.textContent = team;
-      checkoutBtn.href = CONFIG.checkoutUrl;
-      selectionBox.classList.add("show");
-
-      renderTeams();
-
-      selectionBox.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest"
-      });
-    }
-
-    function clearSelection() {
-      selectedTeam = null;
-      selectionBox.classList.remove("show");
-      renderTeams();
-    }
-
-    document.getElementById("changeTeamBtn").addEventListener("click", () => {
-      clearSelection();
-      document.getElementById("teams").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    });
-
-    document.getElementById("adminTrigger").addEventListener("click", () => {
-      if (adminUnlocked) {
-        toggleAdminPanel(true);
-        return;
-      }
-
-      const password = window.prompt("Enter organiser password:");
-
-      if (password === null) return;
-
-      if (password === CONFIG.adminPassword) {
-        adminUnlocked = true;
-        toggleAdminPanel(true);
-        showToast("Admin panel unlocked on this browser.");
-      } else {
-        showToast("Incorrect password.");
-      }
-    });
-
-    function toggleAdminPanel(show) {
-      document.getElementById("adminPanel").classList.toggle("show", show);
-    }
-
-    document.getElementById("adminLogoutBtn").addEventListener("click", () => {
-      adminUnlocked = false;
-      toggleAdminPanel(false);
-      showToast("Admin panel locked.");
-    });
-
-    document.getElementById("resetCardBtn").addEventListener("click", () => {
-      if (!adminUnlocked) {
-        showToast("Unlock the admin panel first.");
-        return;
-      }
-
-      const confirmed = window.confirm(
-        "Restore the original card: 30 teams taken, with only Aberdeen and Hibernian available? This only changes this browser."
-      );
-
-      if (!confirmed) return;
-
-      teamState = createDefaultState();
-      selectedTeam = null;
-      saveState();
-      selectionBox.classList.remove("show");
-      renderTeams();
-      showToast("Card restored: only Aberdeen and Hibernian available.");
-    });
-
-    // Ensure the checkout link remains valid.
-    checkoutBtn.addEventListener("click", event => {
-      if (!selectedTeam) {
-        event.preventDefault();
-        showToast("Please select an available team first.");
-        return;
-      }
-
-      if (teamState[selectedTeam] !== "available") {
-        event.preventDefault();
-        clearSelection();
-        showToast("That team is no longer available. Please choose another.");
-        return;
-      }
-
-      // This records the selected team only in this visitor's browser.
-      try {
-        sessionStorage.setItem("football-card-selected-team", selectedTeam);
-      } catch (error) {
-        // Checkout can still proceed if session storage is unavailable.
-      }
-    });
-
-    renderTeams();
-  </script>
+
+<nav class="navbar navbar-expand">
+<div class="container py-2">
+<a class="brand" href="#">FOOTBALL<span>CARD.</span></a>
+<div class="ms-auto"><span class="nav-status"><span class="live-dot me-1"></span> LAST 2 TEAMS</span></div>
+</div>
+</nav>
+
+<header class="hero">
+<div class="container position-relative">
+<span class="eyebrow"><span class="live-dot"></span> FINAL TWO SPACES</span>
+<h1>ONE CARD.<br><span>£40 TO WIN.</span></h1>
+<p class="hero-description">We're nearly there! Just two teams remain on the football card. Pick your team, complete your entry and get involved.</p>
+
+<div class="prize-card">
+<div class="row align-items-center g-3">
+<div class="col-7 text-start">
+<div class="prize-label">THE WINNER TAKES</div>
+<div class="prize-amount">£40</div>
+<div class="payment-note">Just £2 per team entry</div>
+</div>
+<div class="col-5 text-end">
+<div style="font-size:2.7rem;color:var(--green)"><i class="bi bi-trophy-fill"></i></div>
+<div class="fw-bold small">Your team. Your chance.</div>
+</div>
+</div>
+</div>
+
+<div class="stats-grid">
+<div class="stat-card"><div class="stat-number">32</div><div class="stat-caption">Teams total</div></div>
+<div class="stat-card"><div class="stat-number green" id="remainingStat">2</div><div class="stat-caption">Available now</div></div>
+<div class="stat-card"><div class="stat-number" id="takenStat">30</div><div class="stat-caption">Teams taken</div></div>
+</div>
+</div>
+</header>
+
+<main>
+<section class="teams-section" id="teams">
+<div class="container">
+<div class="text-center mb-4">
+<div class="section-label mb-3">THE FOOTBALL CARD</div>
+<h2 class="display-number" style="font-size:clamp(2.3rem,6vw,3.8rem)">Choose your team</h2>
+<p class="section-subtitle">Grey teams are taken. Green teams are available to select.</p>
+</div>
+
+<div class="team-board">
+<div class="board-top">
+<div class="board-title">All 32 teams</div>
+<div class="board-legend"><span><i class="legend-dot legend-available"></i>Available</span><span><i class="legend-dot legend-taken"></i>Taken</span></div>
+</div>
+<div class="teams-grid" id="teamsGrid" aria-label="Football teams"></div>
+<div class="remaining-bar-wrap">
+<div class="remaining-info"><span id="progressLabel">30 of 32 teams taken</span><span id="progressPercent">94% FULL</span></div>
+<div class="progress" role="progressbar" aria-label="Teams taken" aria-valuemin="0" aria-valuemax="32" aria-valuenow="30"><div class="progress-bar" id="progressBar" style="width:93.75%"></div></div>
+</div>
+
+<div class="selection-box" id="selectionBox" aria-live="polite">
+<div class="section-label">YOUR SELECTED TEAM</div>
+<div class="selection-team" id="selectedTeamName">Aberdeen</div>
+<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mt-2">
+<span class="payment-note">Entry fee: <strong class="text-white">£2.00</strong></span>
+<button type="button" class="btn btn-outline-light btn-sm" id="changeTeamBtn">Change team</button>
+</div>
+<hr style="border-color:var(--border)">
+<p class="payment-note mb-3">Continue to Revolut to make your payment. Your selection is not confirmed until the organiser verifies it.</p>
+<a class="btn-green w-100 d-block text-center" id="checkoutBtn" href="https://checkout.revolut.com/pay/ea9e4bf9-099d-4fa8-8a55-07b98c7c78d3" target="_blank" rel="noopener noreferrer"><i class="bi bi-lock-fill me-2"></i>CONTINUE TO PAYMENT — £2</a>
+</div>
+
+<div class="text-center mt-4"><p class="payment-note mb-0"><i class="bi bi-shield-check me-1"></i>Please contact the organiser if you need help with your entry.</p></div>
+</div>
+</div>
+</section>
+
+<!-- WINNER DRAW SECTION -->
+<section class="draw-section" id="winner-draw">
+<div class="container">
+<div class="text-center mb-4">
+<div class="section-label mb-3">THE BIG MOMENT</div>
+<h2 class="display-number" style="font-size:clamp(2.5rem,7vw,4rem)">Who will win £40?</h2>
+<p class="section-subtitle">All 32 teams are entered into the draw. Every team has an equal chance.</p>
+</div>
+
+<div class="draw-card">
+<div class="draw-label"><i class="bi bi-trophy-fill me-2"></i>THE £40 WINNER DRAW</div>
+<div class="draw-display">
+<div class="draw-team" id="drawTeamDisplay">32 TEAMS</div>
+<div class="draw-caption" id="drawCaption">READY FOR THE DRAW</div>
+</div>
+<button type="button" class="draw-button" id="startDrawBtn">
+<i class="bi bi-shuffle me-2"></i> DRAW THE WINNER
+</button>
+<p class="payment-note mt-3 mb-0">The winning team is randomly selected from the complete list of 32 teams.</p>
+
+<div class="draw-history" id="drawHistory" hidden>
+<div class="draw-label mb-2">PREVIOUS DRAWS</div>
+<div id="drawHistoryList"></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="steps-section">
+<div class="container">
+<div class="text-center mb-4">
+<div class="section-label mb-3">THREE SIMPLE STEPS</div>
+<h2 class="display-number" style="font-size:clamp(2.3rem,6vw,3.8rem)">How it works</h2>
+<p class="section-subtitle">Get your entry sorted in just a few steps.</p>
+</div>
+<div class="row g-3">
+<div class="col-md-4"><div class="step-card"><div class="step-icon"><i class="bi bi-hand-index-thumb"></i></div><div class="step-number">STEP 01</div><h3>Pick a team</h3><p>Choose Aberdeen or Hibernian from the two remaining spaces on the card.</p></div></div>
+<div class="col-md-4"><div class="step-card"><div class="step-icon"><i class="bi bi-credit-card"></i></div><div class="step-number">STEP 02</div><h3>Pay £2</h3><p>Use the Revolut payment link and contact the organiser if you need help confirming your entry.</p></div></div>
+<div class="col-md-4"><div class="step-card"><div class="step-icon"><i class="bi bi-trophy"></i></div><div class="step-number">STEP 03</div><h3>Await the result</h3><p>Once the card is complete, the organiser will confirm the draw arrangements and winner.</p></div></div>
+</div>
+</div>
+</section>
+
+<section class="payment-section" id="payment">
+<div class="container">
+<div class="payment-card">
+<div class="row align-items-center g-4">
+<div class="col-md-7">
+<div class="payment-icon"><i class="bi bi-wallet2"></i></div>
+<div class="section-label mb-2">SECURE CHECKOUT</div>
+<h2 class="display-number" style="font-size:clamp(2.3rem,6vw,3.8rem)">Ready to enter?</h2>
+<p class="section-subtitle mb-3">Entry costs £2 per team. Select one of the available teams above to continue to the payment link.</p>
+<div class="notice"><i class="bi bi-info-circle me-1"></i>A payment alone does not update the public card automatically. The organiser must verify the payment and update the team availability.</div>
+</div>
+<div class="col-md-5">
+<div class="text-md-end">
+<div class="payment-note">ENTRY PRICE</div><div class="payment-price">£2.00</div>
+<a href="#teams" class="btn-green w-100 d-block mt-2 text-center"><i class="bi bi-arrow-up-right-circle me-2"></i>SELECT YOUR TEAM</a>
+<div class="mt-4"><a class="support-link" href="https://wa.me/qr/6FPHSGFTV3HCO1" target="_blank" rel="noopener noreferrer"><i class="bi bi-whatsapp"></i> Need help? Message us</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="container mb-5">
+<div class="admin-panel" id="adminPanel">
+<div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3"><h3 class="mb-0">Admin controls</h3><span class="nav-status">LOCAL BROWSER ONLY</span></div>
+<p class="payment-note">These controls only affect this browser. They do not update the card for other visitors.</p>
+<div class="d-flex gap-2 flex-wrap">
+<button class="btn btn-outline-light btn-sm" id="resetCardBtn" type="button">Restore original 30 taken / 2 available</button>
+<button class="btn btn-outline-light btn-sm" id="adminLogoutBtn" type="button">Lock admin panel</button>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="container d-flex flex-column flex-md-row justify-content-between gap-3">
+<div><div class="brand mb-1">FOOTBALL<span>CARD.</span></div><div>£2 entry · £40 advertised prize</div></div>
+<div class="text-md-end">
+<a class="support-link" href="https://wa.me/qr/6FPHSGFTV3HCO1" target="_blank" rel="noopener noreferrer"><i class="bi bi-whatsapp"></i> Contact the organiser</a>
+<div class="mt-2">Please check the organiser's terms and draw arrangements before entering.</div>
+<button class="admin-trigger mt-1" id="adminTrigger" type="button">Organiser access</button>
+</div>
+</div>
+</footer>
+
+<div class="toast-message" id="toastMessage" role="status" aria-live="polite"></div>
+
+<!-- FULL SCREEN WINNER REVEAL -->
+<div class="draw-overlay" id="drawOverlay" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+<div class="draw-overlay-inner">
+<div class="draw-trophy"><i class="bi bi-trophy-fill"></i></div>
+<h2 id="overlayTitle">THE WINNING TEAM IS...</h2>
+<div class="draw-winner-caption" id="overlayCaption">THE £40 WINNER</div>
+<div class="draw-overlay-team" id="overlayWinner">???</div>
+<p class="payment-note mt-4">Congratulations to the winning team!</p>
+<button class="draw-close" id="closeDrawBtn" type="button">CLOSE REVEAL</button>
+</div>
+</div>
+
+<script>
+"use strict";
+
+const CONFIG = {
+entryPrice:2,
+prize:40,
+checkoutUrl:"https://checkout.revolut.com/pay/ea9e4bf9-099d-4fa8-8a55-07b98c7c78d3",
+supportUrl:"https://wa.me/qr/6FPHSGFTV3HCO1",
+adminPassword:"4cc5d035901",
+storageKey:"football-card-v4"
+};
+
+const TEAMS = [
+"Newcastle UTD","Aston Villa","Man UTD","Liverpool",
+"Leeds UTD","Arsenal","Middlesbrough","Notts Forest",
+"Tottenham","Wimbledon","QPR","Blackburn",
+"Everton","West Ham","Southampton","Coventry",
+"Man City","Birmingham","Leicester","Portsmouth",
+"Sunderland","WBA","Derby","Celtic",
+"Swindon","Wigan","Rangers","Preston",
+"Crystal Palace","Sheffield UTD","Aberdeen","Hibernian"
+];
+
+const DEFAULT_AVAILABLE = ["Aberdeen","Hibernian"];
+let selectedTeam = null;
+let adminUnlocked = false;
+let teamState = loadState();
+let drawRunning = false;
+let drawHistory = [];
+
+const teamsGrid = document.getElementById("teamsGrid");
+const selectionBox = document.getElementById("selectionBox");
+const selectedTeamName = document.getElementById("selectedTeamName");
+const checkoutBtn = document.getElementById("checkoutBtn");
+const toastMessage = document.getElementById("toastMessage");
+
+function createDefaultState(){
+const state={};
+TEAMS.forEach(team=>state[team]=DEFAULT_AVAILABLE.includes(team)?"available":"taken");
+return state;
+}
+
+function loadState(){
+try{
+const stored=localStorage.getItem(CONFIG.storageKey);
+if(!stored){
+const initial=createDefaultState();
+localStorage.setItem(CONFIG.storageKey,JSON.stringify(initial));
+return initial;
+}
+const parsed=JSON.parse(stored);
+const clean={};
+TEAMS.forEach(team=>clean[team]=parsed[team]==="available"?"available":"taken");
+return clean;
+}catch(error){return createDefaultState();}
+}
+
+function saveState(){
+try{localStorage.setItem(CONFIG.storageKey,JSON.stringify(teamState));}
+catch(error){showToast("Your browser could not save the card state.");}
+}
+
+function showToast(message){
+toastMessage.textContent=message;
+toastMessage.classList.add("show");
+clearTimeout(showToast.timeout);
+showToast.timeout=setTimeout(()=>toastMessage.classList.remove("show"),2800);
+}
+
+function renderTeams(){
+teamsGrid.replaceChildren();
+TEAMS.forEach(team=>{
+const available=teamState[team]==="available";
+const isSelected=selectedTeam===team;
+const button=document.createElement("button");
+button.type="button";
+button.className=["team-card",available?"available":"taken",isSelected?"selected":""].filter(Boolean).join(" ");
+button.disabled=!available;
+button.setAttribute("aria-pressed",String(isSelected));
+button.setAttribute("aria-label",team+(available?", available, select team":", taken"));
+
+const icon=document.createElement("span");
+icon.className="team-icon";
+icon.innerHTML=available?'<i class="bi bi-shield-fill-check"></i>':'<i class="bi bi-shield-fill"></i>';
+
+const name=document.createElement("span");
+name.className="team-name";
+name.textContent=team;
+
+const status=document.createElement("span");
+status.className="team-status";
+status.textContent=isSelected?"Selected":available?"Available":"Taken";
+
+button.append(icon,name,status);
+if(available)button.addEventListener("click",()=>selectTeam(team));
+teamsGrid.appendChild(button);
+});
+updateStats();
+}
+
+function updateStats(){
+const availableCount=TEAMS.filter(team=>teamState[team]==="available").length;
+const takenCount=TEAMS.length-availableCount;
+const percent=Math.round(takenCount/TEAMS.length*100);
+document.getElementById("remainingStat").textContent=availableCount;
+document.getElementById("takenStat").textContent=takenCount;
+document.getElementById("progressLabel").textContent=takenCount===32?"All teams are taken":`${takenCount} of ${TEAMS.length} teams taken`;
+document.getElementById("progressPercent").textContent=`${percent}% FULL`;
+document.getElementById("progressBar").style.width=`${percent}%`;
+document.querySelector(".progress").setAttribute("aria-valuenow",takenCount);
+}
+
+function selectTeam(team){
+if(teamState[team]!=="available"){showToast("That team is no longer available.");return;}
+selectedTeam=team;
+selectedTeamName.textContent=team;
+checkoutBtn.href=CONFIG.checkoutUrl;
+selectionBox.classList.add("show");
+renderTeams();
+selectionBox.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function clearSelection(){
+selectedTeam=null;
+selectionBox.classList.remove("show");
+renderTeams();
+}
+
+document.getElementById("changeTeamBtn").addEventListener("click",()=>{
+clearSelection();
+document.getElementById("teams").scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+document.getElementById("adminTrigger").addEventListener("click",()=>{
+if(adminUnlocked){toggleAdminPanel(true);return;}
+const password=prompt("Enter organiser password:");
+if(password===null)return;
+if(password===CONFIG.adminPassword){
+adminUnlocked=true;
+toggleAdminPanel(true);
+showToast("Admin panel unlocked on this browser.");
+}else showToast("Incorrect password.");
+});
+
+function toggleAdminPanel(show){document.getElementById("adminPanel").classList.toggle("show",show);}
+
+document.getElementById("adminLogoutBtn").addEventListener("click",()=>{
+adminUnlocked=false;
+toggleAdminPanel(false);
+showToast("Admin panel locked.");
+});
+
+document.getElementById("resetCardBtn").addEventListener("click",()=>{
+if(!adminUnlocked){showToast("Unlock the admin panel first.");return;}
+if(!confirm("Restore the original card: only Aberdeen and Hibernian available?"))return;
+teamState=createDefaultState();
+selectedTeam=null;
+saveState();
+selectionBox.classList.remove("show");
+renderTeams();
+showToast("Card restored.");
+});
+
+checkoutBtn.addEventListener("click",event=>{
+if(!selectedTeam){event.preventDefault();showToast("Please select an available team first.");return;}
+if(teamState[selectedTeam]!=="available"){
+event.preventDefault();clearSelection();showToast("That team is no longer available.");return;
+}
+try{sessionStorage.setItem("football-card-selected-team",selectedTeam);}catch(error){}
+});
+
+/* WINNER DRAW ENGINE */
+
+const drawButton=document.getElementById("startDrawBtn");
+const drawDisplay=document.getElementById("drawTeamDisplay");
+const drawCaption=document.getElementById("drawCaption");
+const drawOverlay=document.getElementById("drawOverlay");
+const overlayWinner=document.getElementById("overlayWinner");
+const overlayCaption=document.getElementById("overlayCaption");
+
+function secureRandomIndex(max){
+if(window.crypto&&window.crypto.getRandomValues){
+const array=new Uint32Array(1);
+const limit=Math.floor(0x100000000/max)*max;
+let value;
+do{window.crypto.getRandomValues(array);value=array[0];}while(value>=limit);
+return value%max;
+}
+return Math.floor(Math.random()*max);
+}
+
+function createConfetti(){
+const symbols=["🎉","⚽","🏆","✨"];
+for(let i=0;i<65;i++){
+const piece=document.createElement("div");
+piece.className="confetti";
+piece.textContent=symbols[secureRandomIndex(symbols.length)];
+piece.style.left=Math.random()*100+"vw";
+piece.style.fontSize=(12+Math.random()*15)+"px";
+piece.style.animationDuration=(2.5+Math.random()*3)+"s";
+piece.style.animationDelay=Math.random()*1.2+"s";
+document.body.appendChild(piece);
+setTimeout(()=>piece.remove(),6500);
+}
+}
+
+function showWinner(winner){
+drawDisplay.classList.remove("spinning");
+drawDisplay.innerHTML=`
+<div class="draw-team">${winner}</div>
+<div class="draw-caption">WINNING TEAM</div>`;
+drawCaption.textContent="DRAW COMPLETE";
+overlayWinner.textContent=winner;
+overlayCaption.textContent="THE £40 WINNING TEAM";
+drawOverlay.classList.add("show");
+document.body.style.overflow="hidden";
+createConfetti();
+
+const historyItem={team:winner,time:new Date().toLocaleString("en-GB")};
+drawHistory.unshift(historyItem);
+renderDrawHistory();
+}
+
+function renderDrawHistory(){
+const historyBox=document.getElementById("drawHistory");
+const historyList=document.getElementById("drawHistoryList");
+historyBox.hidden=drawHistory.length===0;
+historyList.replaceChildren();
+
+drawHistory.forEach((item,index)=>{
+const row=document.createElement("div");
+row.className="draw-history-item";
+const team=document.createElement("strong");
+team.textContent=`${index+1}. ${item.team}`;
+const date=document.createElement("span");
+date.textContent=item.time;
+date.style.color="var(--muted)";
+row.append(team,date);
+historyList.appendChild(row);
+});
+}
+
+function startWinnerDraw(){
+if(drawRunning)return;
+
+const confirmed=confirm("Start the £40 winner draw? All 32 teams have an equal chance. The result will be revealed on this website.");
+if(!confirmed)return;
+
+drawRunning=true;
+drawButton.disabled=true;
+drawButton.innerHTML='<i class="bi bi-hourglass-split me-2"></i> DRAW IN PROGRESS...';
+drawDisplay.classList.add("spinning");
+drawCaption.textContent="SELECTING FROM ALL 32 TEAMS...";
+drawDisplay.textContent="GOOD LUCK!";
+
+const winner=TEAMS[secureRandomIndex(TEAMS.length)];
+let elapsed=0;
+let interval=65;
+let timer;
+
+function shuffleStep(){
+drawDisplay.textContent=TEAMS[secureRandomIndex(TEAMS.length)];
+elapsed+=interval;
+
+if(elapsed>=6500){
+clearTimeout(timer);
+drawDisplay.classList.remove("spinning");
+drawDisplay.textContent=winner;
+drawCaption.textContent="WINNER SELECTED!";
+drawRunning=false;
+drawButton.disabled=false;
+drawButton.innerHTML='<i class="bi bi-arrow-repeat me-2"></i> DRAW AGAIN';
+setTimeout(()=>showWinner(winner),900);
+return;
+}
+
+if(elapsed>4200)interval=250;
+else if(elapsed>3000)interval=150;
+else if(elapsed>1800)interval=95;
+
+timer=setTimeout(shuffleStep,interval);
+}
+
+shuffleStep();
+}
+
+drawButton.addEventListener("click",startWinnerDraw);
+
+function closeWinnerReveal(){
+drawOverlay.classList.remove("show");
+document.body.style.overflow="";
+}
+
+document.getElementById("closeDrawBtn").addEventListener("click",closeWinnerReveal);
+drawOverlay.addEventListener("click",event=>{
+if(event.target===drawOverlay)closeWinnerReveal();
+});
+document.addEventListener("keydown",event=>{
+if(event.key==="Escape"&&drawOverlay.classList.contains("show"))closeWinnerReveal();
+});
+
+renderTeams();
+</script>
 </body>
 </html>
