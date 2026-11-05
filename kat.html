@@ -127,65 +127,6 @@ body {
     font-size: 12px;
 }
 
-.sold-banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    background: rgba(57,216,120,.08);
-    border: 1px solid rgba(57,216,120,.2);
-    border-radius: 12px;
-    padding: 13px;
-    color: var(--green);
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 1px;
-    margin-bottom: 17px;
-}
-
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 9px;
-}
-
-.team {
-    min-height: 61px;
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 11px;
-    background: rgba(255,255,255,.035);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 8px 4px;
-    position: relative;
-    overflow: hidden;
-}
-
-.team-name {
-    font-size: 11px;
-    font-weight: 800;
-    line-height: 1.2;
-}
-
-.team-status {
-    color: #f08b8b;
-    font-size: 8px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    margin-top: 5px;
-}
-
-.team::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255,70,70,.025);
-    pointer-events: none;
-}
-
 .prize {
     text-align: center;
     padding: 20px;
@@ -337,6 +278,42 @@ body {
     font-size: 11px;
 }
 
+/* WhatsApp contact button */
+
+.whatsapp-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    background: #25D366;
+    color: #05210e;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .5px;
+    transition: .2s;
+}
+
+.whatsapp-button i {
+    font-size: 23px;
+}
+
+.whatsapp-button:hover {
+    background: #20bd5a;
+    color: #05210e;
+    transform: translateY(-2px);
+}
+
+.whatsapp-note {
+    color: var(--muted);
+    font-size: 11px;
+    text-align: center;
+    margin-top: 12px;
+}
+
 .footer {
     text-align: center;
     padding: 25px 10px 35px;
@@ -351,9 +328,6 @@ body {
 
 @media(max-width: 480px) {
     .panel { padding: 17px; }
-    .team-grid { grid-template-columns: repeat(3, 1fr); gap: 7px; }
-    .team { min-height: 58px; }
-    .team-name { font-size: 10px; }
     .stats { gap: 6px; }
     .stat { padding: 12px 4px; }
     .stat strong { font-size: 27px; }
@@ -367,118 +341,220 @@ body {
 
     <header class="d-flex justify-content-between align-items-center py-3">
         <div class="brand">FOOTBALL<span>CARD</span></div>
-        <div class="top-label"><i class="bi bi-check-circle-fill"></i> DRAW FULL</div>
+        <div class="top-label">
+            <i class="bi bi-check-circle-fill"></i> DRAW FULL
+        </div>
     </header>
 
     <section class="hero">
         <div class="top-label">32 TEAMS · ONE WINNER</div>
+
         <h1>THE £40<br><span>PRIZE DRAW</span></h1>
-        <p>Every team has been sold. It's time to reveal the winner.</p>
+
+        <p>
+            Every team has been sold.
+            It's time to reveal the winner.
+        </p>
     </section>
+
+    <!-- DRAW STATISTICS -->
 
     <section class="panel">
         <div class="stats">
+
             <div class="stat">
                 <strong>32</strong>
                 <small>Teams sold</small>
             </div>
+
             <div class="stat">
                 <strong>32/32</strong>
                 <small>Entries</small>
             </div>
+
             <div class="stat">
                 <strong>£40</strong>
                 <small>Prize</small>
             </div>
+
         </div>
     </section>
 
-    <section class="panel">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-                <div class="section-title">The teams</div>
-                <div class="section-subtitle">All 32 teams have been taken.</div>
-            </div>
-            <span class="badge rounded-pill text-bg-success">SOLD OUT</span>
-        </div>
-
-        <div class="sold-banner">
-            <i class="bi bi-check-circle-fill"></i>
-            ALL TEAMS SOLD — NO ENTRIES REMAINING
-        </div>
-
-        <div class="team-grid" id="teamGrid"></div>
-    </section>
+    <!-- PRIZE AND WINNER REVEAL -->
 
     <section class="panel">
-        <div class="section-title text-center">The prize</div>
+
+        <div class="section-title text-center">
+            The prize
+        </div>
+
         <div class="prize mt-3 mb-3">
             <div class="amount">£40</div>
             <small>WINNER TAKES THE PRIZE</small>
         </div>
 
-        <div class="section-title text-center mb-3">The winner reveal</div>
-
-        <div class="draw-display" aria-live="polite">
-            <div class="draw-icon"><i class="bi bi-trophy-fill"></i></div>
-            <div class="draw-label" id="drawLabel">Ready for the reveal?</div>
-            <div class="draw-team" id="drawTeam">GOOD LUCK!</div>
+        <div class="section-title text-center mb-3">
+            The winner reveal
         </div>
 
-        <button class="draw-button mt-3" id="drawButton" type="button">
+        <div class="draw-display" aria-live="polite">
+
+            <div class="draw-icon">
+                <i class="bi bi-trophy-fill"></i>
+            </div>
+
+            <div class="draw-label" id="drawLabel">
+                Ready for the reveal?
+            </div>
+
+            <div class="draw-team" id="drawTeam">
+                GOOD LUCK!
+            </div>
+
+        </div>
+
+        <button
+            class="draw-button mt-3"
+            id="drawButton"
+            type="button"
+        >
             <i class="bi bi-play-circle-fill me-2"></i>
             REVEAL THE WINNER
         </button>
 
         <div class="winner-message" id="winnerMessage">
-            <div class="top-label">THE WINNING TEAM</div>
+
+            <div class="top-label">
+                THE WINNING TEAM
+            </div>
+
             <h3 id="winnerName"></h3>
-            <p>Congratulations! This is the winning team for the £40 draw.</p>
+
+            <p>
+                Congratulations! This is the winning team
+                for the £40 draw.
+            </p>
+
         </div>
 
-        <p class="text-center mt-3 mb-0" style="color:var(--muted);font-size:10px;">
-            The reveal animation will always finish on the same selected team.
+        <p
+            class="text-center mt-3 mb-0"
+            style="color:var(--muted);font-size:10px;"
+        >
+            The reveal animation will always finish
+            on the same selected team.
         </p>
+
     </section>
+
+    <!-- DRAW INFORMATION -->
 
     <section class="panel">
-        <div class="section-title">Draw information</div>
+
+        <div class="section-title">
+            Draw information
+        </div>
 
         <div class="info-row">
+
             <i class="bi bi-ticket-perforated-fill"></i>
+
             <div>
                 <strong>32 entries</strong>
-                <small>Every team has been sold.</small>
+
+                <small>
+                    Every team has been sold.
+                </small>
             </div>
+
         </div>
 
         <div class="info-row">
+
             <i class="bi bi-cash-coin"></i>
+
             <div>
                 <strong>£40 prize</strong>
-                <small>The winning entry receives the advertised prize.</small>
+
+                <small>
+                    The winning entry receives
+                    the advertised prize.
+                </small>
             </div>
+
         </div>
 
         <div class="info-row">
+
             <i class="bi bi-trophy-fill"></i>
+
             <div>
                 <strong>One winning team</strong>
-                <small>The reveal animation ends on the preselected winner.</small>
+
+                <small>
+                    The reveal animation ends on
+                    the preselected winner.
+                </small>
             </div>
+
         </div>
+
     </section>
 
+    <!-- WHATSAPP CONTACT -->
+
+    <section class="panel">
+
+        <div class="section-title text-center">
+            Need to get in touch?
+        </div>
+
+        <p class="section-subtitle text-center mb-3">
+            Have a question about the draw?
+            Message us directly on WhatsApp.
+        </p>
+
+        <a
+            class="whatsapp-button"
+            href="https://wa.me/447796546694?text=Hi%2C%20I%27m%20messaging%20about%20the%20Football%20Card%20%C2%A340%20prize%20draw."
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            <i class="bi bi-whatsapp"></i>
+
+            MESSAGE US ON WHATSAPP
+        </a>
+
+        <div class="whatsapp-note">
+            Opens a WhatsApp chat with the draw organiser.
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
     <footer class="footer">
-        <div class="brand mb-2">FOOTBALL<span>CARD</span></div>
-        <div>Thank you to everyone who entered.</div>
-        <div class="mt-2">Good luck! 🏆</div>
+
+        <div class="brand mb-2">
+            FOOTBALL<span>CARD</span>
+        </div>
+
+        <div>
+            Thank you to everyone who entered.
+        </div>
+
+        <div class="mt-2">
+            Good luck! 🏆
+        </div>
+
     </footer>
 
 </div>
 
 <script>
+
 /* ALL 32 TEAMS */
+
 const TEAMS = [
     "Aberdeen",
     "Arsenal",
@@ -515,113 +591,142 @@ const TEAMS = [
 ];
 
 /*
-  Fixed winner stored as Base64 so the team name is not
-  immediately obvious when casually viewing the source.
+  Fixed winner stored as Base64.
 
   This is obfuscation, NOT secure encryption.
 */
+
 const FIXED_WINNER_CODE = "UHJlc3Rvbg==";
 
 function getFixedWinner() {
     return atob(FIXED_WINNER_CODE);
 }
 
-/* Build the sold-out team grid */
-const teamGrid = document.getElementById("teamGrid");
+/* DRAW ANIMATION */
 
-TEAMS.forEach(team => {
-    const card = document.createElement("div");
-    card.className = "team";
-
-    const name = document.createElement("div");
-    name.className = "team-name";
-    name.textContent = team;
-
-    const status = document.createElement("div");
-    status.className = "team-status";
-    status.textContent = "SOLD";
-
-    card.appendChild(name);
-    card.appendChild(status);
-    teamGrid.appendChild(card);
-});
-
-/* Draw animation */
 const drawButton = document.getElementById("drawButton");
+
 const drawTeam = document.getElementById("drawTeam");
+
 const drawLabel = document.getElementById("drawLabel");
+
 const winnerMessage = document.getElementById("winnerMessage");
+
 const winnerName = document.getElementById("winnerName");
 
 let drawing = false;
 
 function revealWinner() {
+
     if (drawing) return;
 
     drawing = true;
+
     drawButton.disabled = true;
+
     winnerMessage.classList.remove("show");
 
-    drawLabel.textContent = "SELECTING THE WINNING TEAM...";
+    drawLabel.textContent =
+        "SELECTING THE WINNING TEAM...";
+
     drawTeam.classList.add("spinning");
 
     const winner = getFixedWinner();
 
     /*
-      The animation cycles through the teams in a random-looking
-      order, but the final result is always the fixed winner.
+      The animation cycles through the teams
+      in a random-looking order.
+
+      The final result is always the fixed winner.
     */
+
     const animationTeams = [...TEAMS];
 
-    for (let i = animationTeams.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [animationTeams[i], animationTeams[j]] =
-            [animationTeams[j], animationTeams[i]];
+    for (
+        let i = animationTeams.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j = Math.floor(
+            Math.random() * (i + 1)
+        );
+
+        [
+            animationTeams[i],
+            animationTeams[j]
+        ] = [
+            animationTeams[j],
+            animationTeams[i]
+        ];
+
     }
 
-    /* Ensure the final animation step is the fixed winner */
-    const sequence = animationTeams.filter(team => team !== winner);
+    /* Ensure the final step is the fixed winner */
+
+    const sequence = animationTeams.filter(
+        team => team !== winner
+    );
+
     sequence.push(winner);
 
     let index = 0;
+
     let delay = 45;
 
     function nextStep() {
+
         drawTeam.textContent = sequence[index];
 
         if (index === sequence.length - 1) {
+
             finishReveal(winner);
+
             return;
+
         }
 
         index++;
 
-        /* Gradually slow the animation down */
+        /* Gradually slow down the animation */
+
         delay = Math.min(delay * 1.17, 480);
 
         setTimeout(nextStep, delay);
+
     }
 
     nextStep();
+
 }
 
 function finishReveal(winner) {
+
     drawTeam.textContent = winner;
+
     drawTeam.classList.remove("spinning");
 
-    drawLabel.textContent = "WE HAVE A WINNER!";
+    drawLabel.textContent =
+        "WE HAVE A WINNER!";
+
     winnerName.textContent = winner;
 
     winnerMessage.classList.add("show");
 
     drawButton.disabled = false;
+
     drawButton.innerHTML =
         '<i class="bi bi-arrow-clockwise me-2"></i> REVEAL AGAIN';
 
     drawing = false;
+
 }
 
-drawButton.addEventListener("click", revealWinner);
+drawButton.addEventListener(
+    "click",
+    revealWinner
+);
+
 </script>
 
 </body>
